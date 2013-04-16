@@ -1,0 +1,33 @@
+
+# MacPorts Installer addition on 2012-09-03_at_01:15:46: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+
+# Setting PATH for Python 2.7
+# The orginal version is saved in .profile.pysave
+PATH="/opt/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+export PATH
+#Ros exports
+export CPATH=/opt/local/include
+export LIBRARY_PATH=/opt/local/lib
+export ROS_OS_OVERRIDE=osx:macports
+#export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/opt/local/lib
+export PATH=/opt/local/bin:$PATH
+export CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/
+#source ~/.bashrc
+
+
+alias ..='cd ..'
+alias ~='cd ~'
+alias :port='sudo port install'
+alias berkeleybone='ssh -t berkeley@bone.local "screen -dRR"'
+alias :nano='sudo nano'
+alias :bone='screen /dev/tty.usbserial-*B 115200'
+alias ll='ls -aFl'
+alias :update='sudo port selfupdate'
+
+#bash completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+	.  /opt/local/etc/profile.d/bash_completion.sh
+fi

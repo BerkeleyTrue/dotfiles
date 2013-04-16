@@ -1,0 +1,7 @@
+alias ..='cd ..'
+alias ...='cd .. && cd ..'
+alias :port='sudo apt-get install'
+alias berkeleybone='ssh -t berkeley@bone.local "screen -dRR"'
+alias :bone='screen /dev/tty.usbserial-*B 115200'
+#alias ll='ls -aFlh'
+alias :update='sudo apt-get update'
