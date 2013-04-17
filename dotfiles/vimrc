@@ -1,8 +1,6 @@
 execute pathogen#infect()
 syntax on
 set number
-filetype on
-filetype plugin on
 filetype plugin indent on
 set background=dark
 let g:solarized_termtrans=1
