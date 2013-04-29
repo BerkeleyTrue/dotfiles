@@ -1,8 +1,21 @@
 execute pathogen#infect()
 syntax on
 set number
-filetype plugin indent on
+" Turns on plugins
+filetype plugin on
+"Turns on automatic indent from plugins
+filetype indent on
+"allows empty .tex files to open as latex files
+let g:tex_flavor='latex'
+" Change defualt tex output to PDF
+let g:Tex_DefaultTargetFormat='pdf'
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+" This sets Solarized theme in VIM to black
 set background=dark
+" This Sets Solarized theme values in VIM
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="high"
