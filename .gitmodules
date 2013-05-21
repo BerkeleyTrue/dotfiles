@@ -25,3 +25,6 @@
 [submodule "bundle/OminCppComplete"]
 	path = bundle/OminCppComplete
 	url = git://github.com/vim-scripts/OmniCppComplete.git
+[submodule "matlab.vim"]
+	path = matlab.vim
+	url = git://github.com/vim-scripts/matlab.vim.git
