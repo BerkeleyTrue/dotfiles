@@ -17,10 +17,10 @@ let g:Tex_DefaultTargetFormat='pdf'
 let g:Tex_ViewRule_pdf='preview'
 set grepprg=grep\ -nH\ $*
 " This sets Solarized theme in VIM to black
-set background=dark
+set background=light
 " This Sets Solarized theme values in VIM
-let g:solarized_termtrans=1
+"let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
+"let g:solarized_contrast="high"
+"let g:solarized_visibility="high"
 colorscheme solarized

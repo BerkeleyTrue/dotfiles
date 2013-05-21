@@ -16,3 +16,12 @@
 [submodule "bundle/vim-latex"]
 	path = bundle/vim-latex
 	url = git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex
+[submodule "bundle/vimRepress"]
+	path = bundle/vimRepress
+	url = git://github.com/vim-scripts/VimRepress.git
+[submodule "OmniCppComplete"]
+	path = OmniCppComplete
+	url = git://github.com/vim-scripts/OmniCppComplete.git
+[submodule "bundle/OminCppComplete"]
+	path = bundle/OminCppComplete
+	url = git://github.com/vim-scripts/OmniCppComplete.git
