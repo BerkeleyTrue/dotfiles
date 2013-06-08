@@ -1,0 +1,16 @@
+the folder when you clone it is ".vim" 
+so if you clone it in "/home" 
+the path its  
+~/.vim 
+which is where your supposed to keep all your files  6:07 PM
+then cd /home 
+and  
+"ln -s ~/dotfiles/vimrc ~/.vimrc 
+then cd ~/.vim/bundles 
+git submodule init 
+git submodule update 
+then cd ~/.vim/bundle/pyflakes 
+then  
+git submodule init 
+git submodule update 
+then your done 
