@@ -6,7 +6,7 @@ which is where your supposed to keep all your files  6:07 PM
 then cd /home 
 and  
 "ln -s ~/dotfiles/vimrc ~/.vimrc 
-then cd ~/.vim/bundles 
+then cd ~/.vim/bundle 
 git submodule init 
 git submodule update 
 then cd ~/.vim/bundle/pyflakes 
