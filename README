@@ -1,16 +1,42 @@
-the folder when you clone it is ".vim" 
-so if you clone it in "/home" 
-the path its  
+git clone folder in home directory.
+The file directory will be 
+
 ~/.vim 
-which is where your supposed to keep all your files  6:07 PM
-then cd /home 
-and  
-"ln -s ~/dotfiles/vimrc ~/.vimrc 
-then cd ~/.vim/bundle 
+
+While in your home directory enter the following,
+
+ln -s ~/dotfiles/vimrc ~/.vimrc 
+ln -s ~/dotfiles/bash_aliases ./.bash_aliases
+ 
+Now move into 
+
+ ~/.vim/bundle 
+ 
+And perform the following,
+
 git submodule init 
 git submodule update 
-then cd ~/.vim/bundle/pyflakes 
-then  
+
+This will initialize and download the submodules.
+But wait! pyFlakes has its own submodule.
+So,
+
+cd ~/.vim/bundle/pyflakes 
+
+Then  
+
 git submodule init 
 git submodule update 
-then your done 
+
+A summery of what is in the bundle folder
+
+Command-T:
+Delmitmate:
+OmniCppComplete:
+pyFlakes: 
+Rainbow_Parentheses:
+solarized:Provided color for vim editor.
+supertab:
+vim-LaTeX: LaTeX bindings for document generation
+
+TODO: Complete descriptions of the included vim files
