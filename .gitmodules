@@ -4,9 +4,6 @@
 [submodule "bundle/delmitmate"]
 	path = bundle/delmitmate
 	url = git://github.com/Raimondi/delimitMate.git
-[submodule "bundle/pyflakes"]
-	path = bundle/pyflakes
-	url = git://github.com/kevinw/pyflakes-vim.git
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git://github.com/ervandew/supertab.git
@@ -19,12 +16,18 @@
 [submodule "bundle/vimRepress"]
 	path = bundle/vimRepress
 	url = git://github.com/vim-scripts/VimRepress.git
-[submodule "OmniCppComplete"]
-	path = OmniCppComplete
-	url = git://github.com/vim-scripts/OmniCppComplete.git
 [submodule "bundle/OminCppComplete"]
 	path = bundle/OminCppComplete
 	url = git://github.com/vim-scripts/OmniCppComplete.git
-[submodule "matlab.vim"]
-	path = matlab.vim
-	url = git://github.com/vim-scripts/matlab.vim.git
+[submodule "bundle/coffee-script"]
+	path = bundle/coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule "bundle/python"]
+	path = bundle/python
+	url = git://www.github.com/vim-scripts/python.vim--Vasiliev.git
+[submodule "bundle/rainbowParentheses"]
+	path = bundle/rainbowParentheses
+	url = git://www.github.com/kien/rainbow_parentheses.vim.git
