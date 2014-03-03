@@ -45,5 +45,13 @@ Rainbow_Parentheses: Adds colors to parentheses making them easier to read.
 solarized: Provided color for vim editor.
 supertab: Allows you to use <Tab> for all your insert completion needs (:help ins-completion).
 vim-LaTeX: LaTeX bindings for document generation
-vim-coffeescript: CoffeeScript support to vim. It covers syntax, indenting, compiling, and more.
 
+HTML/CSS/JS plugins
+
+Markdown: Syntax for Markdown (html prose)
+HamleSass: Syntax for Haml Sass(html/css preprossecors)
+vim-coffeescript: CoffeeScript support to vim. It covers syntax, indenting, compiling, and more.
+Jade: Syntax highlighting for html prepross.
+Javascript: javascript syntax
+nodejs: Node snippets
+backbone: backbone snippets

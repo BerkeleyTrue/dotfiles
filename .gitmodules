@@ -31,3 +31,21 @@
 [submodule "bundle/rainbowParentheses"]
 	path = bundle/rainbowParentheses
 	url = git://www.github.com/kien/rainbow_parentheses.vim.git
+[submodule "bundle/markdown"]
+	path = bundle/markdown
+	url = git://www.github.com/plasticboy/vim-markdown.git
+[submodule "bundle/hamlSass"]
+	path = bundle/hamlSass
+	url = git://www.github.com/tpope/vim-haml.git
+[submodule "bundle/javascript"]
+	path = bundle/javascript
+	url = git://www.github.com/pangloss/vim-javascript.git
+[submodule "bundle/nodejs"]
+	path = bundle/nodejs
+	url = https://github.com/moll/vim-node.git
+[submodule "bundle/backbonejs"]
+	path = bundle/backbonejs
+	url = https://github.com/mklabs/vim-backbone.git
+[submodule "bundle/jade"]
+	path = bundle/jade
+	url = https://github.com/digitaltoad/vim-jade.git
