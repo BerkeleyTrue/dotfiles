@@ -1,5 +1,6 @@
 execute pathogen#infect()
 syntax on
+set foldmethod=syntax
 set number
 set spell
 setlocal spell spelllang=en_us
