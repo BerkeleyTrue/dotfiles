@@ -1,36 +1,40 @@
-git clone folder in home directory.
+clone folder in home directory.
+
+'''bash
+git clone https://github.com/Berkeley110/dotfiles.git ./.vim
+'''
 The file directory will be at:
-
+'''bash
 ~/.vim 
-
+'''
 While in your home directory enter the following,
-
+'''bash
 ln -s ~/dotfiles/vimrc ~/.vimrc 
 ln -s ~/dotfiles/bash_aliases ./.bash_aliases
- 
+''' 
 This will create symbolic links in the home dir for vim and bash.
 Now we
-
+ '''bash
 cd ~/.vim
- 
+''' 
 And perform the following,
-
+'''bash
 git submodule init 
 git submodule update 
-
+'''
 This will initialize and download the submodules into ~/.vim/bundle/
 
 To add your own vim plugins follow the following formula:
-
+'''bash
 cd ~/.vim
 git submodule add <insert your plugins git url here> bundle/<name of plugin>
-
+'''
 This not only adds your plugin but adds its path to the .gitmodule file. Now when 
 you want to check for updates you can just:
-
+'''bash
 cd ~/.vim
 git submodule sync
-
+'''
 This will update all the plugins if needed.
 
 A summery of what is in the bundle folder
