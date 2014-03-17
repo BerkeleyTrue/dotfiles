@@ -1,6 +1,6 @@
 execute pathogen#infect()
 syntax on
-set foldmethod=syntax
+"set foldmethod=syntax"
 set number
 set spell
 setlocal spell spelllang=en_us
@@ -25,3 +25,12 @@ let g:solarized_termcolors=256
 "let g:solarized_contrast="high"
 "let g:solarized_visibility="high"
 colorscheme solarized
+
+"Tab width changes for js and coffeescript"
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+autocmd BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab
+
+"Auto collapse by indentation"
+autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+"folding is disabled by default but can be quickly toggled per-file by hitting zi"
+autocmd BufRead *.js normal zR
