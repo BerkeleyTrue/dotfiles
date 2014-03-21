@@ -5,3 +5,8 @@ alias berkeleybone='ssh -t berkeley@bone.local "screen -dRR"'
 alias :bone='screen /dev/tty.usbserial-*B 115200'
 #alias ll='ls -aFlh'
 alias :update='sudo apt-get update'
+
+# list top level node_modules using npmls
+function npmls() {
+  npm ls --depth=0 "$@" 2>/dev/null
+}

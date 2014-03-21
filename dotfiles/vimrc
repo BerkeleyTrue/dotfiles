@@ -3,6 +3,7 @@ syntax on
 "set foldmethod=syntax"
 set number
 set spell
+set mouse=nicr
 setlocal spell spelllang=en_us
 " Turns on plugins
 filetype plugin on
@@ -27,8 +28,8 @@ let g:solarized_termcolors=256
 colorscheme solarized
 
 "Tab width changes for js and coffeescript"
-autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
-autocmd BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab
+autocmd BufNewFile,BufReadPost *.coffee setlocal tabstop=2 sts=2 shiftwidth=2 expandtab
+autocmd BufNewFile,BufReadPost *.js setlocal shiftwidth=2 tabstop=2 sts=2 expandtab
 
 "Auto collapse by indentation"
 autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable

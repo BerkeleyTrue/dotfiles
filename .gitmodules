@@ -61,3 +61,9 @@
 [submodule "bundle/snippets"]
 	path = bundle/snippets
 	url = https://github.com/honza/vim-snippets.git
+[submodule "bundle/mustache-handlebars"]
+	path = bundle/mustache-handlebars
+	url = https://github.com/mustache/vim-mustache-handlebars.git
+[submodule "bundle/stylus"]
+	path = bundle/stylus
+	url = https://github.com/wavded/vim-stylus.git
