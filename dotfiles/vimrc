@@ -1,12 +1,61 @@
 execute pathogen#infect()
 syntax on
+
 "set foldmethod=syntax"
-set number
+set nowrap        " don't wrap lines
+set tabstop=4     " a tab is four spaces
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+
+set autoindent    " always set autoindenting on
+set copyindent    " copy the previous indentation on autoindenting
+set number        " always show line numbers
+set shiftwidth=4  " number of spaces to use for autoindenting
+set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'"
+set showmatch     " set show matching parenthesis
+set ignorecase    " ignore case when searching
+set smartcase     " ignore case if search pattern is all lowercase, case-sensitive otherwise
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
+set hlsearch      " highlight search terms
+set incsearch     " show search matches as you type'
+set history=1000         " remember more commands and search history
+set undolevels=1000      " use many muchos levels of undo
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set title                " change the terminal's title
+set visualbell           " don't beep
+set noerrorbells         " don't beep"
+set nobackup  "disable backups"
+set noswapfile "disable backups"
 set spell
 set mouse=nicr
 setlocal spell spelllang=en_us
+
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:. "mark whitespace"
+
+" Leader Key to ','
+let mapleader=","
+
+" remappings
+inoremap jj <ESC>
+inoremap kk <ESC>
+
+" ,ev to edit vim, ,sv to source vim
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" map down and up to up next row and down next row
+nnoremap j gj
+nnoremap k gk
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
 " Turns on plugins
 filetype plugin on
+
 "Turns on automatic indent from plugins
 filetype indent on
 "allows empty .tex files to open as latex files
@@ -18,6 +67,7 @@ let g:Tex_DefaultTargetFormat='pdf'
 " program to always generate a file-name.
 let g:Tex_ViewRule_pdf='preview'
 set grepprg=grep\ -nH\ $*
+
 " This sets Solarized theme in VIM to black
 set background=light
 " This Sets Solarized theme values in VIM
@@ -35,3 +85,6 @@ autocmd BufNewFile,BufReadPost *.js setlocal shiftwidth=2 tabstop=2 sts=2 expand
 autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
 "folding is disabled by default but can be quickly toggled per-file by hitting zi"
 autocmd BufRead *.js normal zR
+
+" Remove whitespace markers in htmlxml
+autocmd filetype html,xml set listchars-=tab:>.

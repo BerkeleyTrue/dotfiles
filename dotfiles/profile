@@ -1,0 +1,65 @@
+# MacPorts Installer addition on 2012-09-03_at_01:15:46: adding an appropriate PATH variable for use with MacPorts.
+# export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+# Add vi mappings to bash
+set -o vi
+
+# Setting PATH for Python 2.7
+# The orginal version is saved in .profile.pysave
+# export PATH=/opt/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}
+export PATH=/usr/local/bin:$PATH
+#I don't think this is needed anymore
+# export CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/
+
+# Adds mongoDB binaries to path
+export PATH=~/mongodb/bin:$PATH
+
+# Add RVM to PATH for scripting
+export PATH=$PATH:$HOME/.rvm/bin 
+
+#Go lang
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+#Heroku Toolbelt
+export PATH=$PATH:/usr/local/heroku/bin
+
+alias :mongo='mongod --dbpath ~/data/db' # Starts MongoDB server
+alias ..='cd ..'
+alias ~='cd ~'
+alias :port='sudo port install'
+alias berkeleybone='ssh -t berkeley@beaglebone.local "screen -dRR"'
+alias rootbone='ssh -t root@beaglebone.local "screen -dRR"'
+alias :nano='sudo nano'
+alias :bone='screen -dRR /dev/tty.usbserial-*B 115200'
+alias ll='ls -aFl'
+alias :update='sudo port selfupdate'
+alias :amazon='ssh -i ~/privatekey/AmazonUbuntu1310.pem ubuntu@54.201.198.3'
+alias sqlite='sqlite3'
+alias v='vim'
+
+#bash completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+	.  /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+#node aliases
+alias npminstallg='sudo npm install -g'
+alias npminstalldev='npm install --save-dev'
+alias promise='promise-it-wont-hurt'
+alias async='async-you'
+alias funcjs='functional-javascript-workshop'
+
+#npmls now returns top level npm modules
+function npmls() {
+  npm ls --depth=0 "$@" 2>/dev/null
+}
+
+#Makes and CD's to a new directoy.
+function mkncd() {
+  mkdir $1
+  cd $_
+}
+
