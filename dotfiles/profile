@@ -1,22 +1,13 @@
-# MacPorts Installer addition on 2012-09-03_at_01:15:46: adding an appropriate PATH variable for use with MacPorts.
-# export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-
 # Add vi mappings to bash
 set -o vi
 
-# Setting PATH for Python 2.7
-# The orginal version is saved in .profile.pysave
-# export PATH=/opt/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}
 export PATH=/usr/local/bin:$PATH
-#I don't think this is needed anymore
-# export CMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/
 
 # Adds mongoDB binaries to path
 export PATH=~/mongodb/bin:$PATH
 
 # Add RVM to PATH for scripting
-export PATH=$PATH:$HOME/.rvm/bin 
+export PATH=$PATH:$HOME/.rvm/bin
 
 #Go lang
 export GOROOT=/usr/local/go
@@ -39,6 +30,12 @@ alias :update='sudo port selfupdate'
 alias :amazon='ssh -i ~/privatekey/AmazonUbuntu1310.pem ubuntu@54.201.198.3'
 alias sqlite='sqlite3'
 alias v='vim'
+alias tmux="TERM=screen-256color-bce tmux"
+
+#quick edits
+alias eprof='vim ~/.profile'
+alias sprof='source ~/.profile'
+alias evimrc='vim ~/.vimrc'
 
 #bash completion
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
@@ -48,9 +45,14 @@ fi
 #node aliases
 alias npminstallg='sudo npm install -g'
 alias npminstalldev='npm install --save-dev'
-alias promise='promise-it-wont-hurt'
+alias promises='promise-it-wont-hurt'
 alias async='async-you'
 alias funcjs='functional-javascript-workshop'
+alias lbng='lb-ng'
+alias lbngdoc='sudo lb-ng-doc'
+
+#quickmoves
+alias cdser='cd ~/node/lb/seraph/'
 
 #npmls now returns top level npm modules
 function npmls() {
@@ -63,3 +65,5 @@ function mkncd() {
   cd $_
 }
 
+#unset dyld path to stop warnings
+unset DYLD_LIBRARY_PATH
