@@ -94,3 +94,6 @@ autocmd filetype html,xml set listchars-=tab:>.
 " JSHint to honor jshintrc file
 let g:syntastic_javascript_checker = "jshint"
 let g:jshint_highlight_color = "Red"
+
+" Set WSDL files using XML filetype
+au BufNewFile,BufRead *.wsdl setlocal ft=xml
