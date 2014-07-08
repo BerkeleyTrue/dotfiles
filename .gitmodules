@@ -79,3 +79,6 @@
 [submodule "bundle/xml"]
 	path = bundle/xml
 	url = https://github.com/othree/xml.vim.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git

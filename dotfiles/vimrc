@@ -97,3 +97,6 @@ let g:jshint_highlight_color = "Red"
 
 " Set WSDL files using XML filetype
 au BufNewFile,BufRead *.wsdl setlocal ft=xml
+
+" Alias NERDTree to nerd
+cnoreabbrev <expr> nerd ((getcmdtype() is# ':' && getcmdline() is# 'nerd')?('NERDTree'):('nerd'))

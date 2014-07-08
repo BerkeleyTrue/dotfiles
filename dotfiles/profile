@@ -48,6 +48,7 @@ alias npminstalldev='npm install --save-dev'
 alias promises='promise-it-wont-hurt'
 alias async='async-you'
 alias funcjs='functional-javascript-workshop'
+alias browAdv='browserify-adventure'
 alias lbng='lb-ng'
 alias lbngdoc='sudo lb-ng-doc'
 
