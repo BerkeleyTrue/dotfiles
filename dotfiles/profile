@@ -4,7 +4,7 @@ set -o vi
 export PATH=/usr/local/bin:$PATH
 
 # Adds mongoDB binaries to path
-export PATH=~/mongodb/bin:$PATH
+export PATH=$PATH:~/mongodb/bin
 
 # Add RVM to PATH for scripting
 export PATH=$PATH:$HOME/.rvm/bin
@@ -36,6 +36,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 alias eprof='vim ~/.profile'
 alias sprof='source ~/.profile'
 alias evimrc='vim ~/.vimrc'
+alias ejshint='vim ~/.jshintrc'
 
 #bash completion
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
@@ -54,6 +55,8 @@ alias lbngdoc='sudo lb-ng-doc'
 
 #quickmoves
 alias cdser='cd ~/node/lb/seraph/'
+alias cdphone='cd ~/node/angular/phonerules/'
+alias cdvoolla='cd ~/node/backbone/voolla.org'
 
 #npmls now returns top level npm modules
 function npmls() {
@@ -67,4 +70,4 @@ function mkncd() {
 }
 
 #unset dyld path to stop warnings
-unset DYLD_LIBRARY_PATH
+#unset DYLD_LIBRARY_PATH

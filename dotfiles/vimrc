@@ -2,7 +2,7 @@ execute pathogen#infect()
 syntax on
 
 "set foldmethod=syntax"
-set nowrap        " don't wrap lines
+set nowrap        " don"t wrap lines
 set tabstop=4     " a tab is four spaces
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 
@@ -10,29 +10,30 @@ set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set number        " always show line numbers
 set shiftwidth=4  " number of spaces to use for autoindenting
-set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'"
+set shiftround    " use multiple of shiftwidth when indenting with "<" and ">""
 set showmatch     " set show matching parenthesis
 set ignorecase    " ignore case when searching
 set smartcase     " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
 set hlsearch      " highlight search terms
-set incsearch     " show search matches as you type'
+set incsearch     " show search matches as you type"
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class
-set title                " change the terminal's title
-set visualbell           " don't beep
-set noerrorbells         " don't beep"
+set title                " change the terminal"s title
+set visualbell           " don"t beep
+set noerrorbells         " don"t beep"
 set nobackup  "disable backups"
 set noswapfile "disable backups"
 set spell
 set mouse=nicr
 setlocal spell spelllang=en_us
+set expandtab
 
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:. "mark whitespace"
 
-" Leader Key to ','
+" Leader Key to ","
 let mapleader=","
 
 " remappings
@@ -59,23 +60,32 @@ filetype plugin on
 "Turns on automatic indent from plugins
 filetype indent on
 "allows empty .tex files to open as latex files
-let g:tex_flavor='latex'
+let g:Tex_flavor="latex"
 " Change defualt tex output to PDF
-let g:Tex_DefaultTargetFormat='pdf'
+let g:Tex_DefaultTargetFormat="pdf"
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
-let g:Tex_ViewRule_pdf='preview'
+let g:Tex_ViewRule_pdf="preview"
 set grepprg=grep\ -nH\ $*
 
-" This sets Solarized theme in VIM to black
+" Solarized Settings
 set background=light
 " This Sets Solarized theme values in VIM
 "let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 "let g:solarized_contrast="high"
 "let g:solarized_visibility="high"
+
+"Set vim Colorscheme
 colorscheme solarized
+
+" Syntastic Settings
+let g:syntastic_mode_map={"mode": "active","active_filetypes": [],"passive_filetypes": []}"
+let g:syntastic_error_symbol="✗"
+let g:syntastic_warning_symbol="!"
+let g:jshint_highlight_color ="Red"
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]"]
 
 "Tab width changes for js and coffeescript"
 autocmd BufNewFile,BufReadPost *.coffee setlocal tabstop=2 sts=2 shiftwidth=2 expandtab
@@ -91,12 +101,23 @@ autocmd BufRead *.js normal zR
 " Remove whitespace markers in htmlxml
 autocmd filetype html,xml set listchars-=tab:>.
 
-" JSHint to honor jshintrc file
-let g:syntastic_javascript_checker = "jshint"
-let g:jshint_highlight_color = "Red"
-
 " Set WSDL files using XML filetype
 au BufNewFile,BufRead *.wsdl setlocal ft=xml
 
 " Alias NERDTree to nerd
-cnoreabbrev <expr> nerd ((getcmdtype() is# ':' && getcmdline() is# 'nerd')?('NERDTree'):('nerd'))
+cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTree"):("nerd"))
+" NERDTree show hidden files
+let NERDTreeShowHidden=1
+
+" Alias :UndotreeToggle to ent
+cnoreabbrev <expr> ents ((getcmdtype() is# ":" && getcmdline() is# "ents")?("undotreetoggle"):("ents"))
+
+" Alias Helptags to rbHelp, This makes way more sense to me and will be
+" easier to remember
+cnoreabbrev <expr> rbHelp ((getcmdtype() is# ":" && getcmdline() is# "rbHelp")?("Helptags"):("rbHelp"))
+
+" Vim Airline
+set laststatus=2
+set ttimeoutlen=50
+" Auto Display all buffers
+let g:airline#extensions#tabline#enabled = 1
