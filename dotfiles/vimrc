@@ -81,7 +81,7 @@ let g:solarized_termcolors=256
 colorscheme solarized
 
 " Syntastic Settings
-let g:syntastic_mode_map={"mode": "active","active_filetypes": [],"passive_filetypes": []}"
+let g:syntastic_mode_map={"mode": "active","active_filetypes": ["vim"],"passive_filetypes": []}"
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol="!"
 let g:jshint_highlight_color ="Red"
@@ -110,7 +110,7 @@ cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NER
 let NERDTreeShowHidden=1
 
 " Alias :UndotreeToggle to ent
-cnoreabbrev <expr> ents ((getcmdtype() is# ":" && getcmdline() is# "ents")?("undotreetoggle"):("ents"))
+cnoreabbrev <expr> ents ((getcmdtype() is# ":" && getcmdline() is# "ents")?("UndotreeToggle"):("ents"))
 
 " Alias Helptags to rbHelp, This makes way more sense to me and will be
 " easier to remember
@@ -120,4 +120,47 @@ cnoreabbrev <expr> rbHelp ((getcmdtype() is# ":" && getcmdline() is# "rbHelp")?(
 set laststatus=2
 set ttimeoutlen=50
 " Auto Display all buffers
+"let g:airline_left_sep = '>'
+"let g:airline_right_sep = '<'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_theme="badwolf"
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+let g:airline#extensions#tmuxline#enabled = 0
+let g:tmuxline_powerline_separators=0
+
+let g:tmuxline_preset={
+    \ 'a': '#S',
+    \ 'b': '#W',
+    \ 'c': '#H',
+    \ 'win': '#I #W',
+    \ 'cwin': '#I #W',
+    \ 'x': '%a',
+    \ 'y': '#W %R',
+    \ 'z': '#H',
+    \ 'options':{'status-justify' : 'left'}}
+
+let g:tmuxline_separators = {
+    \ 'left' : '▶',
+    \ 'left_alt': '>',
+    \ 'right' : '◀',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
+

@@ -91,3 +91,6 @@
 [submodule "bundle/signify"]
 	path = bundle/signify
 	url = https://github.com/mhinz/vim-signify.git
+[submodule "bundle/vimScriptLint"]
+	path = bundle/vimScriptLint
+	url = https://github.com/dbakker/vim-lint.git

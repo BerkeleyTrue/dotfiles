@@ -44,14 +44,16 @@ if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
 fi
 
 #node aliases
-alias npminstallg='sudo npm install -g'
-alias npminstalldev='npm install --save-dev'
+alias npmig='sudo npm install -g'
+alias npmid='npm install --save-dev'
+alias npmis='npm install --save-dev'
 alias promises='promise-it-wont-hurt'
 alias async='async-you'
 alias funcjs='functional-javascript-workshop'
 alias browAdv='browserify-adventure'
 alias lbng='lb-ng'
 alias lbngdoc='sudo lb-ng-doc'
+alias 2styl='sass2stylus'
 
 #quickmoves
 alias cdser='cd ~/node/lb/seraph/'
