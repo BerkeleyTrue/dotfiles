@@ -108,6 +108,13 @@ au BufNewFile,BufRead *.wsdl setlocal ft=xml
 cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTree"):("nerd"))
 " NERDTree show hidden files
 let NERDTreeShowHidden=1
+" Let NERDTree autoopen when vim is opened with no files
+function! StartUp()
+  if 0 == argc()
+    NERDTree
+  end
+endfunction
+autocmd VimEnter * call StartUp()
 
 " Alias :UndotreeToggle to ent
 cnoreabbrev <expr> ents ((getcmdtype() is# ":" && getcmdline() is# "ents")?("UndotreeToggle"):("ents"))
