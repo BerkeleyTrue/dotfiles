@@ -82,19 +82,20 @@ colorscheme solarized
 
 " Syntastic Settings
 let g:syntastic_mode_map={"mode": "active","active_filetypes": ["vim"],"passive_filetypes": []}"
+let g:syntastic_check_on_open = 1 " Checks file when loaded into buffer
 let g:syntastic_error_symbol="✗"
-let g:syntastic_warning_symbol="!"
+let g:syntastic_warning_symbol="W"
 let g:jshint_highlight_color ="Red"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]"]
+let g:syntastic_json_checkers = ['jsonlint']
 
 "Tab width changes for js and coffeescript"
 autocmd BufNewFile,BufReadPost *.coffee setlocal tabstop=2 sts=2 shiftwidth=2 expandtab
 autocmd BufNewFile,BufReadPost *.js setlocal shiftwidth=2 tabstop=2 sts=2 expandtab
-" Tab width for Jade
-autocmd BufNewFile,BufReadPost *.jade setlocal shiftwidth=4 tabstop=4 sts=4 expandtab
+autocmd BufNewFile,BufReadPost *.jade setlocal shiftwidth=4 tabstop=4 sts=4 expandtab " Tab width for Jade
+autocmd BufRead,BufNewFile *.json set filetype=json
 
-"Auto collapse by indentation"
-autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
 "folding is disabled by default but can be quickly toggled per-file by hitting zi"
 autocmd BufRead *.js normal zR
 
