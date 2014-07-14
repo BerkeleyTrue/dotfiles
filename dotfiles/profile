@@ -54,6 +54,7 @@ alias browAdv='browserify-adventure'
 alias lbng='lb-ng'
 alias lbngdoc='sudo lb-ng-doc'
 alias 2styl='sass2stylus'
+alias debug='NODE_ENV=development slc debug'
 
 #quickmoves
 alias cdser='cd ~/node/lb/seraph/'

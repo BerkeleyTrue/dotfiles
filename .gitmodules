@@ -16,6 +16,7 @@
 [submodule "bundle/OminCppComplete"]
 	path = bundle/OminCppComplete
 	url = git://github.com/vim-scripts/OmniCppComplete.git
+    ignore = dirty
 [submodule "bundle/coffee-script"]
 	path = bundle/coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
@@ -73,6 +74,7 @@
 [submodule "bundle/xml"]
 	path = bundle/xml
 	url = https://github.com/othree/xml.vim.git
+    ignore = dirty
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git

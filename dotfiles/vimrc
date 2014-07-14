@@ -86,7 +86,8 @@ let g:syntastic_check_on_open = 1 " Checks file when loaded into buffer
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol="W"
 let g:jshint_highlight_color ="Red"
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]"]
+let g:syntastic_html_checkers = ['tidy']
+let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
 
 "Tab width changes for js and coffeescript"
