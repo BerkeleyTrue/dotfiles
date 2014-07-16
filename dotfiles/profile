@@ -46,7 +46,7 @@ fi
 #node aliases
 alias npmig='sudo npm install -g'
 alias npmid='npm install --save-dev'
-alias npmis='npm install --save-dev'
+alias npmis='npm install --save'
 alias promises='promise-it-wont-hurt'
 alias async='async-you'
 alias funcjs='functional-javascript-workshop'
