@@ -9,6 +9,9 @@ export PATH=$PATH:~/mongodb/bin
 # Add RVM to PATH for scripting
 export PATH=$PATH:$HOME/.rvm/bin
 
+# Add brew installed python packages
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
 #Go lang
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
