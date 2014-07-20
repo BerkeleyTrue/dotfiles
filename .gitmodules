@@ -96,3 +96,6 @@
 [submodule "bundle/vimScriptLint"]
 	path = bundle/vimScriptLint
 	url = https://github.com/dbakker/vim-lint.git
+[submodule "bundle/jsx"]
+	path = bundle/jsx
+	url = https://github.com/jsx/jsx.vim.git
