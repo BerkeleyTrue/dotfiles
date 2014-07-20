@@ -109,7 +109,7 @@ autocmd filetype html,xml set listchars-=tab:>.
 au BufNewFile,BufRead *.wsdl setlocal ft=xml
 
 " Alias NERDTree to nerd
-cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTree"):("nerd"))
+cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTreeToggle"):("nerd"))
 " NERDTree show hidden files
 let NERDTreeShowHidden=1
 " Let NERDTree autoopen when vim is opened with no files
