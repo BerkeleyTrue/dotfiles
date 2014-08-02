@@ -99,3 +99,18 @@
 [submodule "bundle/javascript"]
 	path = bundle/javascript
 	url = https://github.com/jelera/vim-javascript-syntax
+[submodule "bundle/nerdCommenter"]
+	path = bundle/nerdCommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/jsBeautify"]
+	path = bundle/jsBeautify
+	url = https://github.com/maksimr/vim-jsbeautify.git
+[submodule "bundle/nodjeSnippets"]
+	path = bundle/nodjeSnippets
+	url = https://github.com/jamescarr/snipmate-nodejs.git
+[submodule "bundle/easyMotion"]
+	path = bundle/easyMotion
+	url = https://github.com/Lokaltog/vim-easymotion.git
