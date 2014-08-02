@@ -32,9 +32,6 @@
 [submodule "bundle/hamlSass"]
 	path = bundle/hamlSass
 	url = git://www.github.com/tpope/vim-haml.git
-[submodule "bundle/javascript"]
-	path = bundle/javascript
-	url = git://www.github.com/pangloss/vim-javascript.git
 [submodule "bundle/nodejs"]
 	path = bundle/nodejs
 	url = https://github.com/moll/vim-node.git
@@ -99,3 +96,6 @@
 [submodule "bundle/jsx"]
 	path = bundle/jsx
 	url = https://github.com/jsx/jsx.vim.git
+[submodule "bundle/javascript"]
+	path = bundle/javascript
+	url = https://github.com/jelera/vim-javascript-syntax
