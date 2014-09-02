@@ -80,6 +80,7 @@ A summery of what is in the bundle folder
 * **Snippets**: a repository with a ton of snippets for different languages.
 * **Tlib**:SnipMate dependency.
 * **vim-addon-mw-util**:SnipMate dependency.
+* **surrond.vim**.Quickly wrap text objects in '/" or anything else
 
 ####HTML/CSS/JS plugins
 
