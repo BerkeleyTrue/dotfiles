@@ -1,7 +1,16 @@
-clone folder in home directory.
+# Prerequisites
+You will need to install vim and tmux
+
+## Ubuntu
+```bash
+sudo apt-get update
+sudo apt-get install vim tmux
+```
+
+Clone folder in home directory.
 
 ```bash
-git clone https://github.com/Berkeley110/dotfiles.git ./.vim
+git clone https://github.com/berkeleytrue/dotfiles.git ~/.vim
 ```
 
 The file directory will be at:
@@ -13,8 +22,10 @@ The file directory will be at:
 While in your home directory enter the following,
 
 ```bash
-ln -s ~/dotfiles/vimrc ~/.vimrc
-ln -s ~/dotfiles/bash_aliases ./.bash_aliases
+ln -s ~/.vim/dotfiles/vimrc ~/.vimrc
+ln -s ~/dotfiles/profile ~/.profile
+ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/jshintrc ~/.jshintrc
 ```
 
 This will create symbolic links in the home dir for vim and bash.
@@ -69,6 +80,7 @@ A summery of what is in the bundle folder
 * **Snippets**: a repository with a ton of snippets for different languages.
 * **Tlib**:SnipMate dependency.
 * **vim-addon-mw-util**:SnipMate dependency.
+* **surrond.vim**.Quickly wrap text objects in '/" or anything else
 
 ####HTML/CSS/JS plugins
 
@@ -80,3 +92,4 @@ A summery of what is in the bundle folder
 * **Javascript**: JavaScript syntax highlighting
 * **Node.js**: Node snippets
 * **Backbone**: backbone snippets
+
