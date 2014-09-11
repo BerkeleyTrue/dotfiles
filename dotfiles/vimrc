@@ -105,7 +105,9 @@ endfunction
 function! ClosureIt()
     setlocal textwidth=80
     setlocal colorcolumn=+1
-    hi ColorColumn guibg=#eeeeee ctermbg=246
+    hi ColorColumn  ctermbg=246
+    hi OverLength   ctermfg=125 ctermbg=250
+    match OverLength /\%>80v.\+/
 endfunction
 
 "Tab two space tabs for multiple file types
