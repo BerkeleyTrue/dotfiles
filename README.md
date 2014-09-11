@@ -48,6 +48,12 @@ This will initialize and download the submodules into
 ~/.vim/bundle/
 ```
 
+And to update submodules after some time passes
+
+```bash
+git submodule foreach git push origin master
+```
+
 To add your own vim plugins follow the following formula:
 
 ```bash
@@ -93,3 +99,6 @@ A summery of what is in the bundle folder
 * **Node.js**: Node snippets
 * **Backbone**: backbone snippets
 
+# TODO
+
+* update linux instructions
