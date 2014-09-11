@@ -99,6 +99,7 @@ function! TwoSpace()
   setlocal sts=2
   setlocal expandtab
 endfunction
+
 " Set bar at max width in accordance with Google style guide
 " aka Closure linter
 function! ClosureIt()
@@ -107,14 +108,11 @@ function! ClosureIt()
     hi ColorColumn guibg=#eeeeee ctermbg=246
 endfunction
 
-" Ensures autocmds are only add once 
-" in case of multiple sourcing of vimrc
-autocmd!
 "Tab two space tabs for multiple file types
-autocmd BufNewFile,BufReadPost *.js     call TwoSpace()
-autocmd BufNewFile,BufReadPost *.js     call TwoSpace() ClosureIt()
-autocmd BufNewFile,BufReadPost *.jsx    call TwoSpace()
-autocmd BufNewFile,BufReadPost *.jade   call TwoSpace()
+autocmd BufNewFile,BufReadPost *.js call TwoSpace()
+autocmd BufNewFile,BufReadPost *.js call ClosureIt()
+autocmd BufNewFile,BufReadPost *.jsx call TwoSpace()
+autocmd BufNewFile,BufReadPost *.jade call TwoSpace()
 autocmd BufNewFile,BufReadPost *.coffee call TwoSpace()
 autocmd BufRead,BufNewFile *.json set filetype=json
 
