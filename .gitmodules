@@ -114,3 +114,9 @@
 [submodule "bundle/easyMotion"]
 	path = bundle/easyMotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule "bundle/angular-snippets"]
+	path = bundle/angular-snippets
+	url = https://github.com/matthewsimo/angular-vim-snippets.git
+[submodule "bundle/indentLine"]
+	path = bundle/indentLine
+	url = https://github.com/Yggdroot/indentLine.git

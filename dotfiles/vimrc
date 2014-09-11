@@ -92,10 +92,30 @@ let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
 
-"Tab width changes for js and coffeescript"
-autocmd BufNewFile,BufReadPost *.coffee setlocal tabstop=2 sts=2 shiftwidth=2 expandtab
-autocmd BufNewFile,BufReadPost *.js setlocal shiftwidth=2 tabstop=2 sts=2 expandtab
-autocmd BufNewFile,BufReadPost *.jade setlocal shiftwidth=4 tabstop=4 sts=4 expandtab " Tab width for Jade
+" Set tabs to two spaces
+function! TwoSpace()
+  setlocal shiftwidth=2
+  setlocal tabstop=2
+  setlocal sts=2
+  setlocal expandtab
+endfunction
+" Set bar at max width in accordance with Google style guide
+" aka Closure linter
+function! ClosureIt()
+    setlocal textwidth=80
+    setlocal colorcolumn=+1
+    hi ColorColumn guibg=#eeeeee ctermbg=246
+endfunction
+
+" Ensures autocmds are only add once 
+" in case of multiple sourcing of vimrc
+autocmd!
+"Tab two space tabs for multiple file types
+autocmd BufNewFile,BufReadPost *.js     call TwoSpace()
+autocmd BufNewFile,BufReadPost *.js     call TwoSpace() ClosureIt()
+autocmd BufNewFile,BufReadPost *.jsx    call TwoSpace()
+autocmd BufNewFile,BufReadPost *.jade   call TwoSpace()
+autocmd BufNewFile,BufReadPost *.coffee call TwoSpace()
 autocmd BufRead,BufNewFile *.json set filetype=json
 
 autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
@@ -106,7 +126,7 @@ autocmd BufRead *.js normal zR
 autocmd filetype html,xml set listchars-=tab:>.
 
 " Set WSDL files using XML filetype
-au BufNewFile,BufRead *.wsdl setlocal ft=xml
+autocmd BufNewFile,BufRead *.wsdl setlocal ft=xml
 
 " Alias NERDTree to nerd
 cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTreeToggle"):("nerd"))

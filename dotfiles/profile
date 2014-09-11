@@ -20,6 +20,9 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 #Heroku Toolbelt
 export PATH=$PATH:/usr/local/heroku/bin
 
+#PostgressApp commands
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
+
 alias :mongo='mongod --dbpath ~/data/db' # Starts MongoDB server
 alias ..='cd ..'
 alias ~='cd ~'
@@ -58,6 +61,7 @@ alias lbng='lb-ng'
 alias lbngdoc='sudo lb-ng-doc'
 alias 2styl='sass2stylus'
 alias debug='NODE_ENV=development slc debug'
+alias streamadv='stream-adventure'
 
 #quickmoves
 alias cdser='cd ~/node/lb/seraph/'
