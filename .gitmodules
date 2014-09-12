@@ -93,9 +93,6 @@
 [submodule "bundle/vimScriptLint"]
 	path = bundle/vimScriptLint
 	url = https://github.com/dbakker/vim-lint.git
-[submodule "bundle/jsx"]
-	path = bundle/jsx
-	url = https://github.com/jsx/jsx.vim.git
 [submodule "bundle/javascript"]
 	path = bundle/javascript
 	url = https://github.com/jelera/vim-javascript-syntax
@@ -123,3 +120,6 @@
 [submodule "bundle/react-snippets"]
 	path = bundle/react-snippets
 	url = https://github.com/BerkeleyTrue/vim-react-snippets.git
+[submodule "bundle/jsx"]
+	path = bundle/jsx
+	url = https://github.com/mxw/vim-jsx.git
