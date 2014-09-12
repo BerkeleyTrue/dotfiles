@@ -119,7 +119,7 @@ endfunction
 autocmd BufNewFile,BufReadPost *.js call TwoSpace()
 autocmd BufNewFile,BufReadPost *.js call ClosureIt()
 autocmd BufNewFile,BufReadPost *.jsx call TwoSpace()
-autocmd BufNewFile,BufReadPost *.jsx set filetype=jsx syntax=javascript
+autocmd BufNewFile,BufReadPost *.jsx setlocal filetype=jsx syntax=javascript
 autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['jsxhint']
 autocmd BufNewFile,BufReadPost *.jade call TwoSpace()
 autocmd BufNewFile,BufReadPost *.coffee call TwoSpace()
