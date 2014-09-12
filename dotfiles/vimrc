@@ -92,6 +92,11 @@ let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
 
+" Snipmate Settings
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['jsx'] = 'javascript,jsx'
+
 " Set tabs to two spaces
 function! TwoSpace()
   setlocal shiftwidth=2
@@ -114,6 +119,8 @@ endfunction
 autocmd BufNewFile,BufReadPost *.js call TwoSpace()
 autocmd BufNewFile,BufReadPost *.js call ClosureIt()
 autocmd BufNewFile,BufReadPost *.jsx call TwoSpace()
+autocmd BufNewFile,BufReadPost *.jsx set filetype=jsx syntax=javascript
+autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['jsxhint']
 autocmd BufNewFile,BufReadPost *.jade call TwoSpace()
 autocmd BufNewFile,BufReadPost *.coffee call TwoSpace()
 autocmd BufRead,BufNewFile *.json set filetype=json
@@ -127,6 +134,9 @@ autocmd filetype html,xml set listchars-=tab:>.
 
 " Set WSDL files using XML filetype
 autocmd BufNewFile,BufRead *.wsdl setlocal ft=xml
+
+autocmd BufNewFile,BufReadPost *.snippets setlocal noet ci pi sts=0 sw=4 ts=4 listchars-=tab:>. listchars=tab:\|\ 
+autocmd BufNewFile,BufReadPost *.snippets hi SpecialKey ctermbg=NONE ctermfg=gray
 
 " Alias NERDTree to nerd
 cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTreeToggle"):("nerd"))
@@ -198,3 +208,5 @@ let g:tmuxline_separators = {
     \ 'right_alt' : '<',
     \ 'space' : ' '}
 
+" commands
+command ConvSingQ %s/"/'/g
