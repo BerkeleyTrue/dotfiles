@@ -91,6 +91,7 @@ let g:jshint_highlight_color ="Red"
 let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
+let g:syntastic_javascript_checkers = ['gjslint']
 
 " Snipmate Settings
 let g:snipMate = {}

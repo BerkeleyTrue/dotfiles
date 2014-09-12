@@ -123,3 +123,6 @@
 [submodule "bundle/jsx"]
 	path = bundle/jsx
 	url = https://github.com/mxw/vim-jsx.git
+[submodule "bundle/jsdoc-snippets"]
+	path = bundle/jsdoc-snippets
+	url = https://github.com/BerkeleyTrue/vim-jsdoc-snippets.git
