@@ -95,7 +95,7 @@
 	url = https://github.com/dbakker/vim-lint.git
 [submodule "bundle/javascript"]
 	path = bundle/javascript
-	url = https://github.com/jelera/vim-javascript-syntax
+	url = https://github.com/berkeleytrue/vim-javascript-syntax
 [submodule "bundle/nerdCommenter"]
 	path = bundle/nerdCommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
@@ -126,6 +126,3 @@
 [submodule "bundle/jsdoc-snippets"]
 	path = bundle/jsdoc-snippets
 	url = https://github.com/BerkeleyTrue/vim-jsdoc-snippets.git
-[submodule "bundle/javascript-indent"]
-	path = bundle/javascript-indent
-	url = https://github.com/BerkeleyTrue/simple-javascript-indenter.git
