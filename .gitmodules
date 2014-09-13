@@ -126,3 +126,6 @@
 [submodule "bundle/jsdoc-snippets"]
 	path = bundle/jsdoc-snippets
 	url = https://github.com/BerkeleyTrue/vim-jsdoc-snippets.git
+[submodule "bundle/javascript-indent"]
+	path = bundle/javascript-indent
+	url = https://github.com/BerkeleyTrue/simple-javascript-indenter.git
