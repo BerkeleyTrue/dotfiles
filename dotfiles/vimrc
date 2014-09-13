@@ -120,6 +120,7 @@ endfunction
 autocmd BufNewFile,BufReadPost *.js call TwoSpace()
 autocmd BufNewFile,BufReadPost *.js call ClosureIt()
 autocmd BufNewFile,BufReadPost *.jsx call TwoSpace()
+autocmd BufNewFile,BufReadPost *.jsx call ClosureIt()
 autocmd BufNewFile,BufReadPost *.jsx setlocal filetype=jsx syntax=javascript
 autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['jsxhint']
 autocmd BufNewFile,BufReadPost *.jade call TwoSpace()
@@ -136,7 +137,7 @@ autocmd filetype html,xml set listchars-=tab:>.
 " Set WSDL files using XML filetype
 autocmd BufNewFile,BufRead *.wsdl setlocal ft=xml
 
-autocmd BufNewFile,BufReadPost *.snippets setlocal noet ci pi sts=0 sw=4 ts=4 listchars-=tab:>. listchars=tab:\|\ 
+autocmd BufNewFile,BufReadPost *.snippets setlocal noet ci pi sts=0 sw=4 ts=4 listchars-=tab:>. listchars=tab:\|\ "
 autocmd BufNewFile,BufReadPost *.snippets hi SpecialKey ctermbg=NONE ctermfg=gray
 
 " Alias NERDTree to nerd
@@ -160,6 +161,24 @@ cnoreabbrev <expr> rbHelp ((getcmdtype() is# ":" && getcmdline() is# "rbHelp")?(
 
 " Alias sudo overwrite
 cnoreabbrev <expr> sudowrite ((getcmdtype() is# ":" && getcmdline() is# "sudowrite")?(":w !sudo tee %"):("sudowrite"))
+
+" easymotion mappings
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotnion-t2)
+
+map  / <Plug>(easymotion-sn) " easymotion search
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+" Search in line
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
 
 " Vim Airline
 set laststatus=2
@@ -208,6 +227,8 @@ let g:tmuxline_separators = {
     \ 'right' : '◀',
     \ 'right_alt' : '<',
     \ 'space' : ' '}
+" tmux clipboard workaround
+set clipboard=unnamed
 
 " commands
 command ConvSingQ %s/"/'/g
