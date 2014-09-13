@@ -79,5 +79,5 @@ function mkncd() {
   cd $_
 }
 
-#unset dyld path to stop warnings
-#unset DYLD_LIBRARY_PATH
+# hitting file limit with browserify in some cases this fixes that
+ulimit -S -n 2048
