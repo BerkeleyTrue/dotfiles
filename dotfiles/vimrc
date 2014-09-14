@@ -56,6 +56,11 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Change snipmate trigger to ,Tab
+" Makes it compatible with tab completion
+imap <leader><tab> <Plug>snipMateNextOrTrigger
+smap <leader><tab> <Plug>snipMateNextOrTrigger
+
 " Turns on plugins
 filetype plugin on
 
