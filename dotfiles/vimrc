@@ -254,4 +254,4 @@ let g:tmuxline_separators = {
 set clipboard=unnamed
 
 " commands
-command! ConvSingQ %s/"/'/g
+command! SingleQ %s/"/'/g
