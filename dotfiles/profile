@@ -68,6 +68,12 @@ alias cdser='cd ~/node/lb/seraph/'
 alias cdphone='cd ~/node/angular/phonerules/'
 alias cdvoolla='cd ~/node/backbone/voolla.org'
 
+#git aliases
+alias gits='git status'
+alias gpush='git push'
+alias gpull='git pull'
+alias gadd='git add'
+
 #npmls now returns top level npm modules
 function npmls() {
   npm ls --depth=0 "$@" 2>/dev/null
