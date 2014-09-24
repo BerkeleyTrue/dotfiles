@@ -96,7 +96,7 @@ let g:jshint_highlight_color ="Red"
 let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_javascript_checkers = ['gjslint', 'jshint']
+let g:syntastic_javascript_checkers = ['jshint', 'gjslint']
 
 " Snipmate Settings
 let g:snipMate = {}
@@ -119,7 +119,6 @@ function! ClosureIt()
     hi ColorColumn  ctermbg=246
     hi OverLength   ctermfg=125 ctermbg=250
     match OverLength /\%>80v.\+/
-    call TwoSpace()
 endfunction
 
 " check for jsx using settings set by vim-jsx
@@ -253,5 +252,8 @@ let g:tmuxline_separators = {
 " tmux clipboard workaround
 set clipboard=unnamed
 
+" JSON Syntax settings
+let g:vim_json_syntax_concealcursor=""
+let g:indentLine_noConcealCursor=""
 " commands
 command! SingleQ %s/"/'/g

@@ -126,3 +126,6 @@
 [submodule "bundle/jsdoc-snippets"]
 	path = bundle/jsdoc-snippets
 	url = https://github.com/BerkeleyTrue/vim-jsdoc-snippets.git
+[submodule "bundle/json"]
+	path = bundle/json
+	url = https://github.com/elzr/vim-json.git
