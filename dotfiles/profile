@@ -73,6 +73,8 @@ alias gits='git status'
 alias gpush='git push'
 alias gpull='git pull'
 alias gadd='git add'
+alias gdiff='git diff'
+alias gcom='git commit'
 
 #npmls now returns top level npm modules
 function npmls() {
