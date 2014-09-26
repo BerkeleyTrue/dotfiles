@@ -62,8 +62,11 @@ alias lbngdoc='sudo lb-ng-doc'
 alias 2styl='sass2stylus'
 alias debug='NODE_ENV=development slc debug'
 alias streamadv='stream-adventure'
+alias mtr='meteor'
 
 #quickmoves
+alias cdnode='cd ~/node'
+alias cdred='cd ~/node/r3dm'
 alias cdser='cd ~/node/lb/seraph/'
 alias cdphone='cd ~/node/angular/phonerules/'
 alias cdvoolla='cd ~/node/backbone/voolla.org'
