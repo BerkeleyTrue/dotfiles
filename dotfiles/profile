@@ -67,9 +67,8 @@ alias mtr='meteor'
 #quickmoves
 alias cdnode='cd ~/node'
 alias cdred='cd ~/node/r3dm'
-alias cdser='cd ~/node/lb/seraph/'
-alias cdphone='cd ~/node/angular/phonerules/'
-alias cdvoolla='cd ~/node/backbone/voolla.org'
+alias cdloop='cd ~/node/loopback'
+alias cdser='cd ~/node/loopback/seraph'
 
 #git aliases
 alias gits='git status'
