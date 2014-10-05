@@ -56,6 +56,16 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Easy Tab navigation
+nnoremap th :tabfirst<CR>
+nnoremap tj :tabnext<CR>
+nnoremap tk :tabprev<CR>
+nnoremap tl :tablast<CR>
+nnoremap tt :tabedit<Space>
+nnoremap tn :tabnew<Space>
+nnoremap tm :tabm<Space>
+nnoremap td :tabclose<CR>
+
 " Change snipmate trigger to ,Tab
 " Makes it compatible with tab completion
 imap <leader><tab> <Plug>snipMateNextOrTrigger
@@ -256,4 +266,19 @@ set clipboard=unnamed
 let g:vim_json_syntax_concealcursor=""
 let g:indentLine_noConcealCursor=""
 " commands
+" Convert double quotes to single quotes
 command! SingleQ %s/"/'/g
+command! DoubleQ %s/'/"/g
+
+function! ConvertSpace()
+  set ts=4 sts=4 noet
+  retab!
+  set ts=2 sts=2 et
+  retab
+endfunction
+command! TabSpaceConvert call ConvertSpace()
+
+function! RotateWindowsFunc()
+  wincmd H
+endfunction
+command! RotateWindow call RotateWindowsFunc()
