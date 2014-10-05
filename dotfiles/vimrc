@@ -62,7 +62,7 @@ nnoremap tj :tabnext<CR>
 nnoremap tk :tabprev<CR>
 nnoremap tl :tablast<CR>
 nnoremap tt :tabedit<Space>
-nnoremap tn :tabnew<Space>
+nnoremap tn :tabnew<CR>:NERDTree<CR>
 nnoremap tm :tabm<Space>
 nnoremap td :tabclose<CR>
 
