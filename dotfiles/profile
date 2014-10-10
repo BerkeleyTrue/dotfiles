@@ -3,6 +3,9 @@ set -o vi
 
 export PATH=/usr/local/bin:$PATH
 
+# Point to java 7
+export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
+
 # Adds mongoDB binaries to path
 export PATH=$PATH:~/mongodb/bin
 
