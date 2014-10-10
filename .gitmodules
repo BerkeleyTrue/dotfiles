@@ -135,3 +135,12 @@
 [submodule "bundle/scala"]
 	path = bundle/scala
 	url = https://github.com/derekwyatt/vim-scala.git
+[submodule "bundle/fireplace-cljs"]
+	path = bundle/fireplace-cljs
+	url = https://github.com/tpope/vim-fireplace.git
+[submodule "bundle/paredit-cljs"]
+	path = bundle/paredit-cljs
+	url = https://github.com/vim-scripts/paredit.vim.git
+[submodule "bundle/clojureStatic"]
+	path = bundle/clojureStatic
+	url = https://github.com/guns/vim-clojure-static.git
