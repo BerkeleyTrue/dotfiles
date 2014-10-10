@@ -138,6 +138,14 @@ function! JsxIt()
     endif
 endfunction
 
+" Ignore camelCase words when spell checking
+fun! IgnoreCamelCaseSpell()
+  syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
+  syn cluster Spell add=CamelCase
+endfun
+
+autocmd BufRead,BufNewFile * :call IgnoreCamelCaseSpell()
+
 augroup JavscriptG
   autocmd!
   autocmd BufRead *.js normal zR
