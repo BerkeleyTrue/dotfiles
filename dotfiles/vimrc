@@ -144,6 +144,19 @@ fun! IgnoreCamelCaseSpell()
   syn cluster Spell add=CamelCase
 endfun
 
+function! WrapIt()
+  setlocal wrap
+  setlocal linebreak
+  setlocal textwidth=0
+  setlocal wrapmargin=0
+  setlocal textwidth=80
+endfunction
+
+augroup Text
+  autocmd!
+  autocmd BufNewFile,BufReadPost *.md,*.markdown call WrapIt()
+augroup END
+
 autocmd BufRead,BufNewFile * :call IgnoreCamelCaseSpell()
 
 augroup JavscriptG
