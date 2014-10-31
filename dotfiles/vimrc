@@ -310,6 +310,8 @@ let g:indentLine_noConcealCursor=""
 command! SingleQ %s/"/'/g
 command! DoubleQ %s/'/"/g
 
+" close tab
+command! Qt tabclose
 function! ConvertSpace()
   set ts=4 sts=4 noet
   retab!
