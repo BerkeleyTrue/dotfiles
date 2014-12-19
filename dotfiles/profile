@@ -69,9 +69,9 @@ alias mtr='meteor'
 
 #quickmoves
 alias cdnode='cd ~/node'
-alias cdred='cd ~/node/r3dm'
+alias cdr3d='cd ~/node/r3dm'
 alias cdloop='cd ~/node/loopback'
-alias cdser='cd ~/node/loopback/seraph'
+alias cdgems='cd ~/node/loopback/gems'
 
 #git aliases
 alias gits='git status'
@@ -93,4 +93,9 @@ function mkncd() {
 }
 
 # hitting file limit with browserify in some cases this fixes that
-ulimit -S -n 2048
+# ulimit -S -n 2048 This no longer seems to work.
+# Edited /etc/launchd.conf with the following
+# limit maxfiles 16384 16384
+# limit maxproc 2048 2048
+ulimit -S -n 16384
+ulimit -S -u 2048
