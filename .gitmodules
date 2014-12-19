@@ -144,3 +144,6 @@
 [submodule "bundle/clojureStatic"]
 	path = bundle/clojureStatic
 	url = https://github.com/guns/vim-clojure-static.git
+[submodule "matchit"]
+	path = bundle/matchit
+	url = https://github.com/tmhedberg/matchit.git
