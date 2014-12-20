@@ -131,13 +131,6 @@ function! ClosureIt()
     match OverLength /\%>80v.\+/
 endfunction
 
-" check for jsx using settings set by vim-jsx
-function! JsxIt()
-    if g:jsx_pragma_required && b:jsx_pragma_found
-        let b:syntastic_checkers=['jsxhint']
-    endif
-endfunction
-
 " Ignore camelCase words when spell checking
 fun! IgnoreCamelCaseSpell()
   syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
@@ -162,9 +155,9 @@ autocmd BufRead,BufNewFile * :call IgnoreCamelCaseSpell()
 augroup JavscriptG
   autocmd!
   autocmd BufRead *.js normal zR
-  autocmd BufNewFile,BufReadPost *.js,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl call TwoSpace()
-  autocmd BufNewFile,BufReadPost *.js call ClosureIt()
-  autocmd BufNewFile,BufReadPost *.js call JsxIt()
+  autocmd BufNewFile,BufReadPost *.js,*.jsx,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl call TwoSpace()
+  autocmd BufNewFile,BufReadPost *.js,*.jsx call ClosureIt()
+  autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['jsxhint']
   autocmd BufNewFile,BufReadPost *.json set filetype=json
   autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
 augroup END
