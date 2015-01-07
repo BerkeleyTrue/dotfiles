@@ -131,6 +131,13 @@ function! ClosureIt()
     match OverLength /\%>80v.\+/
 endfunction
 
+function! KS()
+    set listchars=tab:  ,trail:.,extends:#,nbsp:. "mark whitespace"
+    set noexpandtab
+    let g:syntastic_javascript_checkers = ['jsxhint']
+endfunction
+command! KS call KS()
+
 " Ignore camelCase words when spell checking
 fun! IgnoreCamelCaseSpell()
   syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
@@ -151,6 +158,14 @@ augroup Text
 augroup END
 
 autocmd BufRead,BufNewFile * :call IgnoreCamelCaseSpell()
+
+" Delete trailing white space on write
+func! DeleteTrailingWS()
+exe "normal mz"
+%s/\s\+$//ge
+exe "normal `z"
+endfunc
+autocmd BufWrite * :call DeleteTrailingWS()
 
 augroup JavscriptG
   autocmd!
