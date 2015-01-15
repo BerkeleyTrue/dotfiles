@@ -80,7 +80,7 @@ alias gpull='git pull'
 alias gadd='git add'
 alias gdiff='git diff'
 alias gcom='git commit'
-alias gamend='git commit --ammend'
+alias gamend='git commit --amend'
 alias glog='git log'
 alias gbranch='git co -b'
 
