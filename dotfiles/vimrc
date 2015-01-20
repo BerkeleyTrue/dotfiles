@@ -11,13 +11,13 @@ set ambiwidth = "single"
 set autoindent           " always set autoindenting on
 set copyindent           " copy the previous indentation on autoindenting
 set rnu                  " always show line numbers
-set number
+set number               " hybrid mode numbers
+set synmaxcol=512        " prevent long lines from hanging vim
 set shiftwidth=4         " number of spaces to use for autoindenting
 set shiftround           " use multiple of shiftwidth when indenting with "<" and ">""
 set showmatch            " set show matching parenthesis
 set ignorecase           " ignore case when searching
-set smartcase            " ignore case if search pattern is all lowercase, case-sensitive otherwise
-set smarttab             " insert tabs on the start of a line according to shiftwidth, not tabstop
+set smartcase            " ignore case if search pattern is all lowercase, case-sensitive otherwise set smarttab             " insert tabs on the start of a line according to shiftwidth, not tabstop
 set hlsearch             " highlight search terms
 set incsearch            " show search matches as you type"
 set history=1000         " remember more commands and search history
@@ -35,6 +35,8 @@ set expandtab
 
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:. "mark whitespace"
+
+set scrolloff=120  " Total LoC visible on screen divided by 2 or higher. i.e. keep cursor at mid screen
 
 " Leader Key to ","
 let mapleader=","
@@ -66,6 +68,9 @@ nnoremap tt :tabedit<Space>
 nnoremap tn :tabnew<CR>:NERDTree<CR>
 nnoremap tm :tabm<Space>
 nnoremap td :tabclose<CR>
+
+" make Q save and quite
+nnoremap <silent> Q ZZ
 
 " Change snipmate trigger to ,Tab
 " Makes it compatible with tab completion
