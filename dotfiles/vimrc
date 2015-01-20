@@ -10,7 +10,8 @@ set encoding=utf-8
 set ambiwidth = "single"
 set autoindent           " always set autoindenting on
 set copyindent           " copy the previous indentation on autoindenting
-set number               " always show line numbers
+set rnu                  " always show line numbers
+set number
 set shiftwidth=4         " number of spaces to use for autoindenting
 set shiftround           " use multiple of shiftwidth when indenting with "<" and ">""
 set showmatch            " set show matching parenthesis
@@ -107,7 +108,7 @@ let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-let g:syntastic_javascript_jscs_args = '--esprima=esprima-fb'
+let g:syntastic_javascript_jscs_args = '--esprima=esprima-fb --esnext'
 
 " Snipmate Settings
 let g:snipMate = {}
@@ -232,6 +233,12 @@ augroup StartIt
   autocmd!
   autocmd BufNewFile,BufReadPost *.vimrc call TwoSpace()
   autocmd VimEnter * call StartUp()
+
+  autocmd FocusLost * set nornu
+  autocmd FocusGained * set rnu
+
+  autocmd InsertEnter * set nornu
+  autocmd InsertLeave * set rnu
 augroup END
 
 " Alias :UndotreeToggle to ent
@@ -262,6 +269,7 @@ map <Leader>l <Plug>(easymotion-lineforward)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
+
 
 " Vim Airline
 set laststatus=2
