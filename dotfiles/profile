@@ -83,6 +83,8 @@ alias gcom='git commit'
 alias gamend='git commit --amend'
 alias glog='git log'
 alias gbranch='git co -b'
+# should only be used for capitalization changes in osx
+alias grename='git mv --force'
 
 #npmls now returns top level npm modules
 function npmls() {
