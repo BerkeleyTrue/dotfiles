@@ -112,7 +112,7 @@ let g:jshint_highlight_color ="Red"
 let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_jscs_args = '--esprima=esprima-fb --esnext'
 
 " Snipmate Settings
@@ -179,9 +179,10 @@ augroup JavscriptG
   autocmd BufRead *.js normal zR
   autocmd BufNewFile,BufReadPost *.js,*.jsx,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl call TwoSpace()
   autocmd BufNewFile,BufReadPost *.js,*.jsx call ClosureIt()
-  autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['jsxhint', 'jscs']
+  autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['eslint']
   autocmd BufNewFile,BufReadPost *.jshintrc set filetype=json
   autocmd BufNewFile,BufReadPost *.jscsrc set filetype=json
+  autocmd BufNewFile,BufReadPost *.eslintrc set filetype=json
   autocmd BufNewFile,BufReadPost *.json set filetype=json
   autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
 augroup END
