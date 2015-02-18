@@ -93,9 +93,6 @@
 [submodule "bundle/vimScriptLint"]
 	path = bundle/vimScriptLint
 	url = https://github.com/dbakker/vim-lint.git
-[submodule "bundle/javascript"]
-	path = bundle/javascript
-	url = https://github.com/berkeleytrue/vim-javascript-syntax
 [submodule "bundle/nerdCommenter"]
 	path = bundle/nerdCommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
@@ -147,3 +144,6 @@
 [submodule "matchit"]
 	path = bundle/matchit
 	url = https://github.com/tmhedberg/matchit.git
+[submodule "bundle/vim-javascript"]
+	path = bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
