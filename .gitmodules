@@ -147,3 +147,6 @@
 [submodule "bundle/vim-javascript"]
 	path = bundle/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
+[submodule "bundle/scrollfix"]
+	path = bundle/scrollfix
+	url = https://github.com/vim-scripts/scrollfix.git

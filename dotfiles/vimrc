@@ -36,8 +36,6 @@ set expandtab
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:. "mark whitespace"
 
-set scrolloff=120  " Total LoC visible on screen divided by 2 or higher. i.e. keep cursor at mid screen
-
 " Leader Key to ","
 let mapleader=","
 
@@ -349,3 +347,8 @@ function! RotateWindowsFunc()
   wincmd H
 endfunction
 command! RotateWindow call RotateWindowsFunc()
+
+" set scrollfix
+" Keeps cursor in middle of the screen always.
+let g:scrollfix=50
+let g:fixeof=0
