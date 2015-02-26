@@ -150,3 +150,6 @@
 [submodule "bundle/scrollfix"]
 	path = bundle/scrollfix
 	url = https://github.com/vim-scripts/scrollfix.git
+[submodule "bundle/ag"]
+	path = bundle/ag
+	url = https://github.com/rking/ag.vim.git
