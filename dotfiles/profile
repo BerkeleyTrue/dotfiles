@@ -102,5 +102,6 @@ function mkncd() {
 # Edited /etc/launchd.conf with the following
 # limit maxfiles 16384 16384
 # limit maxproc 2048 2048
-ulimit -S -n 16384
-ulimit -S -u 2048
+# currently not working in Yosemite
+# ulimit -S -n 16384
+# ulimit -S -u 2048
