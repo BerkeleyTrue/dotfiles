@@ -170,7 +170,7 @@ exe "normal mz"
 %s/\s\+$//ge
 exe "normal `z"
 endfunc
-" autocmd BufWrite * :call DeleteTrailingWS()
+autocmd BufWrite * :call DeleteTrailingWS()
 
 augroup JavscriptG
   autocmd!
