@@ -23,9 +23,9 @@ While in your home directory enter the following,
 
 ```bash
 ln -s ~/.vim/dotfiles/vimrc ~/.vimrc
-ln -s ~/dotfiles/profile ~/.profile
-ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/jshintrc ~/.jshintrc
+ln -s ~/.vim/dotfiles/profile ~/.profile
+ln -s ~/.vim/dotfiles/tmux.conf ~/.tmux.conf
+ln -s ~/.vim/dotfiles/jshintrc ~/.jshintrc
 ```
 
 This will create symbolic links in the home dir for vim and bash.
