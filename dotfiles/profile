@@ -69,6 +69,7 @@ alias mtr='meteor'
 
 #quickmoves
 alias cdnode='cd ~/node'
+alias cdf='cd ~/node/freecodecamp/actual'
 alias cdr3d='cd ~/node/r3dm'
 alias cdloop='cd ~/node/loopback'
 alias cdgems='cd ~/node/loopback/gems'
@@ -97,6 +98,44 @@ function mkncd() {
   cd $_
 }
 
+# Fetch PRs from Git
+# example: fetch_pr 123 branch-name origin
+function fetch_pr() {
+  PR=$1
+  BRANCH=$2
+  REMOTE=$3
+
+  if [ -z $PR ]; then
+    echo "Missing pull request number"
+    return 1
+  fi
+
+  if [ -z $BRANCH ]; then
+    BRANCH="pr-$PR"
+  fi
+
+  if [ -z $REMOTE ]; then
+    REMOTE="origin"
+  fi
+
+  git fetch $REMOTE pull/$PR/head:$BRANCH
+  git checkout $BRANCH
+}
+
+function merge-pr() {
+  PR=$1
+  BRANCH=$2
+  REMOTE=$3
+
+  fetch_pr $PR $BRANCH $3
+  git fetch $REMOTE
+  git rebase $REMOTE/master
+  git push $REMOTE $BRANCH/$BRANCH
+}
+
+# Node exports
+# increases number of cores node-gyp uses when building
+export JOBS=max
 # hitting file limit with browserify in some cases this fixes that
 # ulimit -S -n 2048 This no longer seems to work.
 # Edited /etc/launchd.conf with the following
