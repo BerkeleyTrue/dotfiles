@@ -156,3 +156,9 @@
 [submodule "bundle/vim-multiple-cursors"]
 	path = bundle/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors.git
+[submodule "bundle/vim-instance-d"]
+	path = bundle/vim-instance-d
+	url = https://github.com/suan/vim-instant-markdown.git
+[submodule "bundle/BufOnly.vim"]
+	path = BufOnly.vim
+	url = https://github.com/vim-scripts/BufOnly.vim.git
