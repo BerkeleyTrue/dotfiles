@@ -383,4 +383,4 @@ vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
 nnoremap <leader>em :ElmMakeCurrentFile<CR>
 
 " Nginx
-au BufRead,BufNew *.nginx.conf if &ft == '' | setfiletype nginx | endif
+au BufRead,BufNew *.nginx.conf set filetype=nginx
