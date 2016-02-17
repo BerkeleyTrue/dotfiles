@@ -162,3 +162,9 @@
 [submodule "bundle/BufOnly.vim"]
 	path = BufOnly.vim
 	url = https://github.com/vim-scripts/BufOnly.vim.git
+[submodule "bundle/elm"]
+	path = bundle/elm
+	url = https://github.com/lambdatoast/elm.vim.git
+[submodule "bundle/nginx-vim-syntax"]
+	path = bundle/nginx-vim-syntax
+	url = https://github.com/evanmiller/nginx-vim-syntax.git
