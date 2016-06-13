@@ -51,7 +51,7 @@ This will initialize and download the submodules into
 And to update submodules after some time passes
 
 ```bash
-git submodule foreach git push origin master
+git submodule foreach git pull
 ```
 
 To add your own vim plugins follow the following formula:
