@@ -32,6 +32,8 @@ set spell
 set mouse=nicr
 setlocal spell spelllang=en_us
 set expandtab
+" required by tern
+set completeopt-=preview
 
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:. "mark whitespace"
@@ -159,13 +161,6 @@ function! ClosureIt()
     match OverLength /\%>80v.\+/
 endfunction
 
-function! KS()
-    set listchars=tab:  ,trail:.,extends:#,nbsp:. "mark whitespace"
-    set noexpandtab
-    let g:syntastic_javascript_checkers = ['jsxhint', 'jscs']
-endfunction
-command! KS call KS()
-
 " Ignore camelCase words when spell checking
 fun! IgnoreCamelCaseSpell()
   syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
@@ -197,16 +192,19 @@ endfunc
 command! DeleteTrailing call DeleteTrailingWS()
 
 augroup JavscriptG
-  autocmd!
-  autocmd BufRead *.js normal zR
-  autocmd BufNewFile,BufReadPost *.js,*.jsx,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl call TwoSpace()
-  autocmd BufNewFile,BufReadPost *.js,*.jsx call ClosureIt()
-  autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['eslint']
-  autocmd BufNewFile,BufReadPost *.jshintrc set filetype=json
-  autocmd BufNewFile,BufReadPost *.jscsrc set filetype=json
-  autocmd BufNewFile,BufReadPost *.eslintrc set filetype=json
-  autocmd BufNewFile,BufReadPost *.json set filetype=json
-  autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
+    autocmd!
+    autocmd BufRead *.js normal zR
+    autocmd BufNewFile,BufReadPost *.js,*.jsx,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl call TwoSpace()
+    autocmd BufNewFile,BufReadPost *.js,*.jsx call ClosureIt()
+    autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['eslint']
+    autocmd BufNewFile,BufReadPost *.jshintrc set filetype=json
+    autocmd BufNewFile,BufReadPost *.jscsrc set filetype=json
+    autocmd BufNewFile,BufReadPost *.eslintrc set filetype=json
+    autocmd BufNewFile,BufReadPost *.json set filetype=json
+    autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
+    " tern setup
+    autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+    autocmd BufNewFile,BufReadPost *.jsx let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 augroup END
 
 " Parentheses colours using Solarized
