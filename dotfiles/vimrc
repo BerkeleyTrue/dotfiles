@@ -205,6 +205,9 @@ augroup JavscriptG
     " tern setup
     autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
     autocmd BufNewFile,BufReadPost *.jsx let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+    " vim-bbye shortcut
+    " closes the buffer
+    nnoremap <Leader>q :Bdelete<CR>
 augroup END
 
 " Parentheses colours using Solarized
