@@ -32,8 +32,6 @@ set spell
 set mouse=nicr
 setlocal spell spelllang=en_us
 set expandtab
-" required by tern
-set completeopt-=preview
 
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:. "mark whitespace"
@@ -202,9 +200,6 @@ augroup JavscriptG
     autocmd BufNewFile,BufReadPost *.eslintrc set filetype=json
     autocmd BufNewFile,BufReadPost *.json set filetype=json
     autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
-    " tern setup
-    autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-    autocmd BufNewFile,BufReadPost *.jsx let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
     " vim-bbye shortcut
     " closes the buffer
     nnoremap <Leader>q :Bdelete<CR>
