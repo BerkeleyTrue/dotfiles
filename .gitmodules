@@ -1,9 +1,6 @@
 [submodule "bundle/delmitmate"]
 	path = bundle/delmitmate
 	url = git://github.com/Raimondi/delimitMate.git
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = git://github.com/ervandew/supertab.git
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
@@ -13,10 +10,6 @@
 [submodule "bundle/vimRepress"]
 	path = bundle/vimRepress
 	url = git://github.com/vim-scripts/VimRepress.git
-[submodule "bundle/OminCppComplete"]
-	path = bundle/OminCppComplete
-	url = git://github.com/vim-scripts/OmniCppComplete.git
-    ignore = dirty
 [submodule "bundle/coffee-script"]
 	path = bundle/coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
