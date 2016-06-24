@@ -192,7 +192,7 @@ command! DeleteTrailing call DeleteTrailingWS()
 augroup JavscriptG
     autocmd!
     autocmd BufRead *.js normal zR
-    autocmd BufNewFile,BufReadPost *.js,*.jsx,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl call TwoSpace()
+    autocmd BufNewFile,BufReadPost *.js,*.jsx,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl,*.less call TwoSpace()
     autocmd BufNewFile,BufReadPost *.js,*.jsx call ClosureIt()
     autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['eslint']
     autocmd BufNewFile,BufReadPost *.jshintrc set filetype=json
