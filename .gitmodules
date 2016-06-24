@@ -7,12 +7,6 @@
 [submodule "bundle/vim-latex"]
 	path = bundle/vim-latex
 	url = git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex
-[submodule "bundle/vimRepress"]
-	path = bundle/vimRepress
-	url = git://github.com/vim-scripts/VimRepress.git
-[submodule "bundle/coffee-script"]
-	path = bundle/coffee-script
-	url = git://github.com/kchmck/vim-coffee-script.git
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
@@ -28,9 +22,6 @@
 [submodule "bundle/nodejs"]
 	path = bundle/nodejs
 	url = https://github.com/moll/vim-node.git
-[submodule "bundle/backbonejs"]
-	path = bundle/backbonejs
-	url = https://github.com/mklabs/vim-backbone.git
 [submodule "bundle/jade"]
 	path = bundle/jade
 	url = https://github.com/digitaltoad/vim-jade.git
@@ -43,9 +34,6 @@
 [submodule "bundle/snippets"]
 	path = bundle/snippets
 	url = https://github.com/honza/vim-snippets.git
-[submodule "bundle/mustache-handlebars"]
-	path = bundle/mustache-handlebars
-	url = https://github.com/mustache/vim-mustache-handlebars.git
 [submodule "bundle/stylus"]
 	path = bundle/stylus
 	url = https://github.com/wavded/vim-stylus.git
@@ -89,18 +77,12 @@
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "bundle/jsBeautify"]
-	path = bundle/jsBeautify
-	url = https://github.com/maksimr/vim-jsbeautify.git
 [submodule "bundle/nodjeSnippets"]
 	path = bundle/nodjeSnippets
 	url = https://github.com/jamescarr/snipmate-nodejs.git
 [submodule "bundle/easyMotion"]
 	path = bundle/easyMotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
-[submodule "bundle/angular-snippets"]
-	path = bundle/angular-snippets
-	url = https://github.com/BerkeleyTrue/angular-vim-snippets.git
 [submodule "bundle/indentLine"]
 	path = bundle/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
@@ -110,9 +92,6 @@
 [submodule "bundle/jsx"]
 	path = bundle/jsx
 	url = https://github.com/mxw/vim-jsx.git
-[submodule "bundle/jsdoc-snippets"]
-	path = bundle/jsdoc-snippets
-	url = https://github.com/BerkeleyTrue/vim-jsdoc-snippets.git
 [submodule "bundle/json"]
 	path = bundle/json
 	url = https://github.com/elzr/vim-json.git
