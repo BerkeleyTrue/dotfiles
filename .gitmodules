@@ -149,3 +149,6 @@
 [submodule "bundle/youcompleteme"]
 	path = bundle/youcompleteme
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
