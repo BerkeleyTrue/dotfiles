@@ -93,11 +93,6 @@ nnoremap td :tabclose<CR>
 " make Q save and quite
 nnoremap <silent> Q ZZ
 
-" Change snipmate trigger to ,Tab
-" Makes it compatible with tab completion
-imap <leader><tab> <Plug>snipMateNextOrTrigger
-smap <leader><tab> <Plug>snipMateNextOrTrigger
-
 " Turns on plugins
 filetype plugin on
 
@@ -135,11 +130,6 @@ let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]"]
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_jscs_args = '--esprima=esprima-fb --esnext'
-
-" Snipmate Settings
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['jsx'] = 'javascript,jsx'
 
 " Set tabs to two spaces
 function! TwoSpace()
