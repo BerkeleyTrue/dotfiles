@@ -370,3 +370,55 @@ nnoremap <leader>em :ElmMakeCurrentFile<CR>
 
 " Nginx
 au BufRead,BufNew *.nginx.conf set filetype=nginx
+
+" youcompleteme
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>'] " Removed the default of <tab>
+
+" Thanks to @iansinnott for the following
+" UltiSnips
+" ------------------------------------------------------------------------------
+" Note: These commands are currenlty never used directly. The Tab Key mapping
+" takes care of calling these key mappings indirectly so all you have to do is
+let g:UltiSnipsExpandTrigger = "<c-w>"
+let g:UltiSnipsJumpForwardTrigger = "<c-w>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" The Tab Key (implementation)
+" ============================
+"
+" Allow tab to expand snippets, jump through snippets, cycle through
+" autocompletions and of course insert an actual tab (all in that order). See
+" this for more:
+" http://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme
+function! TheTabKey()
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    call UltiSnips#JumpForwards()
+    if g:ulti_jump_forwards_res == 0
+       return pumvisible() ? "\<c-n>" : "\<tab>"
+    endif
+  endif
+  return ""
+endfunction
+" Much like the above function but used exclusively in visual mode. The reason
+" for this is that Vim places you in visual mode when you are over a portion of
+" a snippet that's meant to be edited. The result is that we must map this to
+" <tab> in visual mode as well as mapping the above function in insert mode
+function! TheVisualTabKey()
+  call UltiSnips#JumpForwards()
+  return (g:ulti_jump_forwards_res == 0) ? "\<tab>" : ""
+endfunction
+" The Tab Key (mapping)
+" =====================
+"
+" Add conditional tab functionality like you would expect from any modern text
+" editor. This implementation depends on ultisnips for snippets and jumping
+" through placeholders in snippets.
+"
+" Note: <C-R>= is an interesting mapping that allows you to insert the result of
+" evaluating a vimscript expressiong (which can also be a function). To get a
+" really quick overview of what <C-R>= does, just type it while in insert mode.
+" You will be put on the Vim command line with a new prompt '='. Then type
+" something simple like 2 + 2. The result of the expression (4 in this case)
+" will be inserted at the cursor position and you will still be in insert mode.
+inoremap <silent> <tab> <C-R>=TheTabKey()<cr>
+vnoremap <expr><silent> <tab> TheVisualTabKey()
