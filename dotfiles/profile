@@ -49,11 +49,12 @@ alias ejshint='vim ~/.jshintrc'
 
 #bash completion
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-	.  /opt/local/etc/profile.d/bash_completion.sh
+    .  /opt/local/etc/profile.d/bash_completion.sh
 fi
 
 #node aliases
 alias npmig='sudo npm install -g'
+alias npmug='sudo npm uninstall -g'
 alias npmid='npm install --save-dev'
 alias npmis='npm install --save'
 alias promises='promise-it-wont-hurt'
