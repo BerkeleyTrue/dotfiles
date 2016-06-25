@@ -182,13 +182,12 @@ command! DeleteTrailing call DeleteTrailingWS()
 augroup JavscriptG
     autocmd!
     autocmd BufRead *.js normal zR
-    autocmd BufNewFile,BufReadPost *.js,*.jsx,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl,*.less call TwoSpace()
-    autocmd BufNewFile,BufReadPost *.js,*.jsx call ClosureIt()
-    autocmd BufNewFile,BufReadPost *.jsx let b:syntastic_checkers=['eslint']
-    autocmd BufNewFile,BufReadPost *.jshintrc set filetype=json
-    autocmd BufNewFile,BufReadPost *.jscsrc set filetype=json
-    autocmd BufNewFile,BufReadPost *.eslintrc set filetype=json
-    autocmd BufNewFile,BufReadPost *.json set filetype=json
+    autocmd BufNewFile,BufReadPost *.js,*.jsx,*.example,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl,*.less call TwoSpace()
+    autocmd BufNewFile,BufReadPost *.js,*.jsx,*.example call ClosureIt()
+    autocmd BufNewFile,BufReadPost *.jsx,*.example let b:syntastic_checkers=['eslint']
+    autocmd BufNewFile,BufReadPost *.json,*.eslintrc set filetype=json
+    autocmd BufNewFile,BufReadPost *.example set filetype=javascript.jsx
+    autocmd BufNewFile,BufReadPost *.example set syntax=javascript.jsx
     autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
     " vim-bbye shortcut
     " closes the buffer
