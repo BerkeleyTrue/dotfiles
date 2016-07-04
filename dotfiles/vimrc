@@ -185,7 +185,7 @@ augroup JavscriptG
     autocmd BufNewFile,BufReadPost *.js,*.jsx,*.example,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl,*.less call TwoSpace()
     autocmd BufNewFile,BufReadPost *.js,*.jsx,*.example call ClosureIt()
     autocmd BufNewFile,BufReadPost *.jsx,*.example let b:syntastic_checkers=['eslint']
-    autocmd BufNewFile,BufReadPost *.json,*.eslintrc set filetype=json
+    autocmd BufNewFile,BufReadPost *.json,*.eslintrc,*.babelrc set filetype=json
     autocmd BufNewFile,BufReadPost *.example set filetype=javascript.jsx
     autocmd BufNewFile,BufReadPost *.example set syntax=javascript.jsx
     autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable "Auto collapse by indentation"
