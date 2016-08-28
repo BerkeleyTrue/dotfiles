@@ -194,6 +194,11 @@ augroup JavscriptG
     nnoremap <Leader>q :Bdelete<CR>
 augroup END
 
+augroup ClojureGroup
+    " this one is which you're most likely to use?
+    autocmd BufRead,BufNewFile build.boot,*.cljs.edn set filetype=cljs
+augroup end
+
 " Parentheses colours using Solarized
 let g:rbpt_colorpairs = [
   \ [ '13', '#6c71c4'],
