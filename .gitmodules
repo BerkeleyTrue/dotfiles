@@ -31,9 +31,6 @@
 [submodule "bundle/tlib"]
 	path = bundle/tlib
 	url = https://github.com/tomtom/tlib_vim.git
-[submodule "bundle/snippets"]
-	path = bundle/snippets
-	url = https://github.com/honza/vim-snippets.git
 [submodule "bundle/stylus"]
 	path = bundle/stylus
 	url = https://github.com/wavded/vim-stylus.git
