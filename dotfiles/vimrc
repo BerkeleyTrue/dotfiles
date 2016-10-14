@@ -426,3 +426,16 @@ endfunction
 " will be inserted at the cursor position and you will still be in insert mode.
 inoremap <silent> <tab> <C-R>=TheTabKey()<cr>
 vnoremap <expr><silent> <tab> TheVisualTabKey()
+
+
+" Emmet in html/css/jsx
+let g:user_emmet_install_global=0
+autocmd FileType html,css,javascript.jsx EmmetInstall
+" Use single qutoes for Emmet (boom!)
+let g:user_emmet_settings = {
+\  'html' : {
+\    'quote_char': "'",
+\  },
+\}
+" Map emmet to a new key
+imap <leader><tab> <plug>(emmet-expand-abbr)
