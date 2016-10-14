@@ -152,3 +152,6 @@
 [submodule "bundle/vim-fireplace"]
 	path = bundle/vim-fireplace
 	url = https://github.com/tpope/vim-fireplace.git
+[submodule "bundle/emmet-vim"]
+	path = bundle/emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
