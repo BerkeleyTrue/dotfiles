@@ -155,3 +155,6 @@
 [submodule "bundle/emmet-vim"]
 	path = bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
+[submodule "bundle/vim-match-tag-always"]
+	path = bundle/vim-match-tag-always
+	url = https://github.com/Valloric/MatchTagAlways
