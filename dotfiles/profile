@@ -43,23 +43,11 @@ alias npmig='sudo npm install -g'
 alias npmug='sudo npm uninstall -g'
 alias npmid='npm install --save-dev'
 alias npmis='npm install --save'
-alias promises='promise-it-wont-hurt'
-alias async='async-you'
-alias funcjs='functional-javascript-workshop'
-alias browAdv='browserify-adventure'
-alias lbng='lb-ng'
-alias lbngdoc='sudo lb-ng-doc'
-alias 2styl='sass2stylus'
-alias debug='NODE_ENV=development slc debug'
-alias streamadv='stream-adventure'
-alias mtr='meteor'
 
 #quickmoves
 alias cdnode='cd ~/node'
 alias cdf='cd ~/node/freecodecamp/actual'
 alias cdr3d='cd ~/node/r3dm'
-alias cdloop='cd ~/node/loopback'
-alias cdgems='cd ~/node/loopback/gems'
 
 #git aliases
 alias gstat='git status'
