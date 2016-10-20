@@ -33,10 +33,10 @@ alias v='vim'
 alias tmux="TERM=screen-256color-bce tmux"
 
 #quick edits
-alias eprof='vim ~/.profile'
-alias sprof='source ~/.profile'
-alias evimrc='vim ~/.vimrc'
-alias elint='vim ~/.eslintrc'
+alias vprofile='vim ~/.profile'
+alias sprofile='source ~/.profile'
+alias vvimrc='vim ~/.vimrc'
+alias vlint='vim ~/.eslintrc'
 
 #node aliases
 alias npmig='sudo npm install -g'
