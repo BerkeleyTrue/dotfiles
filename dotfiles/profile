@@ -43,11 +43,15 @@ alias npmig='sudo npm install -g'
 alias npmug='sudo npm uninstall -g'
 alias npmid='npm install --save-dev'
 alias npmis='npm install --save'
+alias npms='npm run start'
+alias npmt='npm run test'
+alias npml='npm run lint'
 
 #quickmoves
 alias cdnode='cd ~/node'
 alias cdf='cd ~/node/freecodecamp/actual'
-alias cdr3d='cd ~/node/r3dm'
+alias cdrt='cd ~/node/react'
+alias cdrdx='cd ~/node/redux'
 
 #git aliases
 alias gstat='git status'
