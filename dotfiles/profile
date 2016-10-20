@@ -59,7 +59,8 @@ alias cdrdx='cd ~/node/redux'
 
 #git aliases
 alias gstat='git status'
-alias gpush='git push -u'
+alias gpush='git push'
+alias gpushntrack='git push -u'
 alias gpull='git pull'
 alias gadd='git add'
 alias gdiff='git diff'
