@@ -83,6 +83,12 @@ alias grsts1='git reset --soft HEAD^'
 alias grsts2='git reset --soft HEAD^^'
 alias gstash='git stash'
 alias gstashls='git stash list'
+gclone() {
+  # Will clone a repo into a new dir as the second arg
+  git clone $1 $2
+  # and it will cd into the newly created repo dir
+  cd ${2:-$(basename $1 .git)}
+}
 # should only be used for capitalization changes in osx
 alias grename='git mv --force'
 
