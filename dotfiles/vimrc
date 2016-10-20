@@ -108,8 +108,14 @@ let g:Tex_DefaultTargetFormat="pdf"
 let g:Tex_ViewRule_pdf="preview"
 set grepprg=grep\ -nH\ $*
 
-" Solarized Settings
-set background=light
+" Use light theme between 6AM to 5PM
+" Otherwise use dark
+let hour = strftime("%H")
+if 6 <= hour && hour < 18
+  set background=light
+else
+  set background=dark
+endif
 " This Sets Solarized theme values in VIM
 "let g:solarized_termtrans=1
 let g:solarized_termcolors=256
