@@ -117,10 +117,10 @@ else
   set background=dark
 endif
 " This Sets Solarized theme values in VIM
-"let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-"let g:solarized_contrast="high"
-"let g:solarized_visibility="high"
+let g:solarized_termtrans=1
+" let g:solarized_termcolors=256
+" let g:solarized_contrast="high"
+" let g:solarized_visibility="high"
 
 "Set vim Colorscheme
 colorscheme solarized
@@ -445,6 +445,10 @@ let g:user_emmet_settings = {
 \}
 " Map emmet to a new key
 imap <leader><tab> <plug>(emmet-expand-abbr)
+" self closing tag
+" foo/<leader><tab> => <foo />
+" does not work yet with non-closing html5 tags like <img>
+imap /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
 
 " MatchTagAlways
 let g:mta_filetypes = {
