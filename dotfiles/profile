@@ -28,16 +28,7 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
 
 alias :mongo='mongod --dbpath ~/data/db' # Starts MongoDB server
 alias ..='cd ..'
-alias ~='cd ~'
-alias :port='sudo port install'
-alias berkeleybone='ssh -t berkeley@beaglebone.local "screen -dRR"'
-alias rootbone='ssh -t root@beaglebone.local "screen -dRR"'
-alias :nano='sudo nano'
-alias :bone='screen -dRR /dev/tty.usbserial-*B 115200'
 alias ll='ls -aFl'
-alias :update='sudo port selfupdate'
-alias :amazon='ssh -i ~/privatekey/AmazonUbuntu1310.pem ubuntu@54.201.198.3'
-alias sqlite='sqlite3'
 alias v='vim'
 alias tmux="TERM=screen-256color-bce tmux"
 
@@ -45,12 +36,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 alias eprof='vim ~/.profile'
 alias sprof='source ~/.profile'
 alias evimrc='vim ~/.vimrc'
-alias ejshint='vim ~/.jshintrc'
-
-#bash completion
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-    .  /opt/local/etc/profile.d/bash_completion.sh
-fi
+alias elint='vim ~/.eslintrc'
 
 #node aliases
 alias npmig='sudo npm install -g'
@@ -88,60 +74,17 @@ alias gbranch='git co -b'
 # should only be used for capitalization changes in osx
 alias grename='git mv --force'
 
-#npmls now returns top level npm modules
-function npmls() {
-  npm ls --depth=0 "$@" 2>/dev/null
-}
-
 #Makes and CD's to a new directoy.
 function mkncd() {
   mkdir $1
   cd $_
 }
 
-# Fetch PRs from Git
-# example: fetch_pr 123 branch-name origin
-function fetch_pr() {
-  PR=$1
-  BRANCH=$2
-  REMOTE=$3
-
-  if [ -z $PR ]; then
-    echo "Missing pull request number"
-    return 1
-  fi
-
-  if [ -z $BRANCH ]; then
-    BRANCH="pr-$PR"
-  fi
-
-  if [ -z $REMOTE ]; then
-    REMOTE="origin"
-  fi
-
-  git fetch $REMOTE pull/$PR/head:$BRANCH
-  git checkout $BRANCH
-}
-
-function merge-pr() {
-  PR=$1
-  BRANCH=$2
-  REMOTE=$3
-
-  fetch_pr $PR $BRANCH $3
-  git fetch $REMOTE
-  git rebase $REMOTE/master
-  git push $REMOTE $BRANCH/$BRANCH
-}
-
 # Node exports
 # increases number of cores node-gyp uses when building
 export JOBS=max
-# hitting file limit with browserify in some cases this fixes that
-# ulimit -S -n 2048 This no longer seems to work.
-# Edited /etc/launchd.conf with the following
-# limit maxfiles 16384 16384
-# limit maxproc 2048 2048
-# currently not working in Yosemite
-# ulimit -S -n 16384
-# ulimit -S -u 2048
+
+#bash completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+    .  /opt/local/etc/profile.d/bash_completion.sh
+fi
