@@ -158,3 +158,6 @@
 [submodule "bundle/vim-match-tag-always"]
 	path = bundle/vim-match-tag-always
 	url = https://github.com/Valloric/MatchTagAlways
+[submodule "bundle/vim-move"]
+	path = bundle/vim-move
+	url = https://github.com/matze/vim-move.git

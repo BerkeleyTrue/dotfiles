@@ -74,6 +74,8 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nnoremap j gj
 nnoremap k gk
 
+" Turn of default <C-j> binding
+let g:BASH_Ctrl_j = 'off'
 " Easy window navigation
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -458,3 +460,18 @@ let g:mta_filetypes = {
 \ 'javascript.jsx' : 1,
 \}
 let g:mta_use_matchparen_group = 0
+
+" Make OSX alt key compatible with vim
+" Now alt will work as expected with vim-move
+nmap ˙ <A-h>
+nmap ∆ <A-j>
+nmap ˚ <A-k>
+nmap ¬ <A-l>
+imap ˙ <A-h>
+imap ∆ <A-j>
+imap ˚ <A-k>
+imap ¬ <A-l>
+vmap ˙ <A-h>
+vmap ∆ <A-j>
+vmap ˚ <A-k>
+vmap ¬ <A-l>
