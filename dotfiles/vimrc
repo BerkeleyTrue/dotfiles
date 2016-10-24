@@ -475,3 +475,7 @@ vmap ˙ <A-h>
 vmap ∆ <A-j>
 vmap ˚ <A-k>
 vmap ¬ <A-l>
+
+" Unbind K
+" I never use this and I keep hitting K accidentally
+map <S-k> <Nop>
