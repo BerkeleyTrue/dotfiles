@@ -43,6 +43,8 @@ let mapleader=","
 inoremap jj <ESC>
 inoremap kk <ESC>
 
+" Remove all hightlighting
+nnoremap <Leader>rh :noh<cr>
 " Highlight all instances of word under cursor, when idle.
 " Useful when studying strange source code.
 " Type z/ to toggle highlighting on/off.
@@ -110,18 +112,11 @@ let g:Tex_DefaultTargetFormat="pdf"
 let g:Tex_ViewRule_pdf="preview"
 set grepprg=grep\ -nH\ $*
 
-" Use light theme between 6AM to 5PM
-" Otherwise use dark
-let hour = strftime("%H")
-if 6 <= hour && hour < 18
-  set background=light
-else
-  set background=dark
-endif
+set background=dark
 " This Sets Solarized theme values in VIM
 let g:solarized_termtrans=1
 " let g:solarized_termcolors=256
-" let g:solarized_contrast="high"
+let g:solarized_contrast="high"
 " let g:solarized_visibility="high"
 
 "Set vim Colorscheme
