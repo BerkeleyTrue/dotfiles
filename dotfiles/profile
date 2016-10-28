@@ -59,9 +59,11 @@ alias cdrdx='cd ~/node/redux'
 
 #git aliases
 alias gstat='git status'
+alias gfetch='git fetch'
 alias gpush='git push'
 alias gpushntrack='git push -u'
 alias gpull='git pull'
+alias grebase='git rebase'
 alias gadd='git add'
 alias gdiff='git diff'
 alias gcom='git commit'
@@ -69,7 +71,6 @@ alias gamend='git commit --amend'
 alias glog='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
 alias glognum='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
 alias gco='git co'
-alias gbranch='git co -b'
 alias gtagls='git describe --tags --abbrev=0'
 alias gtag='git tag -s'
 alias grst='git reset'
@@ -83,6 +84,15 @@ alias grsts1='git reset --soft HEAD^'
 alias grsts2='git reset --soft HEAD^^'
 alias gstash='git stash'
 alias gstashls='git stash list'
+alias grename='git mv --force'
+gbranch() {
+  # given the command `gbranch berks-is-awesome`
+  # creates a new branch `berks-is-awesome`
+  # checks that branch out
+  git co -b $1
+  # this will make the current branch track origin/berks-is-awesome
+  git push -u ${2:-origin} $1
+}
 gclone() {
   # Will clone a repo into a new dir as the second arg
   git clone $1 $2
@@ -90,7 +100,6 @@ gclone() {
   cd ${2:-$(basename $1 .git)}
 }
 # should only be used for capitalization changes in osx
-alias grename='git mv --force'
 
 #Makes and CD's to a new directoy.
 function mkncd() {
