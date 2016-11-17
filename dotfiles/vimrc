@@ -112,16 +112,6 @@ let g:Tex_DefaultTargetFormat="pdf"
 let g:Tex_ViewRule_pdf="preview"
 set grepprg=grep\ -nH\ $*
 
-set background=dark
-" This Sets Solarized theme values in VIM
-let g:solarized_termtrans=1
-" let g:solarized_termcolors=256
-let g:solarized_contrast="high"
-" let g:solarized_visibility="high"
-
-"Set vim Colorscheme
-colorscheme solarized
-
 " Syntastic Settings
 let g:syntastic_mode_map={"mode": "active","active_filetypes": ["vim"],"passive_filetypes": []}"
 let g:syntastic_check_on_open = 1 " Checks file when loaded into buffer
@@ -201,18 +191,6 @@ augroup ClojureGroup
     " this one is which you're most likely to use?
     autocmd BufRead,BufNewFile build.boot,*.cljs.edn set filetype=cljs
 augroup end
-
-" Parentheses colours using Solarized
-let g:rbpt_colorpairs = [
-  \ [ '13', '#6c71c4'],
-  \ [ '5',  '#d33682'],
-  \ [ '1',  '#dc322f'],
-  \ [ '9',  '#cb4b16'],
-  \ [ '3',  '#b58900'],
-  \ [ '2',  '#859900'],
-  \ [ '6',  '#2aa198'],
-  \ [ '4',  '#268bd2'],
-  \ ]
 
 " Enable rainbow parentheses for all buffers
 augroup rainbow_parentheses
