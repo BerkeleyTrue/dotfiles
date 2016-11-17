@@ -41,6 +41,7 @@ alias vprofile='vim ~/.profile'
 alias sprofile='source ~/.profile'
 alias vvimrc='vim ~/.vimrc'
 alias vlint='vim ~/.eslintrc'
+alias vhyper='vim ~/.hyper.js'
 
 #node aliases
 alias npmig='sudo npm install -g'
@@ -56,6 +57,8 @@ alias cdnode='cd ~/node'
 alias cdf='cd ~/node/freecodecamp/actual'
 alias cdrt='cd ~/node/react'
 alias cdrdx='cd ~/node/redux'
+alias cdrwr='cd ~/node/rwr'
+alias cdvim='cd ~/.vim'
 
 #git aliases
 alias gstat='git status'
