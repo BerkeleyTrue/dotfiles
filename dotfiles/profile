@@ -26,10 +26,13 @@ export PATH=$PATH:/usr/local/heroku/bin
 #PostgressApp commands
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
 
+# Make neovim the default editor
+export EDITOR=nvim
+
 alias :mongo='mongod --dbpath ~/data/db' # Starts MongoDB server
 alias ..='cd ..'
 alias ll='ls -aFl'
-alias v='vim'
+alias v='nvim'
 alias tmux="TERM=screen-256color-bce tmux -2"
 alias mkdir="mkdir -pv"
 alias whatismyip="curl http://ipecho.net/plain; echo"
@@ -37,11 +40,12 @@ alias chmodx='chmod 755'
 alias chmodrw='chmod 644'
 
 #quick edits
-alias vprofile='vim ~/.profile'
+alias vprofile='nvim ~/.profile'
 alias sprofile='source ~/.profile'
-alias vvimrc='vim ~/.vimrc'
-alias vlint='vim ~/.eslintrc'
-alias vhyper='vim ~/.hyper.js'
+alias vvimrc='nvim ~/.vimrc'
+alias vneo='nvim ~/.config/nvim/init.vim'
+alias vlint='nvim ~/.eslintrc'
+alias vhyper='nvim ~/.hyper.js'
 
 #node aliases
 alias npmig='sudo npm install -g'
