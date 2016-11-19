@@ -1,36 +1,17 @@
 " ==================================================
-" Pluging Start 
+" Load modules
 " ==================================================
-call plug#begin()
-Plug 'scrooloose/nerdtree'
-call plug#end()
-" ==================================================
-" Pluging End
-" ==================================================
-
-
-" ==================================================
-" NerdTree Start 
-" ==================================================
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+function! LoadModules(modules)
+  for name in a:modules
+    exec 'source $HOME/.config/nvim/modules/' . name . '.vim'
+  endfor
 endfunction
 
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('pug', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('jsx', 'Red', 'none', '#ffa500', '#151515')
-" ==================================================
-" NerdTree End
-" ==================================================
+let modules = [
+  \'plugins',
+  \'utils',
+  \'config',
+  \'filetypes',
+  \'keymaps'
+\]
+call LoadModules(modules)
