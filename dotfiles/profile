@@ -28,6 +28,17 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
 
 # Make neovim the default editor
 export EDITOR=nvim
+export VISUAL=$EDITOR
+
+# Add lang settings for fonts to work properly
+export LANG=en_US.UTF8
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_ALL=en_US.UTF8
 
 alias :mongo='mongod --dbpath ~/data/db' # Starts MongoDB server
 alias ..='cd ..'
@@ -122,3 +133,7 @@ export JOBS=max
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
     .  /opt/local/etc/profile.d/bash_completion.sh
 fi
+
+# Fix <C-h> issue with neovim
+# Not sure if this is sage to run more than once
+infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti && tic $TERM.ti
