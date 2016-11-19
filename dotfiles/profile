@@ -44,6 +44,8 @@ alias :mongo='mongod --dbpath ~/data/db' # Starts MongoDB server
 alias ..='cd ..'
 alias ll='ls -aFl'
 alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
 alias tmux="TERM=screen-256color-bce tmux -2"
 alias mkdir="mkdir -pv"
 alias whatismyip="curl http://ipecho.net/plain; echo"
