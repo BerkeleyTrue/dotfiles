@@ -48,6 +48,9 @@ highlight htmlArg cterm=italic
 " add vim theme
 colorscheme dracula
 
+" This let's the cursor change depending on mode
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 " ==================================================
 " Plugin Specific Config
 " ==================================================
