@@ -38,7 +38,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/scrollfix'
 " Snippets
-Plug 'BerkeleyTrue/vim-react-snippets'
+Plug 'BerkeleyTrue/berkeleys-snippet-emporium'
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 " Theme
