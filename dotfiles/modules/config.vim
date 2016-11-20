@@ -89,21 +89,16 @@ let g:indentLine_noConcealCursor=1
 
 " youcompleteme
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-" Removed the default of <tab>
 let g:ycm_key_list_select_completion = [
-  \'<c-n>',
+  \'<C-n>',
   \'<Down>'
 \]
 
 " Ultisnips
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-" Thanks to @iansinnott for the following
-" Note: These commands are currenlty never used directly.
-" The Tab Key mapping takes care of calling these
-" key mappings indirectly so all you have to do is
-let g:UltiSnipsExpandTrigger = '<C-w>'
-let g:UltiSnipsJumpForwardTrigger = '<C-w>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 " Emmet
 " ++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -128,52 +128,29 @@ nnoremap <leader>em :ElmMakeCurrentFile<CR>
 
 " Ultisnips/YouCompleteme
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-" Allow tab to expand snippets, jump through snippets.
-" Cycle through autocompletions and of course insert 
-" an actual tab (all in that order).
-" See this for more:
-" http://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme
-function! TheTabKey()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    call UltiSnips#JumpForwards()
-    if g:ulti_jump_forwards_res == 0
-       return pumvisible() ? '\<c-n>' : '\<tab>'
-    endif
+function! GoDownOnYCM()
+  " If dropdown open go down
+  " else insert tab
+  return pumvisible() ? "\<C-n>" : "\<tab>"
+endfunction
+
+function! ExpandOnEnter()
+  " Try to expand snippet
+  let snippet = UltiSnips#ExpandSnippetOrJump()
+  " If expand successful return snippet
+  if g:ulti_expand_or_jump_res > 0
+    return snippet
   endif
-  return ''
+  " Otherwise return CR
+  return "\<CR>"
 endfunction
 
-" Much like the above function but used exclusively in
-" visual mode. The reason for this is that Vim places you
-" in visual mode when you are over a portion of a snippet
-" that's meant to be edited.
-" The result is that we must map this to <tab> in
-" visual mode as well as mapping the above function
-" in insert mode
-function! TheVisualTabKey()
-  call UltiSnips#JumpForwards()
-  return (g:ulti_jump_forwards_res == 0) ? '\<tab>' : ''
-endfunction
-
-" Add conditional tab functionality like you would expect from any modern text
-" editor. This implementation depends on ultisnips for snippets and jumping
-" through placeholders in snippets.
-"
-" Note: <C-R>= is an interesting mapping that allows
-" you to insert the result of evaluating a vimscript
-" expressiong (which can also be a function).
-" To get a really quick overview of what <C-R>= does,
-" just type it while in insert mode.
-"
-" You will be put on the Vim command line with a
-" new prompt '='. Then type something simple
-" like 2 + 2. The result of the expression (4 in this case)
-" will be inserted at the cursor position and
-" you will still be in insert mode.
-inoremap <silent><tab> <C-R>=TheTabKey()<cr>
-vnoremap <expr><silent> <tab> TheVisualTabKey()
-
+" On enter, check for snippet and expand
+" or return <CR>
+inoremap <CR> <C-R>=ExpandOnEnter()<CR>
+" On tab with dropdown go down
+" else insert tab
+inoremap <silent><tab> <C-r>=GoDownOnYCM()<cr>
 
 " Emmet
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
