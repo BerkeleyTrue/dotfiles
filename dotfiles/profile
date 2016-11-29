@@ -106,6 +106,12 @@ alias gstash='git stash'
 alias gstashls='git stash list'
 alias grename='git mv --force'
 gbranch() {
+  # if given command `gbranch`
+  # list out branches
+  if [ $# = 0 ]; then
+    git branch
+    return 0
+  fi
   # given the command `gbranch berks-is-awesome`
   # creates a new branch `berks-is-awesome`
   # checks that branch out
