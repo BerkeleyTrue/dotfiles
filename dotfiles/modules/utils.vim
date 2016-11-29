@@ -24,3 +24,8 @@ command! TabSpaceConvert call ConvertSpace()
 function! RotateWindowsFunc()
   wincmd H
 endfunction
+
+function! GetIdentifer()
+  echom synIDattr(synID(line("."), col("."), 1), "name")
+endfunction
+command! GetIdentifer call GetIdentifer()
