@@ -19,7 +19,6 @@ Plug 'vim-syntastic/syntastic'
 Plug 'Raimondi/delimitMate'
 Plug 'Valloric/MatchTagAlways'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/indentLine'
 Plug 'easymotion/vim-easymotion'
 Plug 'kien/rainbow_parentheses.vim'
@@ -40,7 +39,7 @@ Plug 'vim-scripts/scrollfix'
 " Snippets
 Plug 'BerkeleyTrue/berkeleys-snippet-emporium'
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Theme
 Plug 'dracula/vim'
 Plug 'edkolev/tmuxline.vim'
