@@ -87,12 +87,9 @@ augroup END
 let g:vim_json_syntax_concealcursor=1
 let g:indentLine_noConcealCursor=1
 
-" youcompleteme
+" deoplete (autocomplete)
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:ycm_key_list_select_completion = [
-  \'<C-n>',
-  \'<Down>'
-\]
+let g:deoplete#enable_at_startup = 1
 
 " Ultisnips
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
