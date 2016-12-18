@@ -133,7 +133,7 @@ nnoremap <leader>em :ElmMakeCurrentFile<CR>
 function! GoDownOnYCM()
   " If dropdown open go down
   " else insert tab
-  return pumvisible() ? "\<C-n>" : "\<tab>"
+  return pumvisible() ? "\<c-n>" : "\<tab>"
 endfunction
 
 function! ExpandOnEnter()
