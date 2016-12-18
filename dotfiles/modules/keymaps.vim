@@ -1,12 +1,12 @@
 " ==================================================
 " Key Mappings
 " ==================================================
-" All key mappings should go here to easily located 
+" All key mappings should go here to easily located
 " key mapping conflicts
 " This should include commands
 
 " Vim leader key to ,
-let mapleader=','
+let g:mapleader=','
 
 " Map jj and kk to escape and move in insert mode
 inoremap jj <ESC>
@@ -138,10 +138,10 @@ endfunction
 
 function! ExpandOnEnter()
   " Try to expand snippet
-  let snippet = UltiSnips#ExpandSnippetOrJump()
+  let l:snippet = UltiSnips#ExpandSnippetOrJump()
   " If expand successful return snippet
   if g:ulti_expand_or_jump_res > 0
-    return snippet
+    return l:snippet
   endif
   " Otherwise return CR
   return "\<CR>"

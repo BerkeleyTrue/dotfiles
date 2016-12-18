@@ -2,16 +2,16 @@
 " Load modules
 " ==================================================
 function! LoadModules(modules)
-  for name in a:modules
-    exec 'source $HOME/.config/nvim/modules/' . name . '.vim'
+  for l:name in a:modules
+    exec 'source $HOME/.config/nvim/modules/' . l:name . '.vim'
   endfor
 endfunction
 
-let modules = [
+let g:modules = [
   \'plugins',
   \'utils',
   \'config',
   \'filetypes',
   \'keymaps'
 \]
-call LoadModules(modules)
+call LoadModules(g:modules)
