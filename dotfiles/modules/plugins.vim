@@ -65,6 +65,7 @@ Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'snoe/clj-refactor.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'snoe/nvim-parinfer.js', { 'do': ':UpdateRemotePlugins' }
 Plug 'suan/vim-instant-markdown'
 Plug 'tpope/vim-fireplace'
