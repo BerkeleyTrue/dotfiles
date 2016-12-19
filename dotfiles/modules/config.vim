@@ -185,3 +185,7 @@ let g:tmuxline_preset={
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+
+" Sexp config
+" ++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:sexp_enable_insert_mode_mappings = 0
