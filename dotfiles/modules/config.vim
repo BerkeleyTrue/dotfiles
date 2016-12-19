@@ -93,7 +93,15 @@ let g:deoplete#enable_at_startup = 1
 
 " Ultisnips
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:UltiSnipsExpandTrigger = '<tab>'
+" We map the trigger initially to <c-w>
+" so our <tab> keymaps are not overwritten
+" by ultisnips.
+" We then replicate the normal/x/select
+" mode binding for ultisnips while
+" keeping our own insert mode bindings
+" This is not ideal but I'm unable to find another
+" way.
+let g:UltiSnipsExpandTrigger = '<C-w>'
 let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
