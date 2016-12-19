@@ -2,13 +2,14 @@
 " Plugin Start
 " ==================================================
 
-function! BuildYCM(info)
+function! BuildNodeHost(info)
   " info is a dictionary with 3 fields
   " - name:   name of the plugin
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status ==? 'installed' || a:info.force
-    !./install.py
+    !npm install
+    execute ':UpdateRemotePlugins'
   endif
 endfunction
 
@@ -26,6 +27,7 @@ Plug 'matze/vim-move'
 Plug 'mhinz/vim-signify'
 Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
+Plug 'neovim/node-host', { 'do': function('BuildNodeHost') }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'ternjs/tern_for_vim'
@@ -61,6 +63,7 @@ Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'snoe/nvim-parinfer.js', { 'do': ':UpdateRemotePlugins' }
 Plug 'suan/vim-instant-markdown'
 Plug 'tpope/vim-fireplace'
 Plug 'vim-scripts/paredit.vim'

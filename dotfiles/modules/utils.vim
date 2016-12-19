@@ -38,3 +38,18 @@ function! GetIdentifer()
   echom synIDattr(synID(line('.'), col('.'), 1), 'name')
 endfunction
 command! GetIdentifer call GetIdentifer()
+
+function! ParinferToggleMode()
+  if g:parinfer_mode ==# 'indent'
+    let g:parinfer_mode = 'paren'
+  else
+    let g:parinfer_mode = 'indent'
+  endif
+endfunction
+
+function! ParinferOff()
+  let g:parinfer_mode = 'off'
+endfunction
+
+command! ParinferToggleMode call ParinferToggleMode()
+command! ParinferOff call ParinferOff()

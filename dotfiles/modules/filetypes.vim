@@ -64,6 +64,9 @@ augroup END
 augroup ClojureGroup
   autocmd!
   autocmd BufRead,BufNewFile build.boot,*.cljs.edn set filetype=cljs
+  " Turn off paredit/sexp insert mappings where parinfer is running
+  autocmd FileType clojure,scheme,lisp,racket let g:paredit_mode=0
+  autocmd FileType clojure,scheme,lisp,racket let g:sexp_enable_insert_mode_mappings=0
 augroup end
 
 " HTML/XML
