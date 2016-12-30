@@ -106,13 +106,16 @@ gbranch() {
   # if given command `gbranch`
   # list out branches
   if [ $# = 0 ]; then
+    echo 'printing branches'
     git branch
     return 0
   fi
+  echo "creating branch '$1'"
   # given the command `gbranch berks-is-awesome`
   # creates a new branch `berks-is-awesome`
   # checks that branch out
   git co -b $1
+  echo "creating '${2:-origin}/$1'"
   # this will make the current branch track origin/berks-is-awesome
   git push -u ${2:-origin} $1
 }
