@@ -20,6 +20,8 @@ git clone https://github.com/berkeleytrue/dotfiles.git ~/.vim
 While in your home directory enter the following,
 
 ```bash
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ln -s ~/.vim/dotfiles/vimrc ~/.vimrc
 ln -s ~/.vim/dotfiles/profile ~/.profile
 ln -s ~/.vim/dotfiles/tmux.conf ~/.tmux.conf
