@@ -10,6 +10,7 @@ brew install tmux
 brew install python
 brew install python3
 brew install ruby
+brew install reattach-to-user-namespace
 brew install neovim/neovim/neovim
 pip install neovim
 pip3 install neovim
