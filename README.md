@@ -58,3 +58,5 @@ And the run the following commands one after the other
 ```
 
 Now [install hyper](https://hyper.is/)
+
+Install [patched nerd fonts](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete%20Mono.otf)
