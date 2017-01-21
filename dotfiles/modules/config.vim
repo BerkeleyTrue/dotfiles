@@ -35,18 +35,6 @@ filetype plugin on
 " Turns on automatic indent from plugins
 filetype indent on
 
-" Underline misspelled words
-highlight clear SpellBad
-highlight SpellBad ctermfg=none ctermbg=none cterm=underline
-" make the highlighting of tabs and other non-text less annoying
-highlight SpecialKey ctermbg=none ctermfg=8
-highlight NonText ctermbg=none ctermfg=8
-" Italicize comments and HTML attributes
-highlight Comment cterm=italic
-highlight htmlArg cterm=italic
-" add Vim theme
-colorscheme dracula
-
 " This lets the cursor change depending on mode
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 

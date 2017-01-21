@@ -12,6 +12,7 @@ let g:modules = [
   \'utils',
   \'config',
   \'filetypes',
-  \'keymaps'
+  \'keymaps',
+  \'colors'
 \]
 call LoadModules(g:modules)
