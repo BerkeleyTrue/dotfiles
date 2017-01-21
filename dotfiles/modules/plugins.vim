@@ -37,6 +37,7 @@ Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/AfterColors.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/scrollfix'
 " Snippets
