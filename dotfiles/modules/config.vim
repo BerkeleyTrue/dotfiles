@@ -41,14 +41,13 @@ highlight SpellBad ctermfg=none ctermbg=none cterm=underline
 " make the highlighting of tabs and other non-text less annoying
 highlight SpecialKey ctermbg=none ctermfg=8
 highlight NonText ctermbg=none ctermfg=8
-" Italicize comments and html attributes
+" Italicize comments and HTML attributes
 highlight Comment cterm=italic
 highlight htmlArg cterm=italic
-
-" add vim theme
+" add Vim theme
 colorscheme dracula
 
-" This let's the cursor change depending on mode
+" This lets the cursor change depending on mode
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " ==================================================
@@ -130,7 +129,7 @@ let g:mta_filetypes = {
 \ 'xml' : 1,
 \ 'javascript.jsx' : 1,
 \}
-let g:mta_use_matchparen_group = 0
+let g:mta_use_matchparen_group = 1
 
 " Vim-scrollfix
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
