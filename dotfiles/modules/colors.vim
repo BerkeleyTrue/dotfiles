@@ -38,6 +38,9 @@ function! AddHighlight()
   highlight jsTemplateString ctermfg=215
   highlight jsTemplateBraces ctermfg=24
   highlight jsTemplateVar ctermfg=228
+
+  highlight jsonKeyword ctermfg=117
+  highlight jsonString ctermfg=86
 endfunction
 
 " add Vim theme
