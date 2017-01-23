@@ -96,6 +96,7 @@ nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 " Alias the command `nerd` to toggle nerdtree
 cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTreeToggle"):("nerd"))
+nnoremap <leader>nt :NERDTreeToggle<cr>
 
 " vim-bbye
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
