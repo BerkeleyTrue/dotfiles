@@ -88,7 +88,6 @@ alias gstat='git status'
 alias gfetch='git fetch'
 alias gpush='git push'
 alias gpushntrack='git push -u'
-alias gpull='git pull'
 alias grebase='git rebase'
 alias gadd='git add'
 alias gdiff='git diff'
@@ -134,7 +133,20 @@ gclone() {
   # and it will cd into the newly created repo dir
   cd ${2:-$(basename $1 .git)}
 }
-# should only be used for capitalization changes in osx
+gpull() {
+  # If given gpull upstream
+  # find the current branch and pull that branch
+  # from the `upstream` remote repository
+  if [ $# = 1 ]; then
+    currentbranch=$(git rev-parse --abbrev-ref HEAD)
+    echo "current branch is $currentbranch"
+    echo "pulling down branch '$currentbranch' from remote repository '$1'"
+    git pull $1 $currentbranch
+    return 0
+  fi
+  # Otherwise pull from the repository this branch is tracking
+  git pull
+}
 
 #Makes and CD's to a new directoy.
 function mkncd() {
