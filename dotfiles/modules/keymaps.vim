@@ -46,6 +46,8 @@ cnoreabbrev <expr> rebuildHelpFiles ((getcmdtype() is# ":" && getcmdline() is# "
 cnoreabbrev <expr> sudowrite ((getcmdtype() is# ":" && getcmdline() is# "sudowrite")?(":w !sudo tee %"):("sudowrite"))
 " Alias command qq to q!
 cnoreabbrev <expr> qq ((getcmdtype() is# ":" && getcmdline() is# "qq")?("q!"):("qq"))
+" Alias :W to :w because I keep forgetting to release shift!
+cnoreabbrev <expr> W ((getcmdtype() is# ":" && getcmdline() is# "W")?("w"):("W"))
 
 " Make OSX alt key compatible with vim
 " Now alt will work as expected with vim-move
