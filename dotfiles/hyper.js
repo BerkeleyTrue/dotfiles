@@ -97,7 +97,6 @@ module.exports = {
     'hyperterm-dracula',
     'hyper-blink',
     'hyperborder',
-    'hyperclean',
     'hyperfull',
     'hyperterm-cursor',
     'hyperterm-tab-icons'
