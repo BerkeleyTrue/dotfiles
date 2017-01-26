@@ -29,7 +29,7 @@ function! AddHighlight()
   highlight SpellLocal ctermfg=none ctermbg=none cterm=underline
 
   " make the highlighting of tabs and other non-text less annoying
-  highlight SpecialKey ctermbg=none ctermfg=8
+  highlight SpecialKey ctermbg=none ctermfg=88
   highlight NonText ctermbg=none ctermfg=8
 
   " Add Special JavaScript highlighting
