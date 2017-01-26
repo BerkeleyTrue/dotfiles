@@ -26,6 +26,7 @@ function! AddHighlight()
   highlight clear SpellBad
   highlight SpellBad ctermfg=none ctermbg=none cterm=underline
   highlight SpellRare ctermfg=none ctermbg=none cterm=underline
+  highlight SpellLocal ctermfg=none ctermbg=none cterm=underline
 
   " make the highlighting of tabs and other non-text less annoying
   highlight SpecialKey ctermbg=none ctermfg=8
