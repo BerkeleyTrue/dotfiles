@@ -27,9 +27,7 @@ module.exports = {
     css: '',
 
     // custom css to embed in the terminal window
-    termCSS: `.cursor-node {\
-      border: 1px solid red !important;\
-    }`,
+    termCSS: '.cursor-node {\n border: 1px solid red !important;\n }',
 
     // custom padding (css format, i.e.: `top right bottom left`)
     padding: '12px 14px',
@@ -60,7 +58,8 @@ module.exports = {
     // if left empty, your system's login shell will be used by default
     shell: '',
 
-    // for setting shell arguments (i.e. for using interactive shellArgs: ['-i'])
+    // for setting shell arguments
+    // (i.e. for using interactive shellArgs: ['-i'])
     // by default ['--login'] will be used
     shellArgs: ['--login'],
 
@@ -80,13 +79,13 @@ module.exports = {
   },
 
   hyperclean: {
-    hideTabs: true,
+    hideTabs: true
   },
 
   // hyperterm-crosshair settings
   hypertermCrosshair: {
     // You can use any valid CSS color string
-    color: 'rgba(119, 172, 217, 0.2)',
+    color: 'rgba(119, 172, 217, 0.2)'
   },
 
   hyperBorder: {
