@@ -138,6 +138,11 @@ function! GoDownOnPlum()
   " else insert tab
   return pumvisible() ? "\<c-n>" : "\<tab>"
 endfunction
+function! GoUpOnPlum()
+  " If dropdown open go up
+  " else insert tab
+  return pumvisible() ? "\<c-p>" : "\<tab>"
+endfunction
 
 function! ExpandOnEnter()
   " Try to expand snippet
@@ -156,6 +161,7 @@ inoremap <CR> <C-R>=ExpandOnEnter()<CR>
 " On tab with dropdown go down
 " else insert tab
 inoremap <silent><tab> <C-r>=GoDownOnPlum()<cr>
+inoremap <silent><s-tab> <C-r>=GoUpOnPlum()<cr>
 " Duplicate ultisnips s/n mode bindings for tab
 snoremap <silent><tab> <Esc>:call UltiSnips#ExpandSnippet()<cr>
 xnoremap <silent><tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
