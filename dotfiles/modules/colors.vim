@@ -25,23 +25,27 @@ function! AddHighlight()
   " Underline misspelled words
   highlight clear SpellBad
   highlight SpellBad ctermfg=none ctermbg=none cterm=underline
-  highlight SpellRare ctermfg=none ctermbg=none cterm=underline
   highlight SpellLocal ctermfg=none ctermbg=none cterm=underline
+  highlight SpellRare ctermfg=none ctermbg=none cterm=underline
 
   " make the highlighting of tabs and other non-text less annoying
-  highlight SpecialKey ctermbg=none ctermfg=88
   highlight NonText ctermbg=none ctermfg=8
+  highlight SpecialKey ctermbg=none ctermfg=88
 
   " Add Special JavaScript highlighting
-  highlight jsThis ctermfg=203
   highlight jsFuncCall ctermfg=141
   highlight jsString ctermfg=215
-  highlight jsTemplateString ctermfg=215
   highlight jsTemplateBraces ctermfg=24
+  highlight jsTemplateString ctermfg=215
   highlight jsTemplateVar ctermfg=228
+  highlight jsThis ctermfg=203
 
   highlight jsonKeyword ctermfg=117
   highlight jsonString ctermfg=86
+
+  highlight vimMapLhs ctermfg=215
+  highlight vimMapModKey ctermfg=117
+  highlight vimNotation ctermfg=86
 endfunction
 
 " add Vim theme
