@@ -176,3 +176,15 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " Sexp config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:sexp_enable_insert_mode_mappings = 0
+
+" Delimate config
+" ++++++++++++++++++++++++++++++++++++++++++++++++++
+" When opening a pair of surround and hitting <CR>
+" this will expand the pair onto new lines
+let g:delimitMate_expand_cr = 2
+" Same as above but will add padding to surround
+let g:delimitMate_expand_space = 1
+" Allow inserting closing surround on expansion
+" to jump to the already existing closing
+" surround instead of inserting a new closing surround
+let g:delimitMate_jump_expansion = 1

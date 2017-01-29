@@ -134,12 +134,12 @@ nnoremap <leader>em :ElmMakeCurrentFile<CR>
 " Ultisnips/Neoplete
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 function! GoDownOnPlum()
-  " If dropdown open go down
+  " If Pop Up Menu (pum) is open go down
   " else insert tab
   return pumvisible() ? "\<c-n>" : "\<tab>"
 endfunction
 function! GoUpOnPlum()
-  " If dropdown open go up
+  " If pum open go up
   " else insert tab
   return pumvisible() ? "\<c-p>" : "\<tab>"
 endfunction
@@ -151,8 +151,10 @@ function! ExpandOnEnter()
   if g:ulti_expand_or_jump_res > 0
     return l:snippet
   endif
-  " Otherwise return CR
-  return "\<CR>"
+  " Otherwise call delimitMate expand on <CR>
+  " this will cause surrounds to expand if appropriate
+  " otherwise it just returns a <CR>
+  return delimitMate#ExpandReturn()
 endfunction
 
 " On enter, check for snippet and expand
