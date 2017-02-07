@@ -36,7 +36,7 @@ filetype plugin on
 filetype indent on
 
 " This lets the cursor change depending on mode
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 " ==================================================
 " Plugin Specific Config
@@ -44,14 +44,14 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " Syntastic Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:syntastic_mode_map={
+let g:syntastic_mode_map = {
   \'mode': 'active',
   \'active_filetypes': [ 'vim' ],
   \'passive_filetypes': []
 \}
 let g:syntastic_check_on_open = 1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='W'
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = 'W'
 let g:syntastic_html_checkers = [ 'tidy' ]
 let g:syntastic_html_tidy_ignore_errors = [ ' proprietary attribute \"ng-']" ]
 let g:syntastic_json_checkers = [ 'jsonlint' ]
@@ -71,8 +71,8 @@ augroup END
 
 " vim-json
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:vim_json_syntax_concealcursor=1
-let g:indentLine_noConcealCursor=1
+let g:vim_json_syntax_concealcursor = 1
+let g:indentLine_noConcealCursor = 1
 
 " deoplete (autocomplete)
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -95,7 +95,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 " Emmet
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 " Emmet in html/css/jsx
-let g:user_emmet_install_global=0
+let g:user_emmet_install_global = 0
 " Use single quotes for Emmet (bam!)
 let g:user_emmet_settings = {
 \  'html' : {
@@ -121,12 +121,12 @@ let g:mta_use_matchparen_group = 1
 
 " Vim-scrollfix
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:scrollfix=50
-let g:fixeof=0
+let g:scrollfix = 50
+let g:fixeof = 0
 
 " NerdTree
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:NERDTreeShowHidden=1
+let g:NERDTreeShowHidden = 1
 
 
 " Nerd Commenter
@@ -145,10 +145,10 @@ let g:NERDDefaultAlign = 'left'
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:airline_theme='dracula'
 " Automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#enabled=2
-let g:airline#extensions#tabline#left_sep=' '
-let g:airline#extensions#tabline#left_alt_sep='|'
-let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled = 2
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_powerline_fonts = 1
 
 " Tmuxline key legend
 " #H Hostname of local host
@@ -160,7 +160,7 @@ let g:airline_powerline_fonts=1
 " #(shell-command)  First line of the command's output
 " Tmuxline layout
 " a > b > c > win > cwin   x < y < z
-let g:tmuxline_preset={
+let g:tmuxline_preset = {
   \ 'a': '#S',
   \ 'b': '#W',
   \ 'c': '#H',
