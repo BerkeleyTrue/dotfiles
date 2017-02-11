@@ -39,6 +39,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/scrollfix'
+Plug 'wakatime/vim-wakatime'
 " Snippets
 Plug 'BerkeleyTrue/berkeleys-snippet-emporium'
 Plug 'SirVer/ultisnips'
