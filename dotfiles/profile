@@ -131,6 +131,8 @@ gclone() {
   # Will clone a repo into a new dir as the second arg
   git clone $1 $2
   # and it will cd into the newly created repo dir
+  wd=$(pwd)
+  echo "changing directory to $wd/${2:-$(basename $1 .git)}"
   cd ${2:-$(basename $1 .git)}
 }
 gpull() {
