@@ -8,7 +8,7 @@ function! BuildNodeHost(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status ==? 'installed' || a:info.force
-    !npm install
+    !npm install --production
     execute ':UpdateRemotePlugins'
   endif
 endfunction
@@ -43,7 +43,7 @@ Plug 'wakatime/vim-wakatime'
 " Snippets
 Plug 'BerkeleyTrue/berkeleys-snippet-emporium'
 Plug 'SirVer/ultisnips'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim'
 " Theme
 Plug 'dracula/vim'
 Plug 'edkolev/tmuxline.vim'
@@ -66,8 +66,8 @@ Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'snoe/clj-refactor.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'snoe/nvim-parinfer.js', { 'do': ':UpdateRemotePlugins' }
+" Plug 'clojure-vim/clj-refactor.nvim'
+Plug 'clojure-vim/nvim-parinfer.js'
 Plug 'suan/vim-instant-markdown'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
