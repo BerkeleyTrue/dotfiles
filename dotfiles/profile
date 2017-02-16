@@ -88,7 +88,6 @@ alias gstat='git status'
 alias gfetch='git fetch'
 alias gpush='git push'
 alias gpushntrack='git push -u'
-alias grebase='git rebase'
 alias gadd='git add'
 alias gdiff='git diff'
 alias gcom='git commit'
@@ -166,6 +165,26 @@ gremote() {
     return 0
   fi
   echo "gremote: $1 is not a proper command"
+}
+grebase() {
+  # grebase
+  if [ $# == 0 ]; then
+    echo "grebase: Incorrect number of args"
+    return 1
+  fi
+
+  if [ $1 == 'cont' ]; then
+    echo "continuing..."
+    git rebase --continue
+    return 0
+  fi
+
+  if [ $1 == 'skip' ]; then
+    echo "continuing..."
+    git rebase --skip
+    return 0
+  fi
+  echo "grebase: incorrect number of args"
 }
 gclone() {
   # Will clone a repo into a new dir as the second arg
