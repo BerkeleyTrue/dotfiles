@@ -18,6 +18,7 @@ call plug#begin()
 Plug 'vim-syntastic/syntastic'
 " Utils
 Plug 'Raimondi/delimitMate'
+Plug 'Shougo/neco-vim'
 Plug 'Valloric/MatchTagAlways'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/indentLine'
