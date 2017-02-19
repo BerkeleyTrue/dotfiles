@@ -70,20 +70,22 @@ module.exports = {
     bell: 'SOUND',
 
     // if true, selected text will automatically be copied to the clipboard
-    copyOnSelect: false
+    copyOnSelect: false,
 
     // URL to custom bell
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
+    hyperBorder: {
+      animate: true,
+      borderWidth: '2px'
+    }
   },
+  // end config
 
-  hyperBorder: {
-    borderWidth: '1px'
-  },
   // order here is important
   plugins: [
-    'hyperterm-dracula',
+    'hyper-dark-dracula',
     'hyper-blink',
     'hyperborder',
     'hyperfull',
