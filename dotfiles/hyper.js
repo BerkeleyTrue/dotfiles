@@ -78,16 +78,6 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
   },
 
-  hyperclean: {
-    hideTabs: true
-  },
-
-  // hyperterm-crosshair settings
-  hypertermCrosshair: {
-    // You can use any valid CSS color string
-    color: 'rgba(119, 172, 217, 0.2)'
-  },
-
   hyperBorder: {
     borderWidth: '1px'
   },
