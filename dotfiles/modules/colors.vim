@@ -1,4 +1,5 @@
 " Dracula color map
+" 9   :         : Red (FireBrick?)
 " 17  : #6272a4 : Comment (Dark Blue)
 " 23  :         : Teal
 " 24  :         : Dark Neon Blue
@@ -34,6 +35,7 @@ function! AddHighlight()
 
   " Add Special JavaScript highlighting
   highlight jsFuncCall ctermfg=141
+  highlight jsGlobalObjects ctermfg=9
   highlight jsString ctermfg=215
   highlight jsTemplateBraces ctermfg=24
   highlight jsTemplateString ctermfg=215
