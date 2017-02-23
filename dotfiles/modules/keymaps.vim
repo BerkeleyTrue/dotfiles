@@ -81,6 +81,9 @@ vnoremap gu u
 " uppercase word under the cursor while in insert mode
 inoremap <leader>uw <esc>mzgUiw`za
 
+" yank to end of line
+nnoremap Y y$
+
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
 function! AutoHighlightToggle() " {{{
