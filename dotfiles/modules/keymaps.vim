@@ -15,6 +15,9 @@ inoremap kk <ESC>
 " Remove all hightlighting
 nnoremap <Leader>rh :noh<cr>
 
+" Move the current char to the end of the line
+nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
+
 " ,ev to edit vim, ,sv to source vim
 nmap <silent> <leader>ev :edit $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>
