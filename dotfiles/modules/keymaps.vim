@@ -68,6 +68,9 @@ vmap ¬ <A-l>
 " I never use this and I keep hitting K accidentally
 map <S-k> <Nop>
 
+" sort lines in visual mode
+vnoremap <leader>s :sort<cr>
+
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
 function! AutoHighlightToggle() " {{{
