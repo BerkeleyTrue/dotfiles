@@ -24,6 +24,7 @@ nmap <silent> <leader>sv :source $MYVIMRC<CR>
 
 " Turn of default <C-j> binding
 let g:BASH_Ctrl_j = 'off'
+" Navigation {{{
 " Window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -40,6 +41,14 @@ nnoremap <C-l> <C-w>l
 nnoremap tj :tabnext<CR>
 nnoremap tk :tabprev<CR>
 nnoremap tn :tabnew<CR>:NERDTree<CR>
+
+" H to move to the beginning of the line
+noremap H ^
+" L move to the end of the line
+noremap L $
+" same but in visual mode
+vnoremap L g_
+" }}}
 
 " Alias Helptags to rbHelp, This makes way more sense to me and will be
 " easier to remember
