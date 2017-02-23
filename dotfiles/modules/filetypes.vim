@@ -2,21 +2,21 @@
 " Filetype Settings
 " ==================================================
 
-" General
+" General {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 " Ignore camelCase words when spell checking
-fun! IgnoreCamelCaseSpell()
+fun! IgnoreCamelCaseSpell() " {{{
   syn match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
   syn cluster Spell add=CamelCase
-endfun
+endfun " }}}
 
-function! StartUp()
+function! StartUp() " {{{
   if 0 == argc()
     NERDTree
   end
-endfunction
+endfunction " }}}
 
-augroup GeneralGroup
+augroup GeneralGroup " {{{
   au!
   autocmd BufRead,BufNewFile * :call IgnoreCamelCaseSpell()
   autocmd BufRead,BufNewFile * :hi SpellBad ctermbg=none ctermfg=none cterm=underline
@@ -31,19 +31,24 @@ augroup GeneralGroup
 
   " Open nerdtree if vim opened without a file in the buffer
   autocmd VimEnter * call StartUp()
-augroup END
 
-" WebDev
+  " Resize splits when the window is resized
+  autocmd VimResized * exe "normal! \<c-w>="
+  autocmd FileType vim setlocal foldmethod=marker foldmarker={{{,}}}
+augroup END " }}}
+" }}}
+"
+" WebDev {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 " Set text width to 80 and add a column at that width
-function! ClosureIt()
+function! ClosureIt() " {{{
   setlocal textwidth=80
   setlocal colorcolumn=+1
   " this color depends on terminal theming
   hi ColorColumn ctermbg=darkgray ctermfg=red
-endfunction
+endfunction " }}}
 
-augroup WebDevGroup
+augroup WebDevGroup " {{{
   autocmd!
   autocmd BufRead *.js normal zR
   " autocmd BufNewFile,BufReadPost *.js,*.jsx,*.example,*.jade,*.coffee,*.json,*.scss,*.sass,*.styl,*.less call TwoSpace()
@@ -57,54 +62,60 @@ augroup WebDevGroup
   autocmd BufNewFile,BufReadPost *.example set syntax=javascript.jsx
   " Add emmet to appropriate files
   autocmd FileType html,css,javascript.jsx EmmetInstall
-augroup END
+augroup END " }}}
+" }}}
 
-" Clojure
+" Clojure {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-augroup ClojureGroup
+augroup ClojureGroup " {{{
   autocmd!
   autocmd BufRead,BufNewFile build.boot,*.cljs.edn set filetype=cljs
   " Turn off paredit/sexp insert mappings where parinfer is running
   autocmd FileType clojure,scheme,lisp,racket let g:paredit_mode=0
   autocmd FileType clojure,scheme,lisp,racket let g:sexp_enable_insert_mode_mappings=0
-augroup end
+augroup end " }}}
+" }}}
 
-" HTML/XML
+" HTML/XML {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-augroup XMLGroup
+augroup XMLGroup " {{{
   autocmd!
   " Remove whitespace markers in htmlxml
   autocmd filetype html,xml set listchars-=tab:>.
   " Set WSDL files using XML filetype
   autocmd BufNewFile,BufRead *.wsdl setlocal ft=xml
-augroup END
+augroup END " }}}
+" }}}
 
-" Snippets
+" Snippets {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-augroup SnippetsGroup
+augroup SnippetsGroup " {{{
   autocmd!
   autocmd BufNewFile,BufReadPost *.snippets setlocal noet ci pi sts=0 sw=4 ts=4 listchars-=tab:>. listchars=tab:\|\ "
   autocmd BufNewFile,BufReadPost *.snippets hi SpecialKey ctermbg=NONE ctermfg=gray
-augroup END
+augroup END " }}}
+" }}}
 
-" Markdown
+" Markdown {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-function! WrapIt()
+function! WrapIt() " {{{
   setlocal wrap
   setlocal linebreak
   setlocal textwidth=0
   setlocal wrapmargin=0
   setlocal textwidth=80
-endfunction
+endfunction " }}}
 
-augroup MarkdownGroup
+augroup MarkdownGroup " {{{
   autocmd!
   autocmd BufNewFile,BufReadPost *.md,*.markdown call WrapIt()
-augroup END
+augroup END " }}}
+" }}}
 
-" Nginx
+" Nginx {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-augroup NginxGroup
+augroup NginxGroup " {{{
   au!
   au BufRead,BufNew *.nginx.conf set filetype=nginx
-augroup END
+augroup END " }}}
+" }}}
