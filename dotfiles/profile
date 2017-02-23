@@ -184,7 +184,7 @@ grebase() {
     git rebase --skip
     return 0
   fi
-  echo "grebase: incorrect number of args"
+  git rebase $1
 }
 gclone() {
   # Will clone a repo into a new dir as the second arg
