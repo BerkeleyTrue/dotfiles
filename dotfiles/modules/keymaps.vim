@@ -71,6 +71,9 @@ map <S-k> <Nop>
 " sort lines in visual mode
 vnoremap <leader>s :sort<cr>
 
+" insert new line on enter
+nnoremap <cr> o<esc>
+
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
 function! AutoHighlightToggle() " {{{
