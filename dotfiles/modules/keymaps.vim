@@ -74,6 +74,10 @@ vnoremap <leader>s :sort<cr>
 " insert new line on enter
 nnoremap <cr> o<esc>
 
+" in visual mode use gu to change casing
+vnoremap u <nop>
+vnoremap gu u
+
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
 function! AutoHighlightToggle() " {{{
