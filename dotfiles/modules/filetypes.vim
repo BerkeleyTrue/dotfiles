@@ -35,6 +35,11 @@ augroup GeneralGroup " {{{
   " Resize splits when the window is resized
   autocmd VimResized * exe "normal! \<c-w>="
   autocmd FileType vim setlocal foldmethod=marker foldmarker={{{,}}}
+  " Make vim open on the line you closed the buffer on
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \     execute 'normal! g`"zvzz' |
+    \ endif
 augroup END " }}}
 " }}}
 "
