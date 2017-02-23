@@ -1,5 +1,5 @@
 " ==================================================
-" Key Mappings
+" General Key Mappings {{{
 " ==================================================
 " All key mappings should go here to easily located
 " key mapping conflicts
@@ -70,7 +70,8 @@ map <S-k> <Nop>
 
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
-function! AutoHighlightToggle()
+function! AutoHighlightToggle() " {{{
+
   let @/ = ''
   if exists('#auto_highlight')
     au! auto_highlight
@@ -89,23 +90,56 @@ function! AutoHighlightToggle()
   endif
 endfunction
 nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+" }}}
+
+" Folding {{{
+
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
+
+function! FormatFoldText() " {{{
+  " get the line beginning the fold
+  let l:line = getline(v:foldstart)
+
+  " get the left column length?
+  let l:nucolwidth = &foldcolumn + &number * &numberwidth
+  " get the window with minus the left column
+  let l:windowwidth = winwidth(0) - l:nucolwidth - 3
+  " get the number of lines to fold
+  let l:foldedlinecount = v:foldend - v:foldstart
+
+  " substitute tabs into spaces
+  let l:onetab = strpart('          ', 0, &tabstop)
+  let l:line = substitute(l:line, '\t', l:onetab, 'g')
+
+  " grab the first n characters of the line
+  " where n is the window width minus the number of folded lines minus 2
+  let l:line = strpart(l:line, 0, l:windowwidth - len(l:foldedlinecount) - 5)
+
+  return l:line . '…' . l:foldedlinecount . ' lines folded…}}}'
+endfunction " }}}
+set foldtext=FormatFoldText()
+" }}}
 
 " ==================================================
-" Plugin Specific mappings
+" Plugin Specific mappings {{{
 " ==================================================
 
-" nerdtree
+" nerdtree {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 " Alias the command `nerd` to toggle nerdtree
 cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTreeToggle"):("nerd"))
 nnoremap <leader>nt :NERDTreeToggle<cr>
+"}}}
 
-" vim-bbye
+" vim-bbye {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 " closes the currently open buffer
 nnoremap <Leader>q :Bdelete<CR>
+" }}}
 
-" easymotion
+" easymotion {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 " motion
 nmap s <Plug>(easymotion-s2)
@@ -124,14 +158,16 @@ map <Leader>l <Plug>(easymotion-lineforward)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
+" }}}
 
-" Elm
+" Elm {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 nnoremap <leader>el :ElmEvalLine<CR>
 vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
 nnoremap <leader>em :ElmMakeCurrentFile<CR>
+" }}}
 
-" Ultisnips/Neoplete
+" Ultisnips/Neoplete {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 function! GoDownOnPlum()
   " If Pop Up Menu (pum) is open go down
@@ -167,11 +203,15 @@ inoremap <silent><s-tab> <C-r>=GoUpOnPlum()<cr>
 " Duplicate ultisnips s/n mode bindings for tab
 snoremap <silent><tab> <Esc>:call UltiSnips#ExpandSnippet()<cr>
 xnoremap <silent><tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
+" }}}
 
-" Emmet
+" Emmet {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 imap <leader><tab> <plug>(emmet-expand-abbr)
 " self closing tag
 " foo/<leader><tab> => <foo />
 " does not work yet with non-closing html5 tags like <img>
 imap /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
+" }}}
+"
+" }}}
