@@ -36,6 +36,8 @@ nnoremap <C-l> <C-w>l
 " the bash command line
 "
 " infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti && tic $TERM.ti
+nnoremap <C-w>vh <C-w>t<C-w>K
+nnoremap <C-w>hv <C-w>t<C-w>H
 
 " Tab navigation
 nnoremap tj :tabnext<CR>
