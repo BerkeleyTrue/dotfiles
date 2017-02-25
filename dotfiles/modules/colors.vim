@@ -41,6 +41,7 @@ function! AddHighlight()
   highlight jsTemplateString ctermfg=215
   highlight jsTemplateVar ctermfg=228
   highlight jsThis ctermfg=203
+  highlight jsObjectKey ctermfg=117
 
   highlight jsonKeyword ctermfg=117
   highlight jsonString ctermfg=86
