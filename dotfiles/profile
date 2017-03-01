@@ -133,38 +133,52 @@ gremote() {
     git remote -v
     return 0
   fi
-    # gremote add remote-name url
-  if [ $1 == 'add' ]; then
-    # check if second param is empty and atleast 3 chars
-    if [[ -z "${2//}" || "${#2}" -lt 3 ]]; then
-      echo 'remote name must be atleast three characters'
-      return 2
-    fi
-    # check if url is actual repo
-    if ! git ls-remote --exit-code $3 &>/dev/null; then
-      echo 'remote url does not resolve to proper git repo'
-      return 2
-    fi
-    git remote add $2 $3
-    echo "success"
-    echo "printing remote repositories"
-    git remote -v
-    return 0
-  fi
-
-  # gremote set remote-name url
-  if [ $1 == 'set' ]; then
-    # check if url is actual repo
-    if ! git ls-remote --exit-code $3 &>/dev/null; then
-      echo 'remote url does not resolve to proper git repo'
-      return 2
-    fi
-    git remote set-url $2 $3
-    echo "printing remote repositories"
-    git remote -v
-    return 0
-  fi
-  echo "gremote: $1 is not a proper command"
+  while test $# -gt 0; do
+    case "$1" in
+      -h|--help)
+        echo "gremote - a better git remote"
+        echo "gremote [options] [commands]"
+        echo "options:"
+        echo "-h, --help  list options and commands"
+        echo "commands:"
+        echo "add         gremote add remote-name url - Adds a new remote with url"
+        echo "set         gremote set remote-name url - set or overwrite existing remote url"
+        return 0
+        ;;
+      add)
+        if [[ -z "${2//}" || "${#2}" -lt 3 ]]; then
+          echo 'remote name must be atleast three characters'
+          return 2
+        fi
+        # check if url is actual repo
+        if ! git ls-remote --exit-code $3 &>/dev/null; then
+          echo 'remote url does not resolve to proper git repo'
+          return 2
+        fi
+        git remote add $2 $3
+        echo "success"
+        echo "printing remote repositories"
+        git remote -v
+        return 0
+        ;;
+      set)
+        # gremote set remote-name url
+        # check if url is actual repo
+        if ! git ls-remote --exit-code $3 &>/dev/null; then
+          echo 'remote url does not resolve to proper git repo'
+          return 2
+        fi
+        git remote set-url $2 $3
+        echo "printing remote repositories"
+        git remote -v
+        return 0
+        ;;
+      *)
+        echo "gremote: $1 is not a proper command"
+        return 2
+        ;;
+    esac
+  done
 }
 grebase() {
   # grebase
