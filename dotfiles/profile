@@ -143,6 +143,7 @@ gremote() {
         echo "commands:"
         echo "add         gremote add remote-name url - Adds a new remote with url"
         echo "set         gremote set remote-name url - set or overwrite existing remote url"
+        echo "remove      gremote remove remote-name  - remote remote repo"
         return 0
         ;;
       add)
@@ -169,6 +170,15 @@ gremote() {
           return 2
         fi
         git remote set-url $2 $3
+        echo "printing remote repositories"
+        git remote -v
+        return 0
+        ;;
+      remove)
+        # gremote remove remote-name
+        echo "removing $2"
+        git remote remove $2
+        echo "remove successful"
         echo "printing remote repositories"
         git remote -v
         return 0
