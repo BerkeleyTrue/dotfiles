@@ -94,7 +94,7 @@ alias gcom='git cz'
 alias gamend='git commit --amend'
 alias glog='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
 alias glognum='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
-alias gco='git co'
+alias gco='git checkout'
 alias gtagls='git describe --tags --abbrev=0'
 alias gtag='git tag -s'
 alias grst='git reset'
@@ -243,11 +243,18 @@ function mkncd() {
 # increases number of cores node-gyp uses when building
 export JOBS=max
 
-#bash completion
+# bash completion
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
     .  /opt/local/etc/profile.d/bash_completion.sh
 fi
 
+# Git Completion
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+
+  __git_complete gco _git_checkout
+  __git_complete grebase _git_checkout
+fi
 # Fix <C-h> issue with neovim
 # Not sure if this is sage to run more than once
 # infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti && tic $TERM.ti
