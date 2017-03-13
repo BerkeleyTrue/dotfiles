@@ -254,6 +254,8 @@ if [ -f ~/.git-completion.bash ]; then
 
   __git_complete gco _git_checkout
   __git_complete grebase _git_checkout
+  # gpull will autocomplete remotes
+  __git_complete gpull __git_complete_remote_or_refspec
 fi
 # Fix <C-h> issue with neovim
 # Not sure if this is sage to run more than once
