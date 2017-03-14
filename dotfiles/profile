@@ -233,6 +233,31 @@ gpull() {
   git pull
 }
 
+gclean() {
+  # will remove local merged refs
+  # and delete those branches on the remote
+  # can be used `glean` and will default to
+  # the remote `origin` or can be used
+  # `gclean upstream` to target specific
+  # remotes
+  currentbranch=$(git rev-parse --abbrev-ref HEAD)
+  remote=${1:-origin}
+  echo "current branch is '$currentbranch'"
+  echo "pruning remote '$remote' refs that no longer"
+  git remote prune $remote
+  # List out the merged branches
+  echo "deleting remote branches merged into '$currentbranch'"
+  git branch -r --merged $currentbranch |\
+    # filter out everything that has the same name as the current branch
+    egrep -iv "$currentbranch" |\
+    # grab only those of the current remote
+    egrep -i "$remote/" |\
+    # filter out remote name from the string
+    sed "s/$remote\///g" |\
+    # push and delete the branch
+    xargs -n 1 git push --delete $remote
+}
+
 #Makes and CD's to a new directoy.
 function mkncd() {
   mkdir -pv $1
