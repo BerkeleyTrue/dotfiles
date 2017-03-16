@@ -36,6 +36,7 @@ function! AddHighlight()
   " Add Special JavaScript highlighting
   highlight jsFuncCall ctermfg=141
   highlight jsGlobalObjects ctermfg=9
+  highlight link jsGlobalNodeObjects jsGlobalObjects
   highlight jsString ctermfg=215
   highlight jsTemplateBraces ctermfg=24
   highlight jsTemplateString ctermfg=215
