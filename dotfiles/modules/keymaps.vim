@@ -155,8 +155,6 @@ function! FormatFoldText() " {{{
 endfunction " }}}
 set foldtext=FormatFoldText()
 " }}}
-
-" ==================================================
 " Plugin Specific mappings {{{
 " ==================================================
 
@@ -175,6 +173,7 @@ nnoremap <Leader>q :Bdelete<CR>
 
 " easymotion {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:EasyMotion_smartcase = 1
 " motion
 nmap s <Plug>(easymotion-s2)
 nmap t <Plug>(easymotnion-t2)
