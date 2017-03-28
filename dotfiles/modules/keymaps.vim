@@ -38,6 +38,8 @@ nnoremap <C-l> <C-w>l
 " infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti && tic $TERM.ti
 nnoremap <C-w>vh <C-w>t<C-w>K
 nnoremap <C-w>hv <C-w>t<C-w>H
+" resize tab to fit scripts
+nnoremap <C-w>vr :vertical resize 90<CR>
 
 " Tab navigation
 nnoremap tj :tabnext<CR>
