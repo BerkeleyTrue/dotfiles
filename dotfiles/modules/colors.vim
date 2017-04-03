@@ -46,7 +46,7 @@ function! AddHighlight()
   highlight link jsObject jsObjectKey
   highlight link jsSpreadExpression jsObjectKey
   highlight link jsVariableDef jsFuncName
-  highlight link jsDesctruringBlock jsFuncName
+  highlight link jsDestructuringBlock jsFuncName
 
   highlight jsonKeyword ctermfg=117
   highlight jsonString ctermfg=86
