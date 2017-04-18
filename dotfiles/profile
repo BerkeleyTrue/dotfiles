@@ -121,7 +121,7 @@ gbranch() {
   # given the command `gbranch berks-is-awesome`
   # creates a new branch `berks-is-awesome`
   # checks that branch out
-  git co -b $1
+  git checkout -b $1
   echo "creating '${2:-origin}/$1'"
   # this will make the current branch track origin/berks-is-awesome
   git push -u ${2:-origin} $1
