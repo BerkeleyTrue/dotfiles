@@ -85,7 +85,7 @@ module.exports = {
 
   // order here is important
   plugins: [
-    'hyper-dark-dracula',
+    'hyper-dracula',
     'hyper-blink',
     'hyperborder',
     'hyperfull',
