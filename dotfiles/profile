@@ -268,15 +268,12 @@ function mkncd() {
 # increases number of cores node-gyp uses when building
 export JOBS=max
 
-# bash completion
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-    .  /opt/local/etc/profile.d/bash_completion.sh
-fi
+# bash completion w/ goodies
+# brew install bash-completion
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-# Git Completion
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-
+# Git Completion to shortcuts
+if [ -n "$(type -t __git_complete)" ] && [ "$(type -t __git_complete)" = function ]; then
   __git_complete gco _git_checkout
   __git_complete grebase _git_checkout
   # will autocomplete remotes
