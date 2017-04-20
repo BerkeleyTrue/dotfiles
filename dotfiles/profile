@@ -1,6 +1,8 @@
 # Add vi mappings to bash
 set -o vi
 
+[[ -s "$HOME/.private_aliases"  ]] && source "$HOME/.private_aliases"
+
 export PATH=/usr/local/bin:$PATH
 
 # Point to java 7
