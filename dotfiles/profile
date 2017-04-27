@@ -338,3 +338,45 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+###
+# npm publish
+# prerequisites:
+# npmig trash \
+#   conventional-recommended-bump \
+#   conventional-changelog-cli \
+#   conventional-github-releaser \
+#   conventional-commits-detector \
+#   json
+# `npmpublish` with optional argument `patch`/`minor`/`major`/`<version>`
+# defaults to conventional-recommended-bump
+# and optional argument preset `angular`/ `jquery` ...
+# defaults to conventional-commits-detector
+npmpublish() {
+  # travis status --no-interactive &&
+  # start with fresh npm install
+  trash node_modules &>/dev/null;
+  # make sure we have the latest commits
+  git pull --rebase &&
+    # get fresh packages
+    npm install &&
+    # make sure tests pass
+    npm test &&
+    # copy package.json for later restoration
+    cp package.json _package.json &&
+    # should almost always be angular
+    preset=$(conventional-commits-detector) &&
+    echo $preset &&
+    bump=$(conventional-recommended-bump -p ${2:-$preset}) &&
+    echo ${1:-$bump} &&
+    npm --no-git-tag-version version ${1:-$bump} &>/dev/null &&
+    conventional-changelog -i CHANGELOG.md -s -p ${2:-$preset} &&
+    git add CHANGELOG.md &&
+    version=`cat package.json | json version` &&
+    git commit -m "docs(CHANGELOG): v$version" &&
+    mv -f _package.json package.json &&
+    npm version ${1:-$bump} -m "chore(release): %s" &&
+    git push --follow-tags &&
+    conventional-github-releaser -p ${2:-$preset} &&
+    npm publish
+}
