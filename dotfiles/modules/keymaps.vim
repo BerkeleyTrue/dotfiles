@@ -103,6 +103,7 @@ nnoremap Y y$
 " Throw a semicolon on the end of the line
 " Thanks to @iansinnott
 nnoremap <leader>; mqA;<esc>`q
+nnoremap <leader>, mqA;<esc>`q
 
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
