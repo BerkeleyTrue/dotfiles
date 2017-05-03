@@ -131,7 +131,6 @@ let g:fixeof = 0
 " NerdTree
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeQuitOnOpen = 1
 
 
 " Nerd Commenter
