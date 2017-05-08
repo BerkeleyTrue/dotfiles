@@ -102,11 +102,11 @@ nnoremap Y y$
 
 " Throw a semicolon on the end of the line
 " Thanks to @iansinnott
-nnoremap <leader>; mqA;<esc>`q
+nnoremap z; mqA;<esc>`q
 " Throw a comma on the end of the line
-nnoremap <leader>, mqA;<esc>`q
+nnoremap z, mqA,<esc>`q
 " Delete last character on the line
-nnoremap <leader>dl mqA<esc>x`q
+nnoremap zdl mqA<esc>x`q
 
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
