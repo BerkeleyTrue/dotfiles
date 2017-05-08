@@ -15,9 +15,6 @@ inoremap kk <ESC>
 " Remove all hightlighting
 nnoremap <Leader>rh :noh<cr>
 
-" Move the current char to the end of the line
-nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
-
 " ,ev to edit vim, ,sv to source vim
 nmap <silent> <leader>ev :edit $MYVIMRC<CR>
 nmap <silent> <leader>sv :source $MYVIMRC<CR>
@@ -100,13 +97,16 @@ inoremap <leader>uw <esc>mzgUiw`za
 " yank to end of line
 nnoremap Y y$
 
-" Throw a semicolon on the end of the line
-" Thanks to @iansinnott
+" Throwing characters {{{
 nnoremap z; mqA;<esc>`q
 " Throw a comma on the end of the line
 nnoremap z, mqA,<esc>`q
 " Delete last character on the line
 nnoremap zdl mqA<esc>x`q
+" Move the current char to the end of the line
+nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
+" }}}
+
 
 " Highlight all instances of word under cursor, when idle.
 " z/ to toggle highlighting on/off.
