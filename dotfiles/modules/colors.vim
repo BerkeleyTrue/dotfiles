@@ -33,23 +33,28 @@ function! AddHighlight()
   highlight NonText ctermbg=none ctermfg=8
   highlight SpecialKey ctermbg=none ctermfg=88
 
-  " Add Special JavaScript highlighting
+  highlight Constant ctermfg=203
+
+  " Add Special JavaScript highlighting {{{
   highlight jsFuncCall ctermfg=141
-  highlight jsGlobalObjects ctermfg=9
+  highlight link jsGlobalObjects Constant
   highlight link jsGlobalNodeObjects jsGlobalObjects
   highlight jsString ctermfg=215
   highlight jsTemplateBraces ctermfg=24
   highlight jsTemplateString ctermfg=215
   highlight jsTemplateVar ctermfg=228
-  highlight jsThis ctermfg=203
+
+
   highlight jsObjectKey ctermfg=117
   highlight link jsObject jsObjectKey
   highlight link jsSpreadExpression jsObjectKey
   highlight link jsObjectKeyComputed jsObjectKey
+
   highlight link jsVariableDef jsFuncName
   highlight link jsDestructuringBlock jsFuncName
   highlight link jsDestructuringPropertyValue jsFuncName
   highlight link jsDestructuringProperty jsFuncName
+  " }}}
 
   highlight jsonKeyword ctermfg=117
   highlight jsonString ctermfg=86
