@@ -39,6 +39,7 @@ function! AddHighlight()
   highlight jsFuncCall ctermfg=141
   highlight link jsGlobalObjects Constant
   highlight link jsGlobalNodeObjects jsGlobalObjects
+  highlight link jsThis Constant
   highlight jsString ctermfg=215
   highlight jsTemplateBraces ctermfg=24
   highlight jsTemplateString ctermfg=215
