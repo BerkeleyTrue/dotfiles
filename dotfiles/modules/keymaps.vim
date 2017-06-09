@@ -226,6 +226,14 @@ function! ExpandOnEnter()
   if g:ulti_expand_or_jump_res > 0
     return l:snippet
   endif
+
+  " If popup menu visible
+  " this will confirm current
+  " selection and exit pum without
+  " adding a new line
+  if pumvisible()
+    return "\<c-y>"
+  endif
   " Otherwise call delimitMate expand on <CR>
   " this will cause surrounds to expand if appropriate
   " otherwise it just returns a <CR>
