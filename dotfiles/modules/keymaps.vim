@@ -208,12 +208,12 @@ nnoremap <leader>em :ElmMakeCurrentFile<CR>
 
 " Ultisnips/Neoplete {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-function! GoDownOnPlum()
+function! GoDownOnPum()
   " If Pop Up Menu (pum) is open go down
   " else insert tab
   return pumvisible() ? "\<c-n>" : "\<tab>"
 endfunction
-function! GoUpOnPlum()
+function! GoUpOnPum()
   " If pum open go up
   " else insert tab
   return pumvisible() ? "\<c-p>" : "\<tab>"
@@ -237,8 +237,8 @@ endfunction
 inoremap <CR> <C-R>=ExpandOnEnter()<CR>
 " On tab with dropdown go down
 " else insert tab
-inoremap <silent><tab> <C-r>=GoDownOnPlum()<cr>
-inoremap <silent><s-tab> <C-r>=GoUpOnPlum()<cr>
+inoremap <silent><tab> <C-r>=GoDownOnPum()<cr>
+inoremap <silent><s-tab> <C-r>=GoUpOnPum()<cr>
 " Duplicate ultisnips s/n mode bindings for tab
 snoremap <silent><tab> <Esc>:call UltiSnips#ExpandSnippet()<cr>
 xnoremap <silent><tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
