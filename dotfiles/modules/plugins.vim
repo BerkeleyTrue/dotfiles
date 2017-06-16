@@ -15,7 +15,8 @@ endfunction
 
 call plug#begin()
 " Lint
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 " Utils
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/neco-vim'
