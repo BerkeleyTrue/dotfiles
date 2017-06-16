@@ -39,21 +39,11 @@ filetype indent on
 " Plugin Specific Config
 " ==================================================
 
-" Syntastic Settings
+" Ale Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:syntastic_mode_map = {
-  \'mode': 'active',
-  \'active_filetypes': [ 'vim' ],
-  \'passive_filetypes': []
-\}
-let g:syntastic_check_on_open = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = 'W'
-let g:syntastic_html_checkers = [ 'tidy' ]
-let g:syntastic_html_tidy_ignore_errors = [ ' proprietary attribute \"ng-']" ]
-let g:syntastic_json_checkers = [ 'jsonlint' ]
-let g:syntastic_javascript_checkers = [ 'eslint' ]
-let g:syntastic_vim_checkers = [ 'vint' ]
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = 'W'
+let g:ale_echo_msg_format = '%linter%: %severity% - %s'
 
 " Rainbow Parens Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
