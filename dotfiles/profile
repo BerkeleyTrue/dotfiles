@@ -109,6 +109,19 @@ alias grsts2='git reset --soft HEAD^^'
 alias gstash='git stash'
 alias gstashls='git stash list'
 alias grename='git mv --force'
+gpr() {
+  # gpr 123  upstream
+  # gpr 124
+  remote=origin
+  branchname=origin/$1
+  if [ $# = 2 ]; then
+    branchname=$2/$1
+    remote=$2
+  fi
+  echo "fetching PR #'$1' from '$branchname'"
+  git fetch $remote pull/$1/head:$branchname
+  git checkout $branchname
+}
 gbranch() {
   # if given command `gbranch`
   # list out branches
