@@ -352,13 +352,18 @@ fi
 
 ###
 # npm publish
-# prerequisites:
-# npmig trash \
-#   conventional-recommended-bump \
-#   conventional-changelog-cli \
-#   conventional-github-releaser \
-#   conventional-commits-detector \
-#   json
+# install prerequisites:
+npmpublishpre() {
+  sudo npm install -g
+    trash \
+    commitizen \
+    cz-conventional-changelog \
+    conventional-recommended-bump \
+    conventional-changelog-cli \
+    conventional-github-releaser \
+    conventional-commits-detector \
+    json
+}
 # `npmpublish` with optional argument `patch`/`minor`/`major`/`<version>`
 # defaults to conventional-recommended-bump
 # and optional argument preset `angular`/ `jquery` ...
