@@ -53,7 +53,7 @@ Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline' | Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline-themes'
 " Lang
-Plug 'Blackrush/vim-gocode', 
+Plug 'Blackrush/vim-gocode'
 Plug 'chrisbra/csv.vim'
 Plug 'derekwyatt/vim-scala'
 Plug 'digitaltoad/vim-jade'
