@@ -109,6 +109,13 @@ alias grsts2='git reset --soft HEAD^^'
 alias gstash='git stash'
 alias gstashls='git stash list'
 alias grename='git mv --force'
+gcor() {
+  # gcor feat/foo
+  # = git checkout -b origin feat/foo
+  # gcor feat/foo upstream
+  git fetch ${2:-origin}
+  git checkout -b $1 ${2:-origin}/$1
+}
 gpr() {
   # gpr 123  upstream
   # gpr 124
