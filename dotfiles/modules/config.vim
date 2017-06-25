@@ -59,8 +59,11 @@ augroup END
 
 " vim-json
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:vim_json_syntax_concealcursor = 1
-let g:indentLine_noConcealCursor = 1
+" VIm does not have the ability to programmatically
+" define how a concealed element can be replaced with
+" so we must disable indentLine in json files as
+" this conflicts with the concealing ability of vim-json
+let g:indentLine_fileTypeExclude = [ "json" ]
 
 " deoplete (autocomplete)
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
