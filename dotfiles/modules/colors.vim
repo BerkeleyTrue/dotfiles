@@ -61,6 +61,8 @@ function! AddHighlight()
 
   highlight jsonKeyword ctermfg=117
   highlight jsonString ctermfg=86
+  highlight link jsonNumber Number
+  highlight link jsonBoolean Boolean
 
   highlight vimMapLhs ctermfg=215
   highlight vimMapModKey ctermfg=117
