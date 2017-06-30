@@ -84,7 +84,8 @@ alias cdrwr='cd ~/node/rwr'
 alias cdvim='cd ~/.vim'
 
 #git aliases
-alias gstat='tig status'
+alias gstat='git status'
+alias tstat='tig status'
 alias gfetch='git fetch'
 alias gpush='git push'
 alias gpushntrack='git push -u'
