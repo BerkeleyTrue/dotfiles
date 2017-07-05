@@ -380,6 +380,17 @@ npmpublish() {
   # travis status --no-interactive &&
   # start with fresh npm install
   trash node_modules &>/dev/null;
+  # should almost always be angular
+  preset=${2:-$(conventional-commits-detector)}
+  bump=${1:-$(conventional-recommended-bump -p $preset)}
+  echo "Bump: $bump."
+  echo "Preset: $preset"
+  echo "Do you wish to continue?"
+  select yn in "Yes" "No"; do
+    case $yn in
+      No ) return 0;;
+    esac
+  done
   # make sure we have the latest commits
   git pull --rebase &&
     # get fresh packages
@@ -388,19 +399,23 @@ npmpublish() {
     npm test &&
     # copy package.json for later restoration
     cp package.json _package.json &&
-    # should almost always be angular
-    preset=$(conventional-commits-detector) &&
-    echo $preset &&
-    bump=$(conventional-recommended-bump -p ${2:-$preset}) &&
-    echo ${1:-$bump} &&
-    npm --no-git-tag-version version ${1:-$bump} &>/dev/null &&
-    conventional-changelog -i CHANGELOG.md -s -p ${2:-$preset} &&
+    # copy package-lock if exists
+    [[ -e package-lock.json ]] && cp package-lock.json _package-lock.json || echo "info: no package-lock found" &&
+    npm --no-git-tag-version version $bump &>/dev/null &&
+    echo "creating/updating changelong" &&
+    conventional-changelog -i CHANGELOG.md -s -p $preset &&
     git add CHANGELOG.md &&
     version=`cat package.json | json version` &&
+    echo "Adding changelog" &&
     git commit -m "docs(CHANGELOG): v$version" &&
     mv -f _package.json package.json &&
-    npm version ${1:-$bump} -m "chore(release): %s" &&
+    [[ -e _package.json ]] && mv -f _package-lock.json package-lock.json ||
+    echo "cutting release" &&
+    npm version $bump -m "chore(release): %s" &&
+    echo "pushing up changes" &&
     git push --follow-tags &&
-    conventional-github-releaser -p ${2:-$preset} &&
+    echo "creating github release" &&
+    conventional-github-releaser -p $preset &&
+    echo "publishing to npm" &&
     npm publish
 }
