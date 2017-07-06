@@ -365,7 +365,7 @@ npmpublishpre() {
   sudo npm install -g
     trash \
     commitizen \
-    cz-conventional-changelog \
+    cz-freecodecamp \
     conventional-recommended-bump \
     conventional-changelog-cli \
     conventional-github-releaser \
