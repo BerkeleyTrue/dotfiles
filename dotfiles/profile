@@ -15,7 +15,6 @@ export PATH=$PATH:~/mongodb/bin
 export PATH=$PATH:$HOME/.rvm/bin
 
 export GOPATH=$HOME/go/packages
-export PATH=$PATH:$GOROOT/bin
 
 #Heroku Toolbelt
 export PATH=$PATH:/usr/local/heroku/bin
