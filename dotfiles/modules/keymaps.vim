@@ -160,6 +160,31 @@ function! FormatFoldText() " {{{
   return l:line . '…' . l:foldedlinecount . ' lines folded…}}}'
 endfunction " }}}
 set foldtext=FormatFoldText()
+command! BufDeleteHidden call DeleteHiddenBuffers()
+command! Bdh call DeleteHiddenBuffers()
+" DeleteHiddenBuffers {{{
+function! DeleteHiddenBuffers()
+  let listOfBuffs=[]
+  let closed = 0
+  " map over 1 to the number of tab pages (num or windows), extend (append)
+  " the buffer list of the current page
+  " in essense: create a list of all the buffers
+  call map(range(1, tabpagenr('$')), 'extend(listOfBuffs, tabpagebuflist(v:val))')
+  " filter: for 1 to the last buffer (bufnr('$')),
+  "   if exists and
+  "   if buffer number does not exist in listOfBuffs (buffer list) and
+  "   if buffer type is empty (normal buffer)
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(listOfBuffs, v:val) == -1 && empty(getbufvar(v:val, "&buftype"))')
+    " if buffer is currently unmodified (mod == 0)
+    if getbufvar(buf, '&mod') == 0
+      " close buffer and remove everything about it
+      silent execute 'bwipeout' buf
+      let closed += 1
+    endif
+  endfor
+  echo "Closed ".closed." hidden buffers"
+endfunction
+" DeleteHiddenBuffers }}}
 " }}}
 " Plugin Specific mappings {{{
 " ==================================================
