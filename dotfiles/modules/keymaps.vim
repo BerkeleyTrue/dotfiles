@@ -51,16 +51,22 @@ noremap L $
 vnoremap L g_
 " }}}
 
+" easily create aliases
+fun! SetupCommandAlias(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+    \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+    \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfun
 " Alias Helptags to rbHelp, This makes way more sense to me and will be
 " easier to remember
-cnoreabbrev <expr> rebuildHelpFiles ((getcmdtype() is# ":" && getcmdline() is# "rebuildHelpFiles")?("Helptags"):("rebuildHelpFiles"))
+call SetupCommandAlias("RebuildHelpFiles", "Helptags")
 
-  " Alias sudo overwrite
-cnoreabbrev <expr> sudowrite ((getcmdtype() is# ":" && getcmdline() is# "sudowrite")?(":w !sudo tee %"):("sudowrite"))
+" Alias sudo overwrite
+call SetupCommandAlias("sudowrite", "w !sudo tee %")
 " Alias command qq to q!
-cnoreabbrev <expr> qq ((getcmdtype() is# ":" && getcmdline() is# "qq")?("q!"):("qq"))
+call SetupCommandAlias("qq", "q!")
 " Alias :W to :w because I keep forgetting to release shift!
-cnoreabbrev <expr> W ((getcmdtype() is# ":" && getcmdline() is# "W")?("w"):("W"))
+call SetupCommandAlias("W", "w")
 
 " Make OSX alt key compatible with vim
 " Now alt will work as expected with vim-move
