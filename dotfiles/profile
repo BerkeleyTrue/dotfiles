@@ -81,6 +81,7 @@ alias cdrt='cd ~/node/react'
 alias cdrdx='cd ~/node/redux'
 alias cdrwr='cd ~/node/rwr'
 alias cdvim='cd ~/.vim'
+alias cdsnippets='cd ~/.config/nvim/plugged/berkeleys-snippet-emporium'
 
 #git aliases
 alias gstat='git status'
