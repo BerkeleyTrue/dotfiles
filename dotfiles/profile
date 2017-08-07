@@ -58,6 +58,10 @@ alias chmodrw='chmod 644'
 ## Used to make sure profile changes are reflecting
 alias echodec='declare -f'
 
+lpasssearch() {
+  lpass show -c --password $(lpass ls | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+}
+
 #quick edits
 alias vprofile='nvim ~/.profile'
 alias sprofile='source ~/.profile'
@@ -84,6 +88,11 @@ alias cdrdx='cd ~/node/redux'
 alias cdrwr='cd ~/node/rwr'
 alias cdvim='cd ~/.vim'
 alias cdsnippets='cd ~/.config/nvim/plugged/berkeleys-snippet-emporium'
+cdfzf() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) &&
+    cd "$dir"
+}
 
 #git aliases
 alias gstat='git status'
@@ -109,9 +118,72 @@ alias grsth2='git reset --hard HEAD^^'
 alias grsts='git reset --soft'
 alias grsts1='git reset --soft HEAD^'
 alias grsts2='git reset --soft HEAD^^'
-alias gstash='git stash'
-alias gstashls='git stash list'
+alias gstash='fstash'
 alias grename='git mv --force'
+fbranch() {
+  # fbranch
+  # search for branch using fuzzy search
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+    branch=$(echo "$branches" | fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+fco() {
+  # fco - checkout git branch/tag with fzf search
+  local tags branches target
+  tags=$(
+  git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+  git branch --all | grep -v HEAD             |
+  sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+  sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+  (echo "$tags"; echo "$branches") |
+  fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+  git checkout $(echo "$target" | awk '{print $2}')
+}
+fshow() {
+  # fshow - git commit browser
+  git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute: (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF' {} FZF-EOF"
+}
+fcs() {
+  # fcs - get git commit sha
+  # example usage: git rebase -i `fcs`
+  local commits commit
+  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+  echo -n $(echo "$commit" | sed "s/ .*//")
+}
+fstash() {
+  # fstash - easier way to deal with stashes
+  # type fstash to get a list of your stashes
+  # enter shows you the contents of the stash
+  # ctrl-d shows a diff of the stash against your current HEAD
+  # ctrl-b checks the stash out as a branch, for easier merging
+  local out q k sha
+  while out=$(
+    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b);
+  do
+    mapfile -t out <<< "$out"
+    q="${out[0]}"
+    k="${out[1]}"
+    sha="${out[-1]}"
+    sha="${sha%% *}"
+    [[ -z "$sha" ]] && continue
+    if [[ "$k" == 'ctrl-d' ]]; then
+      git diff $sha
+    elif [[ "$k" == 'ctrl-b' ]]; then
+      git stash branch "stash-$sha" $sha
+      break;
+    else
+      git stash show -p $sha
+    fi
+  done
+}
 gcor() {
   # gcor feat/foo
   # = git checkout -b origin feat/foo
@@ -136,8 +208,7 @@ gbranch() {
   # if given command `gbranch`
   # list out branches
   if [ $# = 0 ]; then
-    echo 'printing branches'
-    git branch
+    fbranch
     return 0
   fi
   echo "creating branch '$1'"
