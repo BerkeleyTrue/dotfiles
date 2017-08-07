@@ -101,7 +101,7 @@ alias gfetch='git fetch'
 alias gpush='git push'
 alias gpushntrack='git push -u'
 alias gadd='git add'
-alias gdiff='git diff | tig'
+alias gdiff='tdiff'
 alias gcom='git cz'
 alias gamend='git commit --amend'
 alias glog='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
@@ -120,6 +120,13 @@ alias grsts1='git reset --soft HEAD^'
 alias grsts2='git reset --soft HEAD^^'
 alias gstash='fstash'
 alias grename='git mv --force'
+tdiff() {
+  if [ $# = 0 ]; then
+    git diff | tig
+    return 0
+  fi
+  git diff $1 | tig
+}
 fbranch() {
   # fbranch
   # search for branch using fuzzy search
