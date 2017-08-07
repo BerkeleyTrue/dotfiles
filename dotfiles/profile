@@ -162,16 +162,23 @@ fstash() {
   # enter shows you the contents of the stash
   # ctrl-d shows a diff of the stash against your current HEAD
   # ctrl-b checks the stash out as a branch, for easier merging
-  local out q k sha
+  local i arr out q k sha
   while out=$(
     git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
     fzf --ansi --no-sort --query="$q" --print-query \
         --expect=ctrl-d,ctrl-b);
   do
-    mapfile -t out <<< "$out"
-    q="${out[0]}"
-    k="${out[1]}"
-    sha="${out[-1]}"
+    # below is equivalent to 'mapfile -t out <<< "$out"'
+    i=0
+    while IFS=$'\n' read -r line
+    do
+      arr[i]="$line"
+      i=$((i + 1))
+    done <<< "$out"
+
+    q="${arr[0]}"
+    k="${arr[1]}"
+    sha="${arr[ ${#arr[@]} - 1]}"
     sha="${sha%% *}"
     [[ -z "$sha" ]] && continue
     if [[ "$k" == 'ctrl-d' ]]; then
