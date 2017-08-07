@@ -42,6 +42,7 @@ Plug 'vim-scripts/scrollfix'
 Plug 'wakatime/vim-wakatime'
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 " Snippets/completion
 Plug 'berkeleyTrue/berkeleys-snippet-emporium'
 Plug 'roxma/nvim-completion-manager'

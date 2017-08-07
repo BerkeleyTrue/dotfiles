@@ -2,6 +2,8 @@
 set -o vi
 
 [[ -s "$HOME/.private_aliases"  ]] && source "$HOME/.private_aliases"
+# add fzf completion
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH=/usr/local/bin:$PATH
 
