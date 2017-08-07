@@ -16,6 +16,8 @@ brew install ruby
 brew install reattach-to-user-namespace
 brew install neovim/neovim/neovim
 brew install node
+brew install fzf
+brew install lpass
 pip install neovim
 pip3 install neovim
 gem install neovim
@@ -31,6 +33,7 @@ git clone https://github.com/berkeleytrue/dotfiles.git ~/.vim
 While in your home directory enter the following,
 
 ```bash
+/usr/local/opt/fzf/install
 mkdir -p ~/.config/karabiner
 mkdir -p ~/.config/nvim
 mkdir -p ~/.tmux/tmux-plugins
