@@ -45,6 +45,7 @@ let g:ale_sign_error = '✗'
 let g:ale_sign_warning = 'W'
 let g:ale_echo_msg_format = '%linter%: %severity% - %s'
 let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_sign_column_always = 1
 
 " Rainbow Parens Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
