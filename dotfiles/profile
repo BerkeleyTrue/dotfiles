@@ -475,6 +475,7 @@ npmpublish() {
   echo "Do you wish to continue?"
   select yn in "Yes" "No"; do
     case $yn in
+      Yes ) break;;
       No ) return 0;;
     esac
   done
@@ -496,7 +497,7 @@ npmpublish() {
     echo "Adding changelog" &&
     git commit -m "docs(CHANGELOG): v$version" &&
     mv -f _package.json package.json &&
-    [[ -e _package.json ]] && mv -f _package-lock.json package-lock.json ||
+    [[ -e _package-lock.json ]] && mv -f _package-lock.json package-lock.json ||
     echo "cutting release" &&
     npm version $bump -m "chore(release): %s" &&
     echo "pushing up changes" &&
