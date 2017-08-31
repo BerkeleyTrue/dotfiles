@@ -18,6 +18,8 @@ call plug#begin()
 " Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
 " Utils
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'bronson/vim-crosshairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'matze/vim-move'
@@ -42,7 +44,6 @@ Plug 'vim-scripts/scrollfix'
 Plug 'wakatime/vim-wakatime'
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 " Snippets/completion
 Plug 'berkeleyTrue/berkeleys-snippet-emporium'
 Plug 'roxma/nvim-completion-manager'
