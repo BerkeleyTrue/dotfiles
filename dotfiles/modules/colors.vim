@@ -67,6 +67,10 @@ function! AddHighlight()
   highlight vimMapLhs ctermfg=215
   highlight vimMapModKey ctermfg=117
   highlight vimNotation ctermfg=86
+
+  " Vim crosshairs
+  highlight CursorLine   ctermbg=235 ctermfg=NONE
+  highlight CursorColumn ctermbg=24 ctermfg=NONE
 endfunction
 
 " add Vim theme

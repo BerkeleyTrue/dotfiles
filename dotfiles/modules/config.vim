@@ -186,3 +186,9 @@ let g:delimitMate_expand_space = 1
 " to jump to the already existing closing
 " surround instead of inserting a new closing surround
 let g:delimitMate_jump_expansion = 1
+
+
+" vim crosshairs
+" ++++++++++++++++++++++++++++++++++++++++++++++++++
+set cursorcolumn
+set cursorline
