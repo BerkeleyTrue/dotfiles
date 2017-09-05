@@ -137,14 +137,37 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDDefaultAlign = 'left'
 
 
-" Theme config
+" Airline config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:airline_theme='dracula'
 " Automatically displays all buffers when there's only one tab open.
+function! AleError()
+  let l:loclist = ale#engine#GetLoclist(bufnr('%'))
+  if !empty(l:loclist)
+    let l:item = l:loclist[0]
+
+    return [l:item.lnum, l:item.col]
+  endif
+  return []
+endfunction
+
+function! AleErrorMessage()
+  let l:error = AleError()
+  let l:count = ale#statusline#Count(bufnr('%'))
+  if empty(l:error)
+    return ''
+  endif
+  return printf('E: pos[%d, %d]: (%d)', l:error[0], l:error[1], l:count.total)
+endfunction
+
+call airline#parts#define_function('ale_error_message', 'AleErrorMessage')
+
 let g:airline#extensions#tabline#enabled = 2
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline_section_error = airline#section#create(['ale_error_message'])
 
 " Tmuxline key legend
 " #H Hostname of local host
