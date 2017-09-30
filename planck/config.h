@@ -1,7 +1,7 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+#include "../../qmk_firmware/keyboards/planck/config.h"
 
 #define PREVENT_STUCK_MODIFIERS
 
