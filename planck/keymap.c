@@ -42,8 +42,8 @@ enum planck_keycodes {
 
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)   // Tap for Esc, hold for Ctrl
-#define R_CRB       LSFT(KC_RBRC)   // Right Curly
-#define L_CRB       LSFT(KC_LBRC)   // Left Curly
+#define MS_W_UP     KC_MS_WH_UP
+#define MS_W_DN     KC_MS_WH_DOWN
 
 // Macros
 enum planck_macros {
@@ -106,21 +106,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
    */
   [_RAISE] = {
-    {_______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,     S(KC_3) },
-    {_______, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), KC_QUOT, S(KC_QUOT), _______ },
-    {_______, KC_UNDS, KC_PLUS, KC_TILD, KC_PIPE, KC_COLN, _______, _______, KC_COMM, KC_DOT,  KC_SLSH,    _______ },
-    {_______, _______, _______, _______, _______, KC_DEL,  KC_DEL,  _______, _______, _______, _______,    _______ }
+    {_______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  S(KC_3) },
+    {_______, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), KC_QUOT, DBLQUOT, KC_ENT  },
+    {_______, KC_UNDS, KC_PLUS, KC_TILD, KC_PIPE, KC_COLN, _______, _______, KC_COMM, KC_DOT,  KC_SLSH, _______ },
+    {_______, _______, _______, _______, _______, KC_DEL,  KC_DEL,  _______, _______, _______, _______, _______ }
   },
 
   /* Nav
    *
-   *         Large movements -----/```````````````````\   /```````````````````\----- Vim-style arrow keys
+   *         Mouse MVMT   /````````````````\             /```````````````````\----- Vim-style arrow keys
    *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-   *                │     │     │     │     │     │     │     │     │     │     │     │     │
+   *                │     │     │MS UP│     │     │     │     │     │     │     │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                │     │     │Home │PgUp │PgDn │ End │  ←  │  ↓  │  ↑  │  →  │     │     │
+   *                │     │MS LF│MS DN│MS RT│MSBT1│     │  ←  │  ↓  │  ↑  │  →  │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                │     │     │     │     │     │     │     │     │     │     │     │     │
+   *                │     │     │     │     │MSBT2│     │     │MSWDN│MSWUP│     │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
    *                │     │     │     │     │     │           │     │     │     │     │     │
    *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
