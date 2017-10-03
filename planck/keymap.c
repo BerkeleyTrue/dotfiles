@@ -44,6 +44,11 @@ enum planck_keycodes {
 #define CTL_ESC     CTL_T(KC_ESC)   // Tap for Esc, hold for Ctrl
 #define MS_W_UP     KC_MS_WH_UP
 #define MS_W_DN     KC_MS_WH_DOWN
+#define HYPRBRC     ALL_T(KC_RBRC)
+#define HYPLBRC     ALL_T(KC_LBRC)
+#define NAV_SPC     LT(_NAV, KC_SPC)
+#define GUIGRAV     LGUI(KC_GRV)
+#define DBLQUOT     S(KC_QUOT)
 
 // Macros
 enum planck_macros {
@@ -68,13 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *   Hold for NAV ---------------------------------'
   */
   [_QWERTY] = {
-    {  KC_TAB,  KC_Q,           KC_W,     KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,              KC_I,    KC_O,    KC_P,           KC_BSPC },
-    {  CTL_ESC, KC_A,           KC_S,     KC_D,    KC_F,    KC_G,             KC_H,    KC_J,              KC_K,    KC_L,    KC_SCLN,        KC_QUOT },
-    {  KC_LSPO, KC_Z,           KC_X,     KC_C,    KC_V,    KC_B,             KC_N,    KC_M,              KC_COMM, KC_DOT,  KC_SLSH,        KC_RSPC },
-    {  KC_LBRC, ALL_T(KC_RBRC), KC_LALT,  KC_LGUI, LOWER,   LT(_NAV, KC_SPC), LT(_NAV, KC_SPC),  RAISE,   KC_RGUI, KC_RALT, ALL_T(KC_LBRC), KC_RBRC }
+    {  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
+    {  CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,    KC_H,     KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
+    {  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC },
+    {  KC_LBRC, HYPRBRC, KC_LALT, KC_LGUI, LOWER,  NAV_SPC, NAV_SPC,  RAISE,   KC_RGUI, KC_RALT, HYPLBRC, KC_RBRC }
   },
-
-
 
   /* Numeric layer
    *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -88,10 +91,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
    */
   [_LOWER] = {
-    {LGUI(KC_GRV), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   S(KC_3) },
-    {_______,      KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,   KC_0,     KC_ENT  },
-    {_______,      KC_MINS, KC_EQL,  KC_GRV,  KC_BSLS, KC_COLN, _______, _______, KC_COMM, KC_DOT, KC_SLSH,  _______ },
-    {_______,      _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______ }
+    {GUIGRAV, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   S(KC_3) },
+    {_______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,   KC_0,     KC_ENT  },
+    {_______, KC_MINS, KC_EQL,  KC_GRV,  KC_BSLS, KC_COLN, _______, _______, KC_COMM, KC_DOT, KC_SLSH,  _______ },
+    {_______, _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______ }
   },
 
   /* Symbol layer
@@ -128,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = {
     {_______, ___x___, KC_MS_U, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, _______ },
     {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, ___x___, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, ___x___, _______ },
-    {_______, ___x___, ___x___, ___x___, KC_BTN2, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, _______ },
+    {_______, ___x___, ___x___, ___x___, KC_BTN2, ___x___, ___x___, MS_W_DN, MS_W_UP, ___x___, ___x___, _______ },
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
   },
 
