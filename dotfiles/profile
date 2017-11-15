@@ -72,11 +72,16 @@ alias vhyper='nvim ~/.hyper.js'
 
 #node aliases
 alias :mongo='mongod --dbpath ~/data/db'
+
 alias npmig='sudo npm install -g'
 alias npmug='sudo npm uninstall -g'
+
 alias npmid='npm install --save-dev'
+alias npmud='npm uninstall --save-dev'
+
 alias npmis='npm install --save'
 alias npmus='npm uninstall --save'
+
 alias npms='npm run start'
 alias npmt='npm run test'
 alias npml='npm run lint'
