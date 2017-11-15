@@ -334,8 +334,14 @@ grebase() {
   fi
 
   if [ $1 == 'skip' ]; then
-    echo "continuing..."
+    echo "skiping..."
     git rebase --skip
+    return 0
+  fi
+
+  if [ $1 == 'abort' ]; then
+    echo "aborting..."
+    git rebase --abort
     return 0
   fi
   git rebase $1
