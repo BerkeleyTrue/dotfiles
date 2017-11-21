@@ -22,6 +22,7 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
+  _CAP,
   _LOWER,
   _RAISE,
   _NAV,
@@ -59,11 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
   *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-  *                │  ⇥  │  Q  │  W  │  E  │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │ BSPC|
+  *                │  ⇥  │  q  │  w  │  e  │  r  │  t  │  y  │  u  │  i  │  o  │  p  │ BSPC|
   *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  * Tap for Esc -- │  ⌃  │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │  '  │
+  * Tap for Esc -- │  ⌃  │  a  │  s  │  d  │  f  │  g  │  h  │  j  │  k  │  l  │  ;  │  '  │
   *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-  *   Tap for ( -- │  ⇧  │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │  ⇧  │ -- Tap for )
+  *   Tap for ( -- │  ⇧  │  z  │  x  │  c  │  v  │  b  │  n  │  m  │  ,  │  .  │  /  │  ⇧  │ -- Tap for )
   *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
   *                │  [  │Hyper│  ⌥  │  ⌘  │  ↓  │   Space   │  ↑  │  ⌘  │  ⌥  │Hyper│  ]  │
   *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
@@ -77,6 +78,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {  CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,    KC_H,     KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
     {  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC },
     {  KC_LBRC, HYPRBRC, KC_LALT, KC_LGUI, LOWER,  NAV_SPC, NAV_SPC,  RAISE,   KC_RGUI, KC_RALT, HYPLBRC, KC_RBRC }
+  },
+
+  /* CAP (shifted)
+  *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+  *                │     │  Q  │  W  │  E  │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │     |
+  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+  *                │     │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  :  │  "  │
+  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+  *                │  (  │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  <  │  >  │  ?  │  )  │
+  *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
+  *                │     │     │     │     │     │   Space   │     │     │     │     │     │
+  *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
+  */
+  [_CAP] = {
+    {  _______, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), S(KC_Y), S(KC_U), S(KC_I),    S(KC_O),   S(KC_P),    _______    },
+    {  _______, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G), S(KC_H), S(KC_J), S(KC_K),    S(KC_L),   S(KC_SCLN), S(KC_QUOT) },
+    {  S(KC_9), S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), S(KC_N), S(KC_M), S(KC_COMM), S(KC_DOT), S(KC_SLSH), S(KC_0)    },
+    {  _______, _______, _______, _______, _______, KC_SPC, KC_SPC,   _______, _______,    _______,   _______,    _______    }
   },
 
   /* Numeric layer
@@ -153,10 +172,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {___x___, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  ___x___, ___x___, AU_ON,   AU_OFF,  ___x___},
     {___x___, ___x___, ___x___, ___x___, LOWER,   BL_TOGG, BL_TOGG, RAISE,   BL_TOGG, BL_DEC,  BL_INC,  ___x___}
   }
-
 };
 
-
+static bool RGUI_PRESSED = false;
+static bool LGUI_PRESSED = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOWER:
@@ -178,6 +197,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _KEYBOARD);
       }
       return false;
+      break;
+    case KC_RGUI:
+      // set to pressed
+      RGUI_PRESSED = record->event.pressed;
+      // if left gui pressed and right gui pressed
+      // turn on cap layer
+      if (LGUI_PRESSED && RGUI_PRESSED) {
+        // remove left gui mod
+        unregister_code(KC_LGUI);
+        layer_on(_CAP);
+        // don't send gui in this case
+        return false;
+      } else {
+        // if not both gui keys are pressed
+        // then ensure cap layer is off
+        layer_off(_CAP);
+        // send gui button
+        return true;
+      }
+      break;
+    case KC_LGUI:
+      // same as above
+      LGUI_PRESSED = record->event.pressed;
+      if (LGUI_PRESSED && RGUI_PRESSED) {
+        // remove right gui mod
+        unregister_code(KC_RGUI);
+        layer_on(_CAP);
+        return false;
+      } else {
+        layer_off(_CAP);
+        return true;
+      }
       break;
   }
   return true;
