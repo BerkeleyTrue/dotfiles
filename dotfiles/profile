@@ -474,9 +474,9 @@ fi
 ###-end-npm-completion-###
 
 ###
-# npm publish
-# install prerequisites:
-npmpublishpre() {
+# install npm prerequisites:
+###
+npminstallpre() {
   sudo npm install -g
     trash \
     commitizen \
@@ -485,6 +485,10 @@ npmpublishpre() {
     conventional-changelog-cli \
     conventional-github-releaser \
     conventional-commits-detector \
+    eslint \
+    eslint-plugin-react \
+    eslint-plugin-import \
+    eslint-config-freecodecamp \
     json
 }
 # `npmpublish` with optional argument `patch`/`minor`/`major`/`<version>`

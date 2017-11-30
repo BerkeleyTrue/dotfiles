@@ -58,7 +58,7 @@ source ~/.profile
 
 Now install global npm packages required for git workflow and npm publishing
 ```bash
-npmpublishpre
+npminstallpre
 ```
 
 This will create symbolic links in the home dir and the config
