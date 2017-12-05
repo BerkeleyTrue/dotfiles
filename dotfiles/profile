@@ -393,6 +393,21 @@ gclean() {
     # push and delete the branch
     xargs -n 1 git push --delete $remote
 }
+gbranchdelete() {
+  # delete a branch both localy and remotely
+  # gbranch delete foo/branch
+  remote=${2:-origin}
+  echo "branch to delete is '$1' locally and from remote $remote"
+  echo "Do you want to continue?"
+  select yn in "Yes" "No"; do
+    case $yn in
+      Yes ) break;;
+      No ) return 0;;
+    esac
+  done
+  git push -d $remote $1
+  git branch -D $1
+}
 
 #Makes and CD's to a new directoy.
 function mkncd() {
