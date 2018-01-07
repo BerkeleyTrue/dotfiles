@@ -154,12 +154,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 };
 
+#ifdef AUDIO_ENABLE
+float tone_coin[][2]     = SONG(COIN_SOUND);
+float tone_one_up[][2]     = SONG(ONE_UP_SOUND);
+float tone_ring[][2]    = SONG(SONIC_RING);
+#endif
+
 static bool RGUI_PRESSED = false;
 static bool LGUI_PRESSED = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOWER:
       if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_coin);
+        #endif
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _KEYBOARD);
       } else {
