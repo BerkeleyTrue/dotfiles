@@ -178,14 +178,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KYBRD:
-      if (record->event.pressed) {
-        layer_on(_KEYBOARD);
-      } else {
-        layer_off(_KEYBOARD);
-      }
-      return false;
-      break;
     case KC_RGUI:
       // set to pressed
       RGUI_PRESSED = record->event.pressed;
