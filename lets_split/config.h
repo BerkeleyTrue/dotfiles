@@ -1,7 +1,10 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../qmk_firmware/keyboards/planck/config.h"
+#include "../../qmk_firmware/keyboards/lets_split/config.h"
+
+#define USE_SERIAL
+#define MASTER_LEFT
 
 #define PREVENT_STUCK_MODIFIERS
 #define MOUSEKEY_DELAY             200
