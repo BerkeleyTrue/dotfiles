@@ -49,15 +49,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                ├─────┼─────┼─────┼─────┼─────┼─────│    ├─────┼─────┼─────┼─────┼─────┼─────┤
   *                │  [  │  ]  │  ⌥  │  ⌘  │  ↓  │ SPC │    │ SPC │  ↑  │  ⌘  │  ⌥  │  [  │  ]  │
   *                └─────┴─────┴─────┴─────┴─────┴─────┘    └─────┴─────┴─────┴─────┴─────┴─────┘
-  *                        /                       /          /                       /
-  *   Hold for Keyboard---'-----------------------/----------/-----------------------'
+  *                        /                       /          /
+  *   Hold for Keyboard---'                       /          /
   *   Hold for NAV ------------------------------'----------'
   */
   [_QWERTY] = KEYMAP( \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,    SFT_TAB,\
     CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,    KC_H,     KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,  \
-    KC_LBRC, KYBRBRC, KC_LALT, KC_LGUI, LOWER,  NAV_SPC, NAV_SPC,  RAISE,   KC_RGUI, KC_RALT, KYBRBRC, KC_RBRC    \
+    KC_LBRC, KYBRBRC, KC_LALT, KC_LGUI, LOWER,  NAV_SPC, NAV_SPC,  RAISE,   KC_RGUI, KC_RALT, KC_LBRC, KC_RBRC    \
   ),
 
   /* CAP (shifted)
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
    *                │     │MS LF│MS DN│MS RT│MSBT1│     │   │  ←  │  ↓  │  ↑  │  →  │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-   *                │     │     │     │     │MSBT2│     │   │     │MSWDN│MSWUP│     │     │     │
+   *                │     │     │     │     │MSBT2│     │   │     │PG DN│PG UP│     │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
    *                │     │     │     │     │     │     │   │     │     │     │     │     │     │
    *                └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = KEYMAP( \
     _______, ___x___, KC_MS_U, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, _______, \
     _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, ___x___, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, ___x___, KC_ENT ,  \
-    _______, ___x___, ___x___, ___x___, KC_BTN2, ___x___, ___x___, MS_W_DN, MS_W_UP, ___x___, ___x___, _______,   \
+    _______, ___x___, ___x___, ___x___, KC_BTN2, ___x___, ___x___, KC_PGDN, KC_PGUP, ___x___, ___x___, _______,   \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______     \
   ),
 
@@ -149,10 +149,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_KEYBOARD] = KEYMAP( \
     ___x___, RESET,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, \
     ___x___, QWERTY,  ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___,  \
-    ___x___, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  ___x___, ___x___, AU_ON,   AU_OFF,  ___x___,   \
+    ___x___, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  ___x___, ___x___,  ___x___, ___x___, AU_ON,   AU_OFF,  ___x___,   \
     ___x___, ___x___, ___x___, ___x___, LOWER,   BL_TOGG, BL_TOGG, RAISE,   BL_TOGG, BL_DEC,  BL_INC,  ___x___     \
   )
 };
+
 
 #ifdef AUDIO_ENABLE
 float tone_coin[][2]     = SONG(COIN_SOUND);
