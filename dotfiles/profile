@@ -203,6 +203,9 @@ fstash() {
     fi
   done
 }
+ggetcurrentbranch() {
+  git rev-parse --abbrev-ref HEAD
+}
 grename() {
   old_name=$1
   new_name=$2
@@ -240,6 +243,32 @@ gcorpullrequest() {
   git fetch $remote pull/$1/head:$branchname
   git checkout $branchname
 }
+gresetrpullrequest() {
+  branchname=$(ggetcurrentbranch)
+  head=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+  remote=origin
+  if [ $# = 2 ]; then
+    remote=$2
+  fi
+  echo "HEAD points to $head"
+  echo "branch points to $branchname"
+  echo "PR number $1"
+  select yn in "Yes" "No"; do
+    case $yn in
+      Yes ) break;;
+      No ) return 0;;
+    esac
+  done
+  echo "switching to $head"
+  git checkout $head
+  echo "deleting old branch"
+  git branch -D $branchname
+  echo "fetching PR"
+  git fetch $remote pull/$1/head:$branchname
+  echo "switching to updated $branchname"
+  git checkout $branchname
+}
+
 gbranch() {
   # if given command `gbranch`
   # list out branches
@@ -359,7 +388,7 @@ gpull() {
   # find the current branch and pull that branch
   # from the `upstream` remote repository
   if [ $# = 1 ]; then
-    currentbranch=$(git rev-parse --abbrev-ref HEAD)
+    currentbranch=$(ggetcurrentbranch)
     echo "current branch is $currentbranch"
     echo "pulling down branch '$currentbranch' from remote repository '$1'"
     git pull $1 $currentbranch
