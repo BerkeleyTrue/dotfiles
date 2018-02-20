@@ -521,7 +521,7 @@ fi
 # install npm prerequisites:
 ###
 npminstallpre() {
-  sudo npm install -g
+  sudo npm install -g \
     trash \
     commitizen \
     cz-freecodecamp \
@@ -532,7 +532,9 @@ npminstallpre() {
     eslint \
     eslint-plugin-react \
     eslint-plugin-import \
+    eslint-plugin-prefer-object-spread \
     eslint-config-freecodecamp \
+    babel-eslint \
     json
 }
 # `npmpublish` with optional argument `patch`/`minor`/`major`/`<version>`
