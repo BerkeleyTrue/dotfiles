@@ -47,6 +47,7 @@ ln -svhf ~/.vim/dotfiles/czrc.json      ~/.czrc
 ln -svhf ~/.vim/dotfiles/profile        ~/.profile
 ln -svhf ~/.vim/dotfiles/tmux.conf      ~/.tmux.conf
 ln -svhf ~/.vim/dotfiles/eslintrc       ~/.eslintrc
+ln -svhf ~/.vim/dotfiles/zsh.zshrc      ~/.zshrc
 ln -svhf ~/.vim/dotfiles/vintrc.yml     ~/.vintrc.yml
 ln -svhf ~/.vim/dotfiles/hyper.js       ~/.hyper.js
 ln -svhf ~/.vim/dotfiles/init.vim       ~/.config/nvim/init.vim
