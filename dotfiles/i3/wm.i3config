@@ -298,7 +298,7 @@ set $id             #ff79c6
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-  mode hide
+  mode dock
   i3bar_command i3bar
   status_command i3status
   position top
