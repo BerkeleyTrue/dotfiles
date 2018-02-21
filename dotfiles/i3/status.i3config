@@ -10,7 +10,7 @@ general {
 
 order += "wireless _first_"
 order += "cpu_usage"
-# order += "load"
+order += "cpu_temperature 0"
 order += "disk /"
 # order += "disk /home"
 order += "load"
@@ -18,7 +18,13 @@ order += "tztime local"
 # order += "ip"
 
 cpu_usage {
-  format = "cpu %usage"
+  format = "cpu: %usage"
+}
+
+cpu_temperature 0 {
+  max_threshold = 50
+  format_above_threshold = "Warning T:%degrees°C"
+  format = "%degrees°C"
 }
 
 load {
