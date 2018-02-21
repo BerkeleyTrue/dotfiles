@@ -259,7 +259,7 @@ exec --no-startup-id synclient NaturalScrolling=1 VertScrollDelta=-113
 # Change the variable name at the place you want to match the color
 # of your terminal like this:
 # [example]
-# If you want your bar to have the same background color as your 
+# If you want your bar to have the same background color as your
 # terminal background change the line 362 from:
 # background #14191D
 # to:
