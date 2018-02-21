@@ -124,3 +124,10 @@ augroup NginxGroup " {{{
   au BufRead,BufNew *.nginx.conf set filetype=nginx
 augroup END " }}}
 " }}}
+
+" Linux {{{
+augroup LinuxGroup
+  au!
+  autocmd BufRead,BufNewFile *.xrdb set filetype=xdefaults
+augroup END
+" }}}

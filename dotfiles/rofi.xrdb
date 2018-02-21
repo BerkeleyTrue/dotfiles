@@ -1,0 +1,98 @@
+! Enabled modi
+rofi.modi:                           window,run,ssh
+
+! Window opacity
+rofi.opacity:                        0
+
+! Window width
+rofi.width:                          50
+
+! Number of lines
+rofi.lines:                          10
+! Number of columns
+rofi.columns:                        1
+
+! Property Name     BG       Border   Separator
+rofi.color-window:  #3a3c4e, #3a3c4e, #282936
+! Property Name     BG       FG       BG-alt   Head-BG  Head-FG
+rofi.color-normal:  #3a3c4e, #e9e9f4, #3a3c4e, #3a3c4e, #f7f7fb
+rofi.color-active:  #3a3c4e, #62d6e8, #3a3c4e, #3a3c4e, #62d6e8
+rofi.color-urgent:  #3a3c4e, #ea51b2, #3a3c4e, #3a3c4e, #ea51b2
+
+! Border width
+rofi.bw:                             1
+
+! Location on screen
+rofi.location:                       0
+
+! Padding
+rofi.padding:                        8
+
+! Y-offset relative to location
+rofi.yoffset:                        24
+
+! X-offset relative to location
+rofi.xoffset:                        0
+
+! Always show number of lines 
+rofi.fixed-num-lines:                true
+
+! Terminal to use
+rofi.terminal:                       urxvtc
+
+! Ssh client to use
+! rofi.ssh-client:                     ssh
+! Ssh command to execute
+! rofi.ssh-command:                    {terminal} -e {ssh-client} {host}
+! Run command to execute
+rofi.run-command:                    {cmd}
+! Command to get extra run targets
+! rofi.run-list-command:               
+! Run command to execute that runs in shell
+rofi.run-shell-command:              {terminal} -e {cmd}
+! Disable history in run/ssh
+! rofi.disable-history:                false
+! Use levenshtein sorting
+! rofi.levenshtein-sort:               false
+! Set case-sensitivity
+! rofi.case-sensitive:                 false
+! Enable sidebar-mode
+! rofi.sidebar-mode:                   false
+! Set lazy filter limit
+! rofi.lazy-filter-limit:              15000
+! Row height (in chars)
+! rofi.eh:                             1
+
+! Enable auto select mode       
+rofi.auto-select:                    true
+! Parse hosts file for ssh mode
+! rofi.parse-hosts:                    false
+! Parse known_hosts file for ssh mode
+! rofi.parse-known-hosts:              true
+! Set the modi to combine in combi mode
+! rofi.combi-modi:                     window,run
+! Do a more fuzzy matching
+! rofi.fuzzy:                          false
+! Use glob matching
+! rofi.glob:                           false
+! Tokenize input string
+! rofi.tokenize:                       true
+
+! Monitor id to show on
+rofi.m:                              -1
+! Margin between rows
+
+rofi.line-margin:                    2
+! Pre-set filter
+! rofi.filter:                         
+
+! Separator style (none, dash, solid)
+rofi.separator-style:                none
+
+! Hide scroll-bar
+rofi.hide-scrollbar:                 true
+! Show markup
+!rofi.markup-rows:                    false
+! Fulls
+
+rofi.font:                            DroidSansMono Nerd Font Mono 14
