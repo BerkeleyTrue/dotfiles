@@ -15,6 +15,11 @@ plugins=(
   wd
 )
 
+# add bound keys
+if (( $+commands[xbindkeys] )); then
+  xbindkeys
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # [[ -s "$HOME/.config/shell/index.sh"  ]] && source "$HOME/.config/shell/index.sh" || echo "no shell folder found"
