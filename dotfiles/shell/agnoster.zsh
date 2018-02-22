@@ -109,7 +109,7 @@ prompt_vim() {
   if [[ $KEYMAP = 'viins' ]] || [[ $KEYMAP = 'main' ]]; then
     prompt_segment green black " %{%B%}INSERT%{%b%} "
   elif [[ $KEYMAP = 'vicmd' ]]; then
-    prompt_segment blue $CURRENT_BG " %{%B%}NORMAL%{%b%} "
+    prompt_segment blue black " %{%B%}NORMAL%{%b%} "
   else
     prompt_segment red black " $KEYMAP "
   fi
