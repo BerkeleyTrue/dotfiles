@@ -77,7 +77,14 @@ prompt_context() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue $PRIMARY_FG ' %~ '
+  local wd="$(pwd | sed -e "s,^$HOME,~,")"
+  local dir="$(basename $wd)"
+  local wdl="$(expr length $wd)"
+  if [[ wdl -lt 14  ]]; then
+    prompt_segment blue $PRIMARY_FG " $wd "
+  else
+    prompt_segment blue $PRIMARY_FG "../$dir "
+  fi
 }
 
 # Git: branch/detached head, dirty status
