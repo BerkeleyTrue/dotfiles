@@ -18,7 +18,7 @@ order += "tztime local"
 # order += "ip"
 
 cpu_usage {
-  format = "cpu: %usage"
+  format = "⚡:%usage"
 }
 
 cpu_temperature 0 {
@@ -40,8 +40,9 @@ disk "/" {
 wireless _first_ {
   # if you use %speed, i3status requires root privileges
   format_down = "no wifi"
-  format_up = "W: (%bitrate / %frequency)"
+  format_up = ""
 }
+
 ethernet _first_ {
   # if you use %speed, i3status requires root privileges
   format_up = " lan: %ip %speed "
