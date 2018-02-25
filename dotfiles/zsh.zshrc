@@ -13,6 +13,7 @@ plugins=(
   tmux
   vi-mode
   wd
+  zsh-autosuggestions
 )
 
 # add bound keys
