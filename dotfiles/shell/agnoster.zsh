@@ -1,6 +1,3 @@
-
-# vim:ft=zsh ts=2 sw=2 sts=2
-
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
@@ -98,31 +95,6 @@ prompt_vim() {
   fi
 }
 
-# Git: branch/detached head, dirty status
-prompt_git() {
-  local color ref
-  is_dirty() {
-    test -n "$(git status --porcelain --ignore-submodules)"
-  }
-  ref="$vcs_info_msg_0_"
-  if [[ -n "$ref" ]]; then
-    if is_dirty; then
-      color=yellow
-      ref="${ref} $PLUSMINUS"
-    else
-      color=green
-      ref="${ref} "
-    fi
-    if [[ "${ref/.../}" == "$ref" ]]; then
-      ref="$BRANCH $ref"
-    else
-      ref="$DETACHED ${ref/.../}"
-    fi
-    prompt_segment $color $PRIMARY_FG
-    print -n " $ref "
-  fi
-}
-
 # End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
@@ -134,6 +106,41 @@ prompt_end() {
   CURRENT_BG=''
 }
 
+# start the right prompt
+prompt_right_start() {
+  print -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
+}
+# Git: branch/detached head, dirty status
+prompt_git() {
+  local color ref
+  is_dirty() {
+    test -n "$(git status --porcelain --ignore-submodules)"
+  }
+  ref="$vcs_info_msg_0_"
+  if [[ -n "$ref" ]]; then
+    if is_dirty; then
+      color=yellow
+      ref="$PLUSMINUS ${ref}"
+    else
+      color=green
+      ref="${ref}"
+    fi
+    if [[ "${ref/.../}" == "$ref" ]]; then
+      ref="$ref $BRANCH"
+    else
+      ref="${ref/.../} $DETACHED"
+    fi
+    prompt_right_start $color
+    print -n "%{%K{$color}%F{$PRIMARY_FG}%}$ref "
+  fi
+}
+
+prompt_right_end() {
+  print -n "%{%k%f%}"
+  CURRENT_BG=''
+}
+
+
 ## Main prompt
 prompt_agnoster_main() {
   RETVAL=$?
@@ -141,9 +148,14 @@ prompt_agnoster_main() {
   prompt_status
   prompt_context
   prompt_dir
-  prompt_git
   prompt_vim
   prompt_end
+}
+# Right prompt
+right_prompt_main() {
+  CURRENT_BG='NONE'
+  prompt_git
+  prompt_right_end
 }
 
 prompt_agnoster_precmd() {
@@ -152,6 +164,7 @@ prompt_agnoster_precmd() {
   # otherwise this is empty
   KEYMAP="viins"
   PROMPT='%{%f%b%k%}$(prompt_agnoster_main) '
+  RPROMPT='%{%f%b%k%}$(right_prompt_main)'
 }
 
 prompt_agnoster_setup() {
