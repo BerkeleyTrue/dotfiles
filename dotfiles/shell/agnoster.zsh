@@ -75,24 +75,31 @@ prompt_context() {
 
 # Dir: current working directory
 prompt_dir() {
+  local ref
   local wd="$(pwd | sed -e "s,^$HOME,~,")"
   local dir="$(basename $wd)"
   local wdl="$(expr length $wd)"
   if [[ wdl -lt 14  ]]; then
-    prompt_segment yellow $PRIMARY_FG " $wd"
+    ref=" $wd"
   else
-    prompt_segment yellow $PRIMARY_FG "../$dir"
+    ref="../$dir"
   fi
+  prompt_segment black green $ref
 }
 
 prompt_vim() {
+  local bk ref
   if [[ $KEYMAP = 'viins' ]] || [[ $KEYMAP = 'main' ]]; then
-    prompt_segment green black " %{%B%}INSERT%{%b%}"
+    bk=green
+    ref=" %{%B%}INSERT%{%b%}"
   elif [[ $KEYMAP = 'vicmd' ]]; then
-    prompt_segment blue black " %{%B%}NORMAL%{%b%}"
+    bk=blue
+    ref=" %{%B%}NORMAL%{%b%}"
   else
-    prompt_segment red black " $KEYMAP"
+    bk=red
+    ref=" $KEYMAP"
   fi
+  prompt_segment $bk black $ref
 }
 
 # End the prompt, closing any open segments
