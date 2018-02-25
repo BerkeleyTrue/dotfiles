@@ -15,6 +15,8 @@ plugins=(
   wd
   zsh-autosuggestions
 )
+# set key timeout to 10ms
+KEYTIMEOUT=1
 
 # add bound keys
 if (( $+commands[xbindkeys] )); then
