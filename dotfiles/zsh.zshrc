@@ -17,6 +17,9 @@ plugins=(
 )
 # set key timeout to 10ms
 KEYTIMEOUT=1
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_AUTOQUIT=true
 
 # add bound keys
 if (( $+commands[xbindkeys] )); then
