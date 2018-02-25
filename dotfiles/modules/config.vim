@@ -64,7 +64,7 @@ augroup END
 " define how a concealed element can be replaced with
 " so we must disable indentLine in json files as
 " this conflicts with the concealing ability of vim-json
-let g:indentLine_fileTypeExclude = [ "json" ]
+let g:indentLine_fileTypeExclude = [ 'json' ]
 
 " deoplete (autocomplete)
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -119,11 +119,6 @@ let g:mta_use_matchparen_group = 1
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:scrollfix = 50
 let g:fixeof = 0
-
-" NerdTree
-" ++++++++++++++++++++++++++++++++++++++++++++++++++
-let g:NERDTreeShowHidden = 1
-
 
 " Nerd Commenter
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -193,6 +188,7 @@ let g:tmuxline_preset = {
 
 " NERDTree config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:NERDTreeShowHidden = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
