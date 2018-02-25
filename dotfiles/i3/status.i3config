@@ -22,7 +22,7 @@ cpu_usage {
 }
 
 cpu_temperature 0 {
-  max_threshold = 50
+  max_threshold = 80
   format_above_threshold = "Warning T:%degrees°C"
   format = "%degrees°C"
 }
