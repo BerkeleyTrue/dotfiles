@@ -13,7 +13,8 @@ fi
 MODE_INDICATOR=""
 
 # Characters
-SEGMENT_SEPARATOR="\ue0b0"
+SEGMENT_SEPARATOR="\ue0b4"
+RSEGMENT_SEPARATOR="\ue0b6"
 PLUSMINUS="\u00b1"
 BRANCH="\ue0a0"
 DETACHED="\u27a6"
@@ -58,7 +59,7 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR"
 
-  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
+  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols"
 }
 
 ### Prompt components
@@ -69,9 +70,9 @@ prompt_context() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    prompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
+    prompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m"
   else
-    prompt_segment white red " %(!.%{%F{red}%}.)$DELTA "
+    prompt_segment white red " %(!.%{%F{red}%}.)$DELTA"
   fi
 }
 
@@ -81,9 +82,19 @@ prompt_dir() {
   local dir="$(basename $wd)"
   local wdl="$(expr length $wd)"
   if [[ wdl -lt 14  ]]; then
-    prompt_segment blue $PRIMARY_FG " $wd "
+    prompt_segment yellow $PRIMARY_FG " $wd"
   else
-    prompt_segment blue $PRIMARY_FG "../$dir "
+    prompt_segment yellow $PRIMARY_FG "../$dir"
+  fi
+}
+
+prompt_vim() {
+  if [[ $KEYMAP = 'viins' ]] || [[ $KEYMAP = 'main' ]]; then
+    prompt_segment green black " %{%B%}INSERT%{%b%}"
+  elif [[ $KEYMAP = 'vicmd' ]]; then
+    prompt_segment blue black " %{%B%}NORMAL%{%b%}"
+  else
+    prompt_segment red black " $KEYMAP"
   fi
 }
 
@@ -109,16 +120,6 @@ prompt_git() {
     fi
     prompt_segment $color $PRIMARY_FG
     print -n " $ref "
-  fi
-}
-
-prompt_vim() {
-  if [[ $KEYMAP = 'viins' ]] || [[ $KEYMAP = 'main' ]]; then
-    prompt_segment green black " %{%B%}INSERT%{%b%} "
-  elif [[ $KEYMAP = 'vicmd' ]]; then
-    prompt_segment blue black " %{%B%}NORMAL%{%b%} "
-  else
-    prompt_segment red black " $KEYMAP "
   fi
 }
 
