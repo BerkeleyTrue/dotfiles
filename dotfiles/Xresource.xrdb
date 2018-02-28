@@ -65,7 +65,6 @@ URxvt*background:                 black
 URxvt*foreground:                 grey
 URxvt*saveLines:                  5000
 
-URxvt.perl-ext-common:            clipboard,resize-font
-URxvt.keysym.M-C-c:              perl:clipboard:copy
-URxvt.keysym.M-v:                perl:clipboard:paste
-URxvt.keysym.M-C-v:              perl:clipboard:paste_escaped
+URxvt.perl-ext-common:            clipboard, resize-font
+URxvt.keysym.M-C-c:               perl:clipboard:copy
+URxvt.keysym.C-v:                 perl:clipboard:paste
