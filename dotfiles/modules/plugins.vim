@@ -75,6 +75,7 @@ Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 Plug 'suan/vim-instant-markdown'
+Plug 'shime/vim-livedown'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'vim-scripts/paredit.vim'
