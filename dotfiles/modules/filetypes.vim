@@ -114,6 +114,7 @@ endfunction " }}}
 augroup MarkdownGroup " {{{
   autocmd!
   autocmd BufNewFile,BufReadPost *.md,*.markdown call WrapIt()
+  autocmd FileType markdown setl conceallevel=0
 augroup END " }}}
 " }}}
 

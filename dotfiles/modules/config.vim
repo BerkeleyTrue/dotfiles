@@ -214,3 +214,7 @@ let g:delimitMate_jump_expansion = 1
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 set cursorcolumn
 set cursorline
+
+" Markdown config
+" ++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:markdown_syntax_conceal = 0
