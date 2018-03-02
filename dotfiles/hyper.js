@@ -1,3 +1,15 @@
+const foregroundColor = '#f8f8f2';
+const backgroundColor = '#282a36';
+const black = '#44475a';
+const red = '#ff5555';
+const green = '#50fa7b';
+const yellow = '#f1fa8c';
+const blue = '#6272a4';
+const magenta = '#ff79c6';
+const cyan = '#8be9fd';
+const gray = '#666666';
+const brightBlack = '#999999';
+const brightWhite = '#ffffff';
 module.exports = {
   config: {
     // default font size in pixels for all tabs
@@ -16,17 +28,23 @@ module.exports = {
     cursorBlink: true,
 
     // color of the text
-    foregroundColor: '#fff',
+    foregroundColor,
 
     // terminal background color
-    backgroundColor: '#000',
+    backgroundColor,
 
     // border color (window, tabs)
     borderColor: '#333',
 
     // custom css to embed in the main window
-    css: '',
-
+    css: `
+      .tabs_list .tab_tab.tab_active .tab_text  {
+        background: ${backgroundColor};
+      }
+      .tab_active:before {
+        border-color: rgb(68, 71, 90);
+      }
+    `,
     // custom padding (css format, i.e.: `top right bottom left`)
     padding: '1px',
 
@@ -34,22 +52,18 @@ module.exports = {
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
     colors: {
-      black: '#000000',
-      red: '#ff0000',
-      green: '#33ff00',
-      yellow: '#ffff00',
-      blue: '#0066ff',
-      magenta: '#cc00ff',
-      cyan: '#00ffff',
-      white: '#d0d0d0',
-      lightBlack: '#808080',
-      lightRed: '#ff0000',
-      lightGreen: '#33ff00',
-      lightYellow: '#ffff00',
-      lightBlue: '#0066ff',
-      lightMagenta: '#cc00ff',
-      lightCyan: '#00ffff',
-      lightWhite: '#ffffff'
+      black,
+      red,
+      green,
+      yellow,
+      blue,
+      magenta,
+      cyan,
+      gray,
+
+      // bright
+      brightBlack,
+      brightWhite
     },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
@@ -83,7 +97,6 @@ module.exports = {
 
   // order here is important
   plugins: [
-    'hyper-dracula',
     'hyperborder',
     'hyperfull',
     'hyperterm-cursor',
