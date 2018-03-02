@@ -88,18 +88,20 @@ prompt_dir() {
 }
 
 prompt_vim() {
-  local bk ref
+  local fgr bk ref
   if [[ $KEYMAP = 'viins' ]] || [[ $KEYMAP = 'main' ]]; then
     bk=green
+    fgr=black
     ref=" %{%B%}INSERT%{%b%}"
   elif [[ $KEYMAP = 'vicmd' ]]; then
     bk=blue
+    fgr=white
     ref=" %{%B%}NORMAL%{%b%}"
   else
     bk=red
     ref=" $KEYMAP"
   fi
-  prompt_segment $bk black $ref
+  prompt_segment $bk $fgr $ref
 }
 
 # End the prompt, closing any open segments
