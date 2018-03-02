@@ -27,6 +27,11 @@ set ttimeoutlen=0        " remove key code delays
 set undolevels=1000      " use many muchos levels of undo
 set visualbell           " flash screen on error
 set wildignore=*.swp,*.bak,*.pyc,*.class " ignore these files
+" nvim blinking cursor
+" see :help 'guicursor'
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+      \,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor
+      \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 
 " Turns on plugins

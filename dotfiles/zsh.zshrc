@@ -62,4 +62,32 @@ x11-clip-wrap-widgets paste  $paste_widgets
 ### end-clipboard paste ###
 source $ZSH/oh-my-zsh.sh
 
+
+### change cursor shape in xterm ###
+# must come after oh-my-zsh vim plugin
+BLOCK="\e[1 q"
+BEAM="\e[5 q"
+function zle-keymap-select zle-line-init {
+  if [ $KEYMAP = vicmd ]; then
+    # the command mode for vi
+    print -n "$BLOCK"
+  else
+    # the insert mode for vi
+    print -n "$BEAM"
+  fi
+  zle reset-prompt
+  zle -R
+}
+
+function zle-line-finish {
+  print -n -- "$BLOCK"  # block cursor
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
+### end cursor mod ###
+
+zle -N zle-keymap-select
+### end cursor mod ###
 [[ -s "$HOME/.config/shell/index.sh"  ]] && source "$HOME/.config/shell/index.sh"
