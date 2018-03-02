@@ -13,6 +13,7 @@ module.exports = {
 
     // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
     cursorShape: 'BLOCK',
+    cursorBlink: true,
 
     // color of the text
     foregroundColor: '#fff',
@@ -26,11 +27,8 @@ module.exports = {
     // custom css to embed in the main window
     css: '',
 
-    // custom css to embed in the terminal window
-    termCSS: '.cursor-node {\n border: 1px solid red !important;\n }',
-
     // custom padding (css format, i.e.: `top right bottom left`)
-    padding: '12px 14px',
+    padding: '1px',
 
     // the full list. If you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -56,7 +54,7 @@ module.exports = {
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
     // if left empty, your system's login shell will be used by default
-    shell: 'bash',
+    shell: 'zsh',
 
     // for setting shell arguments
     // (i.e. for using interactive shellArgs: ['-i'])
@@ -86,11 +84,11 @@ module.exports = {
   // order here is important
   plugins: [
     'hyper-dracula',
-    'hyper-blink',
     'hyperborder',
     'hyperfull',
     'hyperterm-cursor',
-    'hyperterm-tab-icons'
+    'hyper-disable-new-version-notification',
+    'hyperminimal'
   ],
 
   // in development, you can create a directory under
