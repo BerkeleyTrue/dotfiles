@@ -29,9 +29,9 @@ rofi.color-urgent:  #3a3c4e, #ea51b2, #3a3c4e, #44475a, #ea51b2
 
 
 ! Terminal to use
-rofi.terminal:                       urxvtc
+rofi.terminal:                       hyper
 rofi.run-command:                    {cmd}
-rofi.run-shell-command:              {terminal} -e {cmd}
+rofi.run-shell-command:              {hyper} -e {cmd}
 ! Use levenshtein sorting
 rofi.levenshtein-sort:               true
 rofi.case-sensitive:                 false
