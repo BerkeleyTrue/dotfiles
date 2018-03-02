@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/home/berkeleytrue/.oh-my-zsh
 export DEFAULT_USER=`whoami`
+TERMINAL="hyper"
 ZSH_THEME="agnoster"
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"

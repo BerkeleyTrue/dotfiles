@@ -1,6 +1,7 @@
 #! /bin/bash
 isosx="$(uname | grep -q Darwin)"
 config="$HOME/.config/shell"
+TERMINAL="hyper"
 
 [[ -s "$config/common_paths.sh"  ]] && source "$config/common_paths.sh"
 [[ -s "$HOME/.private_aliases"  ]] && source "$HOME/.private_aliases"
