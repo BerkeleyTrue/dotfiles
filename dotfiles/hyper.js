@@ -90,7 +90,9 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
     hyperBorder: {
       animate: true,
-      borderWidth: '2px'
+      borderWidth: '2px',
+      borderColors: [magenta, cyan],
+      blurredColors: ['#000000']
     }
   },
   // end config
