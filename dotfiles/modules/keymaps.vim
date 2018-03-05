@@ -59,14 +59,14 @@ fun! SetupCommandAlias(from, to)
 endfun
 " Alias Helptags to rbHelp, This makes way more sense to me and will be
 " easier to remember
-call SetupCommandAlias("RebuildHelpFiles", "Helptags")
+call SetupCommandAlias('RebuildHelpFiles', 'Helptags')
 
 " Alias sudo overwrite
-call SetupCommandAlias("sudowrite", "w !sudo tee %")
+call SetupCommandAlias('sudowrite', 'w !sudo tee %')
 " Alias command qq to q!
-call SetupCommandAlias("qq", "q!")
+call SetupCommandAlias('qq', 'q!')
 " Alias :W to :w because I keep forgetting to release shift!
-call SetupCommandAlias("W", "w")
+call SetupCommandAlias('W', 'w')
 
 " Make OSX alt key compatible with vim
 " Now alt will work as expected with vim-move
@@ -163,35 +163,40 @@ function! FormatFoldText() " {{{
   " where n is the window width minus the number of folded lines minus 2
   let l:line = strpart(l:line, 0, l:windowwidth - len(l:foldedlinecount) - 5)
 
-  return l:line . '…' . l:foldedlinecount . ' lines folded…}}}'
+  return l:line . '…' . l:foldedlinecount . ' lines folded…>>>'
 endfunction " }}}
 set foldtext=FormatFoldText()
+" Folding }}}
+"
+" Buffers {{{
 command! BufDeleteHidden call DeleteHiddenBuffers()
 command! Bdh call DeleteHiddenBuffers()
-" DeleteHiddenBuffers {{{
-function! DeleteHiddenBuffers()
-  let listOfBuffs=[]
-  let closed = 0
+
+function! DeleteHiddenBuffers() " {{{
+  let l:listOfBuffs=[]
+  let l:closed = 0
   " map over 1 to the number of tab pages (num or windows), extend (append)
   " the buffer list of the current page
   " in essense: create a list of all the buffers
-  call map(range(1, tabpagenr('$')), 'extend(listOfBuffs, tabpagebuflist(v:val))')
+  call map(range(1, tabpagenr('$')), 'extend(l:listOfBuffs, tabpagebuflist(v:val))')
   " filter: for 1 to the last buffer (bufnr('$')),
   "   if exists and
   "   if buffer number does not exist in listOfBuffs (buffer list) and
   "   if buffer type is empty (normal buffer)
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(listOfBuffs, v:val) == -1 && empty(getbufvar(v:val, "&buftype"))')
+  for l:buf in filter(range(1, bufnr('$')), "bufexists(v:val) && index(l:listOfBuffs, v:val) == -1 && empty(getbufvar(v:val, '&buftype'))")
     " if buffer is currently unmodified (mod == 0)
-    if getbufvar(buf, '&mod') == 0
+    if getbufvar(l:buf, '&mod') == 0
       " close buffer and remove everything about it
-      silent execute 'bwipeout' buf
-      let closed += 1
+      silent execute 'bwipeout' l:buf
+      let l:closed += 1
     endif
   endfor
-  echo "Closed ".closed." hidden buffers"
-endfunction
-" DeleteHiddenBuffers }}}
-" }}}
+  echo 'Closed '.l:closed.' hidden buffers'
+endfunction " }}}
+" Buffers }}}
+
+" ################ }}}
+
 " Plugin Specific mappings {{{
 " ==================================================
 
