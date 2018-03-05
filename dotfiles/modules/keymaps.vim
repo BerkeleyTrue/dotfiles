@@ -97,11 +97,20 @@ nnoremap <cr> o<esc>
 vnoremap u <nop>
 vnoremap gu u
 
+" in normal mode, run quick macro
+nnoremap Q @q
+
 " uppercase word under the cursor while in insert mode
 inoremap <leader>uw <esc>mzgUiw`za
 
 " yank to end of line
 nnoremap Y y$
+
+" reselect visual block after indent
+vnoremap < <gv
+vnoremap > >gv
+" reselect last paste
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Throwing characters {{{
 nnoremap z; mqA;<esc>`q
