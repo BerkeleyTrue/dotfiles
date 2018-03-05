@@ -13,7 +13,6 @@ set nobackup             " disable backups"
 set noswapfile           " disable backups"
 set nowrap               " don't wrap lines
 set number               " hybrid mode numbers
-set relativenumber       " always show line numbers
 set shiftround           " use multiple of shiftwidth when indenting with "<" and ">"
 set shiftwidth=2         " number of spaces to use for autoindenting
 set showmatch            " set show matching parenthesis

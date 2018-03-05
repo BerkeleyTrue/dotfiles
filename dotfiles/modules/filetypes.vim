@@ -26,8 +26,8 @@ augroup GeneralGroup " {{{
 
   " On insert mode set absolute row numbers
   " On leave Return to relative row numbers
-  autocmd InsertEnter * set nornu
-  autocmd InsertLeave * set rnu
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
 
   " Open nerdtree if vim opened without a file in the buffer
   autocmd VimEnter * call StartUp()
