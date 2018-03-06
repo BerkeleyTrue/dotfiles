@@ -178,6 +178,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Open applications on specific workspaces
 assign [class="Thunderbird"] $ws2
+assign [class="Google Play Music Desktop Player"] $ws4:
 
 # Open specific applications in floating mode
 # for_window [class="Xfburn"] floating enable
