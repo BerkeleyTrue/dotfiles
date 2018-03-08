@@ -67,15 +67,17 @@ gcorpullrequest() {
   git checkout $branchname
 }
 gresetrpullrequest() {
-  branchname=$(ggetcurrentbranch)
-  head=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+  # gresetrpullrequest $issue-number $remote-name=origin
   remote=origin
   if [ $# = 2 ]; then
     remote=$2
   fi
+  branchname=$(ggetcurrentbranch)
+  head=$(git symbolic-ref refs/remotes/$remote/HEAD | sed 's@^refs/remotes/origin/@@')
   echo "HEAD points to $head"
   echo "branch points to $branchname"
   echo "PR number $1"
+  echo "continue?"
   select yn in "Yes" "No"; do
     case $yn in
       Yes ) break;;
