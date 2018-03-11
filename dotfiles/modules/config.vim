@@ -3,7 +3,9 @@
 " ==================================================
 
 set ambiwidth="single"   " force East Asian Width Class chars into a single space
-set clipboard=unnamed    " Let tmux/terminal manage clipboard
+" default yank into + register, which is the default clipboard for linux
+" may break in osx?
+set clipboard=unnamedplus 
 set copyindent           " copy the previous indentation on autoindenting
 set expandtab            " convert tabs to spaces
 set ignorecase           " ignore case when searching
