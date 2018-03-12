@@ -225,9 +225,10 @@ nnoremap <Leader>q :Bdelete<CR>
 " easymotion {{{
 " ++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0
 " motion
 nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotnion-t2)
+nmap t <Plug>(easymotion-t2)
 " search
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -242,6 +243,19 @@ map <Leader>l <Plug>(easymotion-lineforward)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
+map <Leader>w <Plug>(easymotion-w)
+map <Leader>W <Plug>(easymotion-W)
+map <Leader>b <Plug>(easymotion-b)
+map <Leader>B <Plug>(easymotion-B)
+"
+vmap f <Plug>(easymotion-f)
+omap f <Plug>(easymotion-f)
+vmap t <Plug>(easymotion-t)
+omap t <Plug>(easymotion-t)
+vmap F <Plug>(easymotion-F)
+omap F <Plug>(easymotion-F)
+vmap T <Plug>(easymotion-T)
+omap T <Plug>(easymotion-T)
 " }}}
 
 " Elm {{{
