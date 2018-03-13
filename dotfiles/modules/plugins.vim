@@ -37,10 +37,10 @@ call plug#begin()
 Plug 'w0rp/ale'
 " Utils
 call s:InstallFzF()
-Plug 'majutsushi/tagbar' | Plug 'lvht/tagbar-markdown'
 Plug 'bronson/vim-crosshairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'majutsushi/tagbar' | Plug 'lvht/tagbar-markdown'
 Plug 'matze/vim-move'
 Plug 'mhinz/vim-signify'
 Plug 'mileszs/ack.vim'
@@ -71,7 +71,6 @@ Plug 'sirVer/ultisnips'
 Plug 'dracula/vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline' | Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline-themes'
 " Lang
 Plug 'blackrush/vim-gocode'
@@ -100,4 +99,3 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'vim-scripts/paredit.vim'
 Plug 'wavded/vim-stylus'
 call plug#end()
-
