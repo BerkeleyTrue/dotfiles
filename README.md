@@ -1,9 +1,10 @@
-# Prerequisites
+# Berks Dotfiles Emporium
+
+## Prerequisites
+
 You will need to install hyper, karabiner-elements, and tmux
 
-## macOS
-
-
+### macOS
 ```bash
 # installs homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -74,3 +75,10 @@ nvim -c "PlugInstall | UpdateRemotePlugins"
 
 
 Install [patched nerd fonts](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20for%20Powerline%20Nerd%20Font%20Complete%20Mono.otf)
+
+### TODO
+
+Use [vim filetype directory](https://www.reddit.com/r/vim/wiki/where_to_put_filetype_specific_stuff)
+Use [vim directories instead of source](https://www.reddit.com/r/vim/wiki/vimrctips#wiki_do_not_use_source)
+Use [yadm](https://thelocehiliosan.github.io/yadm/)
+Create install script for osx/arch
