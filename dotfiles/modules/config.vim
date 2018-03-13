@@ -2,32 +2,30 @@
 " General Vim Config
 " ==================================================
 
-set ambiwidth="single"   " force East Asian Width Class chars into a single space
-" default yank into + register, which is the default clipboard for linux
-" may break in osx?
-set clipboard=unnamedplus 
-set copyindent           " copy the previous indentation on autoindenting
-set expandtab            " convert tabs to spaces
-set ignorecase           " ignore case when searching
-set list                 " set list mode for listchars
-set listchars=tab:>.,trail:.,extends:#,nbsp:. "mark whitespace
-set nobackup             " disable backups"
-set noswapfile           " disable backups"
-set nowrap               " don't wrap lines
-set number               " hybrid mode numbers
-set shiftround           " use multiple of shiftwidth when indenting with "<" and ">"
-set shiftwidth=2         " number of spaces to use for autoindenting
-set showmatch            " set show matching parenthesis
-set spell                " enable spell checking
-set spelllang=en_us      " set spell language to US english
-set synmaxcol=512        " prevent long lines from hanging vim
-set tabstop=2            " a tab is two spaces
-set timeoutlen=1000      " add mapping key timeout delay
-set title                " change the terminal"s title
-set ttimeoutlen=0        " remove key code delays
-set undolevels=1000      " use many muchos levels of undo
-set visualbell           " flash screen on error
-set wildignore=*.swp,*.bak,*.pyc,*.class " ignore these files
+set ambiwidth="single"                         "  force East Asian Width Class chars into a single space
+set clipboard=unnamedplus                      "  default yank into + register, which is the default clipboard for linux may break in osx?
+set copyindent                                 "  copy the previous indentation on autoindenting
+set expandtab                                  "  convert tabs to spaces
+set ignorecase                                 "  ignore case when searching
+set list                                       "  set list mode for listchars
+set listchars=tab:>.,trail:.,extends:#,nbsp:.  "  mark whitespace
+set nobackup                                   "  disable backups"
+set noswapfile                                 "  disable backups"
+set nowrap                                     "  don't wrap lines
+set number                                     "  hybrid mode numbers
+set shiftround                                 "  use multiple of shiftwidth when indenting with "<" and ">"
+set shiftwidth=2                               "  number of spaces to use for autoindenting
+set showmatch                                  "  set show matching parenthesis
+set spell                                      "  enable spell checking
+set spelllang=en_us                            "  set spell language to US english
+set synmaxcol=512                              "  prevent long lines from hanging vim
+set tabstop=2                                  "  a tab is two spaces
+set timeoutlen=1000                            "  add mapping key timeout delay
+set title                                      "  change the terminal"s title
+set ttimeoutlen=0                              "  remove key code delays
+set undolevels=1000                            "  use many muchos levels of undo
+set visualbell                                 "  flash screen on error
+set wildignore=*.swp,*.bak,*.pyc,*.class       "  ignore these files
 " nvim blinking cursor
 " see :help 'guicursor'
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
