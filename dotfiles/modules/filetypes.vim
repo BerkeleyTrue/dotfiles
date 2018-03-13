@@ -12,7 +12,13 @@ endfun " }}}
 
 function! StartUp() " {{{
   if 0 == argc()
-    NERDTree
+    if exists(':Files')
+      " Open fzf files on startup
+      Files
+    elseif exists(':NERDTree')
+      " Open NERDTree otherwise
+      NERDTree
+    endif
   end
 endfunction " }}}
 
