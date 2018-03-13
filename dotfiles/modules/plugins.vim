@@ -37,6 +37,7 @@ call plug#begin()
 Plug 'w0rp/ale'
 " Utils
 call s:InstallFzF()
+Plug 'majutsushi/tagbar' | Plug 'lvht/tagbar-markdown'
 Plug 'bronson/vim-crosshairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'kien/rainbow_parentheses.vim'

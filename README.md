@@ -18,6 +18,7 @@ brew install neovim/neovim/neovim
 brew install node
 brew install fzf
 brew install lpass
+brew install universal-ctags
 pip install neovim
 pip3 install neovim
 gem install neovim
