@@ -86,6 +86,10 @@ vmap ¬ <A-l>
 " Unbind K
 " I never use this and I keep hitting K accidentally
 map <S-k> <Nop>
+" I keep hitting this on failed :q's
+" Open commandline instead and wait for further commands
+" use <C-f> while in command mode to access this instead
+nnoremap q: :
 
 " sort lines in visual mode
 vnoremap <leader>s :sort<cr>
@@ -98,6 +102,7 @@ vnoremap u <nop>
 vnoremap gu u
 
 " in normal mode, run quick macro
+" use gQ to enter Exmode instead
 nnoremap Q @q
 
 " uppercase word under the cursor while in insert mode
