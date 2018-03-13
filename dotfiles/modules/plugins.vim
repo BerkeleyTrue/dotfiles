@@ -2,7 +2,25 @@
 " Plugin Start
 " ==================================================
 
-function! BuildNodeHost(info)
+let s:homebrewdir='/usr/local/opt'
+let s:sharedir='/usr/share'
+
+function! s:InstallFzF() " {{{
+  if isdirectory(s:homebrewdir.'/fzf')
+    let l:fzf = s:homebrewdir.'/fzf'
+  elseif isdirectory(s:sharedir.'/vim/vimfiles')
+    let l:fzf = s:sharedir.'/vim/vimfiles'
+  endif
+
+  if exists('l:fzf')
+    Plug l:fzf | Plug 'junegunn/fzf.vim'
+  else
+    echomsg 'vim:plugins fzf not found'
+    return 1
+  endif
+endfunction " }}}
+
+function! BuildNodeHost(info) " {{{
   " info is a dictionary with 3 fields
   " - name:   name of the plugin
   " - status: 'installed', 'updated', or 'unchanged'
@@ -11,14 +29,14 @@ function! BuildNodeHost(info)
     !npm install --production
     execute ':UpdateRemotePlugins'
   endif
-endfunction
+endfunction " }}}
 
 call plug#begin()
 " Lint
 " Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
 " Utils
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+call s:InstallFzF()
 Plug 'bronson/vim-crosshairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'kien/rainbow_parentheses.vim'
