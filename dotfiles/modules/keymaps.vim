@@ -125,6 +125,9 @@ nnoremap z, mqA,<esc>`q
 nnoremap zdl mqA<esc>x`q
 " Move the current char to the end of the line
 nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
+" Move line to the end of the next line
+" useful for move a comment above a line behind it
+nnoremap zJ ddpkJ
 " }}}
 
 
