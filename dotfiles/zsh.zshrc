@@ -14,8 +14,10 @@ plugins=(
   tmux
   vi-mode
   wd
+  zsh-completions
   zsh-autosuggestions
 )
+autoload -U compinit && compinit
 # set key timeout to 10ms
 KEYTIMEOUT=1
 # Automatically start tmux on zsh source
