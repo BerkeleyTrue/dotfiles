@@ -20,6 +20,7 @@ brew install node
 brew install fzf
 brew install lpass
 brew install universal-ctags
+brew install candid82/brew/joker # for clojure linitng without the jvm
 pip install neovim
 pip3 install neovim
 gem install neovim
@@ -82,3 +83,4 @@ Use [vim filetype directory](https://www.reddit.com/r/vim/wiki/where_to_put_file
 Use [vim directories instead of source](https://www.reddit.com/r/vim/wiki/vimrctips#wiki_do_not_use_source)
 Use [yadm](https://thelocehiliosan.github.io/yadm/)
 Create install script for osx/arch
+
