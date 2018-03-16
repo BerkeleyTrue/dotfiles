@@ -95,7 +95,7 @@ Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 Plug 'shime/vim-livedown'
-Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'vim-scripts/paredit.vim'
 Plug 'wavded/vim-stylus'
