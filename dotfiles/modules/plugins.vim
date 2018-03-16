@@ -64,27 +64,29 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'blackrush/vim-gocode'
 Plug 'chr4/nginx.vim'
 Plug 'chrisbra/csv.vim'
-Plug 'clojure-vim/nvim-parinfer.js', { 'do': 'lein npm install' }
 Plug 'derekwyatt/vim-scala'
 Plug 'digitaltoad/vim-jade'
-Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
-Plug 'guns/vim-clojure-static'
-Plug 'guns/vim-sexp'
 Plug 'lambdatoast/elm.vim'
 Plug 'lervag/vimtex'
 Plug 'mattn/emmet-vim'
 Plug 'mboughaba/i3config.vim'
-Plug 'moll/vim-node'
-Plug 'mxw/vim-jsx'
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'othree/xml.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 Plug 'shime/vim-livedown'
-Plug 'tpope/vim-fireplace' " note: attempts to bind to K
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'vim-scripts/paredit.vim'
 Plug 'wavded/vim-stylus'
+" Javascript
+Plug 'elzr/vim-json'
+Plug 'moll/vim-node'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
+" Clojure
+Plug 'clojure-vim/nvim-parinfer.js', { 'do': 'lein npm install' }
+Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-fireplace' " note: attempts to bind to K
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 call plug#end()
