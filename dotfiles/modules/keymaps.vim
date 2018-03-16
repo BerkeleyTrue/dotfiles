@@ -85,7 +85,8 @@ vmap ¬ <A-l>
 
 " Unbind K
 " I never use this and I keep hitting K accidentally
-map <S-k> <Nop>
+" note: vim-fireplace trys to bind to K
+" map <S-k> <Nop>
 " I keep hitting this on failed :q's
 " Open commandline instead and wait for further commands
 " use <C-f> while in command mode to access this instead
