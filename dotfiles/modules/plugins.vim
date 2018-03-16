@@ -20,17 +20,6 @@ function! s:InstallFzF() " {{{
   endif
 endfunction " }}}
 
-function! BuildNodeHost(info) " {{{
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status ==? 'installed' || a:info.force
-    !npm install --production
-    execute ':UpdateRemotePlugins'
-  endif
-endfunction " }}}
-
 call plug#begin()
 " Lint
 " Plug 'vim-syntastic/syntastic'
@@ -45,7 +34,6 @@ Plug 'matze/vim-move'
 Plug 'mhinz/vim-signify'
 Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
-Plug 'neovim/node-host', { 'do': function('BuildNodeHost') }
 Plug 'raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -76,7 +64,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'blackrush/vim-gocode'
 Plug 'chr4/nginx.vim'
 Plug 'chrisbra/csv.vim'
-Plug 'clojure-vim/nvim-parinfer.js'
+Plug 'clojure-vim/nvim-parinfer.js', { 'do': 'lein npm install' }
 Plug 'derekwyatt/vim-scala'
 Plug 'digitaltoad/vim-jade'
 Plug 'elzr/vim-json'
