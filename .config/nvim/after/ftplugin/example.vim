@@ -1,0 +1,1 @@
+set syntex=javascript.jsx
