@@ -106,6 +106,43 @@ Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 call plug#end() " }}}
 
+" ==================================================
+" Open nav on empty startup
+" ================================================== {{{
+function! OpenNavOnStartup()
+  if 0 == argc()
+    if exists(':Files')
+      " Open fzf files on startup
+      Files
+    elseif exists(':NERDTree')
+      " Open NERDTree otherwise
+      NERDTree
+    endif
+  end
+endfunction " }}}
+
+
+" ==================================================
+" General Autocmds
+" ================================================== {{{
+augroup GeneralGroup
+  au!
+  autocmd BufRead,BufNewFile * :highlight SpellBad ctermbg=none ctermfg=none cterm=underline
+
+  " On insert mode set absolute row numbers
+  " On leave Return to relative row numbers
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
+  autocmd VimEnter * call OpenNavOnStartup()
+  " Resize splits when the window is resized
+  autocmd VimResized * exe "normal! \<c-w>="
+  " Make vim open on the line you closed the buffer on
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \     execute 'normal! g`"zvzz' |
+    \ endif
+augroup END " }}}
+
 function! LoadModules(modules)
   for l:name in a:modules
     exec 'source $HOME/.config/nvim/modules/' . l:name . '.vim'
@@ -116,7 +153,6 @@ endfunction
 let g:modules = [
   \'utils',
   \'config',
-  \'filetypes',
   \'keymaps',
   \'colors'
 \]
