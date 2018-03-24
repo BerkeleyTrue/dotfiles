@@ -149,9 +149,7 @@ function! LoadModules(modules)
   endfor
 endfunction
 
-
 let g:modules = [
-  \'utils',
   \'config',
   \'keymaps',
   \'colors'
