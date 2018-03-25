@@ -472,12 +472,3 @@ Plug 'guns/vim-sexp'
 Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 call plug#end() " }}}
-
-function! LoadModules(modules)
-  for l:name in a:modules
-    exec 'source $HOME/.config/nvim/modules/' . l:name . '.vim'
-  endfor
-endfunction
-
-let g:modules = ['keymaps']
-call LoadModules(g:modules)
