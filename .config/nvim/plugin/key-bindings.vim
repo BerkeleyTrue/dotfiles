@@ -1,6 +1,6 @@
 " ==================================================
-" General Key Mappings {{{
-" ==================================================
+" General Key Bindings
+" ================================================== {{{
 " All key mappings should go here to easily located
 " key mapping conflicts
 " This should include commands
@@ -213,26 +213,27 @@ function! DeleteHiddenBuffers() " {{{
 endfunction " }}}
 " Buffers }}}
 
-" ################ }}}
-
-" Plugin Specific mappings {{{
+" -- End General Key Bindings -- }}}
+"
 " ==================================================
+" Plugin Specific mappings
+" ================================================== {{{
 
-" nerdtree {{{
-" ++++++++++++++++++++++++++++++++++++++++++++++++++
+" nerdtree
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " Alias the command `nerd` to toggle nerdtree
 cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTreeToggle"):("nerd"))
 nnoremap <leader>nt :NERDTreeToggle<cr>
-"}}}
+" }}}
 
-" vim-bbye {{{
-" ++++++++++++++++++++++++++++++++++++++++++++++++++
+" vim-bbye
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " closes the currently open buffer
 nnoremap <Leader>q :Bdelete<CR>
 " }}}
 
-" easymotion {{{
-" ++++++++++++++++++++++++++++++++++++++++++++++++++
+" easymotion
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0
 " motion
@@ -267,15 +268,15 @@ vmap T <Plug>(easymotion-T)
 omap T <Plug>(easymotion-T)
 " }}}
 
-" Elm {{{
-" ++++++++++++++++++++++++++++++++++++++++++++++++++
+" Elm
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 nnoremap <leader>el :ElmEvalLine<CR>
 vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
 nnoremap <leader>em :ElmMakeCurrentFile<CR>
 " }}}
 
-" Ultisnips/Neoplete {{{
-" ++++++++++++++++++++++++++++++++++++++++++++++++++
+" Ultisnips/Neoplete
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 function! GoDownOnPum()
   " If Pop Up Menu (pum) is open go down
   " else insert tab
@@ -320,13 +321,12 @@ snoremap <silent><tab> <Esc>:call UltiSnips#ExpandSnippet()<cr>
 xnoremap <silent><tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
 " }}}
 
-" Emmet {{{
-" ++++++++++++++++++++++++++++++++++++++++++++++++++
+" Emmet
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 imap <leader><tab> <plug>(emmet-expand-abbr)
 " self closing tag
 " foo/<leader><tab> => <foo />
 " does not work yet with non-closing html5 tags like <img>
 imap /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
 " }}}
-"
-" }}}
+" -- End Plugin Key Bindings -- }}}
