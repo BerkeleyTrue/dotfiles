@@ -355,7 +355,7 @@ let g:tex_conceal=0
 
 " Func: Open nav on empty startup
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-function! OpenNavOnStartup()
+function! s:OpenNavOnStartup()
   if 0 == argc()
     if exists(':Files')
       " Open fzf files on startup
@@ -367,13 +367,21 @@ function! OpenNavOnStartup()
   end
 endfunction " }}}
 
+" Func: Disable spell check on camelCase
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+function! s:DisableSpellOnCamelCase()
+  syntax match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
+  syntax cluster Spell add=CamelCase
+endfunction " }}}
+
 augroup GeneralGroup
   autocmd!
+  autocmd BufEnter,BufRead * call s:DisableSpellOnCamelCase()
   " On insert mode set absolute row numbers
   " On leave Return to relative row numbers
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
-  autocmd VimEnter * call OpenNavOnStartup()
+  autocmd VimEnter * call s:OpenNavOnStartup()
   " Resize splits when the window is resized
   autocmd VimResized * exe "normal! \<c-w>="
   " Make vim open on the line you closed the buffer on
