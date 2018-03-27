@@ -323,10 +323,15 @@ xnoremap <silent><tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
 
 " Emmet
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-imap <leader><tab> <plug>(emmet-expand-abbr)
-" self closing tag
-" foo/<leader><tab> => <foo />
-" does not work yet with non-closing html5 tags like <img>
-imap /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
+" call along side EmmetInstall
+function AddEmmetMappings()
+  " buffer tells vim to only use map in buffer it is defined
+  " we recur so vim will eval the output
+  imap <buffer> <leader><tab> <plug>(emmet-expand-abbr)
+  " self closing tag
+  " foo/<leader><tab> => <foo />
+  " does not work yet with non-closing html5 tags like <img>
+  inoremap <buffer> /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
+endfunction
 " }}}
 " -- End Plugin Key Bindings -- }}}

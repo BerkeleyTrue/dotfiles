@@ -1,1 +1,2 @@
 EmmetInstall
+call AddEmmetMappings()
