@@ -7,6 +7,7 @@ npminstallpre() {
     trash \
     commitizen \
     cz-freecodecamp \
+    conventional-changelog-angular \
     conventional-recommended-bump \
     conventional-changelog-cli \
     conventional-github-releaser \
