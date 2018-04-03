@@ -60,7 +60,7 @@ npmpublish() {
     mv -f _package.json package.json &&
     [[ -e _package-lock.json ]] && mv -f _package-lock.json package-lock.json ||
     echo "cutting release" &&
-    npm version $bump -m "chore(release): %s" &&
+    npm version $bump -m "chore(release): v%s" &&
     echo "pushing up changes" &&
     git push --follow-tags &&
     echo "creating github release" &&
