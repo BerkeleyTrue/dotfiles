@@ -240,8 +240,23 @@ let g:EasyMotion_startofline = 0
 nmap s <Plug>(easymotion-s2)
 nmap t <Plug>(easymotion-t2)
 " search
-map  / <Plug>(easymotion-sn)
+map  / <Plug>(incsearch-easymotion-/)
 omap / <Plug>(easymotion-tn)
+
+" ---
+" Func: Combine fuzzy and easymotion plugins for incsearch
+" --- {{{
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzy#converter()],
+  \   'modules': [incsearch#config#easymotion#module()],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
+endfunction " }}}
+
+noremap <silent><expr> <leader>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
