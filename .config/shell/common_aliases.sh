@@ -5,6 +5,8 @@ alias ll='ls -aFlh'
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
+## Use vimrc with sudo vim
+alias suvim='sudo -E vim'
 alias tmux="TERM=screen-256color-bce tmux -2"
 ## Will make parent directories if they don't exist
 ## Also verbose
