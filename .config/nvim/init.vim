@@ -97,7 +97,7 @@ Plug 'wavded/vim-stylus'
 " Javascript
 Plug 'elzr/vim-json'
 Plug 'moll/vim-node'
-Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 " Clojure
