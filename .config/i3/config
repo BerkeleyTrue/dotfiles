@@ -252,6 +252,7 @@ exec --no-startup-id clipit
 exec --no-startup-id gpmdp
 exec --no-startup-id chromium
 exec --no-startup-id rescuetime
+exec --no-startup-id hyper
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
