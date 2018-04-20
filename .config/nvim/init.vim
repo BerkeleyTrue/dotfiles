@@ -77,6 +77,10 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Lang
+Plug 'autozimu/languageclient-neovim', {
+  \ 'branch': 'next',
+  \ 'do': 'bash install.sh',
+  \ }
 Plug 'blackrush/vim-gocode'
 Plug 'chr4/nginx.vim'
 Plug 'chrisbra/csv.vim'
@@ -152,6 +156,11 @@ filetype indent on
 " Plugin Config
 " ================================================== {{{
 
+" pangloss/vim-javascript
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+" }}}
 " Ale Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:ale_sign_error = '✗'
@@ -305,7 +314,6 @@ let g:tmuxline_preset = {
 \}
 " }}}
 
-
 " NERDTree config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:NERDTreeShowHidden = 1
@@ -348,6 +356,16 @@ let g:vim_markdown_conceal = 0
 let g:vimtex_fold_enabled = 1
 let g:tex_conceal=0
 " }}}
+"
+" LanguageClient-neovim
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+let g:LanguageClient_serverCommands = {
+  \ 'javascript': ['flow-language-server', '--stdio'],
+  \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+  \}
+let g:LanguageClient_autoStart = 1
+"}}}
+"
 " -- End Plugin Config -- }}}
 
 " ==================================================
