@@ -31,6 +31,10 @@ npmpublish() {
   # should almost always be angular
   preset=${2:-$(conventional-commits-detector)}
   bump=${1:-$(conventional-recommended-bump -p $preset)}
+  if [ -z $CONVENTIONAL_GITHUB_RELEASER_TOKEN ]; then
+    echo "CONVENTIONAL_GITHUB_RELEASER_TOKEN not found"
+    return 1;
+  fi
   echo "Bump: $bump."
   echo "Preset: $preset"
   echo "Do you wish to continue?"
@@ -43,7 +47,7 @@ npmpublish() {
   # make sure we have the latest commits
   git pull --rebase &&
     # get fresh packages
-    npm install &&
+    npm ci &&
     # make sure tests pass
     npm test &&
     # copy package.json for later restoration
