@@ -112,5 +112,8 @@ module.exports = {
   localPlugins: [],
   modifierKeys: {
     altIsMeta: true
+  },
+  keymaps: {
+    'editor:paste': 'ctrl+v',
   }
 };
