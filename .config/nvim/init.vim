@@ -100,8 +100,9 @@ Plug 'vim-scripts/paredit.vim'
 Plug 'wavded/vim-stylus'
 " Javascript
 Plug 'elzr/vim-json'
+Plug 'jparise/vim-graphql'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'moll/vim-node'
-Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 " Clojure
@@ -111,6 +112,7 @@ Plug 'guns/vim-sexp'
 Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 call plug#end() " }}}
+"
 " ==================================================
 " General Config
 " ================================================== {{{
@@ -157,7 +159,7 @@ filetype indent on
 " ================================================== {{{
 
 " pangloss/vim-javascript
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 " }}}
