@@ -119,6 +119,7 @@ call plug#end() " }}}
 " ==================================================
 " General Config
 " ================================================== {{{
+set autoread                                   "  autoread the file into buffer on focus
 set ambiwidth="single"                         "  force East Asian Width Class chars into a single space
 set clipboard=unnamedplus                      "  default yank into + register, which is the default clipboard for linux may break in osx?
 set copyindent                                 "  copy the previous indentation on autoindenting
