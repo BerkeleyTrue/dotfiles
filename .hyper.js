@@ -16,8 +16,12 @@ module.exports = {
     fontSize: 12,
 
     // font family with optional fallbacks
-    fontFamily: '"DroidSansMonoforPowerline Nerd Font", ' +
-      'Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
+    fontFamily: [
+      '"DejaVuSansMono Nerd Font"',
+      '"DroidSansMono Nerd Font"',
+      '"Lucida Console"',
+      'monospace',
+    ].join(', '),
 
     // terminal cursor background color and opacity
     // (hex, rgb, hsl, hsv, hwb or cmyk)
