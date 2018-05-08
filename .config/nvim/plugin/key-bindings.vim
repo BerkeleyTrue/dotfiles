@@ -273,14 +273,14 @@ map <Leader>W <Plug>(easymotion-W)
 map <Leader>b <Plug>(easymotion-b)
 map <Leader>B <Plug>(easymotion-B)
 "
-vmap f <Plug>(easymotion-f)
-omap f <Plug>(easymotion-f)
-vmap t <Plug>(easymotion-t)
-omap t <Plug>(easymotion-t)
-vmap F <Plug>(easymotion-F)
-omap F <Plug>(easymotion-F)
-vmap T <Plug>(easymotion-T)
-omap T <Plug>(easymotion-T)
+vmap f <Plug>(easymotion-fl)
+omap f <Plug>(easymotion-fl)
+vmap t <Plug>(easymotion-tl)
+omap t <Plug>(easymotion-tl)
+vmap F <Plug>(easymotion-Fl)
+omap F <Plug>(easymotion-Fl)
+vmap T <Plug>(easymotion-Tl)
+omap T <Plug>(easymotion-Tl)
 " }}}
 
 " Elm
