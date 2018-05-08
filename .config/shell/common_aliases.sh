@@ -28,6 +28,7 @@ alias vlint='nvim ~/.eslintrc'
 
 #node aliases
 alias :mongo='mongod --dbpath ~/data/db'
+alias :q='exit'
 
 alias npmig='sudo npm install -g'
 alias npmug='sudo npm uninstall -g'
