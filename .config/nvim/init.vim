@@ -167,6 +167,7 @@ filetype indent on
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 " }}}
+
 " Ale Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:ale_sign_error = '✗'
