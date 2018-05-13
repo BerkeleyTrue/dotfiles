@@ -108,6 +108,7 @@ nnoremap Q @q
 
 " uppercase word under the cursor while in insert mode
 inoremap <leader>uw <esc>mzgUiw`za
+vnoremap <leader>uw <esc>mzgUiw`ze
 
 " yank to end of line
 nnoremap Y y$
