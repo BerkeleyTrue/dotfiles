@@ -117,7 +117,4 @@ module.exports = {
   modifierKeys: {
     altIsMeta: true
   },
-  keymaps: {
-    'editor:paste': 'ctrl+v',
-  }
 };
