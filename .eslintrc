@@ -1,3 +1,13 @@
 {
-  "extends": "freecodecamp"
+  "env": {
+    "jest/globals": true
+  },
+  "plugins": ["jest"],
+  "extends": [
+    "freecodecamp",
+    "plugin:jest/recommended"
+  ],
+  "rules": {
+    "comma-dangle": [ "error", "always-multiline" ]
+  }
 }
