@@ -6,3 +6,6 @@ setlocal colorcolumn=+1
 highlight ColorColumn ctermbg=darkgray ctermfg=red
 
 let b:syntastic_checkers=['eslint']
+
+EmmetInstall
+call AddEmmetMappings()
