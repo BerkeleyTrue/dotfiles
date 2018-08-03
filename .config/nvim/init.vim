@@ -39,6 +39,10 @@ call plug#begin()
 Plug 'w0rp/ale'
 " Utils
 call s:InstallFzF()
+Plug 'autozimu/languageclient-neovim', {
+  \ 'branch': 'next',
+  \ 'do': 'bash install.sh',
+  \ }
 Plug 'bronson/vim-crosshairs'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
@@ -80,10 +84,6 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Lang
-Plug 'autozimu/languageclient-neovim', {
-  \ 'branch': 'next',
-  \ 'do': 'bash install.sh',
-  \ }
 Plug 'blackrush/vim-gocode'
 Plug 'chr4/nginx.vim'
 Plug 'chrisbra/csv.vim'
