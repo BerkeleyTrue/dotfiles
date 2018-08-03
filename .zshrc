@@ -1,24 +1,16 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/berkeleytrue/.oh-my-zsh
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='find .'
+# uncomment to debug antigen
+# export ANTIGEN_LOG=$HOME/.antigen/antigen.log
 TERMINAL="hyper"
 ZSH_THEME="agnoster"
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
-plugins=(
-  archlinux
-  npm
-  tig
-  tmux
-  vi-mode
-  wd
-  zsh-completions
-  zsh-autosuggestions
-)
+
 autoload -U compinit && compinit
+
 # set key timeout to 10ms
 KEYTIMEOUT=1
 # Automatically start tmux on zsh source
@@ -31,6 +23,24 @@ ZSH_TMUX_AUTOCONNECT=true
 if (( $+commands[xbindkeys] )); then
   xbindkeys
 fi
+
+# source antigen plugin manager
+source /usr/share/zsh/share/antigen.zsh
+
+antigen use oh-my-zsh
+
+antigen bundle tmux
+antigen bundle vi-mode
+antigen bundle wd
+antigen bundle zsh-autosuggestions
+antigen bundle zsh-completions
+antigen bundle lukechilds/zsh-better-npm-completion
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+antigen theme https://gitlab.com/BerkeleyTrue/ghanima.git ghanima
+
+# apply antigen plugins
+antigen apply
 
 ###
 # zsh use primary clipboard for vi-keys
@@ -66,7 +76,6 @@ local paste_widgets=(
 x11-clip-wrap-widgets copy $copy_widgets
 x11-clip-wrap-widgets paste  $paste_widgets
 ### end-clipboard paste ###
-source $ZSH/oh-my-zsh.sh
 
 
 ### change cursor shape in xterm ###
