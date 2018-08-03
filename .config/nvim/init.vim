@@ -80,7 +80,7 @@ Plug 'berkeleyTrue/berkeleys-snippet-emporium'
 Plug 'roxma/nvim-completion-manager'
 Plug 'sirVer/ultisnips'
 " Theme
-Plug 'dracula/vim'
+Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -502,6 +502,8 @@ function! AddHighlight()
   highlight CursorColumn ctermbg=24 ctermfg=NONE
 endfunction
 
+" Fix for term truecolor
+let g:dracula_colorterm = 0
 " add Vim theme
 colorscheme dracula
 
