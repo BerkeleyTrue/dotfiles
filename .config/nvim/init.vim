@@ -205,15 +205,6 @@ augroup END
 let g:indentLine_fileTypeExclude = [ 'json' ]
 " }}}
 
-" deoplete (autocomplete)
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:deoplete#enable_at_startup = 1
-" make sure autocompletion in file paths are relative
-" to the file buffer
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#enable_smart_case = 1
-" }}}
-
 " Ultisnips
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " We map the trigger initially to <c-w>
