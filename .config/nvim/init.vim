@@ -44,6 +44,7 @@ Plug 'autozimu/languageclient-neovim', {
   \ 'do': 'bash install.sh',
   \ }
 Plug 'bronson/vim-crosshairs'
+Plug 'chrisbra/nrrwrgn'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
@@ -104,9 +105,11 @@ Plug 'wavded/vim-stylus'
 " Javascript
 Plug 'elzr/vim-json'
 Plug 'jparise/vim-graphql'
+Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
+Plug 'posva/vim-vue'
 Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 " Clojure
 Plug 'clojure-vim/nvim-parinfer.js', { 'do': 'lein npm install' }
@@ -173,7 +176,11 @@ let g:javascript_plugin_flow = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = 'W'
 let g:ale_echo_msg_format = '%linter%: %severity% - %s'
-let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_linters = {
+  \ 'javascript': ['eslint'],
+  \ 'typescript': ['tslint', 'tsserver'],
+  \ 'pug': ['pug-lint'],
+\}
 let g:ale_sign_column_always = 1
 " }}}
 
@@ -369,6 +376,8 @@ let g:tex_conceal=0
 let g:LanguageClient_serverCommands = {
   \ 'javascript': ['flow-language-server', '--stdio'],
   \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+  \ 'vue': ['vls'],
+  \ 'typescript': ['javascript-typescript-stdio'],
   \}
 let g:LanguageClient_autoStart = 1
 "}}}

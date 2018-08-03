@@ -350,4 +350,10 @@ function AddEmmetMappings()
   inoremap <buffer> /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
 endfunction
 " }}}
+" NrrwRgn
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+command! -nargs=* -bang -range -complete=filetype NN
+  \ :<line1>,<line2> call nrrwrgn#NrrwRgn('',<q-bang>)
+  \ | set filetype=<args>
+" }}}
 " -- End Plugin Key Bindings -- }}}
