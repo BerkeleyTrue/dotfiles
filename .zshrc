@@ -26,7 +26,11 @@ if (( $+commands[xbindkeys] )); then
 fi
 
 # source antigen plugin manager
-source /usr/share/zsh/share/antigen.zsh
+if [[ $OSNAME = 'Darwin' ]]; then
+  source /usr/local/share/antigen/antigen.zsh
+else
+  source /usr/share/zsh/share/antigen.zsh
+fi
 
 antigen use oh-my-zsh
 
