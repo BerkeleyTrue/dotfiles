@@ -53,18 +53,24 @@ antigen apply
 function x11-clip-wrap-widgets() {
   local copy_or_paste=$1
   shift
+  local copy_command='xclip -in -selection clipboard'
+  local paste_command='xclip -out -selection clipboard'
+
+  [[ $OSNAME == 'Darwin' ]] && copy_command='pbcopy'
+  [[ $OSNAME == 'Darwin' ]] && paste_command='pbpaste'
+
   for widget in $@; do
     if [[ $copy_or_paste == "copy" ]]; then
       eval "
       function _x11-clip-wrapped-$widget() {
         zle .$widget
-        xclip -in -selection clipboard <<<\$CUTBUFFER
+        $copy_command <<<\$CUTBUFFER
       }
       "
     else
       eval "
       function _x11-clip-wrapped-$widget() {
-        CUTBUFFER=\$(xclip -out -selection clipboard)
+        CUTBUFFER=\$($paste_command)
         zle .$widget
       }
       "
