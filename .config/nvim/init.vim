@@ -112,7 +112,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 " Clojure
-Plug 'clojure-vim/nvim-parinfer.js', { 'do': 'lein npm install' }
+Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-fireplace' " note: attempts to bind to K
