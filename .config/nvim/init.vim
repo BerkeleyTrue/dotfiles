@@ -130,6 +130,7 @@ set expandtab                                  "  convert tabs to spaces
 set ignorecase                                 "  ignore case when searching
 set list                                       "  set list mode for listchars
 set listchars=tab:>.,trail:.,extends:#,nbsp:.  "  mark whitespace
+set mouse=a                                    "  enable the use of the mouse
 set nobackup                                   "  disable backups"
 set noswapfile                                 "  disable backups"
 set nowrap                                     "  don't wrap lines
