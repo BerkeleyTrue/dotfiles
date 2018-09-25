@@ -41,7 +41,7 @@ nnoremap <C-w>vr :vertical resize 90<CR>
 " Tab navigation
 nnoremap tj :tabnext<CR>
 nnoremap tk :tabprev<CR>
-nnoremap tn :tabnew<CR>:NERDTree<CR>
+nnoremap tn :tabnew<CR>
 
 " H to move to the beginning of the line
 noremap H ^
