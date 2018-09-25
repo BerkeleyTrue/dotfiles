@@ -413,7 +413,6 @@ augroup GeneralGroup
   " On leave Return to relative row numbers
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
-  autocmd VimEnter * call s:OpenNavOnStartup()
   " Resize splits when the window is resized
   autocmd VimResized * exe "normal! \<c-w>="
   " Make vim open on the line you closed the buffer on
