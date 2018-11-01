@@ -501,6 +501,7 @@ function! AddHighlight()
   highlight link jsDestructuringPropertyValue jsFuncName
   highlight link jsDestructuringProperty jsFuncName
   highlight link jsFuncArgs jsFuncName
+  highlight link jsxCloseTag DraculaPink
   " }}}
 
   highlight jsonKeyword ctermfg=117
