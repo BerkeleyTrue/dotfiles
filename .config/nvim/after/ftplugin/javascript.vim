@@ -1,4 +1,4 @@
-setlocal foldmethod=indent
+setlocal foldmethod=manual
 setlocal nofoldenable "Auto collapse by indentation"
 setlocal textwidth=80
 setlocal colorcolumn=+1
