@@ -3,7 +3,7 @@
 #git aliases
 alias gstat='git status'
 alias tstat='tig status'
-alias gfetch='git fetch'
+alias gfetch='git fetch && git status'
 alias gpush='git push'
 alias gpushntrack='git push -u'
 alias gadd='git add'
@@ -24,7 +24,7 @@ alias grsth2='git reset --hard HEAD^^'
 alias grsts='git reset --soft'
 alias grsts1='git reset --soft HEAD^'
 alias grsts2='git reset --soft HEAD^^'
-alias gstash='fstash'
+alias gstash='git stash'
 
 ggetcurrentbranch() {
   git rev-parse --abbrev-ref HEAD
@@ -220,7 +220,8 @@ gpull() {
     return 0
   fi
   # Otherwise pull from the repository this branch is tracking
-  git pull
+  # always do a rebase pull
+  git pull --rebase
 }
 
 gclean() {
