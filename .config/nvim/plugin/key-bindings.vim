@@ -273,6 +273,7 @@ map <Leader>w <Plug>(easymotion-w)
 map <Leader>W <Plug>(easymotion-W)
 map <Leader>b <Plug>(easymotion-b)
 map <Leader>B <Plug>(easymotion-B)
+map <Leader>f <Plug>(easymotion-fl)
 "
 vmap f <Plug>(easymotion-fl)
 omap f <Plug>(easymotion-fl)
