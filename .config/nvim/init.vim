@@ -77,8 +77,22 @@ Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
 " Snippets/completion
 Plug 'berkeleyTrue/berkeleys-snippet-emporium'
-Plug 'roxma/nvim-completion-manager'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-cssomni'
+Plug 'ncm2/ncm2-github'
+Plug 'ncm2/ncm2-html-subscope'
+Plug 'ncm2/ncm2-markdown-subscope'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-syntax' | Plug 'Shougo/neco-syntax'
+Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-vim'
+Plug 'roxma/nvim-yarp',
 Plug 'sirVer/ultisnips'
+Plug 'wellle/tmux-complete.vim'
+Plug 'yuki-ycino/ncm2-dictionary'
 " Theme
 Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'edkolev/tmuxline.vim'
@@ -110,7 +124,6 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
-Plug 'roxma/nvim-cm-tern',  { 'do': 'npm install' }
 " Clojure
 Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
@@ -435,6 +448,15 @@ augroup GeneralGroup
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \     execute 'normal! g`"zvzz' |
     \ endif
+
+  " NCM2 ****************{{{
+  " enables completion manager for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  " When ncm has matches, set completeopt to disable insert, auto select,
+  " otherwise default to menuone
+  autocmd User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
+  autocmd User Ncm2PopupClose set completeopt=menuone
+  " NCM2 End *******}}}
 augroup END " }}}
 
 " ==================================================
