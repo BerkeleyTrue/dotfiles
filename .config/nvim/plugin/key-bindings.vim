@@ -222,9 +222,13 @@ endfunction " }}}
 
 " nerdtree
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" Alias the command `nerd` to toggle nerdtree
-cnoreabbrev <expr> nerd ((getcmdtype() is# ":" && getcmdline() is# "nerd")?("NERDTreeToggle"):("nerd"))
 nnoremap <leader>nt :NERDTreeToggle<cr>
+" Find current active buffer in file tree
+nnoremap <leader>nf :NERDTreeFind<cr>
+" Clone a tree from another window into the current one
+nnoremap <leader>nm :NERDTreeMirror<cr>
+" Change the nerd tree root the current working directory
+nnoremap <leader>ncwd :NERDTreeCWD<cr>
 " }}}
 
 " vim-bbye
