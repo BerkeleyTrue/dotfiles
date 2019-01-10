@@ -1,6 +1,7 @@
 export ZSH="$HOME/.antigen/bundles/robbyrussell/oh-my-zsh"
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='find .'
+OSNAME=$(uname)
 # uncomment to debug antigen
 # export ANTIGEN_LOG=$HOME/.antigen/antigen.log
 TERMINAL="hyper"
