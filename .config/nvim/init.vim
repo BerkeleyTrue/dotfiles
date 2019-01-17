@@ -457,6 +457,11 @@ augroup GeneralGroup
   autocmd User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
   autocmd User Ncm2PopupClose set completeopt=menuone
   " NCM2 End *******}}}
+
+
+  " remove highlight after cursor stops moving
+  autocmd cursorhold * set nohlsearch | let @/ = ""
+  autocmd cursormoved * set hlsearch
 augroup END " }}}
 
 " ==================================================
