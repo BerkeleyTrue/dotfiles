@@ -544,6 +544,9 @@ function! AddHighlight()
   " Vim crosshairs
   highlight CursorLine   ctermbg=235 ctermfg=NONE
   highlight CursorColumn ctermbg=24 ctermfg=NONE
+
+  " rainbow parentheses
+  highlight level10c ctermfg=117
 endfunction
 
 " Fix for term truecolor
