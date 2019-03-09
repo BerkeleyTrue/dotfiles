@@ -39,10 +39,6 @@ call plug#begin()
 Plug 'w0rp/ale'
 " Utils
 call s:InstallFzF()
-Plug 'autozimu/languageclient-neovim', {
-  \ 'branch': 'next',
-  \ 'do': 'bash install.sh',
-  \ }
 Plug 'bronson/vim-crosshairs'
 Plug 'chrisbra/nrrwrgn'
 Plug 'christoomey/vim-tmux-navigator'
@@ -59,7 +55,6 @@ Plug 'moll/vim-bbye'
 Plug 'raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'shougo/neco-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmhedberg/matchit'
@@ -75,24 +70,17 @@ Plug 'vim-scripts/scrollfix'
 Plug 'wakatime/vim-wakatime'
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
-" Snippets/completion
+
+" Pop Up Menu Completion
+Plug 'neoclide/coc-neco'
+Plug 'Shougo/neco-vim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
+" Snippets
 Plug 'berkeleyTrue/berkeleys-snippet-emporium'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-cssomni'
-Plug 'ncm2/ncm2-github'
-Plug 'ncm2/ncm2-html-subscope'
-Plug 'ncm2/ncm2-markdown-subscope'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-syntax' | Plug 'Shougo/neco-syntax'
-Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-vim'
 Plug 'roxma/nvim-yarp',
 Plug 'sirVer/ultisnips'
 Plug 'wellle/tmux-complete.vim'
-Plug 'yuki-ycino/ncm2-dictionary'
 " Theme
 Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'edkolev/tmuxline.vim'
@@ -135,11 +123,13 @@ call plug#end() " }}}
 " ==================================================
 " General Config
 " ================================================== {{{
-set autoread                                   "  autoread the file into buffer on focus
 set ambiwidth="single"                         "  force East Asian Width Class chars into a single space
+set autoread                                   "  autoread the file into buffer on focus
 set clipboard=unnamedplus                      "  default yank into + register, which is the default clipboard for linux may break in osx?
+set cmdheight=2                                "  better display for messages
 set copyindent                                 "  copy the previous indentation on autoindenting
 set expandtab                                  "  convert tabs to spaces
+set hidden                                     "  needed for vim COC
 set ignorecase                                 "  ignore case when searching
 set list                                       "  set list mode for listchars
 set listchars=tab:>.,trail:.,extends:#,nbsp:.  "  mark whitespace
@@ -150,7 +140,9 @@ set nowrap                                     "  don't wrap lines
 set number                                     "  hybrid mode numbers
 set shiftround                                 "  use multiple of shiftwidth when indenting with "<" and ">"
 set shiftwidth=2                               "  number of spaces to use for autoindenting
+set shortmess+=c                               "  don't give |ins-completion-menu| messages.
 set showmatch                                  "  set show matching parenthesis
+set signcolumn=yes                             "  always show signcolumns
 set spell                                      "  enable spell checking
 set spelllang=en_us                            "  set spell language to US english
 set synmaxcol=512                              "  prevent long lines from hanging vim
@@ -159,6 +151,7 @@ set timeoutlen=1000                            "  add mapping key timeout delay
 set title                                      "  change the terminal"s title
 set ttimeoutlen=0                              "  remove key code delays
 set undolevels=1000                            "  use many muchos levels of undo
+set updatetime=300                             "  smaller updatetime for CursorHold & CursorHoldI
 set visualbell                                 "  flash screen on error
 set wildignore=*.swp,*.bak,*.pyc,*.class       "  ignore these files
 " nvim blinking cursor
@@ -376,17 +369,6 @@ let g:vimtex_fold_enabled = 1
 let g:tex_conceal=0
 " }}}
 "
-" LanguageClient-neovim
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['flow-language-server', '--stdio'],
-  \ 'javascript.jsx': ['flow-language-server', '--stdio'],
-  \ 'vue': ['vls'],
-  \ 'typescript': ['javascript-typescript-stdio'],
-  \}
-let g:LanguageClient_autoStart = 1
-"}}}
-"
 " vim-multi-cursor
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:multi_cursor_exit_from_insert_mode = 0
@@ -406,6 +388,11 @@ let g:sandwich#recipes += [
   \   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['[']},
   \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['(']},
   \ ]
+"}}}
+"
+" vim-coc
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+let g:coc_force_debug = 1
 "}}}
 " -- End Plugin Config -- }}}
 
@@ -448,16 +435,6 @@ augroup GeneralGroup
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \     execute 'normal! g`"zvzz' |
     \ endif
-
-  " NCM2 ****************{{{
-  " enables completion manager for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  " When ncm has matches, set completeopt to disable insert, auto select,
-  " otherwise default to menuone
-  autocmd User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
-  autocmd User Ncm2PopupClose set completeopt=menuone
-  " NCM2 End *******}}}
-
 
   " remove highlight after cursor stops moving
   autocmd cursorhold * set nohlsearch | let @/ = ""
