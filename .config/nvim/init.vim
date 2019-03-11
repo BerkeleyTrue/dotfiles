@@ -35,9 +35,8 @@ function! s:InstallFzF()
 endfunction " }}}
 
 call plug#begin()
-" Lint
-Plug 'w0rp/ale'
 " Utils
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 call s:InstallFzF()
 Plug 'bronson/vim-crosshairs'
 Plug 'chrisbra/nrrwrgn'
@@ -47,6 +46,7 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'machakann/vim-sandwich'
 Plug 'majutsushi/tagbar' | Plug 'lvht/tagbar-markdown'
 Plug 'matze/vim-move'
 Plug 'mhinz/vim-signify'
@@ -62,31 +62,39 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-unimpaired'
 Plug 'valloric/MatchTagAlways'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/scrollfix'
+Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
+"}}}
 
 " Pop Up Menu Completion
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'neoclide/coc-neco'
 Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" }}}
 
 " Snippets
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'berkeleyTrue/berkeleys-snippet-emporium'
 Plug 'roxma/nvim-yarp',
 Plug 'sirVer/ultisnips'
 Plug 'wellle/tmux-complete.vim'
+" }}}
 " Theme
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" }}}
 " Lang
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'blackrush/vim-gocode'
 Plug 'chr4/nginx.vim'
 Plug 'chrisbra/csv.vim'
@@ -104,7 +112,9 @@ Plug 'potatoesmaster/i3-vim-syntax'
 Plug 'shime/vim-livedown'
 Plug 'vim-scripts/paredit.vim'
 Plug 'wavded/vim-stylus'
+" }}}
 " Javascript
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'elzr/vim-json'
 Plug 'jparise/vim-graphql'
 Plug 'leafgarland/typescript-vim'
@@ -112,12 +122,15 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
+" }}}
 " Clojure
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" }}}
 call plug#end() " }}}
 "
 " ==================================================
