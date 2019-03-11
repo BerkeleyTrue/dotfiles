@@ -520,6 +520,7 @@ function! AddHighlight()
   highlight link jsFuncArgs jsFuncName
   highlight link jsxCloseTag DraculaPink
   highlight link jsxCloseString DraculaPink
+  highlight link jsxTagName DraculaPink
   " }}}
 
   highlight jsonKeyword ctermfg=117
