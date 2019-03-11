@@ -1147,11 +1147,6 @@ coc-tsserver@^1.1.29:
     vscode-uri "^1.0.6"
     which "^1.3.1"
 
-coc-ultisnips@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/coc-ultisnips/-/coc-ultisnips-1.2.0.tgz#e806f4f1d3191d1b1f9a4e587561151d503b2709"
-  integrity sha512-rs0lIUekNGRNC92urjDWgfy26ks4qC9sIJ7Ck9N3+uYtLP6XrKXwx2oKURnZPqdP/4MWxAPxdtjpanuZ10gZFg==
-
 coc-vetur@^1.0.14:
   version "1.0.14"
   resolved "https://registry.yarnpkg.com/coc-vetur/-/coc-vetur-1.0.14.tgz#ea9bc979be15be917cd9787581afb19967b7a375"
