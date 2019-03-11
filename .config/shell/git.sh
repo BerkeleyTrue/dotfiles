@@ -26,6 +26,28 @@ alias grsts1='git reset --soft HEAD^'
 alias grsts2='git reset --soft HEAD^^'
 alias gstash='git stash'
 
+# yadm aliases
+# +++++++++++++++++++++++++++++++++++++++++++++{{{
+alias ystat='yadm status';
+alias ypull='yadm pull --rebase'
+alias ypush='yadm push'
+alias ylog='yadm log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
+alias yadd='yadm add'
+alias ycom='yadm cz'
+alias yamend='yadm commit --amend'
+alias ydiff='yadm diff'
+
+alias yrst='yadm reset'
+alias yrst1='yadm reset HEAD^'
+alias yrst2='yadm reset HEAD^^'
+alias yrsth='yadm reset --hard'
+alias yrsth1='yadm reset --hard HEAD^'
+alias yrsth2='yadm reset --hard HEAD^^'
+alias yrsts='yadm reset --soft'
+alias yrsts1='yadm reset --soft HEAD^'
+alias yrsts2='yadm reset --soft HEAD^^'
+#}}}
+
 ggetcurrentbranch() {
   git rev-parse --abbrev-ref HEAD
 }
