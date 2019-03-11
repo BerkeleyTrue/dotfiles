@@ -341,10 +341,11 @@ let g:tmuxline_preset = {
 
 " NERDTree config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeShowHidden = 1
 " }}}
 
 " Sexp config
