@@ -296,7 +296,7 @@ vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
 nnoremap <leader>em :ElmMakeCurrentFile<CR>
 " }}}
 
-" Ultisnips/Neoplete
+" Ultisnips/Coc
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 function! GoDownOnPum()
   " If Pop Up Menu (pum) is open go down
