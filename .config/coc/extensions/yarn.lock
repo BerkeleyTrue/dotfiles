@@ -308,9 +308,9 @@
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/node@*":
-  version "11.10.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.6.tgz#f8eed81174467679fa127a1dbafbfe30c5b188f1"
-  integrity sha512-OUFTF4A3Lgo3kkisJ60r8BWycCkABa8v7KpqGXY3SusQAQQaFO05wa45ZBwVv4n0gkYA8G6i/Bk9zI6dx5Ss6A==
+  version "11.11.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.2.tgz#873d2c3f3824212cc16130074699e1bcb38c0231"
+  integrity sha512-iEaHiDNkHv4Jrm9O5T37OYEUwjJesiyt6ZlhLFK0sbo4CLD0jyCOB4Pc2F9iD3MbW2397SLNxZKdDGntGaBjQQ==
 
 "@types/unist@*", "@types/unist@^2.0.0":
   version "2.0.3"
@@ -817,9 +817,9 @@ camelcase@^4.0.0, camelcase@^4.1.0:
   integrity sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=
 
 caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000939, caniuse-lite@^1.0.30000940:
-  version "1.0.30000942"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000942.tgz#454139b28274bce70bfe1d50c30970df7430c6e4"
-  integrity sha512-wLf+IhZUy2rfz48tc40OH7jHjXjnvDFEYqBHluINs/6MgzoNLPf25zhE4NOVzqxLKndf+hau81sAW0RcGHIaBQ==
+  version "1.0.30000945"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000945.tgz#d51e3750416dd05126d5ac94a9c57d1c26c6fd21"
+  integrity sha512-PSGwYChNIXJ4FZr9Z9mrVzBCB1TF3yyiRmIDRIdKDHZ6u+1jYH6xeR28XaquxnMwcZVX3f48S9zi7eswO/G1nQ==
 
 capture-stack-trace@^1.0.0:
   version "1.0.1"
@@ -1008,10 +1008,10 @@ coc-emoji@^1.2.0:
   resolved "https://registry.yarnpkg.com/coc-emoji/-/coc-emoji-1.2.0.tgz#cad0a67e48d3b63db282b1676bf17961a34e149a"
   integrity sha512-w7eKHLxguJ1KG0s+kHapOGp8w6lZiYQlk+12AWLZGBc8MTkW4UeTNQ+dqVm55fNfnw9liHeuYpnqxcR3573O0g==
 
-coc-eslint@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/coc-eslint/-/coc-eslint-1.0.10.tgz#2a41f5a77887429a8aabc038a94dd508ad03bb28"
-  integrity sha512-6lMEYRXpmzM1FFOP8/+0clWsW8avdIDft0jjFW6RDQi3msuJ96oNeUjmK0iZV9RAAH7AIv2wd1VvT1bNsIMIHQ==
+coc-eslint@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/coc-eslint/-/coc-eslint-1.1.0.tgz#9aa703a6603199019243555fae2d564b25e950b1"
+  integrity sha512-6Y+GFjMCzV8u/4Kzi9aTBbT1ztSuIXRc1rEZb8tYcE/pFduAdr5pZllTQiEyj0uc8d2WeGN+RSaTe3ZrPI2Xjw==
   dependencies:
     eslint "^5.15.1"
     fast-diff "^1.2.0"
@@ -1058,17 +1058,17 @@ coc-jest@^1.0.1:
     vscode-uri "^1.0.6"
     which "^1.3.1"
 
-coc-json@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/coc-json/-/coc-json-1.0.11.tgz#74feeeb21d102d7cc6e7b9ede9ba71b1af6f84db"
-  integrity sha512-2vIy/1Y8/gxwM1tMieC6WY5rDTh65h2pPQreVmfldfvWgCYBGyRXr/pOsldYZXbh5bE2XnDAJBGEDlb/FAXulQ==
+coc-json@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/coc-json/-/coc-json-1.0.12.tgz#13ec31c3aef66dc64bbcb8a01c48074922eb544f"
+  integrity sha512-urH3FDlqdViOCM8NdNBXv6BBUWyylrenu1ngogiCz3dATJH5CnzLPfI6j/hB7PLhXE0IL6cJ8GEzFoP+ZL5SMg==
   dependencies:
     find-up "^3.0.0"
     request-light "^0.2.4"
     tslib "^1.9.3"
-    vscode-json-languageservice "^3.2.1"
-    vscode-languageserver "^5.1.0"
-    vscode-languageserver-protocol "^3.13.0"
+    vscode-json-languageservice "^3.3.0-next.6"
+    vscode-languageserver "^5.3.0-next.2"
+    vscode-nls "^4.0.0"
     vscode-uri "^1.0.6"
 
 coc-omni@^1.2.0:
@@ -1076,26 +1076,26 @@ coc-omni@^1.2.0:
   resolved "https://registry.yarnpkg.com/coc-omni/-/coc-omni-1.2.0.tgz#aec9e14d55d46d1c349f70c5f6df6affca02b898"
   integrity sha512-Eq8cCToY6DLN0CKI+AlzNREirTT4meDP8seh6EUh6T1cE6PYpDHBYRbsU7fj8QIsq9aHpW6qIGQsjtfq0t6QYg==
 
-coc-prettier@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/coc-prettier/-/coc-prettier-1.0.7.tgz#97b3313ed79f41d427091ce1a7f5c8f84d38626e"
-  integrity sha512-Z8HKYosaS4rsxOnq4E//Ev+I2L96/1SZAHfWbaZoL1xz+ASbdCB3YfydJphm9HtMn+e41hr1oN80+8Y0/LcbMg==
+coc-prettier@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/coc-prettier/-/coc-prettier-1.1.0.tgz#14affcb43a1339548565d9fff05a501b754ef9a4"
+  integrity sha512-4PjTwqZEv4+5DztxgvdWy+ibCF8/VgoDp188oDlmBQgCxrMJxDyQq25t2A6OOCTQNYUn0imBeO2S/dzgGvPacA==
   dependencies:
-    ignore "^5.0.4"
-    prettier "^1.15.3"
+    ignore "^5.0.6"
+    prettier "^1.16.4"
     prettier-eslint "^8.8.2"
     prettier-stylelint "^0.4.2"
-    prettier-tslint "^0.4.1"
+    prettier-tslint "^0.4.2"
     read-pkg-up "^4.0.0"
-    resolve "^1.8.1"
+    resolve "^1.10.0"
     tslib "^1.9.3"
-    vscode-languageserver-protocol "^3.14.1"
+    vscode-languageserver-protocol "^3.15.0-next.1"
     vscode-uri "^1.0.6"
 
-coc-snippets@^1.0.18:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/coc-snippets/-/coc-snippets-1.0.18.tgz#e2e4fe6e869cdaa3d6e5ae068d52bbe9c72e204e"
-  integrity sha512-4W7yCuTWwTjRRWWFhLU4DxwncjgkSBCzZfgPt+VOn0pfiGiqMjE408rnjfF/mqxYhgdojWD9NwqQrQ0tInNkpA==
+coc-snippets@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/coc-snippets/-/coc-snippets-1.0.20.tgz#f99ffad858a3766438f99b8d769fb165f0b396a1"
+  integrity sha512-z4EiLiZ2bA11OABJDo2RlDKcxOGaKfHFZtdfRbzG5zVahHFn8LrZAMLOBZo4NZF/yWs+8Sf6giylm5pgUMqwZA==
   dependencies:
     jsonc-parser "^2.0.3"
     pify "^4.0.1"
@@ -1133,10 +1133,10 @@ coc-tag@^1.2.0:
   resolved "https://registry.yarnpkg.com/coc-tag/-/coc-tag-1.2.0.tgz#abca9c9528138b6a033b18d42d9f58e7057bce93"
   integrity sha512-elvEYDQgu8uEclARGtgPqF64tv77Jmhrlzb6zOogb1w0C2mKbxi7qmOylLPu91SL8YzbediK3xs3fRsROCTTAw==
 
-coc-tsserver@^1.1.29:
-  version "1.1.29"
-  resolved "https://registry.yarnpkg.com/coc-tsserver/-/coc-tsserver-1.1.29.tgz#5013d7fd03019080a9a5a07722dcb9b484acffeb"
-  integrity sha512-gHU/KurgsPTY1r3ULWrWcOWUGRrfdIOrKeSkLt+AXRPedEUSkJhi8DQ4RfUww0QIi3mpGZlj/xY9cYhDq5JKyg==
+coc-tsserver@^1.1.30:
+  version "1.1.30"
+  resolved "https://registry.yarnpkg.com/coc-tsserver/-/coc-tsserver-1.1.30.tgz#6479bce5da54f96c1414de5ed0a66ae57bd33913"
+  integrity sha512-huOXRH8X+Mp+JZl0chjBuunwv+nXd2lmhtqpEb3FW1Pr2OaOr7fR7uA1aa50TDi8vsywBsEPlZH+4WkjunnCXA==
   dependencies:
     fast-diff "^1.2.0"
     find-up "^3.0.0"
@@ -1147,14 +1147,14 @@ coc-tsserver@^1.1.29:
     vscode-uri "^1.0.6"
     which "^1.3.1"
 
-coc-vetur@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/coc-vetur/-/coc-vetur-1.0.14.tgz#ea9bc979be15be917cd9787581afb19967b7a375"
-  integrity sha512-XuiJlM0LtPu2hn/Aer7JjCrkYQUZniYsrWAkIYwTpvcfPdAs5HHuUqDTaoBsL+vo+/oVE4lFDYxPArTzNuXQoQ==
+coc-vetur@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/coc-vetur/-/coc-vetur-1.1.0.tgz#c30122590739786f1ef77563236d2369f4913b10"
+  integrity sha512-6yMylgKCFJ9bSbPDCzZtgh/H9bQe7Gui7YUL5z0HwJfUM++4bfkQs48DZ0D97PxiOPhf1XrVQ++HENYeCtiupg==
   dependencies:
     tslib "^1.9.3"
-    vscode-languageserver-protocol "^3.14.1"
-    vue-language-server "^0.0.41"
+    vscode-languageserver-protocol "^3.15.0-next.1"
+    vue-language-server "^0.0.45"
 
 coc-word@^1.2.0:
   version "1.2.0"
@@ -1586,9 +1586,9 @@ editorconfig@^0.15.2:
     sigmund "^1.0.1"
 
 electron-to-chromium@^1.3.113, electron-to-chromium@^1.3.30:
-  version "1.3.113"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.113.tgz#b1ccf619df7295aea17bc6951dc689632629e4a9"
-  integrity sha512-De+lPAxEcpxvqPTyZAXELNpRZXABRxf+uL/rSykstQhzj/B0l1150G/ExIIxKc16lI89Hgz81J0BHAcbTqK49g==
+  version "1.3.115"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.115.tgz#fdaa56c19b9f7386dbf29abc1cc632ff5468ff3b"
+  integrity sha512-mN2qeapQWdi2B9uddxTZ4nl80y46hbyKY5Wt9Yjih+QZFQLdaujEDK4qJky35WhyxMzHF3ZY41Lgjd2BPDuBhg==
 
 element-helper-json@^2.0.2:
   version "2.0.5"
@@ -2510,6 +2510,11 @@ ignore@^5.0.4:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.0.5.tgz#c663c548d6ce186fb33616a8ccb5d46e56bdbbf9"
   integrity sha512-kOC8IUb8HSDMVcYrDVezCxpJkzSQWTAzf3olpKM6o9rM5zpojx23O0Fl8Wr4+qJ6ZbPEHqf1fdwev/DS7v7pmA==
 
+ignore@^5.0.6:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.0.6.tgz#562dacc7ec27d672dde433aa683c543b24c17694"
+  integrity sha512-/+hp3kUf/Csa32ktIaj0OlRqQxrgs30n62M90UBpNd9k+ENEch5S+hmbW3DtcJGz3sYFTh4F3A6fQ0q7KWsp4w==
+
 import-fresh@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-2.0.0.tgz#d81355c15612d386c61f9ddd3922d4304822a546"
@@ -3051,7 +3056,7 @@ jsonc-parser@^1.0.0, jsonc-parser@^1.0.3:
   resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-1.0.3.tgz#1d53d7160e401a783dbceabaad82473f80e6ad7e"
   integrity sha512-hk/69oAeaIzchq/v3lS50PXuzn5O2ynldopMC+SWBql7J2WtdptfB9dy8Y7+Og5rPkTCpn83zTiO8FMcqlXJ/g==
 
-jsonc-parser@^2.0.0-next.1, jsonc-parser@^2.0.2, jsonc-parser@^2.0.3:
+jsonc-parser@^2.0.0-next.1, jsonc-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-2.0.3.tgz#6d4199ccab7f21ff5d2a4225050c54e981fb21a2"
   integrity sha512-WJi9y9ABL01C8CxTKxRRQkkSpY/x2bo4Gy0WuiZGrInxQqgxQpvkBCLNcDYcHOSdhx4ODgbFcgAvfL49C+PHgQ==
@@ -3561,9 +3566,9 @@ node-pre-gyp@^0.10.0:
     tar "^4"
 
 node-releases@^1.1.8:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.9.tgz#70d0985ec4bf7de9f08fc481f5dae111889ca482"
-  integrity sha512-oic3GT4OtbWWKfRolz5Syw0Xus0KRFxeorLNj0s93ofX6PWyuzKjsiGxsCtWktBwwmTF6DdRRf2KreGqeOk5KA==
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.10.tgz#5dbeb6bc7f4e9c85b899e2e7adcc0635c9b2adf7"
+  integrity sha512-KbUPCpfoBvb3oBkej9+nrU0/7xPlVhmhhUJ1PZqwIP5/1dJkRWKWD3OONjo6M2J7tSCBtDCumLwwqeI+DWWaLQ==
   dependencies:
     semver "^5.3.0"
 
@@ -4232,7 +4237,7 @@ prettier-stylelint@^0.4.2:
     tempy "^0.2.1"
     update-notifier "^2.2.0"
 
-prettier-tslint@^0.4.1:
+prettier-tslint@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/prettier-tslint/-/prettier-tslint-0.4.2.tgz#37dd009ad6a482ea8101f40cf70b777bc86f3438"
   integrity sha512-urhX7U/F+fu8sztEs/Z7CxNS8PdEytEwGKhQaH5fxxCdRmHGT45FoClyDlcZrMk9cK/8JpX/asFmTOHtSGJfLg==
@@ -4244,7 +4249,7 @@ prettier-tslint@^0.4.1:
     tslint "^5.9.1"
     yargs "^11.0.0"
 
-prettier@^1.14.3, prettier@^1.15.2, prettier@^1.15.3, prettier@^1.7.0:
+prettier@^1.14.3, prettier@^1.15.3, prettier@^1.16.4, prettier@^1.7.0:
   version "1.16.4"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.4.tgz#73e37e73e018ad2db9c76742e2647e21790c9717"
   integrity sha512-ZzWuos7TI5CKUeQAtFd6Zhm2s6EpAD/ZLApIhsF9pRvRtM1RFo61dM/4MSRUA0SuLugA/zgrZD8m0BaY46Og7g==
@@ -5946,13 +5951,13 @@ vscode-json-languageservice@3.0.12:
     vscode-nls "^3.2.1"
     vscode-uri "^1.0.3"
 
-vscode-json-languageservice@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/vscode-json-languageservice/-/vscode-json-languageservice-3.2.1.tgz#991d51128ebd81c5525d0578cabfa5b03e3cba2a"
-  integrity sha512-ee9MJ70/xR55ywvm0bZsDLhA800HCRE27AYgMNTU14RSg20Y+ngHdQnUt6OmiTXrQDI/7sne6QUOtHIN0hPQYA==
+vscode-json-languageservice@^3.3.0-next.6:
+  version "3.3.0-next.6"
+  resolved "https://registry.yarnpkg.com/vscode-json-languageservice/-/vscode-json-languageservice-3.3.0-next.6.tgz#711f121b44ba443a89f3fb01a01c611f2547079f"
+  integrity sha512-i1tyLiodWc7y6lR9C4cat+OUSptj8Duk1Ybm1FaMzhNfOTFttSiwrBw1otNb+QwI65VEj7EAEBQHRLeQOWznMw==
   dependencies:
-    jsonc-parser "^2.0.2"
-    vscode-languageserver-types "^3.13.0"
+    jsonc-parser "^2.0.3"
+    vscode-languageserver-types "^3.14.0"
     vscode-nls "^4.0.0"
     vscode-uri "^1.0.6"
 
@@ -5977,7 +5982,15 @@ vscode-languageserver-protocol@3.15.0-next.1, vscode-languageserver-protocol@^3.
     vscode-jsonrpc "^4.0.0"
     vscode-languageserver-types "3.14.0"
 
-vscode-languageserver-types@3.14.0, vscode-languageserver-types@^3.12.0, vscode-languageserver-types@^3.13.0, vscode-languageserver-types@^3.14.0, vscode-languageserver-types@^3.5.0, vscode-languageserver-types@^3.6.0-next.1, vscode-languageserver-types@^3.6.1:
+vscode-languageserver-protocol@3.15.0-next.2:
+  version "3.15.0-next.2"
+  resolved "https://registry.yarnpkg.com/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.15.0-next.2.tgz#c77c5f0b439fb2536444bff55d2f36f0ac4c389f"
+  integrity sha512-nJ8l8qc6BjtUwrqP5VvCH9+2KreOQZ576qVvR0IquuOXcbAYJ32ElJJCJNru4rYPLziYUB2qdCjASw7oHxB8OQ==
+  dependencies:
+    vscode-jsonrpc "^4.0.0"
+    vscode-languageserver-types "3.14.0"
+
+vscode-languageserver-types@3.14.0, vscode-languageserver-types@^3.13.0, vscode-languageserver-types@^3.14.0, vscode-languageserver-types@^3.5.0, vscode-languageserver-types@^3.6.0-next.1, vscode-languageserver-types@^3.6.1:
   version "3.14.0"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.14.0.tgz#d3b5952246d30e5241592b6dde8280e03942e743"
   integrity sha512-lTmS6AlAlMHOvPQemVwo3CezxBp0sNB95KNPkqp3Nxd5VFEnuG1ByM0zlRWos0zjO3ZWtkvhal0COgiV1xIA4A==
@@ -6004,6 +6017,14 @@ vscode-languageserver@^5.3.0-next.1:
   integrity sha512-evpujnGgxpZ+9FxdX+IEtep1j9XNlROW4tzNFB5xjkmx5LNrswX3KlIm7G4LEIMViC4USXUXlzHHjcel/dygOQ==
   dependencies:
     vscode-languageserver-protocol "3.15.0-next.1"
+    vscode-uri "^1.0.6"
+
+vscode-languageserver@^5.3.0-next.2:
+  version "5.3.0-next.3"
+  resolved "https://registry.yarnpkg.com/vscode-languageserver/-/vscode-languageserver-5.3.0-next.3.tgz#3def878f5760e7a3b3b49166c3d869a645d7455a"
+  integrity sha512-+/tKz7yfBaERvvZBZYkxd51inC/sfUhEhamixS5cy/hbU40uhpScOTpjP2QnVpHEMP3eAqzCcT+BzmdhptRfNw==
+  dependencies:
+    vscode-languageserver-protocol "3.15.0-next.2"
     vscode-uri "^1.0.6"
 
 vscode-nls@^3.2.1, vscode-nls@^3.2.2:
@@ -6050,10 +6071,10 @@ vue-eslint-parser@^5.0.0:
     esquery "^1.0.1"
     lodash "^4.17.11"
 
-vue-language-server@^0.0.41:
-  version "0.0.41"
-  resolved "https://registry.yarnpkg.com/vue-language-server/-/vue-language-server-0.0.41.tgz#4ed5526b0f018f6529df39bbf47ca4add5075727"
-  integrity sha512-J4ndmLfki4efc9FvWdAW3vC2fs7ZATzDR/e0N6F/XmZgFeIGpHoEW+oGVQzTAfzzZ3spdh0YnF268lb0gPpvbA==
+vue-language-server@^0.0.45:
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/vue-language-server/-/vue-language-server-0.0.45.tgz#a16156848e81cc955b0dab916eae61a6d5798aa5"
+  integrity sha512-oX9U7duUETuKMIuuaXyYMMqtw/eB78KYUrRZ659CAPvl4Gi048DP2CzenZn0Nvw3jlsclvmHV/7zVBrgD5++Yg==
   dependencies:
     "@starptech/prettyhtml" "^0.8.4"
     bootstrap-vue-helper-json "^1.1.1"
@@ -6065,7 +6086,7 @@ vue-language-server@^0.0.41:
     lodash "^4.17.4"
     nuxt-helper-json "^1.0.0"
     parse-gitignore "^1.0.1"
-    prettier "^1.15.2"
+    prettier "^1.16.4"
     prettier-eslint "^8.8.2"
     read-pkg-up "^4.0.0"
     resolve "^1.8.1"
@@ -6075,7 +6096,7 @@ vue-language-server@^0.0.41:
     vscode-css-languageservice "^3.0.12"
     vscode-emmet-helper "^1.1.19"
     vscode-languageserver "^5.0.3"
-    vscode-languageserver-types "^3.12.0"
+    vscode-languageserver-types "^3.14.0"
     vscode-uri "^1.0.1"
     vue-onsenui-helper-json "^1.0.2"
     vuetify-helper-json "^1.0.0"
