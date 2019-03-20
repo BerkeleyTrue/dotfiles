@@ -408,7 +408,28 @@ let g:sandwich#recipes += [
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:coc_force_debug = 1
 "}}}
-" -- End Plugin Config -- }}}
+"
+" fzf.vim
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+
+" Func: Fzf_ag_with_path
+"-------------------------------------------------- {{{
+function! s:Fzf_ag_with_path(...)
+  let query = a:0 >= 1 ? a:1 : '^(?=.)'
+  let path = a:0 >= 2 ? a:2 : './'
+  let command = fzf#shellescape(query) . ' ' . fzf#shellescape(path)
+  call fzf#vim#ag_raw(command)
+endfunction "}}}
+
+" Group: Fzf
+"-------------------------------------------------- {{{
+augroup Fzf
+  autocmd!
+  autocmd VimEnter * command! -nargs=* Ag call s:Fzf_ag_with_path(<f-args>)
+augroup END "}}}
+
+"}}}
+"" -- End Plugin Config -- }}}
 
 " ==================================================
 " General Autocmds
