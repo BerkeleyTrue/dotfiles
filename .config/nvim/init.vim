@@ -426,7 +426,7 @@ endfunction "}}}
 "-------------------------------------------------- {{{
 augroup Fzf
   autocmd!
-  autocmd VimEnter * command! -nargs=* Ag call s:Fzf_ag_with_path(<f-args>)
+  autocmd VimEnter * command! -nargs=* -complete=dir Ag call s:Fzf_ag_with_path(<f-args>)
 augroup END "}}}
 
 "}}}
