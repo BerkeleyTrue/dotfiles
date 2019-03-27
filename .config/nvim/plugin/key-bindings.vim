@@ -345,7 +345,7 @@ xnoremap <silent><tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
 " Emmet
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " call along side EmmetInstall
-function AddEmmetMappings()
+function! AddEmmetMappings()
   " buffer tells vim to only use map in buffer it is defined
   " we recur so vim will eval the output
   imap <buffer> <leader><tab> <plug>(emmet-expand-abbr)
@@ -355,10 +355,28 @@ function AddEmmetMappings()
   inoremap <buffer> /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
 endfunction
 " }}}
+"
 " NrrwRgn
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 command! -nargs=* -bang -range -complete=filetype NN
   \ :<line1>,<line2> call nrrwrgn#NrrwRgn('',<q-bang>)
   \ | set filetype=<args>
 " }}}
-" -- End Plugin Key Bindings -- }}}
+"
+" Ale
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+nmap <leader>aj <Plug>(ale_previous_wrap)
+nmap <leader>ak <Plug>(ale_next_wrap)
+"}}}
+" Coc
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+nmap gd <Plug>(coc-definition)
+" refactor name
+nmap <leader>rn <Plug>(coc-rename)
+vmap <leader>fs <Plug>(coc-format-selected)
+nmap <leader>fs <Plug>(coc-format-selected)
+" fix current error on line
+nmap <leader>qf <Plug>(coc-fix-current)
+nmap <leader>ac <Plug>(coc-codeaction)
+"}}}
+"" -- End Plugin Key Bindings -- }}}
