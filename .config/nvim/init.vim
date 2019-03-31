@@ -46,6 +46,8 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'
 Plug 'machakann/vim-sandwich'
 Plug 'majutsushi/tagbar' | Plug 'lvht/tagbar-markdown'
 Plug 'matze/vim-move'
@@ -54,9 +56,8 @@ Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
 Plug 'raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmhedberg/matchit'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -69,7 +70,6 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/scrollfix'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
-Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'yggdroot/indentLine'
 "}}}
 
@@ -517,6 +517,13 @@ function! AddHighlight()
   highlight SpecialKey ctermbg=none ctermfg=88
 
   highlight Constant ctermfg=203
+
+  " Defx_icons
+  "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+  highlight Defx_icons_js ctermfg=84
+  highlight Defx_icons_vim ctermfg=9
+  highlight Defx_icons_markdown ctermfg=9
+  "}}}
 
   " JavaScript
   " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
