@@ -368,15 +368,4 @@ command! -nargs=* -bang -range -complete=filetype NN
 nmap <leader>aj <Plug>(ale_previous_wrap)
 nmap <leader>ak <Plug>(ale_next_wrap)
 "}}}
-" Coc
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-nmap gd <Plug>(coc-definition)
-" refactor name
-nmap <leader>rn <Plug>(coc-rename)
-vmap <leader>fs <Plug>(coc-format-selected)
-nmap <leader>fs <Plug>(coc-format-selected)
-" fix current error on line
-nmap <leader>qf <Plug>(coc-fix-current)
-nmap <leader>ac <Plug>(coc-codeaction)
-"}}}
 "" -- End Plugin Key Bindings -- }}}

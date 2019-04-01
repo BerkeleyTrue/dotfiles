@@ -1,16 +1,7 @@
-let s:tab_id_max = 0
+" Configs
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 
-" get tab id {{{
-function! s:tab_id()
-  if ! exists('t:defx_tab_id')
-    let s:tab_id_max = s:tab_id_max + 1
-    let t:defx_tab_id = s:tab_id_max
-  endif
-  return t:defx_tab_id
-endfunction "}}}
-
-
-" call defx#custom#column('filename') {{{
+" Symbols{{{
 call defx#custom#column('filename', {
   \ 'directory_icon': '▸',
   \ 'opened_icon': '▾',
@@ -22,9 +13,7 @@ call defx#custom#column('mark', {
   \ 'readonly_icon': '✗',
   \ 'selected_icon': '✓',
   \ })
-"}}}
 
-" defx_git#indicators {{{
 let g:defx_git#indicators = {
   \ 'Modified'  : '✹',
   \ 'Staged'    : '✚',
@@ -36,9 +25,24 @@ let g:defx_git#indicators = {
   \ 'Unknown'   : '?'
   \ }
 "}}}
-"
 
-function! DefxExplorer(...) "{{{
+"}}}
+
+
+" Func: Tab_Id
+"-------------------------------------------------- {{{
+let s:tab_id_max = 0
+function! s:tab_id()
+  if ! exists('t:defx_tab_id')
+    let s:tab_id_max = s:tab_id_max + 1
+    let t:defx_tab_id = s:tab_id_max
+  endif
+  return t:defx_tab_id
+endfunction " }}}
+
+" Func: DefxExplorer
+"-------------------------------------------------- {{{
+function! DefxExplorer(...)
   let l:dir = a:0 >= 1 ? a:1 : './'
   let l:cmd = join([
     \ 'Defx',
@@ -52,8 +56,27 @@ function! DefxExplorer(...) "{{{
   execute l:cmd . s:tab_id() . ' ' . l:dir
 endfunction
 "}}}
+"
+" Func: DefxSearch
+"-------------------------------------------------- {{{
+function! DefxSearch(search, dir)
 
-function! DefxChangeRoot() "{{{
+  let l:cmd = join([
+    \ 'Defx',
+    \ '-toggle',
+    \ '-search=' . a:search,
+    \ '-split=vertical',
+    \ '-winwidth=32',
+    \ '-direction=topleft',
+    \ '-columns=icons:git:mark:filename',
+    \ '-buffer-name=',
+    \], ' ')
+  execute l:cmd . s:tab_id() . ' ' . a:dir
+endfunction "}}}
+
+" Func: DefxChangeRoot
+"-------------------------------------------------- {{{
+function! DefxChangeRoot()
   let l:isDir = defx#is_directory()
 
   if (!l:isDir)
@@ -65,8 +88,11 @@ function! DefxChangeRoot() "{{{
 endfunction
 "}}}
 
+" Keymaps
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 nnoremap <silent>ze :call DefxExplorer()<CR>
-nnoremap <silent>zef :call DefxExplorer("`expand('%:p:h')`")<CR>
+nnoremap <silent>zef :cal DefxSearch(expand('%:p'), getcwd())<CR>
+"}}}
 
 function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
