@@ -104,7 +104,6 @@ Plug 'digitaltoad/vim-jade'
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 Plug 'hhsnopek/vim-sugarss'
-Plug 'lambdatoast/elm.vim'
 Plug 'lervag/vimtex'
 Plug 'mattn/emmet-vim'
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }

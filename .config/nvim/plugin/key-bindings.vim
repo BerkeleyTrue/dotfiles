@@ -220,17 +220,6 @@ endfunction " }}}
 " Plugin Specific mappings
 " ================================================== {{{
 
-" nerdtree
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-nnoremap <leader>nt :NERDTreeToggle<cr>
-" Find current active buffer in file tree
-nnoremap <leader>nf :NERDTreeFind<cr>
-" Clone a tree from another window into the current one
-nnoremap <leader>nm :NERDTreeMirror<cr>
-" Change the nerd tree root the current working directory
-nnoremap <leader>ncwd :NERDTreeCWD<cr>
-" }}}
-
 " vim-bbye
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " closes the currently open buffer
@@ -287,13 +276,6 @@ vmap F <Plug>(easymotion-Fl)
 omap F <Plug>(easymotion-Fl)
 vmap T <Plug>(easymotion-Tl)
 omap T <Plug>(easymotion-Tl)
-" }}}
-
-" Elm
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-nnoremap <leader>el :ElmEvalLine<CR>
-vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
-nnoremap <leader>em :ElmMakeCurrentFile<CR>
 " }}}
 
 " Ultisnips/Coc
