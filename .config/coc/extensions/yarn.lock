@@ -985,10 +985,10 @@ coc-css@^1.0.7:
     vscode-languageserver "^5.1.0"
     vscode-languageserver-protocol "^3.13.0"
 
-coc-dictionary@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/coc-dictionary/-/coc-dictionary-1.2.0.tgz#1569b183b7c07cf99e5b833244ee1414aa5adf33"
-  integrity sha512-7s+JvGWmgOnOo2YW/7kPcychBhc6EH4HqMxObWi+U+dUnrzhwIFA0InnMzXN/pZIuAC6P/sqcEfOlebFRmWNIg==
+coc-dictionary@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/coc-dictionary/-/coc-dictionary-1.2.2.tgz#83a1d37848890f21d38e0fae11ee1b5772c820f4"
+  integrity sha512-FbcxcfBy+9ZJeNGJsS0c6RJf0Dyl3l5w+Nl4czcnVwXOYaNa350sqClZ7T3KP2oaLHeLVLHbbms8CDjZ3GNg0w==
 
 coc-emmet@^1.0.9:
   version "1.0.9"
@@ -1003,10 +1003,10 @@ coc-emmet@^1.0.9:
     vscode-languageserver-protocol "^3.13.0"
     vscode-uri "^1.0.6"
 
-coc-emoji@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/coc-emoji/-/coc-emoji-1.2.0.tgz#cad0a67e48d3b63db282b1676bf17961a34e149a"
-  integrity sha512-w7eKHLxguJ1KG0s+kHapOGp8w6lZiYQlk+12AWLZGBc8MTkW4UeTNQ+dqVm55fNfnw9liHeuYpnqxcR3573O0g==
+coc-emoji@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/coc-emoji/-/coc-emoji-1.2.2.tgz#f7ba8ae4d6cd54953d8d0a7328c1be626f91818b"
+  integrity sha512-VJo9ZIIEGJJzlH0+sSGooE6OTJCV/SgRUBxNq3o7lLrc+8l9IHfUAioB56+QcJRalR1LoIZ71htaweBjdWNiYw==
 
 coc-eslint@^1.1.0:
   version "1.1.0"
@@ -1071,10 +1071,10 @@ coc-json@^1.0.12:
     vscode-nls "^4.0.0"
     vscode-uri "^1.0.6"
 
-coc-omni@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/coc-omni/-/coc-omni-1.2.0.tgz#aec9e14d55d46d1c349f70c5f6df6affca02b898"
-  integrity sha512-Eq8cCToY6DLN0CKI+AlzNREirTT4meDP8seh6EUh6T1cE6PYpDHBYRbsU7fj8QIsq9aHpW6qIGQsjtfq0t6QYg==
+coc-omni@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/coc-omni/-/coc-omni-1.2.2.tgz#99458f8c3b85538487885dcb54f023867f9a7921"
+  integrity sha512-/csovIerBPxl1YqS7CUEX6e8mI8yjld741A93QmF1g7USvj6grG3KWuDti/mAqoqNQTy4cNiL+H867z5NP3Nvw==
 
 coc-prettier@^1.1.0:
   version "1.1.0"
@@ -1092,10 +1092,10 @@ coc-prettier@^1.1.0:
     vscode-languageserver-protocol "^3.15.0-next.1"
     vscode-uri "^1.0.6"
 
-coc-snippets@^1.0.20:
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/coc-snippets/-/coc-snippets-1.0.20.tgz#f99ffad858a3766438f99b8d769fb165f0b396a1"
-  integrity sha512-z4EiLiZ2bA11OABJDo2RlDKcxOGaKfHFZtdfRbzG5zVahHFn8LrZAMLOBZo4NZF/yWs+8Sf6giylm5pgUMqwZA==
+coc-snippets@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/coc-snippets/-/coc-snippets-2.0.5.tgz#627e5e1c3dda7f13434683b2ed2877da3863d74c"
+  integrity sha512-D+iaCON83dMWAwOCEXYeQ+Wi4YS2q1iL5XAZiEkFyCvSaRoK+LFWxdgDNeG4jAzI+mXWq6KyciOPKMMdGhWKLQ==
   dependencies:
     jsonc-parser "^2.0.3"
     pify "^4.0.1"
@@ -1128,10 +1128,10 @@ coc-stylelint@^1.0.8:
     vscode-uri "^1.0.6"
     which "^1.3.1"
 
-coc-tag@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/coc-tag/-/coc-tag-1.2.0.tgz#abca9c9528138b6a033b18d42d9f58e7057bce93"
-  integrity sha512-elvEYDQgu8uEclARGtgPqF64tv77Jmhrlzb6zOogb1w0C2mKbxi7qmOylLPu91SL8YzbediK3xs3fRsROCTTAw==
+coc-tag@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/coc-tag/-/coc-tag-1.2.2.tgz#bd8d05cf98d18fd4a7551c26f1c2f871cea7cea0"
+  integrity sha512-pYIL/go1Ad9odbZtHeQWEWKzIUjUgYGAFT5aNSKh3k2FQlkvlbaQJ/6KLOD8C10Cl+p6+3tDJNU/Br44sCSIkg==
 
 coc-tsserver@^1.1.30:
   version "1.1.30"
@@ -1156,10 +1156,10 @@ coc-vetur@^1.1.0:
     vscode-languageserver-protocol "^3.15.0-next.1"
     vue-language-server "^0.0.45"
 
-coc-word@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/coc-word/-/coc-word-1.2.0.tgz#f790a5cf6d042b8560f4c96fddf3cef3759ffeb3"
-  integrity sha512-xi36DqCwHzz27ZofZcgKjRuAAVfpa+01fj4oMhoTzaxXMwtMPFPVTE17K2EzZuHmiwXjFyzm+JNqK2siYgg4Lg==
+coc-word@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/coc-word/-/coc-word-1.2.2.tgz#8cf213a9a1e8bf5b2cb74b9ee2a1a93bff205c78"
+  integrity sha512-+qSB6KVXTRPeC6UDZHt8CyEO2OPVEjVda2eXqNuR8VJ7gdSCsUOkL1dorbIvQUuOVWBlN4Pdlad7UZoHSqRJvw==
 
 coc-yaml@^1.0.0:
   version "1.0.0"
