@@ -90,7 +90,7 @@ endfunction
 
 " Keymaps
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-nnoremap <silent>ze :call DefxExplorer()<CR>
+nnoremap <silent>zet :call DefxExplorer()<CR>
 nnoremap <silent>zef :cal DefxSearch(expand('%:p'), getcwd())<CR>
 "}}}
 
