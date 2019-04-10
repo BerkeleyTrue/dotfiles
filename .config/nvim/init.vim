@@ -423,6 +423,10 @@ augroup Fzf
   autocmd VimEnter * command! -nargs=* -complete=dir Ag call s:Fzf_ag_with_path(<f-args>)
 augroup END "}}}
 
+" vim-jsx-pretty
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+let g:vim_jsx_pretty_highlight_close_tag = 1
+"}}}
 "}}}
 "" -- End Plugin Config -- }}}
 
@@ -544,6 +548,7 @@ function! AddHighlight()
   highlight link jsFuncArgs jsFuncName
   highlight link jsxCloseTag DraculaPink
   highlight link jsxCloseString DraculaPink
+  highlight link jsxClosePunct DraculaPink
   highlight link jsxTagName DraculaPink
   " }}}
 
