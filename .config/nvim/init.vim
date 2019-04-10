@@ -87,6 +87,7 @@ Plug 'roxma/nvim-yarp',
 Plug 'sirVer/ultisnips'
 Plug 'wellle/tmux-complete.vim'
 " }}}
+
 " Theme
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
@@ -94,6 +95,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " }}}
+
 " Lang
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'blackrush/vim-gocode'
@@ -113,6 +115,7 @@ Plug 'shime/vim-livedown'
 Plug 'vim-scripts/paredit.vim'
 Plug 'wavded/vim-stylus'
 " }}}
+
 " Javascript
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'elzr/vim-json'
@@ -123,6 +126,7 @@ Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 " }}}
+
 " Clojure
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
@@ -167,6 +171,7 @@ set undolevels=1000                            "  use many muchos levels of undo
 set updatetime=300                             "  smaller updatetime for CursorHold & CursorHoldI
 set visualbell                                 "  flash screen on error
 set wildignore=*.swp,*.bak,*.pyc,*.class       "  ignore these files
+" set termguicolors                              "  uses |highlight-guifg| and |highlight-guibg| attributes in the terminal
 " nvim blinking cursor
 " see :help 'guicursor'
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
