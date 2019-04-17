@@ -91,14 +91,13 @@ endfunction
 " Keymaps
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 nnoremap <silent>zet :call DefxExplorer()<CR>
-nnoremap <silent>zef :cal DefxSearch(expand('%:p'), getcwd())<CR>
-"}}}
+nnoremap <silent>zef :call DefxSearch(expand('%:p'), getcwd())<CR>
 
 function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
   nnoremap <silent><buffer><expr><Space>  defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr> c       defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m       defx#do_action('move')
+  nnoremap <silent><buffer><expr> C       defx#do_action('copy')
+  nnoremap <silent><buffer><expr> M       defx#do_action('move')
   nnoremap <silent><buffer><expr><C-v>    defx#do_action('drop', 'vsplit')
   nnoremap <silent><buffer><expr> a       defx#do_action('new_file')
   nnoremap <silent><buffer><expr> A       defx#do_action('new_directory')
@@ -106,7 +105,7 @@ function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr> r       defx#do_action('rename')
   nnoremap <silent><buffer><expr> yy      defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> .       defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> p       defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> P       defx#do_action('cd', ['..'])
   nnoremap <silent><buffer> cr            :call DefxChangeRoot()<CR>
   nnoremap <silent><buffer><expr><Tab>    defx#do_action('toggle_select')
   nnoremap <silent><buffer><expr> j       line('.') == line('$') ? 'gg' : 'j'
@@ -114,6 +113,7 @@ function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr> R       defx#do_action('redraw')
   nnoremap <silent><buffer><expr> cd      defx#do_action('change_vim_cwd')
 endfunction
+"}}}
 "}}}
 
 augroup DEFX "{{{
