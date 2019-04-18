@@ -41,10 +41,10 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: full
+  decorations: none
 
   # When true, alacritty starts maximized.
-  start_maximized: false
+  start_maximized: true
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -116,7 +116,7 @@ font:
     #style: Italic
 
   # Point size
-  size: 11.0
+  size: 13.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
