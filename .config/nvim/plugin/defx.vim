@@ -1,42 +1,42 @@
 " Configs
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 
-" Symbols{{{
-
 call defx#custom#option('_', {
-  \ 'columns': 'icon:git:indent:mark:filename',
-  \ })
+      \ 'columns': 'indent:mark:git:icons:icon:filename',
+      \ })
 
+" Symbols{{{
 call defx#custom#column('icon', {
-  \ 'directory_icon': '▸',
-  \ 'opened_icon': '▾',
-  \ 'root_icon': ' ',
-  \ })
+      \ 'directory_icon': '▸',
+      \ 'opened_icon': '▾',
+      \ 'root_icon': '.',
+      \ })
 
 call defx#custom#column('filename', {
-  \ 'min_width': 32,
-  \ 'max_width': 32,
-  \ })
+      \ 'min_width': 32,
+      \ 'max_width': 32,
+      \ })
 
 call defx#custom#column('mark', {
-  \ 'readonly_icon': '✗',
-  \ 'selected_icon': '✓',
-  \ })
+      \ 'readonly_icon': '✗',
+      \ 'selected_icon': '✓',
+      \ })
 
 let g:defx_git#indicators = {
-  \ 'Modified'  : '✹',
-  \ 'Staged'    : '✚',
-  \ 'Untracked' : '✭',
-  \ 'Renamed'   : '➜',
-  \ 'Unmerged'  : '═',
-  \ 'Ignored'   : '☒',
-  \ 'Deleted'   : '✖',
-  \ 'Unknown'   : '?'
-  \ }
+      \ 'Deleted'   : '✖',
+      \ 'Ignored'   : '☒',
+      \ 'Modified'  : '✹',
+      \ 'Renamed'   : '➜',
+      \ 'Staged'    : '✚',
+      \ 'Unknown'   : '?',
+      \ 'Unmerged'  : '═',
+      \ 'Untracked' : '✭'
+      \ }
+"}}}
 "}}}
 
-"}}}
-
+" Keymaps
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 
 " Func: Tab_Id
 "-------------------------------------------------- {{{
@@ -95,8 +95,6 @@ function! DefxChangeRoot()
 endfunction
 "}}}
 
-" Keymaps
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 nnoremap <silent>zet :call DefxExplorer()<CR>
 nnoremap <silent>zef :call DefxSearch(expand('%:p'), getcwd())<CR>
 
@@ -121,9 +119,24 @@ function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr> cd      defx#do_action('change_vim_cwd')
 endfunction
 "}}}
-"}}}
 
 augroup DEFX "{{{
   autocmd FileType defx call <SID>defx_settings()
   autocmd FileType defx setlocal spell!
 augroup END "}}}
+"}}}
+
+" Colors
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+highlight Defx_filename_4_opened_icon ctermfg=84
+highlight Defx_filename_4_directory_icon ctermfg=117
+"git
+highlight Defx_filename_4_Deleted ctermfg=167 guifg=#fb4934
+highlight Defx_filename_4_Ignored guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
+highlight Defx_filename_4_Modified ctermfg=9 guifg=#fabd2f
+highlight Defx_filename_4_Renamed ctermfg=214 guifg=#fabd2f
+highlight Defx_filename_4_Staged ctermfg=142 guifg=#b8bb26
+highlight Defx_filename_4_Unknown guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
+highlight Defx_filename_4_Unmerged ctermfg=167 guifg=#fb4934
+highlight Defx_filename_4_Untracked guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
+"}}}
