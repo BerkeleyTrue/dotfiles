@@ -2,9 +2,18 @@
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 
 " Symbols{{{
-call defx#custom#column('filename', {
+
+call defx#custom#option('_', {
+  \ 'columns': 'icon:git:indent:mark:filename',
+  \ })
+
+call defx#custom#column('icon', {
   \ 'directory_icon': '▸',
   \ 'opened_icon': '▾',
+  \ 'root_icon': ' ',
+  \ })
+
+call defx#custom#column('filename', {
   \ 'min_width': 32,
   \ 'max_width': 32,
   \ })
@@ -50,7 +59,6 @@ function! DefxExplorer(...)
     \ '-split=vertical',
     \ '-winwidth=32',
     \ '-direction=topleft',
-    \ '-columns=icons:git:mark:filename',
     \ '-buffer-name=',
     \], ' ')
   execute l:cmd . s:tab_id() . ' ' . l:dir
@@ -68,7 +76,6 @@ function! DefxSearch(search, dir)
     \ '-split=vertical',
     \ '-winwidth=32',
     \ '-direction=topleft',
-    \ '-columns=icons:git:mark:filename',
     \ '-buffer-name=',
     \], ' ')
   execute l:cmd . s:tab_id() . ' ' . a:dir
