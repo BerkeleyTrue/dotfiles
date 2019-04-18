@@ -122,6 +122,7 @@ Plug 'elzr/vim-json'
 Plug 'jparise/vim-graphql'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'meain/vim-package-info', { 'do': 'npm install' }
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
