@@ -28,14 +28,16 @@ alias gstash='git stash'
 
 # yadm aliases
 # +++++++++++++++++++++++++++++++++++++++++++++{{{
-alias ystat='yadm status';
+alias yadd='yadm add'
+alias yamend='yadm commit --amend'
+alias yco='yadm checkout'
+alias ycom='yadm cz'
+alias ydiff='yadm diff'
+alias yfetch='yadm fetch'
+alias ylog='yadm log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
 alias ypull='yadm pull --rebase'
 alias ypush='yadm push'
-alias ylog='yadm log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
-alias yadd='yadm add'
-alias ycom='yadm cz'
-alias yamend='yadm commit --amend'
-alias ydiff='yadm diff'
+alias ystat='yadm status';
 
 alias yrst='yadm reset'
 alias yrst1='yadm reset HEAD^'
