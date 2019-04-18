@@ -210,6 +210,7 @@ let g:ale_linters = {
 let g:ale_sign_column_always = 1
 let g:ale_virtualtext_cursor = 1
 let g:ale_virtualtext_prefix = '//=> '
+let g:ale_virtualtext_delay = 300
 " }}}
 
 " Rainbow Parens Settings
