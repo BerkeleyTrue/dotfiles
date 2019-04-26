@@ -11,13 +11,13 @@
     "coc-json": "^1.0.14",
     "coc-omni": "^1.2.2",
     "coc-prettier": "^1.1.0",
-    "coc-snippets": "^2.0.6",
+    "coc-snippets": "^2.0.10",
     "coc-stylelint": "^1.0.8",
     "coc-tag": "^1.2.2",
-    "coc-tsserver": "^1.1.33",
+    "coc-tsserver": "^1.1.35",
     "coc-vetur": "^1.1.0",
     "coc-word": "^1.2.2",
-    "coc-yaml": "^1.0.0",
+    "coc-yaml": "^1.0.1",
     "coc-yank": "^1.0.2"
   }
 }
