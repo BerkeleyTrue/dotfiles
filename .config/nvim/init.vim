@@ -165,6 +165,7 @@ set spell                                      "  enable spell checking
 set spelllang=en_us                            "  set spell language to US english
 set synmaxcol=512                              "  prevent long lines from hanging vim
 set tabstop=2                                  "  a tab is two spaces
+set termguicolors                              "  use gui colors in term's that support it
 set timeoutlen=1000                            "  add mapping key timeout delay
 set title                                      "  change the terminal"s title
 set ttimeoutlen=0                              "  remove key code delays
