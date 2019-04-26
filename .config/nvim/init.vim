@@ -520,10 +520,10 @@ function! AddHighlight()
   highlight SpellRare ctermfg=none ctermbg=none cterm=underline
 
   " make the highlighting of tabs and other non-text less annoying
-  highlight NonText ctermbg=none ctermfg=8
-  highlight SpecialKey ctermbg=none ctermfg=88
+  highlight NonText ctermbg=none ctermfg=8 guibg=none guifg=#808080
+  highlight SpecialKey ctermbg=none ctermfg=88 guibg=none guifg=#870000
 
-  highlight Constant ctermfg=203
+  highlight link Constant DraculaRed
 
   " Defx_icons
   "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
@@ -534,17 +534,17 @@ function! AddHighlight()
 
   " JavaScript
   " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-  highlight jsFuncCall ctermfg=141
+  highlight link jsFuncCall DraculaPurple
   highlight link jsGlobalObjects Constant
   highlight link jsGlobalNodeObjects jsGlobalObjects
   highlight link jsThis Constant
-  highlight jsString ctermfg=215
-  highlight jsTemplateBraces ctermfg=24
-  highlight jsTemplateString ctermfg=215
-  highlight jsTemplateVar ctermfg=228
+  highlight link jsString DraculaOrange
+  highlight link jsTemplateString DraculaOrange
+  highlight link jsTemplateVar DraculaYellow
+  highlight jsTemplateBraces ctermfg=24 guifg=#005487
 
 
-  highlight jsObjectKey ctermfg=117
+  highlight link jsObjectKey DraculaCyan
   highlight link jsObject jsObjectKey
   highlight link jsSpreadExpression jsObjectKey
   highlight link jsObjectKeyComputed jsObjectKey
@@ -561,21 +561,21 @@ function! AddHighlight()
   highlight link jsxTagName DraculaPink
   " }}}
 
-  highlight jsonKeyword ctermfg=117
-  highlight jsonString ctermfg=86
+  highlight link jsonKeyword DraculaCyan
+  highlight link jsonString DraculaGreen
   highlight link jsonNumber Number
   highlight link jsonBoolean Boolean
 
-  highlight vimMapLhs ctermfg=215
-  highlight vimMapModKey ctermfg=117
-  highlight vimNotation ctermfg=86
+  highlight link vimMapLhs DraculaOrange
+  highlight link vimMapModKey DraculaOrange
+  highlight link vimNotation DraculaGreen
 
   " Vim crosshairs
-  highlight CursorLine   ctermbg=235 ctermfg=NONE
-  highlight CursorColumn ctermbg=24 ctermfg=NONE
+  highlight link CursorLine DraculaBgDark
+  highlight CursorColumn ctermbg=24 ctermfg=NONE guibg=#005487 guifg=NONE
 
   " rainbow parentheses
-  highlight level10c ctermfg=117
+  highlight link level10c DraculaOrange
 endfunction
 
 " Fix for term truecolor
