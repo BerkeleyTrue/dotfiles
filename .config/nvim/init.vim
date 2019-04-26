@@ -77,7 +77,7 @@ Plug 'yggdroot/indentLine'
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'neoclide/coc-neco'
 Plug 'Shougo/neco-vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 " }}}
 
 " Snippets
