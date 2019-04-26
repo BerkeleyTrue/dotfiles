@@ -1133,10 +1133,10 @@ coc-tag@^1.2.2:
   resolved "https://registry.yarnpkg.com/coc-tag/-/coc-tag-1.2.2.tgz#bd8d05cf98d18fd4a7551c26f1c2f871cea7cea0"
   integrity sha512-pYIL/go1Ad9odbZtHeQWEWKzIUjUgYGAFT5aNSKh3k2FQlkvlbaQJ/6KLOD8C10Cl+p6+3tDJNU/Br44sCSIkg==
 
-coc-tsserver@1.1.35:
-  version "1.1.35"
-  resolved "https://registry.yarnpkg.com/coc-tsserver/-/coc-tsserver-1.1.35.tgz#d1832d1e206d4c4c77e690ff947a3bd5a8a576e3"
-  integrity sha512-0wHn8mKP9kKFEtixqZM6vDTGvgeM0I2zFbzyNkxlc8Kt+2fNZckSmP7fb6gUL1uYa+IEBGFbCzu5R5NPzF5LmQ==
+coc-tsserver@^1.1.35:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/coc-tsserver/-/coc-tsserver-1.2.1.tgz#7dc1f777e61582e2f389cce289f986f60019012e"
+  integrity sha512-4MRaiCQJiz7/vVgLJ9BxSpwCbwCZRJmk8O3usbyfki3YXVUzh5UrO+bz3cZpZqT2e3r5WIRz6ty3l4jOestLTw==
   dependencies:
     fast-diff "^1.2.0"
     find-up "^3.0.0"
