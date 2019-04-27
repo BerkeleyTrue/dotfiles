@@ -1147,13 +1147,13 @@ coc-tsserver@^1.1.35:
     vscode-uri "^1.0.6"
     which "^1.3.1"
 
-coc-vetur@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/coc-vetur/-/coc-vetur-1.1.0.tgz#c30122590739786f1ef77563236d2369f4913b10"
-  integrity sha512-6yMylgKCFJ9bSbPDCzZtgh/H9bQe7Gui7YUL5z0HwJfUM++4bfkQs48DZ0D97PxiOPhf1XrVQ++HENYeCtiupg==
+coc-vetur@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/coc-vetur/-/coc-vetur-1.1.1.tgz#9a918e182a51b5cc5247c12d7017d676a2b97ec7"
+  integrity sha512-Klpk9oyNpJJJ2O+lygN8iZbeo5EtYn0wCScCuYGBXHPSZbPCP0r6MlPu7+kkDemaGG0QKp9eUNjKdfY+osxaKg==
   dependencies:
     tslib "^1.9.3"
-    vscode-languageserver-protocol "^3.15.0-next.1"
+    vscode-languageserver-protocol "^3.15.0-next.4"
     vue-language-server "^0.0.45"
 
 coc-word@^1.2.2:
@@ -5974,7 +5974,7 @@ vscode-languageserver-protocol@3.14.1, vscode-languageserver-protocol@^3.10.3, v
     vscode-jsonrpc "^4.0.0"
     vscode-languageserver-types "3.14.0"
 
-vscode-languageserver-protocol@3.15.0-next.4, vscode-languageserver-protocol@^3.15.0-next.1:
+vscode-languageserver-protocol@3.15.0-next.4, vscode-languageserver-protocol@^3.15.0-next.1, vscode-languageserver-protocol@^3.15.0-next.4:
   version "3.15.0-next.4"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.15.0-next.4.tgz#b6a546bd7c376fb0297e9573d68d50996c21bcd9"
   integrity sha512-4AgisQ8GWa3irdRu3/UNr3brcSSm0oobmoV1eSOnV7JM32lYyXDnSKB7RuTTXvaAjD/0xQJLEGhkyGHS5gbywA==

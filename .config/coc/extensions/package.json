@@ -15,7 +15,7 @@
     "coc-stylelint": "^1.0.8",
     "coc-tag": "^1.2.2",
     "coc-tsserver": "^1.1.35",
-    "coc-vetur": "^1.1.0",
+    "coc-vetur": "^1.1.1",
     "coc-word": "^1.2.2",
     "coc-yaml": "^1.0.1",
     "coc-yank": "^1.0.2"
