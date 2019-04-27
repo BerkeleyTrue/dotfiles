@@ -1,6 +1,6 @@
 " Configs
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:coc_force_debug = 1
+let g:coc_force_debug = 0
 "}}}
 
 " Keymaps
