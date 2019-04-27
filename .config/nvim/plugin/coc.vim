@@ -7,10 +7,10 @@ let g:coc_force_debug = 0
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 nmap gd <Plug>(coc-definition)
 " refactor name
-nmap <leader>rn <Plug>(coc-rename)
-vmap <leader>fs <Plug>(coc-format-selected)
-nmap <leader>fs <Plug>(coc-format-selected)
+nmap zr <Plug>(coc-rename)
+vmap zp <Plug>(coc-format-selected)
+nmap zp <Plug>(coc-format-selected)
 " fix current error on line
-nmap <leader>qf <Plug>(coc-fix-current)
-nmap <leader>ac <Plug>(coc-codeaction)
+nmap zf <Plug>(coc-fix-current)
+nmap zc <Plug>(coc-codeaction)
 "}}}
