@@ -71,6 +71,7 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/scrollfix'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
+Plug 'wellle/targets.vim'
 Plug 'yggdroot/indentLine'
 "}}}
 
