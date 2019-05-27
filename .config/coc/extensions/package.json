@@ -5,6 +5,7 @@
     "coc-emmet": "^1.0.9",
     "coc-emoji": "^1.2.3",
     "coc-eslint": "^1.1.2",
+    "coc-github": "^1.0.1",
     "coc-highlight": "^1.1.2",
     "coc-html": "^1.0.7",
     "coc-jest": "^1.0.1",
