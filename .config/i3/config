@@ -181,6 +181,9 @@ assign [class="Thunderbird"] $ws2
 for_window [class="Google Play Music Desktop Player"] floating enable;
 for_window [class="Google Play Music Desktop Player"] resize set 1080 720;
 for_window [class="Google Play Music Desktop Player"] move position center;
+for_window [class="wine"] floating enable;
+for_window [class="wine"] resize set 800 600;
+for_window [class="wine"] move position center;
 # $ws4:
 
 # Open specific applications in floating mode
@@ -251,8 +254,6 @@ exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id gpmdp
 exec --no-startup-id chromium
-exec --no-startup-id rescuetime
-exec --no-startup-id hyper
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
