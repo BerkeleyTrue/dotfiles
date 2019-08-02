@@ -440,6 +440,11 @@ augroup END "}}}
 let g:vim_jsx_pretty_highlight_close_tag = 1
 "}}}
 "}}}
+"
+" vim-starify
+"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+let g:startify_change_to_dir = 0
+" }}}
 "" -- End Plugin Config -- }}}
 
 " ==================================================
