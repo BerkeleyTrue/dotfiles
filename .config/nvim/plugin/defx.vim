@@ -14,7 +14,7 @@ call defx#custom#column('icon', {
 
 call defx#custom#column('filename', {
       \ 'min_width': 32,
-      \ 'max_width': 32,
+      \ 'max_width': 50,
       \ })
 
 call defx#custom#column('mark', {
@@ -112,7 +112,8 @@ function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr> r       defx#do_action('rename')
   nnoremap <silent><buffer><expr> yy      defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> .       defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> P       defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr><C-p>    defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> P       defx#do_action('paste')
   nnoremap <silent><buffer> cr            :call DefxChangeRoot()<CR>
   nnoremap <silent><buffer><expr><Tab>    defx#do_action('toggle_select')
   nnoremap <silent><buffer><expr> j       line('.') == line('$') ? 'gg' : 'j'
