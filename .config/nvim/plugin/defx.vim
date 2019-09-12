@@ -97,8 +97,8 @@ function! DefxChangeRoot()
 endfunction
 "}}}
 
-nnoremap <silent>zet :call DefxExplorer()<CR>
-nnoremap <silent>zef :call DefxSearch(expand('%:p'), getcwd())<CR>
+nnoremap <silent>zet :call DefxExplorer()<CR><C-w>=
+nnoremap <silent>zef :call DefxSearch(expand('%:p'), getcwd())<CR><C-w>=
 
 function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
