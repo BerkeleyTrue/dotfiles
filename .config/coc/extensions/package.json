@@ -2,7 +2,7 @@
   "dependencies": {
     "coc-css": "^1.2.2",
     "coc-dictionary": "^1.2.2",
-    "coc-emmet": "^1.1.3",
+    "coc-emmet": ">=1.1.4",
     "coc-emoji": "^1.2.3",
     "coc-eslint": ">=1.2.3",
     "coc-github": "^1.0.1",
@@ -11,14 +11,14 @@
     "coc-jest": "^1.0.3",
     "coc-json": ">=1.2.4",
     "coc-omni": ">=1.2.4",
-    "coc-prettier": ">=1.1.10",
+    "coc-prettier": ">=1.1.11",
     "coc-snippets": ">=2.1.13",
     "coc-stylelint": ">=1.1.0",
     "coc-tag": ">=1.2.4",
-    "coc-tsserver": ">=1.4.5",
-    "coc-vetur": ">=1.1.6",
+    "coc-tsserver": ">=1.4.8",
+    "coc-vetur": ">=1.1.7",
     "coc-word": "^1.2.2",
     "coc-yaml": "^1.0.2",
-    "coc-yank": ">=1.1.2"
+    "coc-yank": ">=1.1.3"
   }
 }
