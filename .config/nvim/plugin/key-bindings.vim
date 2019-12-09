@@ -347,7 +347,7 @@ command! -nargs=* -bang -range -complete=filetype NN
 "
 " Ale
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-nmap <leader>aj <Plug>(ale_previous_wrap)
-nmap <leader>ak <Plug>(ale_next_wrap)
+nmap <leader>ak <Plug>(ale_previous_wrap)
+nmap <leader>aj <Plug>(ale_next_wrap)
 "}}}
 "" -- End Plugin Key Bindings -- }}}
