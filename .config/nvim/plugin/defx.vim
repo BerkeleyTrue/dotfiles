@@ -60,9 +60,10 @@ function! DefxExplorer(...)
     \ '-show-ignored-files',
     \ '-winwidth=32',
     \ '-direction=topleft',
-    \ '-buffer-name=',
+    \ '-listed',
+    \ '-resume',
     \], ' ')
-  execute l:cmd . s:tab_id() . ' ' . l:dir
+  execute l:cmd . ' ' . l:dir
 endfunction
 "}}}
 "
@@ -78,9 +79,8 @@ function! DefxSearch(search, dir)
     \ '-show-ignored-files',
     \ '-winwidth=32',
     \ '-direction=topleft',
-    \ '-buffer-name=',
     \], ' ')
-  execute l:cmd . s:tab_id() . ' ' . a:dir
+  execute l:cmd . ' ' . a:dir
 endfunction "}}}
 
 " Func: DefxChangeRoot
