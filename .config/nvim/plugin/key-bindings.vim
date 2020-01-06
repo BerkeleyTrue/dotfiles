@@ -102,6 +102,11 @@ nnoremap <cr> o<esc>
 vnoremap u <nop>
 vnoremap gu u
 
+" In normal mode remove ( text object motion. I keep hiting this accidentally
+" and never use it intentially
+nnoremap ( <nop>
+nnoremap ) <nop>
+
 " in normal mode, run quick macro
 " use gQ to enter Exmode instead
 nnoremap Q @q
@@ -293,9 +298,9 @@ endfunction
 
 function! ExpandOnEnter()
   " Try to expand snippet
-  let l:snippet = UltiSnips#ExpandSnippetOrJump()
+  let l:snippet = UltiSnips#ExpandSnippet()
   " If expand successful return snippet
-  if g:ulti_expand_or_jump_res > 0
+  if g:ulti_expand_res > 0
     return l:snippet
   endif
 
@@ -322,6 +327,8 @@ inoremap <silent><s-tab> <C-r>=GoUpOnPum()<cr>
 " Duplicate ultisnips s/n mode bindings for tab
 snoremap <silent><tab> <Esc>:call UltiSnips#ExpandSnippet()<cr>
 xnoremap <silent><tab> :call UltiSnips#SaveLastVisualSelection()<cr>gvs
+inoremap <silent><C-j> <C-R>=UltiSnips#JumpForwards()<cr>
+snoremap <silent><C-j> <Esc>:call UltiSnips#JumpForwards()<cr>
 " }}}
 
 " Emmet
