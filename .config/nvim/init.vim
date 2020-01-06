@@ -248,8 +248,8 @@ let g:indentLine_fileTypeExclude = [ 'json' ]
 " This is not ideal but I'm unable to find another
 " way.
 let g:UltiSnipsExpandTrigger = '<C-w>'
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+let g:UltiSnipsJumpForwardTrigger = '<C-b>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-c>'
 " }}}
 
 " Emmet
