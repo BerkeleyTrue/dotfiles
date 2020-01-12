@@ -7,20 +7,20 @@ function! TwoSpace()
 endfunction
 
 " Removes all extraneous whitespace in the file
-function! g:StripWhitespace(line1, line2)
-    " Save the current search and cursor position
-    let l:_s=@/
-    let l:l = line('.')
-    let l:c = col('.')
+" function! g:StripWhitespace(line1, line2)
+"     Save the current search and cursor position
+"     let l:_s=@/
+"     let l:l = line('.')
+"     let l:c = col('.')
 
-    " Strip the whitespace
-    silent! execute ':' . a:line1 . ',' . a:line2 . 's/\s\+$//e'
+"     Strip the whitespace
+"     silent! execute ':' . a:line1 . ',' . a:line2 . 's/\s\+$//e'
 
-    " Restore the saved search and cursor position
-    let @/=l:_s
-    call cursor(l:l, l:c)
-endfunction
-command! -range=% StripWhitespace call StripWhitespace(<line1>, <line2>)
+"     Restore the saved search and cursor position
+"     let @/=l:_s
+"     call cursor(l:l, l:c)
+" endfunction
+" command! -range=% StripWhitespace call StripWhitespace(<line1>, <line2>)
 
 function! ConvertSpace()
   set tabstop=4 softtabstop=4 noet

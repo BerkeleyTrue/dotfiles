@@ -56,6 +56,7 @@ Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
+Plug 'ntpeters/vim-better-whitespace'
 Plug 'raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -444,6 +445,13 @@ let g:vim_jsx_pretty_highlight_close_tag = 1
 " vim-starify
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:startify_change_to_dir = 0
+" }}}
+"
+" ntpeters/vim-better-whitespace
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+let gstrip_whitespace_confirm=0
 " }}}
 "" -- End Plugin Config -- }}}
 
