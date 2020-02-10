@@ -452,7 +452,7 @@ let g:startify_change_to_dir = 0
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
-let gstrip_whitespace_confirm=0
+let g:strip_whitespace_confirm=0
 " }}}
 "" -- End Plugin Config -- }}}
 
