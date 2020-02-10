@@ -18,6 +18,7 @@ npminstallpre() {
     eslint-plugin-prefer-object-spread \
     eslint-plugin-jest \
     eslint-config-freecodecamp \
+    eslint-plugin-rulesdir \
     babel-eslint \
     json
 }
