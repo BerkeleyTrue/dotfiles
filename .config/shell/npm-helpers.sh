@@ -6,7 +6,7 @@ npminstallpre() {
   sudo npm install -g \
     trash \
     commitizen \
-    cz-freecodecamp \
+    cz-conventional-changelog \
     conventional-changelog-angular \
     conventional-recommended-bump \
     conventional-changelog-cli \
