@@ -8,6 +8,7 @@ general {
   color_degraded = "#ff79c6"
 }
 
+order += "battery all"
 order += "wireless _first_"
 order += "cpu_usage"
 order += "cpu_temperature 0"
@@ -53,17 +54,17 @@ battery all {
   # format = "%status %percentage %remaining %emptytime"
   format = " %status %percentage"
   format_down = "No battery"
-  last_full_capacity = true
+  last_full_capacity = false
   integer_battery_capacity = true
   # status_chr = ""
   status_chr = "⚡"
   # status_bat = "bat"
   # status_bat = "☉"
-  status_bat = ""
+  status_bat = "🔋"
   # status_unk = "?"
   status_unk = ""
   # status_full = ""
-  status_full = "☻"
+  status_full = "🔋"
   low_threshold = 15
   threshold_type = time
 }
