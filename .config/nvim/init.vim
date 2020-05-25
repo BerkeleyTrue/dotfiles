@@ -115,6 +115,7 @@ Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/sy
 Plug 'othree/xml.vim'
 Plug 'potatoesmaster/i3-vim-syntax'
 Plug 'shime/vim-livedown'
+Plug 'sirtaj/vim-openscad'
 Plug 'vim-scripts/paredit.vim'
 Plug 'wavded/vim-stylus'
 " }}}
@@ -138,6 +139,7 @@ Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'olical/conjure', {'tag': 'v3.1.1'}
 " }}}
 call plug#end() " }}}
 "
@@ -211,6 +213,7 @@ let g:ale_linters = {
   \ 'javascript': ['eslint'],
   \ 'typescript': ['tslint', 'tsserver'],
   \ 'pug': ['pug-lint'],
+  \ 'clojure': ['clj-kondo', 'joker'],
 \}
 let g:ale_sign_column_always = 1
 let g:ale_virtualtext_cursor = 1
@@ -453,6 +456,11 @@ let g:startify_change_to_dir = 0
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 let g:strip_whitespace_confirm=0
+" }}}
+"
+" olical/conjure
+" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+
 " }}}
 "" -- End Plugin Config -- }}}
 
