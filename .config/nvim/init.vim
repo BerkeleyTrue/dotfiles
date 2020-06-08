@@ -169,6 +169,7 @@ set showmatch                                  "  set show matching parenthesis
 set signcolumn=yes                             "  always show signcolumns
 set spell                                      "  enable spell checking
 set spelllang=en_us                            "  set spell language to US english
+set norelativenumber                           "  no relative numbers
 set synmaxcol=512                              "  prevent long lines from hanging vim
 set tabstop=2                                  "  a tab is two spaces
 set termguicolors                              "  use gui colors in term's that support it
@@ -492,10 +493,6 @@ endfunction " }}}
 augroup GeneralGroup
   autocmd!
   autocmd BufEnter,BufRead * call s:DisableSpellOnCamelCase()
-  " On insert mode set absolute row numbers
-  " On leave Return to relative row numbers
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
   " Resize splits when the window is resized
   autocmd VimResized * exe "normal! \<c-w>="
   " Make vim open on the line you closed the buffer on
