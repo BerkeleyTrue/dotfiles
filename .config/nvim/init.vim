@@ -39,6 +39,7 @@ call plug#begin()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 call s:InstallFzF()
 Plug 'bronson/vim-crosshairs'
+Plug 'camspiers/animate.vim'
 Plug 'chrisbra/nrrwrgn'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
@@ -68,6 +69,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-unimpaired'
 Plug 'valloric/MatchTagAlways'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'vim-scripts/folddigest.vim'
 Plug 'vim-scripts/scrollfix'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
@@ -432,6 +434,10 @@ function! s:Fzf_ag_with_path(...)
   let command = fzf#shellescape(query) . ' ' . fzf#shellescape(path)
   call fzf#vim#ag_raw(command)
 endfunction "}}}
+
+let g:fzf_layout = {
+      \ 'window': 'new | wincmd J | resize 1 | call animate#window_percent_height(0.5)'
+      \ }
 
 " Group: Fzf
 "-------------------------------------------------- {{{
