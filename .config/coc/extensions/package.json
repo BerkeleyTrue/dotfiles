@@ -15,7 +15,7 @@
     "coc-snippets": ">=2.1.26",
     "coc-stylelint": ">=1.1.0",
     "coc-tag": ">=1.2.4",
-    "coc-tsserver": ">=1.4.15",
+    "coc-tsserver": ">=1.5.1",
     "coc-vetur": ">=1.1.10",
     "coc-word": "^1.2.2",
     "coc-yaml": ">=1.0.4",
