@@ -201,8 +201,8 @@ date = %%{F#6272a4}%a %b %d week %V%%{F-}  %%{F#8be9fd}%H:%M:%S%%{F-}
 
 [module/memory]
 type = internal/memory
-format = <label><bar-used>
-label = RAM:
+format = <label> <bar-used>
+label = %{F#6272a4}﬘
 
 bar-used-width = 20
 bar-used-foreground-0 = ${colors.green}
