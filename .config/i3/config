@@ -27,7 +27,7 @@ font xft:Monoid Nerd Font Mono 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec hyper
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -40,32 +40,13 @@ bindsym $mod+d exec rofi -show combi -c ~/.config/rofi/config
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
 
-################################################################################################
-## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
-################################################################################################
-
-exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
-#exec --no-startup-id pulseaudio
-#exec --no-startup-id pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
-
-################################################################################################
-
-# Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
-
 # Start Applications
-bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec chromium
-bindsym $mod+F3 exec ranger
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-# bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
-focus_follows_mouse no
+focus_follows_mouse yes
 
 # change focus
 bindsym $mod+h focus left
@@ -177,14 +158,15 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Open applications on specific workspaces
-assign [class="Thunderbird"] $ws2
+assign [class="Thunderbird"] $ws3
 assign [class="Slack"] $ws2
 assign [class="discord"] $ws2
+for_window [class="Google Play Music Desktop Player"] floating enable
+for_window [class="Google Play Music Desktop Player"] resize set 1080 720;
+for_window [class="Google Play Music Desktop Player"] move position center;
 for_window [workspace=$ws2] layout tabbed
-# $ws4:
 
 # Open specific applications in floating mode
-# for_window [class="Xfburn"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -243,23 +225,40 @@ mode "resize" {
 bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
+# start volumeicon
+exec --no-startup-id volumeicon
+# used for controlling system wide privileges
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# desktop background manager
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+# network manager
 exec --no-startup-id nm-applet
+# manage power settings
 exec --no-startup-id xfce4-power-manager
+# manage and install packages
 exec --no-startup-id pamac-tray
+# clipboard manager
 exec --no-startup-id clipit
+# bluetooth
+exec --no-startup-id blueman-applet
+# system info on desktop background
+exec --no-startup-id start_conky_solarized
+# session lockout
+exec --no-startup-id xautolock -time 60 -notify 120 -locker blurlock
+# touchpad support
+exec --no-startup-id synclient NaturalScrolling=1 VertScrollDelta=-113
+
+# exec on i3 restarts as well
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# my apps to launch at startup
 exec --no-startup-id chromium
 exec --no-startup-id slack
 exec --no-startup-id discord
-# exec --no-startup-id blueman-applet
-# exec_always --no-startup-id sbxkb
-exec --no-startup-id start_conky_maia
-# exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 30 -notify 120 -locker blurlock
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
-exec --no-startup-id synclient NaturalScrolling=1 VertScrollDelta=-113
+exec --no-startup-id flameshot
+exec --no-startup-id Thunderbird
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -293,50 +292,20 @@ set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
 set $bgb            #282a36
-set $bg             #282a36AA
+set $bg             #282a36
 set $fg             #f8f8f2
-set $tf             #f8f8f2AA
+set $tf             #f8f8f2
 set $hi             #f1fa7c
 set $tx             #040404
 set $pk             #ff79c6
 # yellow
-set $yw             #f1fa7c
+set $yw             #f1fa8c
 # green
 set $gn             #50fa7b
 # red
 set $rd             #ff5555
 set $id             #ff79c6
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-  mode dock
-  i3bar_command i3bar
-  status_command i3status
-  position top
-
-  # disable mouse wheel
-  bindsym button4 nop
-  bindsym button5 nop
-  font xft:Monoid Nerd Font Mono 11
-  strip_workspace_numbers yes
-  tray_padding 2
-
-  separator_symbol "|"
-  colors {
-    # type              border background text
-    statusline          $fg
-    background          $bg
-    separator           $bg
-    focused_workspace   $bg        $bg        $pk
-    active_workspace    $bg        $bg        $tf
-    inactive_workspace  $bg        $bg        $tf
-    urgent_workspace    $yw        $bg        $yw
-    binding_mode        $rd        $bg        $rd
-  }
-}
-
-# hide/unhide i3status bar
-# bindsym $mod+m bar mode toggle
 
 # set dracula theme         border  background  text  indicator
 client.focused              $id     $pk         $tx     $id
@@ -351,7 +320,7 @@ client.placeholder          $bg     $bg         $bg     $bg
 #############################
 
 # Set inner/outer gaps
-gaps inner 10
+gaps inner 4
 gaps outer -4
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
