@@ -24,13 +24,13 @@ font-0 = Monoid Nerd Font Mono:size=8;0
 
 modules-left = i3
 modules-center = wireless-network
-modules-right = cpu temperature memory filesystem volume date
+modules-right = cpu load temperature memory filesystem date
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-color = ${colors.cyan}
-line-size = 0
+line-size = 1
 
 tray-position = right
 tray-padding = 4
@@ -142,9 +142,9 @@ label-visible-padding = 1
 ;   %output%
 ; Default: %icon%  %name%
 label-urgent = %index%
-label-urgent-foreground = ${colors.selection}
-label-urgent-background = ${colors.red}
-label-urgent-padding = 2
+label-urgent-foreground = ${colors.background}
+label-urgent-background = ${colors.purple}
+label-urgent-padding = 1
 
 ; Separator in between workspaces
 label-separator = |
@@ -188,6 +188,12 @@ ramp-coreload-6-foreground = ${colors.red}
 ramp-coreload-7 = 
 ramp-coreload-7-font = 2
 ramp-coreload-7-foreground = ${colors.red}
+
+[module/load]
+type = custom/script
+exec = loadavg | awk '{print $2}'
+label = %output% %{F#8be9fd}
+interval = 1
 
 [module/date]
 type = internal/date
@@ -237,9 +243,9 @@ ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-5 = 
 
-animation-packetloss-0 = 
+animation-packetloss-0 =  Packet Loss
 animation-packetloss-0-foreground = ${colors.orange}
-animation-packetloss-1 = 
+animation-packetloss-1 =  High Packet Loss
 animation-packetloss-1-foreground = ${colors.red}
 animation-packetloss-framerate = 500
 
