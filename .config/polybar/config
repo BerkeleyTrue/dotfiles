@@ -102,7 +102,7 @@ format = <label-state><label-mode>
 ; Default: %mode%
 label-mode = %mode%
 label-mode-padding = 0
-label-mode-background = #ff5555
+label-mode-background = ${colors.red}
 
 ; Available tokens:
 ;   %name%
@@ -111,9 +111,9 @@ label-mode-background = #ff5555
 ;   %output%
 ; Default: %icon%  %name%
 label-focused =%index%
-label-focused-foreground = #8be9fd
-label-focused-background = #44475a
-label-focused-underline = #ff79c6
+label-focused-foreground = ${colors.cyan}
+label-focused-background = ${colors.selection}
+label-focused-underline = ${colors.pink}
 label-focused-padding = 1
 
 ; Available tokens:
@@ -132,7 +132,7 @@ label-unfocused-padding = 1
 ;   %output%
 ; Default: %icon%  %name%
 label-visible = %index%
-label-visible-underline = #555555
+label-visible-underline = ${colors.selection}
 label-visible-padding = 1
 
 ; Available tokens:
@@ -142,14 +142,14 @@ label-visible-padding = 1
 ;   %output%
 ; Default: %icon%  %name%
 label-urgent = %index%
-label-urgent-foreground = #44475a
-label-urgent-background = #ff5555
+label-urgent-foreground = ${colors.selection}
+label-urgent-background = ${colors.red}
 label-urgent-padding = 2
 
 ; Separator in between workspaces
 label-separator = |
 label-separator-padding = 0
-label-separator-foreground = #ff79c6
+label-separator-foreground = ${colors.pink}
 
 
 [module/cpu]
@@ -159,39 +159,39 @@ label = :
 format = <label> <ramp-coreload>
 ramp-coreload-0 = 
 ramp-coreload-0-font = 2
-ramp-coreload-0-foreground = #50fa7b
+ramp-coreload-0-foreground = ${colors.green}
 
 ramp-coreload-1 = 
 ramp-coreload-1-font = 2
-ramp-coreload-1-foreground = #50fa7b
+ramp-coreload-1-foreground = ${colors.green}
 
 ramp-coreload-2 = 
 ramp-coreload-2-font = 2
-ramp-coreload-2-foreground = #50fa7b
+ramp-coreload-2-foreground = ${colors.yellow}
 
 ramp-coreload-3 = 
 ramp-coreload-3-font = 2
-ramp-coreload-3-foreground = #50fa7b
+ramp-coreload-3-foreground = ${colors.yellow}
 
 ramp-coreload-4 = 
 ramp-coreload-4-font = 2
-ramp-coreload-4-foreground = #ffb86c
+ramp-coreload-4-foreground = ${colors.orange}
 
 ramp-coreload-5 = 
 ramp-coreload-5-font = 2
-ramp-coreload-5-foreground = #ffb86c
+ramp-coreload-5-foreground = ${colors.orange}
 
 ramp-coreload-6 = 
 ramp-coreload-6-font = 2
-ramp-coreload-6-foreground = #ff5555
+ramp-coreload-6-foreground = ${colors.red}
 
 ramp-coreload-7 = 
 ramp-coreload-7-font = 2
-ramp-coreload-7-foreground = #ff5555
+ramp-coreload-7-foreground = ${colors.red}
 
 [module/date]
 type = internal/date
-date = %%{F#99}%a %b %d week %V%%{F-}  %%{F#fff}%H:%M:%S%%{F-}
+date = %%{F#6272a4}%a %b %d week %V%%{F-}  %%{F#8be9fd}%H:%M:%S%%{F-}
 
 [module/memory]
 type = internal/memory
@@ -199,21 +199,21 @@ format = <label><bar-used>
 label = RAM:
 
 bar-used-width = 20
-bar-used-foreground-0 = #50fa7b
-bar-used-foreground-1 = #50fa7b
-bar-used-foreground-2 = #ffb86c
-bar-used-foreground-3 = #ff5555
+bar-used-foreground-0 = ${colors.green}
+bar-used-foreground-1 = ${colors.yellow}
+bar-used-foreground-2 = ${colors.orange}
+bar-used-foreground-3 = ${colors.red}
 
 bar-used-indicator = |
 bar-used-indicator-font = 6
-bar-used-indicator-foreground = #ff79c6
+bar-used-indicator-foreground = ${colors.pink}
 
 bar-used-fill = -
 bar-used-fill-font = 6
 
 bar-used-empty = -
 bar-used-empty-font = 6
-bar-used-empty-foreground = #6272a4
+bar-used-empty-foreground = ${colors.comment}
 
 [module/wireless-network]
 type = internal/network
@@ -226,7 +226,7 @@ label-connected =  %downspeed%   %upspeed%
 
 format-disconnected =  <label-disconnected>
 label-disconnected = Disconnected
-label-disconnected-foreground = #ff5555
+label-disconnected-foreground = ${colors.red}
 
 format-packetloss = ﳣ <animation-packetloss> <label-connected>
 
@@ -238,9 +238,9 @@ ramp-signal-4 = 
 ramp-signal-5 = 
 
 animation-packetloss-0 = 
-animation-packetloss-0-foreground = #ffb86c
+animation-packetloss-0-foreground = ${colors.orange}
 animation-packetloss-1 = 
-animation-packetloss-1-foreground = #ff5555
+animation-packetloss-1-foreground = ${colors.red}
 animation-packetloss-framerate = 500
 
 [module/volume]
@@ -248,7 +248,7 @@ type = internal/alsa
 
 format-volume = <ramp-volume> <label-volume>
 label-muted = 婢 %percentage%%
-label-muted-foreground = #6272a4
+label-muted-foreground = ${colors.comment}
 
 ramp-volume-0 = 奄
 ramp-volume-1 = 奔
@@ -263,7 +263,7 @@ mount-0 = /
 
 label-mounted =  %free%
 label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = #6272a4
+label-unmounted-foreground = ${colors.comment}
 
 [module/temperature]
 type = internal/temperature
@@ -276,9 +276,9 @@ format-warn = <ramp><label-warn>
 
 label = %temperature-c%
 label-warn = HOT! %temperature-c%
-label-warn-foreground = #ff5555
+label-warn-foreground = ${colors.red}
 
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = #bd93f9
+ramp-foreground = ${colors.purple}
