@@ -1,23 +1,40 @@
+[colors]
+background = #282a36
+selection = #44475a
+foreground = #f8f8f2
+comment = #6272a4
+cyan = #8be9fd
+green = #50fa7b
+orange = #ffb86c
+pink = #ff79c6
+purple = #bd93f9
+red = #ff5555
+yellow = #f1fa8c
+Google Play Music Desktop Player
+
 [bar/top]
-height=28
+height=23
 width=100%
 
-padding-left = 0
-padding-right = 0
-module-margin-left = 0
-module-margin-right = 0
+padding-left = 1
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 1
 font-0 = Monoid Nerd Font Mono:size=8;0
 
 modules-left = i3
 modules-center = wireless-network
-modules-right = cpu memory temperature filesystem volume date
-wm-restack = i3
+modules-right = cpu temperature memory filesystem volume date
 
-background = #282a36
-foreground = #f8f8f2
+background = ${colors.background}
+foreground = ${colors.foreground}
 
-line-color = #8be9fd
+line-color = ${colors.cyan}
 line-size = 0
+
+tray-position = right
+tray-padding = 4
+tray-background = ${colors.selection}
 
 [module/i3]
 type = internal/i3
@@ -138,8 +155,8 @@ label-separator-foreground = #ff79c6
 [module/cpu]
 type = internal/cpu
 interval = 0.5
-label = CPU:
-format = <label> <ramp-coreload> |
+label = :
+format = <label> <ramp-coreload>
 ramp-coreload-0 = 
 ramp-coreload-0-font = 2
 ramp-coreload-0-foreground = #50fa7b
@@ -174,7 +191,7 @@ ramp-coreload-7-foreground = #ff5555
 
 [module/date]
 type = internal/date
-date = | %%{F#99}%a %b %d week:%V%%{F-}  %%{F#fff}%H:%M:%S%%{F-}
+date = %%{F#99}%a %b %d week %V%%{F-}  %%{F#fff}%H:%M:%S%%{F-}
 
 [module/memory]
 type = internal/memory
@@ -229,8 +246,8 @@ animation-packetloss-framerate = 500
 [module/volume]
 type = internal/alsa
 
-format-volume = | <ramp-volume> <label-volume>
-label-muted = | 婢 %percentage%%
+format-volume = <ramp-volume> <label-volume>
+label-muted = 婢 %percentage%%
 label-muted-foreground = #6272a4
 
 ramp-volume-0 = 奄
@@ -244,7 +261,7 @@ interval = 25
 
 mount-0 = /
 
-label-mounted = |  %free%
+label-mounted =  %free%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = #6272a4
 
@@ -257,7 +274,7 @@ warn-temperature = 65
 format = <label> <ramp>
 format-warn = <ramp><label-warn>
 
-label = | %temperature-c%
+label = %temperature-c%
 label-warn = HOT! %temperature-c%
 label-warn-foreground = #ff5555
 
