@@ -247,6 +247,7 @@ exec --no-startup-id start_conky_solarized
 exec --no-startup-id xautolock -time 60 -notify 120 -locker blurlock
 # touchpad support
 exec --no-startup-id synclient NaturalScrolling=1 VertScrollDelta=-113
+exec --no-startup-id /opt/piavpn/bin/pia-client
 
 # exec on i3 restarts as well
 exec_always --no-startup-id ff-theme-util
