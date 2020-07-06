@@ -116,6 +116,7 @@ Plug 'mattn/emmet-vim'
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'othree/xml.vim'
 Plug 'potatoesmaster/i3-vim-syntax'
+Plug 'rust-lang/rust.vim'
 Plug 'shime/vim-livedown'
 Plug 'sirtaj/vim-openscad'
 Plug 'vim-scripts/paredit.vim'
