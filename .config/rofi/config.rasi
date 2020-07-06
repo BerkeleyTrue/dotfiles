@@ -146,3 +146,5 @@ configuration {
   margin:     0px 0.3em 0em 0em ;
   text-color: @foreground;
 }
+
+// vim:ft=stylus
