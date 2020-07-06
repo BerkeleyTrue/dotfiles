@@ -12,6 +12,7 @@
     "coc-json": ">=1.2.6",
     "coc-omni": ">=1.2.4",
     "coc-prettier": ">=1.1.14",
+    "coc-rls": ">=1.1.6",
     "coc-snippets": ">=2.1.26",
     "coc-stylelint": ">=1.1.0",
     "coc-tag": ">=1.2.4",
