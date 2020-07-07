@@ -1,5 +1,5 @@
 configuration {
-  modi: "drun,calc";
+  modi: "drun,calc,run";
   show-icons: true;
   font: "Monoid Nerd Font Mono 14";
   width: 50;
