@@ -97,7 +97,6 @@ Plug 'wellle/tmux-complete.vim'
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 " }}}
 
 " Lang
@@ -210,7 +209,7 @@ let g:javascript_plugin_flow = 1
 " Ale Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:ale_sign_error = '✗'
-let g:ale_sign_warning = 'W'
+let g:ale_sign_warning = ''
 let g:ale_echo_msg_format = '%linter%(%code%): %s'
 let g:ale_linters = {
   \ 'javascript': ['eslint'],
@@ -310,53 +309,54 @@ let g:NERDDefaultAlign = 'left'
 " Airline config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:airline_theme='dracula'
-" Automatically displays all buffers when there's only one tab open.
-function! AleError()
-  let l:loclist = ale#engine#GetLoclist(bufnr('%'))
-  if !empty(l:loclist)
-    let l:item = l:loclist[0]
 
-    return [l:item.lnum, l:item.col]
-  endif
-  return []
-endfunction
-
-function! AleErrorMessage()
-  let l:error = AleError()
-  let l:count = ale#statusline#Count(bufnr('%'))
-  if empty(l:error)
-    return ''
-  endif
-  return printf('E: pos[%d, %d]: (%d)', l:error[0], l:error[1], l:count.total)
-endfunction
-
-call airline#parts#define_function('ale_error_message', 'AleErrorMessage')
-
+" Tab buffer list above the window
 let g:airline#extensions#tabline#enabled = 2
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline_section_error = airline#section#create(['ale_error_message'])
+let g:airline#extensions#ale#enabled = 0
 
-" Tmuxline key legend
-" #H Hostname of local host
-" #h Hostname of local host without the domain name
-" #F Current window flag
-" #I Current window index
-" #S Session name
-" #W Current window name
-" #(shell-command)  First line of the command's output
-" Tmuxline layout
-" a > b > c > win > cwin   x < y < z
-let g:tmuxline_preset = {
-  \ 'a': '#S',
-  \ 'b': '#W',
-  \ 'c': '#H',
-  \ 'win': '#I #W',
-  \ 'cwin': '#I #W',
-  \ 'x': '%a',
-  \ 'y': '#W %R',
-  \ 'z': '#H'
-\}
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#warning_symbol = ''
+let g:airline#extensions#coc#error_symbol = '✗'
+
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_detect_spell=0
+
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
+" Func: s:GetWD
+"-------------------------------------------------- {{{
+function! GetWD()
+  let l:wd=expand('%:.')
+
+  return strlen(l:wd) < 14 ? ' '.l:wd : '../'.expand('%:.:h:t').'/'.expand('%:t')
+endfunction "}}}
+
+call airline#parts#define_function('pwd', 'GetWD')
+
+" Func: AirlineInit()
+"-------------------------------------------------- {{{
+function! s:AirlineInit()
+  " code
+  let g:airline_symbols.linenr = ''
+  let g:airline_symbols.maxlinenr = ''
+  let g:airline_section_a = airline#section#create(['mode', 'crypt', 'paste', 'iminsert'])
+  let g:airline_section_b = airline#section#create_left(['hunks'])
+  let g:airline_section_c = airline#section#create_left(['pwd', 'readonly'])
+
+  let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper'])
+  let g:airline_section_y = airline#section#create_left(['filetype'])
+  let g:airline_section_z = airline#section#create(['linenr', 'maxlinenr', ':%3v'])
+
+endfunction "}}}
+
+" Group: AirlineAuGroup
+"-------------------------------------------------- {{{
+augroup AirlineAuGroup
+  autocmd!
+  autocmd VimEnter * call s:AirlineInit()
+augroup END "}}}
 " }}}
 
 " NERDTree config
