@@ -223,7 +223,7 @@ bar-used-empty-foreground = ${colors.comment}
 
 [module/wireless-network]
 type = internal/network
-interface = wlp55s0
+interface = wlp64s0
 interval = 1
 ping-interval = 10
 
