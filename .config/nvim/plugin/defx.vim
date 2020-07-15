@@ -101,8 +101,8 @@ nnoremap <silent>zet :call DefxExplorer()<CR><C-w>=
 nnoremap <silent>zef :call DefxSearch(expand('%:p'), getcwd())<CR><C-w>=
 
 function! s:defx_settings() "{{{
-  nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
-  nnoremap <silent><buffer><expr><Space>  defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_tree', 'toggle') : defx#do_action('drop')
+  nnoremap <silent><buffer><expr><Space>  defx#is_directory() ? defx#do_action('open_tree', 'toggle') : defx#do_action('close_tree')
   nnoremap <silent><buffer><expr> C       defx#do_action('copy')
   nnoremap <silent><buffer><expr> M       defx#do_action('move')
   nnoremap <silent><buffer><expr><C-v>    defx#do_action('drop', 'vsplit')
