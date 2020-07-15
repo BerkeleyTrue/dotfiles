@@ -35,8 +35,8 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show drun
 
 # Start Applications
-bindsym $mod+t exec --no-startup-id pkill compton
-bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+t exec --no-startup-id pkill picomp
+bindsym $mod+Ctrl+t exec --no-startup-id picomp -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'dunst restarted'"
 
 focus_follows_mouse yes
@@ -225,7 +225,7 @@ exec --no-startup-id volumeicon
 # used for controlling system wide privileges
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # desktop background manager
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id nitrogen --restore; sleep 1; picom -b
 # network manager
 exec --no-startup-id nm-applet
 # manage power settings
