@@ -38,10 +38,12 @@ call plug#begin()
 " Utils
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 call s:InstallFzF()
+Plug 'ashisha/image.vim'
 Plug 'bronson/vim-crosshairs'
 Plug 'camspiers/animate.vim'
 Plug 'chrisbra/nrrwrgn'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'danilamihailov/beacon.nvim'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -71,7 +73,6 @@ Plug 'valloric/MatchTagAlways'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/folddigest.vim'
 Plug 'vim-scripts/scrollfix'
-Plug 'danilamihailov/beacon.nvim'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'wellle/targets.vim'
