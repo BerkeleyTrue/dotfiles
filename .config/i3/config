@@ -37,7 +37,7 @@ bindsym $mod+d exec rofi -show drun
 # Start Applications
 bindsym $mod+t exec --no-startup-id pkill picomp
 bindsym $mod+Ctrl+t exec --no-startup-id picomp -b
-bindsym $mod+Shift+d --release exec "killall dunst; exec dunstify --appname=i3 'dunst restarted'"
+bindsym $mod+Shift+d --release exec "killall dunst; exec dunstify -i i3 'dunst restarted'"
 
 focus_follows_mouse yes
 
