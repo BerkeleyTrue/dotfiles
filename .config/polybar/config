@@ -23,8 +23,8 @@ font-0 = Monoid Nerd Font Mono:size=8;0
 font-1 = "coins:style=Regular;0"
 
 modules-left = i3
-modules-center = wireless-network
-modules-right = cpu load temperature memory filesystem date crypto dunst
+modules-center = date
+modules-right = dunst
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -35,6 +35,30 @@ line-size = 1
 tray-position = right
 tray-padding = 4
 tray-background = ${colors.selection}
+enable-ipc = true
+
+[bar/bottom]
+height=23
+width=100%
+bottom=true
+
+padding-left = 1
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 1
+font-0 = Monoid Nerd Font Mono:size=8;0
+font-1 = "coins:style=Regular;0"
+
+modules-left = ticker crypto
+modules-center= load temperature cpu cpu-temps cpu-pump memory docker
+modules-right= wireless-network filesystem media
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-color = ${colors.cyan}
+line-size = 1
+
 enable-ipc = true
 
 [module/i3]
@@ -268,17 +292,27 @@ interval = 25
 
 mount-0 = /
 
-label-mounted =  %free%
+label-mounted = %{F#50fa7b}%{F-} %free%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.comment}
+
+[module/media]
+type = internal/fs
+interval = 25
+
+mount-0 = /media/media
+
+label-mounted = %{F#50fa7b}%{F-} %free%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.comment}
 
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
-base-temperature = 30
+base-temperature = 20
 warn-temperature = 65
 
-format = <label> <ramp>
+format = <ramp> <label>
 format-warn = <ramp><label-warn>
 
 label = %temperature-c%
@@ -303,3 +337,32 @@ type = custom/script
 exec = ~/.config/polybar/pcrypto.py --base USD --coins btc eth
 interval = 60
 
+[module/ticker]
+type = custom/script
+;Arguments for output:
+;   --biggestloser: Prints the stock with the biggest drop in a given day.
+;   --biggestgainer: Prints the stock with the biggest gain in a given day.
+;   --mostactive: Prints the most active stock in a given day.
+;   --topcrypto: Prints the top cryptocurrency by market cap in a given day.
+;   --customticker: Takes a stock ticker (ex. AAPL, GOOGL, VZ) and outputs the live price of that stock.
+exec = ~/.config/polybar/polystock.py --customticker SPY
+interval = 1
+label = %output%
+
+[module/docker]
+type = custom/script
+exec = docker ps -q | wc -l
+interval = 1
+label =  %output%
+
+[module/cpu-temps]
+type = custom/script
+exec = sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//'
+interval = 1
+label = %{F#ff5555}%{F-} %output%
+
+[module/cpu-pump]
+type = custom/script
+exec = sensors | grep fan1 | head -n 1 | cut -d " " -f 9 | awk '{printf("%.1f", $1/2435*100)}'
+interval = 1
+label = %{F#8be9fd}揄%{F-} %output%%
