@@ -21,6 +21,8 @@ module-margin-left = 1
 module-margin-right = 1
 font-0 = Monoid Nerd Font Mono:size=8;0
 font-1 = "coins:style=Regular;0"
+font-2 = Monoid Nerd Font Mono:size=12;2
+font-3 = FontAwesome5Free:style=Solid:size=10;-1
 
 modules-left = i3
 modules-center = date
@@ -38,7 +40,7 @@ tray-background = ${colors.selection}
 enable-ipc = true
 
 [bar/bottom]
-height=23
+height=24
 width=100%
 bottom=true
 
@@ -48,10 +50,12 @@ module-margin-left = 1
 module-margin-right = 1
 font-0 = Monoid Nerd Font Mono:size=8;0
 font-1 = "coins:style=Regular;0"
+font-2 = Monoid Nerd Font Mono:size=14;2
+font-3 = FontAwesome5Free:style=Solid:size=10;-1
 
 modules-left = ticker crypto
 modules-center= load temperature cpu cpu-temps cpu-pump memory docker
-modules-right= wireless-network filesystem media
+modules-right= wifi filesystem media
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -180,7 +184,7 @@ label-separator-foreground = ${colors.pink}
 [module/cpu]
 type = internal/cpu
 interval = 0.5
-label = :
+label = %{u#bd93f9}%{F#bd93f9}%{T3}%{T-}%{F-}
 format = <label> <ramp-coreload>
 ramp-coreload-0 = 
 ramp-coreload-0-font = 2
@@ -222,12 +226,12 @@ interval = 1
 
 [module/date]
 type = internal/date
-date = %%{F#6272a4}%a %b %d week %V%%{F-}  %%{F#8be9fd}%H:%M:%S%%{F-}
+date =%{u#ff79c6}%{F#ff79c6}%{T4}%{T-} %a %b %d | Week %V%{F-}%{u-}%{-u}  %{u#8be9fd}%{F#8be9fd}%{T4}%{T-} %H:%M:%S%{F-}
 
 [module/memory]
 type = internal/memory
 format = <label> <bar-used>
-label = %{F#6272a4}﬘
+label =%{u#6272a4}%{F#6272a4}%{T3}﬘
 
 bar-used-width = 20
 bar-used-foreground-0 = ${colors.green}
@@ -246,13 +250,13 @@ bar-used-empty = -
 bar-used-empty-font = 6
 bar-used-empty-foreground = ${colors.comment}
 
-[module/wireless-network]
+[module/wifi]
 type = internal/network
 interface = wlp64s0
 interval = 1
 ping-interval = 10
 
-format-connected =  <ramp-signal> <label-connected>
+format-connected = %{u#ffb86c}%{F#ffb86c}%{F-} <ramp-signal> <label-connected>
 label-connected =  %downspeed%   %upspeed%
 
 format-disconnected =  <label-disconnected>
@@ -319,7 +323,7 @@ label = %temperature-c%
 label-warn = HOT! %temperature-c%
 label-warn-foreground = ${colors.red}
 
-ramp-0 = 
+ramp-0 = 
 ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.purple}
@@ -334,7 +338,7 @@ hook-1 = echo "%{A1:notify-send "DUNST_COMMAND_RESUME" && polybar-msg hook dunst
 
 [module/crypto]
 type = custom/script
-exec = ~/.config/polybar/pcrypto.py --base USD --coins btc eth
+exec = ~/.config/polybar/pcrypto.py --base USD --coins btc eth | awk '{print "%{F#8be9fd}"$1"%{F-}" $2 " %{F#50fa7b}"$3"%{F-}" $4}'
 interval = 60
 
 [module/ticker]
@@ -345,21 +349,21 @@ type = custom/script
 ;   --mostactive: Prints the most active stock in a given day.
 ;   --topcrypto: Prints the top cryptocurrency by market cap in a given day.
 ;   --customticker: Takes a stock ticker (ex. AAPL, GOOGL, VZ) and outputs the live price of that stock.
-exec = ~/.config/polybar/polystock.py --customticker SPY
-interval = 1
+exec = ~/.config/polybar/polystock.py --customticker SPY | awk '{print "%{F#8be9fd}%{T4}%{T-}%{F-} %{F#50fa7b}$%{F-}"$2}'
+interval = 60
 label = %output%
 
 [module/docker]
 type = custom/script
 exec = docker ps -q | wc -l
 interval = 1
-label =  %output%
+label = %{T3}%{F#8be9fd}%{F-}%{T-} %output%
 
 [module/cpu-temps]
 type = custom/script
 exec = sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//'
 interval = 1
-label = %{F#ff5555}%{F-} %output%
+label = %{u#8be9fd}%{F#8be9fd}%{F-} %output%
 
 [module/cpu-pump]
 type = custom/script
