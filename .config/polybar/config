@@ -54,7 +54,7 @@ font-2 = Monoid Nerd Font Mono:size=14;2
 font-3 = FontAwesome5Free:style=Solid:size=10;-1
 
 modules-left = ticker crypto
-modules-center= load temperature cpu cpu-temps cpu-pump memory docker
+modules-center= load temperature cpu cpu-aio gpu-stats memory docker
 modules-right= wifi filesystem media
 
 background = ${colors.background}
@@ -359,14 +359,15 @@ exec = docker ps -q | wc -l
 interval = 1
 label = %{T3}%{F#8be9fd}%{F-}%{T-} %output%
 
-[module/cpu-temps]
-type = custom/script
-exec = sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//'
-interval = 1
-label = %{u#8be9fd}%{F#8be9fd}%{F-} %output%
 
-[module/cpu-pump]
+[module/cpu-aio]
 type = custom/script
-exec = sensors | grep fan1 | head -n 1 | cut -d " " -f 9 | awk '{printf("%.1f", $1/2435*100)}'
+exec = liquidctl status | grep -i "temp\|fan" | awk '{print $4}' ORS=' ' | awk '{printf("%{F#8be9fd}揄%{F-} %.1fC %{F#8be9fd}%{T4}%{T-}%{F-} %.1f", $1, $2/2580*100)}'
 interval = 1
-label = %{F#8be9fd}揄%{F-} %output%%
+label = %{u#8be9fd}%output%
+
+[module/gpu-stats]
+type = custom/script
+exec = nvidia-smi dmon -c 1 | awk '{print $3}' ORS=' ' | awk '{print $3}'
+interval = 1
+label = %{u#8be9fd}%{F#8be9fd}﴿%{F-} %output%C
