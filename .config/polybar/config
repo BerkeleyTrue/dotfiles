@@ -357,7 +357,7 @@ label = %output%
 type = custom/script
 exec = docker ps -q | wc -l
 interval = 1
-label = %{T3}%{F#8be9fd}%{F-}%{T-} %output%
+label = %{A1:alacritty --title "docker ps" -d 1080 10 --hold -e sh -c "docker ps; i3-msg floating enable > /dev/null; i3-msg resize set 1480 150 > /dev/null; i3-msg move position center > /dev/null;":} %{T3}%{F#8be9fd}%{F-}%{T-} %output% %{A}
 
 [module/cpu-temps]
 type = custom/script
