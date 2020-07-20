@@ -18,11 +18,11 @@ autoload -U compinit && compinit
 # set key timeout to 10ms
 KEYTIMEOUT=1
 # Automatically start tmux on zsh source
-ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=false
 # don't quit the terminal when detaching from tmux
 ZSH_TMUX_AUTOQUIT=false
 # automatically connect to tmux session if there is one runnning
-ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_AUTOCONNECT=false
 # add bound keys
 if (( $+commands[xbindkeys] )); then
   xbindkeys
