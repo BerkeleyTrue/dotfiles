@@ -1,6 +1,7 @@
 configuration {
   modi: "drun,calc,run";
   show-icons: true;
+  icon-theme: "Papirus";
   font: "Monoid Nerd Font Mono 14";
   width: 50;
   lines: 10;
@@ -24,7 +25,6 @@ configuration {
   parse-hosts: true;
 }
 
-
 * {
   foreground: #f8f8f2;
   background-color: #282a36;
@@ -36,7 +36,7 @@ configuration {
   selected-active-background: @active-background;
 
   separatorcolor: @active-background;
-  bordercolor: #ff79c6;
+  bordercolor: #8be9fd;
 }
 
 #window {
