@@ -2,6 +2,7 @@
 alias ..='cd ..'
 alias ...='cd .. && cd ..'
 alias ll='ls -aFlh'
+alias lles='ls -aFlh | less'
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
