@@ -158,7 +158,7 @@ set guifont="DejaVuSansMono Nerd Font"         "  needed for guis
 set hidden                                     "  needed for vim COC
 set ignorecase                                 "  ignore case when searching
 set list                                       "  set list mode for listchars
-set listchars=tab:>.,trail:.,extends:#,nbsp:.  "  mark whitespace
+set listchars=tab:>.                           "  mark whitespace
 set mouse=a                                    "  enable the use of the mouse
 set nobackup                                   "  disable backups"
 set noswapfile                                 "  disable backups"
@@ -461,9 +461,10 @@ let g:startify_change_to_dir = 0
 "
 " ntpeters/vim-better-whitespace
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:better_whitespace_enabled=1
+let g:better_whitespace_enabled=0
 let g:strip_whitespace_on_save=1
 let g:strip_whitespace_confirm=0
+let g:strip_only_modified_lines=1
 " }}}
 "
 " olical/conjure
