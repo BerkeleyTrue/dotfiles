@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+ZDOTDIR=$XDG_CONFIG_HOME/zsh /usr/bin/zsh "$@"
