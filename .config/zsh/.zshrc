@@ -1,6 +1,14 @@
-export ZSH="$HOME/.antigen/bundles/robbyrussell/oh-my-zsh"
+
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='find .'
+
+ZSH_CACHE_DIR="$HOME/.cache/zsh"
+ZSH="$XDG_CONFIG_HOME/zsh"
+HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
+
+# Antigen configs
+ADOTDIR="$XDG_CONFIG_HOME/antigen"
+ANTIGEN_LOG="$HOME/.cache/antigen/antigen.log"
 OSNAME=$(uname)
 # uncomment to debug antigen
 # export ANTIGEN_LOG=$HOME/.antigen/antigen.log
@@ -13,7 +21,7 @@ COMPLETION_WAITING_DOTS="true"
 
 fpath+=~/.zfunc
 
-autoload -U compinit && compinit
+autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
 
 # set key timeout to 10ms
 KEYTIMEOUT=1
@@ -26,6 +34,10 @@ ZSH_TMUX_AUTOCONNECT=false
 # add bound keys
 if (( $+commands[xbindkeys] )); then
   xbindkeys
+fi
+
+if [[ ! -f $ANTIGEN_LOG  ]]; then
+  mkdir -p $(dirname $ANTIGEN_LOG);
 fi
 
 # source antigen plugin manager
