@@ -36,8 +36,9 @@ if (( $+commands[xbindkeys] )); then
   xbindkeys
 fi
 
+# ensure cache directory exists
 if [[ ! -f $ANTIGEN_LOG  ]]; then
-  mkdir -p $(dirname $ANTIGEN_LOG);
+  mkdir -p $(dirname $ANTIGEN_LOG) > /dev/null 2>&1;
 fi
 
 # source antigen plugin manager
