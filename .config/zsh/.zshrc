@@ -131,6 +131,3 @@ zle -N zle-line-finish
 zle -N zle-keymap-select
 ### end cursor mod ###
 [[ -s "$HOME/.config/shell/index.sh"  ]] && source "$HOME/.config/shell/index.sh"
-
-### nativescript-completion-start-###
-[[ -s $HOME/.tnsrc ]] && source $HOME/.tnsrc
