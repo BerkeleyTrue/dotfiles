@@ -361,7 +361,8 @@ label = %{A1:alacritty --title "docker ps" -d 1080 10 --hold -e sh -c "docker ps
 
 [module/cpu-temps]
 type = custom/script
-exec = sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//'
+exec = sensors | grep "Core\|Package" | sed 's/ id//g' | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//' | awk '{print $1": "$2" "$3" "$4" "$5}'
+
 interval = 1
 label = %{u#8be9fd}%{F#8be9fd}%{F-} %output%
 
