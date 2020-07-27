@@ -367,7 +367,7 @@ label = %{u#8be9fd}%{F#8be9fd}%{F-} %output%
 
 [module/cpu-aio]
 type = custom/script
-exec = liquidctl status | grep -i "temp\|fan" | awk '{print $4}' ORS=' ' | awk '{printf("%{F#8be9fd}揄%{F-} %.1f°C %{F#8be9fd}%{T4}%{T-}%{F-} %.1f", $1, $2/2580*100)}'
+exec = liquidctl status | grep -i "temp\|fan" | awk '{print $4}' ORS=' ' | awk '{printf("%{F#8be9fd}揄%{F-} %.1f°C %{F#8be9fd}%{T4}%{T-}%{F-} %.1f", $1, $2/1500*100)}'
 interval = 1
 label = %{u#8be9fd}%output%
 
