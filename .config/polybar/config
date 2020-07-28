@@ -25,7 +25,7 @@ font-2 = Monoid Nerd Font Mono:size=12;2
 font-3 = FontAwesome5Free:style=Solid:size=10;-1
 
 modules-left = i3
-modules-center = date
+modules-center = date waka
 modules-right = dunst
 
 background = ${colors.background}
@@ -377,3 +377,9 @@ type = custom/script
 exec = nvidia-smi dmon -c 1 | awk '{print $3}' ORS=' ' | awk '{print $3}'
 interval = 1
 label = %{u#8be9fd}%{F#8be9fd}﴿%{F-} %output%°C
+
+[module/waka]
+type = custom/script
+exec = wakatime --today
+interval = 30
+label = %{u#50fa7b}%{F#50fa7b}%{T3}%{T-} %output%%{F-}
