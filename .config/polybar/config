@@ -383,3 +383,4 @@ type = custom/script
 exec = wakatime --today
 interval = 30
 label = %{u#50fa7b}%{F#50fa7b}%{T3}%{T-} %output%%{F-}
+click-left = xdg-open https://wakatime.com/dashboard
