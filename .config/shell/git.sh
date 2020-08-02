@@ -200,24 +200,24 @@ gremote() {
 }
 grebase() {
   # grebase
-  if [ $# == 0 ]; then
+  if [[ $# == 0 ]]; then
     echo "grebase: Incorrect number of args"
     return 1
   fi
 
-  if [ $1 == 'cont' ]; then
+  if [[ $1 == 'cont' ]]; then
     echo "continuing..."
     git rebase --continue
     return 0
   fi
 
-  if [ $1 == 'skip' ]; then
+  if [[ $1 == 'skip' ]]; then
     echo "skiping..."
     git rebase --skip
     return 0
   fi
 
-  if [ $1 == 'abort' ]; then
+  if [[ $1 == 'abort' ]]; then
     echo "aborting..."
     git rebase --abort
     return 0

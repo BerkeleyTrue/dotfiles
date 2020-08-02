@@ -1,18 +1,22 @@
+#!/bin/bash
+
 # Bash helper alias
+LSARG='aFl'
+LISTC=$(command -v exa > /dev/null 2>&1 && echo 'exa -ag'$LSARG || echo 'ls -'$LSARG);
+
 alias ..='cd ..'
-alias ...='cd .. && cd ..'
-alias ll='ls -aFlh'
-alias lles='ls -aFlh | less'
+alias ...='cd ../.. && pwd'
+alias ll=$LISTC
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 ## Use vimrc with sudo vim
-alias suvim='sudo -E vim'
+alias suvim='sudo -E nvim'
 alias tmux="TERM=screen-256color-bce tmux -2"
 ## Will make parent directories if they don't exist
 ## Also verbose
 alias mkdir="mkdir -pv"
-alias whatismyip="curl http://ipecho.net/plain; echo"
+alias whatismyip="curl https://ipecho.net/plain; echo"
 ## Make file executable
 alias chmodx='chmod 755'
 ## Make file read/write-able
@@ -21,14 +25,7 @@ alias chmodrw='chmod 644'
 ## Used to make sure profile changes are reflecting
 alias echodec='declare -f'
 
-#quick edits
-alias vprofile='nvim ~/.profile'
-alias sprofile='source ~/.profile'
-alias vneo='nvim ~/.config/nvim/init.vim'
-alias vlint='nvim ~/.eslintrc'
-
 #node aliases
-alias :mongo='mongod --dbpath ~/data/db'
 alias :q='exit'
 
 alias npmig='sudo npm install -g'
@@ -39,16 +36,3 @@ alias npmud='npm uninstall --save-dev'
 
 alias npmis='npm install --save'
 alias npmus='npm uninstall --save'
-
-alias npms='npm run start'
-alias npmt='npm run test'
-alias npml='npm run lint'
-
-#quickmoves
-alias cdnode='cd ~/node'
-alias cdf='cd ~/node/freecodecamp/actual'
-alias cdrt='cd ~/node/react'
-alias cdrdx='cd ~/node/redux'
-alias cdrwr='cd ~/node/rwr'
-alias cdvim='cd ~/.vim'
-alias cdsnippets='cd ~/.config/nvim/plugged/berkeleys-snippet-emporium'
