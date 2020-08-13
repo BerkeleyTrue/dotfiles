@@ -154,8 +154,6 @@ set clipboard=unnamedplus                      "  default yank into + register, 
 set cmdheight=2                                "  better display for messages
 set copyindent                                 "  copy the previous indentation on autoindenting
 set expandtab                                  "  convert tabs to spaces
-set guifont="DejaVuSansMono Nerd Font"         "  needed for guis
-set hidden                                     "  needed for vim COC
 set ignorecase                                 "  ignore case when searching
 set list                                       "  set list mode for listchars
 set listchars=tab:>.                           "  mark whitespace
