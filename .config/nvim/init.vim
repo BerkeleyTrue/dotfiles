@@ -310,10 +310,17 @@ let g:NERDDefaultAlign = 'left'
 " Airline config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:airline_theme='dracula'
+let g:airline_powerline_fonts = 1
+let g:airline_detect_spell=0
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 
 " Tab buffer list above the window
 let g:airline#extensions#tabline#enabled = 2
-let g:airline_powerline_fonts = 1
+
 let g:airline#extensions#ale#enabled = 0
 
 let g:airline#extensions#coc#enabled = 1
@@ -321,10 +328,7 @@ let g:airline#extensions#coc#warning_symbol = ''
 let g:airline#extensions#coc#error_symbol = '✗'
 
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline_detect_spell=0
 
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
 
 " Func: s:GetWD
 "-------------------------------------------------- {{{
