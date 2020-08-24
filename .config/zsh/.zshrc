@@ -58,6 +58,9 @@ antigen bundle wd
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle bgnotify
+antigen bundle docker
+antigen bundle terraform
 
 antigen theme https://gitlab.com/BerkeleyTrue/ghanima.git ghanima
 
