@@ -19,7 +19,7 @@
     "coc-tsserver": ">=1.5.1",
     "coc-vetur": ">=1.1.10",
     "coc-word": "^1.2.2",
-    "coc-yaml": ">=1.0.4",
+    "coc-yaml": ">=1.0.5",
     "coc-yank": ">=1.1.4"
   }
 }
