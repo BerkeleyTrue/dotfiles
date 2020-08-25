@@ -1,0 +1,17 @@
+---
+- name: update system
+  hosts: localhost
+  become: yes
+
+  tasks:
+  - name: full system update
+    pacman:
+      update_cache: yes
+      upgrade: yes
+
+  - name: ensure packages
+    state: present
+    pacman:
+      update_cache: yes
+      name:
+        - ansible-lint
