@@ -1,17 +1,18 @@
 ---
 - name: update system
   hosts: localhost
-  become: yes
+  become: true
 
   tasks:
     - name: full system update
       pacman:
-        update_cache: yes
-        upgrade: yes
+        update_cache: true
+        upgrade: true
 
     - name: ensure packages
-      state: present
       pacman:
-        update_cache: yes
+        state: present
+        update_cache: true
         name:
           - ansible-lint
+          - yamllint
