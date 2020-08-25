@@ -114,6 +114,7 @@ Plug 'lervag/vimtex'
 Plug 'mattn/emmet-vim'
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'othree/xml.vim'
+Plug 'pearofducks/ansible-vim'
 Plug 'potatoesmaster/i3-vim-syntax'
 Plug 'rust-lang/rust.vim'
 Plug 'shime/vim-livedown'
@@ -215,6 +216,7 @@ let g:ale_linters = {
   \ 'typescript': ['tslint', 'tsserver'],
   \ 'pug': ['pug-lint'],
   \ 'clojure': ['clj-kondo', 'joker'],
+  \ 'yaml.ansible': ['ansible-lint'],
 \}
 let g:ale_sign_column_always = 1
 let g:ale_virtualtext_cursor = 1
