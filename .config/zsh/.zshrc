@@ -1,6 +1,7 @@
 
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='find .'
+export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
 
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
 ZSH="$XDG_CONFIG_HOME/zsh"
