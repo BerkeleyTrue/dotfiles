@@ -16,11 +16,11 @@ OSNAME=$(uname)
 TERMINAL="alacritty"
 ZSH_THEME="agnoster"
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS=true
 
-fpath+=~/.zfunc
+fpath+="$ZSH/.zfunc"
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
 
