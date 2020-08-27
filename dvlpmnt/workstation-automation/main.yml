@@ -1,15 +1,16 @@
 ---
 - name: update system
   hosts: localhost
-  become: true
 
   tasks:
     - name: full system update
+      become: true
       pacman:
         update_cache: true
         upgrade: true
 
     - name: ensure packages
+      become: true
       pacman:
         state: present
         update_cache: true
@@ -17,3 +18,10 @@
           - ansible-lint
           - yamllint
           - terraform
+          - yay
+
+    - name: ensure aur packages
+      aur:
+        state: present
+        name:
+          - terraform-lsp
