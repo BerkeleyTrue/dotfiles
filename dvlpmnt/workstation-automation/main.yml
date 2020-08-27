@@ -25,3 +25,4 @@
         state: present
         name:
           - terraform-lsp
+          - terraform-provider-proxmox
