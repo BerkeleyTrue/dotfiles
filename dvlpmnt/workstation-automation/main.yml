@@ -16,3 +16,4 @@
         name:
           - ansible-lint
           - yamllint
+          - terraform
