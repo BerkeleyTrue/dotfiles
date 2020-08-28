@@ -16,9 +16,10 @@
         update_cache: true
         name:
           - ansible-lint
-          - yamllint
+          - packer
           - terraform
           - vault
+          - yamllint
           - yay
 
     - name: ensure aur packages
