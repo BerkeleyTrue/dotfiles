@@ -22,8 +22,6 @@ COMPLETION_WAITING_DOTS=true
 
 fpath+="$ZSH/.zfunc"
 
-autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
-
 # set key timeout to 10ms
 KEYTIMEOUT=1
 # Automatically start tmux on zsh source
@@ -137,3 +135,5 @@ zle -N zle-keymap-select
 [[ -s "$XDG_CONFIG_HOME/shell/index.sh"  ]] && source "$XDG_CONFIG_HOME/shell/index.sh"
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
+
+autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
