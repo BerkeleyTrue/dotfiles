@@ -18,6 +18,7 @@
           - ansible-lint
           - yamllint
           - terraform
+          - vault
           - yay
 
     - name: ensure aur packages
