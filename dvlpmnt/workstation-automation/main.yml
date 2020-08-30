@@ -26,5 +26,5 @@
       aur:
         state: present
         name:
-          - terraform-lsp
+          - terraform-lsp-git
           - terraform-provider-proxmox
