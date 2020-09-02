@@ -96,7 +96,7 @@ Plug 'wellle/tmux-complete.vim'
 
 " Theme
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
+Plug 'dracula/vim', { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'vim-airline/vim-airline'
 " }}}
 
