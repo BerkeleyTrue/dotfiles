@@ -1,0 +1,5 @@
+---
+paks:
+  - name: org.libreoffice.LibreOffice
+  - name: org.glimpse_editor.Glimpse
+  - name: com.discordapp.Discord

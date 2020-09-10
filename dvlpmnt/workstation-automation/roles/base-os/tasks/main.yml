@@ -1,0 +1,17 @@
+---
+- name: base-os.full system update
+  become: true
+  pacman:
+    update_cache: true
+    upgrade: true
+
+- name: base-os.install packages
+  become: true
+  pacman:
+    name: "{{ packages }}"
+    state: present
+
+- name: base-os.install aur packages
+  aur:
+    name: "{{ aur }}"
+    state: present

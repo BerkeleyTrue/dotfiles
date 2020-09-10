@@ -1,0 +1,7 @@
+---
+- name: pak.install paks
+  flatpak:
+    name: "{{ item.name }}"
+    remote: "{{ item.remote | default('flathub') }}"
+    state: present
+  loop: "{{ paks }}"
