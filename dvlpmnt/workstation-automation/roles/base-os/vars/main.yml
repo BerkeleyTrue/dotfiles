@@ -1,0 +1,12 @@
+---
+packages:
+  - ansible-lint
+  - packer
+  - terraform
+  - vault
+  - yamllint
+  - yay
+
+aur:
+  - terraform-lsp-git
+  - terraform-provider-proxmox

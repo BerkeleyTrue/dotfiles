@@ -1,30 +1,8 @@
 ---
-- name: update system
+- name: workstation init
   hosts: localhost
+  gather_facts: false
 
-  tasks:
-    - name: full system update
-      become: true
-      pacman:
-        update_cache: true
-        upgrade: true
-
-    - name: ensure packages
-      become: true
-      pacman:
-        state: present
-        update_cache: true
-        name:
-          - ansible-lint
-          - packer
-          - terraform
-          - vault
-          - yamllint
-          - yay
-
-    - name: ensure aur packages
-      aur:
-        state: present
-        name:
-          - terraform-lsp-git
-          - terraform-provider-proxmox
+  roles:
+    - base-os
+    - paks
