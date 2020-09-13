@@ -1,6 +1,29 @@
 " Configs
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:coc_force_debug = 0
+let g:coc_global_extensions = [
+      \ 'coc-conjure',
+      \ 'coc-css',
+      \ 'coc-dictionary',
+      \ 'coc-emmet',
+      \ 'coc-emoji',
+      \ 'coc-eslint',
+      \ 'coc-github',
+      \ 'coc-highlight',
+      \ 'coc-html',
+      \ 'coc-jest',
+      \ 'coc-json',
+      \ 'coc-omni',
+      \ 'coc-prettier',
+      \ 'coc-rls',
+      \ 'coc-snippets',
+      \ 'coc-stylelint',
+      \ 'coc-tag',
+      \ 'coc-tsserver',
+      \ 'coc-vetur',
+      \ 'coc-word',
+      \ 'coc-yaml',
+      \ 'coc-yank']
 "}}}
 
 " Keymaps
