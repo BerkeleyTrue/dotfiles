@@ -15,3 +15,8 @@
   aur:
     name: "{{ aur }}"
     state: present
+
+- name: base-os.install pip packages
+  pip:
+    name: "{{ pips }}"
+    state: present

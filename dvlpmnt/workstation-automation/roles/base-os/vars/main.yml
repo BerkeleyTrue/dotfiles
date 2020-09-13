@@ -8,5 +8,10 @@ packages:
   - yay
 
 aur:
+  - luarocks
   - terraform-lsp-git
   - terraform-provider-proxmox
+
+pips:
+  # for generating password hashes
+  - passlib
