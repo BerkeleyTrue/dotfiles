@@ -164,10 +164,16 @@ assign [class="Slack"] $ws2
 assign [class="discord"] $ws2
 
 no_focus [class="zoom"]
+no_focus [class="zoom" title="Leave meeting"]
+no_focus [class="zoom" title="Zoom Cloud Meetings"]
+
 for_window [class="zoom" window_role="pop-up"] floating enable
-for_window [class="zoom" title="Question and Answer"] resize set width 25 px or 25 ppt, resize set height 50 px or 50 ppt
-for_window [class="zoom" title="Zoom Cloud Meeting"] floating disable
-for_window [class="zoom" title="Leave meeting"] floating disable
+for_window [class="zoom" title="Zoom Cloud Meetings"] floating enable
+for_window [class="zoom" title="Leave meeting"] floating enable
+
+for_window [class="zoom" title="Chat"] floating enable;
+for_window [class="zoom" title="Chat"] resize set 30 600;
+for_window [class="zoom" title="Chat"] move position mouse;
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
