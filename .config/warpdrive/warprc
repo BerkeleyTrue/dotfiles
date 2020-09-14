@@ -9,5 +9,5 @@ react:~/dvlpmnt/node/react
 dwn:~/dwns
 resume:~/docs/resume
 dvl:~/dvlpmnt
-wrk:~/dvlpmnt/workstation-automation
 home:~/dvlpmnt/homelab
+wrk:~/dvlpmnt/wrkst
