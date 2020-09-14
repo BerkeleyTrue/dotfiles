@@ -125,11 +125,11 @@ vnoremap > >gv
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Throwing characters {{{
-nnoremap z; mqA;<esc>`q
+nnoremap z; mqA;<esc>`q:delmarks q<cr>
 " Throw a comma on the end of the line
-nnoremap z, mqA,<esc>`q
+nnoremap z, mqA,<esc>`q:delmarks q<cr>
 " Delete last character on the line
-nnoremap zdl mqA<esc>x`q
+nnoremap zdl mqA<esc>x`q:delmarks q<cr>
 " Move the current char to the end of the line
 nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
 " Move line to the end of the next line
