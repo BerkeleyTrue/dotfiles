@@ -59,6 +59,7 @@ Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
@@ -151,7 +152,8 @@ Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'olical/conjure', {'tag': 'v3.1.1'}
 " }}}
-call plug#end() " }}}
+call plug#end()
+" }}}
 "
 " ==================================================
 " General Config
@@ -188,7 +190,6 @@ set undolevels=1000                            "  use many muchos levels of undo
 set updatetime=300                             "  smaller updatetime for CursorHold & CursorHoldI
 set visualbell                                 "  flash screen on error
 set wildignore=*.swp,*.bak,*.pyc,*.class       "  ignore these files
-" set termguicolors                              "  uses |highlight-guifg| and |highlight-guibg| attributes in the terminal
 " nvim blinking cursor
 " see :help 'guicursor'
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
@@ -412,7 +413,8 @@ let g:vim_markdown_conceal = 0
 " Vimtex config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:vimtex_fold_enabled = 1
-let g:tex_conceal=0
+let g:tex_conceal = 0
+let g:tex_flavor = 'plain'
 " }}}
 "
 " vim-multi-cursor
@@ -528,30 +530,24 @@ augroup END " }}}
 " ==================================================
 " Colors
 " ================================================== {{{
-" Dracula color map
-" cterm |   web   | name
-" 9     |         | Red (FireBrick?)
-" 17    | #6272a4 | Comment (Dark Blue)
-" 23    |         | Teal
-" 24    |         | Dark Neon Blue
-" 60    | #6272a4 | Comment (Dark Blue)
-" 61    |         | Purple
-" 64    |         | Olive
-" 81    | #8be9fd | Blue
-" 84    | #50fa7b | Green
-" 88    |         | Ruby
-" 117   |         | Neon Blue
-" 141   |         | Dark Purple
-" 203   |         | Red-Orange
-" 212   | #ff79c6 | Pink
-" 215   |         | Orange
-" 228   | #50fa7b | Yellow
-" 231   | #f8f8f2 | Foreground (White)
-" 234   | #282a36 | Black
-" 235   |         | Dark Background
-" 236   |         | Background
-" 241   |         | Selection (Dark gray)
-" 246   | #44475a | Selection (gray)
+" fg        = ['#F8F8F2', 253]
+" bglighter = ['#424450', 238]
+" bglight   = ['#343746', 237]
+" bg        = ['#282A36', 236]
+" bgdark    = ['#21222C', 235]
+" bgdarker  = ['#191A21', 234]
+
+" comment   = ['#6272A4',  61]
+" selection = ['#44475A', 239]
+" subtle    = ['#424450', 238]
+
+" cyan      = ['#8BE9FD', 117]
+" green     = ['#50FA7B',  84]
+" orange    = ['#FFB86C', 215]
+" pink      = ['#FF79C6', 212]
+" purple    = ['#BD93F9', 141]
+" red       = ['#FF5555', 203]
+" yellow    = ['#F1FA8C', 228]
 
 function! AddHighlight()
   " Underline misspelled words
