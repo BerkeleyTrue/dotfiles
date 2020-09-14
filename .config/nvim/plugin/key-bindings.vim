@@ -38,11 +38,6 @@ nnoremap <C-w>hv <C-w>t<C-w>H
 " resize tab to fit scripts
 nnoremap <C-w>vr :call animate#window_absolute_width(90)<cr>
 
-" Tab navigation
-nnoremap tj :tabnext<CR>
-nnoremap tk :tabprev<CR>
-nnoremap tn :tabnew<CR>
-
 " H to move to the beginning of the line
 noremap H ^
 " L move to the end of the line
