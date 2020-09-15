@@ -52,6 +52,11 @@ endfunction " }}}
 " Func: DefxExplorer
 "-------------------------------------------------- {{{
 function! DefxExplorer(...)
+  if &filetype =~# 'defx'
+    call defx#call_action('quit')
+    return
+  endif
+
   let l:dir = a:0 >= 1 ? a:1 : './'
   let l:cmd = join([
     \ 'Defx',
@@ -71,6 +76,7 @@ endfunction
 "-------------------------------------------------- {{{
 function! DefxSearch(search, dir)
   if &filetype =~# 'defx'
+    call defx#call_action('quit')
     return
   endif
 
