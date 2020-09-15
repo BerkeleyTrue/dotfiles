@@ -165,11 +165,14 @@ assign [class="discord"] $ws2
 
 no_focus [class="zoom"]
 no_focus [class="zoom" title="Leave meeting"]
+no_focus [class="zoom" title="Zoom Meetings"]
 no_focus [class="zoom" title="Zoom Cloud Meetings"]
 
-for_window [class="zoom" window_role="pop-up"] floating enable
-for_window [class="zoom" title="Zoom Cloud Meetings"] floating enable
-for_window [class="zoom" title="Leave meeting"] floating enable
+for_window [class="zoom" window_role="pop-up"] floating enable;
+for_window [class="zoom" title="Zoom Cloud Meetings"] floating enable;
+for_window [class="zoom" title="Zoom Cloud Meetings"] resize set 100 300;
+for_window [class="zoom" title="Zoom Cloud Meetings"] move position 1000 720;
+for_window [class="zoom" title="Leave meeting"] floating enable;
 
 for_window [class="zoom" title="Chat"] floating enable;
 for_window [class="zoom" title="Chat"] resize set 30 600;
