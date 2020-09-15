@@ -79,6 +79,7 @@ Plug 'vim-scripts/scrollfix'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'wellle/targets.vim'
+"Plug 'wincent/corpus' requires 5.0
 Plug 'yggdroot/indentLine'
 "}}}
 
