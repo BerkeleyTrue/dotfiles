@@ -70,10 +70,12 @@ endfunction
 " Func: DefxSearch
 "-------------------------------------------------- {{{
 function! DefxSearch(search, dir)
+  if &filetype =~# 'defx'
+    return
+  endif
 
   let l:cmd = join([
     \ 'Defx',
-    \ '-toggle',
     \ '-search=' . a:search,
     \ '-split=vertical',
     \ '-show-ignored-files',
@@ -101,11 +103,13 @@ nnoremap <silent>zet :call DefxExplorer()<CR><C-w>=
 nnoremap <silent>zef :call DefxSearch(expand('%:p'), getcwd())<CR><C-w>=
 
 function! s:defx_settings() "{{{
-  nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_tree', 'toggle') : defx#do_action('drop')
+  nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_tree', 'toggle') : defx#do_action('multi', ['drop', 'quit'])
   nnoremap <silent><buffer><expr><Space>  defx#is_directory() ? defx#do_action('open_tree', 'toggle') : defx#do_action('close_tree')
   nnoremap <silent><buffer><expr> C       defx#do_action('copy')
   nnoremap <silent><buffer><expr> M       defx#do_action('move')
-  nnoremap <silent><buffer><expr><C-v>    defx#do_action('drop', 'vsplit')
+  nnoremap <silent><buffer><expr><C-h>    defx#do_action('multi', [[ 'drop', 'split' ], 'quit'])
+  nnoremap <silent><buffer><expr><C-v>    defx#do_action('multi', [[ 'drop', 'vsplit' ], 'quit'])
+  nnoremap <silent><buffer><expr><C-t>    defx#do_action('multi', [[ 'drop', 'tabnew' ], 'quit'])
   nnoremap <silent><buffer><expr> a       defx#do_action('new_file')
   nnoremap <silent><buffer><expr> A       defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> D       defx#do_action('remove')
