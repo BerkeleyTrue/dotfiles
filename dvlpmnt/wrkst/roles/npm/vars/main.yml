@@ -1,0 +1,18 @@
+---
+npm_global_packages:
+  - n
+  - commitizen
+  - conventional-changelog-cli
+  - conventional-commits-detector
+  - conventional-github-releaser
+  - conventional-recommended-bump
+  - cz-conventional-changelog
+  - javascript-typescript-langserver
+  - neovim
+  - trash
+  - typescript-eslint-parser
+
+  # elm devel
+  - elm-test
+  - elm-format
+  - "@elm-tooling/elm-language-server"

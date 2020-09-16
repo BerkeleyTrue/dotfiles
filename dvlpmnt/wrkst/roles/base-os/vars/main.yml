@@ -1,6 +1,8 @@
 ---
 packages:
   - ansible-lint
+  - elm-platform-bin
+  - nodejs
   - packer
   - terraform
   - vault
