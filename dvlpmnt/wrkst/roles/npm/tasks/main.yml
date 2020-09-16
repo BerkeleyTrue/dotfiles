@@ -1,0 +1,10 @@
+---
+- name: install global npm packages
+  become: true
+  npm:
+    global: true
+    production: true
+    name: "{{ item }}"
+    state: present
+  loop: "{{ npm_global_packages }}"
+
