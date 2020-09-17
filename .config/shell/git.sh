@@ -29,9 +29,9 @@ alias gstash='git stash'
 # yadm aliases
 # +++++++++++++++++++++++++++++++++++++++++++++{{{
 alias yadd='yadm add'
+alias ycom='yadm commit'
 alias yamend='yadm commit --amend'
 alias yco='yadm checkout'
-alias ycom='yadm cz'
 alias ydiff='yadm diff'
 alias yfetch='yadm fetch'
 alias ylog='yadm log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
