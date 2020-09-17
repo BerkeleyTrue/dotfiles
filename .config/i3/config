@@ -165,9 +165,11 @@ assign [class="Thunderbird"] $ws3
 assign [class="Slack"] $ws2
 assign [class="discord"] $ws2
 
+assign [class="zoom"] $ws1
 no_focus [class="zoom"]
 no_focus [title="Zoom"]
 no_focus [title="Leave meeting"]
+no_focus [title="Zoom Meeting"]
 no_focus [title="Zoom Meetings"]
 no_focus [title="Zoom Cloud Meetings"]
 
