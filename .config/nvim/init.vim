@@ -489,47 +489,6 @@ let g:strip_only_modified_lines=1
 "" -- End Plugin Config -- }}}
 
 " ==================================================
-" General Autocmds
-" ================================================== {{{
-
-" Func: Open nav on empty startup
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-function! s:OpenNavOnStartup()
-  if 0 == argc()
-    if exists(':Files')
-      " Open fzf files on startup
-      Files
-    elseif exists(':NERDTree')
-      " Open NERDTree otherwise
-      NERDTree
-    endif
-  end
-endfunction " }}}
-
-" Func: Disable spell check on camelCase
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-function! s:DisableSpellOnCamelCase()
-  syntax match CamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
-  syntax cluster Spell add=CamelCase
-endfunction " }}}
-
-augroup GeneralGroup
-  autocmd!
-  autocmd BufEnter,BufRead * call s:DisableSpellOnCamelCase()
-  " Resize splits when the window is resized
-  autocmd VimResized * exe "normal! \<c-w>="
-  " Make vim open on the line you closed the buffer on
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \     execute 'normal! g`"zvzz' |
-    \ endif
-
-  " remove highlight after cursor stops moving
-  autocmd cursorhold * set nohlsearch | let @/ = ""
-  autocmd cursormoved * set hlsearch
-augroup END " }}}
-
-" ==================================================
 " Colors
 " ================================================== {{{
 " fg        = ['#F8F8F2', 253]
