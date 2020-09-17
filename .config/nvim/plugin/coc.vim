@@ -8,7 +8,7 @@ let g:coc_global_extensions = [
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
-      \ 'coc-github',
+      \ 'coc-git',
       \ 'coc-html',
       \ 'coc-jest',
       \ 'coc-json',
