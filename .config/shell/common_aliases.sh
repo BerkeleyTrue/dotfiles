@@ -2,11 +2,13 @@
 
 # Bash helper alias
 LSARG='aFl'
-LISTC=$(command -v exa > /dev/null 2>&1 && echo 'exa -ag'$LSARG || echo 'ls -'$LSARG);
+LISTC=$(command -v exa > /dev/null 2>&1 && echo 'exa' || echo 'ls --color=tty');
+LISTC_N_ARGS=$(command -v exa > /dev/null 2>&1 && echo 'exa -ag'$LSARG || echo 'ls -'$LSARG);
 
 alias ..='cd ..'
 alias ...='cd ../.. && pwd'
-alias ll=$LISTC
+alias ls=$LISTC
+alias ll=$LISTC_N_ARGS
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
@@ -36,3 +38,37 @@ alias npmud='npm uninstall --save-dev'
 
 alias npmis='npm install --save'
 alias npmus='npm uninstall --save'
+
+# add alias for MR on command
+function mr-init() {
+  export NODE_PATH=~/dvlpmnt/node/mr/actual/mr_modules
+  export NODE_ENV=local
+  /usr/bin/docker start mr-mongo mr-mysql-sanitized mr_redis_1 > /dev/null
+}
+
+function mr-th() {
+  mr-init
+  /usr/bin/npm run dev-tophat
+}
+
+function mr-rv() {
+  mr-init
+  /usr/bin/npm run dev-raven
+}
+
+function mr-ws() {
+  mr-init
+  /usr/bin/npm run dev-website
+}
+
+function mr-rv-tests() {
+  mr-init
+  cd ~/dvlpmnt/node/mr/actual/raven
+  /usr/bin/npm run test
+}
+
+function mr-rv-stories() {
+  mr-init
+  cd ~/dvlpmnt/node/mr/actual/raven
+  /usr/bin/npm run stories
+}
