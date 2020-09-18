@@ -214,6 +214,7 @@ function! DeleteHiddenBuffers() " {{{
 endfunction " }}}
 " Buffers }}}
 
+inoremap <F10> <nop>
 " -- End General Key Bindings -- }}}
 "
 " ==================================================
