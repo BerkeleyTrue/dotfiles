@@ -4,6 +4,7 @@ packages:
   - elm-platform-bin
   - nodejs
   - packer
+  - pkgfile
   - terraform
   - vault
   - yamllint
