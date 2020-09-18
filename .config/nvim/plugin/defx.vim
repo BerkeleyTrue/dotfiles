@@ -3,6 +3,15 @@
 
 call defx#custom#option('_', {
       \ 'columns': 'indent:mark:git:icons:icon:filename',
+      \ 'winwidth': 32,
+      \ 'show_ignored_files': 1,
+      \ 'direction': 'topleft',
+      \ 'split': 'vertical',
+      \ })
+
+call defx#custom#column('filename', {
+      \ 'min_width': 32,
+      \ 'max_width': -90,
       \ })
 
 " Symbols{{{
@@ -10,11 +19,6 @@ call defx#custom#column('icon', {
       \ 'directory_icon': '▸',
       \ 'opened_icon': '▾',
       \ 'root_icon': '.',
-      \ })
-
-call defx#custom#column('filename', {
-      \ 'min_width': 32,
-      \ 'max_width': 50,
       \ })
 
 call defx#custom#column('mark', {
@@ -60,14 +64,9 @@ function! DefxExplorer(...)
   let l:dir = a:0 >= 1 ? a:1 : './'
   let l:cmd = join([
     \ 'Defx',
-    \ '-toggle',
-    \ '-split=vertical',
-    \ '-show-ignored-files',
-    \ '-winwidth=32',
-    \ '-direction=topleft',
-    \ '-listed',
-    \ '-resume',
+    \ '-buffer-name=`"defx" . tabpagenr()`',
     \], ' ')
+
   execute l:cmd . ' ' . l:dir
 endfunction
 "}}}
@@ -75,6 +74,7 @@ endfunction
 " Func: DefxSearch
 "-------------------------------------------------- {{{
 function! DefxSearch(search, dir)
+
   if &filetype =~# 'defx'
     call defx#call_action('quit')
     return
@@ -83,11 +83,9 @@ function! DefxSearch(search, dir)
   let l:cmd = join([
     \ 'Defx',
     \ '-search=' . a:search,
-    \ '-split=vertical',
-    \ '-show-ignored-files',
-    \ '-winwidth=32',
-    \ '-direction=topleft',
+    \ '-buffer-name=`"defx" . tabpagenr()`',
     \], ' ')
+
   execute l:cmd . ' ' . a:dir
 endfunction "}}}
 
@@ -130,12 +128,17 @@ function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr> k       line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr> R       defx#do_action('redraw')
   nnoremap <silent><buffer><expr> cd      defx#do_action('change_vim_cwd')
+
+  nnoremap <silent><buffer><expr> >> defx#do_action('resize', defx#get_context().winwidth + 20)
+  nnoremap <silent><buffer><expr> << defx#do_action('resize', defx#get_context().winwidth - 20)
 endfunction
 "}}}
 
 augroup DEFX "{{{
   autocmd FileType defx call <SID>defx_settings()
   autocmd FileType defx setlocal spell!
+  autocmd VimResized defx call defx#call_action('resize', winwidth(0))
+  autocmd BufWritePost * call defx#redraw()
 augroup END "}}}
 "}}}
 
