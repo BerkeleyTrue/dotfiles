@@ -48,27 +48,27 @@ function mr-init() {
 
 function mr-th() {
   mr-init
-  /usr/bin/npm run dev-tophat
+  npm run dev-tophat
 }
 
 function mr-rv() {
   mr-init
-  /usr/bin/npm run dev-raven
+  npm run dev-raven
 }
 
 function mr-ws() {
   mr-init
-  /usr/bin/npm run dev-website
+  npm run dev-website
 }
 
 function mr-rv-tests() {
   mr-init
   cd ~/dvlpmnt/node/mr/actual/raven
-  /usr/bin/npm run test
+  npm run test
 }
 
 function mr-rv-stories() {
   mr-init
   cd ~/dvlpmnt/node/mr/actual/raven
-  /usr/bin/npm run stories
+  npm run stories
 }
