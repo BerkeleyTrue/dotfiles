@@ -1,5 +1,6 @@
 ---
 npm_global_packages:
+  - bs-platform
   - commitizen
   - conventional-changelog-cli
   - conventional-commits-detector
