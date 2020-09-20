@@ -19,4 +19,4 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/local/share:/usr/share:$XDG_DATA_HOME
 
 # nvm
 export NVM_DIR=${NVIM_DIR:-$XDG_CONFIG_HOME/nvm}
-[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+source $config/nvm.sh
