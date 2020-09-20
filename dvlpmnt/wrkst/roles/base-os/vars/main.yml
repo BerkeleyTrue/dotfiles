@@ -1,16 +1,18 @@
 ---
 packages:
+  - ansible
   - ansible-lint
-  - elm-platform-bin
-  - nodejs
+  - curl
   - packer
   - pkgfile
   - terraform
   - vault
+  - wget
   - yamllint
   - yay
 
 aur:
+  - elm-platform-bin
   - luarocks
   - terraform-lsp-git
   - terraform-provider-proxmox
