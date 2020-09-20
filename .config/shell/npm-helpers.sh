@@ -1,3 +1,12 @@
+alias npmig='npm install -g'
+alias npmug='npm uninstall -g'
+
+alias npmid='npm install --save-dev'
+alias npmud='npm uninstall --save-dev'
+
+alias npmis='npm install --save'
+alias npmus='npm uninstall --save'
+
 #! /bin/bash
 ###
 # install npm prerequisites:
