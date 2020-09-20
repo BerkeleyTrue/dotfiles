@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Bash helper alias
 LSARG='aFl'
 LISTC=$(command -v exa > /dev/null 2>&1 && echo 'exa' || echo 'ls --color=tty');
@@ -29,15 +27,6 @@ alias echodec='declare -f'
 
 #node aliases
 alias :q='exit'
-
-alias npmig='sudo npm install -g'
-alias npmug='sudo npm uninstall -g'
-
-alias npmid='npm install --save-dev'
-alias npmud='npm uninstall --save-dev'
-
-alias npmis='npm install --save'
-alias npmus='npm uninstall --save'
 
 # add alias for MR on command
 function mr-init() {
