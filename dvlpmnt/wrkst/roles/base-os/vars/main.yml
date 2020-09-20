@@ -13,6 +13,7 @@ packages:
 
 aur:
   - elm-platform-bin
+  - elm-language-server
   - luarocks
   - terraform-lsp-git
   - terraform-provider-proxmox
