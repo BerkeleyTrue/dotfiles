@@ -1,9 +1,9 @@
 ---
 - name: workstation init
   hosts: localhost
-  gather_facts: false
 
   roles:
     - base-os
     - paks
+    - nvm
     - npm
