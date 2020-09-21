@@ -3,6 +3,7 @@
 let g:coc_force_debug = 0
 let g:coc_global_extensions = [
       \ 'coc-conjure',
+      \ 'coc-elixir',
       \ 'coc-css',
       \ 'coc-dictionary',
       \ 'coc-emmet',
