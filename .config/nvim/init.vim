@@ -62,6 +62,7 @@ Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -106,7 +107,6 @@ Plug 'vim-airline/vim-airline'
 
 " Lang
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-Plug 'bakpakin/fennel.vim'
 Plug 'blackrush/vim-gocode'
 Plug 'chr4/nginx.vim'
 Plug 'chrisbra/csv.vim'
@@ -116,12 +116,8 @@ Plug 'fatih/vim-go'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 Plug 'hashivim/vim-terraform'
-Plug 'hhsnopek/vim-sugarss'
 Plug 'lervag/vimtex'
-Plug 'mattn/emmet-vim'
 Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'olical/aniseed'
-Plug 'olical/conjure'
 Plug 'othree/xml.vim'
 Plug 'pearofducks/ansible-vim'
 Plug 'potatoesmaster/i3-vim-syntax'
@@ -129,30 +125,34 @@ Plug 'rust-lang/rust.vim'
 Plug 'shime/vim-livedown'
 Plug 'sirtaj/vim-openscad'
 Plug 'tbastos/vim-lua'
-Plug 'vim-scripts/paredit.vim'
-Plug 'wavded/vim-stylus'
 " }}}
 
-" Javascript
+" Web
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'elzr/vim-json'
+Plug 'hhsnopek/vim-sugarss'
 Plug 'jparise/vim-graphql'
 Plug 'leafgarland/typescript-vim'
+Plug 'mattn/emmet-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'meain/vim-package-info', { 'do': 'npm install' }
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
+Plug 'wavded/vim-stylus'
 " }}}
 
-" Clojure
+" ()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+Plug 'bakpakin/fennel.vim'
+Plug 'clojure-vim/vim-jack-in'
 Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
+Plug 'olical/aniseed'
+Plug 'olical/conjure', {'tag': 'v4.5.0'}
 Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'olical/conjure', {'tag': 'v3.1.1'}
 " }}}
 call plug#end()
 " }}}
