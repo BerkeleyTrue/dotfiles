@@ -1,20 +1,31 @@
 ---
 packages:
-  - ansible
-  - ansible-lint
+  # general
   - curl
-  - packer
+  - neovim
   - pkgfile
-  - terraform
-  - vault
   - wget
   - yamllint
   - yay
+  # automation
+  - ansible
+  - ansible-lint
+  - packer
+  - terraform
+  - vault
+  # clojure dev
+  - clojure
+  - leiningen
 
 aur:
+  # general
   - luarocks
+  # automation
   - terraform-lsp-git
   - terraform-provider-proxmox
+  # clojure dev
+  - boot
+  - joker-bin
 
 pips:
   # for generating password hashes
