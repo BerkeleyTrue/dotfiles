@@ -86,8 +86,8 @@ Plug 'yggdroot/indentLine'
 " Pop Up Menu Completion
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'neoclide/coc-neco'
-Plug 'Shougo/neco-vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'shougo/neco-vim'
 " }}}
 
 " Snippets
