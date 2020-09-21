@@ -151,6 +151,8 @@ Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'olical/aniseed'
 Plug 'olical/conjure', {'tag': 'v4.5.0'}
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-fireplace' " note: attempts to bind to K
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " }}}
