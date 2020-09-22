@@ -7,6 +7,7 @@
 
 " Vim leader key to ,
 let g:mapleader=','
+let g:maplocalleader=','
 
 " Map jj and kk to escape and move in insert mode
 inoremap jj <ESC>
@@ -259,15 +260,15 @@ noremap <silent><expr> <leader>/ incsearch#go(<SID>config_easyfuzzymotion())
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 " Search in line
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-map <Leader>w <Plug>(easymotion-w)
-map <Leader>W <Plug>(easymotion-W)
-map <Leader>b <Plug>(easymotion-b)
-map <Leader>B <Plug>(easymotion-B)
-map <Leader>f <Plug>(easymotion-fl)
+" map <Leader>l <Plug>(easymotion-lineforward)
+" map <Leader>j <Plug>(easymotion-j)
+" map <Leader>k <Plug>(easymotion-k)
+" map <Leader>h <Plug>(easymotion-linebackward)
+" map <Leader>w <Plug>(easymotion-w)
+" map <Leader>W <Plug>(easymotion-W)
+" map <Leader>b <Plug>(easymotion-b)
+" map <Leader>B <Plug>(easymotion-B)
+" map <Leader>f <Plug>(easymotion-fl)
 "
 vmap f <Plug>(easymotion-fl)
 omap f <Plug>(easymotion-fl)
