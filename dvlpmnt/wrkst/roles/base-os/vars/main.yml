@@ -26,6 +26,7 @@ aur:
   # clojure dev
   - boot
   - joker-bin
+  - fennel
 
 pips:
   # for generating password hashes
