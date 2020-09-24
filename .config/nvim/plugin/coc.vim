@@ -1,11 +1,15 @@
 " Configs
 "++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:coc_force_debug = 0
+" let $NVIM_COC_LOG_LEVEL='debug'
+" let g:node_client_debug= 1
+" let g:coc_node_args = ['--nolazy']
+" let g:coc_watch_extensions = ['coc-conjure']
+"
 let g:coc_global_extensions = [
       \ 'coc-conjure',
-      \ 'coc-elixir',
       \ 'coc-css',
       \ 'coc-dictionary',
+      \ 'coc-elixir',
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
