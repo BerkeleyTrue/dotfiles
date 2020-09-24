@@ -5,7 +5,6 @@
   "eslint.autoFixOnSave": true,
 
   "coc.source.conjure.enable": true,
-  "coc.source.conjure.shortcut": "CLR",
   "coc.source.conjure.filetypes": [
     "clojure",
     "fennel"
