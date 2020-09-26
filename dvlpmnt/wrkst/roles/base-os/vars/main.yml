@@ -24,9 +24,11 @@ aur:
   - terraform-lsp-git
   - terraform-provider-proxmox
   # clojure dev
+  - babashka-bin
   - boot
-  - joker-bin
+  - clojure-lsp-bin
   - fennel
+  - joker-bin
 
 pips:
   # for generating password hashes
