@@ -6,7 +6,7 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/local/share:/usr/share:$XDG_DATA_HOME}
 
-[[ -s "$HOME/.private_aliases"  ]] && source "$HOME/.private_aliases"
+[[ -s "$SHELL_CONF/.private_aliases"  ]] && source $SHELL_CONF/.private_aliases
 
 # don't use conditional check for files that should always be there
 source $SHELL_CONF/common_paths.sh
