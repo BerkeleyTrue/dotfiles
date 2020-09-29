@@ -16,6 +16,9 @@ packages:
   # clojure dev
   - clojure
   - leiningen
+  # node dev
+  - nodejs
+  - npm
 
 aur:
   # general
@@ -33,3 +36,4 @@ aur:
 pips:
   # for generating password hashes
   - passlib
+  - pynvim

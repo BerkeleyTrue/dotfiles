@@ -5,5 +5,4 @@
   roles:
     - base-os
     - paks
-    - nvm
     - npm

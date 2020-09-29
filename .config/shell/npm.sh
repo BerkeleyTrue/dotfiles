@@ -1,5 +1,6 @@
-alias npmig='npm install -g'
-alias npmug='npm uninstall -g'
+#! /bin/bash
+alias npmig='sudo npm install -g'
+alias npmug='sudo npm uninstall -g'
 
 alias npmid='npm install --save-dev'
 alias npmud='npm uninstall --save-dev'
@@ -7,30 +8,11 @@ alias npmud='npm uninstall --save-dev'
 alias npmis='npm install --save'
 alias npmus='npm uninstall --save'
 
-#! /bin/bash
+alias npmlsg='sudo npm list -g --depth=0'
+
 ###
 # install npm prerequisites:
 ###
-npminstallpre() {
-  sudo npm install -g \
-    trash \
-    commitizen \
-    cz-conventional-changelog \
-    conventional-changelog-angular \
-    conventional-recommended-bump \
-    conventional-changelog-cli \
-    conventional-github-releaser \
-    conventional-commits-detector \
-    eslint \
-    eslint-plugin-react \
-    eslint-plugin-import \
-    eslint-plugin-prefer-object-spread \
-    eslint-plugin-jest \
-    eslint-config-freecodecamp \
-    eslint-plugin-rulesdir \
-    babel-eslint \
-    json
-}
 # `npmpublish` with optional argument `patch`/`minor`/`major`/`<version>`
 # defaults to conventional-recommended-bump
 # and optional argument preset `angular`/ `jquery` ...
