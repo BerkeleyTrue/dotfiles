@@ -20,11 +20,16 @@
       "command": "bash",
       "args": ["-c", "clojure-lsp"],
       "filetypes": ["clojure"],
-      "rootPatterns": ["project.clj"],
+      "rootPatterns": [
+        "project.clj",
+        "deps.edn",
+        "build.boot"
+      ],
       "additionalSchemes": ["jar", "zipfile"],
       "trace.server": "verbose",
       "initializationOptions": {
-        "ignore-classpath-directories": true
+        "show-docs-arity-on-same-line?": true,
+        "macro-defs": {}
       }
     }
   }
