@@ -1,13 +1,28 @@
 ---
 npm_global_packages:
-  - bs-platform
+  - n
+  # clojurescript dev
+  - shadow-cljs
+
+  # package dev
   - commitizen
+  - conventional-changelog-angular
   - conventional-changelog-cli
   - conventional-commits-detector
   - conventional-github-releaser
   - conventional-recommended-bump
   - cz-conventional-changelog
-  - javascript-typescript-langserver
-  - neovim
+  - json
+  - node-gyp
+  - semver
   - trash
+
+  # linting
+  - eslint
+
+  - neovim
+
+  # typescript lsp
+  - typescript
+  - javascript-typescript-langserver
   - typescript-eslint-parser

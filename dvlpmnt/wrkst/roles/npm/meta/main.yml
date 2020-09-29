@@ -1,4 +1,3 @@
 ---
 dependencies:
   - role: base-os
-  - role: nvm

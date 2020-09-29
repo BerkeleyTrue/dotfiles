@@ -20,5 +20,3 @@ source $SHELL_CONF/git.sh
 [[ ISOSX ]] && [[ -s "./osx.sh" ]] && source $SHELL_CONF/osx.sh
 
 # nvm
-export NVM_DIR=${NVIM_DIR:-$XDG_CONFIG_HOME/nvm}
-source $SHELL_CONF/nvm.sh

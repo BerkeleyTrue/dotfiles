@@ -1,4 +1,0 @@
----
-nvm_version: 0.35.3
-nvm_dir: "{{ ansible_env.NVM_DIR }}"
-nvm_node_ver: 12
