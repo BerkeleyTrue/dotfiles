@@ -31,6 +31,22 @@
         "show-docs-arity-on-same-line?": true,
         "macro-defs": {}
       }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "css": {
+      "command": "css-languageserver",
+      "args": ["--stdio"],
+      "filetypes": ["css", "scss", "sss"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "args": ["--stdio"],
+      "filetypes": ["dockerfile"]
     }
   }
 }

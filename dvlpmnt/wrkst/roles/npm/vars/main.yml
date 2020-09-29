@@ -1,6 +1,8 @@
 ---
 npm_global_packages:
   - n
+  - neovim
+
   # clojurescript dev
   - shadow-cljs
 
@@ -20,9 +22,11 @@ npm_global_packages:
   # linting
   - eslint
 
-  - neovim
-
-  # typescript lsp
   - typescript
+
+  # lsp
   - javascript-typescript-langserver
   - typescript-eslint-parser
+  - vscode-css-languageserver-bin
+  - bash-language-server
+  - dockerfile-language-server-nodejs
