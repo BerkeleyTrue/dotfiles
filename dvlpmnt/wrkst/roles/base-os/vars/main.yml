@@ -4,6 +4,7 @@ packages:
   - curl
   - neovim
   - pkgfile
+  - unclutter
   - wget
   - yamllint
   - yay

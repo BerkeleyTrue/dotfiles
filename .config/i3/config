@@ -262,11 +262,15 @@ exec --no-startup-id start_conky_solarized
 exec --no-startup-id xautolock -time 60 -notify 120 -locker blurlock
 # touchpad support
 exec --no-startup-id synclient NaturalScrolling=1 VertScrollDelta=-113
+# private internet access vpn
 exec --no-startup-id /opt/piavpn/bin/pia-client
+# hide cursor when inactive
+exec --no-startup-id /bin/unclutter -b
 
 # exec on i3 restarts as well
-exec_always --no-startup-id ff-theme-util
+# exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+# launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # my apps to launch at startup
