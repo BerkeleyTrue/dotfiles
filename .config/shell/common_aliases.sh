@@ -34,6 +34,9 @@ mr_init() {
   export NODE_ENV=local
   /usr/bin/docker start mr-mongo mr-mysql-sanitized mr_redis_1 > /dev/null
 }
+mr_sd() {
+  /usr/bin/docker stop mr-mongo mr-mysql-sanitized mr_redis_1 > /dev/null
+}
 
 mr_th() {
   mr_init
@@ -61,3 +64,4 @@ mr_rv-stories() {
   cd ~/dvlpmnt/node/mr/actual/raven
   npm run stories
 }
+
