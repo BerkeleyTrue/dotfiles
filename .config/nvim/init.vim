@@ -307,18 +307,6 @@ let g:scrollfix = 50
 let g:fixeof = 0
 " }}}
 
-" Nerd Commenter
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 0
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" }}}
-
 " Airline config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:airline_theme='dracula'
@@ -560,3 +548,5 @@ augroup AutoColors
   autocmd VimEnter,ColorScheme * call AddHighlight()
 augroup END
 " }}}
+
+lua require('aniseed.dotfiles')
