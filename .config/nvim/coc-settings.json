@@ -36,7 +36,7 @@
       "command": "bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
+      "ignoredRootPaths": []
     },
     "css": {
       "command": "css-languageserver",
