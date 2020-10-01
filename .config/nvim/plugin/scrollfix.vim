@@ -22,10 +22,10 @@ if !exists('g:scrollinfo')
 endif
 "---------------- End of Parameterization Variables -------------------
 
-aug scrollfix
-  au!
-  au CursorMoved,CursorMovedI * :call ScrollFix()
-aug END
+" aug scrollfix
+"   au!
+"   au CursorMoved,CursorMovedI * :call ScrollFix()
+" aug END
 
 function! ScrollFix()
   " if disabled return
@@ -35,19 +35,37 @@ function! ScrollFix()
 
   " keep cursor on fixed visual line of the window
 
-  " get window height * the cursor desired window hieght
+  " window height * the cursor desired window hieght
+  " gives the desired num of lines from the top of the window
   let fixline = ( winheight(0) * g:scrollfix ) / 100
 
   " get meta of current window
   let dict = winsaveview()
-  " if the current cursor line num is the same as fixline, return
+
+  " if the current cursor line num in the buffer
+  " is the same as fixline, return
+  "
+  " means: window topline is the same as the buffer topline
+  " and cursor is at the desired location
   if dict['lnum'] <= fixline | return | endif
-  " if current line minus the top line number + 1 is equal to the fixline,
+
+  " if current line in the buffer
+  " minus the top buffer line number in the window + 1
+  " is equal to the fixline,
   " return
+  "
+  " means: the cursor is just below the fix line?
   if dict['lnum'] - dict['topline'] + 1 == fixline | return | endif
 
+  " fix the cursor at the end of the buffer as well
   if g:fixeof
-    " if last line is less than topline + total visible file lines and visual-line is >= fixline, don't fix cursor
+    " if last line is less than topline + total visible file lines
+    " and visual-line is >= fixline, don't fix cursor
+    "
+    " means; if the top line in the buffer + the total num of visible lines
+    " is greater than the last line number, we are at the bottom of the file
+    " and current visual line is greater than or equal the desired line
+    " don't fix
     if line('$') < dict['topline'] + winheight(0) && dict['lnum'] >= fixline
       return
     endif
@@ -62,6 +80,7 @@ function! ScrollFix()
     if !exists('b:fixline') || b:fixline != fixline
       let b:fixline = fixline
       let save_lz = &lazyredraw
+      " force redraw the screen
       set nolazyredraw
       redraw
       echo 'scroll fixed at line ' . b:fixline . ' of ' . winheight(0).' ('. g:scrollfix '%)'
