@@ -26,6 +26,7 @@ endfunction
 function! s:GoMasterWindow(...)
   let flags = a:0 > 0 ? a:1 : ""
   let winnr = 1
+
   while 1
     let bufnr = winbufnr(winnr)
     if bufnr < 0
@@ -40,6 +41,7 @@ function! s:GoMasterWindow(...)
     endif
     let winnr = winnr + 1
   endwhile
+
   if winnr > 0
     execute winnr.'wincmd w'
     return winnr
@@ -47,16 +49,16 @@ function! s:GoMasterWindow(...)
     let bufname = getbufvar(bufnr('%'), 'bufname')
     if s:use_vertical
       if 0 < s:digest_size && s:digest_size < winwidth(0)
-	let size = winwidth(0) - s:digest_size
+  let size = winwidth(0) - s:digest_size
       else
-	let size = ''
+  let size = ''
       endif
       silent execute "rightbelow ".size." vsplit ".bufname
     else
       if 0 < s:digest_size && s:digest_size < winheight(0)
-	let size = winheight(0) - s:digest_size
+  let size = winheight(0) - s:digest_size
       else
-	let size = ''
+  let size = ''
       endif
       silent execute "rightbelow ".size." split ".bufname
     endif
@@ -172,43 +174,63 @@ endfunction
 
 function! s:GenerateFoldDigest()
   " Configure script options
+  " get the num of digets in the line umber
+  " Don't think this is used for getting fold data
   let s:numwidth = strlen(line('$').'')
   if !s:use_flexnumwidth || s:numwidth < 0 || s:numwidth > 7
     let s:numwidth = 7
   endif
-  " Open all folds and fetch lines at start of the fold.
   let foldnum = 0
+  " store where the cursor is currently
   let cursorline = line('.')
   let cursorfoldnum = -1
   let firstfoldline = 0
+
+  " go to the top of the file
   normal! zRgg
+
+  " does first level have a fold
   if foldlevel(1) > 0
     call s:AddFoldDigest(1)
     let firstfoldline = 1
   else
     call s:AddRegA(1, '^')
   endif
+
   while 1
     let prevline = line('.')
     normal! zj
     let currline = line('.')
+    " on last line
     if prevline == currline
       break
     endif
+    " get the fold level of the current line
     if foldlevel(currline) > 0
+      " set seen first fold line
       if firstfoldline == 0
-	let firstfoldline = currline
+        let firstfoldline = currline
       endif
+
+      " if prev line is above or on the cursor and the current line is below the
+      " cursor
       if prevline <= cursorline && cursorline < currline
-	let cursorfoldnum = foldnum
+        " store the cursor fold number
+        let cursorfoldnum = foldnum
       endif
+
+      " inc fold num
       let foldnum = foldnum + 1
       call s:AddFoldDigest(currline)
+
     endif
   endwhile
+
   if cursorfoldnum < 0
+    " if cursor is on the last line add one fold?
     let cursorfoldnum = (cursorline == line('$') ? 1 : 0) + foldnum
   endif
+
   call s:AddRegA(line('$'), '$')
   return cursorfoldnum + 1
 endfunction
