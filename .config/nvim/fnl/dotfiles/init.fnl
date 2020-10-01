@@ -3,3 +3,4 @@
 
 (require :dotfiles.plugins.nerd-commenter)
 (require :dotfiles.plugins.scroll-fix)
+(require :dotfiles.plugins.sexp)
