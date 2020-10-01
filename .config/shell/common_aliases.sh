@@ -53,13 +53,13 @@ mr_ws() {
   npm run dev-website
 }
 
-mr_rv-tests() {
+mr_rv_tests() {
   mr_init
   cd ~/dvlpmnt/node/mr/actual/raven
   npm run test
 }
 
-mr_rv-stories() {
+mr_rv_stories() {
   mr_init
   cd ~/dvlpmnt/node/mr/actual/raven
   npm run stories
