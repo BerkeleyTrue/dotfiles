@@ -124,8 +124,12 @@ function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr> P       defx#do_action('paste')
   nnoremap <silent><buffer> cr            :call DefxChangeRoot()<CR>
   nnoremap <silent><buffer><expr><Tab>    defx#do_action('toggle_select')
+
+  nnoremap <silent><buffer><expr> L       defx#do_action('open_tree')
+  nnoremap <silent><buffer><expr> H       defx#do_action('close_tree')
   nnoremap <silent><buffer><expr> j       line('.') == line('$') ? 'gg' : 'j'
   nnoremap <silent><buffer><expr> k       line('.') == 1 ? 'G' : 'k'
+
   nnoremap <silent><buffer><expr> R       defx#do_action('redraw')
   nnoremap <silent><buffer><expr> cd      defx#do_action('change_vim_cwd')
 
