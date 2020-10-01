@@ -11,7 +11,7 @@
     (a.assoc :topline line)
     (nvim.fn.winrestview)))
 
-(defn print-info [desired-win-line fix-percent winheight]
+(defn- print-info [desired-win-line fix-percent winheight]
   ;; prints info when the window height changes
   (when (or (not (nvim.fn.exists "b:desired_win_line"))
             (not= (. nvim.b :desired_win_line) desired-win-line))
@@ -25,7 +25,7 @@
 
       ;; echo info
       (nvim.echo (..
-                   "Scroll fixed at line " (. nvim.b :desired_win_line)
+                   "Scroll fixed at line " (a.pr-str (. nvim.b :desired_win_line))
                    "/" winheight
                    " (" fix-percent "%)"))
 
@@ -55,9 +55,9 @@
         ;; get the window height
         ;; multiply by fix-percent (defaults to 60 percent of window)
         ;; get percent (div 100)
-        desired-win-line (/
-                          (* winheight fix-percent)
-                          100)
+        desired-win-line (math.floor (/
+                                      (* winheight fix-percent)
+                                      100))
 
         desired-buf-line (+ top-visible-line desired-win-line)
 
