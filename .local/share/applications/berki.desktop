@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Berki
+Comment=Open up the berks wiki, Ber-ki
+GenericName=Open up the berks wiki, Ber-ki
+Icon=Alacritty
+Terminal=false
+Exec=alacritty --title "Ber-ki" -e sh -c "cd $HOME/docs/corpus; sleep .05; nvim"
+Categories=ConsoleOnly;WIKI
+Keywords=WIKI;CORPUS;NOTES;
