@@ -41,7 +41,7 @@
         ;; configs
         fix-percent (a.get nvim.g :scroll_fix_percent 60)
         is-enabled? (a.get nvim.g :scroll_fix_enabled true)
-        fix-at-eof (a.get nvim.g :scroll_fix_at-eof true)
+        fix-at-eof (a.get nvim.g :scroll_fix_at_eof true)
         is-debug (a.get nvim.g :scroll_fix_debug false)
 
         ;; world facts
@@ -91,7 +91,7 @@
       (when (not (or
                    is-above-buf-margin?
                    is-on-desired?
-                   (and fix-at-eof
+                   (and (not fix-at-eof)
                         is-eof?
                         is-below-desired?)))
 
