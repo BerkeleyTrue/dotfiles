@@ -51,7 +51,6 @@ endfunction
 
 
 function! s:defx_settings() "{{{
-  nnoremap <silent><buffer><expr><CR>     defx#is_directory() ? defx#do_action('open_tree', 'toggle') : defx#do_action('multi', ['drop', 'quit'])
   nnoremap <silent><buffer><expr><Space>  defx#is_directory() ? defx#do_action('open_tree', 'toggle') : defx#do_action('close_tree')
   nnoremap <silent><buffer><expr> C       defx#do_action('copy')
   nnoremap <silent><buffer><expr> M       defx#do_action('move')
@@ -66,7 +65,6 @@ function! s:defx_settings() "{{{
   nnoremap <silent><buffer><expr> .       defx#do_action('toggle_ignored_files')
   nnoremap <silent><buffer><expr><C-p>    defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> P       defx#do_action('paste')
-  nnoremap <silent><buffer> cr            :call DefxChangeRoot()<CR>
   nnoremap <silent><buffer><expr><Tab>    defx#do_action('toggle_select')
 
   nnoremap <silent><buffer><expr> L       defx#do_action('open_tree')

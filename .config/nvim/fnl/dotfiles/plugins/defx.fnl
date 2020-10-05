@@ -1,10 +1,9 @@
 (module dotfiles.plugins.defx
   {:require {nvim aniseed.nvim
+             utils dotfiles.utils
              nutils aniseed.nvim.util
              a aniseed.core
              str aniseed.string}})
-
-
 
 
 (nvim.fn.call
@@ -69,6 +68,7 @@
 (defn is-defx-buf [] (= (. nvim.o :filetype) "defx"))
 
 (defn defx-explorer [dir]
+  ; open defx explorer
   (let [dir (if (str.blank? dir) (nvim.fn.getcwd) dir)
         is-defx (is-defx-buf)]
 
@@ -81,11 +81,13 @@
 (nvim.set_keymap
   "n"
   "get"
-  ":call DefxExplorer('')<CR>"
+  ":call DefxExplorer(getcwd())<CR>"
   {:silent true
    :noremap true})
 
 (defn defx-search [search dir]
+  ; open defx and search for file in tree, expand that tree
+  ; If already in a defx buffer, close it
   (let [dir (if (str.blank? dir) (nvim.fn.getcwd) dir)
         search (if (str.blank? search) (nvim.fn.expand "%:p") search)
         is-defx (is-defx-buf)]
@@ -98,7 +100,36 @@
 
 (nvim.set_keymap
   "n"
-  "zef"
+  "gef"
   ":call DefxSearch(expand('%:p'), getcwd())<CR>"
   {:silent true
    :noremap true})
+
+(defn defx-change-root []
+  (let [is-dir (nvim.fn.call :defx#is_directory)]
+    (when is-dir
+      (do
+        (nvim.fn.call :defx#call_action ["yank_path"])
+        (nvim.fn.call :defx#call_action ["cd" (nvim.fn.getreg 0)])))))
+
+(nutils.fn-bridge "DefxChangeRoot" "dotfiles.plugins.defx" "defx-change-root")
+
+(defn defx-settings []
+  (utils.nnoremap "cr" ":call DefxChangeRoot()<CR>" true)
+  (utils.nnoremap "<CR>" (..
+                           "defx#is_directory() ? "
+                           "defx#do_action('open_tree', 'toggle') : "
+                           "defx#do_action('multi', ['drop', 'quit'])") true true))
+
+(do
+  (nvim.ex.augroup :defx-settings-au)
+  (nvim.ex.autocmd_)
+  (nvim.ex.autocmd (..
+                     "FileType defx "
+                     ":"
+                     (utils.viml->lua
+                       :dotfiles.plugins.defx
+                       :defx-settings)))
+
+  (nvim.ex.augroup :END)
+  {:defx-settings defx-settings})
