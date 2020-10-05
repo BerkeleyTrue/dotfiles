@@ -114,12 +114,18 @@
 
 (nutils.fn-bridge "DefxChangeRoot" "dotfiles.plugins.defx" "defx-change-root")
 
+(defn nnoremap-buf-expr [lhs rhs]
+  (utils.nnoremap lhs rhs {:buffer true :expr true :silent true}))
+
+;; all are buffer
 (defn defx-settings []
-  (utils.nnoremap "cr" ":call DefxChangeRoot()<CR>" true)
-  (utils.nnoremap "<CR>" (..
-                           "defx#is_directory() ? "
-                           "defx#do_action('open_tree', 'toggle') : "
-                           "defx#do_action('multi', ['drop', 'quit'])") true true))
+  ;; not expression
+  (utils.nnoremap "cr" ":call DefxChangeRoot()<CR>" {:buffer true :silent true :expr false})
+  ;; all are expr
+  (nnoremap-buf-expr "<CR>" (..
+                              "defx#is_directory() ? "
+                              "defx#do_action('open_tree', 'toggle') : "
+                              "defx#do_action('multi', ['drop', 'quit'])")))
 
 (do
   (nvim.ex.augroup :defx-settings-au)
