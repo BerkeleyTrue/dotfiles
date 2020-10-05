@@ -18,15 +18,15 @@
          :script script
          :unique unique} (or options {})]
 
-    (when buffer
+    (if buffer
       (nvim.buf_set_keymap 0 "n" lhs rhs {:expr expr
                                           :silent silent
                                           :nowait nowait
                                           :script script
                                           :noremap true})
 
-      (nvim.set_keymap "n" lhs rhs {:expr expr
-                                    :silent silent
-                                    :nowait nowait
-                                    :script script
-                                    :noremap true}))))
+      (nvim.set_keymap       "n" lhs rhs {:expr expr
+                                          :silent silent
+                                          :nowait nowait
+                                          :script script
+                                          :noremap true}))))
