@@ -16,17 +16,16 @@
          :buffer buffer
          :nowait nowait
          :script script
-         :unique unique} (or options {})]
+         :unique unique} (or options {})
+
+        args ["n" lhs rhs {:expr expr
+                           :silent silent
+                           :nowait nowait
+                           :script script
+                           :noremap true}]]
+
 
     (if buffer
-      (nvim.buf_set_keymap 0 "n" lhs rhs {:expr expr
-                                          :silent silent
-                                          :nowait nowait
-                                          :script script
-                                          :noremap true})
+      (nvim.buf_set_keymap 0 (unpack args))
 
-      (nvim.set_keymap       "n" lhs rhs {:expr expr
-                                          :silent silent
-                                          :nowait nowait
-                                          :script script
-                                          :noremap true}))))
+      (nvim.set_keymap (unpack args)))))
