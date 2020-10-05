@@ -1,7 +1,7 @@
 (module dotfiles.plugins.scroll-fix
   {:require {a aniseed.core
              nvim aniseed.nvim
-             bridge dotfiles.bridge}})
+             utils dotfiles.utils}})
 
 
 (defn- set-top-of-window [line wintable]
@@ -107,7 +107,7 @@
   (nvim.ex.autocmd (..
                      "CursorMoved,CursorMovedI * "
                      ":"
-                     (bridge.viml->lua
+                     (utils.viml->lua
                        :dotfiles.plugins.scroll-fix
                        :scroll-fix)))
 
