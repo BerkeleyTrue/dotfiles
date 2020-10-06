@@ -5,3 +5,4 @@
 (require :dotfiles.plugins.scroll-fix)
 (require :dotfiles.plugins.sexp)
 (require :dotfiles.plugins.defx)
+(require :dotfiles.plugins.fzf)
