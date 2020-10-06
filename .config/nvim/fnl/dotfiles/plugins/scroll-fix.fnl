@@ -42,7 +42,7 @@
         fix-percent (a.get nvim.g :scroll_fix_percent 60)
         is-enabled? (a.get nvim.g :scroll_fix_enabled true)
         fix-at-eof (a.get nvim.g :scroll_fix_at_eof true)
-        is-debug (a.get nvim.g :scroll_fix_debug false)
+        is-debug? (a.get nvim.g :scroll_fix_debug false)
 
         ;; world facts
         winheight (nvim.fn.winheight 0)
@@ -55,16 +55,17 @@
         ;; get the window height
         ;; multiply by fix-percent (defaults to 60 percent of window)
         ;; get percent (div 100)
-        desired-win-line (math.floor (/
-                                      (* winheight fix-percent)
-                                      100))
+        desired-win-line (-> winheight
+                             (* fix-percent)
+                             (/ 100)
+                             (math.floor))
 
         desired-buf-line (+ top-visible-line desired-win-line)
 
         ;; when the current buffer line
         ;; is less than the desired window line
         ;; it is at the beginning of the buffer
-        is-above-buf-margin? (<= current-buf-line desired-win-line)
+        is-above-buf-margin? (<= current-buf-line (- desired-win-line 1))
         is-on-desired? (=
                         (+ (- current-buf-line top-visible-line) 1)
                         desired-win-line)
@@ -105,7 +106,7 @@
   (nvim.ex.augroup :scroll_fix_au)
   (nvim.ex.autocmd_)
   (nvim.ex.autocmd (..
-                     "CursorMoved,CursorMovedI * "
+                     "CursorMoved,CursorMovedI,BufEnter,BufFilePre * "
                      ":"
                      (utils.viml->lua
                        :dotfiles.plugins.scroll-fix
