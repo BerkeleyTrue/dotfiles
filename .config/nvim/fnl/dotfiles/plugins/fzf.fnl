@@ -22,11 +22,19 @@
 
     (nvim.fn.fzf#vim#ag_raw command)))
 
+(defn ag-in-fzf-from-cwb [...]
+  (let [dir (nvim.fn.expand "%:p:h")]
+    (ag-in-fzf ... dir)))
+
 (do
   (nvim.ex.augroup :fzf-ag)
   (nvim.ex.autocmd_)
   (nvim.ex.autocmd (..
                        "VimEnter * command! -nargs=* -complete=dir Ag "
                        (utils.viml->lua :dotfiles.plugins.fzf :ag-in-fzf {:args "<f-args>"})))
+  (nvim.ex.autocmd (..
+                       "VimEnter * command! -nargs=* -complete=dir Agdot "
+                       (utils.viml->lua :dotfiles.plugins.fzf :ag-in-fzf-from-cwb {:args "<f-args>"})))
   (nvim.ex.augroup :END)
-  {:ag-in-fzf ag-in-fzf})
+  {:ag-in-fzf ag-in-fzf
+   :ag-in-fzf-from-cwb ag-in-fzf-from-cwb})
