@@ -148,7 +148,7 @@ Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'olical/aniseed'
-Plug 'olical/conjure', {'tag': 'v4.5.0'}
+Plug 'olical/conjure', {'tag': 'v4.6.0'}
 Plug 'olical/nvim-local-fennel', {'tag': 'v2.3.0'}
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-dispatch'
