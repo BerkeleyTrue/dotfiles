@@ -39,11 +39,7 @@ nnoremap <C-w>hv <C-w>t<C-w>H
 " resize tab to fit scripts
 nnoremap <C-w>vr :call animate#window_absolute_width(90)<cr>
 
-" H to move to the beginning of the line
-noremap H ^
-" L move to the end of the line
-noremap L $
-" same but in visual mode
+" move to the end of the line in visual mode
 vnoremap L g_
 " }}}
 
