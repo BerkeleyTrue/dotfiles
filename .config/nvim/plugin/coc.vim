@@ -12,7 +12,6 @@ let g:coc_global_extensions = [
       \ 'coc-elixir',
       \ 'coc-emmet',
       \ 'coc-emoji',
-      \ 'coc-eslint',
       \ 'coc-git',
       \ 'coc-html',
       \ 'coc-jest',
