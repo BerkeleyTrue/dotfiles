@@ -29,3 +29,17 @@
       (nvim.buf_set_keymap 0 (unpack args))
 
       (nvim.set_keymap (unpack args)))))
+
+(defn get-char-under-curs [offset]
+  ; (get-char-under-curs offset)
+  ; get the character under the cursor offset by offset num of chars
+  ; might not work with multi-byte chars
+  (let [line (nvim.fn.getline ".")
+        col (-> "."
+                (nvim.fn.col)
+                (- 1)
+                (+ offset))]
+
+    (-> line
+        (nvim.fn.strpart col)
+        (nvim.fn.strcharpart 0 1))))
