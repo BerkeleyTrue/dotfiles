@@ -2,6 +2,24 @@
   {:require {a aniseed.core}})
 
 (def some a.some)
+(def _ :placeholder)
+
+(defn curry [func arity]
+  "Creates a function that accepts arguments of func and either invokes func returning its result,
+  if at least arity number of arguments have been provided, or returns a function that
+  accepts the remaining func arguments, and so on. The arity of func may be specified."
+  (let [arity (or arity (. (debug.getinfo func "u") :nparams))]
+    (if
+      (< arity 2) func
+      (do
+        (var args [])
+        (defn wrapper [...]
+          (let [new-args [...]]
+            (a.map #(table.insert args $1) new-args)
+            (if
+              (= (length args) arity) (func (unpack args))
+              wrapper)))
+        wrapper))))
 
 (defn to-pairs [tabl]
   "(to-pairs {:a b}) => [[:a 'b']]"
@@ -40,8 +58,8 @@
 (defn tap [interceptor val]
   "(tap #(print $1) val)"
   "calls interceptor with val, then returns val"
-  (interceptor x)
-  x)
+  (interceptor val)
+  val)
 
 (defn clamp [min max val]
   "(clamp 0 1 5) => 1
