@@ -10,26 +10,25 @@
   accepts the remaining func arguments, and so on. The arity of func may be specified."
   (let [arity (or arity (. (debug.getinfo func "u") :nparams))]
     (if
-      (< arity 2) func
+      (< arity 1) func
       (do
-        (var args [])
-        (defn wrapper [...]
-          (let [new-args [...]]
-            (a.map #(table.insert args $1) new-args)
-            (if
-              (= (length args) arity) (func (unpack args))
-              wrapper)))
-        wrapper))))
+        (defn wrapper [args needed]
+          (print needed)
+          (if
+            (< needed 1) (func (unpack args))
+            (fn [...]
+              (let [args (a.concat args [...])
+                    needed (- needed (select :# ...))]
+                (wrapper args needed)))))
+        (wrapper [] arity)))))
 
 (defn to-pairs [tabl]
   "(to-pairs {:a b}) => [[:a 'b']]"
   "Convert a table into an list of key,value pairs"
   (a.kv-pairs tabl))
 
-(defn is-equal [x]
-  "(is-equal 'a')"
-  "creates a predicate function that will return true when called when called with arg"
-  #(= x $1))
+;"creates a predicate function that will return true when called when called with arg"
+(def is-equal (curry #(= $1 $2)))
 
 (defn find [predicate collection]
   "(find predicate collection)"
