@@ -13,7 +13,6 @@
       (< arity 1) func
       (do
         (defn wrapper [args needed]
-          (print needed)
           (if
             (< needed 1) (func (unpack args))
             (fn [...]
