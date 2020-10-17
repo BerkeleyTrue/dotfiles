@@ -3,14 +3,15 @@
              a aniseed.core}})
 
 (defn viml->lua [m f opts]
+  "(viml->lua :module.a :module-function {:args ['foo' 'bar']})"
   (..
     "lua require('" m "')"
     "['" f "']"
     "(" (or (and opts opts.args) "") ")"))
 
 (defn nnoremap [lhs rhs options]
-  ; create a nnoremap
-  ; usage (nnoremap "cr" ":echo 'foo'" {:expr true :buffer false :nowait false}))
+  "(nnoremap 'cr' ':echo foo' {:expr true :buffer false :nowait false})
+  create a nnoremap"
   (let [{:expr expr
          :silent silent
          :buffer buffer
@@ -24,22 +25,15 @@
                            :script script
                            :noremap true}]]
 
-
-    (if buffer
-      (nvim.buf_set_keymap 0 (unpack args))
-
+    (if
+      buffer (nvim.buf_set_keymap 0 (unpack args))
       (nvim.set_keymap (unpack args)))))
 
-(defn get-char-under-curs [offset]
-  ; (get-char-under-curs offset)
-  ; get the character under the cursor offset by offset num of chars
-  ; might not work with multi-byte chars
+(defn get-char-under-curs []
+  "(get-char-under-curs)
+  get the character under the cursor
+  should work with multi-byte chars but is slower than other methods"
   (let [line (nvim.fn.getline ".")
-        col (-> "."
-                (nvim.fn.col)
-                (- 1)
-                (+ offset))]
-
-    (-> line
-        (nvim.fn.strpart col)
-        (nvim.fn.strcharpart 0 1))))
+        col (nvim.fn.col ".")
+        matchReg (.. "\\%" col "c.")]
+    (nvim.fn.matchstr line matchReg)))
