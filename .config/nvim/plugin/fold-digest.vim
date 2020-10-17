@@ -24,7 +24,7 @@ function! s:MarkMasterWindow()
 endfunction
 
 function! s:GoMasterWindow(...)
-  let flags = a:0 > 0 ? a:1 : ""
+  let flags = a:0 > 0 ? a:1 : ''
   let winnr = 1
 
   while 1
@@ -53,14 +53,14 @@ function! s:GoMasterWindow(...)
       else
   let size = ''
       endif
-      silent execute "rightbelow ".size." vsplit ".bufname
+      silent execute 'rightbelow '.size.' vsplit '.bufname
     else
       if 0 < s:digest_size && s:digest_size < winheight(0)
   let size = winheight(0) - s:digest_size
       else
   let size = ''
       endif
-      silent execute "rightbelow ".size." split ".bufname
+      silent execute 'rightbelow '.size.' split '.bufname
     endif
     call s:MarkMasterWindow()
     return winnr()
@@ -75,7 +75,7 @@ function! s:Jump()
   let line = getline(linenr)
   if line !~ mx
     echohl Error
-    echo "Format error has been detected"
+    echo 'Format error has been detected'
     echohl None
     return
   endif
@@ -117,15 +117,15 @@ function! s:MakeDigestBuffer()
   let bufnum = bufnr('%')
   let bufname = expand('%:p')
   call s:MarkMasterWindow()
-  let name = "==FOLDDIGEST== ".expand('%:t')." [".bufnum."]"
+  let name = '==FOLDDIGEST== '.expand('%:t').' ['.bufnum.']'
   let winnr = bufwinnr(name)
   let s:do_auto_refresh = 0
   if winnr < 1
-    let size = s:digest_size > 0 ? s:digest_size : ""
+    let size = s:digest_size > 0 ? s:digest_size : ''
     if s:use_vertical
-      silent execute size." vsplit ++enc= ".escape(name, ' ')
+      silent execute size.' vsplit ++enc= '.escape(name, ' ')
     else
-      silent execute size." split ++enc= ".escape(name, ' ')
+      silent execute size.' split ++enc= '.escape(name, ' ')
     endif
   else
     execute winnr.'wincmd w'
@@ -174,7 +174,7 @@ endfunction
 
 function! s:GenerateFoldDigest()
   " Configure script options
-  " get the num of digets in the line umber
+  " get the num of digets in the line number
   " Don't think this is used for getting fold data
   let s:numwidth = strlen(line('$').'')
   if !s:use_flexnumwidth || s:numwidth < 0 || s:numwidth > 7
@@ -186,9 +186,11 @@ function! s:GenerateFoldDigest()
   let cursorfoldnum = -1
   let firstfoldline = 0
 
+  " unfold all the folds recursively
   " go to the top of the file
   normal! zRgg
 
+  "foldlevel(lnum) gets the level of fold of the current line
   " does first level have a fold
   if foldlevel(1) > 0
     call s:AddFoldDigest(1)
@@ -199,9 +201,10 @@ function! s:GenerateFoldDigest()
 
   while 1
     let prevline = line('.')
+    "move downwards to the start of the next fold
     normal! zj
     let currline = line('.')
-    " on last line
+    " no more folds found
     if prevline == currline
       break
     endif
@@ -226,8 +229,10 @@ function! s:GenerateFoldDigest()
     endif
   endwhile
 
+  " after registering all the fold lines
   if cursorfoldnum < 0
-    " if cursor is on the last line add one fold?
+    " if cursor is on the last line, fold number is one plus foldnum,
+    " otherwise foldnum
     let cursorfoldnum = (cursorline == line('$') ? 1 : 0) + foldnum
   endif
 
@@ -255,11 +260,14 @@ function! FoldDigest()
   call setreg('a', '')
   " Suppress bell when "normal! zj" in a last fold
   let save_visualbell = &visualbell
+  " not needed for nvim
   let save_t_vb = &t_vb
-  set vb t_vb=
+  set visualbell t_vb=
   " Generate regexp pattern for Foldtext()
+  " dont need these
   let s:mx_foldmarker = "\\V\\%(".substitute(escape(getwinvar(winnr(), '&foldmarker'), '\'), ',', '\\|', 'g')."\\)\\d\\*"
   let s:mx_commentstring = '\V'.substitute(escape(getbufvar(bufnr('%'), '&commentstring'), '\'), '%s', '\\(\\.\\*\\)', 'g').''
+  " fold num of the cursor line
   let currfold = s:GenerateFoldDigest()
   " Revert bell
   let &visualbell = save_visualbell
@@ -267,16 +275,18 @@ function! FoldDigest()
   " Revert cursor line
   execute save_line
   if !s:use_nofoldclose
+    " closes all the folds, then opens the fold under the cursor recursively
     silent! normal! zMzO
   endif
   " Keep same cursor position as possible
   if save_winline > winline()
-    execute "normal! ".(save_winline - winline())."\<C-Y>"
+    execute 'normal! '.(save_winline - winline())."\<C-Y>"
   elseif save_winline < winline()
-    execute "normal! ".(winline() - save_winline)."\<C-E>"
+    execute 'normal! '.(winline() - save_winline)."\<C-E>"
   endif
   call s:MakeDigestBuffer()
-  echo "currfold=".currfold
+  " at this point we are in the fold digest buffer
+  echo 'currfold='.currfold
   if 0 < currfold && currfold <= line('$')
     execute currfold
     call s:IndicateRawline(currfold)
