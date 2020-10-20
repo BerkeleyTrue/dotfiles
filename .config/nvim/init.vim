@@ -395,11 +395,6 @@ set cursorcolumn
 set cursorline
 " }}}
 
-" Markdown config
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:vim_markdown_conceal = 0
-" }}}
-
 " Vimtex config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:vimtex_fold_enabled = 1
