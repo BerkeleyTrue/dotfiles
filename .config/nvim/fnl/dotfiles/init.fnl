@@ -7,3 +7,4 @@
 (require :dotfiles.plugins.defx)
 (require :dotfiles.plugins.fzf)
 (require :dotfiles.plugins.accents)
+(require :dotfiles.plugins.markdown)
