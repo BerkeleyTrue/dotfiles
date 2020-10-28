@@ -55,6 +55,11 @@ mr_ws() {
   npm run dev-website
 }
 
+mr_pcm() {
+  mr_init
+  npm run dev-pcm
+}
+
 mr_rv_tests() {
   mr_init
   cd ~/dvlpmnt/node/mr/actual/raven
