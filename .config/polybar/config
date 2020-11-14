@@ -278,7 +278,7 @@ bar-used-empty-foreground = ${colors.comment}
 type = internal/network
 interface = wlp64s0
 interval = 1
-ping-interval = 10
+; ping-interval = 10
 
 format-connected = %{u#ffb86c}%{F#ffb86c}%{F-} <ramp-signal> <label-connected>
 label-connected =  %downspeed%   %upspeed%
