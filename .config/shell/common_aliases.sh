@@ -9,9 +9,10 @@ alias ls=$LISTC
 alias ll=$LISTC_N_ARGS
 alias man=$(command -v batman > /dev/null 2>&1 && echo 'batman' || echo 'man')
 
-alias v='nvim'
-alias vi='nvim'
-alias vim='nvim'
+alias v='nvim.appimage'
+alias vi='nvim.appimage'
+alias vim='nvim.appimage'
+alias nvim='nvim.appimage'
 ## Use vimrc with sudo vim
 alias suvim='sudo -E nvim'
 alias tmux="TERM=screen-256color-bce tmux -2"
