@@ -53,6 +53,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 Plug 'kshenoy/vim-signature'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'machakann/vim-sandwich'
 Plug 'matze/vim-move'
 Plug 'mg979/vim-visual-multi'
@@ -64,6 +65,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'raimondi/delimitMate'
+Plug 'romgrk/barbar.nvim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tmhedberg/matchit'
@@ -78,8 +80,8 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'wellle/targets.vim'
-"Plug 'wincent/corpus' requires 5.0
 Plug 'yggdroot/indentLine'
+"Plug 'wincent/corpus' requires 5.0
 "}}}
 
 " Pop Up Menu Completion
@@ -317,7 +319,7 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 
 " Tab buffer list above the window
-let g:airline#extensions#tabline#enabled = 2
+let g:airline#extensions#tabline#enabled = 0
 
 let g:airline#extensions#ale#enabled = 0
 
