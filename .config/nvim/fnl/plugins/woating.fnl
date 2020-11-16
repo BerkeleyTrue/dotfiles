@@ -1,4 +1,4 @@
-(module dotfiles.plugins.woating
+(module plugins.woating
   {:require {a aniseed.core
              nvim aniseed.nvim}})
 

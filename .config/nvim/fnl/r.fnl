@@ -1,4 +1,4 @@
-(module dotfiles.r
+(module r
   {:require {a aniseed.core}})
 
 (def some a.some)

@@ -1,12 +1,12 @@
-(module dotfiles.plugins.fzf
+(module plugins.fzf
   {:require {a aniseed.core
              str aniseed.string
              nvim aniseed.nvim
              nutil aniseed.nvim.util
-             woating dotfiles.plugins.woating
-             utils dotfiles.utils}})
+             woating plugins.woating
+             utils utils}})
 
-(a.assoc nvim.g :fzf_layout {:window (utils.viml->lua :dotfiles.plugins.woating :create-woating)})
+(a.assoc nvim.g :fzf_layout {:window (utils.viml->lua :plugins.woating :create-woating)})
 
 (defn ag-in-fzf [...]
   (let [args [...]
@@ -31,10 +31,10 @@
   (nvim.ex.autocmd_)
   (nvim.ex.autocmd (..
                        "VimEnter * command! -nargs=* -complete=dir Ag "
-                       (utils.viml->lua :dotfiles.plugins.fzf :ag-in-fzf {:args "<f-args>"})))
+                       (utils.viml->lua :plugins.fzf :ag-in-fzf {:args "<f-args>"})))
   (nvim.ex.autocmd (..
                        "VimEnter * command! -nargs=* -complete=dir Agdot "
-                       (utils.viml->lua :dotfiles.plugins.fzf :ag-in-fzf-from-cwb {:args "<f-args>"})))
+                       (utils.viml->lua :plugins.fzf :ag-in-fzf-from-cwb {:args "<f-args>"})))
   (nvim.ex.augroup :END)
   {:ag-in-fzf ag-in-fzf
    :ag-in-fzf-from-cwb ag-in-fzf-from-cwb})
