@@ -80,8 +80,8 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'wellle/targets.vim'
+Plug 'wincent/corpus'
 Plug 'yggdroot/indentLine'
-"Plug 'wincent/corpus' requires 5.0
 "}}}
 
 " Pop Up Menu Completion
