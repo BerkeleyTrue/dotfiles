@@ -8,3 +8,4 @@
 (require :plugins.fzf)
 (require :plugins.accents)
 (require :plugins.markdown)
+(require :plugins.corpus)
