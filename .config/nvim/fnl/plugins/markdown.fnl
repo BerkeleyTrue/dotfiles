@@ -1,4 +1,4 @@
-(module dotfiles.plugins.markdown
+(module plugins.markdown
   {:require {a aniseed.core
              nvim aniseed.nvim}})
 

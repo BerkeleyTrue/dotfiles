@@ -1,4 +1,4 @@
-(module dotfiles.plugins.nerd-commenter
+(module plugins.nerd-commenter
   {:require {nvim aniseed.nvim}})
 
 

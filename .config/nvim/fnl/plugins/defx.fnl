@@ -1,6 +1,6 @@
-(module dotfiles.plugins.defx
+(module plugins.defx
   {:require {nvim aniseed.nvim
-             utils dotfiles.utils
+             utils utils
              nutils aniseed.nvim.util
              a aniseed.core
              str aniseed.string}})
@@ -77,7 +77,7 @@
       (nvim.fn.call :defx#call_action ["quit"])
       (nvim.ex.Defx "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
 
-(nutils.fn-bridge "DefxExplorer" "dotfiles.plugins.defx" "defx-explorer")
+(nutils.fn-bridge "DefxExplorer" "plugins.defx" "defx-explorer")
 
 (nvim.set_keymap
   "n"
@@ -97,7 +97,7 @@
       (nvim.fn.call :defx#call_action ["quit"])
       (nvim.ex.Defx (.. "-search=" search) "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
 
-(nutils.fn-bridge "DefxSearch" "dotfiles.plugins.defx" "defx-search")
+(nutils.fn-bridge "DefxSearch" "plugins.defx" "defx-search")
 
 (nvim.set_keymap
   "n"
@@ -113,7 +113,7 @@
         (nvim.fn.call :defx#call_action ["yank_path"])
         (nvim.fn.call :defx#call_action ["cd" (nvim.fn.getreg 0)])))))
 
-(nutils.fn-bridge "DefxChangeRoot" "dotfiles.plugins.defx" "defx-change-root")
+(nutils.fn-bridge "DefxChangeRoot" "plugins.defx" "defx-change-root")
 
 (defn nnoremap-buf-expr [lhs rhs]
   (utils.nnoremap lhs rhs {:buffer true :expr true :silent true}))
@@ -173,7 +173,7 @@
                      "FileType defx "
                      ":"
                      (utils.viml->lua
-                       :dotfiles.plugins.defx
+                       :plugins.defx
                        :defx-settings)))
   (nvim.ex.autocmd "FileType defx setlocal spell!")
   (nvim.ex.autocmd "VimResized defx call defx#call_action('resize', winwidth(0))")

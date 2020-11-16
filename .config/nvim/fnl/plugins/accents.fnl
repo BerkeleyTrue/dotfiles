@@ -1,10 +1,10 @@
-(module dotfiles.plugins.accents
+(module plugins.accents
   {:require {a aniseed.core
              str aniseed.string
              nvim aniseed.nvim
              nutils aniseed.nvim.util
-             utils dotfiles.utils
-             r dotfiles.r}})
+             utils utils
+             r r}})
 
 
 (defonce accents
@@ -58,8 +58,8 @@
          (r.find #(r.some (r.is-equal base) $1))
          (r.default-to []))))
 
-(nutils.fn-bridge :AccentCompletion :dotfiles.plugins.accents :accent-completion)
-(nutils.fn-bridge :AccentCycle :dotfiles.plugins.accents :cycle)
+(nutils.fn-bridge :AccentCompletion :plugins.accents :accent-completion)
+(nutils.fn-bridge :AccentCycle :plugins.accents :cycle)
 
 (defn accents-settings []
   "set up for accents"
@@ -69,7 +69,7 @@
     ":call AccentCycle()<CR>"
     {:silent true :buffer true}))
 
-(nutils.fn-bridge :AccentSettings :dotfiles.plugins.accents :accents-settings)
+(nutils.fn-bridge :AccentSettings :plugins.accents :accents-settings)
 
 (do
   (nvim.ex.augroup :accents-group)

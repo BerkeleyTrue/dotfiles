@@ -1,4 +1,4 @@
-(module dotfiles.plugins.sexp
+(module plugins.sexp
   {:require {a aniseed.core
              nvim aniseed.nvim}})
 

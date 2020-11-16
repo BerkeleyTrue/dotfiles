@@ -1,7 +1,7 @@
-(module dotfiles.plugins.scroll-fix
+(module plugins.scroll-fix
   {:require {a aniseed.core
              nvim aniseed.nvim
-             utils dotfiles.utils}})
+             utils utils}})
 
 
 (defn- set-top-of-window [line wintable]
@@ -50,11 +50,14 @@
         current-buf-line (. wintable :lnum)
         top-visible-line (. wintable :topline)
         buf-last-line (nvim.fn.line "$")
+        fold-close-line (nvim.fn.foldclosedend ".")
+        is-on-fold (not= fold-close-line -1)
         ;; derived
 
         ;; get the window height
         ;; multiply by fix-percent (defaults to 60 percent of window)
         ;; get percent (div 100)
+        ;; round to int
         desired-win-line (-> winheight
                              (* fix-percent)
                              (/ 100)
@@ -109,7 +112,7 @@
                      "CursorMoved,CursorMovedI,BufEnter,BufFilePre * "
                      ":"
                      (utils.viml->lua
-                       :dotfiles.plugins.scroll-fix
+                       :plugins.scroll-fix
                        :scroll-fix)))
 
   (nvim.ex.augroup :END)

@@ -149,7 +149,7 @@ Plug 'clojure-vim/vim-jack-in'
 Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
-Plug 'olical/aniseed'
+Plug 'olical/aniseed', {'branch': 'develop'}
 Plug 'olical/conjure', {'tag': 'v4.6.0'}
 Plug 'olical/nvim-local-fennel', {'tag': 'v2.3.0'}
 Plug 'radenling/vim-dispatch-neovim'
@@ -544,4 +544,4 @@ augroup AutoColors
 augroup END
 " }}}
 
-lua require('aniseed.dotfiles')
+lua require('aniseed.env').init()
