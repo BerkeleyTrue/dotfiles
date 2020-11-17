@@ -154,7 +154,7 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 for_window [workspace=$ws1] layout tabbed
-for_window [workspace=$ws2] layout stacked
+for_window [workspace=$ws2] layout tabbed
 no_focus [window_role="pop-up"]
 
 # switch to workspace with urgent window automatically
