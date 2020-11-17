@@ -63,9 +63,12 @@ Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/playground'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'raimondi/delimitMate'
 Plug 'romgrk/barbar.nvim'
+Plug 'romgrk/nvim-treesitter-context'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tmhedberg/matchit'
@@ -101,7 +104,7 @@ Plug 'wellle/tmux-complete.vim'
 
 " Theme
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-Plug 'dracula/vim', { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
+Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'vim-airline/vim-airline'
 " }}}
 
@@ -144,7 +147,6 @@ Plug 'wavded/vim-stylus'
 
 " ()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-Plug 'bakpakin/fennel.vim'
 Plug 'clojure-vim/vim-jack-in'
 Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
@@ -362,15 +364,6 @@ augroup AirlineAuGroup
   autocmd!
   autocmd VimEnter * call s:AirlineInit()
 augroup END "}}}
-" }}}
-
-" NERDTree config
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeQuitOnOpen=1
-let g:NERDTreeShowHidden = 1
 " }}}
 
 " Sexp config
