@@ -7,7 +7,10 @@
 
 (tsconfigs.setup {:ensure_installed "maintained"
                   :highlight {:enable true}
-                  :indent {:enable true}})
+                  :indent {:enable true}
+                  :refactor {:highlight_definitions {:enable true}
+                             :highlight_current_scope {:enable false}}
+                  :playground {:enable true}})
 
 (-?> _G
   (a.get-in [:vim :treesitter :highlighter :hl_map])
