@@ -9,3 +9,4 @@
 (require :plugins.accents)
 (require :plugins.markdown)
 (require :plugins.corpus)
+(require :plugins.tree-sitter)
