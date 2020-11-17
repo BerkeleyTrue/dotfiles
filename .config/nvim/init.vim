@@ -147,6 +147,7 @@ Plug 'wavded/vim-stylus'
 
 " ()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+Plug 'bakpakin/fennel.vim'
 Plug 'clojure-vim/vim-jack-in'
 Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
