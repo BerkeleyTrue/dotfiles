@@ -10,3 +10,4 @@
 (require :plugins.markdown)
 (require :plugins.corpus)
 (require :plugins.tree-sitter)
+(require :plugins.colors)

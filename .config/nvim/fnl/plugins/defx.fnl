@@ -3,7 +3,9 @@
              utils utils
              nutils aniseed.nvim.util
              a aniseed.core
-             str aniseed.string}})
+             str aniseed.string
+             clrs plugins.colors}})
+
 
 
 (nvim.fn.call
@@ -45,25 +47,19 @@
 
 
 (do
-  (nvim.ex.highlight
-    :Defx_filename_4_opened_icon :ctermfg=84)
-
-  (nvim.ex.highlight
-    :Defx_filename_4_directory_icon
-    :ctermfg=117)
+  (clrs.highlight :DefxIconsOpenedTreeIcon clrs.palette.green)
+  (clrs.highlight :DefxIconsDirectory clrs.palette.cyan)
+  (clrs.highlight :DefxIconsParentDirectory clrs.palette.cyan)
 
   ; git
-  (nvim.ex.highlight :Defx_filename_4_Deleted :ctermfg=167 :guifg=#fb4934)
-  (nvim.ex.highlight :Defx_filename_4_Ignored :guibg=NONE :guifg=NONE
-                                              :ctermbg=NONE :ctermfg=NONE)
-  (nvim.ex.highlight :Defx_filename_4_Modified :ctermfg=9 :guifg=#fabd2f)
-  (nvim.ex.highlight :Defx_filename_4_Renamed :ctermfg=214 :guifg=#fabd2f)
-  (nvim.ex.highlight :Defx_filename_4_Staged :ctermfg=142 :guifg=#b8bb26)
-  (nvim.ex.highlight :Defx_filename_4_Unknown :guibg=NONE :guifg=NONE
-                                              :ctermbg=NONE :ctermfg=NONE)
-  (nvim.ex.highlight :Defx_filename_4_Unmerged :ctermfg=167 :guifg=#fb4934)
-  (nvim.ex.highlight :Defx_filename_4_Untracked :guibg=NONE :guifg=NONE
-                                                :ctermbg=NONE :ctermfg=NONE))
+  (clrs.highlight :Defx_git_Deleted clrs.palette.red)
+  (clrs.highlight :Defx_git_Ignored clrs.palette.none)
+  (clrs.highlight :Defx_git_Modified clrs.palette.pink)
+  (clrs.highlight :Defx_git_Renamed clrs.palette.orange)
+  (clrs.highlight :Defx_git_Staged clrs.palette.purple)
+  (clrs.highlight :Defx_git_Unknown clrs.palette.none)
+  (clrs.highlight :Defx_git_Unmerged clrs.palette.red)
+  (clrs.highlight :Defx_git_Untracked clrs.palette.none))
 
 (defn is-defx-buf []
   (= (. nvim.bo :filetype) "defx"))
