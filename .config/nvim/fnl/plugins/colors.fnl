@@ -67,6 +67,8 @@
 (hi-link :TSTagDelimiter :DraculaOrange)
 (hi-link :TSKeyword :DraculaPurple)
 
+(highlight :TSConstructor palette.cyan)
+
   ; TSError: "error_red"
   ; TSPunctDelimiter: "white"
   ; TSPunctBracket: "white"
@@ -94,7 +96,6 @@
   ; TSMethod: "yellow"
   ; TSField: "light_blue"
   ; TSProperty: "light_blue"
-  ; TSConstructor: "cyan"
   ; # Keywords
   ; TSConditional: "purple"
   ; TSRepeat: "purple"

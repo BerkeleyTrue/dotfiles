@@ -64,6 +64,7 @@ Plug 'moll/vim-bbye'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/playground'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'raimondi/delimitMate'
@@ -153,7 +154,7 @@ Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
 Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-sexp'
 Plug 'olical/aniseed', {'branch': 'develop'}
-Plug 'olical/conjure', {'tag': 'v4.6.0'}
+Plug 'olical/conjure', {'branch': 'develop'}
 Plug 'olical/nvim-local-fennel', {'tag': 'v2.3.0'}
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-dispatch'
