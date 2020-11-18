@@ -85,7 +85,7 @@ Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'wellle/targets.vim'
 Plug 'wincent/corpus'
-Plug 'yggdroot/indentLine'
+Plug 'glepnir/indent-guides.nvim', {'branch': 'main'}
 "}}}
 
 " Pop Up Menu Completion
