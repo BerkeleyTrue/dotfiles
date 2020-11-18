@@ -29,6 +29,12 @@
       buffer (nvim.buf_set_keymap 0 (unpack args))
       (nvim.set_keymap (unpack args)))))
 
+(defn get-cursor-pos []
+  "(get-char-pos) => [x, y]
+  get the chars under the cursor"
+  [(nvim.fn.line ".")
+   (nvim.fn.col ".")])
+
 (defn get-char-under-curs []
   "(get-char-under-curs)
   get the character under the cursor
