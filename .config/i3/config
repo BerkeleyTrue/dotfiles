@@ -40,6 +40,8 @@ bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec dunstify -i i3 'dunst restarted'"
 
 focus_follows_mouse yes
+# prevent mouse from moving to output (monitor)
+mouse_warping none
 # new windows will be marked as urgent but not focused
 focus_on_window_activation ugrent
 
