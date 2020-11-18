@@ -2,8 +2,6 @@
   "javascript.suggestionActions.enabled": false,
   "javascript.validate.enable": false,
 
-  "eslint.autoFixOnSave": true,
-
   "coc.source.conjure.enable": true,
   "coc.source.conjure.filetypes": [
     "clojure",
@@ -15,22 +13,6 @@
       "command": "terraform-lsp",
       "filetypes": ["terraform"],
       "initializationOptions": {}
-    },
-    "clojure-lsp": {
-      "command": "bash",
-      "args": ["-c", "clojure-lsp"],
-      "filetypes": ["clojure"],
-      "rootPatterns": [
-        "project.clj",
-        "deps.edn",
-        "build.boot"
-      ],
-      "additionalSchemes": ["jar", "zipfile"],
-      "trace.server": "verbose",
-      "initializationOptions": {
-        "show-docs-arity-on-same-line?": true,
-        "macro-defs": {}
-      }
     },
     "bash": {
       "command": "bash-language-server",
