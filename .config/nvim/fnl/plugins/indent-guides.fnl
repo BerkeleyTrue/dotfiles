@@ -12,6 +12,3 @@
                      :indent_tab_guides true
                      :indent_soft_pattern "\\s"
                      :exclude_filetypes [:help]}))
-
-  ; (ig.indent_guides_disable)
-  ; (ig.indent_guides_enable))
