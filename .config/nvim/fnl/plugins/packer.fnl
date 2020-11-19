@@ -38,12 +38,28 @@
     (-> plugin
         (a.assoc 1 name))))
 
-(def plugins
+(def- plugins
   [{:name "wbthomason/packer.nvim"
     :opt true}
+   {:name "nvim-lua/plenary.nvim"}
    {:name "nvim-lua/telescope.nvim"
     :requires [["nvim-lua/popup.nvim"] ["nvim-lua/plenary.nvim"]]}])
 
+(defn- create-planery-win []
+  (pcall (fn []
+           (let [plenary (require "plenary.window.float")]
+             (plenary.percent_range_window 0.8 0.8)))))
+
+(defn- open-fn [name]
+  (let [(ok float-win) create-planery-win]
+    (if
+      (not ok) (do
+                 (vim.cmd "65vnew [packer]")
+                 (values (nvim.get_current_win) (nvim.get_current_buf)))
+      (let [bufnr (a.get float-win :bufnr)
+            win (a.get float-win :win_id)]
+        (nvim.buf_set_name bufnr name)
+        (nvim.buf_set_option win "winblend" 10)))))
 
 (defn packer-startup [use]
   (->> plugins
@@ -56,4 +72,5 @@
   (let [packer (require :packer)]
     (packer.startup
       {1 packer-startup
-       :config {:package_root (.. (nvim.fn.stdpath "config") "/pack")}})))
+       :config {:package_root (.. (nvim.fn.stdpath "config") "/pack")
+                :open_fn open-fn}})))
