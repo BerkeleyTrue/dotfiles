@@ -13,3 +13,4 @@
 (require :plugins.colors)
 (require :plugins.runtime-utils)
 (require :plugins.indent-guides)
+(require :plugins.packer)
