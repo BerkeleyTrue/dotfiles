@@ -2,6 +2,8 @@
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='find .'
 export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
+export TASKDATA="$XDG_CONFIG_HOME/task"
+export TASKRC="$TASKDATA/taskrc"
 
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
 ZSH="$XDG_CONFIG_HOME/zsh"
@@ -66,6 +68,9 @@ antigen theme https://gitlab.com/BerkeleyTrue/ghanima.git ghanima
 
 # apply antigen plugins
 antigen apply
+
+# apply zoxide to zsh
+eval "$(zoxide init zsh)"
 
 ###
 # zsh use primary clipboard for vi-keys
