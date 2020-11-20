@@ -1,6 +1,7 @@
 (module init
   {require-macros [macros]})
 
+(require :packer-modules)
 (require :plugins.nerd-commenter)
 (require :plugins.scroll-fix)
 (require :plugins.sexp)
@@ -13,5 +14,4 @@
 (require :plugins.colors)
 (require :plugins.runtime-utils)
 (require :plugins.indent-guides)
-(require :plugins.packer)
 (require :plugins.telescope)
