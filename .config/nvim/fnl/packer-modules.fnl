@@ -7,6 +7,6 @@
    {:name "nvim-lua/plenary.nvim"}
    {:name "nvim-lua/telescope.nvim"
     :requires [["nvim-lua/popup.nvim"] ["nvim-lua/plenary.nvim"]]}
-   {:name "tjdevries/colorbuddy.nvim"}])
+   {:name "berkeleytrue/colorbuddy.nvim"}])
 
 (packer.config spec)
