@@ -3,8 +3,7 @@
              utils utils
              nutils aniseed.nvim.util
              a aniseed.core
-             str aniseed.string
-             clrs plugins.colors}})
+             str aniseed.string}})
 
 
 
@@ -47,19 +46,19 @@
 
 
 (do
-  (clrs.highlight :DefxIconsOpenedTreeIcon clrs.palette.green)
-  (clrs.highlight :DefxIconsDirectory clrs.palette.cyan)
-  (clrs.highlight :DefxIconsParentDirectory clrs.palette.cyan)
+  (utils.hi-link! :DefxIconsOpenedTreeIcon :DraculaGreen)
+  (utils.hi-link! :DefxIconsDirectory :DraculaCyan)
+  (utils.hi-link! :DefxIconsParentDirectory :DraculaCyan)
 
   ; git
-  (clrs.highlight :Defx_git_Deleted clrs.palette.red)
-  (clrs.highlight :Defx_git_Ignored clrs.palette.none)
-  (clrs.highlight :Defx_git_Modified clrs.palette.pink)
-  (clrs.highlight :Defx_git_Renamed clrs.palette.orange)
-  (clrs.highlight :Defx_git_Staged clrs.palette.purple)
-  (clrs.highlight :Defx_git_Unknown clrs.palette.none)
-  (clrs.highlight :Defx_git_Unmerged clrs.palette.red)
-  (clrs.highlight :Defx_git_Untracked clrs.palette.none))
+  (utils.hi-link! :Defx_git_Deleted :DraculaRed)
+  (utils.hi-link! :Defx_git_Ignored :DraculaNone)
+  (utils.hi-link! :Defx_git_Modified :DraculaPink)
+  (utils.hi-link! :Defx_git_Renamed :DraculaOrange)
+  (utils.hi-link! :Defx_git_Staged :DraculaPurple)
+  (utils.hi-link! :Defx_git_Unknown :DraculaNone)
+  (utils.hi-link! :Defx_git_Unmerged :DraculaRed)
+  (utils.hi-link! :Defx_git_Untracked :DraculaNone))
 
 (defn is-defx-buf []
   (= (. nvim.bo :filetype) "defx"))
