@@ -148,17 +148,8 @@ Plug 'wavded/vim-stylus'
 
 " ()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-Plug 'bakpakin/fennel.vim'
-Plug 'clojure-vim/vim-jack-in'
-Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release'}
-Plug 'guns/vim-clojure-static'
-Plug 'guns/vim-sexp'
+" required before running fennel scripts
 Plug 'olical/aniseed', {'branch': 'develop'}
-Plug 'olical/conjure', {'branch': 'develop'}
-Plug 'olical/nvim-local-fennel', {'tag': 'v2.3.0'}
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " }}}
 call plug#end()
 " }}}
