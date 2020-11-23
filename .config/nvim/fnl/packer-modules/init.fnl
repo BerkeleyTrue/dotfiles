@@ -5,6 +5,8 @@
 (def- main-spec
   [{:name "wbthomason/packer.nvim"
     :opt true}
+   {:name "tpope/vim-projectionist"
+    :description "jump between related files"}
    {:name "nvim-lua/plenary.nvim"}
    {:name "nvim-lua/telescope.nvim"
     :requires [["nvim-lua/popup.nvim"] ["nvim-lua/plenary.nvim"]]}
