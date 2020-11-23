@@ -1,0 +1,14 @@
+{
+  "fnl/*.fnl": {
+    "alternate": "lua/{}.lua",
+    "type": "source"
+  },
+  "lua/*.lua": {
+    "alternate": "fnl/{}.fnl",
+    "type": "dest"
+  },
+  "test/fnl/*-test.fnl": {
+    "alternate": "fnl/{}.fnl",
+    "type": "test"
+  }
+}
