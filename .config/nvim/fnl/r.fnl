@@ -1,8 +1,13 @@
 (module r
   {:require {a aniseed.core}})
 
+; passthroughs/renames from aniseed
 (def some a.some)
+(def const a.constantly)
 (def _ :placeholder)
+(def noop (const nil))
+(def forEach a.run!)
+(def assoc a.assoc)
 
 (defn curry [func arity]
   "Creates a function that accepts arguments of func and either invokes func returning its result,
@@ -100,3 +105,10 @@
         (table.insert result (slice idx (+ idx size) collection))
         (set idx (+ idx size))))
     result))
+
+(def range (curry
+             (fn [start end]
+               (let [result []]
+                 (for [i start end 1]
+                   (table.insert result i))
+                 result))))
