@@ -4,8 +4,10 @@
              str aniseed.string
              cb colorbuddy
              log colorbuddy.log
-             utils utils}})
-
+             utils utils
+             r r
+             js theme.ft.js
+             spell theme.ft.spell}})
 
 
 (comment (set log.level "debug"))
@@ -34,6 +36,7 @@
                :comment   ["#6272A4"  61]
                :selection ["#44475A" 239]
                :subtle    ["#424450" 238]
+               :gray      ["#808080"]
 
                :cyan      ["#8BE9FD" 117]
                :green     ["#50FA7B"  84]
@@ -63,8 +66,10 @@
 (add-group :BerksSelection c.none c.selection)
 
 (add-group :BerksSubtle c.subtle)
+(add-group :BerksGray c.gray)
 
 (add-group :BerksCyan c.cyan)
+(add-group :BerksCyanDark (c.cyan:dark))
 (add-group :BerksCyanItalic c.cyan c.none s.italic)
 
 (add-group :BerksGreen c.green)
@@ -212,6 +217,15 @@
 (hi-link! :helpExample :BerksGreen)
 (hi-link! :helpBacktick :Special)
 
+
+; Cursor Line
+(add-group :CursorColumn (c.bg:negative) (c.bg:light))
+(add-group :CursorLine c.none (c.bg:light))
+
+; make the highlighting of tabs and other non-text less annoying
+(add-group :NonText c.gray)
+(add-group :SpecialKey (c.red:dark))
+
 ; TS specific
 ; TODO: these should link to already defined
 (add-group :TSProperty c.cyan c.none)
@@ -225,3 +239,13 @@
 
 (add-group :TSConstructor c.orange c.none)
 (add-group :TSInclude c.purple c.none)
+
+(def- main-colors [])
+
+(defn main []
+  (doto {:add-group add-group
+         :hi-link! hi-link!
+         :c c
+         :s s}
+        (js.main)
+        (spell.main)))

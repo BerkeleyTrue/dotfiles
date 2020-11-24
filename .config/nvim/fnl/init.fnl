@@ -2,7 +2,7 @@
   {require-macros [macros]})
 
 (require :packer-modules)
-(require :theme)
+((. (require :theme) :main))
 
 (require :plugins.nerd-commenter)
 (require :plugins.scroll-fix)
