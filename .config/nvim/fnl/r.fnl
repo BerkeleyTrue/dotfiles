@@ -1,14 +1,10 @@
 (module r
   {:require {a aniseed.core}})
 
-; passthroughs/renames from aniseed
-(def some a.some)
-(def const a.constantly)
-(def _ :placeholder)
-(def noop (const nil))
-(def forEach a.run!)
-(def assoc a.assoc)
+; passthroughs/renames from aniseed for easier lookup
 
+;utils
+(def _ :placeholder)
 (defn curry [func arity]
   "Creates a function that accepts arguments of func and either invokes func returning its result,
   if at least arity number of arguments have been provided, or returns a function that
@@ -25,14 +21,29 @@
                     needed (- needed (select :# ...))]
                 (wrapper args needed)))))
         (wrapper [] arity)))))
+(def is-equal (curry #(= $1 $2)))
 
+;funcs
+(def const a.constantly)
+
+(def noop (const nil))
+; tables - data first
+(def assoc a.assoc)
 (defn to-pairs [tabl]
   "(to-pairs {:a b}) => [[:a 'b']]"
   "Convert a table into an list of key,value pairs"
   (a.kv-pairs tabl))
 
-;"creates a predicate function that will return true when called when called with arg"
-(def is-equal (curry #(= $1 $2)))
+(def update a.update)
+; array - data last
+(def forEach a.run!)
+(def map a.map)
+(def head a.first)
+(def tail a.rest)
+(def last a.last)
+(def some a.some)
+
+(def concat a.concat)
 
 (defn find [predicate collection]
   "(find predicate collection)"
