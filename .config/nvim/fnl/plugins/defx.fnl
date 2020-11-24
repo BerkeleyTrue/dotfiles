@@ -46,19 +46,23 @@
 
 
 (do
-  (utils.hi-link! :DefxIconsOpenedTreeIcon :DraculaGreen)
-  (utils.hi-link! :DefxIconsDirectory :DraculaCyan)
-  (utils.hi-link! :DefxIconsParentDirectory :DraculaCyan)
+  (utils.hi-link! :DefxIconsOpenedTreeIcon :BerksGreen)
+  (utils.hi-link! :DefxIconsDirectory :BerksCyan)
+  (utils.hi-link! :DefxIconsParentDirectory :BerksCyan)
+  (utils.hi-link! :Defx_icons_js :BerksGreen)
+  (utils.hi-link! :Defx_icons_vim :BerksPink)
+  (utils.hi-link! :Defx_icons_markdown :BerksRed)
+  (utils.hi-link! :Defx_icons_fnl :BerksRed)
 
   ; git
-  (utils.hi-link! :Defx_git_Deleted :DraculaRed)
-  (utils.hi-link! :Defx_git_Ignored :DraculaNone)
-  (utils.hi-link! :Defx_git_Modified :DraculaPink)
-  (utils.hi-link! :Defx_git_Renamed :DraculaOrange)
-  (utils.hi-link! :Defx_git_Staged :DraculaPurple)
-  (utils.hi-link! :Defx_git_Unknown :DraculaNone)
-  (utils.hi-link! :Defx_git_Unmerged :DraculaRed)
-  (utils.hi-link! :Defx_git_Untracked :DraculaNone))
+  (utils.hi-link! :Defx_git_Deleted :BerksRed)
+  (utils.hi-link! :Defx_git_Ignored :BerksNone)
+  (utils.hi-link! :Defx_git_Modified :BerksPink)
+  (utils.hi-link! :Defx_git_Renamed :BerksOrange)
+  (utils.hi-link! :Defx_git_Staged :BerksPurple)
+  (utils.hi-link! :Defx_git_Unknown :BerksNone)
+  (utils.hi-link! :Defx_git_Unmerged :BerksRed)
+  (utils.hi-link! :Defx_git_Untracked :BerksNone))
 
 (defn is-defx-buf []
   (= (. nvim.bo :filetype) "defx"))
