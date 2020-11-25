@@ -108,25 +108,40 @@
 (lambda_definition
   name: (identifier) @function)
 
+; function call with single identifier
+; need to combine with below
 (function_call
   name: (identifier) @function .)
 
+; function call with object getter
+(function_call
+    name: (field_expression
+            (identifier) @variable
+            "."
+            (identifier) @function .))
+
+; property getter
 (field_expression
    (identifier)
    "." @punctuation.delimiter
-   (identifier) @property)
+   (identifier)* @property)
 
-(function_call
-    name: (field_expression
-            (identifier) @function .) .)
-
+; no idea what this targets
 (field_expression
    (identifier)
    (field) @function)
 
 (parameters (identifier) @parameter)
 
+; methods
+; TODO needs : delimiter to work
+; ((function_call
+;     name: ([(identifier) @variable
+;             (field_expression (identifier)*)])
+;     (field) @method))
+
 ; Aniseed queries
+; (module namespace {requires {identifier namespace}})
 ((function_call
     name: (identifier) @function.macro (#eq? @function.macro "module")
     ([(identifier)
@@ -139,18 +154,16 @@
        (table)?)))
 
 
+; def/def-
 ((function_call
     name: (identifier) @function.macro (#match? @function.macro "^def\-?$")))
 
+; defn/defn-
 ((function_call
     name: (identifier) @function.macro (#match? @function.macro "^defn\-?$")
     (identifier) @function
     (sequential_table (identifier)* @parameter)))
 
+; defonce/defonce-
 ((function_call
   name: (identifier) @function.macro (#match? @function.macro "^defonce\-?$")))
-
-((function_call
-    name: ([(identifier) @variable
-            (field_expression (identifier)*)])
-    (field) @method))

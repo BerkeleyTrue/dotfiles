@@ -121,6 +121,7 @@
 (defn defx-settings []
   ;; not expression
   (utils.nnoremap "cr"          ":call DefxChangeRoot()<CR>" {:buffer true :silent true :expr false})
+  (set nvim.wo.spell false)
   (nnoremap-buf-expr "<C-p>"    "defx#do_action('cd', ['..'])")
   (nnoremap-buf-expr "."        "defx#do_action('toggle_ignored_files')")
 
