@@ -198,6 +198,7 @@
 
 (hi-link! :PreProc :BerksPink)
 (hi-link! :Include :BerksPink)
+(add-group :Namespace (c.purple:light))
 (hi-link! :Define :BerksPink)
 (hi-link! :Macro :BerksPink)
 (hi-link! :PreCondit :BerksPink)
@@ -233,12 +234,12 @@
 (add-group :TSParameter c.cyan c.none)
 (add-group :TSVariableBuiltIn c.red c.none)
 
-(add-group :TSTag c.green c.none)
-(add-group :TSTagDelimiter c.orange c.none)
+(hi-link! :TSTag :Tag)
+(add-group :TSTagDelimiter c.pink c.none)
 (add-group :TSKeyword c.purple c.none)
 
 (add-group :TSConstructor c.orange c.none)
-(add-group :TSInclude c.purple c.none)
+(hi-link! :TSNamespace :Namespace)
 
 (def- main-colors [])
 
