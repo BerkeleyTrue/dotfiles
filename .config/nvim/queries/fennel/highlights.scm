@@ -129,13 +129,18 @@
 
 (parameters (identifier) @parameter)
 
+; Aniseed queries
 ((function_call
     name: (identifier) @function.macro (#eq? @function.macro "module")
-    [(identifier)
-     (field_expression
-       (identifier) @namespace
-       "."
-       (identifier) @namespace)] @namespace))
+    ([(identifier)
+      (field_expression
+        (identifier) @namespace
+        "."
+        (identifier) @namespace)]? @namespace
+     (table
+       ([(field) (identifier)] @include (#contains? @include "require"))?)?
+       (table)?)))
+
 
 ((function_call
     name: (identifier) @function.macro (#match? @function.macro "^def\-?$")))
