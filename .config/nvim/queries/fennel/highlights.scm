@@ -109,7 +109,7 @@
   name: (identifier) @function)
 
 (function_call
-  name: (identifier) @function)
+  name: (identifier) @function .)
 
 (field_expression
    (identifier)
@@ -118,10 +118,7 @@
 
 (function_call
     name: (field_expression
-            (identifier) @function .))
-(function_call
-    name: (field_expression
-            (identifier) @function .))
+            (identifier) @function .) .)
 
 (field_expression
    (identifier)
@@ -152,3 +149,8 @@
 
 ((function_call
   name: (identifier) @function.macro (#match? @function.macro "^defonce\-?$")))
+
+((function_call
+    name: ([(identifier) @variable
+            (field_expression (identifier)*)])
+    (field) @method))
