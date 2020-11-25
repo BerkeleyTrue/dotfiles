@@ -3,35 +3,55 @@ packages:
   # general
   - asciinema
   - curl
-  - neovim
   - pkgfile
   - unclutter
   - wget
   - yamllint
   - yay
-  # automation
+  # Dev
+  ## terminal
+  - neovim
+  - alacritty
+  - kitty
+  - task # taskwarrior
+  - wakatime
+  ## automation
   - ansible
   - ansible-lint
   - packer
   - terraform
   - vault
-  # clojure dev
+  ## clojure dev
   - clojure
   - leiningen
-  # node dev
+  ## node dev
+  - dbeaver
   - nodejs
   - npm
 
 aur:
   # general
   - luarocks
+  # DB tools
+  - robo3t-bin # mongodb UI tool
+  # terminal
+  - bat # like cat but rusty
+  - zoxide # warp around cd rustily
+  - taskwarrior-tui # taskwarrior tui built in rust
+  - toilet # asci out text
+  - dust # rust based disk usage utility
+  - tealdeer # TL;DR for deers (rusty)
+  - navi # interactive CL tool for cheats (sorta like TLDR)
+  - procs # rusty processes
   # automation
   - terraform-lsp-git
   - terraform-provider-proxmox
+  - yamllint
   # clojure dev
-  - babashka-bin
+  - babashka-bin # cli clj runner for faster tools
   - boot
   - clojure-lsp-bin
+  - clj-kondo-bin
   - fennel
   - joker-bin
 
