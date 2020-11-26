@@ -26,6 +26,7 @@
  "arg"
  "assert"
  "collectgarbage"
+ ; "comment" ; missing from tree-sitter-fennel
  "coroutine"
  "debug"
  "dofile"
@@ -108,23 +109,20 @@
 (lambda_definition
   name: (identifier) @function)
 
-; function call with single identifier
-; need to combine with below
-(function_call
-  name: (identifier) @function .)
+; function call match the only identifier or the last identifier in a field
+; (function_call
+;    name: [
+;           (identifier) @function
+;           (field_expression (identifier) @function .)])
 
-; function call with object getter
-(function_call
-    name: (field_expression
-            (identifier) @variable
-            "."
-            (identifier) @function .))
-
-; property getter
-(field_expression
-   (identifier)
-   "." @punctuation.delimiter
-   (identifier)* @property)
+[
+ ; property getter
+ (field_expression . (identifier) "." (identifier) @property)
+ ; function call
+ (function_call
+    name: [
+           (identifier) @function
+           (field_expression (identifier) @function .)])]
 
 ; no idea what this targets
 (field_expression
@@ -159,10 +157,11 @@
     name: (identifier) @function.macro (#match? @function.macro "^def\-?$")))
 
 ; defn/defn-
-((function_call
+(function_call
     name: (identifier) @function.macro (#match? @function.macro "^defn\-?$")
     (identifier) @function
-    (sequential_table (identifier)* @parameter)))
+    [(sequential_table) @parameters
+     (sequential_table (identifier)* @parameter)])
 
 ; defonce/defonce-
 ((function_call
