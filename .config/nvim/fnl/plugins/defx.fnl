@@ -5,8 +5,6 @@
              a aniseed.core
              str aniseed.string}})
 
-
-
 (nvim.fn.call
   :defx#custom#option ["_"
                        {:columns "indent:mark:git:icons:icon:filename"
@@ -166,6 +164,7 @@
   (nnoremap-buf-expr  "<<"      "defx#do_action('resize', defx#get_context().winwidth - 20)"))
 
 
+(comment (foo.bar.bar foo:bb))
 (do
   (nvim.ex.augroup :defx-settings-au)
   (nvim.ex.autocmd_)
