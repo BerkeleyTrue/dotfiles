@@ -141,17 +141,17 @@
 ;     (field) @method))
 
 ; Aniseed queries
-; (module namespace {requires {identifier namespace}})
-((function_call
-    name: (identifier) @function.macro (#eq? @function.macro "module")
-    ([(identifier)
-      (field_expression
-        (identifier) @namespace
-        "."
-        (identifier) @namespace)]? @namespace
-     (table
-       ([(field) (identifier)] @include (#contains? @include "require"))?)?
-       (table)?)))
+; (module namespace {require {identifier namespace}
+;                    include {identifier namespace}
+;                    require-macros [namespace]})
+(function_call
+   name: (identifier) @function.macro (#eq? @function.macro "module")
+   [(identifier) @namespace
+    (field_expression
+      (identifier) @namespace
+      ("." (identifier) @namespace)*)] @namespace
+   (table
+     ([(field) (identifier)]? @include (#match? @include "^:?require(-macros)?$|^:?include$"))?)? @aniseed-imports)
 
 
 ; def/def-
