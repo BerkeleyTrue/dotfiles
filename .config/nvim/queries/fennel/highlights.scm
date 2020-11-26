@@ -153,8 +153,8 @@
 
 
 ; def/def-
-((function_call
-    name: (identifier) @function.macro (#match? @function.macro "^def\-?$")))
+(function_call
+    name: ((identifier) @function.macro (#match? @function.macro "^def\-?$")))
 
 ; defn/defn-
 (function_call
@@ -164,5 +164,5 @@
      (sequential_table (identifier)* @parameter)])
 
 ; defonce/defonce-
-((function_call
-  name: (identifier) @function.macro (#match? @function.macro "^defonce\-?$")))
+(function_call
+  name: ((identifier) @function.macro (#match? @function.macro "^defonce\-?$")))
