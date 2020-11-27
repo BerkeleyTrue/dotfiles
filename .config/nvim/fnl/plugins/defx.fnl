@@ -119,7 +119,6 @@
 (defn defx-settings []
   ;; not expression
   (utils.nnoremap "cr"          ":call DefxChangeRoot()<CR>" {:buffer true :silent true :expr false})
-  (set nvim.wo.spell false)
   (nnoremap-buf-expr "<C-p>"    "defx#do_action('cd', ['..'])")
   (nnoremap-buf-expr "."        "defx#do_action('toggle_ignored_files')")
 
@@ -163,8 +162,6 @@
   (nnoremap-buf-expr  ">>"      "defx#do_action('resize', defx#get_context().winwidth + 20)")
   (nnoremap-buf-expr  "<<"      "defx#do_action('resize', defx#get_context().winwidth - 20)"))
 
-
-(comment (foo.bar.bar foo:bb))
 (do
   (nvim.ex.augroup :defx-settings-au)
   (nvim.ex.autocmd_)
@@ -174,7 +171,7 @@
                      (utils.viml->lua
                        :plugins.defx
                        :defx-settings)))
-  (nvim.ex.autocmd "FileType defx setlocal spell!")
+  (nvim.ex.autocmd "FileType defx setlocal nospell")
   (nvim.ex.autocmd "VimResized defx call defx#call_action('resize', winwidth(0))")
   (nvim.ex.autocmd "BufWritePost * call defx#redraw()")
   (nvim.ex.augroup :END)
