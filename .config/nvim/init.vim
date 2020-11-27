@@ -63,13 +63,13 @@ Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '049028ef3e639d948e9e1ee464ad7b9fd317f2c4' }
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'nvim-treesitter/playground', { 'commit': '0cb0a18378db84c4c2bdb38c28e897958d2ec14d' }
+Plug 'nvim-treesitter/playground'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'raimondi/delimitMate'
 Plug 'romgrk/barbar.nvim'
-Plug 'romgrk/nvim-treesitter-context', { 'commit': 'f70b9e30ff0b149c0eb2c1e4bdbdef594bdab30b' }
+Plug 'romgrk/nvim-treesitter-context'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tmhedberg/matchit'
