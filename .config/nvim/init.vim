@@ -145,12 +145,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'wavded/vim-stylus'
 " }}}
-
-" ()
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" required before running fennel scripts
-Plug 'olical/aniseed', {'branch': 'develop'}
-" }}}
 call plug#end()
 " }}}
 "
@@ -430,4 +424,9 @@ let g:strip_only_modified_lines=1
 " }}}
 "
 "" -- End Plugin Config -- }}}
-lua require('aniseed.env').init()
+
+" make sure aniseed path is available for macros lookup
+set runtimepath+=./pack/packer/start/aniseed
+" check if aniseed is installed, if not, run make aniseed to install and
+" init
+lua if pcall(require, 'aniseed.env') then require('aniseed.env').init() else print('Aniseed not found. Running aniseed install now') print(vim.api.nvim_call_function('system', {'make aniseed'})) require('aniseed.env').init() end
