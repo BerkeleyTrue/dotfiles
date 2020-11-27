@@ -3,7 +3,7 @@
              nvim aniseed.nvim}})
 
 (defn- get-packer-dir []
-  (string.format "%s/pack/plugins/opt" (nvim.fn.stdpath "config")))
+  (string.format "%s/pack/packer/opt" (nvim.fn.stdpath "config")))
 
 (defn- make-dir []
   (nvim.fn.mkdir (get-packer-dir) "p"))
@@ -31,7 +31,7 @@
       (nvim.echo "   Downloading packer...   ")
       (nvim.echo (gclone-packer)))))
 
-(defn- packadd [] (nvim.ex.packadd :packer.nvim))
+(defn- packadd [] (pcall nvim.ex.packadd :packer.nvim))
 
 (defn- format-plugins [plugin]
   (let [{:name name} plugin]

@@ -13,7 +13,7 @@
    {:name "berkeleytrue/colorbuddy.nvim"}])
 
 (def- lisp-spec
-  [{:name "olical/aniseed" :branch "develop" :opt true}
+  [{:name "olical/aniseed" :branch "develop"}
    {:name "olical/conjure" :branch "develop"}
    {:name "bakpakin/fennel.vim"}
    {:name "eraserhd/parinfer-rust" :run "cargo build --release"}
