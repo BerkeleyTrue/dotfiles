@@ -1,5 +1,5 @@
 # Make neovim the default editor
-export EDITOR=nvim.appimage
+export EDITOR=nvim
 export VISUAL=$EDITOR
 # add gems to path
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
