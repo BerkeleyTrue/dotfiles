@@ -16,6 +16,5 @@
          (safe-require :plugins.corpus)
          (safe-require :plugins.tree-sitter)
          (safe-require :plugins.runtime-utils)
-         (safe-require :plugins.indent-guides)
          (safe-require :plugins.telescope))
     (print "could not load packer modules")))
