@@ -39,9 +39,6 @@ call plug#begin()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 call s:InstallFzF()
 Plug 'ashisha/image.vim'
-Plug 'bronson/vim-crosshairs'
-Plug 'camspiers/animate.vim'
-Plug 'chrisbra/nrrwrgn'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'danilamihailov/beacon.nvim'
 Plug 'easymotion/vim-easymotion'
@@ -85,7 +82,6 @@ Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
 Plug 'wellle/targets.vim'
 Plug 'wincent/corpus'
-Plug 'glepnir/indent-guides.nvim', {'branch': 'main'}
 "}}}
 
 " Pop Up Menu Completion
@@ -235,15 +231,6 @@ augroup rainbow_parentheses
   au BufEnter * RainbowParenthesesLoadSquare
   au BufEnter * RainbowParenthesesLoadBraces
 augroup END
-" }}}
-
-" vim-json
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" VIm does not have the ability to programmatically
-" define how a concealed element can be replaced with
-" so we must disable indentLine in json files as
-" this conflicts with the concealing ability of vim-json
-let g:indentLine_fileTypeExclude = [ 'json' ]
 " }}}
 
 " Ultisnips
@@ -426,7 +413,7 @@ let g:strip_only_modified_lines=1
 "" -- End Plugin Config -- }}}
 
 " make sure aniseed path is available for macros lookup
-set runtimepath+=./pack/packer/start/aniseed
+set runtimepath+=stdpatch("config")."/pack/packer/start/aniseed"
 " check if aniseed is installed, if not, run make aniseed to install and
 " init
 lua if pcall(require, 'aniseed.env') then require('aniseed.env').init() else print('Aniseed not found. Running aniseed install now') print(vim.api.nvim_call_function('system', {'make aniseed'})) require('aniseed.env').init() end
