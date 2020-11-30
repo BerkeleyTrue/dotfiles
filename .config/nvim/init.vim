@@ -413,7 +413,7 @@ let g:strip_only_modified_lines=1
 "" -- End Plugin Config -- }}}
 
 " make sure aniseed path is available for macros lookup
-set runtimepath+=stdpatch("config")."/pack/packer/start/aniseed"
+let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed'
 " check if aniseed is installed, if not, run make aniseed to install and
 " init
 lua if pcall(require, 'aniseed.env') then require('aniseed.env').init() else print('Aniseed not found. Running aniseed install now') print(vim.api.nvim_call_function('system', {'make aniseed'})) require('aniseed.env').init() end
