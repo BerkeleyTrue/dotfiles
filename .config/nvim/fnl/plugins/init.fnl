@@ -3,8 +3,10 @@
    :require-macros [macros]})
 
 (defn main []
-  (->> [:plugins.colorizer
-        :plugins.beacon]
+  (->>
+    [:plugins.colorizer
+     :plugins.beacon
+     :plugins.terraform]
     (a.map #(run-main $1))))
 
 (comment (main))
