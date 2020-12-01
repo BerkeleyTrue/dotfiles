@@ -29,3 +29,4 @@ verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,
 #include /usr/share/doc/task/rc/solarized-light-256.theme
 #include /usr/share/doc/task/rc/no-color.theme
 
+context.mr=+mr
