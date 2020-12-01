@@ -25,7 +25,6 @@ packages:
   - clojure
   - leiningen
   ## node dev
-  - dbeaver
   - nodejs
   - npm
 
