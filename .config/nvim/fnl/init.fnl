@@ -13,7 +13,6 @@
          (safe-require :plugins.fzf)
          (safe-require :plugins.accents)
          (safe-require :plugins.markdown)
-         (safe-require :plugins.corpus)
          (safe-require :plugins.tree-sitter)
          (safe-require :plugins.runtime-utils)
          (safe-require :plugins.telescope))
