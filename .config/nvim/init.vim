@@ -415,4 +415,20 @@ let g:strip_only_modified_lines=1
 let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed'
 " check if aniseed is installed, if not, run make aniseed to install and
 " init
-lua if pcall(require, 'aniseed.env') then require('aniseed.env').init() else print('Aniseed not found. Running aniseed install now') print(vim.api.nvim_call_function('system', {'make aniseed'})) require('aniseed.env').init() end
+lua <<EOF
+  local ok, res = pcall(require, 'aniseed.env');
+  if ok then
+    res.init()
+  else
+    print('Aniseed not found. Running aniseed install now')
+    print(vim.api.nvim_call_function('system', {'make aniseed'}))
+    local ok, res = pcall(require, 'aniseed.env')
+
+    if not ok then
+      print('Could not load after install')
+    else
+      res.init()
+    end
+
+  end
+EOF
