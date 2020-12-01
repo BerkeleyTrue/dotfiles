@@ -1,12 +1,13 @@
 (module plugins.init
-  {:require {a aniseed.core}
+  {:require {r r}
    :require-macros [macros]})
 
 (defn main []
   (->>
-    [:plugins.colorizer
-     :plugins.beacon
-     :plugins.terraform]
-    (a.map #(run-main $1))))
+    [:colorizer
+     :beacon
+     :terraform]
+    (r.map #(.. :plugins "." $1))
+    (r.forEach #(run-main $1))))
 
 (comment (main))
