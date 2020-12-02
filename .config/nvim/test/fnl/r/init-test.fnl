@@ -1,5 +1,5 @@
-(module dotfiles.r-test
-  {:require {r dotfiles.r}})
+(module r-test
+  {:require {r r}})
 
 (deftest curry
   (t.ok? r.curry "is curry exported")
