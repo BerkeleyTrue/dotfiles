@@ -15,7 +15,6 @@ alias vim='nvim'
 # alias nvim='nvim'
 ## Use vimrc with sudo vim
 alias suvim='sudo -E nvim'
-alias tmux="TERM=screen-256color-bce tmux -2"
 ## Will make parent directories if they don't exist
 ## Also verbose
 alias mkdir="mkdir -pv"
