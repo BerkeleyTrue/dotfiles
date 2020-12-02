@@ -5,7 +5,7 @@
   (if
     ok (do
          (run-main :theme)
-         (run-main :plugins.init)
+         (run-main :plugins)
          (safe-require :plugins.nerd-commenter)
          (safe-require :plugins.scroll-fix)
          (safe-require :plugins.sexp)
