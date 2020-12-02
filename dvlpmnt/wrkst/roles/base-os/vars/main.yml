@@ -15,6 +15,7 @@ packages:
   - kitty
   - task # taskwarrior
   - wakatime
+  - entr # watch files and re-run command
   ## automation
   - ansible
   - ansible-lint
