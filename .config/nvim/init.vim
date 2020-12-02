@@ -196,30 +196,6 @@ filetype indent on
 " Plugin Config
 " ================================================== {{{
 
-" pangloss/vim-javascript
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-" }}}
-
-" Ale Settings
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = ''
-let g:ale_echo_msg_format = '%linter%(%code%): %s'
-let g:ale_linters = {
-  \ 'javascript': ['eslint'],
-  \ 'typescript': ['tslint', 'tsserver'],
-  \ 'pug': ['pug-lint'],
-  \ 'clojure': ['clj-kondo', 'joker'],
-  \ 'yaml.ansible': ['ansible-lint'],
-\}
-let g:ale_sign_column_always = 1
-let g:ale_virtualtext_cursor = 1
-let g:ale_virtualtext_prefix = '//=> '
-let g:ale_virtualtext_delay = 300
-" }}}
-
 " Rainbow Parens Settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " Enable rainbow parentheses for all buffers

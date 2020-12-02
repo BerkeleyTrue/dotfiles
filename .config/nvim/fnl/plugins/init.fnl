@@ -12,7 +12,9 @@
   (->>
     [:colorizer
      :beacon
-     :terraform]
+     :terraform
+     :js
+     :ale]
     (r.map #(.. ns "." $1))
     (r.forEach #(run-main $1))))
 
