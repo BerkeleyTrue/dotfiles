@@ -29,7 +29,21 @@
                     needed (- needed (select :# ...))]
                 (wrapper args needed)))))
         (wrapper [] arity)))))
+
 (def is-equal (curry #(= $1 $2)))
+
+(defn rearg [func indexes]
+  (assert (not (a.some (is-equal 0) indexes)) "Lua/fennel is 1 indexed")
+  (fn [...]
+    (let
+      [args [...]
+       newargs (a.reduce
+                 (fn [newargs idx]
+                   (table.insert newargs (a.get args idx))
+                   newargs)
+                 []
+                 indexes)]
+      (func (unpack newargs)))))
 
 ;; funcs
 (def const a.constantly)
@@ -51,6 +65,7 @@
 (def last a.last)
 (def some a.some)
 (def concat a.concat)
+(def reduce a.reduce)
 
 ;; array
 (defn find [predicate collection]
