@@ -8,6 +8,7 @@ alias ...='cd ../.. && pwd'
 alias ls=$LISTC
 alias ll=$LISTC_N_ARGS
 alias man=$(command -v batman > /dev/null 2>&1 && echo 'batman' || echo 'man')
+alias cat=$(command -v bat > /dev/null 2>&1 && echo 'bat' || echo 'cat')
 
 alias v='nvim'
 alias vi='nvim'
