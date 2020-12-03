@@ -196,24 +196,6 @@ filetype indent on
 " Plugin Config
 " ================================================== {{{
 
-" Emmet
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" Emmet in html/css/jsx
-let g:user_emmet_install_global = 0
-" Use single quotes for Emmet (bam!)
-let g:user_emmet_settings = {
-\  'html' : {
-\    'quote_char': "'",
-\  },
-\  'jsx' : {
-\    'quote_char': "'",
-\  },
-\  'javascript.jsx' : {
-\      'extends' : 'jsx',
-\  },
-\}
-" }}}
-
 " MatchTagAlways
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:mta_filetypes = {
