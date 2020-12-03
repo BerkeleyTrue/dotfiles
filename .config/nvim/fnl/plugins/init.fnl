@@ -16,7 +16,8 @@
      :js
      :ale
      :rainbow-parens
-     :ultisnips]
+     :ultisnips
+     :emmet]
     (r.map #(.. ns "." $1))
     (r.forEach #(run-main $1))))
 
