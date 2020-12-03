@@ -1,6 +1,7 @@
 (module utils
   {:require {nvim aniseed.nvim
              a aniseed.core
+             r r
              str aniseed.string}})
 
 
@@ -87,3 +88,13 @@
         guisp (.. "guisp='" (a.first special) "'")]
 
     (nvim.ex.highlight scope gui cterm guifg ctermfg guibg ctermbg guisp)))
+
+(defn augroup [name cmds]
+  (nvim.ex.augroup name)
+  (nvim.ex.autocmd_)
+  (->>
+    cmds
+    (r.forEach
+      (fn [{: event : pattern : cmd}]
+        (nvim.ex.autocmd (.. event " " pattern " " cmd)))))
+  (nvim.ex.augroup :END))
