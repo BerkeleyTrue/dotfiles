@@ -196,23 +196,6 @@ filetype indent on
 " Plugin Config
 " ================================================== {{{
 
-" MatchTagAlways
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:mta_filetypes = {
-\ 'html' : 1,
-\ 'xhtml' : 1,
-\ 'xml' : 1,
-\ 'javascript.jsx' : 1,
-\}
-let g:mta_use_matchparen_group = 1
-" }}}
-
-" Vim-scrollfix
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:scrollfix = 50
-let g:fixeof = 0
-" }}}
-
 " Airline config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:airline_theme='dracula'

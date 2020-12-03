@@ -16,6 +16,7 @@
      :emmet
      :js
      :markdown
+     :mta
      :nerd-commenter
      :rainbow-parens
      :sexp
