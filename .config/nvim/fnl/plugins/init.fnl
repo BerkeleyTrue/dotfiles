@@ -15,7 +15,8 @@
      :terraform
      :js
      :ale
-     :rainbow-parens]
+     :rainbow-parens
+     :ultisnips]
     (r.map #(.. ns "." $1))
     (r.forEach #(run-main $1))))
 
