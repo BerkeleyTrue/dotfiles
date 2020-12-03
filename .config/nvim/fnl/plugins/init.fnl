@@ -14,7 +14,8 @@
      :beacon
      :terraform
      :js
-     :ale]
+     :ale
+     :rainbow-parens]
     (r.map #(.. ns "." $1))
     (r.forEach #(run-main $1))))
 

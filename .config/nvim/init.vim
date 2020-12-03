@@ -196,18 +196,6 @@ filetype indent on
 " Plugin Config
 " ================================================== {{{
 
-" Rainbow Parens Settings
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" Enable rainbow parentheses for all buffers
-augroup rainbow_parentheses
-  autocmd!
-  au VimEnter * RainbowParenthesesActivate
-  au BufEnter * RainbowParenthesesLoadRound
-  au BufEnter * RainbowParenthesesLoadSquare
-  au BufEnter * RainbowParenthesesLoadBraces
-augroup END
-" }}}
-
 " Ultisnips
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " We map the trigger initially to <c-w>
