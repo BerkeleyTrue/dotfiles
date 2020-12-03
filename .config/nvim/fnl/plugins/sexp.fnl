@@ -1,5 +1,5 @@
 (module plugins.sexp
-  {:require {a aniseed.core
-             nvim aniseed.nvim}})
+  {:require {utils utils}})
 
-(set nvim.g.sexp_filetypes "clojure,fennel")
+(defn main []
+  (utils.set-nvim-g! {:sexp_filetypes "clojure,fennel"}))

@@ -10,14 +10,19 @@
 
 (defn main []
   (->>
-    [:colorizer
+    [:ale
      :beacon
-     :terraform
+     :colorizer
+     :emmet
      :js
-     :ale
+     :markdown
+     :nerd-commenter
      :rainbow-parens
-     :ultisnips
-     :emmet]
+     :sexp
+     :telescope
+     :terraform
+     :tree-sitter
+     :ultisnips]
     (r.map #(.. ns "." $1))
     (r.forEach #(run-main $1))))
 

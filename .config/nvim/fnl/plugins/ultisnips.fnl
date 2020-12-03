@@ -1,6 +1,5 @@
 (module plugins.ultisnips
-  {:require {r r
-             nvim aniseed.nvim}})
+  {:require {utils utils}})
 
 
 ; We map the trigger initially to <c-w>
@@ -12,10 +11,7 @@
 ; This is not ideal but I'm unable to find another
 ; way.
 (defn main []
-  (->>
+  (utils.set-nvim-g!
     {:UltiSnipsExpandTrigger "<C-w>"
      :UltiSnipsJumpForwardTrigger "<C-b>"
-     :UltiSnipsJumpBackwardTrigger "<C-c>"}
-    (r.to-pairs)
-    (r.forEach
-      (fn [[key val]] (tset nvim.g key val)))))
+     :UltiSnipsJumpBackwardTrigger "<C-c>"}))

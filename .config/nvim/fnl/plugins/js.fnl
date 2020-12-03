@@ -1,14 +1,8 @@
 (module :plugins.js
-  {:require {a aniseed.core
-             r r
-             nvim aniseed.nvim}})
+  {:require {utils utils}})
 
 
 (defn main []
-  (->>
+  (utils.set-nvim-g!
     {:javascript_plugin_jsdoc 1
-     :javascript_plugin_flow 1}
-    (r.to-pairs)
-    (r.forEach
-      (fn [[key val]]
-        (tset nvim.g key val)))))
+     :javascript_plugin_flow 1}))

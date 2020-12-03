@@ -1,7 +1,5 @@
 (module plugins.rainbow-parens
-  {:require {r r
-             utils utils
-             nvim aniseed.nvim}})
+  {:require {utils utils}})
 
 (defn main []
   (->>
