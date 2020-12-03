@@ -196,21 +196,6 @@ filetype indent on
 " Plugin Config
 " ================================================== {{{
 
-" Ultisnips
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" We map the trigger initially to <c-w>
-" so our <tab> keymaps are not overwritten
-" by ultisnips.
-" We then replicate the normal/x/select
-" mode binding for ultisnips while
-" keeping our own insert mode bindings
-" This is not ideal but I'm unable to find another
-" way.
-let g:UltiSnipsExpandTrigger = '<C-w>'
-let g:UltiSnipsJumpForwardTrigger = '<C-b>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-c>'
-" }}}
-
 " Emmet
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " Emmet in html/css/jsx
