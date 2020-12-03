@@ -98,3 +98,12 @@
       (fn [{: event : pattern : cmd}]
         (nvim.ex.autocmd (.. event " " pattern " " cmd)))))
   (nvim.ex.augroup :END))
+
+(defn set-nvim-g! [map]
+  (assert (= (type map) "table") (.. "set-nvim-g! expects a table but got a: " (tostring map)))
+  (->>
+    map
+    (r.to-pairs)
+    (r.forEach
+      (fn [[key val]] (tset nvim.g key val))))
+  map)
