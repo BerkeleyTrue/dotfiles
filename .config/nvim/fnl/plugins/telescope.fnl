@@ -19,4 +19,5 @@
      :color_devicons true
      :file_sorter sorters.get_fzy_sorter}))
 
-(setup telescope)
+(defn main []
+  (setup telescope))

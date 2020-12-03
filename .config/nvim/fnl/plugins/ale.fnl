@@ -1,11 +1,9 @@
 (module :plugins.ale
-  {:require {a aniseed.core
-             r r
-             nvim aniseed.nvim}})
+  {:require {utils utils}})
 
 
 (defn main []
-  (->>
+  (utils.set-nvim-g!
     {
      :ale_sign_error "✗"
      :ale_sign_warning ""
@@ -18,8 +16,4 @@
                    :typescript [:tslint :tsserver]
                    :pug [:pug-lint]
                    :clojure [:clj-kondo :joker]
-                   :yaml.ansible [:ansible-lint]}}
-    (r.to-pairs)
-    (r.forEach
-      (fn [[key val]]
-        (tset nvim.g key val)))))
+                   :yaml.ansible [:ansible-lint]}}))
