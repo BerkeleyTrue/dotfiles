@@ -10,6 +10,15 @@
   `(-?>
      ,name
      (safe-require)
+     ((fn [mod#]
+        (assert
+          (= (type mod#) "table")
+          (.. "run-main expects a table to be exported by " (tostring ,name) " but found: " (tostring mod#)))
+        (assert
+          (= (type (. mod# :main)) "function")
+          (.. "run-main expects a module with a public main function but found " (tostring (. mod# :main)) " for " (tostring ,name)))
+        mod#))
+
      ((fn [mod#] ((. mod# :main))))))
 
 {:safe-require safe-require
