@@ -9,18 +9,24 @@
     [:airline
      :ale
      :beacon
+     :better-whitespace
      :colorizer
+     :delimit-mate
      :emmet
      :js
      :markdown
      :mta
+     :multi-cursor
      :nerd-commenter
      :rainbow-parens
      :sexp
+     :sandwich
+     :startify
      :telescope
      :terraform
      :tree-sitter
-     :ultisnips]
+     :ultisnips
+     :vimtex]
     (r.map #(.. *module-name* "." $1))
     (r.forEach #(run-main $1))))
 

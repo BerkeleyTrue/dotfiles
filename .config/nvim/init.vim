@@ -151,6 +151,8 @@ set autoread                                   "  autoread the file into buffer 
 set clipboard=unnamedplus                      "  default yank into + register, which is the default clipboard for linux may break in osx?
 set cmdheight=2                                "  better display for messages
 set copyindent                                 "  copy the previous indentation on autoindenting
+set cursorcolumn
+set cursorline
 set expandtab                                  "  convert tabs to spaces
 set ignorecase                                 "  ignore case when searching
 set list                                       "  set list mode for listchars
@@ -191,82 +193,6 @@ filetype plugin on
 " Turns on automatic indent from plugins
 filetype indent on
 " }}}
-
-" ==================================================
-" Plugin Config
-" ================================================== {{{
-
-" Sexp config
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:sexp_enable_insert_mode_mappings = 0
-" }}}
-
-" Delimate config
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" When opening a pair of surround and hitting <CR>
-" this will expand the pair onto new lines
-let g:delimitMate_expand_cr = 2
-" Same as above but will add padding to surround
-let g:delimitMate_expand_space = 1
-" Allow inserting closing surround on expansion
-" to jump to the already existing closing
-" surround instead of inserting a new closing surround
-let g:delimitMate_jump_expansion = 1
-" }}}
-
-" vim crosshairs
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-set cursorcolumn
-set cursorline
-" }}}
-
-" Vimtex config
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:vimtex_fold_enabled = 1
-let g:tex_conceal = 0
-let g:tex_flavor = 'plain'
-" }}}
-"
-" vim-multi-cursor
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:multi_cursor_exit_from_insert_mode = 0
-let g:multi_cursor_exit_from_visual_mode = 0
-"}}}
-"
-" vim-sandwich
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-
-" add spaces inside braket
-let g:sandwich#recipes += [
-  \   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
-  \   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
-  \   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
-  \   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['{']},
-  \   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['[']},
-  \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['(']},
-  \ ]
-"}}}
-
-" vim-jsx-pretty
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:vim_jsx_pretty_highlight_close_tag = 1
-"}}}
-"
-" vim-starify
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:startify_change_to_dir = 0
-" }}}
-"
-" ntpeters/vim-better-whitespace
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:better_whitespace_enabled=0
-let g:strip_whitespace_on_save=1
-let g:strip_whitespace_confirm=0
-let g:strip_only_modified_lines=1
-" }}}
-"
-"" -- End Plugin Config -- }}}
 
 " make sure aniseed path is available for macros lookup
 let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed'
