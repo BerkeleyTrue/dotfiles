@@ -196,63 +196,6 @@ filetype indent on
 " Plugin Config
 " ================================================== {{{
 
-" Airline config
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-let g:airline_theme='dracula'
-let g:airline_powerline_fonts = 1
-let g:airline_detect_spell=0
-
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-
-" Tab buffer list above the window
-let g:airline#extensions#tabline#enabled = 0
-
-let g:airline#extensions#ale#enabled = 0
-
-let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#coc#warning_symbol = ''
-let g:airline#extensions#coc#error_symbol = '✗'
-
-let g:airline#extensions#whitespace#enabled = 0
-
-
-" Func: s:GetWD
-"-------------------------------------------------- {{{
-function! GetWD()
-  let l:wd=expand('%:.')
-
-  return strlen(l:wd) < 14 ? ' '.l:wd : '../'.expand('%:.:h:t').'/'.expand('%:t')
-endfunction "}}}
-
-call airline#parts#define_function('pwd', 'GetWD')
-
-" Func: AirlineInit()
-"-------------------------------------------------- {{{
-function! s:AirlineInit()
-  " code
-  let g:airline_symbols.linenr = ''
-  let g:airline_symbols.maxlinenr = ''
-  let g:airline_section_a = airline#section#create(['mode', 'crypt', 'paste', 'iminsert'])
-  let g:airline_section_b = airline#section#create_left(['hunks'])
-  let g:airline_section_c = airline#section#create_left(['pwd', 'readonly'])
-
-  let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper'])
-  let g:airline_section_y = airline#section#create_left(['filetype'])
-  let g:airline_section_z = airline#section#create(['linenr', 'maxlinenr', ':%3v'])
-
-endfunction "}}}
-
-" Group: AirlineAuGroup
-"-------------------------------------------------- {{{
-augroup AirlineAuGroup
-  autocmd!
-  autocmd VimEnter * call s:AirlineInit()
-augroup END "}}}
-" }}}
-
 " Sexp config
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 let g:sexp_enable_insert_mode_mappings = 0
