@@ -4,13 +4,10 @@
              r r}
    :require-macros [macros]})
 
-(def- ns (->
-           *module*
-           (. :aniseed/module)))
-
 (defn main []
   (->>
-    [:ale
+    [:airline
+     :ale
      :beacon
      :colorizer
      :emmet
@@ -24,7 +21,7 @@
      :terraform
      :tree-sitter
      :ultisnips]
-    (r.map #(.. ns "." $1))
+    (r.map #(.. *module-name* "." $1))
     (r.forEach #(run-main $1))))
 
 (comment (main))
