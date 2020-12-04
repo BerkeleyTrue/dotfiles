@@ -1,9 +1,13 @@
 (module utils
-  {:require {nvim aniseed.nvim
+  {:require {
              a aniseed.core
+             nvim aniseed.nvim
+             nutils aniseed.nvim.util
              r r
              str aniseed.string}})
 
+(defn viml-fn-bridge [viml-name mod name opts]
+  (nutils.fn-bridge viml-name mod name opts))
 
 (defn viml->lua [m f opts]
   "(viml->lua :module.a :module-function {:args ['foo' 'bar']})"
@@ -98,6 +102,11 @@
       (fn [{: event : pattern : cmd}]
         (nvim.ex.autocmd (.. event " " pattern " " cmd)))))
   (nvim.ex.augroup :END))
+
+(defn autogroup [...]
+  (print (.. "Warning: " *module-name* ".autogroup should be " *module-name* ".augroup"))
+  (augroup ...))
+
 
 (defn set-nvim-g! [map]
   (assert (= (type map) "table") (.. "set-nvim-g! expects a table but got a: " (tostring map)))
