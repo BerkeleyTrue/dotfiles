@@ -6,6 +6,10 @@
              r r
              str aniseed.string}})
 
+
+;; hack to pass through nvim
+(setmetatable *module* {:__index nvim})
+
 (defn viml-fn-bridge [viml-name mod name opts]
   (nutils.fn-bridge viml-name mod name opts))
 
