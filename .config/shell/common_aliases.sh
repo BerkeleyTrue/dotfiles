@@ -46,9 +46,10 @@ mr_th() {
   npm run dev-tophat
 }
 
-mr_rv() {
+mr_rv() { mr_cc }
+mr_cc() {
   mr_init
-  npm run dev-raven
+  npm run dev-cc
 }
 
 mr_ws() {
