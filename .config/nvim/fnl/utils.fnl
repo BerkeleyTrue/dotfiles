@@ -120,3 +120,12 @@
     (r.forEach
       (fn [[key val]] (tset nvim.g key val))))
   map)
+
+(defn set-nvim-o! [map]
+  (assert (= (type map) "table") (.. "set-nvim-0! expects a table but got a: " (tostring map)))
+  (->>
+    map
+    (r.to-pairs)
+    (r.forEach
+      (fn [[key val]] (tset nvim.o key val))))
+  map)

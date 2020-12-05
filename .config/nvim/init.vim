@@ -142,57 +142,7 @@ Plug 'wavded/vim-stylus'
 " }}}
 call plug#end()
 " }}}
-"
-" ==================================================
-" General Config
-" ================================================== {{{
-set ambiwidth="single"                         "  force East Asian Width Class chars into a single space
-set autoread                                   "  autoread the file into buffer on focus
-set clipboard=unnamedplus                      "  default yank into + register, which is the default clipboard for linux may break in osx?
-set cmdheight=2                                "  better display for messages
-set copyindent                                 "  copy the previous indentation on autoindenting
-set cursorcolumn
-set cursorline
-set expandtab                                  "  convert tabs to spaces
-set ignorecase                                 "  ignore case when searching
-set list                                       "  set list mode for listchars
-set listchars=tab:>.                           "  mark whitespace
-set mouse=a                                    "  enable the use of the mouse
-set nobackup                                   "  disable backups"
-set noswapfile                                 "  disable backups"
-set nowrap                                     "  don't wrap lines
-set number                                     "  hybrid mode numbers
-set shiftround                                 "  use multiple of shiftwidth when indenting with "<" and ">"
-set shiftwidth=2                               "  number of spaces to use for autoindenting
-set shortmess+=c                               "  don't give |ins-completion-menu| messages.
-set showmatch                                  "  set show matching parenthesis
-set signcolumn=yes                             "  always show signcolumns
-set spell                                      "  enable spell checking
-set spelllang=en_us                            "  set spell language to US english
-set norelativenumber                           "  no relative numbers
-set synmaxcol=512                              "  prevent long lines from hanging vim
-set tabstop=2                                  "  a tab is two spaces
-set termguicolors                              "  use gui colors in term's that support it
-set timeoutlen=1000                            "  add mapping key timeout delay
-set title                                      "  change the terminal"s title
-set ttimeoutlen=0                              "  remove key code delays
-set undolevels=1000                            "  use many muchos levels of undo
-set updatetime=300                             "  smaller updatetime for CursorHold & CursorHoldI
-set visualbell                                 "  flash screen on error
-set wildignore=*.swp,*.bak,*.pyc,*.class       "  ignore these files
-" nvim blinking cursor
-" see :help 'guicursor'
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-      \,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor
-      \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-
-" Turns on plugins
-filetype plugin on
-
-" Turns on automatic indent from plugins
-filetype indent on
-" }}}
 
 " make sure aniseed path is available for macros lookup
 let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed'
