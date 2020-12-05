@@ -13,6 +13,7 @@
      :colorizer
      :delimit-mate
      :emmet
+     :easy-align
      :js
      :markdown
      :mta
