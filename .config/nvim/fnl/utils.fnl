@@ -129,3 +129,7 @@
     (r.forEach
       (fn [[key val]] (tset nvim.o key val))))
   map)
+
+(defn pack-add [package]
+  "add optional package to runtime"
+  (nvim.ex.packadd package))
