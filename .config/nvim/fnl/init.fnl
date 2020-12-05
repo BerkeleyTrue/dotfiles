@@ -1,6 +1,9 @@
 (module init
   {:require-macros [macros]})
 
+; vim options requires no plugins
+(run-main :options)
+
 (let [(ok res) (pcall require :packer-modules)]
   (if
     ok (do
