@@ -23,9 +23,7 @@
     (nvim.fn.call name [confs])))
 
 (defn airline-init []
-  (utils.set-nvim-g! {:airline_symbols.linenr ""
-                      :airline_symbols.maxlinenr ""
-                      :airline_section_a (create-section "" [:mode :crypt :paste :iminsert])
+  (utils.set-nvim-g! {:airline_section_a (create-section "" [:mode :crypt :paste :iminsert])
                       :airline_section_b (create-section :left [:hunks])
                       :airline_section_c (create-section :left [:pwd :readonly])
                       :airline_section_x (create-section :right [:bookmark :tagbar :vista :gutentags :omnisharp :grepper])
@@ -35,6 +33,8 @@
     (utils.set-nvim-g! {:airline_theme "dracula"
                         :airline_powerline_fonts   1
                         :airline_detect_spell 0
+                        :airline_symbols.linenr ""
+                        :airline_symbols.maxlinenr ""
 
                         :airline_left_sep   ""
                         :airline_left_alt_sep   ""
@@ -44,9 +44,11 @@
                         ; Tab buffer list above the window
                         :airline#extensions#tabline#enabled   0
 
-                        :airline#extensions#ale#enabled   0
+                        :airline#extensions#ale#enabled   1
+                        :airline#extensions#ale#warning_symbol   ""
+                        :airline#extensions#ale#error_symbol   "✗"
 
-                        :airline#extensions#coc#enabled   1
+                        :airline#extensions#coc#enabled   0
                         :airline#extensions#coc#warning_symbol   ""
                         :airline#extensions#coc#error_symbol   "✗"
 
