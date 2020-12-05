@@ -11,8 +11,10 @@
    {:name "nvim-lua/telescope.nvim"
     :requires [["nvim-lua/popup.nvim"] ["nvim-lua/plenary.nvim"]]}
    {:name "berkeleytrue/colorbuddy.nvim"}
-   {:name "norcalli/nvim-colorizer.lua" :opt true}])
-
+   {:name "norcalli/nvim-colorizer.lua"
+    :opt true}
+   {:name "junegunn/vim-easy-align"
+    :opt true}])
 
 (def- lisp-spec
   [{:name "olical/aniseed" :branch "develop"}
