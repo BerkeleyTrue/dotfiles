@@ -38,48 +38,54 @@ call plug#begin()
 " Utils
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 call s:InstallFzF()
-Plug 'ashisha/image.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'danilamihailov/beacon.nvim'
+" moving/searching
+Plug 'matze/vim-move'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
+Plug 'mileszs/ack.vim'
+
+" text obj manipulation
+Plug 'tpope/vim-repeat'
+Plug 'wellle/targets.vim'
 Plug 'kana/vim-textobj-user'
-Plug 'kien/rainbow_parentheses.vim'
+
+" file tree
+Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
-Plug 'kshenoy/vim-signature'
+
+" ui
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'machakann/vim-sandwich'
-Plug 'matze/vim-move'
-Plug 'mg979/vim-visual-multi'
-Plug 'mhinz/vim-signify'
-Plug 'mhinz/vim-startify'
-Plug 'mileszs/ack.vim'
-Plug 'moll/vim-bbye'
-Plug 'ntpeters/vim-better-whitespace'
+
+" treesitter
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/playground'
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'raimondi/delimitMate'
-Plug 'romgrk/barbar.nvim'
 Plug 'romgrk/nvim-treesitter-context'
-Plug 'scrooloose/nerdcommenter'
-Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" parens
+Plug 'raimondi/delimitMate'
+Plug 'machakann/vim-sandwich'
 Plug 'tmhedberg/matchit'
+Plug 'valloric/MatchTagAlways'
+
+" tmux
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+
+"git
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-unimpaired'
-Plug 'valloric/MatchTagAlways'
+" buffers
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'moll/vim-bbye'
+
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
-Plug 'wellle/targets.vim'
 Plug 'wincent/corpus'
 "}}}
 

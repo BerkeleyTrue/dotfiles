@@ -3,6 +3,7 @@
              packer plugins.packer}})
 
 (def- main-spec
+  ; main utils
   [{:name "wbthomason/packer.nvim"
     :opt true}
    {:name "tpope/vim-projectionist"
@@ -14,11 +15,27 @@
    {:name "norcalli/nvim-colorizer.lua"
     :opt true}
    {:name "junegunn/vim-easy-align"
-    :opt true}])
+    :opt true}
+   {:name :ashisha/image.vim}
+   {:name :danilamihailov/beacon.nvim}
+   {:name :ntpeters/vim-better-whitespace}
+   {:name :mg979/vim-visual-multi}
+   {:name :scrooloose/nerdcommenter}
 
-(def- lisp-spec
-  [{:name "olical/aniseed" :branch "develop"}
-   {:name "olical/conjure" :branch "develop"}
+   ; tmux integration
+   {:name :christoomey/vim-tmux-navigator}
+
+   ; git
+   {:name :mhinz/vim-signify :desciption "show git diffs in the gutter"}
+
+   ; UI
+   {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}
+   {:name :mhinz/vim-startify :desciption "show a start up screen"}
+   {:name :romgrk/barbar.nvim :desciption "tab bar built in lua"}
+
+   ; (())
+   {:name "olical/aniseed" :branch "develop"}
+   {:name "~/dvlpmnt/lisp/conjure"}
    {:name "bakpakin/fennel.vim"}
    {:name "eraserhd/parinfer-rust" :run "cargo build --release"}
 
@@ -36,4 +53,4 @@
     :description "adds mappings for easier list manipulation"
     :requires [["guns/vim-sexp"]]}])
 
-(packer.config (a.concat main-spec lisp-spec))
+(packer.config main-spec)
