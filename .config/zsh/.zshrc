@@ -1,6 +1,6 @@
 
 export DEFAULT_USER=`whoami`
-export FZF_DEFAULT_COMMAND='find .'
+export FZF_DEFAULT_COMMAND='fd .'
 export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
 export TASKDATA="$XDG_CONFIG_HOME/task"
 export TASKRC="$TASKDATA/taskrc"
@@ -47,6 +47,8 @@ if [[ $OSNAME = 'Darwin' ]]; then
   source /usr/local/share/antigen/antigen.zsh
 else
   source /usr/share/zsh/share/antigen.zsh
+  source /usr/share/fzf/completion.zsh
+  source /usr/share/fzf/key-bindings.zsh
 fi
 
 antigen use oh-my-zsh
@@ -68,6 +70,13 @@ antigen theme https://gitlab.com/BerkeleyTrue/ghanima.git ghanima
 
 # apply antigen plugins
 antigen apply
+
+# source antigen plugin manager
+if [[ $OSNAME != 'Darwin' ]]; then
+  # source after vi-mode to overwrite bindkeys
+  source /usr/share/fzf/completion.zsh
+  source /usr/share/fzf/key-bindings.zsh
+fi
 
 # apply zoxide to zsh
 eval "$(zoxide init zsh)"
