@@ -21,6 +21,8 @@
    {:name :ntpeters/vim-better-whitespace}
    {:name :mg979/vim-visual-multi}
    {:name :scrooloose/nerdcommenter}
+   {:name :johannesthyssen/vim-signit :desciption "Add signature to a file"}
+
 
    ; tmux integration
    {:name :christoomey/vim-tmux-navigator}

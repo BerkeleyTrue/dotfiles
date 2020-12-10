@@ -12,16 +12,17 @@
      :better-whitespace
      :colorizer
      :delimit-mate
-     :emmet
      :easy-align
+     :emmet
      :js
      :markdown
      :mta
      :multi-cursor
      :nerd-commenter
      :rainbow-parens
-     :sexp
      :sandwich
+     :sexp
+     :signit
      :startify
      :telescope
      :terraform
