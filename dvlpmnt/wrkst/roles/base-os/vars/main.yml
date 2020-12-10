@@ -10,12 +10,13 @@ packages:
   - yay
   # Dev
   ## terminal
-  - neovim
   - alacritty
+  - entr # watch files and re-run command
+  - figlet # make large banners out of ascii
   - kitty
+  - neovim
   - task # taskwarrior
   - wakatime
-  - entr # watch files and re-run command
   ## automation
   - ansible
   - ansible-lint
