@@ -5,9 +5,9 @@
              cb colorbuddy
              log colorbuddy.log
              utils utils
-             r r
-             js theme.ft.js
-             spell theme.ft.spell}})
+             r r}
+   :require-macros [macros]})
+
 
 
 (comment (set log.level "debug"))
@@ -241,12 +241,10 @@
 (add-group :TSConstructor c.orange c.none)
 (hi-link! :TSNamespace :Namespace)
 
-(def- main-colors [])
-
 (defn main []
-  (doto {:add-group add-group
-         :hi-link! hi-link!
-         :c c
-         :s s}
-        (js.main)
-        (spell.main)))
+  (->>
+    {: add-group
+     : hi-link!
+     : c
+     : s}
+    (run-main :theme.ft)))

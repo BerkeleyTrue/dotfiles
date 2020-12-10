@@ -1,7 +1,14 @@
-(module theme.ft.js
+(module theme.ft.yaml
   {:require {: utils}})
 
 (defn main [{: hi-link!}]
+  (hi-link! :yamlAlias           :BerksGreenItalicUnderline)
+  (hi-link! :yamlAnchor          :BerksPinkItalic)
+  (hi-link! :yamlBlockMappingKey :BerksCyan)
+  (hi-link! :yamlFlowCollection  :BerksPink)
+  (hi-link! :yamlFlowIndicator   :Delimiter)
+  (hi-link! :yamlNodeTag         :BerksPink)
+  (hi-link! :yamlPlainScalar     :BerksYellow)
   (hi-link! :jsFuncCall :BerksPurple)
   (hi-link! :jsGlobalObjects :Constant)
   (hi-link! :jsGlobalNodeObjects :jsGlobalObjects)
