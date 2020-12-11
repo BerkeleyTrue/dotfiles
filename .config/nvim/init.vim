@@ -39,54 +39,16 @@ call plug#begin()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 call s:InstallFzF()
 " moving/searching
-Plug 'matze/vim-move'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'mileszs/ack.vim'
-
-" text obj manipulation
-Plug 'tpope/vim-repeat'
-Plug 'wellle/targets.vim'
-Plug 'kana/vim-textobj-user'
 
 " file tree
 Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 
-" ui
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'kyazdani42/nvim-web-devicons'
-
-" treesitter
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'nvim-treesitter/playground'
-Plug 'romgrk/nvim-treesitter-context'
-
-" parens
-Plug 'raimondi/delimitMate'
-Plug 'machakann/vim-sandwich'
-Plug 'tmhedberg/matchit'
-Plug 'valloric/MatchTagAlways'
-
-" tmux
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-
-"git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-unimpaired'
-" buffers
-Plug 'vim-scripts/BufOnly.vim'
-Plug 'moll/vim-bbye'
-
-Plug 'w0rp/ale'
-Plug 'wakatime/vim-wakatime'
-Plug 'wincent/corpus'
 "}}}
 
 " Pop Up Menu Completion
@@ -96,40 +58,11 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'shougo/neco-vim'
 " }}}
 
-" Snippets
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-Plug 'berkeleyTrue/berkeleys-snippet-emporium'
-Plug 'roxma/nvim-yarp',
-Plug 'sirVer/ultisnips'
-Plug 'wellle/tmux-complete.vim'
-" }}}
-
 " Theme
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
+" Remove when swapped airline for galaxyline
 Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'vim-airline/vim-airline'
-" }}}
-
-" Lang
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-Plug 'blackrush/vim-gocode'
-Plug 'chr4/nginx.vim'
-Plug 'chrisbra/csv.vim'
-Plug 'derekwyatt/vim-scala'
-Plug 'digitaltoad/vim-jade'
-Plug 'fatih/vim-go'
-Plug 'glench/vim-jinja2-syntax'
-Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
-Plug 'hashivim/vim-terraform'
-Plug 'lervag/vimtex'
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'othree/xml.vim'
-Plug 'pearofducks/ansible-vim'
-Plug 'potatoesmaster/i3-vim-syntax'
-Plug 'rust-lang/rust.vim'
-Plug 'shime/vim-livedown'
-Plug 'sirtaj/vim-openscad'
-Plug 'tbastos/vim-lua'
 " }}}
 
 " Web
