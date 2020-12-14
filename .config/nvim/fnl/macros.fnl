@@ -4,7 +4,7 @@
   `(let [(ok# res#) (pcall require ,name)]
      (if
        ok# res#
-       (print (.. "Couldn't load " ,name)))))
+       (print (.. "Couldn't load " ,name ": " res#)))))
 
 (fn run-main [name ...]
   `(let [args# ,[...]]
