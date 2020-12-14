@@ -3,8 +3,6 @@
              str aniseed.string}})
 
 
-; passthroughs/renames from aniseed for easier lookup
-
 ;utils
 (def _ :placeholder)
 (defn curry [func arity]
@@ -51,16 +49,29 @@
 
 ;; tables - data first
 (def assoc a.assoc)
+(def assoc-in a.assoc-in)
 (defn to-pairs [tabl]
   "(to-pairs {:a b}) => [[:a 'b']]"
   "Convert a table into an list of key,value pairs"
   (a.kv-pairs tabl))
+(defn from-pairs [prs]
+  "(from-pairs [...[key val]]) => Dict[key val]"
+  (->>
+    prs
+    (a.reduce
+      (fn [acc [key val]]
+        (tset acc key val)
+        acc)
+      {})))
+
 (def update a.update)
 
 ;; array - data last
 (def forEach a.run!)
 (def map a.map)
+(def filter a.filter)
 (def head a.first)
+(def merge a.merge)
 (def tail a.rest)
 (def last a.last)
 (def some a.some)
@@ -155,3 +166,17 @@
 
 ;; Strings
 (def split (curry str.split))
+(defn upperFirst [s]
+  (let [first (-> s (: :sub 1 1) (: :upper))
+        rest (s:sub 2)]
+    (.. first rest)))
+
+;; lang
+(defn true? [a] (= a true))
+(defn function? [f] (= (type f) :function))
+
+(defn key-map [keys]
+  (->>
+    keys
+    (a.map #[$1 $1])
+    (from-pairs)))
