@@ -10,8 +10,13 @@
 ;; hack to pass through nvim
 (setmetatable *module* {:__index nvim})
 
-(defn viml-fn-bridge [viml-name mod name opts]
-  (nutils.fn-bridge viml-name mod name opts))
+(defn- viml-name-format [s] (-> s (: :gsub :%. "_") (: :gsub :%- "_")))
+
+(defn viml-fn-bridge [mod name opts]
+  (let [Mod (r.upperFirst mod)
+        func-name (viml-name-format (.. Mod "_" name "_viml"))]
+    (nutils.fn-bridge func-name mod name opts)
+    func-name))
 
 (defn viml->lua [m f opts]
   "(viml->lua :module.a :module-function {:args ['foo' 'bar']})"
@@ -54,14 +59,14 @@
 
 (defn noremap [lhs rhs options?]
   "norecur map for all modes"
-  (let [opts (tset (or options? {}) :noremap true)]
-    (base-map :a lhs rhs opts)))
+  (let [options (r.assoc (or options? {}) :noremap true)]
+    (base-map :a lhs rhs options)))
 
 (defn nnoremap [lhs rhs options?]
   "(nnoremap 'cr' ':echo foo' {:expr true :buffer false :nowait false})
   create a nnoremap"
-  (let [opts (tset (or options? {}) :noremap true)]
-    (base-map :n lhs rhs opts)))
+  (let [options (r.assoc (or options? {}) :noremap true)]
+    (base-map :n lhs rhs options)))
 
 (defn get-cursor-pos []
   "(get-cursor-pos) => [x, y]
