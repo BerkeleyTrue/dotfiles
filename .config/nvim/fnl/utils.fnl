@@ -3,7 +3,7 @@
              a aniseed.core
              nvim aniseed.nvim
              nutils aniseed.nvim.util
-             r r
+             : r
              str aniseed.string}})
 
 
@@ -20,25 +20,48 @@
     "['" f "']"
     "(" (or (and opts opts.args) "") ")"))
 
-(defn nnoremap [lhs rhs options]
-  "(nnoremap 'cr' ':echo foo' {:expr true :buffer false :nowait false})
-  create a nnoremap"
-  (let [{:expr expr
+(def- map-types
+  (->
+    [:n :o :v :i]
+    r.key-map))
+
+(tset map-types :a "")
+
+(defn- base-map [mtype lhs rhs options]
+  "(base-map 'n' 'cr' ':echo foo' {:expr true :buffer false :nowait false})"
+  (let [mode (. map-types mtype)
+        {:expr expr
          :silent silent
          :buffer buffer
          :nowait nowait
          :script script
          :unique unique} (or options {})
 
-        args ["n" lhs rhs {:expr expr
-                           :silent silent
-                           :nowait nowait
-                           :script script
-                           :noremap true}]]
-
+        args [mode lhs rhs {:expr expr
+                            :silent silent
+                            :nowait nowait
+                            :script script}]]
     (if
       buffer (nvim.buf_set_keymap 0 (unpack args))
       (nvim.set_keymap (unpack args)))))
+
+
+(defn nmap [lhs rhs options] (base-map :n lhs rhs options))
+(defn amap [lhs rhs options] (base-map :a lhs rhs options))
+(defn omap [lhs rhs options] (base-map :o lhs rhs options))
+(defn imap [lhs rhs options] (base-map :i lhs rhs options))
+(defn vmap [lhs rhs options] (base-map :v lhs rhs options))
+
+(defn noremap [lhs rhs options?]
+  "norecur map for all modes"
+  (let [opts (tset (or options? {}) :noremap true)]
+    (base-map :a lhs rhs opts)))
+
+(defn nnoremap [lhs rhs options?]
+  "(nnoremap 'cr' ':echo foo' {:expr true :buffer false :nowait false})
+  create a nnoremap"
+  (let [opts (tset (or options? {}) :noremap true)]
+    (base-map :n lhs rhs opts)))
 
 (defn get-cursor-pos []
   "(get-cursor-pos) => [x, y]
