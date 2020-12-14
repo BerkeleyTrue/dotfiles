@@ -93,10 +93,10 @@
     :requires [[:guns/vim-sexp]]}
 
    ;treesitter
-   {:name :nvim-treesitter/nvim-treesitter :description ""}
-   {:name :nvim-treesitter/nvim-treesitter-refactor :description ""}
-   {:name :nvim-treesitter/playground :description ""}
-   {:name :romgrk/nvim-treesitter-context :description ""}
+   {:name :nvim-treesitter/nvim-treesitter}
+   {:name :nvim-treesitter/nvim-treesitter-refactor}
+   {:name :nvim-treesitter/playground}
+   {:name :romgrk/nvim-treesitter-context}
 
    ; general lang syntax plugins
    {:name :plasticboy/vim-markdown :requires [[:godlygeek/tabular]]}

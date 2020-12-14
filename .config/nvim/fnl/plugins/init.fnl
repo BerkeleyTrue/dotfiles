@@ -1,9 +1,8 @@
 (module plugins
-  {:require {a aniseed.core
-             nvim aniseed.nvim
-             r r}
+  {:require {: r}
    :require-macros [macros]})
 
+(comment ((. (require :plugins.easy-motion) main)))
 (defn main []
   (->>
     [:airline
@@ -13,6 +12,7 @@
      :colorizer
      :delimit-mate
      :easy-align
+     :easy-motion
      :emmet
      :js
      :markdown
