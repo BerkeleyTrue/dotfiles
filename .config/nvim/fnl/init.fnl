@@ -2,7 +2,8 @@
   {:require-macros [macros]})
 
 ; vim options requires no plugins
-(run-main :options)
+; side-effecty
+(require :options)
 
 (let [(ok res) (pcall require :packer-modules)]
   (if
