@@ -22,5 +22,9 @@
 
        ((fn [mod#] ((. mod# :main) (unpack args#)))))))
 
+(fn sym->name [a-sym]
+  (tostring a-sym))
+
 {:safe-require safe-require
- :run-main run-main}
+ :run-main run-main
+ :sym->name sym->name}
