@@ -65,9 +65,16 @@ let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed'
 " check if aniseed is installed, if not, run make aniseed to install and
 " init
 lua <<EOF
-  local ok, res = pcall(require, 'aniseed.env');
+  local isInConf = vim.fn.stdpath("config") == vim.fn.getcwd()
+
+  if isInConf then
+    print("[init.vim]: in conf dir: force compiling")
+  end
+
+  local ok, res = pcall(require, 'aniseed.env')
+
   if ok then
-    res.init({ force = true })
+    res.init({ force = isInConf })
   else
     print('Aniseed not found. Running aniseed install now')
     print(vim.api.nvim_call_function('system', {'make aniseed'}))
@@ -76,7 +83,7 @@ lua <<EOF
     if not ok then
       print('Could not load after install')
     else
-      res.init({ force = true })
+      res.init({ force = isInConf })
     end
 
   end
