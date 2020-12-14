@@ -1,8 +1,8 @@
 (module plugins.airline
   {:require {nvim aniseed.nvim
-             utils utils}})
+             utils utils}
+   :require-macros [macros]})
 
-(def get-dir-prompt-viml-name :GetDirPrompt)
 (defn get-dir-prompt []
   (let [wd (nvim.fn.expand "%:.")
         pd (nvim.fn.expand "%:.:h:t")
@@ -11,8 +11,7 @@
       (< (length wd) 14) (.. " " wd)
       (.. "../" pd "/" fln))))
 
-(defn- create-dir-prompt-viml []
-  (utils.viml-fn-bridge get-dir-prompt-viml-name *module-name* :get-dir-prompt))
+(def- get-dir-prompt-viml-name (utils.viml-fn-bridge *module-name* (sym->name get-dir-prompt)))
 
 
 (defn- create-section [side? confs]
@@ -61,5 +60,4 @@
 
 
     (when (not ok) (print (.. "couldn't execute airline define func: " err))))
-  (create-dir-prompt-viml)
   (utils.augroup :airline-au [{:event :VimEnter :pattern :* :cmd (utils.viml->lua *module-name* :airline-init)}]))
