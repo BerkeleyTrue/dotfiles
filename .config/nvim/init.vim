@@ -1,6 +1,3 @@
-" ==================================================
-" Install Plugins
-" ================================================== {{{
 "
 " Init Vim Plug
 " ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
@@ -35,38 +32,21 @@ function! s:InstallFzF()
 endfunction " }}}
 
 call plug#begin()
-" Utils
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 call s:InstallFzF()
-" moving/searching
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'haya14busa/incsearch.vim'
 
 " file tree
 Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 
-"}}}
-
-" Pop Up Menu Completion
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'shougo/neco-vim'
-" }}}
 
-" Theme
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 " Remove when swapped airline for galaxyline
 Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
 Plug 'vim-airline/vim-airline'
-" }}}
 
-" Web
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
 Plug 'elzr/vim-json'
 Plug 'hhsnopek/vim-sugarss'
 Plug 'jparise/vim-graphql'
@@ -78,10 +58,7 @@ Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'wavded/vim-stylus'
-" }}}
 call plug#end()
-" }}}
-
 
 " make sure aniseed path is available for macros lookup
 let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed'
@@ -90,7 +67,7 @@ let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed'
 lua <<EOF
   local ok, res = pcall(require, 'aniseed.env');
   if ok then
-    res.init()
+    res.init({ force = true })
   else
     print('Aniseed not found. Running aniseed install now')
     print(vim.api.nvim_call_function('system', {'make aniseed'}))
@@ -99,7 +76,7 @@ lua <<EOF
     if not ok then
       print('Could not load after install')
     else
-      res.init()
+      res.init({ force = true })
     end
 
   end
