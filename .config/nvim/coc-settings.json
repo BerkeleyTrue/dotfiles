@@ -8,6 +8,10 @@
     "fennel"
   ],
 
+  "snippets.extends": {
+    "typescript": ["javascript"],
+    "typescriptreact": ["javascript"]
+  },
   "languageserver": {
     "terraform": {
       "command": "terraform-lsp",
