@@ -68,6 +68,10 @@
   (let [options (r.assoc (or options? {}) :noremap true)]
     (base-map :n lhs rhs options)))
 
+(defn inoremap [lhs rhs options?]
+  (let [options (r.assoc (or options? {}) :noremap true)]
+    (base-map :i lhs rhs options)))
+
 (defn get-cursor-pos []
   "(get-cursor-pos) => [x, y]
   get the chars under the cursor"
