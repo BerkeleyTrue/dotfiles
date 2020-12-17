@@ -72,6 +72,25 @@
   (let [options (r.assoc (or options? {}) :noremap true)]
     (base-map :i lhs rhs options)))
 
+(defn vnoremap [lhs rhs options?]
+  (let [options (r.assoc (or options? {}) :noremap true)]
+    (base-map :v lhs rhs options)))
+
+(defn safe-cnoreabbrev [from to]
+  "(safe-cnoreabbrev :foo :echo)
+  ensures the command is not"
+  (nvim.ex.cnoreabbrev
+    (..
+      "<expr> "
+      from
+      ; if cmd type is ex command and the command is <from>
+      ; then return <to>
+      ; otherwise return <from>
+      " ((getcmdtype() is# ':' && getcmdline() is# '" from "')? "
+      "('" to "') : "
+      "('" from "'))")))
+
+
 (defn get-cursor-pos []
   "(get-cursor-pos) => [x, y]
   get the chars under the cursor"

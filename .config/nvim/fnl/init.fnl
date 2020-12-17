@@ -4,7 +4,7 @@
 ; vim options requires no plugins
 ; side-effecty
 (require :options)
-(require :general-maps)
+(require :maps)
 
 (let [(ok res) (pcall require :packer-modules)]
   (if

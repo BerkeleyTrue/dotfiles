@@ -68,6 +68,7 @@
 
 ;; array - data last
 (def forEach a.run!)
+(def for-each a.run!)
 (def map a.map)
 (def filter a.filter)
 (def head a.first)
