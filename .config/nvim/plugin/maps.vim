@@ -5,61 +5,6 @@
 " key mapping conflicts
 " This should include commands
 
-" Vim leader key to ,
-let g:mapleader=','
-let g:maplocalleader=','
-
-" Map jj and kk to escape and move in insert mode
-inoremap jj <ESC>
-inoremap kk <ESC>
-
-" Remove all hightlighting
-nnoremap <Leader>rh :noh<cr>
-
-" ,ev to edit vim, ,sv to source vim
-nmap <silent> <leader>ev :edit $MYVIMRC<CR>
-nmap <silent> <leader>sv :source $MYVIMRC<CR>
-
-" Turn of default <C-j> binding
-let g:BASH_Ctrl_j = 'off'
-" Navigation {{{
-" Window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-" NOTE: If <C-h> binding is not working could be due
-" to neovim issue see: neovim/neovim/issues/2048
-" The solution is to enter the following into
-" the bash command line
-"
-" infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti && tic $TERM.ti
-nnoremap <C-w>vh <C-w>t<C-w>K
-nnoremap <C-w>hv <C-w>t<C-w>H
-" resize tab to fit scripts
-nnoremap <C-w>vr :call animate#window_absolute_width(90)<cr>
-
-" move to the end of the line in visual mode
-vnoremap L g_
-" }}}
-
-" easily create aliases
-fun! SetupCommandAlias(from, to)
-  exec 'cnoreabbrev <expr> '.a:from
-    \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
-    \ .'? ("'.a:to.'") : ("'.a:from.'"))'
-endfun
-" Alias Helptags to rbHelp, This makes way more sense to me and will be
-" easier to remember
-call SetupCommandAlias('RebuildHelpFiles', 'Helptags')
-
-" Alias sudo overwrite
-call SetupCommandAlias('sudowrite', 'w !sudo tee %')
-" Alias command qq to q!
-call SetupCommandAlias('qq', 'q!')
-" Alias :W to :w because I keep forgetting to release shift!
-call SetupCommandAlias('W', 'w')
-
 " Make OSX alt key compatible with vim
 " Now alt will work as expected with vim-move
 nmap ˙ <A-h>
