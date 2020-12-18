@@ -25,6 +25,8 @@
     "['" f "']"
     "(" (or (and opts opts.args) "") ")"))
 
+(defn cviml->lua [m f opts] (.. ":" (viml->lua m f) "<CR>"))
+
 (def- map-types
   (->
     [:n :o :v :i]
