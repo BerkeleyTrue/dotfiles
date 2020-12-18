@@ -8,5 +8,5 @@ endfunction
 "-------------------------------------------------- {{{
 augroup TrimEndLines
   autocmd!
-  autocmd BufWritePre *.clj,*.cljs,*.fnl call TrimEndLines()
+  autocmd BufWritePre *.clj,*.cljs,*.fnl,*.js,*.ts,*.tsx call TrimEndLines()
 augroup END "}}}
