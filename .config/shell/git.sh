@@ -12,7 +12,6 @@ alias gcom='git commit'
 alias gamend='git commit --amend'
 alias glog='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
 alias glognum='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
-alias gco='git checkout'
 alias gtagls='git describe --tags --abbrev=0'
 alias gtag='git tag -s'
 alias grst='git reset'
@@ -304,21 +303,26 @@ fbranch() {
     branch=$(echo "$branches" | fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
-fco() {
+gco() {
   # fco - checkout git branch/tag with fzf search
-  local tags branches target
-  tags=$(
-  git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  local branches target
+  local query=$1
+  # rarely do I need to checkout tags
+  # tags=$(git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+
   branches=$(
-  git branch --all | grep -v HEAD             |
-  sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-  sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+    git branch --all | grep -v HEAD             |
+    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+
   target=$(
-  (echo "$tags"; echo "$branches") |
-  fzf-tmux -d50% -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+    (echo "$branches") |
+    fzf-tmux -d50% -- --no-hscroll --ansi +m -d "\t" -n 2 -q $query) || return
+
   git checkout $(echo "$target" | awk '{print $2}')
 }
-fshow() {
+
+flog() {
   # fshow - git commit browser
   git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
     fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
