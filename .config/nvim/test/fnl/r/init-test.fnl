@@ -40,3 +40,15 @@
     (t.ok? (= (type refunc) "function") "(rearg func index) should return a function")
     (t.ok? (= (func 2 2 3) 12) "test my math")
     (t.ok? (= (refunc 2 2 3) 10) "(refunc a b c) should be call (func b c a)")))
+
+(deftest empty?
+  (t.ok? (r.true? (r.empty? [])) "should return true for empty array")
+  (t.ok? (r.true? (r.empty? {})) "should return true for empty table")
+  (t.ok? (r.true? (r.empty? "")) "should return true for empty string")
+  (t.ok? (r.true? (r.empty? nil)) "should return true for none nil")
+  (t.ok? (r.true? (r.empty?)) "should return true when called with no args")
+  (t.ok? (r.false? (r.empty? [:not :empty])) "should return false for not empty array")
+  (t.ok? (r.false? (r.empty? {:not :empty})) "should return false for not empty table")
+  (t.ok? (r.false? (r.empty? "not empty"))) "should return false for not empty string"
+  (t.ok? (r.false? (r.empty? true)) "should return false for none table|string")
+  (t.ok? (r.false? (r.empty? 1)) "should return false for none table|string"))
