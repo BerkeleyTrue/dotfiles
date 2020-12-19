@@ -46,6 +46,14 @@
 ;; funcs
 (def const a.constantly)
 (def noop (const nil))
+(defn call [f]
+  (assert (= (type f) :function) (.. "expected f to be a function but found: " (tostring f)))
+  (f))
+
+(def apply
+  (curry
+    (fn [args f] (f (unpack args)))))
+
 
 ;; tables - data first
 (def assoc a.assoc)
@@ -78,6 +86,12 @@
 (def some a.some)
 (def concat a.concat)
 (def reduce a.reduce)
+(def join
+  (curry
+    (fn [separater xs]
+      (if
+        (= (length xs) 1)) (a.first xs)
+        (a.reduce (fn [acc item] (.. acc separater item)) (head xs) (tail xs)))))
 
 ;; array
 (defn find [predicate collection]
