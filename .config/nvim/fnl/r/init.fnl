@@ -174,7 +174,21 @@
 
 ;; lang
 (defn true? [a] (= a true))
+(defn false? [a] (= a false))
 (defn function? [f] (= (type f) :function))
+(defn string? [val] (= (type val) :string))
+(defn nil? [val] (= (type val) :nil))
+(defn table? [val] (= (type val) :table))
+; array|string|table
+(defn empty? [val]
+  "(empty? {}) ;=> true
+   (empty? []) ;=> true
+   (empty? \"\") ;=> true"
+  (if
+    (table? val) (nil? (next val))
+    (string? val) (= (length val) 0)
+    (nil? val) true
+    false))
 
 (defn key-map [keys]
   (->>
