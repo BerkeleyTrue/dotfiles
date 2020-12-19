@@ -10,6 +10,7 @@
   (if
     ok (do
          (run-main :theme)
+         (run-main :slackline)
          (run-main :plugins)
          (safe-require :plugins.scroll-fix)
          (safe-require :plugins.defx)
