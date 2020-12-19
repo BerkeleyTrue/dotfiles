@@ -1,11 +1,10 @@
 (module plugins.defx
-  {:require {nvim aniseed.nvim
-             utils utils
-             nutils aniseed.nvim.util
-             a aniseed.core
-             str aniseed.string}})
+  {:require {: utils
+             : r}
+   :require-macros [macros]})
 
-(nvim.fn.call
+
+(utils.fn.call
   :defx#custom#option ["_"
                        {:columns "indent:mark:git:icons:icon:filename"
                         :winwidth 32
@@ -13,25 +12,25 @@
                         :direction "topleft"
                         :split "vertical"}])
 
-(nvim.fn.call
+(utils.fn.call
   :defx#custom#column ["filename"
                        {:min_width 32
                         :max_width -90}])
 
-(nvim.fn.call
+(utils.fn.call
   :defx#custom#column ["icon"
                        {:directory_icon "▸"
                         :opened_icon    "▾"
                         :root_icon      "."}])
 
-(nvim.fn.call
+(utils.fn.call
   :defx#custom#column ["mark"
                        {
                         :readonly_icon "✗"
                         :selected_icon "✓"}])
 
-(a.assoc nvim.g
-         "defx_git#indicators"
+(r.assoc utils.g
+         :defx_git#indicators
          {
           :Deleted   "✖"
           :Ignored   "☒"
@@ -62,63 +61,53 @@
   (utils.hi-link! :Defx_git_Unmerged :BerksRed)
   (utils.hi-link! :Defx_git_Untracked :BerksNone))
 
-(defn is-defx-buf []
-  (= (. nvim.bo :filetype) "defx"))
+(defn- is-defx-buf []
+  (= (. utils.bo :filetype) "defx"))
 
 (defn defx-explorer [dir]
   ; open defx explorer
-  (let [dir (if (str.blank? dir) (nvim.fn.getcwd) dir)
+  (let [dir (if (r.empty? dir) (utils.fn.getcwd) dir)
         is-defx (is-defx-buf)]
 
     (if is-defx
-      (nvim.fn.call :defx#call_action ["quit"])
-      (nvim.ex.Defx "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
+      (utils.fn.call :defx#call_action ["quit"])
+      (utils.ex.Defx "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
 
-(nutils.fn-bridge "DefxExplorer" "plugins.defx" "defx-explorer")
-
-(nvim.set_keymap
-  "n"
+(utils.nnoremap
   "get"
-  ":call DefxExplorer(getcwd())<CR>"
-  {:silent true
-   :noremap true})
+  (utils.cviml->lua *module-name* (sym->name defx-explorer))
+  {:silent true})
 
 (defn defx-search [search dir]
   ; open defx and search for file in tree, expand that tree
   ; If already in a defx buffer, close it
-  (let [dir (if (str.blank? dir) (nvim.fn.getcwd) dir)
-        search (if (str.blank? search) (nvim.fn.expand "%:p") search)
+  (let [dir (if (r.empty? dir) (utils.fn.getcwd) dir)
+        search (: (if (r.empty? search) (utils.fn.expand "%:p") search) :gsub " " "\\ ")
         is-defx (is-defx-buf)]
 
     (if is-defx
-      (nvim.fn.call :defx#call_action ["quit"])
-      (nvim.ex.Defx (.. "-search=" search) "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
+      (utils.fn.call :defx#call_action ["quit"])
+      (utils.ex.Defx (.. "-search=" search) "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
 
-(nutils.fn-bridge "DefxSearch" "plugins.defx" "defx-search")
-
-(nvim.set_keymap
-  "n"
+(utils.nnoremap
   "gef"
-  ":call DefxSearch(expand('%:p'), getcwd())<CR>"
-  {:silent true
-   :noremap true})
+  (utils.cviml->lua *module-name* (sym->name defx-search))
+  {:silent true})
 
 (defn defx-change-root []
-  (let [is-dir (nvim.fn.call :defx#is_directory)]
+  (let [is-dir (utils.fn.call :defx#is_directory)]
     (when is-dir
       (do
-        (nvim.fn.call :defx#call_action ["yank_path"])
-        (nvim.fn.call :defx#call_action ["cd" (nvim.fn.getreg 0)])))))
+        (utils.fn.call :defx#call_action ["yank_path"])
+        (utils.fn.call :defx#call_action ["cd" (utils.fn.getreg 0)])))))
 
-(nutils.fn-bridge "DefxChangeRoot" "plugins.defx" "defx-change-root")
-
-(defn nnoremap-buf-expr [lhs rhs]
+(defn- nnoremap-buf-expr [lhs rhs]
   (utils.nnoremap lhs rhs {:buffer true :expr true :silent true}))
 
-;; all are buffer
+; settings while in defx buffer
 (defn defx-settings []
   ;; not expression
-  (utils.nnoremap "cr"          ":call DefxChangeRoot()<CR>" {:buffer true :silent true :expr false})
+  (utils.nnoremap "cr"          (utils.cviml->lua *module-name* (sym->name defx-change-root)) {:buffer true :silent true})
   (nnoremap-buf-expr "<C-p>"    "defx#do_action('cd', ['..'])")
   (nnoremap-buf-expr "."        "defx#do_action('toggle_ignored_files')")
 
@@ -162,19 +151,17 @@
   (nnoremap-buf-expr  ">>"      "defx#do_action('resize', defx#get_context().winwidth + 20)")
   (nnoremap-buf-expr  "<<"      "defx#do_action('resize', defx#get_context().winwidth - 20)"))
 
-(do
-  (nvim.ex.augroup :defx-settings-au)
-  (nvim.ex.autocmd_)
-  (nvim.ex.autocmd (..
-                     "FileType defx "
-                     ":"
-                     (utils.viml->lua
-                       :plugins.defx
-                       :defx-settings)))
-  (nvim.ex.autocmd "FileType defx setlocal nospell")
-  (nvim.ex.autocmd "VimResized defx call defx#call_action('resize', winwidth(0))")
-  (nvim.ex.autocmd "BufWritePost * call defx#redraw()")
-  (nvim.ex.augroup :END)
-  {:defx-settings defx-settings
-   :defx-search defx-search
-   :defx-explorer defx-explorer})
+(utils.augroup
+  :defx-settings-au
+  [{:event :FileType
+    :pattern :defx
+    :cmd (.. ":" (utils.viml->lua *module-name* (sym->name defx-settings)))}
+   {:event :FileType
+    :pattern :defx
+    :cmd "setlocal nospell"}
+   {:event :VimResized
+    :pattern :defx
+    :cmd "call defx#call_action('resize', winwidth(0))"}
+   {:event :BufWritePost
+    :pattern :*
+    :cmd "call defx#redraw()"}])
