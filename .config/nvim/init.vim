@@ -43,10 +43,6 @@ Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'shougo/neco-vim'
 
-" Remove when swapped airline for galaxyline
-Plug 'dracula/vim' ", { 'commit': '8d8af7abeef92ae81336679688812c585baf241e' }
-Plug 'vim-airline/vim-airline'
-
 Plug 'elzr/vim-json'
 Plug 'hhsnopek/vim-sugarss'
 Plug 'jparise/vim-graphql'

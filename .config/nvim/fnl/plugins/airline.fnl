@@ -29,6 +29,7 @@
                       :airline_section_y (create-section :left [:filetype])
                       :airline_section_z (create-section "" [:linenr :maxlinenr ::%3v])}))
 (defn main []
+  (comment
     (utils.set-nvim-g! {:airline_theme "dracula"
                         :airline_powerline_fonts   1
                         :airline_detect_spell 0
@@ -53,11 +54,11 @@
 
                         :airline#extensions#whitespace#enabled   0})
 
-  (let [(ok err) (pcall
-                   nvim.fn.call
-                   :airline#parts#define_function
-                   [:pwd get-dir-prompt-viml-name])]
+    (let [(ok err) (pcall
+                     nvim.fn.call
+                     :airline#parts#define_function
+                     [:pwd get-dir-prompt-viml-name])]
 
 
-    (when (not ok) (print (.. "couldn't execute airline define func: " err))))
-  (utils.augroup :airline-au [{:event :VimEnter :pattern :* :cmd (utils.viml->lua *module-name* :airline-init)}]))
+      (when (not ok) (print (.. "couldn't execute airline define func: " err))))
+    (utils.augroup :airline-au [{:event :VimEnter :pattern :* :cmd (utils.viml->lua *module-name* :airline-init)}])))
