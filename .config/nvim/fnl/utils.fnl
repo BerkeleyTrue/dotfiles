@@ -13,6 +13,10 @@
 (defn- viml-name-format [s] (-> s (: :gsub :%. "_") (: :gsub :%- "_")))
 
 (defn viml-fn-bridge [mod name opts]
+  "(viml-fn-bridge *module-name* (sym->name some-func))
+  Creates a global Vim function that will call a lua/fnl module function
+  Given a module foo.bar-baz and a function do-thing, the global vim function name will be formated
+  Foo_bar_baz_do_thing"
   (let [Mod (r.upperFirst mod)
         func-name (viml-name-format (.. Mod "_" name "_viml"))]
     (nutils.fn-bridge func-name mod name opts)
