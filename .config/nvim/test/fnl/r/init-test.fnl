@@ -62,4 +62,9 @@
   (t.ok? (t.pr= [:a :b] (from-seq-iter (ipairs [:a :b])))))
 
 (deftest words
-  (t.ok? (t.pr= [:foo :bar] (r.words "foo bar"))))
+  (t.ok? (t.pr= [:foo :bar] (r.words "foo bar")))
+  (t.ok? (t.pr= [:foo :bar :baz :x :y] (r.words "foo bar baz x y"))))
+
+(deftest pascal-case
+  (t.ok? (t.pr= "FooBar" (r.pascal-case "foo bar")))
+  (t.ok? (t.pr= "BerksVimModeFoo" (r.pascal-case "berks vim mode foo"))))
