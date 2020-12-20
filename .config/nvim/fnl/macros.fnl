@@ -26,10 +26,12 @@
   (tostring a-sym))
 
 (fn from-iter [iter-fact]
-  "(from-iter (pairs {:apple \"red\" :orange \"orange\"})) ;=> {:red \"apple\" :orange \"orange\"}"
+  "(from-iter (pairs {:apple \"red\" :orange \"orange\"})) ;=> {:red \"apple\" :orange \"orange\"}
+   When vals are
+   (from-iter (: \"foo bar\" :gmatch \"%S+\")) ;=> {:foo true :bar true}"
   `(let [tbl# {}]
      (each [k# v# ,iter-fact]
-       (tset tbl# k# v#))
+       (tset tbl# k# (if (= v# nil) true v#)))
      tbl#))
 
 (fn from-seq-iter [iter-fact]
