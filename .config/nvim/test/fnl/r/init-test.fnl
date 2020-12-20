@@ -1,6 +1,7 @@
 (module r.init-test
   {:require {a aniseed.core
-             r r}})
+             r r}
+   :require-macros [macros]})
 
 (deftest curry
   (t.ok? r.curry "is curry exported")
@@ -52,3 +53,10 @@
   (t.ok? (r.false? (r.empty? "not empty"))) "should return false for not empty string"
   (t.ok? (r.false? (r.empty? true)) "should return false for none table|string")
   (t.ok? (r.false? (r.empty? 1)) "should return false for none table|string"))
+
+(deftest from-iter-macro
+  (t.ok? (t.pr= {:a :b} (from-iter (pairs {:a :b}))))
+  (t.ok? (t.pr= {:foo nil :bar nil} (from-iter (: "foo bar" :gmatch "%S+")))))
+
+(deftest from-seq-iter-macro
+  (t.ok? (t.pr= [:a :b] (from-seq-iter (ipairs [:a :b])))))
