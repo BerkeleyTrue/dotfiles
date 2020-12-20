@@ -56,7 +56,10 @@
 
 (deftest from-iter-macro
   (t.ok? (t.pr= {:a :b} (from-iter (pairs {:a :b}))))
-  (t.ok? (t.pr= {:foo nil :bar nil} (from-iter (: "foo bar" :gmatch "%S+")))))
+  (t.ok? (t.pr= {:foo true :bar true} (from-iter (: "foo bar" :gmatch "%S+")))))
 
 (deftest from-seq-iter-macro
   (t.ok? (t.pr= [:a :b] (from-seq-iter (ipairs [:a :b])))))
+
+(deftest words
+  (t.ok? (t.pr= [:foo :bar] (r.words "foo bar"))))

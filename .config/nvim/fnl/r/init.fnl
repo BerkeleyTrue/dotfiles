@@ -1,6 +1,8 @@
 (module r
   {:require {a aniseed.core
-             str aniseed.string}})
+             str aniseed.string}
+   :require-macros [macros]})
+
 
 
 ;utils
@@ -73,6 +75,8 @@
       {})))
 
 (def update a.update)
+(def keys a.keys)
+(def vals a.vals)
 
 ;; array - data last
 (def forEach a.run!)
@@ -172,12 +176,13 @@
     result))
 
 ;; utils
-(def range (curry
-             (fn [start end]
-               (let [result []]
-                 (for [i start end 1]
-                   (table.insert result i))
-                 result))))
+(def range
+  (curry
+    (fn [start end]
+      (let [result []]
+        (for [i start end 1]
+          (table.insert result i))
+        result))))
 
 ;; Strings
 (def split (curry str.split))
@@ -185,6 +190,14 @@
   (let [first (-> s (: :sub 1 1) (: :upper))
         rest (s:sub 2)]
     (.. first rest)))
+
+(defn words [str]
+  (->
+    str
+    (tostring)
+    (: :gmatch "%S+")
+    (from-iter)
+    (a.keys)))
 
 ;; lang
 (defn true? [a] (= a true))
