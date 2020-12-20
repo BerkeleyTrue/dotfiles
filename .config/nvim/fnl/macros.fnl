@@ -25,6 +25,22 @@
 (fn sym->name [a-sym]
   (tostring a-sym))
 
+(fn from-iter [iter-fact]
+  "(from-iter (pairs {:apple \"red\" :orange \"orange\"})) ;=> {:red \"apple\" :orange \"orange\"}"
+  `(let [tbl# {}]
+     (each [k# v# ,iter-fact]
+       (tset tbl# k# v#))
+     tbl#))
+
+(fn from-seq-iter [iter-fact]
+  "(from-seq-iter (ipairs [:apple :orange])) ;=> [:apple :orange]"
+  `(let [tbl# []]
+     (each [_# v# ,iter-fact]
+       (table.insert tbl# v#))
+     tbl#))
+
 {:safe-require safe-require
  :run-main run-main
- :sym->name sym->name}
+ :sym->name sym->name
+ :from-iter from-iter
+ :from-seq-iter from-seq-iter}
