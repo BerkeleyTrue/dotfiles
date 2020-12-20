@@ -192,12 +192,28 @@
     (.. first rest)))
 
 (defn words [str]
-  (->
-    str
-    (tostring)
-    (: :gmatch "%S+")
-    (from-iter)
-    (a.keys)))
+  (let [str (tostring str)
+        words []]
+    (each [word (str:gmatch "%S+")]
+      (table.insert words word))
+    words))
+
+(defn- create-compounder [cb]
+  (fn [str]
+    (->>
+      str
+      (words)
+      (a.reduce cb ""))))
+
+(def pascal-case
+  (create-compounder
+    (fn [acc word]
+      (->>
+        word
+        (string.lower)
+        (upperFirst)
+        (.. acc)))))
+
 
 ;; lang
 (defn true? [a] (= a true))
