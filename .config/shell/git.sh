@@ -309,6 +309,11 @@ gco() {
   local query=$1
   # rarely do I need to checkout tags
   # tags=$(git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  local existed_in_local=$(git branch --list ${query})
+  if [[ -n $existed_in_local ]]; then
+    git checkout $query
+    return
+  fi
 
   branches=$(
     git branch --all | grep -v HEAD             |
