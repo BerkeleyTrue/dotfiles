@@ -13,7 +13,6 @@
          (run-main :slackline)
          (run-main :plugins)
          (safe-require :plugins.scroll-fix)
-         (safe-require :plugins.defx)
          (safe-require :plugins.fzf)
          (safe-require :plugins.accents)
          (safe-require :plugins.runtime-utils))

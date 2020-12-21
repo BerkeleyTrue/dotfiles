@@ -10,6 +10,7 @@
      :beacon
      :better-whitespace
      :colorizer
+     :defx
      :delimit-mate
      :easy-align
      :easy-motion
