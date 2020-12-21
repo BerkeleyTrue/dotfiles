@@ -64,8 +64,11 @@
    {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}
    {:name :mhinz/vim-startify :desciption "show a start up screen"}
    {:name :romgrk/barbar.nvim :desciption "tab bar built in lua"}
+   {:name :shougo/defx.nvim :description "file explorer"}
+   {:name :kristijanhusak/defx-git :description "add git marks for defx"}
+   {:name :kristijanhusak/defx-icons :description "add dev icons for defx"}
 
-   ; parenthesis
+    ; parenthesis
    {:name :kien/rainbow_parentheses.vim :description "make parens rainbow, bruh"}
    {:name :kyazdani42/nvim-web-devicons :description "require web devicons through lua"}
    {:name :raimondi/delimitMate :description "automatic closing of quotes, parenthesis, brackets"}

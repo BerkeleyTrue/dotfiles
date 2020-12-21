@@ -3,44 +3,17 @@
              : r}
    :require-macros [macros]})
 
-
-(utils.fn.call
-  :defx#custom#option ["_"
-                       {:columns "indent:mark:git:icons:icon:filename"
-                        :winwidth 32
-                        :show_ignored_files 1
-                        :direction "topleft"
-                        :split "vertical"}])
-
-(utils.fn.call
-  :defx#custom#column ["filename"
-                       {:min_width 32
-                        :max_width -90}])
-
-(utils.fn.call
-  :defx#custom#column ["icon"
-                       {:directory_icon "▸"
-                        :opened_icon    "▾"
-                        :root_icon      "."}])
-
-(utils.fn.call
-  :defx#custom#column ["mark"
-                       {
-                        :readonly_icon "✗"
-                        :selected_icon "✓"}])
-
-(r.assoc utils.g
-         :defx_git#indicators
-         {
-          :Deleted   "✖"
-          :Ignored   "☒"
-          :Modified  "✹"
-          :Renamed   "➜"
-          :Staged    "✚"
-          :Unknown   "?"
-          :Unmerged  "═"
-          :Untracked "✭"})
-
+(r.assoc
+  utils.g
+  :defx_git#indicators
+  {:Deleted   "✖"
+   :Ignored   "☒"
+   :Modified  "✹"
+   :Renamed   "➜"
+   :Staged    "✚"
+   :Unknown   "?"
+   :Unmerged  "═"
+   :Untracked "✭"})
 
 (do
   (utils.hi-link! :DefxIconsOpenedTreeIcon :BerksGreen)
@@ -73,11 +46,6 @@
       (utils.fn.call :defx#call_action ["quit"])
       (utils.ex.Defx "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
 
-(utils.nnoremap
-  "get"
-  (utils.cviml->lua *module-name* (sym->name defx-explorer))
-  {:silent true})
-
 (defn defx-search [search dir]
   ; open defx and search for file in tree, expand that tree
   ; If already in a defx buffer, close it
@@ -88,11 +56,6 @@
     (if is-defx
       (utils.fn.call :defx#call_action ["quit"])
       (utils.ex.Defx (.. "-search=" search) "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
-
-(utils.nnoremap
-  "gef"
-  (utils.cviml->lua *module-name* (sym->name defx-search))
-  {:silent true})
 
 (defn defx-change-root []
   (let [is-dir (utils.fn.call :defx#is_directory)]
@@ -151,17 +114,61 @@
   (nnoremap-buf-expr  ">>"      "defx#do_action('resize', defx#get_context().winwidth + 20)")
   (nnoremap-buf-expr  "<<"      "defx#do_action('resize', defx#get_context().winwidth - 20)"))
 
-(utils.augroup
-  :defx-settings-au
-  [{:event :FileType
-    :pattern :defx
-    :cmd (.. ":" (utils.viml->lua *module-name* (sym->name defx-settings)))}
-   {:event :FileType
-    :pattern :defx
-    :cmd "setlocal nospell"}
-   {:event :VimResized
-    :pattern :defx
-    :cmd "call defx#call_action('resize', winwidth(0))"}
-   {:event :BufWritePost
-    :pattern :*
-    :cmd "call defx#redraw()"}])
+(defn main []
+  (let [ok (pcall utils.ex.packadd :defx.nvim)]
+    (if
+      (not ok) (print (.. "could not load defx vim"))
+
+      (do
+        (utils.fn.call
+          :defx#custom#option
+          ["_"
+           {:columns            "indent:mark:git:icons:icon:filename"
+             :winwidth           32
+             :show_ignored_files 1
+             :direction          "topleft"
+             :split              "vertical"}])
+
+        (utils.fn.call
+          :defx#custom#column
+          ["filename"
+           {:min_width 32
+             :max_width -90}])
+
+        (utils.fn.call
+          :defx#custom#column
+          ["icon"
+           {:directory_icon "▸"
+             :opened_icon    "▾"
+             :root_icon      "."}])
+
+        (utils.fn.call
+          :defx#custom#column
+          ["mark"
+           {:readonly_icon "✗"
+             :selected_icon "✓"}])
+
+        (utils.nnoremap
+          "get"
+          (utils.cviml->lua *module-name* (sym->name defx-explorer))
+          {:silent true})
+
+        (utils.nnoremap
+          "gef"
+          (utils.cviml->lua *module-name* (sym->name defx-search))
+          {:silent true})
+
+        (utils.augroup
+          :defx-settings-au
+          [{:event :FileType
+            :pattern :defx
+            :cmd (.. ":" (utils.viml->lua *module-name* (sym->name defx-settings)))}
+           {:event :FileType
+            :pattern :defx
+            :cmd "setlocal nospell"}
+           {:event :VimResized
+            :pattern :defx
+            :cmd "call defx#call_action('resize', winwidth(0))"}
+           {:event :BufWritePost
+            :pattern :*
+            :cmd "call defx#redraw()"}])))))

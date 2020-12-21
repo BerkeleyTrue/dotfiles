@@ -35,10 +35,6 @@ call plug#begin()
 call s:InstallFzF()
 
 " file tree
-Plug 'shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'kristijanhusak/defx-git'
-Plug 'kristijanhusak/defx-icons'
-
 Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'shougo/neco-vim'
