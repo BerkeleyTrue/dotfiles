@@ -1,17 +1,89 @@
 (module slackline
   {:require {: utils
              : r
-             : theme}
+             :t theme
+             :a aniseed.core
+             :mode-map slackline.mode-map}
    :require-macros [macros]})
 
-(defn- wrap-hl-group [name] (.. "%#" name "#"))
+; status line utils
 (def- space-separater "%=")
+(defn- hl-comp [str]
+  (.. "%#" str "#"))
+
+(defn- format-hl-mode [name]
+  (->>
+    name
+    (r.deburr)
+    (.. "berks mode ")
+    (r.pascal-case)))
+
+;; componends
+(defn- create-hl-group [name]
+  (->
+    name
+    (format-hl-mode)
+    (hl-comp)))
+
+(defn- expression-comp [expr] (.. "%{" expr "}"))
+(defn- reset-hl-comp [str] (.. str (hl-comp :StatusLine)))
+
+(defn- mode-comp []
+  (->>
+    mode-map.m
+    (r.to-pairs)
+    (r.reduce
+      (fn [acc [mode {: name : fg : bg : case-insensitive}]]
+        (..
+          acc
+          (create-hl-group name fg bg)
+          (expression-comp (.. "(mode()==#\"" mode "\")?'" name "':''"))))
+      "")
+    (reset-hl-comp)))
+
+(defn- file-modified-comp []
+  (.. (if (= 1 (utils.fn.getbufvar (utils.fn.bufnr "%") "&mod")) " " "")))
 
 (defn- create-left-section []
-  "left")
+  (->>
+    [mode-comp
+     file-modified-comp]
+    (r.map r.call)
+    (r.join " ")))
+
+(defn- ale-comp [type]
+  (when (> (utils.fn.exists ":ALELint") 0)
+    (let [err? (= type :err)
+          {:error err
+           : style_error
+           : total} (utils.fn.ale#statusline#Count (utils.fn.bufnr "%"))
+          errs (+ err style_error)
+          warns (- total errs)
+          show? (if err? (> errs 0) (> warns 0))
+          render (.. (if err? (.. " " errs) (.. " " warns)))]
+      (if show? render ""))))
+
+(defn- ale-error-comp []
+  (reset-hl-comp
+    (->
+      :BerksRedInverse
+      (hl-comp)
+      (.. (ale-comp "err")))))
+
+(defn- ale-warning-comp []
+  (reset-hl-comp
+    (->
+      :BerksYellow
+      (hl-comp)
+      (.. (ale-comp "warning")))))
+
 
 (defn- create-mid-section []
-  "mid")
+  (->>
+    [ale-error-comp
+     ale-warning-comp]
+    (r.map r.call)
+    (r.join " ")))
 
 (def- sections
   [create-left-section
@@ -23,12 +95,25 @@
     (r.map r.call)
     (r.join space-separater)))
 
-(defn render-line []
-  (let [line (create-line)]
-    (set vim.wo.statusline line)))
+(defn render-active-line []
+  (create-line))
+
+(def- active-status-func (utils.viml-fn-bridge *module-name* (sym->name render-active-line)))
+
+(defn active-line []
+  (set vim.wo.statusline "")
+  (set vim.wo.statusline (.. "%!" active-status-func "()")))
 
 (def- events
-  ["FileType" "BufWinEnter" "BufReadPost" "BufWritePost" "BufEnter" "WinEnter" "FileChangedShellPost" "VimResized"])
+  [:FileType
+   :BufWinEnter
+   :BufReadPost
+   :BufWritePost
+   :BufEnter
+   :FocusGained
+   :WinEnter
+   :FileChangedShellPost
+   :VimResized])
 
 (defn- add-augroup []
   (utils.augroup :slackline-au
@@ -38,8 +123,16 @@
         (fn [event]
           {: event
            :pattern :*
-           :cmd (utils.viml->lua *module-name* (sym->name render-line))})))))
+           :cmd (utils.viml->lua *module-name* (sym->name active-line))})))))
 
+(defn init []
+  (->>
+    mode-map.m
+    (r.vals)
+    (r.for-each
+      (fn [{: name : fg : bg}]
+        (t.add-group (format-hl-mode name) fg bg)))))
 
 (defn main []
+  (init)
   (add-augroup))
