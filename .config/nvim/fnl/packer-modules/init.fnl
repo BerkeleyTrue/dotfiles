@@ -65,14 +65,14 @@
    {:name :mhinz/vim-startify :desciption "show a start up screen"}
    {:name :romgrk/barbar.nvim :desciption "tab bar built in lua"}
 
-   ; parens
+   ; parenthesis
    {:name :kien/rainbow_parentheses.vim :description "make parens rainbow, bruh"}
    {:name :kyazdani42/nvim-web-devicons :description "require web devicons through lua"}
    {:name :raimondi/delimitMate :description "automatic closing of quotes, parenthesis, brackets"}
    {:name :machakann/vim-sandwich :description "adds surround movements"}
    {:name :valloric/MatchTagAlways :description "highlights the matching tag in html"}
 
-   ; (())
+   ; (lisp)
    {:name :olical/aniseed :branch "develop"}
    {:name "~/dvlpmnt/lisp/conjure"}
    {:name :bakpakin/fennel.vim}
@@ -92,11 +92,11 @@
     :description "adds mappings for easier list manipulation"
     :requires [[:guns/vim-sexp]]}
 
-   ;treesitter
+   ; treesitter
    {:name :nvim-treesitter/nvim-treesitter}
-   {:name :nvim-treesitter/nvim-treesitter-refactor}
-   {:name :nvim-treesitter/playground}
-   {:name :romgrk/nvim-treesitter-context}
+   {:name :nvim-treesitter/nvim-treesitter-refactor :requires [[:nvim-treesitter/nvim-treesitter]]}
+   {:name :nvim-treesitter/playground :requires [[:nvim-treesitter/nvim-treesitter]]}
+   {:name :romgrk/nvim-treesitter-context :requires [[:nvim-treesitter/nvim-treesitter]]}
 
    ; general lang syntax plugins
    {:name :plasticboy/vim-markdown :requires [[:godlygeek/tabular]]}
@@ -111,6 +111,19 @@
    {:name :potatoesmaster/i3-vim-syntax}
    {:name :rust-lang/rust.vim}
    {:name :sirtaj/vim-openscad}
-   {:name :tbastos/vim-lua}])
+   {:name :tbastos/vim-lua}
+
+   ;   
+   {:name :elzr/vim-json :description ""}
+   {:name :hhsnopek/vim-sugarss :description ""}
+   {:name :jparise/vim-graphql :description ""}
+   {:name :leafgarland/typescript-vim :description ""}
+   {:name :mattn/emmet-vim :description ""}
+   {:name :maxmellon/vim-jsx-pretty :description ""}
+   {:name :meain/vim-package-info :description "" :run "npm install"}
+   {:name :moll/vim-node :description ""}
+   {:name :pangloss/vim-javascript :description ""}
+   {:name :posva/vim-vue :description ""}
+   {:name :wavded/vim-stylus :description ""}])
 
 (packer.config main-spec)
