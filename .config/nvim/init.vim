@@ -42,18 +42,6 @@ Plug 'kristijanhusak/defx-icons'
 Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'shougo/neco-vim'
-
-Plug 'elzr/vim-json'
-Plug 'hhsnopek/vim-sugarss'
-Plug 'jparise/vim-graphql'
-Plug 'leafgarland/typescript-vim'
-Plug 'mattn/emmet-vim'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'meain/vim-package-info', { 'do': 'npm install' }
-Plug 'moll/vim-node'
-Plug 'pangloss/vim-javascript'
-Plug 'posva/vim-vue'
-Plug 'wavded/vim-stylus'
 call plug#end()
 
 " make sure aniseed path is available for macros lookup

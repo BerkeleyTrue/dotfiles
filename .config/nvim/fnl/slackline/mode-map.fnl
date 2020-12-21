@@ -40,8 +40,8 @@
     :bg (t.c.yellow:dark)}
    :c
    {:name :COMMAND
-    :fg t.c.fg
-    :bg (t.c.red:dark)}
+    :fg (t.c.red:light)
+    :bg t.c.bg}
    :R
    {:name :REPLACE
     :fg t.c.red
