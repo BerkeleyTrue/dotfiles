@@ -190,9 +190,13 @@
   (let [first (-> s (: :sub 1 1) (: :upper))
         rest (s:sub 2)]
     (.. first rest)))
+(defn deburr [str]
+  (->
+    str
+    (: :gsub "-" " ")))
 
 (defn words [str]
-  (let [str (tostring str)
+  (let [str (deburr (tostring str))
         words []]
     (each [word (str:gmatch "%S+")]
       (table.insert words word))
