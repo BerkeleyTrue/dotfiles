@@ -25,7 +25,7 @@
     (format-hl-mode)
     (hl-comp)))
 
-(defn- expression-comp [expr] (.. "%{" expr "}"))
+(defn- expression-comp [expr] (.. "%8{" expr "}"))
 (defn- reset-hl-comp [str] (.. str (hl-comp :StatusLine)))
 
 (defn- mode-comp []
@@ -41,12 +41,21 @@
       "")
     (reset-hl-comp)))
 
+(defn- dir-comp []
+  (let [wd (utils.fn.expand "%:.")
+        pd (utils.fn.expand "%:.:h:t")
+        fln (utils.fn.expand "%:t")]
+    (if
+      (< (length wd) 14) (.. " " wd)
+      (.. "../" pd "/" fln))))
+
 (defn- file-modified-comp []
   (.. (if (= 1 (utils.fn.getbufvar (utils.fn.bufnr "%") "&mod")) " " "")))
 
 (defn- create-left-section []
   (->>
     [mode-comp
+     dir-comp
      file-modified-comp]
     (r.map r.call)
     (r.join " ")))
