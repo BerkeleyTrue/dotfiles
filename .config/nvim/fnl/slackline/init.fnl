@@ -6,7 +6,7 @@
              :mode-map slackline.mode-map}
    :require-macros [macros]})
 
-; status line utils
+; general utils
 (def- space-separater "%=")
 (defn- hl-comp [str]
   (.. "%#" str "#"))
@@ -18,7 +18,7 @@
     (.. "berks mode ")
     (r.pascal-case)))
 
-;; componends
+;; components utils
 (defn- create-hl-group [name]
   (->
     name
@@ -27,6 +27,19 @@
 
 (defn- expression-comp [expr] (.. "%8{" expr "}"))
 (defn- reset-hl-comp [str] (.. str (hl-comp :StatusLine)))
+
+;; sections
+(defn- compose-comps [comps]
+  #(->>
+     comps
+     (r.map r.call)
+     (r.join " ")))
+
+(defn- create-line [sections]
+  (->>
+    sections
+    (r.map r.call)
+    (r.join space-separater)))
 
 (defn- mode-comp []
   (->>
@@ -50,22 +63,20 @@
       (.. "../" pd "/" fln))))
 
 (defn- file-modified-comp []
-  (.. (if (= 1 (utils.fn.getbufvar (utils.fn.bufnr "%") "&mod")) " " "")))
+  (.. (if (= 1 (utils.fn.getbufvar (utils.fn.bufnr) "&mod")) " " "")))
 
-(defn- create-left-section []
-  (->>
+(def- create-left-section
+  (compose-comps
     [mode-comp
      dir-comp
-     file-modified-comp]
-    (r.map r.call)
-    (r.join " ")))
+     file-modified-comp]))
 
 (defn- ale-comp [type]
   (when (> (utils.fn.exists ":ALELint") 0)
     (let [err? (= type :err)
           {:error err
            : style_error
-           : total} (utils.fn.ale#statusline#Count (utils.fn.bufnr "%"))
+           : total} (utils.fn.ale#statusline#Count (utils.fn.bufnr))
           errs (+ err style_error)
           warns (- total errs)
           show? (if err? (> errs 0) (> warns 0))
@@ -87,52 +98,63 @@
       (.. (ale-comp "warning")))))
 
 
-(defn- create-mid-section []
-  (->>
+(def- create-mid-section
+  (compose-comps
     [ale-error-comp
-     ale-warning-comp]
-    (r.map r.call)
-    (r.join " ")))
-
-(def- sections
-  [create-left-section
-   create-mid-section])
-
-(defn- create-line []
-  (->>
-    sections
-    (r.map r.call)
-    (r.join space-separater)))
+     ale-warning-comp]))
 
 (defn render-active-line []
-  (create-line))
+  (create-line
+    [create-left-section
+     create-mid-section]))
+
+(defn render-inactive-line [num]
+  (print num)
+  (create-line
+    [(compose-comps [file-modified-comp])]))
 
 (def- active-status-func (utils.viml-fn-bridge *module-name* (sym->name render-active-line)))
+(def- inactive-status-func (utils.viml-fn-bridge *module-name* (sym->name render-inactive-line)))
 
 (defn active-line []
   (set vim.wo.statusline "")
   (set vim.wo.statusline (.. "%!" active-status-func "()")))
 
-(def- events
-  [:FileType
+(defn inactive-line []
+  (set vim.wo.statusline "")
+  (set vim.wo.statusline (.. "%!" inactive-status-func "()")))
+
+(def- active-events
+  [
    :BufWinEnter
    :BufReadPost
    :BufWritePost
    :BufEnter
    :FocusGained
-   :WinEnter
-   :FileChangedShellPost
-   :VimResized])
+   :WinEnter])
+
+(def- inactive-events
+  [
+   :BufLeave
+   :FocusLost
+   :WinLeave])
 
 (defn- add-augroup []
   (utils.augroup :slackline-au
-    (->>
-      events
-      (r.map
-        (fn [event]
-          {: event
-           :pattern :*
-           :cmd (utils.viml->lua *module-name* (sym->name active-line))})))))
+    [(->>
+       active-events
+       (r.reduce #(.. $1 (if (or (r.empty? $1) (r.empty? $2)) "" ",") $2) "")
+       ((fn [event]
+         {: event
+          :pattern :*
+          :cmd (utils.viml->lua *module-name* (sym->name active-line))})))
+     (->>
+       inactive-events
+       (r.reduce #(.. $1 (if (or (r.empty? $1) (r.empty? $2)) "" ",") $2) "")
+       ((fn [event]
+         {: event
+          :pattern :*
+          :cmd (utils.viml->lua *module-name* (sym->name inactive-line))})))]))
 
 (defn init []
   (->>
