@@ -109,7 +109,6 @@
      create-mid-section]))
 
 (defn render-inactive-line [num]
-  (print num)
   (create-line
     [(compose-comps [file-modified-comp])]))
 
