@@ -205,7 +205,7 @@ endfunction
 
 " On enter, check for snippet and expand
 " or return <CR>
-inoremap <CR> <C-R>=ExpandOnEnter()<CR>
+inoremap <silent><CR> <C-R>=ExpandOnEnter()<CR>
 " On tab with dropdown go down
 " else insert tab
 inoremap <silent><tab> <C-r>=GoDownOnPum()<cr>
