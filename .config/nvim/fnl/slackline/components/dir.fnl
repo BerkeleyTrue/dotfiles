@@ -4,10 +4,13 @@
    :require-macros [macros]})
 
 (defn render-in-context []
-  (let [wd (utils.fn.expand "%:.")
+  (let [bufname (utils.fn.bufname "%")
+        unlisted? (= (utils.fn.buflisted bufname) 0)
+        wd (utils.fn.expand "%:.")
         pd (utils.fn.expand "%:.:h:t")
         fln (utils.fn.expand "%:t")]
     (if
+      unlisted? ""
       (< (length wd) 14) (.. " " wd)
       (.. "../" pd "/" fln))))
 
