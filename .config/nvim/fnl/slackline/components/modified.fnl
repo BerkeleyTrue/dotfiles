@@ -14,13 +14,16 @@
                     (utils.fn.getbufvar "&mod")
                     (= 1))]
 
-    (if modified? "  " "  ")))
+    (if modified? "  " "")))
 
 (defn- render-modified [props?]
   (let [{: active} (or props? {})]
     (..
       (hl.hl-comp :modified)
-      (.. "%{luaeval('require(\"" *module-name* "\")[\"" (sym->name render-in-context) "\"]')()}")
+      (..
+        "%{"
+        (utils.viml->luaexp *module-name* (sym->name render-in-context))
+        "}")
       :%#StatusLine#)))
 
 
