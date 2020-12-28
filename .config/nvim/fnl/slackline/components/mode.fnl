@@ -9,7 +9,10 @@
 
 (defn render-mode []
   (let [curmode (utils.fn.mode)
-        mode-name (. (. mode-map curmode) :name)]
+        ; guard against <C-V>
+        guard (if (= curmode (utils.fn.eval "\"\\<C-V>\"")) :\<C-V> curmode)
+        conf (or (. mode-map guard) {})
+        mode-name (or (. conf :name) "NA")]
     (..
       (hl.hl-comp mode-name)
       "%8("
