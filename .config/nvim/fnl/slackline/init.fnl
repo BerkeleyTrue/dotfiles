@@ -5,7 +5,9 @@
              :a aniseed.core
              :mode slackline.components.mode
              :dir slackline.components.dir
-             :modified slackline.components.modified}
+             :modified slackline.components.modified
+             :buf-type slackline.components.buf-type}
+
    :require-macros [macros]})
 
 (def registry {})
@@ -14,9 +16,9 @@
 
 (defn registered? [name] (or (. registry name) false))
 
-(defn active-comps [args]
+(defn main-comps [args]
   (mode.main
-    (partial dir.main (partial modified.main nil))
+    (partial dir.main (partial modified.main (partial buf-type.main nil)))
     args))
 
 (defn render-comp [spec line]
@@ -30,7 +32,7 @@
 
 (defn render-slackline [active]
   (render-comp
-    (active-comps {: active})
+    (main-comps {: active})
     ""))
 
 
