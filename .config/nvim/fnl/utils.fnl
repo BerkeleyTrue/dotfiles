@@ -31,6 +31,9 @@
 
 (defn cviml->lua [m f opts] (.. ":" (viml->lua m f) "<CR>"))
 
+(defn viml->luaexp [m f]
+  (.. "luaeval('require(\"" m "\")[\"" f "\"]')()"))
+
 (def- map-types
   (->
     [:n :o :v :i]
