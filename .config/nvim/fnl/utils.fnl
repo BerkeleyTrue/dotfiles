@@ -154,6 +154,9 @@
 
     (nvim.ex.highlight scope gui cterm guifg ctermfg guibg ctermbg guisp)))
 
+(defn- join-events [events]
+  (r.reduce #(.. $1 (if (or (r.empty? $1) (r.empty? $2)) "" ",") $2) "" events))
+
 (defn augroup [name cmds]
   (nvim.ex.augroup name)
   (nvim.ex.autocmd_)
@@ -161,7 +164,8 @@
     cmds
     (r.forEach
       (fn [{: event : pattern : cmd}]
-        (nvim.ex.autocmd (.. event " " pattern " " cmd)))))
+        (let [event (if (r.table? event) (join-events event) event)]
+          (nvim.ex.autocmd (.. event " " pattern " " cmd))))))
   (nvim.ex.augroup :END))
 
 (defn autogroup [...]
