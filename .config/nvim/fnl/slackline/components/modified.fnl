@@ -5,6 +5,15 @@
              :hl slackline.highlight}
    :require-macros [macros]})
 
+(defn diviser-in-context []
+  (let [modified? (->
+                    (. utils.g :actual_curbuf)
+                    (or  "")
+                    (utils.fn.bufname)
+                    (utils.fn.getbufvar "&mod")
+                    (= 1))]
+
+    (if modified? " " "")))
 
 (defn render-in-context []
   (let [modified? (->
@@ -14,24 +23,44 @@
                     (utils.fn.getbufvar "&mod")
                     (= 1))]
 
-    (if modified? "   " "")))
+    (if modified? " " "")))
+
+(defn end-diviser-in-context []
+  (let [modified? (->
+                    (. utils.g :actual_curbuf)
+                    (or  "")
+                    (utils.fn.bufname)
+                    (utils.fn.getbufvar "&mod")
+                    (= 1))]
+
+    (if modified? "" "")))
 
 (defn- render-modified [props?]
-  (let [{: active} (or props? {})]
+  (let [{: active : get-current-color} (or props? {})
+        name (get-current-color)]
     (..
+      (hl.hl-comp (.. name " to modified"))
+      "%{" (utils.viml->luaexp *module-name* (sym->name diviser-in-context)) "}"
       (hl.hl-comp :modified)
-      (..
-        "%{"
-        (utils.viml->luaexp *module-name* (sym->name render-in-context))
-        "}")
+      "%{" (utils.viml->luaexp *module-name* (sym->name render-in-context)) "}"
+      (hl.hl-comp "mod end row")
+      "%{" (utils.viml->luaexp *module-name* (sym->name end-diviser-in-context)) "}"
       :%#StatusLine#)))
 
 
 (defn main [child? args]
-  (let [{: active} (or args {})
+  (let [{: active : get-colors} (or args {})
         child (if (r.function? child?) child? r.noop)]
     {:name :modified
      :render render-modified
      :props args
      :next (child args)
-     :init (fn [] (hl.add-group :modified t.c.red))}))
+     :init
+     (fn []
+       (hl.add-group :modified t.c.red)
+       (hl.add-group "mod end row" t.c.bg t.c.bglighter)
+       (->>
+         (get-colors)
+         (r.for-each
+            (fn [{: name : bg}]
+              (hl.add-group (.. name " to modified") bg)))))}))

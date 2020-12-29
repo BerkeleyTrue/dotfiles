@@ -117,10 +117,10 @@
 (add-group :LineNr c.comment)
 (add-group :Normal c.fg)
 (add-group :SignColumn c.comment)
+(add-group :Statusline c.none c.bglighter s.bold)
 (add-group :StatusLineNC c.none c.bglight)
 (add-group :StatusLineTerm c.none c.bglighter s.bold)
 (add-group :StatusLineTermNC c.none c.bglight)
-(add-group :Statusline c.none c.bglighter s.bold)
 (add-group :WildMenu c.bg c.purple s.bold)
 
 (hi-link! :ColorColumn  :BerksBgDark)

@@ -15,13 +15,14 @@
           errs (+ err style_error)
           warns (- total errs)
           show? (if err? (> errs 0) (> warns 0))
-          render (.. (if err? (.. "   " errs " ") (.. "   " warns " ")))]
+          render (.. (if err? (.. "  " errs " ") (.. "  " warns " ")))]
       (if show? render ""))
     ""))
 
 (defn render-ale []
   (..
     "%="
+    (hl.hl-comp :StatusToYellow) ""
     "%#" :BerksYellow "#"
     "%1(%{" (utils.viml->luaexp *module-name* (sym->name render-in-context) "\"warning\"") "}%)"
     (hl.hl-comp :YellowToRedInverse) ""
@@ -34,4 +35,7 @@
     {:name :ale
      :render render-ale
      :next (child args)
-     :init (fn [] (hl.add-group :YellowToRedInverse t.c.red t.c.bg))}))
+     :init
+     (fn []
+       (hl.add-group :YellowToRedInverse t.c.red t.c.bg)
+       (hl.add-group :StatusToYellow t.c.bg t.c.bglighter))}))
