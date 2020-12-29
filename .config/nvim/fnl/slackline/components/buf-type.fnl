@@ -5,32 +5,32 @@
              :hl slackline.highlight}
    :require-macros [macros]})
 
-(def- buf-icon
-  {:help        "  "
-   :defx        "  "
-   :denite      "  "
-   :vim-plug    "  "
-   :vista       " 識"
-   :vista_kind  "  "
-   :dbui        "  "
-   :magit       "  "
-   :LuaTree     "  "})
+(def- icon-map
+  {:help       "  "
+   :defx       "  "
+   :denite     "  "
+   :vim-plug   "  "
+   :vista      " 識"
+   :vista_kind "  "
+   :dbui       "  "
+   :magit      "  "
+   :gitcommit  "  "
+   :LuaTree    "  "})
 
 (defn render-in-context []
-  (let [ft (. utils.bo :filetype)
-        icon (. buf-icon ft)]
-    (if icon
-      (..
-        icon)
-      "")))
+  (let [ft (->
+             (. utils.g :actual_curbuf)
+             (or  "")
+             (utils.fn.bufname)
+             (utils.fn.getbufvar "&ft"))
+        icon (. icon-map ft)]
+    (or icon "")))
 
 (defn- render-icon [args]
   (let [{: active} (or args {})]
-    (utils.print "active" active)
     (..
       (hl.hl-comp :render-icon)
-      (if active (..  "%{" (utils.viml->luaexp *module-name* (sym->name render-in-context)) "}") ""))))
-
+      "%{" (utils.viml->luaexp *module-name* (sym->name render-in-context)) "}")))
 
 (defn main [child? args]
   (let [{: active} (or args {})
