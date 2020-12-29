@@ -1,3 +1,5 @@
+# clear right prompt on execute
+setopt TRANSIENT_RPROMPT
 
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='fd .'
@@ -139,7 +141,15 @@ function zle-keymap-select zle-line-init {
   zle -R
 }
 
+SHORT_PROMPT="%F{cyan}%f "
 function zle-line-finish {
+  if [[ $PROMPT != $SHORT_PROMPT ]]; then
+    PROMPT=$SHORT_PROMPT
+    if [[ $RPROMPT != "" ]]; then
+      RPROMPT=""
+    fi
+    zle .reset-prompt
+  fi
   print -n -- "$BLOCK"  # block cursor
 }
 
