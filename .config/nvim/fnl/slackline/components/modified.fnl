@@ -14,7 +14,7 @@
                     (utils.fn.getbufvar "&mod")
                     (= 1))]
 
-    (if modified? "  " "")))
+    (if modified? "   " "")))
 
 (defn- render-modified [props?]
   (let [{: active} (or props? {})]
