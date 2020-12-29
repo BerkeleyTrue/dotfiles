@@ -68,7 +68,7 @@ antigen bundle docker
 antigen bundle terraform
 antigen bundle command-not-found
 
-antigen theme https://gitlab.com/BerkeleyTrue/ghanima.git ghanima
+antigen theme $ZSH ghanima
 
 # apply antigen plugins
 antigen apply
