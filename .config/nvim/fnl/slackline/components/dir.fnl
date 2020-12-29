@@ -1,6 +1,9 @@
 (module slackline.components.dir
   {:require {: r
-             : utils}
+             : utils
+             :t theme
+             :hl slackline.highlight}
+
    :require-macros [macros]})
 
 (defn render-in-context []
@@ -11,18 +14,32 @@
         fln (utils.fn.expand "%:t")]
     (if
       unlisted? ""
-      (< (length wd) 14) (.. " " wd)
+      (< (length wd) 14)  wd
       (.. "../" pd "/" fln))))
 
-(defn- render-dir []
-  (..
-    "%{"
-    (utils.viml->luaexp *module-name* (sym->name render-in-context))
-    "}"))
+(defn- render-dir [{: get-current-color : active}]
+  (let [name (get-current-color)]
+    (..
+      (if active
+        (.. (hl.hl-comp (.. name " to dir")) "")
+        "")
+      "%#StatusLine#"
+      "%{ " (utils.viml->luaexp *module-name* (sym->name render-in-context)) "} ")))
+
+(def- dir-get-colors #[{:bg t.c.bglighter :name :dir}])
+(def- dir-get-current-color #:dir)
 
 (defn main [child? args]
-  (let [{: active} (or args {})
+  (let [{: active : get-colors : get-current-color} (or args {:get-colors r.noop :get-current-color r.noop})
         child (if (r.function? child?) child? r.noop)]
     {:name :dir
      :render render-dir
-     :next (child {: active})}))
+     :next (child {: active :get-colors dir-get-colors :get-current-color dir-get-current-color})
+     :props {: get-current-color : active}
+     :init
+     (fn []
+       (->>
+         (get-colors)
+         (r.for-each
+           (fn [{: name : bg}]
+             (hl.add-group (.. name " to dir") bg t.c.bglighter)))))}))
