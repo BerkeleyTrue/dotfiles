@@ -6,8 +6,8 @@
              :mode slackline.components.mode
              :dir slackline.components.dir
              :modified slackline.components.modified
-             :buf-type slackline.components.buf-type}
-
+             :buf-type slackline.components.buf-type
+             :ale slackline.components.ale}
    :require-macros [macros]})
 
 (def registry {})
@@ -18,14 +18,13 @@
 
 (defn main-comps [args]
   (mode.main
-    (partial dir.main (partial modified.main (partial buf-type.main nil)))
+    (partial dir.main (partial modified.main (partial buf-type.main (partial ale.main nil))))
     args))
 
 (defn render-comp [spec line]
   (if (r.nil? spec) line
-    (let [{: name :init init? : render : next :props props} (or spec {})
-          init (if (r.function? init?) init? r.noop)]
-      (when (not (registered? name))
+    (let [{: name : init : render : next : props } (or spec {})]
+      (when (and (not (registered? name)) (r.function? init))
         (register name)
         (init))
       (render-comp next (.. line (or (render (or props {})) (.. "got nil from " name)))))))
