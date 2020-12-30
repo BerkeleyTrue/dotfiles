@@ -220,8 +220,9 @@
 
 
 ;; lang
-(defn true? [a] (= a true))
-(defn false? [a] (= a false))
+(defn boolean? [val] (= (type val) :boolean))
+(defn true? [val] (= val true))
+(defn false? [val] (= val false))
 (defn function? [f] (= (type f) :function))
 (defn string? [val] (= (type val) :string))
 (defn nil? [val] (= (type val) :nil))
