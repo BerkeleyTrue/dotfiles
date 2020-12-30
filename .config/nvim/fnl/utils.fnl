@@ -190,8 +190,20 @@
   (->>
     map
     (r.to-pairs)
+    ; map to from to a string for ':set'
+    (r.map
+      (fn [[from to]]
+        (if (r.boolean? to)
+          ; booleans need to be translated
+          ; true  = :set foo
+          ; false = :set nofoo
+          (if (r.true? to)
+            from
+            (.. "no" from))
+          (.. from "=" to))))
     (r.forEach
-      (fn [[key val]] (tset nvim.o key val))))
+      ; execute set as using the nvim api does not happen before the initial file is loaded
+      (fn [arg] (nvim.ex.set arg))))
   map)
 
 (defn pack-add [package]
