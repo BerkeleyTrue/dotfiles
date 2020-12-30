@@ -1,7 +1,9 @@
 (module options
   {:require {: r
-             : utils}
+             : utils
+             :auto options.auto}
    :require-macros [macros]})
+
 
 ; parinfer does not like this file
 (defn format-fold-text []
@@ -71,5 +73,6 @@
      :guicursor  "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
      :foldtext     format-fold-text-viml}
     (utils.set-nvim-o!)))
+
 (utils.ex.filetype :plugin :on)
 (utils.ex.filetype :indent :on)
