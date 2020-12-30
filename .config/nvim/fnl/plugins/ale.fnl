@@ -1,5 +1,6 @@
 (module :plugins.ale
-  {:require {utils utils}})
+  {:require {: r
+             : utils}})
 
 
 (defn main []
@@ -16,4 +17,12 @@
                    :typescript [:tslint :tsserver]
                    :pug [:pug-lint]
                    :clojure [:clj-kondo :joker]
-                   :yaml.ansible [:ansible-lint]}}))
+                   :yaml.ansible [:ansible-lint]}})
+  (let [(ok res) (pcall utils.ex.packadd :ale)]
+    (if ok
+      (->>
+        {:<leader>ak "<Plug>(ale_previous_wrap)"
+         :<leader>aj "<Plug>(ale_next_wrap)"}
+        (r.to-pairs)
+        (r.for-each (fn [[from to]] (utils.nmap from to))))
+      (print (.. "couldn't load ale: " res)))))

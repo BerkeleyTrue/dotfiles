@@ -1,132 +1,33 @@
 " ==================================================
 " General Key Bindings
 " ================================================== {{{
-" All key mappings should go here to easily located
-" key mapping conflicts
-" This should include commands
 
-" Make OSX alt key compatible with vim
-" Now alt will work as expected with vim-move
-nmap ˙ <A-h>
-nmap ∆ <A-j>
-nmap ˚ <A-k>
-nmap ¬ <A-l>
-imap ˙ <A-h>
-imap ∆ <A-j>
-imap ˚ <A-k>
-imap ¬ <A-l>
-vmap ˙ <A-h>
-vmap ∆ <A-j>
-vmap ˚ <A-k>
-vmap ¬ <A-l>
-
-" Unbind K
-" I never use this and I keep hitting K accidentally
-" note: vim-fireplace trys to bind to K
-" map <S-k> <Nop>
-" I keep hitting this on failed :q's
-" Open commandline instead and wait for further commands
-" use <C-f> while in command mode to access this instead
-nnoremap q: :
-
-" sort lines in visual mode
-vnoremap <leader>s :sort<cr>
-
-" insert new line on enter
-nnoremap <cr> o<esc>
-
-" in visual mode use gu to change casing
-vnoremap u <nop>
-vnoremap gu u
-
-" In normal mode remove ( text object motion. I keep hiting this accidentally
-" and never use it intentially
-nnoremap ( <nop>
-nnoremap ) <nop>
-
-" in normal mode, run quick macro
-" use gQ to enter Exmode instead
-nnoremap Q @q
-
-" uppercase word under the cursor while in insert mode
-inoremap <leader>uw <esc>mzgUiw`za:delmarks z<cr>
-vnoremap <leader>uw <esc>mzgUiw`zv:delmarks z<cr>
-
-" yank to end of line
-nnoremap Y y$
-
-" reselect visual block after indent
-vnoremap < <gv
-vnoremap > >gv
-" reselect last paste
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-" Throwing characters {{{
-nnoremap z; mqA;<esc>`q:delmarks q<cr>
-" Throw a comma on the end of the line
-nnoremap z, mqA,<esc>`q:delmarks q<cr>
-" Delete last character on the line
-nnoremap zdl mqA<esc>x`q:delmarks q<cr>
-" Move the current char to the end of the line
-nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
-" Move line to the end of the next line
-" useful for move a comment above a line behind it
-nnoremap zJ ddpkJ
-" }}}
-
-
-" Highlight all instances of word under cursor, when idle.
-" z/ to toggle highlighting on/off.
-function! AutoHighlightToggle() " {{{
-
-  let @/ = ''
-  if exists('#auto_highlight')
-    au! auto_highlight
-    augroup! auto_highlight
-    setl updatetime=4000
-    echo 'Highlight current word: off'
-    return 0
-  else
-    augroup auto_highlight
-      au!
-      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-    augroup end
-    setl updatetime=500
-    echo 'Highlight current word: ON'
-    return 1
-  endif
-endfunction
-nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-" }}}
 
 " Folding {{{
 
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
 
-function! FormatFoldText() " {{{
-  " get the line beginning the fold
-  let l:line = getline(v:foldstart)
+" function! FormatFoldText() " {{{
+"   " get the line beginning the fold
+"   let l:line = getline(v:foldstart)
 
-  " get the left column length?
-  let l:nucolwidth = &foldcolumn + &number * &numberwidth
-  " get the window with minus the left column
-  let l:windowwidth = winwidth(0) - l:nucolwidth - 3
-  " get the number of lines to fold
-  let l:foldedlinecount = v:foldend - v:foldstart
+"   " get the left column length?
+"   let l:nucolwidth = &foldcolumn + &number * &numberwidth
+"   " get the window with minus the left column
+"   let l:windowwidth = winwidth(0) - l:nucolwidth - 3
+"   " get the number of lines to fold
+"   let l:foldedlinecount = v:foldend - v:foldstart
 
-  " substitute tabs into spaces
-  let l:onetab = strpart('          ', 0, &tabstop)
-  let l:line = substitute(l:line, '\t', l:onetab, 'g')
+"   " substitute tabs into spaces
+"   let l:onetab = strpart('          ', 0, &tabstop)
+"   let l:line = substitute(l:line, '\t', l:onetab, 'g')
 
-  " grab the first n characters of the line
-  " where n is the window width minus the number of folded lines minus 2
-  let l:line = strpart(l:line, 0, l:windowwidth - len(l:foldedlinecount) - 5)
+"   " grab the first n characters of the line
+"   " where n is the window width minus the number of folded lines minus 2
+"   let l:line = strpart(l:line, 0, l:windowwidth - len(l:foldedlinecount) - 5)
 
-  return l:line . '…' . l:foldedlinecount . ' lines folded…>>>'
-endfunction " }}}
-set foldtext=FormatFoldText()
+"   return l:line . '…' . l:foldedlinecount . ' lines folded…>>>'
+" endfunction " }}}
+" set foldtext=FormatFoldText()
 " Folding }}}
 "
 " Buffers {{{
@@ -156,7 +57,6 @@ function! DeleteHiddenBuffers() " {{{
 endfunction " }}}
 " Buffers }}}
 
-inoremap <F10> <nop>
 " -- End General Key Bindings -- }}}
 "
 " ==================================================
@@ -230,17 +130,4 @@ function! AddEmmetMappings()
   inoremap <buffer> /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
 endfunction
 " }}}
-"
-" NrrwRgn
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-command! -nargs=* -bang -range -complete=filetype NN
-  \ :<line1>,<line2> call nrrwrgn#NrrwRgn('',<q-bang>)
-  \ | set filetype=<args>
-" }}}
-"
-" Ale
-"++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-nmap <leader>ak <Plug>(ale_previous_wrap)
-nmap <leader>aj <Plug>(ale_next_wrap)
-"}}}
 "" -- End Plugin Key Bindings -- }}}

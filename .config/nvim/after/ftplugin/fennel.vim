@@ -1,2 +1,2 @@
-runtime! ftplugin/after/lisp.vim
+runtime! after/ftplugin/lisp.vim
 
