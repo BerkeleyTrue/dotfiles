@@ -91,10 +91,6 @@
 (utils.nnoremap :Q "@q")
 
 
-; uppercase word under the cursor while in insert mode
-(utils.inoremap :<leader>uw "<esc>mzgUiw`z:delmarks z<cr>a")
-(utils.vnoremap :<leader>uw "<esc>mzgUiw`zv:delmarks z<cr>")
-
 ; yank to end of line
 (utils.nnoremap :Y :y$)
 
@@ -105,20 +101,41 @@
 ; reselect last paste
 (utils.nnoremap :gp "'`[' . strpart(getregtype(), 0, 1) . '`]'" {:expr true})
 
-(utils.nnoremap "z;" "mqA;<esc>`q:delmarks q<cr>")
+(defn- preserve-paste [seq]
+  (..
+    ; store the last copied item into register z
+    "<ESC>:let @z=@\"<CR>"
+    ; do the thing
+    seq
+    ; restore last paste from z
+    "<ESC>:let @\"=@z<CR>"))
+
+(defn- preserve-cursor-loc [seq mark]
+  (assert (r.string? mark) (.. "preserve-cursor-loc expects a mark but received: " mark))
+  (..
+    ; make sure mark isn't already set
+    "<ESC>:delmarks " mark "<CR>"
+    ; set mark
+    "m" mark
+    ; do seq
+    seq
+    ; delete mark
+    "<ESC>:delmarks " mark "<CR>"))
+
+; uppercase word under the cursor while in insert mode
+(utils.inoremap :<leader>uw (.. (preserve-cursor-loc "gUiw`z" :z) :a))
+(utils.vnoremap :<leader>uw (.. (preserve-cursor-loc "gUiw`z" :z) :v))
+
+(utils.nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>`q" :q)))
 ; Throw a comma on the end of the line
-(utils.nnoremap "z," "mqA,<esc>`q:delmarks q<cr>")
+(utils.nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>`q" :q)))
 ; Delete last character on the line
-(utils.nnoremap :zdl "mqA<esc>x`q:delmarks q<cr>")
+(utils.nnoremap :zdl (preserve-paste (preserve-cursor-loc "A<esc>x`q" :q)))
 ; Move the current char to the end of the line
-; The following is not encodable in fennel due to @
-; (utils.nnoremap :zl "\\:let \\@z=\\@\\"<cr>x$p\\:let \\@\\"=\\@z<cr>")
-; modified for fennel
-; Move the current char to the end of the line
-(utils.nnoremap :zl "mqx$p`q:delmarks q<cr>")
+(utils.nnoremap :zl (preserve-paste (preserve-cursor-loc "x$p`q" :q)))
 ; Move line to the end of the next line
 ; useful for move a comment above a line behind it
-(utils.nnoremap :zJ :ddpkJ)
+(utils.nnoremap :zJ (preserve-paste :ddpkJ))
 
 (utils.nnoremap :<Space> :za)
 (utils.vnoremap :<Space> :za)
