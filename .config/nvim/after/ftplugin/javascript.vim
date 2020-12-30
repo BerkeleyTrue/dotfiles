@@ -10,6 +10,3 @@ setlocal indentexpr="" "gets overwritten by runtime javascript indent file
 setlocal cinoptions=c0.5s,C1
 
 highlight ColorColumn guifg=#FF5555 ctermfg=203 guibg=#44475A ctermbg=239
-
-EmmetInstall
-call AddEmmetMappings()
