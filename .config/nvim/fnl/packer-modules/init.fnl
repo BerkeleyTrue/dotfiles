@@ -119,13 +119,10 @@
    ;   
    {:name :elzr/vim-json :description ""}
    {:name :hhsnopek/vim-sugarss :description ""}
-   {:name :jparise/vim-graphql :description ""}
    {:name :leafgarland/typescript-vim :description ""}
    {:name :mattn/emmet-vim :description ""}
-   {:name :maxmellon/vim-jsx-pretty :description ""}
    {:name :meain/vim-package-info :description "" :run "npm install"}
    {:name :moll/vim-node :description ""}
-   {:name :pangloss/vim-javascript :description ""}
    {:name :posva/vim-vue :description ""}
    {:name :wavded/vim-stylus :description ""}])
 
