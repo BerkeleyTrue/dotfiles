@@ -167,7 +167,8 @@
     cmds
     (r.forEach
       (fn [{: event : pattern : cmd}]
-        (let [event (if (r.table? event) (join-events event) event)]
+        (let [event (if (r.table? event) (join-events event) event)
+              pattern (if (r.table? pattern) (join-events pattern) pattern)]
           (nvim.ex.autocmd (.. event " " pattern " " cmd))))))
   (nvim.ex.augroup :END))
 

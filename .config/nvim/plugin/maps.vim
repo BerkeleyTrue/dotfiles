@@ -3,33 +3,6 @@
 " ================================================== {{{
 
 
-" Folding {{{
-
-
-" function! FormatFoldText() " {{{
-"   " get the line beginning the fold
-"   let l:line = getline(v:foldstart)
-
-"   " get the left column length?
-"   let l:nucolwidth = &foldcolumn + &number * &numberwidth
-"   " get the window with minus the left column
-"   let l:windowwidth = winwidth(0) - l:nucolwidth - 3
-"   " get the number of lines to fold
-"   let l:foldedlinecount = v:foldend - v:foldstart
-
-"   " substitute tabs into spaces
-"   let l:onetab = strpart('          ', 0, &tabstop)
-"   let l:line = substitute(l:line, '\t', l:onetab, 'g')
-
-"   " grab the first n characters of the line
-"   " where n is the window width minus the number of folded lines minus 2
-"   let l:line = strpart(l:line, 0, l:windowwidth - len(l:foldedlinecount) - 5)
-
-"   return l:line . '…' . l:foldedlinecount . ' lines folded…>>>'
-" endfunction " }}}
-" set foldtext=FormatFoldText()
-" Folding }}}
-"
 " Buffers {{{
 command! BufDeleteHidden call DeleteHiddenBuffers()
 command! Bdh call DeleteHiddenBuffers()
@@ -117,17 +90,4 @@ inoremap <silent><C-j> <C-R>=UltiSnips#JumpForwards()<cr>
 snoremap <silent><C-j> <Esc>:call UltiSnips#JumpForwards()<cr>
 " }}}
 
-" Emmet
-" ++++++++++++++++++++++++++++++++++++++++++++++++++ {{{
-" call along side EmmetInstall
-function! AddEmmetMappings()
-  " buffer tells vim to only use map in buffer it is defined
-  " we recur so vim will eval the output
-  imap <buffer> <leader><tab> <plug>(emmet-expand-abbr)
-  " self closing tag
-  " foo/<leader><tab> => <foo />
-  " does not work yet with non-closing html5 tags like <img>
-  inoremap <buffer> /<leader><tab> <esc>:call emmet#expandAbbr(0,"")<cr>h:call emmet#splitJoinTag()<cr>wwi
-endfunction
-" }}}
 "" -- End Plugin Key Bindings -- }}}
