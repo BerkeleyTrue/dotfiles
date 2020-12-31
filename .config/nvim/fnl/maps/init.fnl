@@ -1,6 +1,7 @@
 (module maps
   {:require {: r
-             : utils}})
+             : utils
+             :pum maps.pop-up-menu}})
 
 ; common command aliases
 (->>
@@ -142,3 +143,8 @@
 
 ; keeps freezing my vim??
 (utils.inoremap :<F10> :<nop>)
+
+(utils.nmap :<ScrollWheelUp> :k)
+(utils.nmap :<S-ScrollWheelUp> :k)
+(utils.nmap :<ScrollWheelDown> :j)
+(utils.nmap :<S-ScrollWheelDown> :j)

@@ -2,7 +2,6 @@
   {:require {: r}
    :require-macros [macros]})
 
-(comment ((. (require :plugins.easy-motion) main)))
 (defn main []
   (->>
     [:airline
@@ -15,7 +14,6 @@
      :easy-align
      :easy-motion
      :emmet
-     :js
      :markdown
      :mta
      :multi-cursor

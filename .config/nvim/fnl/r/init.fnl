@@ -82,7 +82,18 @@
 (def forEach a.run!)
 (def for-each a.run!)
 (def map a.map)
-(def filter a.filter)
+(def filter
+  (curry
+    (fn [predicate arr]
+      (assert (= (type predicate) :function) (.. "Expected a function as the first argument but found " (tostring predicate)))
+      (assert (= (type arr) :table) (.. "Expected a seq as the second argument but found " (tostring arr)))
+      (a.filter predicate arr))))
+
+(def reject
+  (curry
+    (fn [func arr]
+      (filter #(not (func $...)) arr))))
+
 (def head a.first)
 (def merge a.merge)
 (def tail a.rest)
@@ -243,3 +254,15 @@
     keys
     (a.map #[$1 $1])
     (from-pairs)))
+
+(defn size [collection]
+  (if (table? collection)
+    ; first try maxn, which works on sequential tables
+    (let [cursize (table.maxn collection)]
+      (if (> cursize 0)
+        ; zero could mean an empty seq or a table with key/vals
+        cursize
+        ; turn into key/val pairs, then grab size
+        (table.maxn (to-pairs collection))))
+    (string? collection) (length collection)
+    0))

@@ -1,5 +1,5 @@
 (module plugins.ultisnips
-  {:require {utils utils}})
+  {:require {: utils}})
 
 
 ; We map the trigger initially to <c-w>
@@ -14,4 +14,12 @@
   (utils.set-nvim-g!
     {:UltiSnipsExpandTrigger "<C-w>"
      :UltiSnipsJumpForwardTrigger "<C-b>"
-     :UltiSnipsJumpBackwardTrigger "<C-c>"}))
+     :UltiSnipsJumpBackwardTrigger "<C-c>"})
+  (let [(ok res) (pcall utils.ex.packadd :ultisnips)]
+    (if (not ok)
+      (print (.. "Could not load ultisnips: " res))
+      (do
+        (utils.snoremap :<tab> "<Esc>:call UltiSnips#ExpandSnippet()<cr>" {:silent true})
+        (utils.xnoremap :<tab> ":call UltiSnips#SaveLastVisualSelection()<cr>gvs" {:silent true})
+        (utils.inoremap :<C-j> "<C-R>=UltiSnips#JumpForwards()<cr>" {:silent true})
+        (utils.snoremap :<C-j> "<Esc>:call UltiSnips#JumpForwards()<cr>" {:silent true})))))

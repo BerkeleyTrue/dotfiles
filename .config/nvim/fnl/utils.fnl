@@ -36,7 +36,7 @@
 
 (def- map-types
   (->
-    [:n :o :v :i]
+    [:n :o :v :i :x :s]
     r.key-map))
 
 (tset map-types :a "")
@@ -84,6 +84,14 @@
 (defn vnoremap [lhs rhs options?]
   (let [options (r.assoc (or options? {}) :noremap true)]
     (base-map :v lhs rhs options)))
+
+(defn xnoremap [lhs rhs options?]
+  (let [options (r.assoc (or options? {}) :noremap true)]
+    (base-map :x lhs rhs options)))
+
+(defn snoremap [lhs rhs options?]
+  (let [options (r.assoc (or options? {}) :noremap true)]
+    (base-map :s lhs rhs options)))
 
 (defn safe-cnoreabbrev [from to]
   "(safe-cnoreabbrev :foo :echo)
