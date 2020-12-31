@@ -19,23 +19,30 @@
       (if show? render ""))
     ""))
 
-(defn render-ale []
+(defn render-ale [{: get-current-color}]
   (..
-    "%="
-    (hl.hl-comp :StatusToYellow) ""
+    (hl.hl-comp (.. (get-current-color) " to ale")) ""
     "%#" :BerksYellow "#"
     "%1(%{" (utils.viml->luaexp *module-name* (sym->name render-in-context) "\"warning\"") "}%)"
     (hl.hl-comp :YellowToRedInverse) ""
     "%#" :BerksRedInverse "#"
     "%1(%{" (utils.viml->luaexp *module-name* (sym->name render-in-context) "\"err\"") "}%)"))
 
+(def- dir-get-colors #[{:name :ale :bg t.c.none}])
+(def- dir-get-current-color #:ale)
+
 (defn main [child? args]
-  (let [{: active} (or args {})
+  (let [{: active : get-colors : get-current-color} (or args {:get-colors r.noop :get-current-color r.noop})
         child (if (r.function? child?) child? r.noop)]
     {:name :ale
      :render render-ale
-     :next (child args)
+     :next (child {: active :get-colors dir-get-colors :get-current-color dir-get-current-color})
+     :props {: get-current-color : active}
      :init
      (fn []
        (hl.add-group :YellowToRedInverse t.c.red t.c.bg)
-       (hl.add-group :StatusToYellow t.c.bg t.c.bglighter))}))
+       (->>
+         (get-colors)
+         (r.for-each
+           (fn [{: name : bg}]
+             (hl.add-group (.. name " to ale") t.c.bg bg)))))}))
