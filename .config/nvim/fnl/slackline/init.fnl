@@ -7,6 +7,7 @@
              :dir slackline.components.dir
              :modified slackline.components.modified
              :buf-type slackline.components.buf-type
+             :filetype slackline.components.filetype
              :ale slackline.components.ale}
    :require-macros [macros]})
 
@@ -18,7 +19,7 @@
 
 (defn main-comps [args]
   (mode.main
-    (partial dir.main (partial modified.main (partial buf-type.main (partial ale.main nil))))
+    (partial dir.main (partial modified.main (partial buf-type.main (partial filetype.main (partial ale.main nil)))))
     args))
 
 (defn render-comp [spec line]

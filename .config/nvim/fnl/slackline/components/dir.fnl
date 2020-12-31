@@ -23,18 +23,19 @@
       (if active
         (.. (hl.hl-comp (.. name " to dir")) "")
         "")
-      "%#StatusLine#"
+      "%#StatusLine" (if active "" "NC") "#"
       "%{ " (utils.viml->luaexp *module-name* (sym->name render-in-context)) "} ")))
 
-(def- dir-get-colors #[{:bg t.c.bglighter :name :dir}])
-(def- dir-get-current-color #:dir)
+(def- dir-get-colors #[{:bg t.c.bglighter :name :dir}
+                       {:bg t.c.bglight :name :dirinactive}])
+(defn dir-get-current-color [active] (if active #:dir #:dirinactive))
 
 (defn main [child? args]
   (let [{: active : get-colors : get-current-color} (or args {:get-colors r.noop :get-current-color r.noop})
         child (if (r.function? child?) child? r.noop)]
     {:name :dir
      :render render-dir
-     :next (child {: active :get-colors dir-get-colors :get-current-color dir-get-current-color})
+     :next (child {: active :get-colors dir-get-colors :get-current-color (dir-get-current-color active)})
      :props {: get-current-color : active}
      :init
      (fn []

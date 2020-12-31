@@ -43,9 +43,9 @@
       "%{" (utils.viml->luaexp *module-name* (sym->name diviser-in-context)) "}"
       (hl.hl-comp :modified)
       "%{" (utils.viml->luaexp *module-name* (sym->name render-in-context)) "}"
-      (hl.hl-comp "mod end row")
+      (hl.hl-comp (.. "mod end row" (if active "" "nc")))
       "%{" (utils.viml->luaexp *module-name* (sym->name end-diviser-in-context)) "}"
-      :%#StatusLine#)))
+      "%#StatusLine" (if active "" "NC") "#")))
 
 
 (defn main [child? args]
@@ -59,6 +59,7 @@
      (fn []
        (hl.add-group :modified t.c.red)
        (hl.add-group "mod end row" t.c.bg t.c.bglighter)
+       (hl.add-group "mod end row nc" t.c.bg t.c.bglight)
        (->>
          (get-colors)
          (r.for-each
