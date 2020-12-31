@@ -1,10 +1,11 @@
-;      , __  ______
-;     /|/  \(_) |      BerkeleyTrue
-;      | __/    |      https://github.com/berkeleytrue
-;      |   \  _ |
-;      |(__/ (_/
-;
-;
+;*--------------------------------------->>
+;|      , __  ______
+;|     /|/ \\(_) ||      BerkeleyTrue
+;|      | _//    ||      https://github.com/berkeleytrue
+;|      |  \\  __||
+;|     _|(_// (__/
+;|
+;*--------------------------------------->>
 (module plugins.signit
   {:require {: utils}})
 
