@@ -5,6 +5,7 @@
 ; side-effecty
 (require :options)
 (require :maps)
+(require :functions)
 
 (let [(ok res) (pcall require :packer-modules)]
   (if
