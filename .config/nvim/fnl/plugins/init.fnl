@@ -10,6 +10,7 @@
      :better-whitespace
      :colorizer
      :completion
+     :conjure
      :defx
      :delimit-mate
      :easy-align

@@ -3,4 +3,6 @@
    :require-macros [macros]})
 
 
-(defn main [])
+(defn main []
+  (utils.set-nvim-g!
+    {:conjure#client#fennel#aniseed#aniseed_module_prefix "aniseed."}))

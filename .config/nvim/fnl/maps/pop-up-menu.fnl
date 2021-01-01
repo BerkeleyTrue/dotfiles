@@ -19,7 +19,7 @@
         (> (. utils.g :ulti_expand_res) 0) snippet
         ; if PUM is visible go down
         ; text expansion does not work through fennel/lua->viml
-        (> (utils.fn.pumvisible) 0) ""
+        (> (utils.fn.pumvisible) 0) " "
         ; let delimitMate take over if able
         (expand-return)))))
 
