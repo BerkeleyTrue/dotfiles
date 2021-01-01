@@ -28,11 +28,18 @@
    {:name :sirVer/ultisnips :description "snippet engine"}
    {:name :w0rp/ale :description "linting engine"}
 
-    ; git
+   ; lsp/completion
+   {:name :nvim-lua/completion-nvim :desciption "add lua based completion tools"}
+   {:name :steelsojka/completion-buffers :description "adds buffer to completion list"}
+   {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
+   {:name :nvim-treesitter/completion-treesitter :description "add treesitter to completion"}
+   {:name :albertoCaroM/completion-tmux :description "add tmux pane info to completion"}
+
+   ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
    {:name :tpope/vim-rhubarb :description "github integrations (lacing yadm support)"}
 
-    ; buffers
+   ; buffers
    {:name :vim-scripts/BufOnly.vim :description ":BufOnly removes all the buffers except the current one"}
    {:name :moll/vim-bbye :description "used in Bufdeletehidden"}
 
@@ -46,7 +53,7 @@
    {:name :haya14busa/incsearch-easymotion.vim :description "integrate easymotion with incsearch" :opt true}
    {:name :mileszs/ack.vim :description "use terminal searcher (Ag)"}
 
-    ; text obj manipulation
+   ; text obj manipulation
    {:name :tpope/vim-repeat :description "expands . to repeat plugin commands"}
    {:name :wellle/targets.vim :description "adds text objects to give you more target to operate on"}
    {:name :kana/vim-textobj-user :description "create your own text objects easily"}
@@ -80,15 +87,12 @@
    {:name "~/dvlpmnt/lisp/conjure"}
    {:name :bakpakin/fennel.vim}
    {:name :eraserhd/parinfer-rust :run "cargo build --release"}
-
    {:name :clojure-vim/vim-jack-in
     :description "Cider style jack in support for Lein, Boot and Clj"
     :requires [[:radenling/vim-dispatch-neovim] [:tpope/vim-dispatch]]}
-
    {:name :berkeleytrue/nvim-local-fennel
     :branch "feat-aniseed-update"
     :description "Execute local Fennel Lisp files in Neovim upon startup "}
-
    {:name :guns/vim-clojure-static
     :description "adds static bindings to clojure files"}
    {:name :tpope/vim-sexp-mappings-for-regular-people

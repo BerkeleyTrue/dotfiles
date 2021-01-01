@@ -33,11 +33,6 @@ endfunction " }}}
 
 call plug#begin()
 call s:InstallFzF()
-
-" file tree
-Plug 'neoclide/coc-neco'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'shougo/neco-vim'
 call plug#end()
 
 " make sure aniseed path is available for macros lookup

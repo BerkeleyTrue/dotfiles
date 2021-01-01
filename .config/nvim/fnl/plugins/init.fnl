@@ -9,11 +9,13 @@
      :beacon
      :better-whitespace
      :colorizer
+     :completion
      :defx
      :delimit-mate
      :easy-align
      :easy-motion
      :emmet
+     :lspconfig
      :markdown
      :mta
      :multi-cursor

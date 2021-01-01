@@ -18,7 +18,7 @@
       (.. "../" pd "/" fln))))
 
 (defn- render-dir [{: get-current-color : active}]
-  (let [name (get-current-color)]
+  (let [name (or (get-current-color) "")]
     (..
       (if active
         (.. (hl.hl-comp (.. name " to dir")) "")
