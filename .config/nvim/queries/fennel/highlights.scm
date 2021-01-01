@@ -2,94 +2,9 @@
 (nil) @constant.builtin
 (string) @string
 (number) @number
-(field) @constant
+(keyword) @constant
 (comment) @comment
-(identifier) @variable
-
-[
- "fn"
- "lambda"
- "hashfn"
- "set"
- "tset"
- "λ"
- "global"
- "var"
- "local"
- "let"
- "do"
- "not"
- "not="
- "_ENV"
- "_G"
- "_VERSION"
- "arg"
- "assert"
- "collectgarbage"
- ; "comment" ; missing from tree-sitter-fennel
- "coroutine"
- "debug"
- "dofile"
- "doto"
- "error"
- "eval-compiler"
- "gensym"
- "getmetatable"
- "in-scope?"
- "ipairs"
- "list"
- "list?"
- "load"
- "loadfile"
- "loadstring"
- "match"
- "macro"
- "macrodebug"
- "macroexpand"
- "macros"
- "multi-sym?"
- "next"
- "pairs"
- "package"
- "pcall"
- "print"
- "rawequal"
- "rawget"
- "rawlen"
- "rawset"
- "select"
- "sequence?"
- "setmetatable"
- "string"
- "sym"
- "sym?"
- "table"
- "table?"
- "tonumber"
- "tostring"
- "type"
- "unpack"
- "varg?"
- "xpcall"]
-@keyword
-
-[
- "require"
- "require-macros"
- "import-macros"
- "include"]
-@include
-
-[
-  "each"
-  "for"
-  "while"]
-@repeat
-
-[
-  "if"
-  "when"]
-@conditional
+(symbol) @identifier
 
 [
   "("
@@ -100,69 +15,40 @@
   "]"]
 @punctuation.bracket
 
-; hash function
-"#" @function
+; functions
+(list . (symbol) @function)
+(list . (keyword) @function)
 
-(function_definition
-  name: (identifier) @function)
+((symbol) @include (#match? @include "^(require|require-macros|import\\-macros|include)$"))
 
-(lambda_definition
-  name: (identifier) @function)
+((symbol) @repeat (#match? @repeat "^(each|for|while)$"))
 
-; function call match the only identifier or the last identifier in a field
-; (function_call
-;    name: [
-;           (identifier) @function
-;           (field_expression (identifier) @function .)])
+((symbol) @conditional (#match? @conditional "^(if|when)$"))
+((symbol) @function (#match? @function "^#$"))
 
-[
- ; property getter
- (field_expression . (identifier) "." (identifier) @property)
- ; function call
- (function_call
-    name: [
-           (identifier) @function
-           (field_expression (identifier) @function .)])]
-
-; no idea what this targets
-(field_expression
-   (identifier)
-   (field) @function)
-
-(parameters (identifier) @parameter)
-
-; methods
-; TODO needs : delimiter to work
-; ((function_call
-;     name: ([(identifier) @variable
-;             (field_expression (identifier)*)])
-;     (field) @method))
+((symbol) @keyword (#match? @keyword "^(fn|lambda|hashfn|set|tset|λ|global|var|local|let|do|not|not=|_ENV|_G|_VERSION|arg|assert|collectgarbage|comment|coroutine|debug|dofile|doto|error|eval\\-compiler|gensym|getmetatable|in\\-scope?|ipairs|list|list?|load|loadfile|loadstring|match|macro|macrodebug|macroexpand|macros|multi\\-sym?|next|pairs|package|pcall|print|rawequal|rawget|rawlen|rawset|select|sequence?|setmetatable|string|sym|sym?|table|table?|tonumber|tostring|type|unpack|varg?|xpcall)$"))
 
 ; Aniseed queries
-; (module namespace {require {identifier namespace}
-;                    include {identifier namespace}
-;                    require-macros [namespace]})
-(function_call
-   name: (identifier) @function.macro (#eq? @function.macro "module")
-   [(identifier) @namespace
-    (field_expression
-      (identifier) @namespace
-      ("." (identifier) @namespace)*)] @namespace
-   (table
-     ([(field) (identifier)]? @include (#match? @include "^:?require(-macros)?$|^:?include$"))?)? @aniseed-imports)
-
-
-; def/def-
-(function_call
-    name: ((identifier) @function.macro (#match? @function.macro "^def\-?$")))
+; (module
+;    namespace
+;    {require {identifier namespace}}
+;     include {identifier namespace}
+;     require-macros [namespace]}
+;    base-export-table)
+(list
+  . (
+      ((symbol) @function.macro (#eq? @function.macro "module"))
+      (symbol) @namespace))
 
 ; defn/defn-
-(function_call
-    name: (identifier) @function.macro (#match? @function.macro "^defn\-?$")
-    (identifier) @function
-    [(sequential_table) @parameters
-     (sequential_table (identifier)* @parameter)])
+(list
+  . (
+      ((symbol) @function.macro (#match? @function.macro "^defn\-?$")) ; defn macro
+      (symbol) @function ; defined function symbol
+      (array (symbol)* @parameter))) ;  args
+
+; def/def-
+(list . ((symbol) @function.macro (#match? @function.macro "^def\-?$")))
 
 ; defonce/defonce-
-(function_call
-  name: ((identifier) @function.macro (#match? @function.macro "^defonce\-?$")))
+(list . (symbol) @function.macro (#match? @function.macro "^defonce\-?$"))
