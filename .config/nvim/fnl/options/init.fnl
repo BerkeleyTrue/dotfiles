@@ -39,6 +39,7 @@
      :clipboard      :unnamedplus                     ;  default yank into + register, which is the default clipboard for linux may break in osx?
      :cmdheight      2                                ;  better display for messages
      :copyindent     true                             ;  copy the previous indentation on autoindenting
+     :completeopt    "menuone,noinsert,noselect"
      :cursorcolumn   true                             ;  cursor column
      :cursorline     true                             ;  cursorline
      :expandtab      true                             ;  convert tabs to spaces
