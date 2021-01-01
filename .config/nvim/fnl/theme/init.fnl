@@ -1,11 +1,10 @@
 (module theme
-  {:require {a aniseed.core
-             nvim aniseed.nvim
+  {:require {: r
+             : utils
+             a aniseed.core
              str aniseed.string
              cb colorbuddy
-             log colorbuddy.log
-             utils utils
-             r r}
+             log colorbuddy.log}
    :require-macros [macros]})
 
 

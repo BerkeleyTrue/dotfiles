@@ -28,6 +28,9 @@
    {:name :sirVer/ultisnips :description "snippet engine"}
    {:name :w0rp/ale :description "linting engine"}
 
+   ; search
+   {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
+
    ; lsp/completion
    {:name :nvim-lua/completion-nvim :desciption "add lua based completion tools"}
    {:name :steelsojka/completion-buffers :description "adds buffer to completion list"}
@@ -83,7 +86,7 @@
    {:name :valloric/MatchTagAlways :description "highlights the matching tag in html"}
 
    ; (lisp)
-   {:name :olical/aniseed :branch "develop"}
+   {:name "~/dvlpmnt/lisp/aniseed"}
    {:name "~/dvlpmnt/lisp/conjure"}
    {:name :bakpakin/fennel.vim}
    {:name :eraserhd/parinfer-rust :run "cargo build --release"}
