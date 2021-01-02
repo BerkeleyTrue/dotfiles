@@ -17,6 +17,7 @@
 (def- G cb.Group)
 (def- s cb.styles)
 (def- hi-link! utils.hi-link!)
+(def- hi-clear utils.hi-clear)
 
 (defn add-group [name fg bg? style?]
   "Add a new group to colorbuddy"
@@ -49,6 +50,8 @@
 ; Base Highlights colors
 (each [name colors (pairs palette)]
   (C.new name (a.first colors)))
+
+(add-group :BerksNone c.none c.none)
 
 (add-group :BerksBg c.none c.bg)
 (add-group :BerksBgLight c.none c.bglight)
@@ -112,7 +115,6 @@
 (add-group :BerksDiffDelete c.red c.bgdark)
 
 ; UI
-(add-group :CursorLine c.none c.subtle)
 (add-group :LineNr c.comment)
 (add-group :Normal c.fg)
 (add-group :SignColumn c.comment)
@@ -123,8 +125,6 @@
 (add-group :WildMenu c.bg c.purple s.bold)
 
 (hi-link! :ColorColumn  :BerksBgDark)
-(hi-link! :CursorColumn :CursorLine)
-(hi-link! :CursorLineNr :BerksYellow)
 (hi-link! :DiffAdd      :BerksGreen)
 (hi-link! :DiffAdded    :DiffAdd)
 (hi-link! :DiffChange   :BerksDiffChange)
@@ -154,19 +154,10 @@
 (hi-link! :WarningMsg   :BerksOrangeInverse)
 
 ; Syntax
-(add-group :MatchParen c.green c.none s.underline)
+(add-group :MatchParen c.cyan c.none)
 (add-group :Conceal c.cyan c.none)
 
 (hi-link! :SpecialKey :BerksRed)
-(hi-link! :LspDiagnosticsUnderline :BerksFgUnderline)
-(hi-link! :LspDiagnosticsInformation :BerksCyan)
-(hi-link! :LspDiagnosticsHint :BerksCyan)
-(hi-link! :LspDiagnosticsError :BerksError)
-(hi-link! :LspDiagnosticsWarning :BerksOrange)
-(hi-link! :LspDiagnosticsUnderlineError :BerksErrorLine)
-(hi-link! :LspDiagnosticsUnderlineHint :BerksInfoLine)
-(hi-link! :LspDiagnosticsUnderlineInformation :BerksInfoLine)
-(hi-link! :LspDiagnosticsUnderlineWarning :BerksWarnLine)
 
 (hi-link! :Comment :BerksComment)
 (hi-link! :Underlined :BerksFgUnderline)
@@ -218,10 +209,10 @@
 (hi-link! :helpExample :BerksGreen)
 (hi-link! :helpBacktick :Special)
 
-
 ; Cursor Line
 (add-group :CursorColumn (c.bg:negative) (c.bg:light))
 (add-group :CursorLine c.none (c.bg:light))
+(hi-link! :CursorLineNr :BerksYellow)
 
 ; make the highlighting of tabs and other non-text less annoying
 (add-group :NonText c.gray)
@@ -245,6 +236,7 @@
   (->>
     {: add-group
      : hi-link!
+     : hi-clear
      : c
      : s}
     (run-main :theme.ft)))
