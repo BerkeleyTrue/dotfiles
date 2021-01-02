@@ -2,5 +2,5 @@
 "-------------------------------------------------- {{{
 augroup HelpAu
   autocmd!
-  autocmd BufWinEnter <buffer> wincmd H | vertical resize 80
+  autocmd BufWinEnter <buffer> wincmd H | vertical resize 90
 augroup END "}}}
