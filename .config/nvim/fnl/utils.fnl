@@ -136,7 +136,8 @@
 
 (defn highlight [scope fg bg attrs special]
   "create a highlight using a term/gui palette"
-  (let [bg (or bg (none))
+  (let [bg (or bg [none none])
+        fg (or fg [none none])
 
         attrs (str.join
                 ", "
@@ -164,6 +165,9 @@
         guisp (.. "guisp='" (a.first special) "'")]
 
     (nvim.ex.highlight scope gui cterm guifg ctermfg guibg ctermbg guisp)))
+
+(defn hi-clear [group]
+  (nvim.ex.highlight_ :clear group))
 
 (defn- join-events [events]
   (r.reduce #(.. $1 (if (or (r.empty? $1) (r.empty? $2)) "" ",") $2) "" events))

@@ -1,10 +1,11 @@
 (module theme.ft
-  {:require {r r}
+  {:require {: r}
    :require-macros [macros]})
 
 (defn main [utils]
   (->>
     [:js
+     :lsp
      :markdown
      :spell
      :yaml]
