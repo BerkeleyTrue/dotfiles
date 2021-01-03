@@ -58,7 +58,6 @@ antigen use oh-my-zsh
 antigen bundle djui/alias-tips
 antigen bundle lukechilds/zsh-better-npm-completion
 antigen bundle tmux
-antigen bundle vi-mode
 antigen bundle wd
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
@@ -67,6 +66,7 @@ antigen bundle bgnotify
 antigen bundle docker
 antigen bundle terraform
 antigen bundle command-not-found
+antigen bundle jeffreytse/zsh-vi-mode
 
 antigen theme $ZSH ghanima
 
