@@ -21,7 +21,8 @@
     (let [saved-lzy-redraw-option (. nvim.o :lazyredraw)]
       ;; for redraw
       (set nvim.o.lazyredraw false)
-      (nvim.ex.redraw)
+      ; sometimes this will cause `no buffer for <n> errors to happen silently`
+      (pcall nvim.ex.redraw)
 
       ;; echo info
       (nvim.echo (..
