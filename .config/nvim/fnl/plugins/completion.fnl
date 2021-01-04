@@ -16,7 +16,7 @@
      :completion_sorting :length
      :completion_matching_smart_case true
      :completion_auto_change_source true
-     :completion_matching_strategy_list [:exact :substring :fuzzy :all]
+     :completion_matching_strategy_list [:exact]
      :completion_chain_complete_list
      {:default
       {:default
@@ -38,7 +38,21 @@
        :string
        [{:complete_items [:path :tenk]}]
        :comment
-       [{:complete_items [:path :tenk]}]}}})
+       [{:complete_items [:path :tenk]}]}
+      :javascript
+      {:default
+       [{:complete_items [:ts :lsp :snippet :path :tenk :buffer :tmux]}
+        {:complete_items [:ts]}
+        {:complete_items [:lsp]}
+        {:complete_items [:snippet]}
+        {:complete_items [:buffers]}
+        {:complete_items [:tmux]}]
+       :string
+       [{:complete_items [:path :tenk]}
+        {:complete_items [:buffers]}]
+       :comment
+       [{:complete_items [:path :tenk]}
+        {:complete_items [:buffers]}]}}})
 
 
 

@@ -20,10 +20,19 @@
                    (print (.. "Could not load " $2 ": " res))))
                true))]
     (when ok
-      (let [tsconfigs (require :nvim-treesitter.configs)
+      (let [ts (require :nvim-treesitter)
+            tsconfigs (require :nvim-treesitter.configs)
             tshighlights (require :nvim-treesitter.highlight)
+            queries (require :nvim-treesitter.query)
             parsers (require :nvim-treesitter.parsers)
             parser-conf (parsers.get_parser_configs)]
+        (ts.define_modules
+          {:cindent
+           {:module_path :ts.indents
+            :is_supported
+            (fn [lang]
+              (not (= (queries.get_query lang "indents") nil)))}})
+
         (tset
           parser-conf
           :fennel
@@ -59,7 +68,7 @@
              :node_incremental "gni"    ; increment to the upper named parent
              :scope_incremental "gci"   ; increment to the upper scope (as defined in locals.scm)
              :node_decremental "gnd"}}  ; decrement to the previous node}}
-           :indent {:enable true}
+           :cindent {:enable true}
 
            :refactor
            {
