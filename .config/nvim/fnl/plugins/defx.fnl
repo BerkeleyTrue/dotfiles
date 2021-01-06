@@ -133,20 +133,20 @@
           :defx#custom#column
           ["filename"
            {:min_width 32
-             :max_width -90}])
+            :max_width_percent 90}])
 
         (utils.fn.call
           :defx#custom#column
           ["icon"
            {:directory_icon "▸"
-             :opened_icon    "▾"
-             :root_icon      "."}])
+            :opened_icon    "▾"
+            :root_icon      "."}])
 
         (utils.fn.call
           :defx#custom#column
           ["mark"
            {:readonly_icon "✗"
-             :selected_icon "✓"}])
+            :selected_icon "✓"}])
 
         (utils.nnoremap
           "get"
