@@ -123,10 +123,6 @@
     ; delete mark
     "<ESC>:delmarks " mark "<CR>"))
 
-; uppercase word under the cursor while in insert mode
-(utils.inoremap :<leader>uw (.. (preserve-cursor-loc "gUiw`z" :z) :a))
-(utils.vnoremap :<leader>uw (.. (preserve-cursor-loc "gUiw`z" :z) :v))
-
 (utils.nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>`q" :q)))
 ; Throw a comma on the end of the line
 (utils.nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>`q" :q)))
