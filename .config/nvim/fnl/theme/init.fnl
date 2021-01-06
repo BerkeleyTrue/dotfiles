@@ -232,11 +232,12 @@
 (add-group :TSConstructor c.orange c.none)
 (hi-link! :TSNamespace :Namespace)
 
+(def- theme-vars
+  {: add-group
+   : hi-link!
+   : hi-clear
+   : c
+   : s})
 (defn main []
-  (->>
-    {: add-group
-     : hi-link!
-     : hi-clear
-     : c
-     : s}
-    (run-main :theme.ft)))
+  (run-main :theme.ft theme-vars)
+  (run-main :theme.plugins.barbar theme-vars))
