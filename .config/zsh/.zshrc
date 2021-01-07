@@ -49,8 +49,6 @@ if [[ $OSNAME = 'Darwin' ]]; then
   source /usr/local/share/antigen/antigen.zsh
 else
   source /usr/share/zsh/share/antigen.zsh
-  source /usr/share/fzf/completion.zsh
-  source /usr/share/fzf/key-bindings.zsh
 fi
 
 antigen use oh-my-zsh
@@ -73,12 +71,6 @@ antigen theme $ZSH ghanima
 # apply antigen plugins
 antigen apply
 
-# source antigen plugin manager
-if [[ $OSNAME != 'Darwin' ]]; then
-  # source after vi-mode to overwrite bindkeys
-  source /usr/share/fzf/completion.zsh
-  source /usr/share/fzf/key-bindings.zsh
-fi
 
 # apply zoxide to zsh
 eval "$(zoxide init zsh)"
@@ -160,5 +152,10 @@ zle -N zle-keymap-select
 [[ -s "$XDG_CONFIG_HOME/shell/index.sh"  ]] && source "$XDG_CONFIG_HOME/shell/index.sh"
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
+
+if [[ $OSNAME != 'Darwin' ]]; then
+  source /usr/share/fzf/completion.zsh
+  source /usr/share/fzf/key-bindings.zsh
+fi
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
