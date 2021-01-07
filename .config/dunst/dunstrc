@@ -15,7 +15,7 @@
   frame_width = 1
   frame_color = "#bd93f9"
 
-  font = Monoid Nerd Font Mono 11
+  font = FiraCode Nerd Font 11
   # Allow a small subset of html markup:
   #   <b>bold</b>
   #   <i>italic</i>
@@ -117,11 +117,11 @@
   #
   # If this option is set to mouse or keyboard, the monitor option
   # will be ignored.
-  follow = keyboard
+  follow = none
 
   # Should a notification popped up from history be sticky or timeout
   # as if it would normally do.
-  sticky_history = yes
+  sticky_history = true
 
   # Maximum amount of notifications kept in history
   history_length = 100
