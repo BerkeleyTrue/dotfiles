@@ -122,6 +122,7 @@
    {:name :rust-lang/rust.vim}
    {:name :sirtaj/vim-openscad}
    {:name :tbastos/vim-lua}
+   {:name :purescript-contrib/purescript-vim}
 
    ;   
    {:name :elzr/vim-json :description ""}
