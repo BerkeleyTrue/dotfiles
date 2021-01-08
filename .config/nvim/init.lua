@@ -2,7 +2,7 @@ local vim = _G.vim
 -- check if aniseed is installed, if not, run make aniseed to install and
 
 -- make sure aniseed path is available for macros lookup
-vim.cmd [[let &runtimepath.=','.stdpath('config').'/pack/packer/start/aniseed']]
+vim.cmd [[ packadd aniseed ]]
 local isInConf = vim.fn.stdpath("config") == vim.fn.getcwd()
 
 -- force aniseed to compile while in nvim dir (in dev mode)
