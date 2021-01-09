@@ -6,6 +6,7 @@ export FZF_DEFAULT_COMMAND='fd .'
 export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
 export TASKDATA="$XDG_CONFIG_HOME/task"
 export TASKRC="$TASKDATA/taskrc"
+export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"
 
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
 ZSH="$XDG_CONFIG_HOME/zsh"
@@ -153,9 +154,14 @@ zle -N zle-keymap-select
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
 
-if [[ $OSNAME != 'Darwin' ]]; then
-  source /usr/share/fzf/completion.zsh
-  source /usr/share/fzf/key-bindings.zsh
-fi
+# Define an init function and append to zvm_after_init_commands
+# this is required to work around zsh-vi-mode plugin
+function my_init() {
+  if [[ $OSNAME != 'Darwin' ]]; then
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
+  fi
+}
+zvm_after_init_commands+=(my_init)
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
