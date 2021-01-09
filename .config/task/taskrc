@@ -31,3 +31,8 @@ verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,
 
 context.mr=+mr
 context.nvim=+nvim
+
+# urgency
+urgency.user.tag.mr.coefficient=4
+urgency.user.tag.nvim.coefficient=-0.8
+urgency.uda.priority.L.coefficient=-2
