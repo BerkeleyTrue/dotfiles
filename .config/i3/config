@@ -168,12 +168,7 @@ assign [class="Slack"] $ws2
 assign [class="discord"] $ws2
 
 assign [class="zoom"] $ws1
-no_focus [class="zoom"]
-no_focus [title="Zoom"]
-no_focus [title="Leave meeting"]
-no_focus [title="Zoom Meeting"]
-no_focus [title="Zoom Meetings"]
-no_focus [title="Zoom Cloud Meetings"]
+no_focus [class="(?i)zoom"]
 
 for_window [class="zoom" window_role="pop-up"] floating enable;
 for_window [class="zoom" title="Zoom Cloud Meetings"] floating enable;
@@ -199,13 +194,18 @@ bindsym $mod+Shift+r restart
 bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-  bindsym l exec --no-startup-id i3exit lock, mode "default"
-  bindsym s exec --no-startup-id i3exit suspend, mode "default"
-  bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-  bindsym e exec --no-startup-id i3exit logout, mode "default"
-  bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-  bindsym r exec --no-startup-id i3exit reboot, mode "default"
-  bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+  # lock
+  bindsym l exec --no-startup-id light-locker-command -l, mode "default"
+  # suspend
+  bindsym s exec --no-startup-id light-locker-command -l && systemctl suspend, mode "default"
+  # exit (log out)
+  bindsym e exec --no-startup-id i3-msg exit, mode "default"
+  # hibernate
+  bindsym h exec --no-startup-id light-locker-command -l && systemctl hibernate, mode "default"
+  # reboot
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  # shutdown
+  bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
 
   # exit system mode: "Enter" or "Escape"
   bindsym Return mode "default"
@@ -242,6 +242,8 @@ mode "resize" {
 bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
+# make sure lightlocker is running for lighdm lock screen
+exec_always --no-startup-id /usr/bin/light-locker
 # start volumeicon
 exec --no-startup-id volumeicon
 # used for controlling system wide privileges
