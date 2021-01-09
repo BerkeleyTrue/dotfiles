@@ -1,5 +1,7 @@
 ---
 packages:
+  # ui
+  - light-locker
   # general
   - asciinema
   - curl
@@ -9,6 +11,10 @@ packages:
   - yamllint
   - yay
   # Dev
+  ## haskell
+  - ghc
+  - ghc-libs
+  - stack
   ## terminal
   - alacritty
   - entr # watch files and re-run command
@@ -16,6 +22,7 @@ packages:
   - kitty
   - neovim
   - task # taskwarrior
+  - timew # timewarrior
   - wakatime
   ## automation
   - ansible
@@ -31,6 +38,8 @@ packages:
   - npm
 
 aur:
+  # ui
+  - lightdm-mini-greeter
   # general
   - luarocks
   # DB tools
@@ -55,6 +64,9 @@ aur:
   - clj-kondo-bin
   - fennel
   - joker-bin
+  # purescript
+  - purescript
+  - spago
 
 pips:
   # for generating password hashes
