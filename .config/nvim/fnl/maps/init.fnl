@@ -72,7 +72,7 @@
 (utils.nnoremap :q: ":")
 
 ; sort lines in visual mode
-(utils.vnoremap :<leader>s :sort<cr>)
+(utils.vnoremap :<leader>s ::sort<cr>)
 
 ; insert new line on enter
 (utils.nnoremap :<cr> :o<esc>)
