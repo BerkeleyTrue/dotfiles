@@ -72,6 +72,7 @@
 (add-group :BerksGray c.gray)
 
 (add-group :BerksCyan c.cyan)
+(add-group :BerksCyanBold c.cyan c.none s.bold)
 (add-group :BerksCyanDark (c.cyan:dark))
 (add-group :BerksCyanItalic c.cyan c.none s.italic)
 

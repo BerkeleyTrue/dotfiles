@@ -32,7 +32,7 @@
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
 
    ; lsp/completion
-   {:name :nvim-lua/completion-nvim :desciption "add lua based completion tools"}
+   {:name "~/dvlpmnt/lisp/completion-nvim" :desciption "add lua based completion tools"}
    {:name :steelsojka/completion-buffers :description "adds buffer to completion list"}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :nvim-treesitter/completion-treesitter :description "add treesitter to completion"}
@@ -109,7 +109,8 @@
    {:name :romgrk/nvim-treesitter-context :requires [[:nvim-treesitter/nvim-treesitter]]}
 
    ; general lang syntax plugins
-   {:name :plasticboy/vim-markdown :requires [[:godlygeek/tabular]]}
+   {:name :gabrielelana/vim-markdown}
+   {:name :godlygeek/tabular}
    {:name :chr4/nginx.vim}
    {:name :chrisbra/csv.vim}
    {:name :digitaltoad/vim-jade}
