@@ -4,7 +4,7 @@
 #include "../../qmk_firmware/keyboards/lets_split/config.h"
 
 #define USE_SERIAL
-#define MASTER_LEFT
+#define EE_HANDS
 
 #define PREVENT_STUCK_MODIFIERS
 #define MOUSEKEY_DELAY             200
