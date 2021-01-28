@@ -32,11 +32,9 @@
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
 
    ; lsp/completion
-   {:name "~/dvlpmnt/lisp/completion-nvim" :desciption "add lua based completion tools"}
-   {:name :steelsojka/completion-buffers :description "adds buffer to completion list"}
+   {:name :hrsh7th/nvim-compe :description ""}
+   {:name :wellle/tmux-complete.vim :desciption "inject words in neighboring tmux panes into the completion popup"}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
-   {:name :nvim-treesitter/completion-treesitter :description "add treesitter to completion"}
-   {:name :albertoCaroM/completion-tmux :description "add tmux pane info to completion"}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
@@ -65,7 +63,6 @@
    {:name :christoomey/vim-tmux-navigator :description "nav between tmux panes and vim buffs easily"}
    {:name :tmux-plugins/vim-tmux :description "tmux syntax"}
    {:name :tmux-plugins/vim-tmux-focus-events :description "restore focus events when enter/leave vim bufs in tmux panes"}
-   {:name :wellle/tmux-complete.vim :desciption "inject words in neighboring tmux panes into the completion popup"}
 
    ; git
    {:name :mhinz/vim-signify :desciption "show git diffs in the gutter"}
