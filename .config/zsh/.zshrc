@@ -45,6 +45,8 @@ if [[ ! -f $ANTIGEN_LOG  ]]; then
   mkdir -p $(dirname $ANTIGEN_LOG) > /dev/null 2>&1;
 fi
 
+### begin antigen ###
+
 # source antigen plugin manager
 if [[ $OSNAME = 'Darwin' ]]; then
   source /usr/local/share/antigen/antigen.zsh
@@ -72,84 +74,11 @@ antigen theme $ZSH ghanima
 # apply antigen plugins
 antigen apply
 
-
 # apply zoxide to zsh
 eval "$(zoxide init zsh)"
 
-###
-# zsh use primary clipboard for vi-keys
-####
-function x11-clip-wrap-widgets() {
-  local copy_or_paste=$1
-  shift
-  local copy_command='xclip -in -selection clipboard'
-  local paste_command='xclip -out -selection clipboard'
+### end antigen ###
 
-  [[ $OSNAME == 'Darwin' ]] && copy_command='pbcopy'
-  [[ $OSNAME == 'Darwin' ]] && paste_command='pbpaste'
-
-  for widget in $@; do
-    if [[ $copy_or_paste == "copy" ]]; then
-      eval "
-      function _x11-clip-wrapped-$widget() {
-        zle .$widget
-        $copy_command <<<\$CUTBUFFER
-      }
-      "
-    else
-      eval "
-      function _x11-clip-wrapped-$widget() {
-        CUTBUFFER=\$($paste_command)
-        zle .$widget
-      }
-      "
-    fi
-    zle -N $widget _x11-clip-wrapped-$widget
-  done
-}
-local copy_widgets=(
-  vi-yank vi-yank-eol vi-delete vi-backward-kill-word vi-change-whole-line
-)
-local paste_widgets=(
-  vi-put-{before,after}
-)
-x11-clip-wrap-widgets copy $copy_widgets
-x11-clip-wrap-widgets paste  $paste_widgets
-### end-clipboard paste ###
-
-
-### change cursor shape in xterm ###
-# must come after oh-my-zsh vim plugin
-BLOCK="\e[1 q"
-BEAM="\e[5 q"
-function zle-keymap-select zle-line-init {
-  if [ $KEYMAP = vicmd ]; then
-    # the command mode for vi
-    print -n "$BLOCK"
-  else
-    # the insert mode for vi
-    print -n "$BEAM"
-  fi
-  zle reset-prompt
-  zle -R
-}
-
-SHORT_PROMPT="%F{cyan}%f "
-function zle-line-finish {
-  if [[ $PROMPT != $SHORT_PROMPT ]]; then
-    PROMPT=$SHORT_PROMPT
-    if [[ $RPROMPT != "" ]]; then
-      RPROMPT=""
-    fi
-    zle .reset-prompt
-  fi
-  print -n -- "$BLOCK"  # block cursor
-}
-
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
-### end cursor mod ###
 [[ -s "$XDG_CONFIG_HOME/shell/index.sh"  ]] && source "$XDG_CONFIG_HOME/shell/index.sh"
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
@@ -162,6 +91,7 @@ function my_init() {
     source /usr/share/fzf/key-bindings.zsh
   fi
 }
+
 zvm_after_init_commands+=(my_init)
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
