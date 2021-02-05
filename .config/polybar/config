@@ -78,8 +78,8 @@ font-2 = Monoid Nerd Font Mono:size=14;2
 font-3 = FontAwesome5Free:style=Solid:size=10;-1
 
 modules-left = ticker crypto
-modules-center= load temperature cpu cpu-temps cpu-aio gpu-stats memory docker
-modules-right= wifi filesystem media
+modules-center= load temperature cpu cpu-temps gpu-stats memory docker
+modules-right= wifi filesystem sigma backup
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -324,11 +324,21 @@ label-mounted = %{F#50fa7b}%{F-} %free%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.comment}
 
-[module/media]
+[module/sigma]
 type = internal/fs
 interval = 25
 
-mount-0 = /media/media
+mount-0 = /media/sigma
+
+label-mounted = %{F#50fa7b}%{F-} %free%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.comment}
+
+[module/backup]
+type = internal/fs
+interval = 25
+
+mount-0 = /run/timeshift/backup
 
 label-mounted = %{F#50fa7b}%{F-} %free%
 label-unmounted = %mountpoint% not mounted
