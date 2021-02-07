@@ -25,7 +25,7 @@ font-2 = Monoid Nerd Font Mono:size=12;2
 font-3 = FontAwesome5Free:style=Solid:size=10;-1
 
 modules-left = i3
-modules-center = date waka
+modules-center = date timew waka
 modules-right = dunst
 
 background = ${colors.background}
@@ -391,7 +391,7 @@ label = %output%
 type = custom/script
 exec = docker ps -q | wc -l
 interval = 1
-label = %{A1:alacritty --title "docker ps" -d 1080 10 --hold -e sh -c "docker ps; i3-msg floating enable > /dev/null; i3-msg resize set 1480 150 > /dev/null; i3-msg move position center > /dev/null;":} %{T3}%{F#8be9fd}%{F-}%{T-} %output% %{A}
+label = %{A1:kitty --title "docker ps" -d 1080 10 --hold -e sh -c "docker ps; i3-msg floating enable > /dev/null; i3-msg resize set 1480 150 > /dev/null; i3-msg move position center > /dev/null;":} %{T3}%{F#8be9fd}%{F-}%{T-} %output% %{A}
 
 [module/cpu-temps]
 type = custom/script
@@ -418,3 +418,9 @@ exec = wakatime --today
 interval = 30
 label = %{u#50fa7b}%{F#50fa7b}%{T3}%{T-} %output%%{F-}
 click-left = xdg-open https://wakatime.com/dashboard
+
+[module/timew]
+type = custom/script
+exec = ~/.config/polybar/timew-duration.sh || echo "foo"
+interval = 30
+label = %{u#BD93F9}%{F#BD93F9}%{T3}%{T-} %output%%{F-}
