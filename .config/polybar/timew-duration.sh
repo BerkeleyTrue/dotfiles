@@ -16,7 +16,9 @@ OUTPUT=$(
 )
 
 if (( $IS_ACTIVE == "1" )); then
+  DUR=$(timew_cmd get dom.active.duration | sed "s/^PT\(.*\)/\1/" | sed "s/[H|M]/:/g" | sed "s/S//")
   OUTPUT+=": '"${TAG}"'"
+  OUTPUT+="($DUR)"
 fi
 
 echo $OUTPUT

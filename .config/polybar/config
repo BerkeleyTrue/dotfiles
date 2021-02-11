@@ -25,7 +25,7 @@ font-2 = Monoid Nerd Font Mono:size=12;2
 font-3 = FontAwesome5Free:style=Solid:size=10;-1
 
 modules-left = i3
-modules-center = date timew waka
+modules-center = date waka timew
 modules-right = dunst
 
 background = ${colors.background}
@@ -421,6 +421,6 @@ click-left = xdg-open https://wakatime.com/dashboard
 
 [module/timew]
 type = custom/script
-exec = ~/.config/polybar/timew-duration.sh || echo "foo"
-interval = 30
+exec = ~/.config/polybar/timew-duration.sh
+interval = 1
 label = %{u#BD93F9}%{F#BD93F9}%{T3}%{T-} %output%%{F-}
