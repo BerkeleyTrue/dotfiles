@@ -1,9 +1,8 @@
 (module plugins.telescope
   {:require {a aniseed.core
-             telescope telescope
-             actions telescope.actions
-             sorters telescope.sorters
-             themes telescope.themes}})
+             : utils
+             : telescope
+             sorters telescope.sorters}})
 
 
 
@@ -19,5 +18,12 @@
      :color_devicons true
      :file_sorter sorters.get_fzy_sorter}))
 
+(defn setup-keymaps []
+  (utils.noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
+  (utils.noremap :<leader>ff (utils.cviml->lua :telescope.builtin :find_files))
+  (utils.noremap :<leader>fb (utils.cviml->lua :telescope.builtin :buffers))
+  (utils.noremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps)))
+
 (defn main []
-  (setup telescope))
+  (setup telescope)
+  (setup-keymaps))
