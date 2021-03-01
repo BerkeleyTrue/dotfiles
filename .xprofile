@@ -1,0 +1,29 @@
+# make sure lightlocker is running for lighdm lock screen
+/usr/bin/light-locker &
+
+# start volumeicon
+volumeicon &
+# used for controlling system wide privileges
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# desktop background manager and window composer
+# nitrogen --restore; sleep 1; picom -b
+# network manager
+nm-applet &
+# manage power settings
+xfce4-power-manager &
+# manage and install packages
+pamac-tray &
+# clipboard manager
+clipit &
+# bluetooth
+blueman-applet &
+# system info on desktop background
+# awful.spawn("start_conky_solarized")
+# session lockout
+xautolock -time 60 -notify 120 -locker /usr/bin/light-locker &
+# touchpad support
+synclient NaturalScrolling=1 VertScrollDelta=-113 &
+# private internet access vpn
+/opt/piavpn/bin/pia-client &
+# hide cursor when inactive
+/bin/unclutter -b &

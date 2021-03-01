@@ -239,41 +239,11 @@ mode "resize" {
 }
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
-# make sure lightlocker is running for lighdm lock screen
-exec_always --no-startup-id /usr/bin/light-locker
-# start volumeicon
-exec --no-startup-id volumeicon
-# used for controlling system wide privileges
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # desktop background manager
 exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-# network manager
-exec --no-startup-id nm-applet
-# manage power settings
-exec --no-startup-id xfce4-power-manager
-# manage and install packages
-exec --no-startup-id pamac-tray
-# clipboard manager
-exec --no-startup-id clipit
-# bluetooth
-exec --no-startup-id blueman-applet
-# system info on desktop background
-exec --no-startup-id start_conky_solarized
-# session lockout
-exec --no-startup-id xautolock -time 60 -notify 120 -locker blurlock
-# touchpad support
-exec --no-startup-id synclient NaturalScrolling=1 VertScrollDelta=-113
-# private internet access vpn
-exec --no-startup-id /opt/piavpn/bin/pia-client
-# hide cursor when inactive
-exec --no-startup-id /bin/unclutter -b
 
-# exec on i3 restarts as well
-# exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
 # launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
