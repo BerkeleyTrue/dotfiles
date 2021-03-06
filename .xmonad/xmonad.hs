@@ -6,9 +6,9 @@ import XMonad
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import qualified XMonad.StackSet as W
-import XMonad.Actions.CycleWS
 
 -- Actions
+import XMonad.Actions.CycleWS
 import XMonad.Actions.WindowNavigation
 
 -- Hooks
@@ -20,16 +20,20 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
 
 -- layouts
-import XMonad.Layout.Renamed
-import XMonad.Layout.Tabbed
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Simplest
-import XMonad.Layout.LimitWindows
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.Spacing
-import XMonad.Layout.ResizableTile
 import XMonad.Layout.Magnifier
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Spacing
+
+-- layout modifiers
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.LimitWindows
+import XMonad.Layout.MultiToggle as Mt (Toggle(Toggle), mkToggle, EOT(EOT), (??))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, NOBORDERS))
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed
+import XMonad.Layout.Simplest
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowNavigation
 
 myFont = "xft:FiraCode Nerd Font:pixelsize=11:antialias=true:hinting=true"
@@ -155,9 +159,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- See also the statusBar function from Hooks.DynamicLog.
     --
     , ((modm              , xK_b     ), sendMessage ToggleStruts)
+    , ((modm, xK_f), sendMessage $ Mt.Toggle NBFULL)
 
     -- Restart xmonad
-    , ((modm .|. shiftMask, xK_r     ), spawn "xmonad --recompile && xmonad --restart && notify-send 'XMonad Restarted'")
+    , ((modm .|. shiftMask, xK_r), spawn "xmonad --recompile && xmonad --restart && notify-send 'XMonad Restarted'")
 
     -- quit menu
     , ((modm, xK_0), spawn "$HOME/.local/bin/powermenu")
@@ -239,7 +244,9 @@ tiled = renamed [Replace "Tiled" ]
   $ windowNavigation
   $ Tall 1 (3/100) (1/2)
 
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full ||| magnify ||| monocle)
+myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
+  where
+    layouts = tiled ||| magnify ||| monocle ||| Mirror tiled
 
 ------------------------------------------------------------------------
 -- Window rules:
