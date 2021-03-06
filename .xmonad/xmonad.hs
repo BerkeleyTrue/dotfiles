@@ -9,6 +9,7 @@ import qualified XMonad.StackSet as W
 
 -- Actions
 import XMonad.Actions.CycleWS
+import XMonad.Actions.MouseResize
 import XMonad.Actions.WindowNavigation
 
 -- Hooks
@@ -34,6 +35,7 @@ import XMonad.Layout.Renamed
 import XMonad.Layout.Simplest
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.Tabbed
+import XMonad.Layout.WindowArranger
 import XMonad.Layout.WindowNavigation
 
 myFont = "xft:FiraCode Nerd Font:pixelsize=11:antialias=true:hinting=true"
@@ -240,13 +242,19 @@ monocle = renamed [Replace "Monocle"]
   $ subLayout [] (smartBorders Simplest)
   $ limitWindows 20 Full
 
-tiled = renamed [Replace "Tiled" ]
+vert = renamed [Replace "Vert" ]
   $ windowNavigation
   $ Tall 1 (3/100) (1/2)
 
-myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
+horiz = renamed [Replace "Horiz"]
+  $ Mirror vert
+
+myLayout = avoidStruts
+  $ mouseResize
+  $ windowArrange
+  $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
   where
-    layouts = tiled ||| magnify ||| monocle ||| Mirror tiled
+    layouts = magnify ||| vert ||| monocle ||| horiz
 
 ------------------------------------------------------------------------
 -- Window rules:
