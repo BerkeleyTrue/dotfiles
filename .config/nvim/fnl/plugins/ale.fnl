@@ -13,7 +13,8 @@
      :ale_virtualtext_cursor 1
      :ale_virtualtext_prefix "//=> "
      :ale_virtualtext_delay 300
-     :ale_linters {:javascript [:eslint]
+     :ale_linters {:haskell [:stack-build :hls]
+                   :javascript [:eslint]
                    :typescript [:tslint :tsserver]
                    :pug [:pug-lint]
                    :clojure [:clj-kondo :joker]
