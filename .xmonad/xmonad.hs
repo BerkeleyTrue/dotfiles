@@ -18,12 +18,15 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
 import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
 
 -- layouts
 import XMonad.Layout.Magnifier
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
+
+import qualified Berks.Colors as Cl
 
 -- layout modifiers
 import XMonad.Layout.LayoutModifier
@@ -43,30 +46,8 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowArranger
 import XMonad.Layout.WindowNavigation
 
+-- import Berks-Internal.Colors as Cl
 myFont = "xft:FiraCode Nerd Font:pixelsize=11:antialias=true:hinting=true"
-
--- drac colors
-background = "#282a36"
-
-selection = "#44475a"
-
-foreground = "#f8f8f2"
-
-comment = "#6272a4"
-
-cyan = "#8be9fd"
-
-green = "#50fa7b"
-
-orange = "#ffb86c"
-
-pink = "#ff79c6"
-
-purple = "#bd93f9"
-
-red = "#ff5555"
-
-yellow = "#f1fa8c"
 
 -- The preferred terminal program, which is used in a binding below and by
 myTerminal = "kitty"
@@ -102,48 +83,48 @@ myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor = background
+myNormalBorderColor = Cl.background
 
-myFocusedBorderColor = cyan
+myFocusedBorderColor = Cl.cyan
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys conf@XConfig {XMonad.modMask = modm} =
+keyMaps conf@XConfig {XMonad.modMask = modm} =
   M.fromList $
-    -- launch a terminal
+  -- launch a terminal
   [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-    -- launch dmenu
+  -- launch dmenu
   , ((modm, xK_p), spawn "dmenu_run")
-    -- launch rofi
+  -- launch rofi
   , ((modm, xK_d), spawn "rofi -show drun")
-    -- close focused window
+  -- close focused window
   , ((modm .|. shiftMask, xK_q), kill)
-     -- Rotate through the available layout algorithms
+    -- Rotate through the available layout algorithms
   , ((modm, xK_space), sendMessage NextLayout)
-    --  Reset the layouts on the current workspace to default
+  --  Reset the layouts on the current workspace to default
   , ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
-    -- Resize viewed windows to the correct size
-    -- , ((modm,               xK_n     ), refresh)
-    -- Move focus to the next window
+  -- Resize viewed windows to the correct size
+  -- , ((modm,               xK_n     ), refresh)
+  -- Move focus to the next window
   , ((modm, xK_j), windows W.focusDown)
-    -- Move focus to the previous window
+  -- Move focus to the previous window
   , ((modm, xK_k), windows W.focusUp)
-    -- Move focus to the master window
+  -- Move focus to the master window
   , ((modm, xK_m), windows W.focusMaster)
-    -- Swap the focused window and the master window
+  -- Swap the focused window and the master window
   , ((modm, xK_Return), windows W.swapMaster)
-    -- Swap the focused window with the next window
+  -- Swap the focused window with the next window
   , ((modm .|. shiftMask, xK_j), windows W.swapDown)
-    -- Swap the focused window with the previous window
+  -- Swap the focused window with the previous window
   , ((modm .|. shiftMask, xK_k), windows W.swapUp)
-    -- Shrink the master area
+  -- Shrink the master area
   , ((modm, xK_h), sendMessage Shrink)
-    -- Expand the master area
+  -- Expand the master area
   , ((modm, xK_l), sendMessage Expand)
-    -- Push window back into tiling
+  -- Push window back into tiling
   , ((modm, xK_t), withFocused $ windows . W.sink)
-    -- , ((modm,               xK_y     ), withFocused $ windows . W.float)
+  -- Directional Nav
   , ((modm, xK_Right), sendMessage $ Go R)
   , ((modm, xK_Left), sendMessage $ Go L)
   , ((modm, xK_Up), sendMessage $ Go U)
@@ -154,12 +135,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   , ((modm .|. shiftMask, xK_Down), sendMessage $ Swap D)
     -- switch to next monitor
   , ((modm, xK_Tab), nextScreen)
-    -- Toggle the status bar gap
-    -- Use this binding with avoidStruts from Hooks.ManageDocks.
-    -- See also the statusBar function from Hooks.DynamicLog.
-    --
-  , ((modm, xK_b), sendMessage ToggleStruts)
-  , ((modm, xK_f), sendMessage $ Mt.Toggle NBFULL)
+  , ((modm .|. shiftMask, xK_Tab), nextScreen)
+  , ((modm, xK_f), sendMessage (Mt.Toggle NBFULL) >> sendMessage ToggleStruts)
     -- Restart xmonad
   , ( (modm .|. shiftMask, xK_r)
     , spawn
@@ -174,20 +151,12 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   [ ((m .|. modm, k), windows $ f i)
   | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
   , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
-  ] ++
-  --
-  -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2
-  -- mod-shift-{w,e,r}, Move client to screen 1, 2
-  --
-  [ ((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-  | (key, sc) <- zip [xK_w, xK_e] [0 ..]
-  , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
   ]
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
-myMouseBindings XConfig {XMonad.modMask = modm} =
+mBindings XConfig {XMonad.modMask = modm} =
   M.fromList
     -- mod-button1, Set the window to floating mode and move by dragging
     [ ( (modm, button1)
@@ -202,15 +171,15 @@ myMouseBindings XConfig {XMonad.modMask = modm} =
 
 ------------------------------------------------------------------------
 -- Layouts:
-myTabTheme =
+tabTheme =
   def
     { fontName = myFont
-    , inactiveTextColor = comment
-    , inactiveColor = background
-    , inactiveBorderColor = background
-    , activeTextColor = foreground
-    , activeColor = cyan
-    , activeBorderColor = cyan
+    , inactiveTextColor = Cl.comment
+    , inactiveColor = Cl.background
+    , inactiveBorderColor = Cl.background
+    , activeTextColor = Cl.foreground
+    , activeColor = Cl.cyan
+    , activeBorderColor = Cl.cyan
     }
 
 --Makes setting the spacingRaw simpler to write.
@@ -222,7 +191,7 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 magnify =
   renamed [Replace "Magnify"] $
   windowNavigation $
-  addTabs shrinkText myTabTheme $
+  addTabs shrinkText tabTheme $
   subLayout [] (smartBorders Simplest) $
   magnifier $
   limitWindows 12 $ mySpacing 8 $ ResizableTall 1 (3 / 100) (1 / 2) []
@@ -230,7 +199,7 @@ magnify =
 monocle =
   renamed [Replace "Monocle"] $
   windowNavigation $
-  addTabs shrinkText myTabTheme $
+  addTabs shrinkText tabTheme $
   subLayout [] (smartBorders Simplest) $ limitWindows 20 Full
 
 vert = renamed [Replace "Vert"] $ windowNavigation $ Tall 1 (3 / 100) (1 / 2)
@@ -238,8 +207,8 @@ vert = renamed [Replace "Vert"] $ windowNavigation $ Tall 1 (3 / 100) (1 / 2)
 horiz = renamed [Replace "Horiz"] $ Mirror vert
 
 myLayout =
-  avoidStruts $
-  mouseResize $ windowArrange $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
+  avoidStruts . mouseResize . windowArrange $
+  mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
   where
     layouts = magnify ||| vert ||| monocle ||| horiz
 
@@ -263,6 +232,7 @@ myManageHook =
     , className =? "Gimp" --> doFloat
     , resource =? "desktop_window" --> doIgnore
     , resource =? "kdesktop" --> doIgnore
+    , isFullscreen --> doFullFloat
     ]
 
 ------------------------------------------------------------------------
@@ -300,7 +270,7 @@ myStartupHook = do
     \--widthtype request \
     \--padding 6 \
     \--SetDockType true \
-    \--SetPartialStrut true \
+    \--SetPartialStrut false \
     \--expand true \
     \--monitor 0 \
     \--transparent true \
@@ -320,7 +290,7 @@ main = do
     ewmh
       def
         { terminal = myTerminal
-        , focusFollowsMouse = myFocusFollowsMouse
+        , focusFollowsMouse = True
         , clickJustFocuses = myClickJustFocuses
         , borderWidth = myBorderWidth
         , modMask = myModMask
@@ -328,8 +298,8 @@ main = do
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
         -- bindings
-        , keys = myKeys
-        , mouseBindings = myMouseBindings
+        , keys = keyMaps
+        , mouseBindings = mBindings
         -- hooks, layouts
         , layoutHook = myLayout
         , manageHook = myManageHook
@@ -345,10 +315,10 @@ main = do
                 -- then the output from that gets sent into hPutStrLn
                 -- and then into xmonad to be displayed
                 { ppOutput = hPutStrLn xmproc0
-                , ppCurrent = xmobarColor cyan "" . wrap "[" "]"
-                , ppVisible = xmobarColor comment "" . wrap "(" ")"
-                , ppTitle = xmobarColor purple "" . pad . shorten 20
-                , ppLayout = xmobarColor red "" . wrap "<" ">"
+                , ppCurrent = xmobarColor Cl.cyan "" . wrap "[" "]"
+                , ppVisible = xmobarColor Cl.comment "" . wrap "(" ")"
+                , ppTitle = xmobarColor Cl.purple "" . pad . shorten 20
+                , ppLayout = xmobarColor Cl.red "" . wrap "<" ">"
                 , ppSep = " "
                 , ppOrder = \(ws:l:t:_) -> [ws, t, l]
                 }
