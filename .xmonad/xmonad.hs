@@ -8,7 +8,7 @@ import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
 -- Actions
-import XMonad.Actions.CycleWS
+import qualified XMonad.Actions.CycleWS as CWs
 import XMonad.Actions.MouseResize
 import XMonad.Actions.WindowNavigation
 
@@ -49,43 +49,14 @@ import XMonad.Layout.WindowNavigation
 -- import Berks-Internal.Colors as Cl
 myFont = "xft:FiraCode Nerd Font:pixelsize=11:antialias=true:hinting=true"
 
--- The preferred terminal program, which is used in a binding below and by
-myTerminal = "kitty"
+-- Terminal
+term = "kitty"
 
--- Whether focus follows the mouse pointer.
-myFocusFollowsMouse :: Bool
-myFocusFollowsMouse = True
-
--- Whether clicking on a window to focus also passes the click to the window
-myClickJustFocuses :: Bool
-myClickJustFocuses = False
-
--- Width of the window border in pixels.
-myBorderWidth = 1
-
--- modMask lets you specify which modkey you want to use. The default
--- is mod1Mask ("left alt").  You may also consider using mod3Mask
--- ("right alt"), which does not conflict with emacs keybindings. The
--- "windows key" is usually mod4Mask.
---
+-- Super key as Mod
 myModMask = mod4Mask
 
--- The default number of workspaces (virtual screens) and their names.
--- By default we use numeric strings, but any string may be used as a
--- workspace name. The number of workspaces is determined by the length
--- of this list.
---
--- A tagging example:
---
--- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
---
-myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-
--- Border colors for unfocused and focused windows, respectively.
---
-myNormalBorderColor = Cl.background
-
-myFocusedBorderColor = Cl.cyan
+-- Workspaces
+werkspace = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -100,12 +71,14 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
   , ((modm, xK_d), spawn "rofi -show drun")
   -- close focused window
   , ((modm .|. shiftMask, xK_q), kill)
-    -- Rotate through the available layout algorithms
-  , ((modm, xK_space), sendMessage NextLayout)
+  -- Rotate through Screens
+  , ((modm, xK_Tab), CWs.nextScreen)
+    -- Rotate through the available layouts
+  , ((modm .|. shiftMask, xK_Tab), sendMessage NextLayout)
   --  Reset the layouts on the current workspace to default
   , ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
-  -- Resize viewed windows to the correct size
-  -- , ((modm,               xK_n     ), refresh)
+    -- switch to next monitor
+  , ((modm, xK_f), sendMessage (Mt.Toggle NBFULL) >> sendMessage ToggleStruts)
   -- Move focus to the next window
   , ((modm, xK_j), windows W.focusDown)
   -- Move focus to the previous window
@@ -122,7 +95,7 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
   , ((modm, xK_h), sendMessage Shrink)
   -- Expand the master area
   , ((modm, xK_l), sendMessage Expand)
-  -- Push window back into tiling
+  -- Drown window
   , ((modm, xK_t), withFocused $ windows . W.sink)
   -- Directional Nav
   , ((modm, xK_Right), sendMessage $ Go R)
@@ -133,10 +106,6 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
   , ((modm .|. shiftMask, xK_Left), sendMessage $ Swap L)
   , ((modm .|. shiftMask, xK_Up), sendMessage $ Swap U)
   , ((modm .|. shiftMask, xK_Down), sendMessage $ Swap D)
-    -- switch to next monitor
-  , ((modm, xK_Tab), nextScreen)
-  , ((modm .|. shiftMask, xK_Tab), nextScreen)
-  , ((modm, xK_f), sendMessage (Mt.Toggle NBFULL) >> sendMessage ToggleStruts)
     -- Restart xmonad
   , ( (modm .|. shiftMask, xK_r)
     , spawn
@@ -242,7 +211,6 @@ myManageHook =
 -- Defines a custom handler function for X Events. The function should
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
---
 myEventHook = fadeWindowsEventHook
 
 ------------------------------------------------------------------------
@@ -289,14 +257,18 @@ main = do
     docks $
     ewmh
       def
-        { terminal = myTerminal
+        { terminal = term
+        -- Whether focus follows the mouse pointer.
         , focusFollowsMouse = True
-        , clickJustFocuses = myClickJustFocuses
-        , borderWidth = myBorderWidth
+        -- Whether clicking on a window to focus also passes the click to the window
+        , clickJustFocuses = True
+        -- Width of the window border in pixels.
+        , borderWidth = 1
         , modMask = myModMask
-        , workspaces = myWorkspaces
-        , normalBorderColor = myNormalBorderColor
-        , focusedBorderColor = myFocusedBorderColor
+        , workspaces = werkspace
+        -- Border colors for unfocused and focused windows, respectively.
+        , normalBorderColor = Cl.background
+        , focusedBorderColor = Cl.cyan
         -- bindings
         , keys = keyMaps
         , mouseBindings = mBindings
