@@ -13,6 +13,8 @@ maintainer:         berkeleytrue@users.noreply.github.com
 library
   exposed-modules:
     Berks.Colors
+    Berks.Font
+    Berks.GridSelect
     Berks.Trayer
     Berks.XMobar.Conf
   hs-source-dirs:
