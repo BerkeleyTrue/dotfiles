@@ -48,9 +48,6 @@ import qualified Berks.Colors as Cl
 import qualified Berks.Font as Fs
 import qualified Berks.GridSelect as GS
 
--- import Berks-Internal.Colors as Cl
-myFont = "xft:FiraCode Nerd Font:pixelsize=11:antialias=true:hinting=true"
-
 -- Terminal
 term = "kitty"
 
@@ -71,7 +68,7 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
   , ((modm, xK_p), spawn "dmenu_run")
   -- launch rofi
   , ((modm, xK_d), spawn "rofi -show drun")
-  , ((modm, xK_g), GS.createAppGridSpawner Fs.font)
+  , ((modm, xK_g), GS.createAppGridSpawner ())
   -- close focused window
   , ((modm .|. shiftMask, xK_q), kill)
   -- Rotate through Screens
@@ -145,7 +142,7 @@ mBindings XConfig {XMonad.modMask = modm} =
 -- Layouts:
 tabTheme =
   def
-    { fontName = myFont
+    { fontName = Fs.font
     , inactiveTextColor = Cl.comment
     , inactiveColor = Cl.background
     , inactiveBorderColor = Cl.background
