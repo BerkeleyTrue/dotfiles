@@ -12,6 +12,7 @@ executable xmonad
       Berks.Font
     , Berks.GridSelect
     , Berks.Trayer
+    , Berks.Colors
   build-depends:
       containers
     , directory
