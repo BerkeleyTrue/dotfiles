@@ -55,7 +55,7 @@ term = "kitty"
 myModMask = mod4Mask
 
 -- Workspaces
-werkspace = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+werkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -197,8 +197,8 @@ myLayout =
 --
 myManageHook =
   composeAll
-    [ className =? "MPlayer" --> doFloat
-    , className =? "Gimp" --> doFloat
+    [ className =? "Slack" --> doShift (werkspaces !! 1)
+    , className =? "discord" --> doShift (werkspaces !! 1)
     , resource =? "desktop_window" --> doIgnore
     , resource =? "kdesktop" --> doIgnore
     , isFullscreen --> doFullFloat
@@ -224,7 +224,7 @@ myLogHook = fadeWindowsLogHook myFadeHook
 -- By default, do nothing.
 myStartupHook = do
   spawnOnce "nitrogen --restore &"
-  spawnOnce "picom -b &"
+  spawnOnce "picom -b --experimental-backends &"
   spawnOnce "flameshot &"
   spawn
     "killall trayer; \
@@ -245,12 +245,14 @@ myStartupHook = do
 -- Now run xmonad with all the defaults we set up.
 -- Run xmonad with the settings you specify. No need to modify this.
 --
+enhanceXConf :: XConfig a -> XConfig a
+enhanceXConf = docks . ewmh
+
 main :: IO ()
 main = do
   xmproc0 <- spawnPipe "xmobar  $HOME/.config/xmobar/xmobarrc0.hs"
   xmonad $
-    docks $
-    ewmh
+    enhanceXConf
       def
         { terminal = term
         -- Whether focus follows the mouse pointer.
@@ -260,7 +262,7 @@ main = do
         -- Width of the window border in pixels.
         , borderWidth = 1
         , modMask = myModMask
-        , workspaces = werkspace
+        , workspaces = werkspaces
         -- Border colors for unfocused and focused windows, respectively.
         , normalBorderColor = Cl.background
         , focusedBorderColor = Cl.cyan
@@ -273,8 +275,8 @@ main = do
         , handleEventHook = myEventHook
         , startupHook = myStartupHook
         , logHook =
-            workspaceHistoryHook <+>
-            myLogHook <+>
+            workspaceHistoryHook <>
+            myLogHook <>
             dynamicLogWithPP
               xmobarPP
                 -- outputs of the entire bar
