@@ -67,7 +67,7 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
   -- launch dmenu
   , ((modm, xK_p), spawn "dmenu_run")
   -- launch rofi
-  , ((modm, xK_d), spawn "rofi -show drun")
+  , ((modm, xK_d), spawn "rofi -show drun -m 1")
   , ((modm, xK_g), GS.createAppGridSpawner ())
   -- close focused window
   , ((modm .|. shiftMask, xK_q), kill)
