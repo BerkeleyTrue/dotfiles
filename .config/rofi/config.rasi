@@ -1,50 +1,38 @@
 configuration {
-  modi: "drun,calc,run";
-  show-icons: true;
-  icon-theme: "Papirus";
-  font: "FiraCode Nerd Font 16";
-  width: 50;
-  lines: 10;
-  fixed-num-lines: true;
-  columns: 1;
+  auto-select: false;
   bw: 1;
-  location: 0;
-  padding: 14;
-  yoffset: 0;
-  xoffset: 0;
-  m: -1;
-  line-margin: 2;
+  case-sensitive: false;
+  columns: 1;
+  fixed-num-lines: true;
+  font: "FiraCode Nerd Font 18";
   hide-scrollbar: true;
-  separator-style: "solid";
-  terminal: "kitty";
+  icon-theme: "Papirus";
+  line-margin: 2;
+  lines: 10;
+  location: 0;
+  m: -1;
+  modi: "drun,calc,run";
+  padding: 14;
+  parse-hosts: true;
   run-command: "{cmd}";
   run-shell-command: "{kitty} -e {cmd}";
+  separator-style: "solid";
+  show-icons: true;
   sorting-method: "fzf";
-  case-sensitive: false;
-  auto-select: false;
-  parse-hosts: true;
+  terminal: "kitty";
+  width: 30;
+  xoffset: 0;
+  yoffset: 0;
 }
 
-* {
-  foreground: #f8f8f2;
-  background-color: #282a36;
-  active-background: #6272a4;
-  urgent-background: #ff5555;
-
-  selected-background: @active-background;
-  selected-urgent-background: @urgent-background;
-  selected-active-background: @active-background;
-
-  separatorcolor: @active-background;
-  bordercolor: #8be9fd;
-}
+@import "colors.rasi"
 
 #window {
   background-color: @background;
   border: 1;
-  border-radius: 4;
+  border-radius: 0 20px 0 20px;
   border-color: @bordercolor;
-  padding: 10;
+  padding: 15;
 }
 #mainbox {
   border:  0;
