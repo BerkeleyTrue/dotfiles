@@ -86,7 +86,7 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
   -- Move focus to the master window
   , ((modm, xK_m), windows W.focusMaster)
   -- Swap the focused window and the master window
-  , ((modm, xK_Return), windows W.swapMaster)
+  , ((modm .|. shiftMask, xK_m), windows W.swapMaster)
   -- Swap the focused window with the next window
   , ((modm .|. shiftMask, xK_j), windows W.swapDown)
   -- Swap the focused window with the previous window
