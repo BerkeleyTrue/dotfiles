@@ -1,0 +1,4 @@
+---
+cradle:
+  stack:
+    component: xmonad-berks:exe:xmonad

@@ -1,0 +1,12 @@
+bin/
+.stack-work/
+
+xmonad-*
+!xmonad-berks.cabal
+xmonad.errors
+xmonad.*
+
+xmonad/
+xmonad-contrib
+xmobar/
+

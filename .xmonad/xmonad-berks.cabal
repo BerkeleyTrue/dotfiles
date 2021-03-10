@@ -6,8 +6,9 @@ author:             Berkeley True
 maintainer:         berkeleytrue@users.noreply.github.com
 
 executable xmonad
+  hs-source-dirs: ./src
   main-is:
-    ./xmonad.hs
+    Main.hs
   other-modules:
       Berks.Font
     , Berks.GridSelect

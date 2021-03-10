@@ -22,15 +22,7 @@ resolver:
   url: "\
     https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/4.yaml"
 
-# User packages to be built.
-# Various formats can be used as shown in the example below.
-#
-# packages:
-# - some-directory
-# - https://example.com/foo/bar/baz-0.0.2.tar.gz
-#   subdirs:
-#   - auto-update
-#   - wai
+# should point to dir with package.cabal
 packages:
 # Dependency packages to be pulled from upstream that are not in the resolver.
 # These entries can reference officially published versions as well as
