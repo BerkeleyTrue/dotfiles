@@ -60,10 +60,15 @@ werkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-keyMaps conf@XConfig {XMonad.modMask = modm} =
+keyMaps :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+keyMaps XConfig { modMask = modm
+                , terminal = term
+                , layoutHook = layoutHk
+                , workspaces = werkspaces
+                } =
   M.fromList $
   -- launch a terminal
-  [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+  [ ((modm .|. shiftMask, xK_Return), spawn term)
   -- launch dmenu
   , ((modm, xK_p), spawn "dmenu_run")
   -- launch rofi
@@ -76,7 +81,7 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
     -- Rotate through the available layouts
   , ((modm .|. shiftMask, xK_Tab), sendMessage NextLayout)
   --  Reset the layouts on the current workspace to default
-  , ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
+  , ((modm .|. shiftMask, xK_space), setLayout layoutHk)
     -- switch to next monitor
   , ((modm, xK_f), sendMessage (Mt.Toggle NBFULL) >> sendMessage ToggleStruts)
   -- Move focus to the next window
@@ -118,7 +123,7 @@ keyMaps conf@XConfig {XMonad.modMask = modm} =
   -- mod-shift-[1..9], Move client to workspace N
   --
   [ ((m .|. modm, k), windows $ f i)
-  | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+  | (i, k) <- zip werkspaces [xK_1 .. xK_9]
   , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
   ]
 
@@ -153,8 +158,7 @@ tabTheme =
 
 --Makes setting the spacingRaw simpler to write.
 --The spacingRaw module adds a configurable amount of space around windows.
-mySpacing ::
-     Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing :: Integer -> l a -> ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 magnify =
@@ -206,12 +210,12 @@ myManageHook =
 
 ------------------------------------------------------------------------
 -- Event handling
-myEventHook = (<>) fadeWindowsEventHook fullscreenEventHook
+myEventHook = fadeWindowsEventHook <> fullscreenEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
 myLogHook :: X ()
-myLogHook = fadeWindowsLogHook myFadeHook
+myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
   where
     myFadeHook = composeAll [isUnfocused --> transparency 0.5, opaque]
 
@@ -222,10 +226,10 @@ myLogHook = fadeWindowsLogHook myFadeHook
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = do
-  spawnOnce "nitrogen --restore &"
-  spawnOnce "picom -b --experimental-backends &"
-  spawnOnce "flameshot &"
+myStartupHook =
+  spawnOnce "nitrogen --restore &" <>
+  spawnOnce "picom -b --experimental-backends &" <>
+  spawnOnce "flameshot &" <>
   spawn
     "killall trayer; \
     \trayer --edge top \
@@ -275,7 +279,6 @@ main = do
         , handleEventHook = myEventHook
         , startupHook = myStartupHook
         , logHook =
-            workspaceHistoryHook <>
             myLogHook <>
             dynamicLogWithPP
               xmobarPP
