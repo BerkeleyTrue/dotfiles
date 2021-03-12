@@ -12,13 +12,13 @@
 
 (def help-menu
   (str/join "\n  "
-    ["  Usage: tm session-name"
+    ["  Usage: tm <workspace>"
      ""
      ""
-     "tm ls -- list out all available work spaces"
+     "tm ls -- list out all available workspaces"
      "tm -h -- this menu"]))
 
-(def session-names
+(def workspaces
   (->>
     [:serv :dev :org]
     (mapv name)
@@ -58,25 +58,25 @@
          (System/exit exit-code))
        string-out))))
 
-(defn attach-session [name] (shell-command ["tmux" "new" "-A" "-s" name]))
+(defn attach-to-ws [name] (shell-command ["tmux" "new" "-A" "-s" name]))
 
 (let [is-help? (:help (:options opts))
       name (->>
              (:arguments opts)
              (first))
-      session (->>
-                name
-                (get session-names))]
+      ws (->>
+           name
+           (get workspaces))]
 
   (cond
     (or is-help? (empty? name)) (println help-menu)
     (= name "ls") (->>
-                   session-names
-                   (vals)
-                   (str/join "\n - ")
-                   (str " - ")
-                   (println))
+                    workspaces
+                    (vals)
+                    (str/join "\n - ")
+                    (str " - ")
+                    (println))
 
-    session (attach-session session)
-    :else (println (str name " is not a valid session name"))))
+    ws (attach-to-ws ws)
+    :else (println (str name " is not a valid workspace name"))))
 
