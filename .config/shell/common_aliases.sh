@@ -32,11 +32,16 @@ alias echodec='declare -f'
 alias :q='exit'
 
 # add alias for MR on command
-mr_init() {
+mr_env() {
   export NODE_PATH=~/dvlpmnt/node/mr/actual/mr_modules
   export NODE_ENV=local
+}
+
+mr_init() {
+  mr_env
   /usr/bin/docker start mr-mongo mr-mysql-sanitized mr_redis_1 > /dev/null
 }
+
 mr_sd() {
   /usr/bin/docker stop mr-mongo mr-mysql-sanitized mr_redis_1 > /dev/null
 }
@@ -46,7 +51,6 @@ mr_th() {
   npm run dev-tophat
 }
 
-mr_rv() { mr_cc }
 mr_cc() {
   mr_init
   npm run dev-cc
@@ -73,4 +77,3 @@ mr_rv_stories() {
   cd ~/dvlpmnt/node/mr/actual/raven
   npm run stories
 }
-
