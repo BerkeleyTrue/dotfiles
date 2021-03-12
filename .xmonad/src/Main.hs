@@ -1,6 +1,6 @@
+{-# OPTIONS_GHC -Wall #-}
+
 import qualified Data.Map as M
-import Data.Monoid
-import System.Exit
 
 import XMonad
 import qualified XMonad.StackSet as W
@@ -13,7 +13,7 @@ import XMonad.Actions.MouseResize
 import XMonad.Actions.WindowNavigation
 
 -- Hooks
-import XMonad.Hooks.DynamicBars
+-- import XMonad.Hooks.DynamicBars
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeWindows
@@ -27,6 +27,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 
 -- layout modifiers
+import qualified XMonad.Layout.Decoration as LD
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.MultiToggle as Mt
@@ -49,23 +50,22 @@ import qualified Berks.Font as Fs
 import qualified Berks.GridSelect as GS
 
 -- Terminal
+term :: String
 term = "kitty"
 
 -- Super key as Mod
+myModMask :: KeyMask
 myModMask = mod4Mask
 
 -- Workspaces
+werkspaces :: [String]
 werkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
 keyMaps :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-keyMaps XConfig { modMask = modm
-                , terminal = term
-                , layoutHook = layoutHk
-                , workspaces = werkspaces
-                } =
+keyMaps XConfig {modMask = modm, layoutHook = layoutHk} =
   M.fromList $
   -- launch a terminal
   [ ((modm .|. shiftMask, xK_Return), spawn term)
@@ -130,6 +130,7 @@ keyMaps XConfig { modMask = modm
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
+mBindings :: XConfig l -> M.Map (KeyMask, Button) (Window -> X ())
 mBindings XConfig {XMonad.modMask = modm} =
   M.fromList
     -- mod-button1, Set the window to floating mode and move by dragging
@@ -145,6 +146,7 @@ mBindings XConfig {XMonad.modMask = modm} =
 
 ------------------------------------------------------------------------
 -- Layouts:
+tabTheme :: Theme
 tabTheme =
   def
     { fontName = Fs.font
@@ -161,6 +163,20 @@ tabTheme =
 mySpacing :: Integer -> l a -> ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
+type SimplyLayout = ModifiedLayout SmartBorder Simplest
+
+type SpacedLayout = ModifiedLayout Spacing ResizableTall
+
+type LimitedSpaced = ModifiedLayout LimitWindows SpacedLayout
+
+type LimitedFull = ModifiedLayout LimitWindows Full
+
+type MagSpaced = ModifiedLayout Magnifier LimitedSpaced
+
+type TabbedShrink = LD.Decoration TabbedDecoration LD.DefaultShrinker
+
+magnify ::
+     ModifiedLayout Rename (ModifiedLayout WindowNavigation (ModifiedLayout TabbedShrink (ModifiedLayout (Sublayout SimplyLayout) MagSpaced))) Window
 magnify =
   renamed [Replace "Magnify"] $
   windowNavigation $
@@ -169,14 +185,23 @@ magnify =
   magnifier $
   limitWindows 12 $ mySpacing 8 $ ResizableTall 1 (3 / 100) (1 / 2) []
 
+type Monocle
+   = ModifiedLayout Rename (ModifiedLayout WindowNavigation (ModifiedLayout TabbedShrink (ModifiedLayout (Sublayout SimplyLayout) LimitedFull))) Window
+
+monocle :: Monocle
 monocle =
   renamed [Replace "Monocle"] $
   windowNavigation $
   addTabs shrinkText tabTheme $
   subLayout [] (smartBorders Simplest) $ limitWindows 20 Full
 
+vert :: ModifiedLayout Rename (ModifiedLayout WindowNavigation Tall) Window
 vert = renamed [Replace "Vert"] $ windowNavigation $ Tall 1 (3 / 100) (1 / 2)
 
+type Horiz
+   = ModifiedLayout Rename (Mirror (ModifiedLayout Rename (ModifiedLayout WindowNavigation Tall))) Window
+
+horiz :: Horiz
 horiz = renamed [Replace "Horiz"] $ Mirror vert
 
 myLayout =
@@ -199,6 +224,7 @@ myLayout =
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
+-- myManageHook :: Query (Endo WindowSet)
 myManageHook =
   composeAll
     [ className =? "Slack" --> doShift (werkspaces !! 1)
@@ -226,6 +252,7 @@ myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
+myStartupHook :: X ()
 myStartupHook =
   spawnOnce "nitrogen --restore &" <>
   spawnOnce "picom -b --experimental-backends &" <>
