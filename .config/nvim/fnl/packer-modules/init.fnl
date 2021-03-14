@@ -107,6 +107,7 @@
 
    ; general lang syntax plugins
    {:name :gabrielelana/vim-markdown}
+   {:name :jxnblk/vim-mdx-js}
    {:name :godlygeek/tabular}
    {:name :chr4/nginx.vim}
    {:name :chrisbra/csv.vim}
@@ -121,7 +122,10 @@
    {:name :sirtaj/vim-openscad}
    {:name :tbastos/vim-lua}
    {:name :purescript-contrib/purescript-vim}
+
+   ; haskell
    {:name :alx741/vim-hindent :desciption "haskell formatter"}
+   {:name :neovimhaskell/haskell-vim :desciption "haskell highlighting"}
 
    ;   
    {:name :elzr/vim-json :description ""}
