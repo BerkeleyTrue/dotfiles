@@ -6,6 +6,7 @@
              : r
              str aniseed.string}})
 
+(def vim (. _G :vim))
 
 ;; hack to pass through nvim
 (setmetatable *module* {:__index nvim})
@@ -222,3 +223,5 @@
 (defn pack-add [package]
   "add optional package to runtime"
   (nvim.ex.packadd package))
+
+(def regex vim.regex)
