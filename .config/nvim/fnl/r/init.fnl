@@ -266,3 +266,13 @@
         (table.maxn (to-pairs collection))))
     (string? collection) (length collection)
     0))
+
+(defn includes [col val]
+  "(includes [:foo :bar] :foo) ;=> true
+   (includes [:foo :bar] :baz) ;=> false
+   (includes \"foo\" :foo) ;=> true
+   (includes \"foo\" :bar) ;=> false"
+  (if
+    (string? col) (not (nil? (: col :find val)))
+    (table? col) (not (nil? (find #(= $1 val) col)))
+    false))
