@@ -1,0 +1,119 @@
+{:paths ["src"]
+
+ :aliases
+ {:nrepl
+  {:extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}
+                cider/cider-nrepl {:mvn/version "0.22.4"}
+                cider/piggieback {:mvn/version "0.5.1"}}
+   :main-opts ["-m" "nrepl.cmdline"
+               "--middleware" "cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl"]}
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Creating projects from templates
+
+  ;; clj-new - https://github.com/seancorfield/clj-new
+
+  ;; Classic command line
+  ;; clojure -M:project/new luminus practicalli/full-stack-app +http-kit +h2 +reagent +auth
+
+  ;; Edn command line arguments
+  ;; clojure -X:project/new  ;; library project called playground
+  ;; clojure -X:project/new :name practicalli/my-library
+  ;; clojure -X:project/new :template app :name practicalli/my-application
+  ;; clojure -X:project/new :template luminus :name practicalli/full-stack-app +http-kit +h2 +reagent +auth
+
+  :project/new
+  {:replace-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
+   :exec-fn      clj-new/create
+   :exec-args    {:template lib :name practicalli/playground}
+   :main-opts    ["-m" "clj-new.create"]}
+
+  ;; ALPHA status: Add 'something' to existing project (subject to change)
+  :project/add
+  {:replace-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
+    :exec-fn      clj-new/generate
+    :main-opts    ["-m" "clj-new.generate"]}
+
+  ;; End of: Creating projects from templates
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Project compilation and dependencies
+
+  ;; clj-check - report detailed compilation errors for a project
+  ;; https://github.com/athos/clj-check
+  ;; clojure -M:project/check
+
+  :project/check
+  {:extra-deps {athos/clj-check
+                {:git/url "https://github.com/athos/clj-check.git"
+                  :sha     "cd1f25456de5eebda0a69602dd3445905382b3a4"}}
+    :main-opts  ["-m" "clj-check.check"]}
+
+
+    ;; find-deps - fuzzy search Maven & Clojars and add deps to deps.edn
+    ;; https://github.com/hagmonk/find-deps
+    ;; clojure -M:project/find-deps http-kit  # fuzzy search for dependency
+    ;; clojure -M:project/find-deps http-kit ring compojure # multiple deps
+    ;; clojure -M:project/find-deps -F:merge http-kit # merge dep into deps.edn file
+  :project/find-deps
+  {:extra-deps
+   {find-deps/find-deps
+    {:git/url "https://github.com/hagmonk/find-deps"
+      :sha     "9bf23a52cb0a8190c9c2c7ad1d796da802f8ce7a"}}
+   :main-opts ["-m" "find-deps.core"]}
+
+
+    ;; Visualizing dependencies in a project
+    ;; https://github.com/clojure/tools.deps.graph
+    ;; clojure -X:project/graph-deps
+  :project/graph-deps
+  {:replace-paths []
+    :replace-deps  {org.clojure/tools.deps.graph {:mvn/version "1.0.56"}}
+    :main-opts     ["-m" "clojure.tools.deps.graph"] ;; deprecated
+    :ns-default    clojure.tools.deps.graph
+    :exec-fn       graph
+    :exec-args     {:output "project-dependencies-graph.png"
+                    :size   true}}
+
+
+    ;; Dependency version management
+    ;; https://github.com/liquidz/antq
+    ;; Manage versions for maven and git dependencies
+
+    ;; - report project dependencies that have newer versions available:
+    ;; cd project-directory && clojure -M:project/outdated
+    ;; - update library versions in this deps.edn file:
+    ;; cd ~/.clojure && clojure -M:project/outdated
+  :project/outdated
+  {:replace-paths []
+    :replace-deps  {antq/antq {:mvn/version "0.9.3"}}
+    :main-opts     ["-m" "antq.core"]}
+
+  :hack/antq
+  {:replace-deps
+    {antq/antq {:local/root "/home/practicalli/projects/clojure/community-tools/antq"}}
+    :main-opts ["-m" "antq.core"]}
+
+
+    ;; The classic project for checking maven based dependencies
+    ;; clojure -M:project/outdated-mvn
+  :project/outdated-mvn
+  {:replace-paths []
+    :replace-deps  {deps-ancient/deps-ancient {:mvn/version "RELEASE"}}
+    :main-opts     ["-m" "deps-ancient.deps-ancient"]}
+
+
+    ;; Carve - search through code for unused vars and remove them
+    ;; clojure -M:project/unused --opts '{:paths ["src" "test"]}'
+  :project/unused
+  {:extra-deps {borkdude/carve
+                {:git/url "https://github.com/borkdude/carve"
+                  :sha     "a3a5b941d4327127e36541bf7322b15b33260386"}}
+    :main-opts  ["-m" "carve.main"]}}
+
+
+  ;; End of: Projects and dependencies
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
+             "clojars" {:url "https://repo.clojars.org/"}}}
