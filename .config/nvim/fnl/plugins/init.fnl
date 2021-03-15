@@ -16,6 +16,7 @@
      :easy-align
      :easy-motion
      :emmet
+     :lightbulb
      :lspconfig
      :lspkind
      :markdown

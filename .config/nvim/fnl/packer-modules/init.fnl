@@ -36,6 +36,7 @@
    {:name :wellle/tmux-complete.vim :desciption "inject words in neighboring tmux panes into the completion popup"}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
+   {:name :kosayoda/nvim-lightbulb :desciption "show a light bulb when a code action is available"}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
