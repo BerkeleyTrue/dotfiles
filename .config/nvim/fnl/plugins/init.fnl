@@ -17,6 +17,7 @@
      :easy-motion
      :emmet
      :lspconfig
+     :lspkind
      :markdown
      :mta
      :multi-cursor

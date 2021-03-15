@@ -35,6 +35,7 @@
    {:name :hrsh7th/nvim-compe :description ""}
    {:name :wellle/tmux-complete.vim :desciption "inject words in neighboring tmux panes into the completion popup"}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
+   {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
@@ -122,6 +123,7 @@
    {:name :sirtaj/vim-openscad}
    {:name :tbastos/vim-lua}
    {:name :purescript-contrib/purescript-vim}
+   {:name :janet-lang/janet.vim :description "janet highlighting"}
 
    ; haskell
    {:name :alx741/vim-hindent :desciption "haskell formatter"}
