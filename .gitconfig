@@ -3,3 +3,5 @@
 	name = Berkeley True
 [credential]
 	helper = store
+[init]
+	defaultBranch = master
