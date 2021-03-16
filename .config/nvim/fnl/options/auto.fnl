@@ -24,7 +24,7 @@
 
 (utils.augroup
   :general-au
-  [{:event [:BufEnter :BufRead]
+  [{:event [:BufEnter :BufReadPost]
       :pattern :*
       :cmd (utils.viml->lua *module-name* (sym->name disable-camel-case-spell))}
     ; Resize splits when the window is resized
