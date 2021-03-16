@@ -125,6 +125,7 @@
    {:name :tbastos/vim-lua}
    {:name :purescript-contrib/purescript-vim}
    {:name :janet-lang/janet.vim :description "janet highlighting"}
+   {:name :keith/swift.vim}
 
    ; haskell
    {:name :alx741/vim-hindent :desciption "haskell formatter"}
