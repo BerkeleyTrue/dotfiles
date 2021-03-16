@@ -58,6 +58,7 @@ antigen bundle djui/alias-tips
 antigen bundle lukechilds/zsh-better-npm-completion
 antigen bundle tmux
 antigen bundle wd
+antigen bundle vi-mode
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -65,7 +66,6 @@ antigen bundle bgnotify
 antigen bundle docker
 antigen bundle terraform
 antigen bundle command-not-found
-antigen bundle jeffreytse/zsh-vi-mode
 
 antigen theme $ZSH ghanima
 
@@ -162,6 +162,6 @@ function my_init() {
     source /usr/share/fzf/key-bindings.zsh
   fi
 }
-zvm_after_init_commands+=(my_init)
+my_init
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
