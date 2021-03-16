@@ -68,7 +68,8 @@
              :node_incremental "gni"    ; increment to the upper named parent
              :scope_incremental "gci"   ; increment to the upper scope (as defined in locals.scm)
              :node_decremental "gnd"}}  ; decrement to the previous node}}
-           :cindent {:enable true}
+           :cindent {:enable false}
+           :indent {:enable true}
 
            :refactor
            {
@@ -79,7 +80,9 @@
              :enable true
              :keymaps {:smart_rename "grr"}}}
 
-           :playground {:enable true}})
+           :playground {:enable true}
+           :query_linter {:enable true}})
+
 
         (-?> _G
           (a.get-in [:vim :treesitter :highlighter :hl_map])
