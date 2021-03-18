@@ -22,11 +22,6 @@ import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
 
--- layouts
-import XMonad.Layout.Magnifier
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Spacing
-
 -- layout modifiers
 import qualified XMonad.Layout.Decoration as LD
 import XMonad.Layout.LayoutModifier
@@ -49,6 +44,7 @@ import XMonad.Layout.WindowNavigation
 import qualified Berks.Colors as Cl
 import qualified Berks.Font as Fs
 import qualified Berks.GridSelect as GS
+import qualified Berks.Layouts.Magnify as Mag
 
 -- Terminal
 term :: String
@@ -161,22 +157,9 @@ tabTheme =
 
 type SimplyLayout = ModifiedLayout SmartBorder Simplest
 
-type LimitedSpaced = ModifiedLayout LimitWindows ResizableTall
-
 type LimitedFull = ModifiedLayout LimitWindows Full
 
-type MagSpaced = ModifiedLayout Magnifier LimitedSpaced
-
 type TabbedShrink = LD.Decoration TabbedDecoration LD.DefaultShrinker
-
-magnify ::
-     ModifiedLayout Rename (ModifiedLayout WindowNavigation (ModifiedLayout TabbedShrink (ModifiedLayout (Sublayout SimplyLayout) MagSpaced))) Window
-magnify =
-  renamed [Replace "Magnify"] $
-  windowNavigation $
-  addTabs shrinkText tabTheme $
-  subLayout [] (smartBorders Simplest) $
-  magnifier $ limitWindows 12 $ ResizableTall 1 (3 / 100) (1 / 2) []
 
 type Monocle
    = ModifiedLayout Rename (ModifiedLayout WindowNavigation (ModifiedLayout TabbedShrink (ModifiedLayout (Sublayout SimplyLayout) LimitedFull))) Window
@@ -201,7 +184,7 @@ myLayout =
   avoidStruts . mouseResize . windowArrange $
   mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
   where
-    layouts = magnify ||| vert ||| monocle ||| horiz
+    layouts = Mag.magnify ||| vert ||| monocle ||| horiz
 
 ------------------------------------------------------------------------
 -- Window rules:
