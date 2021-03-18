@@ -23,9 +23,6 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
 
 -- layout modifiers
-import qualified XMonad.Layout.Decoration as LD
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.LimitWindows
 import XMonad.Layout.MultiToggle as Mt
   ( EOT(EOT)
   , Toggle(Toggle)
@@ -33,18 +30,15 @@ import XMonad.Layout.MultiToggle as Mt
   , mkToggle
   )
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, NOBORDERS))
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Renamed
-import XMonad.Layout.Simplest
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowArranger
 import XMonad.Layout.WindowNavigation
 
 import qualified Berks.Colors as Cl
-import qualified Berks.Font as Fs
 import qualified Berks.GridSelect as GS
+import qualified Berks.Layouts.Horiz as Horiz
 import qualified Berks.Layouts.Magnify as Mag
+import qualified Berks.Layouts.Monocle as Mono
+import qualified Berks.Layouts.Vert as Vert
 
 -- Terminal
 term :: String
@@ -143,48 +137,11 @@ mBindings XConfig {XMonad.modMask = modm} =
 
 ------------------------------------------------------------------------
 -- Layouts:
-tabTheme :: Theme
-tabTheme =
-  def
-    { fontName = Fs.font
-    , inactiveTextColor = Cl.comment
-    , inactiveColor = Cl.background
-    , inactiveBorderColor = Cl.background
-    , activeTextColor = Cl.foreground
-    , activeColor = Cl.cyan
-    , activeBorderColor = Cl.cyan
-    }
-
-type SimplyLayout = ModifiedLayout SmartBorder Simplest
-
-type LimitedFull = ModifiedLayout LimitWindows Full
-
-type TabbedShrink = LD.Decoration TabbedDecoration LD.DefaultShrinker
-
-type Monocle
-   = ModifiedLayout Rename (ModifiedLayout WindowNavigation (ModifiedLayout TabbedShrink (ModifiedLayout (Sublayout SimplyLayout) LimitedFull))) Window
-
-monocle :: Monocle
-monocle =
-  renamed [Replace "Monocle"] $
-  windowNavigation $
-  addTabs shrinkText tabTheme $
-  subLayout [] (smartBorders Simplest) $ limitWindows 20 Full
-
-vert :: ModifiedLayout Rename (ModifiedLayout WindowNavigation Tall) Window
-vert = renamed [Replace "Vert"] $ windowNavigation $ Tall 1 (3 / 100) (1 / 2)
-
-type Horiz
-   = ModifiedLayout Rename (Mirror (ModifiedLayout Rename (ModifiedLayout WindowNavigation Tall))) Window
-
-horiz :: Horiz
-horiz = renamed [Replace "Horiz"] $ Mirror vert
-
 myLayout =
   avoidStruts . mouseResize . windowArrange $
   mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
   where
-    layouts = Mag.magnify ||| vert ||| monocle ||| horiz
+    layouts = Mag.magnify ||| Vert.vert ||| Mono.monocle ||| Horiz.horiz
 
 ------------------------------------------------------------------------
 -- Window rules:

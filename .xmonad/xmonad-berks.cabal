@@ -10,12 +10,15 @@ executable xmonad
   main-is:
     Main.hs
   other-modules:
-      Berks.Font
+      Berks.Colors
+    , Berks.Font
     , Berks.GridSelect
-    , Berks.Trayer
-    , Berks.Colors
-    , Berks.Layouts.TabTheme
+    , Berks.Layouts.Horiz
     , Berks.Layouts.Magnify
+    , Berks.Layouts.Monocle
+    , Berks.Layouts.TabTheme
+    , Berks.Layouts.Vert
+    , Berks.Trayer
   build-depends:
       containers
     , directory
