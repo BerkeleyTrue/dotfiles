@@ -159,16 +159,9 @@ tabTheme =
     , activeBorderColor = Cl.cyan
     }
 
---Makes setting the spacingRaw simpler to write.
---The spacingRaw module adds a configurable amount of space around windows.
-mySpacing :: Integer -> l a -> ModifiedLayout Spacing l a
-mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
-
 type SimplyLayout = ModifiedLayout SmartBorder Simplest
 
-type SpacedLayout = ModifiedLayout Spacing ResizableTall
-
-type LimitedSpaced = ModifiedLayout LimitWindows SpacedLayout
+type LimitedSpaced = ModifiedLayout LimitWindows ResizableTall
 
 type LimitedFull = ModifiedLayout LimitWindows Full
 
@@ -183,8 +176,7 @@ magnify =
   windowNavigation $
   addTabs shrinkText tabTheme $
   subLayout [] (smartBorders Simplest) $
-  magnifier $
-  limitWindows 12 $ mySpacing 8 $ ResizableTall 1 (3 / 100) (1 / 2) []
+  magnifier $ limitWindows 12 $ ResizableTall 1 (3 / 100) (1 / 2) []
 
 type Monocle
    = ModifiedLayout Rename (ModifiedLayout WindowNavigation (ModifiedLayout TabbedShrink (ModifiedLayout (Sublayout SimplyLayout) LimitedFull))) Window
