@@ -12,13 +12,14 @@ import qualified XMonad.Actions.CycleWS as CWs
 import XMonad.Actions.MouseResize
 import XMonad.Actions.WindowNavigation
 
--- Hooks
--- import XMonad.Hooks.DynamicBars
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
+
+-- Hooks
+import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
 
 -- layouts
@@ -254,6 +255,7 @@ myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
 -- By default, do nothing.
 myStartupHook :: X ()
 myStartupHook =
+  setWMName "LG3D" <>
   spawnOnce "nitrogen --restore &" <>
   spawnOnce "picom -b --experimental-backends &" <>
   spawnOnce "flameshot &" <>
