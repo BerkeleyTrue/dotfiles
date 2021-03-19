@@ -9,7 +9,6 @@ import XMonad.Util.SpawnOnce
 
 -- Actions
 import qualified XMonad.Actions.CycleWS as CWs
-import XMonad.Actions.MouseResize
 import XMonad.Actions.WindowNavigation
 
 import XMonad.Hooks.DynamicLog
@@ -23,22 +22,13 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
 
 -- layout modifiers
-import XMonad.Layout.MultiToggle as Mt
-  ( EOT(EOT)
-  , Toggle(Toggle)
-  , (??)
-  , mkToggle
-  )
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, NOBORDERS))
-import XMonad.Layout.WindowArranger
+import XMonad.Layout.MultiToggle as Mt (Toggle(Toggle))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL))
 import XMonad.Layout.WindowNavigation
 
 import qualified Berks.Colors as Cl
 import qualified Berks.GridSelect as GS
-import qualified Berks.Layouts.Horiz as Horiz
-import qualified Berks.Layouts.Magnify as Mag
-import qualified Berks.Layouts.Monocle as Mono
-import qualified Berks.Layouts.Vert as Vert
+import qualified Berks.Layouts.Main as L
 
 -- Terminal
 term :: String
@@ -136,14 +126,6 @@ mBindings XConfig {XMonad.modMask = modm} =
     ]
 
 ------------------------------------------------------------------------
--- Layouts:
-myLayout =
-  avoidStruts . mouseResize . windowArrange $
-  mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts
-  where
-    layouts = Mag.magnify ||| Vert.vert ||| Mono.monocle ||| Horiz.horiz
-
-------------------------------------------------------------------------
 -- Window rules:
 -- Execute arbitrary actions and WindowSet manipulations when managing
 -- a new window. You can use this to, for example, always float a
@@ -235,7 +217,7 @@ main = do
         , keys = keyMaps
         , mouseBindings = mBindings
         -- hooks, layouts
-        , layoutHook = myLayout
+        , layoutHook = L.layout
         , manageHook = myManageHook
         , handleEventHook = myEventHook
         , startupHook = myStartupHook

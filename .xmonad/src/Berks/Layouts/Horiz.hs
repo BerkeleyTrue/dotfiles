@@ -1,5 +1,6 @@
 module Berks.Layouts.Horiz
   ( horiz
+  , Horiz
   ) where
 
 import qualified XMonad as X

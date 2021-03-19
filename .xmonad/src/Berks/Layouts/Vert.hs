@@ -1,5 +1,6 @@
 module Berks.Layouts.Vert
   ( vert
+  , Vert
   ) where
 
 import qualified XMonad as X

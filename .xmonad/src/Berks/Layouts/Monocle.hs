@@ -1,5 +1,6 @@
 module Berks.Layouts.Monocle
   ( monocle
+  , Monocle
   ) where
 
 import qualified XMonad as X

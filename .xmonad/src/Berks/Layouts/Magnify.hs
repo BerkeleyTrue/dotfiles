@@ -1,5 +1,6 @@
 module Berks.Layouts.Magnify
   ( magnify
+  , Magnify
   ) where
 
 import qualified XMonad as X
