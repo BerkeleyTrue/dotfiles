@@ -1,6 +1,5 @@
 ## To Do
 
-- seperate by CCP
 - clean up hooks
   > hooks are all in different formats. These should be a little more uniform
 - move to xdg_conf_home
@@ -14,6 +13,7 @@
 
 ## Doing
 
+- seperate by CCP
 
 ## Done
 
