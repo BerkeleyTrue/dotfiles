@@ -1,6 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
 import qualified Data.Map as M
+import qualified Data.Semigroup as SG
 
 import XMonad
 import qualified XMonad.StackSet as W
@@ -139,7 +140,7 @@ mBindings XConfig {XMonad.modMask = modm} =
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
--- myManageHook :: Query (Endo WindowSet)
+myManageHook :: Query (SG.Endo WindowSet)
 myManageHook =
   composeAll
     [ className =? "Slack" --> doShift (werkspaces !! 1)
@@ -151,6 +152,7 @@ myManageHook =
 
 ------------------------------------------------------------------------
 -- Event handling
+myEventHook :: Event -> X SG.All
 myEventHook = fadeWindowsEventHook <> fullscreenEventHook
 
 ------------------------------------------------------------------------
