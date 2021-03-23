@@ -140,12 +140,11 @@ mBindings XConfig {XMonad.modMask = modm} =
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
+-- ex: className =? "Slack" --> doShift (werkspaces !! 1)
 myManageHook :: Query (SG.Endo WindowSet)
 myManageHook =
   composeAll
-    [ className =? "Slack" --> doShift (werkspaces !! 1)
-    , className =? "discord" --> doShift (werkspaces !! 1)
-    , resource =? "desktop_window" --> doIgnore
+    [ resource =? "desktop_window" --> doIgnore
     , resource =? "kdesktop" --> doIgnore
     , isFullscreen --> doFullFloat
     ]
