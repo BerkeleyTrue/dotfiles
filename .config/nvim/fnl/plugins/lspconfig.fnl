@@ -8,6 +8,7 @@
    :vimls {}
    :bashls {}
    :cssls {}
+   :clojure_lsp {}
    :dockerls {}
    :html {}
    :jsonls {}
