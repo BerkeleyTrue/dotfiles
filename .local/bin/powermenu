@@ -45,7 +45,7 @@ confirm_exit() {
   rofi -dmenu\
     -i\
     -no-fixed-num-lines\
-    -p "Are You Sure? : "
+    -p "Are You Sure?"
     # -theme $dir/confirm.rasi
 }
 
@@ -86,8 +86,7 @@ case $chosen in
     ans=$(confirm_exit &)
     if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
       playerctl pause
-      amixer set Master mute
-      loginctl suspend
+      systemctl suspend
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
     else
