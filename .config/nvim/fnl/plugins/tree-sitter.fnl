@@ -9,6 +9,10 @@
           :playground
           :nvim-treesitter-context])
 
+(defn get-ft-query [ft type]
+  (let [path (.. (vim.fn.stdpath :config) (.. "/queries/" ft "/" type ".scm"))]
+    (vim.fn.join (vim.fn.readfile path) "\n")))
+
 (defn main []
   (let [ok (->>
              ts
@@ -25,7 +29,10 @@
             tshighlights (require :nvim-treesitter.highlight)
             queries (require :nvim-treesitter.query)
             parsers (require :nvim-treesitter.parsers)
-            parser-conf (parsers.get_parser_configs)]
+            nvim-ts-install (require :nvim-treesitter.install)
+            parser-conf (parsers.get_parser_configs)
+            vim-ts-queries (require :vim.treesitter.query)]
+
         (ts.define_modules
           {:cindent
            {:module_path :ts.indents
@@ -33,14 +40,14 @@
             (fn [lang]
               (not (= (queries.get_query lang "indents") nil)))}})
 
+        ; manually call `:TSInstallFromGrammer fennel` after setup below
         (tset
           parser-conf
           :fennel
           {:install_info
-           {:url "~/dvlpmnt/lisp/tree-sitter-fennel"
+           {:url "~/dvlpmnt/lisp/fennel/tree-sitter-fennel"
             :files [:src/parser.c]}
            :filetype :fennel})
-
 
         (tsconfigs.setup
           {
@@ -83,6 +90,23 @@
            :playground {:enable true}
            :query_linter {:enable true}})
 
+        ; install fennel from grammer manually
+        (when (not (parsers.has_parser :fennel))
+          (nvim-ts-install.commands.TSInstallFromGrammar.run :fennel))
+
+        ; don't set queries unless fennel parser is already present
+        ; otherwise nvim-ts will error error out and prevent the setup
+        ; will not work on the same pass as fennel parser install so a restart is necessary
+        (when (parsers.has_parser :fennel)
+          (vim-ts-queries.set_query
+            :fennel
+            :highlights
+            (get-ft-query :fennel :highlights))
+
+          (vim-ts-queries.set_query
+            :fennel
+            :locals
+            (get-ft-query :fennel :locals)))
 
         (-?> _G
           (a.get-in [:vim :treesitter :highlighter :hl_map])
