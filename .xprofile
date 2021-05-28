@@ -3,6 +3,10 @@
 
 # start volumeicon
 volumeicon &
+# start pulse audio conf
+pasystray &
+# reduce background noise
+cadmus &
 # used for controlling system wide privileges
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # desktop background manager and window composer
