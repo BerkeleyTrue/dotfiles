@@ -18,7 +18,8 @@ configuration {
   run-shell-command: "{kitty} -e {cmd}";
   separator-style: "solid";
   show-icons: true;
-  sorting-method: "fzf";
+  sorting-method: "levenshtein";
+  matching-method: "fuzzy";
   terminal: "kitty";
   width: 30;
   xoffset: 0;
