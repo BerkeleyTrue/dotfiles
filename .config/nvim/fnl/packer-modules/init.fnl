@@ -102,7 +102,7 @@
     :requires [[:guns/vim-sexp]]}
 
    ; treesitter
-   {:name "~/dvlpmnt/nvim-treesitter"}
+   {:name :nvim-treesitter/nvim-treesitter}
    {:name :nvim-treesitter/nvim-treesitter-refactor :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :nvim-treesitter/playground :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :romgrk/nvim-treesitter-context :requires [[:nvim-treesitter/nvim-treesitter]]}
