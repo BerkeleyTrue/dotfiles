@@ -27,6 +27,7 @@
    {:name :berkeleyTrue/berkeleys-snippet-emporium :description "my personal snippets"}
    {:name :sirVer/ultisnips :description "snippet engine"}
    {:name :w0rp/ale :description "linting engine"}
+   {:name :acksld/nvim-revj.lua :description "inverse of J, break args over lines"}
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
@@ -60,6 +61,7 @@
    {:name :tpope/vim-repeat :description "expands . to repeat plugin commands"}
    {:name :wellle/targets.vim :description "adds text objects to give you more target to operate on"}
    {:name :kana/vim-textobj-user :description "create your own text objects easily"}
+   {:name :sgur/vim-textobj-parameter :description "argument text parameters"}
 
    ; tmux integration
    {:name :christoomey/vim-tmux-navigator :description "nav between tmux panes and vim buffs easily"}
