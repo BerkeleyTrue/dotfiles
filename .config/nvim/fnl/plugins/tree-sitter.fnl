@@ -40,31 +40,42 @@
             (fn [lang]
               (not (= (queries.get_query lang "indents") nil)))}})
 
-        ; manually call `:TSInstallFromGrammer fennel` after setup below
         (tset
           parser-conf
           :fennel
           {:install_info
            {:url "~/dvlpmnt/lisp/fennel/tree-sitter-fennel"
-            :files [:src/parser.c]}
+            :files [:src/parser.c]
+            :requires_generate_from_grammar true}
            :filetype :fennel})
 
+        (tset
+          parser-conf
+          :solidity
+          {:install_info
+           {:url "https://github.com/JoranHonig/tree-sitter-solidity"
+            :files [:src/parser.c]
+            :requires_generate_from_grammar true}
+           :filetype :solidity})
+
         (tsconfigs.setup
-          {
-           :ensure_installed
-           [:jsdoc
-            :tsx
-            :css
-            :query
-            :rust
-            :typescript
-            :bash
-            :regex
-            :lua
-            :javascript
+          {:ensure_installed
+           [:bash
             :clojure
+            :css
+            :fennel
+            :html
+            :javascript
+            :jsdoc
             :json
-            :html]
+            :lua
+            :query
+            :regex
+            :rust
+            :solidity
+            :tsx
+            :typescript]
+
            :highlight {:enable true}
            :incremental_selection
            {
@@ -89,10 +100,6 @@
 
            :playground {:enable true}
            :query_linter {:enable true}})
-
-        ; install fennel from grammer manually
-        (when (not (parsers.has_parser :fennel))
-          (nvim-ts-install.commands.TSInstallFromGrammar.run :fennel))
 
         ; don't set queries unless fennel parser is already present
         ; otherwise nvim-ts will error error out and prevent the setup
