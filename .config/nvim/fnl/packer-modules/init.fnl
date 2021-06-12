@@ -31,6 +31,7 @@
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
+   {:name :ojroques/nvim-lspfuzzy}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-compe :description ""}
@@ -128,6 +129,8 @@
    {:name :purescript-contrib/purescript-vim}
    {:name :janet-lang/janet.vim :description "janet highlighting"}
    {:name :keith/swift.vim}
+   {:name :tomlion/vim-solidity :description "solidity indenting"}
+   {:name :vyperlang/vim-vyper :description "ether evm language"}
 
    ; haskell
    {:name :alx741/vim-hindent :desciption "haskell formatter"}
