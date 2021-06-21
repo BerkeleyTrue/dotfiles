@@ -1,0 +1,74 @@
+#!/usr/bin/env bb
+; vim:ft=clojure
+(ns local.bin.crypto
+  (:require [clojure.string :as str]
+            [clojure.tools.cli :refer [parse-opts]]
+            [babashka.curl :as curl]
+            [cheshire.core :as json]))
+
+(defn make-uri [coin]
+  (let [coin (or coin "btc")]
+    (str "https://api.coinranking.com/v1/public/coins?prefix=" coin "&base=USD")))
+
+(defn make-get [coin]
+  (curl/get (make-uri coin)))
+
+(defn res-to-price [res]
+  (-> res
+    (:body)
+    (json/parse-string true)
+    (:data)
+    (:coins)
+    (first)
+    (:price)
+    (json/parse-string)))
+
+(defn display-price [price]
+  (condp > price
+    0.0001 "> 0.001"
+    0.01 (format "%.6f" price)
+    1 (format "%.4f" price)
+    (format "%.2f" price)))
+
+
+(defn get-coin-price [coin]
+  (->
+    coin
+    (make-get)
+    (res-to-price)
+    (display-price)))
+
+(comment
+  (json/parse-string "0.22323432")
+  (get-coin-price "btc"))
+
+(def specs
+  [["-h" "--help"]
+   ["-c " "--coin"]])
+
+(def command "crypto")
+
+(def help-menu
+  (str/join "\n  "
+    [(str "  Usage: " command " --coin <token>")
+     ""
+     ""
+     ""
+     (str command " -c <token>")
+     (str command " -h -- this menu")]))
+
+(def opts (parse-opts *command-line-args* specs))
+
+(let [is-help? (:help (:options opts))
+
+      coin (->> opts :arguments first)
+
+      coin? (->>
+              opts
+              (:options)
+              (:coin))]
+
+  (cond
+    (or is-help? (not coin?)) (println help-menu)
+
+    :else (println (get-coin-price coin))))
