@@ -198,7 +198,8 @@ enhanceXConf = docks . ewmh
 
 main :: IO ()
 main = do
-  xmproc0 <- spawnPipe "xmobar  $HOME/.config/xmobar/xmobarrc0.hs"
+  xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
+  xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
   xmonad $
     enhanceXConf
       def
@@ -230,7 +231,7 @@ main = do
                 -- input from xmonad gets sent to xmonad proc 0,
                 -- then the output from that gets sent into hPutStrLn
                 -- and then into xmonad to be displayed
-                { ppOutput = hPutStrLn xmproc0
+                { ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
                 , ppCurrent = xmobarColor Cl.cyan "" . wrap "[" "]"
                 , ppVisible = xmobarColor Cl.comment "" . wrap "(" ")"
                 , ppTitle = xmobarColor Cl.purple "" . pad . shorten 20
