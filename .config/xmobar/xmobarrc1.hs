@@ -23,7 +23,8 @@ Config
   , allDesktops = False
   , persistent = True
   , commands =
-      [ Run Date "\xf133 %a %b %d | Week %V  %H:%M:%S " "date" 10
+      [ Run Date " %H:%M:%S " "date" 5
+      , Run ComX "/home/berkeleytrue/.local/bin/eth-gas" [] "0.xx" "eth-gas" 10
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto"
@@ -68,11 +69,12 @@ Config
     \%UnsafeStdinReader% \
     \ } \
     \<fc=#ff79c6> %date% </fc>\
+    \<fc=#8be9fd> ETH $%eth% </fc>\
+    \<fc=#8be9fd> %eth-gas% </fc>\
     \ { \
     \<fc=#ffb86c> BTC $%btc% </fc>\
-    \<fc=#8be9fd> ETH $%eth% </fc>\
     \<fc=#bd93f9> DPI $%dpi% </fc>\
     \<fc=#ff79c6> UNI $%uni% </fc>\
-    \<fc=#bd93f9> SOL $%sol% </fc>\
+    \<fc=#ff5555> SOL $%sol% </fc>\
     \ "
   }

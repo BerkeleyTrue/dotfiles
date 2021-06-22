@@ -28,7 +28,8 @@
     0.0001 "> 0.001"
     0.01 (format "%.6f" price)
     1 (format "%.4f" price)
-    (format "%.2f" price)))
+    100 (format "%.2f" price)
+    (format "%,.0f" price)))
 
 
 (defn get-coin-price [coin]
@@ -39,7 +40,9 @@
     (display-price)))
 
 (comment
+  (format "%,.2f" 10.1)
   (json/parse-string "0.22323432")
+  (display-price 10.11)
   (get-coin-price "btc"))
 
 (def specs
