@@ -26,7 +26,7 @@
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :berkeleyTrue/berkeleys-snippet-emporium :description "my personal snippets"}
    {:name :sirVer/ultisnips :description "snippet engine"}
-   {:name :w0rp/ale :description "linting engine"}
+   {:name :Shelvak/ale :branch :solc_0.8 :description "linting engine"}
    {:name :acksld/nvim-revj.lua :description "inverse of J, break args over lines"}
 
    ; search
