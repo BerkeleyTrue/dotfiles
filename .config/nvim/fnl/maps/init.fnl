@@ -133,6 +133,8 @@
 ; Move line to the end of the next line
 ; useful for move a comment above a line behind it
 (utils.nnoremap :zJ (preserve-paste :ddpkJ))
+; join line below removing surrounding whitespace
+(utils.nnoremap :gJ "gJi <ESC>diW")
 
 (utils.nnoremap :<Space> :za)
 (utils.vnoremap :<Space> :za)
