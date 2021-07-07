@@ -25,6 +25,7 @@ import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
 -- layout modifiers
 import XMonad.Layout.MultiToggle as Mt (Toggle(Toggle))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL))
+import XMonad.Layout.Reflect as LR
 import XMonad.Layout.WindowNavigation
 
 import qualified Berks.Colors as Cl
@@ -78,6 +79,8 @@ keyMaps XConfig {modMask = modm, layoutHook = layoutHk} =
   , ((modm .|. shiftMask, xK_j), windows W.swapDown)
   -- Swap the focused window with the previous window
   , ((modm .|. shiftMask, xK_k), windows W.swapUp)
+  , ((modm .|. controlMask, xK_y), sendMessage $ Toggle LR.REFLECTY)
+  , ((modm .|. controlMask, xK_x), sendMessage $ Toggle LR.REFLECTX)
   -- Shrink the master area
   , ((modm, xK_h), sendMessage Shrink)
   -- Expand the master area

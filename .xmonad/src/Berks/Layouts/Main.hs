@@ -17,14 +17,18 @@ import qualified XMonad.Layout.MultiToggle as MT
   -- , MultiToggle
   , (??)
   , mkToggle
+  , single
   )
 import qualified XMonad.Layout.MultiToggle.Instances as MT
   ( StdTransformers(NBFULL, NOBORDERS)
   )
+import qualified XMonad.Layout.Reflect as LR
 import qualified XMonad.Layout.WindowArranger as WA
 
 layout =
   MD.avoidStruts . MR.mouseResize . WA.windowArrange $
+  MT.mkToggle (MT.single LR.REFLECTY) $
+  MT.mkToggle (MT.single LR.REFLECTX) $
   MT.mkToggle (MT.NBFULL MT.?? MT.NOBORDERS MT.?? MT.EOT) layouts'
   where
     layouts' = Mag.magnify L.||| Vert.vert L.||| Mono.monocle L.||| Horiz.horiz
