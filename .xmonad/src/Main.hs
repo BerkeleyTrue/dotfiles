@@ -150,6 +150,9 @@ myManageHook =
     [ resource =? "desktop_window" --> doIgnore
     , resource =? "kdesktop" --> doIgnore
     , isFullscreen --> doFullFloat
+    , className =? "Slack" --> doShift "3"
+    , className =? "discord" --> doShift "3"
+    , className =? "zoom" --> doShift "4"
     ]
 
 ------------------------------------------------------------------------
