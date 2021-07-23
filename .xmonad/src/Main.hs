@@ -99,7 +99,11 @@ keyMaps XConfig {modMask = modm, layoutHook = layoutHk} =
     -- Restart xmonad
   , ( (modm .|. shiftMask, xK_r)
     , spawn
-        "xmonad --recompile && xmonad --restart && notify-send 'XMonad Restarted'")
+        "\
+      \ notify-send -a 'XMonad' 'Recompiling...' && \
+      \ xmonad --recompile && \
+      \ xmonad --restart && \
+      \ notify-send -a 'XMonad'  'Restarted'")
     -- quit menu
   , ((modm, xK_0), spawn "$HOME/.local/bin/powermenu")
   ] ++
