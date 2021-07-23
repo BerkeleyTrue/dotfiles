@@ -35,6 +35,7 @@ packages:
 #
 extra-deps:
   - netlink-1.1.1.0@sha256:d83424b5ba9921191449e4b1f53c7cba7f4375f2c55a9b737c77e982e1f40d00,3689
+  - X11-1.10@sha256:ed01fba28081d6922462c2727a9a2e71f8ec3d962ed18963eee0c770558817d9,3703
   - xmobar
   - xmonad
   - xmonad-contrib
