@@ -42,10 +42,10 @@ Config
       , Run ComX "wakatime" ["--today"] "0" "" 10
       , Run
           ComX
-          "/home/berkeleytrue/.config/polybar/timew-duration.sh"
-          []
-          "0"
-          "timewarrior"
+          "/home/berkeleytrue/.local/bin/crypto"
+          ["--coin", "eth"]
+          "0.xx"
+          "eth"
           10
       ]
   , sepChar = "%"
@@ -56,7 +56,7 @@ Config
     \ } \
     \<fc=#ff79c6> %date% </fc>\
     \<fc=#50fa7b>  %wakatime% </fc>\
-    \<fc=#BD93F9>  %timewarrior% </fc>\
+    \<fc=#8be9fd> ETH $%eth% </fc>\
     \ { \
     \<fc=#666666>|</fc><fc=#ffb86c> %cpu% </fc>\
     \<fc=#666666>|</fc><fc=#ff5555> %memory% </fc>\

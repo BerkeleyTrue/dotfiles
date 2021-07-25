@@ -60,6 +60,14 @@ Config
           "0.xx"
           "sol"
           10
+      , Run
+          ComX
+          "/home/berkeleytrue/.local/bin/crypto"
+          ["--coin", "paxg"]
+          "0.xx"
+          "paxg"
+          10
+      , Run ComX "/home/berkeleytrue/.local/bin/spy" [] "0.xx" "spy" 10
       , Run UnsafeStdinReader
       ]
   , sepChar = "%"
@@ -71,10 +79,12 @@ Config
     \<fc=#ff79c6> %date% </fc>\
     \<fc=#8be9fd> ETH $%eth% </fc>\
     \<fc=#8be9fd> %eth-gas% </fc>\
+    \<fc=#50fa7b> SPY: %spy% </fc>\
     \ { \
-    \<fc=#ffb86c> BTC $%btc% </fc>\
-    \<fc=#bd93f9> DPI $%dpi% </fc>\
+    \<fc=#50fa7b> BTC $%btc% </fc>\
+    \<fc=#ffb86c> PAXG $%paxg% </fc>\
     \<fc=#ff79c6> UNI $%uni% </fc>\
     \<fc=#ff5555> SOL $%sol% </fc>\
+    \<fc=#bd93f9> DPI $%dpi% </fc>\
     \ "
   }

@@ -1,0 +1,77 @@
+#!/usr/bin/env bb
+; vim:ft=clojure
+(ns local.bin.crypto
+  (:require [clojure.string :as str]
+            [clojure.tools.cli :refer [parse-opts]]
+            [babashka.curl :as curl]
+            [cheshire.core :as json]))
+
+(def url "https://query1.finance.yahoo.com/v8/finance/chart/spy")
+
+(defn make-get []
+  (curl/get url))
+
+; open/high/low/close data
+(defn res-to-frame [res]
+  (-> res
+    (:body)
+    (json/parse-string true)
+    (:chart)
+    (:result)
+    (first)
+    (:indicators)
+    (:quote)
+    (first)))
+
+(comment
+  (->
+    (make-get)
+    (res-to-frame)))
+
+(defn frame-to-last-close [frame]
+  (-> frame
+    (:close)
+    (last)))
+
+(comment
+  (->
+    (make-get)
+    (res-to-frame)
+    (frame-to-last-close)))
+
+(defn display-price [price]
+  (condp > price
+    0.0001 "> 0.001"
+    0.01 (format "%.6f" price)
+    1 (format "%.4f" price)
+    100 (format "%.2f" price)
+    (format "%,.2f" price)))
+
+(defn get-spy-price []
+  (->
+    (make-get)
+    (res-to-frame)
+    (frame-to-last-close)
+    (display-price)))
+
+(def specs
+  [["-h" "--help"]])
+
+(def command "spy")
+
+(def help-menu
+  (str/join "\n  "
+    [(str "  Usage: " command)
+     ""
+     ""
+     ""
+     (str command " -h -- this menu")]))
+
+(def opts (parse-opts *command-line-args* specs))
+
+(let [is-help? (:help (:options opts))]
+
+  (cond
+    is-help? (println help-menu)
+
+    :else (println (get-spy-price))))
