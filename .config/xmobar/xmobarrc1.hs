@@ -49,9 +49,9 @@ Config
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "uni"]
+          ["--coin", "pickle"]
           "0.xx"
-          "uni"
+          "pickle"
           10
       , Run
           ComX
@@ -83,7 +83,7 @@ Config
     \ { \
     \<fc=#50fa7b> BTC $%btc% </fc>\
     \<fc=#ffb86c> PAXG $%paxg% </fc>\
-    \<fc=#ff79c6> UNI $%uni% </fc>\
+    \<fc=#ff79c6> PICKLE $%pickle% </fc>\
     \<fc=#ff5555> SOL $%sol% </fc>\
     \<fc=#bd93f9> DPI $%dpi% </fc>\
     \ "
