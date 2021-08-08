@@ -18,6 +18,7 @@
      :emmet
      :lightbulb
      :lspconfig
+     :lspfuzzy
      :lspkind
      :markdown
      :mta
