@@ -39,10 +39,12 @@
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
    {:name :kosayoda/nvim-lightbulb :desciption "show a light bulb when a code action is available"}
+   {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources"}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
    {:name :tpope/vim-rhubarb :description "github integrations (lacing yadm support)"}
+   {:name :mhinz/vim-signify :desciption "show git diffs in the gutter"}
 
    ; buffers
    {:name :vim-scripts/BufOnly.vim :description ":BufOnly removes all the buffers except the current one"}
@@ -68,9 +70,6 @@
    {:name :christoomey/vim-tmux-navigator :description "nav between tmux panes and vim buffs easily"}
    {:name :tmux-plugins/vim-tmux :description "tmux syntax"}
    {:name :tmux-plugins/vim-tmux-focus-events :description "restore focus events when enter/leave vim bufs in tmux panes"}
-
-   ; git
-   {:name :mhinz/vim-signify :desciption "show git diffs in the gutter"}
 
    ; UI
    {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}

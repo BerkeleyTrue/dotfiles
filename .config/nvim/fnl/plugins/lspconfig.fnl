@@ -1,6 +1,8 @@
 (module plugins.lspconfig
   {:require {: r
-             : utils}
+             : utils
+             null-ls plugins.null-ls}
+
    :require-macros [macros]})
 
 (def lsps
@@ -12,14 +14,23 @@
    :hls {}
    :html {}
    :jsonls {}
+   :null-ls {:on_attach
+             (fn [client]
+               (when client.resolved_capabilities.document_formatting
+                 (vim.cmd "autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")))}
+
    :rls {}
-   :tsserver {}
+   :tsserver {:on_attach
+              (fn [client]
+                (tset client.resolved_capabilities :document_formatting false))}
    :vimls {}
    :yamlls {}})
 
 
 (defn main []
   (let [(ok res) (pcall utils.ex.packadd :nvim-lspconfig)]
+    (null-ls.main)
+
     (if (not ok) (print (.. "Could not load nvim-lspconfig: " (tostring res)))
       (let [(ok lspconfig) (pcall require :lspconfig)]
         (if (not ok) (print (.. "require: " lspconfig))
@@ -34,7 +45,6 @@
                   :filetypes [:ocaml]
                   :root_dir (lsputil.root_pattern ".merlin" "package.json" ".git")
                   :settings {}}}))
-
             (->>
               lsps
               (r.to-pairs)
