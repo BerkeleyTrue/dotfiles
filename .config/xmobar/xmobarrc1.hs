@@ -79,8 +79,8 @@ Config
     \<fc=#ff79c6> %date% </fc>\
     \<fc=#8be9fd> ETH $%eth% </fc>\
     \<fc=#8be9fd> %eth-gas% </fc>\
-    \<fc=#50fa7b> SPY: %spy% </fc>\
     \ { \
+    \<fc=#f1fa8c> SPY: %spy% </fc>\
     \<fc=#50fa7b> BTC $%btc% </fc>\
     \<fc=#ffb86c> PAXG $%paxg% </fc>\
     \<fc=#ff79c6> PICKLE $%pickle% </fc>\
