@@ -22,8 +22,8 @@ npmpublish() {
   # start with fresh npm install
   trash node_modules &>/dev/null;
   # should almost always be angular
-  preset=${2:-$(conventional-commits-detector)}
-  bump=${1:-$(conventional-recommended-bump -p $preset)}
+  preset=${2:-$(npx conventional-commits-detector)}
+  bump=${1:-$(npx conventional-recommended-bump -p $preset)}
   if [ -z $CONVENTIONAL_GITHUB_RELEASER_TOKEN ]; then
     echo "CONVENTIONAL_GITHUB_RELEASER_TOKEN not found"
     return 1;
@@ -41,15 +41,13 @@ npmpublish() {
   git pull --rebase &&
     # get fresh packages
     npm ci &&
-    # make sure tests pass
-    npm test &&
     # copy package.json for later restoration
     cp package.json _package.json &&
     # copy package-lock if exists
     [[ -e package-lock.json ]] && cp package-lock.json _package-lock.json || echo "info: no package-lock found" &&
     npm --no-git-tag-version version $bump &>/dev/null &&
     echo "creating/updating changelong" &&
-    conventional-changelog -i CHANGELOG.md -s -p $preset &&
+    npx conventional-changelog -i CHANGELOG.md -s -p $preset &&
     git add CHANGELOG.md &&
     version=`cat package.json | json version` &&
     echo "Adding changelog" &&
@@ -61,7 +59,7 @@ npmpublish() {
     echo "pushing up changes" &&
     git push --follow-tags &&
     echo "creating github release" &&
-    conventional-github-releaser -p $preset &&
+    npx conventional-github-releaser -p $preset &&
     echo "publishing to npm" &&
     npm publish
 }
