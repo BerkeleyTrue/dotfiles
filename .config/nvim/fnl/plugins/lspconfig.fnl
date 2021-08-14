@@ -14,15 +14,9 @@
    :hls {}
    :html {}
    :jsonls {}
-   :null-ls {:on_attach
-             (fn [client]
-               (when client.resolved_capabilities.document_formatting
-                 (vim.cmd "autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")))}
-
+   :null-ls {};:on_attach (fn [client])} (when client.resolved_capabilities.document_formatting (vim.cmd "autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")))}
    :rls {}
-   :tsserver {:on_attach
-              (fn [client]
-                (tset client.resolved_capabilities :document_formatting false))}
+   :tsserver {}
    :vimls {}
    :yamlls {}})
 
@@ -52,4 +46,6 @@
                 (fn [[lsp config]]
                   (let [conf (. lspconfig lsp)
                         setup (. conf :setup)]
-                    (setup config)))))))))))
+                    (setup config)))))
+            (utils.nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
+            (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()")))))))
