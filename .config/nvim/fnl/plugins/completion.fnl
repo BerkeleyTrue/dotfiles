@@ -25,12 +25,12 @@
               :max_menu_width 100
               :documentation true
               :source
-              {:path true
+              {:path {:priority 50}
                :buffer true
                :calc true
                :spell true
                :vsnip false
-               :nvim_lsp true
+               :nvim_lsp {:priority 100}
                :nvim_lua true
                :ultisnips true
                :conjure true
