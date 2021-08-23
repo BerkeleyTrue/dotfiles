@@ -26,14 +26,14 @@
               :documentation true
               :source
               {:path {:priority 50}
-               :buffer true
+               :buffer {:priority 100}
                :calc true
-               :spell true
+               :spell {:priority 25}
                :vsnip false
                :nvim_lsp {:priority 100}
                :nvim_lua true
-               :ultisnips true
-               :conjure true
+               :ultisnips {:priority 110}
+               :conjure {:priority 110}
                :nvim_treesitter true}}))
 
       (print "compe not found in path"))))
