@@ -17,8 +17,7 @@ gsConf =
     , gs_font = Fs.font
     }
 
-selections =
-  [("Kitty", "kitty"), ("Firefox", "firefox"), ("PCManFM", "pcmanfm")]
+selections = [("Firefox", "firefox"), ("PCManFM", "pcmanfm")]
 
 -- spawnWhenJust :: Maybe String -> X ()
 spawnWhenJust = flip whenJust spawn
