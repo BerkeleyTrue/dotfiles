@@ -135,7 +135,7 @@ gbranch() {
 }
 gremote() {
   # gremote
-  if [ $# == 0 ]; then
+  if [[ $# -eq 0 ]]; then
     echo "printing remote repositories"
     git remote -v
     return 0
@@ -199,7 +199,7 @@ gremote() {
 }
 grebase() {
   # grebase
-  if [[ $# == 0 ]]; then
+  if [[ $# -eq 0 ]]; then
     echo "grebase: Incorrect number of args"
     return 1
   fi
