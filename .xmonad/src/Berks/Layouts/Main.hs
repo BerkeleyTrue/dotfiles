@@ -31,4 +31,4 @@ layout =
   MT.mkToggle (MT.single LR.REFLECTX) $
   MT.mkToggle (MT.NBFULL MT.?? MT.NOBORDERS MT.?? MT.EOT) layouts'
   where
-    layouts' = Mag.magnify L.||| Vert.vert L.||| Mono.monocle L.||| Horiz.horiz
+    layouts' = Mono.monocle L.||| Mag.magnify L.||| Vert.vert L.||| Horiz.horiz
