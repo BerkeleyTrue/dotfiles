@@ -56,7 +56,7 @@ Config
     \ } \
     \<fc=#ff79c6> %date% </fc>\
     \<fc=#50fa7b>  %wakatime% </fc>\
-    \<fc=#8be9fd> ETH $%eth% </fc>\
+    \<fc=#8be9fd> ﲹ $%eth% </fc>\
     \ { \
     \<fc=#666666>|</fc><fc=#ffb86c> %cpu% </fc>\
     \<fc=#666666>|</fc><fc=#ff5555> %memory% </fc>\

@@ -77,11 +77,11 @@ Config
     \%UnsafeStdinReader% \
     \ } \
     \<fc=#ff79c6> %date% </fc>\
-    \<fc=#8be9fd> ETH $%eth% </fc>\
+    \<fc=#8be9fd> ﲹ $%eth% </fc>\
     \<fc=#8be9fd> %eth-gas% </fc>\
     \ { \
     \<fc=#f1fa8c> SPY: %spy% </fc>\
-    \<fc=#50fa7b> BTC $%btc% </fc>\
+    \<fc=#50fa7b>  $%btc% </fc>\
     \<fc=#ffb86c> PAXG $%paxg% </fc>\
     \<fc=#ff79c6> PICKLE $%pickle% </fc>\
     \<fc=#ff5555> SOL $%sol% </fc>\
