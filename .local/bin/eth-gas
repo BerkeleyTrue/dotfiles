@@ -8,8 +8,14 @@
 
 (def url "https://ethgasstation.info/json/ethgasAPI.json")
 
-(defn format-gas [{:keys [fast fastWait]}]
-  (str "GWAI: " (format "%,.0f" (/ fast 10)) " (" (* fastWait 10) "m)"))
+(defn format-gas [{:keys [average avgWait]}]
+  (str " " (format "%,.0f" (float (/ average 10))) " ( " avgWait "m)"))
+
+(comment
+  (->
+    (curl/get url)
+    (:body)
+    (json/parse-string true)))
 
 (defn make-get []
   (->
