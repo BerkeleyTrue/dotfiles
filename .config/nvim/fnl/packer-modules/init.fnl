@@ -21,7 +21,6 @@
    {:name :ntpeters/vim-better-whitespace}
    {:name :mg979/vim-visual-multi}
    {:name :scrooloose/nerdcommenter}
-   {:name :johannesthyssen/vim-signit :description "Add signature to a file"}
    {:name :wincent/corpus :description "vim wiki written in lua"}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :berkeleyTrue/berkeleys-snippet-emporium :description "my personal snippets"}

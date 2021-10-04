@@ -27,7 +27,6 @@
      :rainbow-parens
      :sandwich
      :sexp
-     :signit
      :startify
      :telescope
      :terraform
