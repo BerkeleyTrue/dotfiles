@@ -4,8 +4,7 @@
 
 (defn main []
   (->>
-    [:airline
-     :ale
+    [:ale
      :beacon
      :better-whitespace
      :colorizer
