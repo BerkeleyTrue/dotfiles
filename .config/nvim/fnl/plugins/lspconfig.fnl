@@ -14,9 +14,11 @@
    :hls {}
    :html {}
    :jsonls {}
-   :null-ls {};:on_attach (fn [client])} (when client.resolved_capabilities.document_formatting (vim.cmd "autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")))}
+   :null-ls {}
    :rls {}
-   :tsserver {}
+   :tsserver {:on_attach
+              (fn [client]
+                (tset client.resolved_capabilities :document_formatting false))}
    :vimls {}
    :yamlls {}})
 
