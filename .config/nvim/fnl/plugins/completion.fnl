@@ -1,6 +1,8 @@
 (module plugins.completion
   {require {: r
-            : utils}
+            : utils
+            a aniseed.core}
+
    require-macros [macros]})
 
 (defn t [str] (utils.replace_termcodes str true true true))
@@ -20,7 +22,7 @@
   (feedkeys "i")
   (feedkeys-noremap "i"))
 
-(defn pumvisible [] (utils.fn.pumvisible))
+(defn pumvisible [] (= (utils.fn.pumvisible) 1))
 
 (defn check-if-backspace []
   (let [col (- (utils.fn.col ".") 1)]
@@ -35,9 +37,9 @@
 
 (defn enter-mapping [fallback]
   (if
-    (pumvisible) (if (= (utils.fn.UltiSnips#CanExpandSnippet) 1)
-                   (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
-                   (feedkeys-noremap "<C-n>"))
+    (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
+
+    (pumvisible) (feedkeys-noremap " ")
 
     (check-if-backspace) (feedkeys-noremap "<CR>")
     (fallback)))

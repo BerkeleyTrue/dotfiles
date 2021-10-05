@@ -1,5 +1,5 @@
 (module plugins.ultisnips
-  {:require {: utils}})
+  {require {: utils}})
 
 
 ; We map the trigger initially to <c-w>
@@ -12,10 +12,22 @@
 ; way.
 (defn main []
   (utils.set-nvim-g!
-    {:UltiSnipsExpandTrigger "<C-w>"
+    {:UltiSnipsExpandTrigger "<C-k>"
      :UltiSnipsJumpForwardTrigger "<C-b>"
      :UltiSnipsJumpBackwardTrigger "<C-c>"
-     :UltiSnipsRemoveSelectModeMappings 0})
+     :UltiSnipsRemoveSelectModeMappings 0
+     ; something broke in how ultisnipts finds third party snips
+     ; setting it to a static dir ensures my snips are picked up.
+     ; will need to find why this is later
+     :UltiSnipsSnippetDirectories
+     [(..
+        (utils.fn.stdpath "config")
+        "/pack/packer/start"
+        "/berkeleys-snippet-emporium"
+        "/UltiSnips")]})
+
+
+
   (let [(ok res) (pcall utils.ex.packadd :ultisnips)]
     (if (not ok)
       (print (.. "Could not load ultisnips: " res))
