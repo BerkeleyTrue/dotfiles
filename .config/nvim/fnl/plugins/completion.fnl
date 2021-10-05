@@ -1,17 +1,92 @@
 (module plugins.completion
-  {:require {: r
-             : utils
-             :conjure-compe completion-sources.conjure}
+  {require {: r
+            : utils}
+   require-macros [macros]})
+
+(defn t [str] (utils.replace_termcodes str true true true))
+(comment (t "<CR>"))
+
+(defn feedkeys [str noremap]
+  (let [mode (if noremap :n :m)]
+    (->
+      str
+      (t)
+      (utils.fn.feedkeys mode))))
+
+(defn feedkeys-noremap [str]
+  (feedkeys str true))
+
+(comment
+  (feedkeys "i")
+  (feedkeys-noremap "i"))
+
+(defn pumvisible [] (utils.fn.pumvisible))
+
+(defn check-if-backspace []
+  (let [col (- (utils.fn.col ".") 1)]
+    (or (= col 0)
+        (not
+          (r.nil?
+            (->
+              (utils.fn.getline :.)
+              (: :sub col col)
+              (: :match :%s)))))))
 
 
-   :require-macros [macros]})
+(defn enter-mapping [fallback]
+  (if
+    (pumvisible) (if (= (utils.fn.UltiSnips#CanExpandSnippet) 1)
+                   (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
+                   (feedkeys-noremap "<C-n>"))
+
+    (check-if-backspace) (feedkeys-noremap "<CR>")
+    (fallback)))
+
+(defn tab-mapping [fallback]
+  (if
+    (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
+    (pumvisible) (feedkeys-noremap :<C-n>)
+    (check-if-backspace (feedkeys-noremap :<Tab>))
+    (fallback)))
+
+(defn stab-mapping [fallback]
+  (if
+    (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpBackwards()<CR>")
+    (pumvisible) (feedkeys-noremap :<C-p>)
+    (fallback)))
 
 (defn main []
-  (let [(ok res) (pcall utils.ex.packadd :nvim-compe)]
+  (let [(ok res) (pcall utils.ex.packadd :nvim-cmp)]
+
+    ; (if lsp-ok ((: (require :cmp_nvim_lsp) :update_capabilities) (vim.lsp.protocol.make_client_capabilities))
+    ;   (print (.. "cannot find cmp-nvim-lsp : " lsp-res)))
+
     (if
-      ok (let [compe (require :compe)]
-           (compe.register_source :conjure conjure-compe.source)
-           (compe.setup
+      ok (let [cmp (require :cmp)]
+           (cmp.setup
+             {:sources
+              [{:name :nvim_lsp}
+               {:name :ultisnips}
+               {:name :buffer}
+               {:name :path}
+               {:name :emoji
+                :insert true}
+               {:name :conjure
+                :priority 100}]
+
+              :snippet
+              {:expand (fn [args] (utils.fn.UltiSnips#Anon (. args :body)))}
+
+              :mapping
+              {:<CR> (cmp.mapping enter-mapping [:i :s])
+               :<Tab> (cmp.mapping tab-mapping [:i :s])
+               :<S-Tab> (cmp.mapping stab-mapping [:i :s])
+               :<C-Space> (cmp.mapping.complete)
+               :<C-d> (cmp.mapping.scroll_docs -4)
+               :<C-f> (cmp.mapping.scroll_docs 4)
+               :<C-e> (cmp.mapping.close)}})
+
+           (comment
              {:enabled true
               :debug true
               :min_length 1
@@ -25,15 +100,15 @@
               :max_menu_width 100
               :documentation true
               :source
-              {:path {:priority 50}
-               :buffer {:priority 100}
-               :calc true
-               :spell {:priority 25}
-               :vsnip false
-               :nvim_lsp {:priority 100}
-               :nvim_lua true
-               :ultisnips {:priority 110}
-               :conjure {:priority 110}
-               :nvim_treesitter true}}))
+              {:path {:priority 50}}
+              :buffer {:priority 100}
+              :calc true
+              :spell {:priority 25}
+              :vsnip false
+              :nvim_lsp {:priority 100}
+              :nvim_lua true
+              :ultisnips {:priority 110}
+              :conjure {:priority 110}
+              :nvim_treesitter true}))
 
-      (print "compe not found in path"))))
+      (print "cmp not found in path"))))

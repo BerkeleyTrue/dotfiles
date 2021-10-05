@@ -1,6 +1,6 @@
 (module packer-modules
-  {:require {a aniseed.core
-             packer plugins.packer}})
+  {require {a aniseed.core
+            packer plugins.packer}})
 
 (def- main-spec
   ; main utils
@@ -33,8 +33,13 @@
    {:name :ojroques/nvim-lspfuzzy}
 
    ; lsp/completion
-   {:name :hrsh7th/nvim-compe :description ""}
-   {:name :wellle/tmux-complete.vim :desciption "inject words in neighboring tmux panes into the completion popup"}
+   {:name :hrsh7th/nvim-cmp :description "completion engine"}
+   {:name :hrsh7th/cmp-nvim-lsp :description "cmp lsp"}
+   {:name :hrsh7th/cmp-buffer :description "cmp buffer"}
+   {:name :hrsh7th/cmp-path}
+   {:name :PaterJason/cmp-conjure :description "cmp conjure"}
+   {:name :quangnguyen30192/cmp-nvim-ultisnips :description "cmp ultisnips plugin"}
+   {:name :hrsh7th/cmp-emoji}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
    {:name :kosayoda/nvim-lightbulb :desciption "show a light bulb when a code action is available"}

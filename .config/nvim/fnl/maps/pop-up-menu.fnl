@@ -25,29 +25,29 @@
 
 ; On enter, check for snippet and expand
 ; or return <CR>
-(utils.inoremap
-  :<CR>
-  (..
-    ; <C-R>{reg} will insert what ever is in register you choose
-    ; using = as the reg indicates you want to insert the result of an expression
-    ; we give it a lua exp that will run one of these functions
-    ; then the result of that exp is inserted.
-    "<C-R>="
-    (utils.viml->luaexp *module-name* (sym->name expand-on-enter))
-    "<CR>")
-  {:silent true})
+comment (utils.inoremap
+         :<CR>
+         (..
+           ; <C-R>{reg} will insert what ever is in register you choose
+           ; using = as the reg indicates you want to insert the result of an expression
+           ; we give it a lua exp that will run one of these functions
+           ; then the result of that exp is inserted.
+           "<C-R>="
+           (utils.viml->luaexp *module-name* (sym->name expand-on-enter))
+           "<CR>")
+         {:silent true})
 
 ; On tab with dropdown go down
 ; else insert tab
-(utils.inoremap
-  :<TAB>
-    "pumvisible() ? \"\\<C-n>\" : \"\\<TAB>\" "
-  {:silent true
-   :expr true})
+(comment (utils.inoremap
+          :<TAB>
+            "pumvisible() ? \"\\<C-n>\" : \"\\<TAB>\" "
+          {:silent true
+           :expr true}))
 
 
-(utils.inoremap
-  :<S-TAB>
-  "pumvisible() ? \"\\<C-p>\" : \"\\<S-TAB>\" "
-  {:silent true
-   :expr true})
+(comment (utils.inoremap
+          :<S-TAB>
+          "pumvisible() ? \"\\<C-p>\" : \"\\<S-TAB>\" "
+          {:silent true
+           :expr true}))

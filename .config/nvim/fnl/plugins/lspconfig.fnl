@@ -5,6 +5,10 @@
 
    :require-macros [macros]})
 
+(defn get-capabilities []
+  (let [cmplsp (require :cmp_nvim_lsp)]
+    (cmplsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))))
+
 (def lsps
   {:bashls {}
    :caramel_lsp {}
@@ -48,6 +52,6 @@
                 (fn [[lsp config]]
                   (let [conf (. lspconfig lsp)
                         setup (. conf :setup)]
-                    (setup config)))))
+                    (setup (r.merge config {:capabilities (get-capabilities)}))))))
             (utils.nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
             (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()")))))))

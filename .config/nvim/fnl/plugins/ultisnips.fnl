@@ -14,7 +14,8 @@
   (utils.set-nvim-g!
     {:UltiSnipsExpandTrigger "<C-w>"
      :UltiSnipsJumpForwardTrigger "<C-b>"
-     :UltiSnipsJumpBackwardTrigger "<C-c>"})
+     :UltiSnipsJumpBackwardTrigger "<C-c>"
+     :UltiSnipsRemoveSelectModeMappings 0})
   (let [(ok res) (pcall utils.ex.packadd :ultisnips)]
     (if (not ok)
       (print (.. "Could not load ultisnips: " res))
