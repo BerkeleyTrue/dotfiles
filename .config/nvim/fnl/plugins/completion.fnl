@@ -38,23 +38,21 @@
 (defn enter-mapping [fallback]
   (if
     (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
-
     (pumvisible) (feedkeys-noremap " ")
-
     (check-if-backspace) (feedkeys-noremap "<CR>")
     (fallback)))
 
 (defn tab-mapping [fallback]
   (if
-    (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
     (pumvisible) (feedkeys-noremap :<C-n>)
+    (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
     (check-if-backspace (feedkeys-noremap :<Tab>))
     (fallback)))
 
 (defn stab-mapping [fallback]
   (if
-    (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpBackwards()<CR>")
     (pumvisible) (feedkeys-noremap :<C-p>)
+    (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpBackwards()<CR>")
     (fallback)))
 
 (defn main []
@@ -87,6 +85,7 @@
                :<C-d> (cmp.mapping.scroll_docs -4)
                :<C-f> (cmp.mapping.scroll_docs 4)
                :<C-e> (cmp.mapping.close)}})
+
 
            (comment
              {:enabled true

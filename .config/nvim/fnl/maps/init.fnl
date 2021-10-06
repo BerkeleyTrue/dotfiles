@@ -1,7 +1,6 @@
 (module maps
   {:require {: r
-             : utils
-             :pum maps.pop-up-menu}})
+             : utils}})
 
 ; common command aliases
 (->>
