@@ -67,6 +67,13 @@ Config
           "0.xx"
           "paxg"
           10
+      , Run
+          ComX
+          "/home/berkeleytrue/.local/bin/crypto"
+          ["--coin", "xtz"]
+          "0.xx"
+          "xtz"
+          10
       , Run ComX "/home/berkeleytrue/.local/bin/spy" [] "0.xx" "spy" 10
       , Run UnsafeStdinReader
       ]
@@ -84,7 +91,7 @@ Config
     \<fc=#50fa7b>  $%btc% </fc>\
     \<fc=#ffb86c> PAXG $%paxg% </fc>\
     \<fc=#ff79c6> PICKLE $%pickle% </fc>\
-    \<fc=#ff5555> SOL $%sol% </fc>\
+    \<fc=#ff5555> Tezos $%xtz% </fc>\
     \<fc=#bd93f9> DPI $%dpi% </fc>\
     \ "
   }
