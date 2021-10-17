@@ -2,8 +2,6 @@ configuration {
   disable-history: false;
   drun-display-format: "{name}";
   font: "FiraCode Nerd Font 16";
-  fullscreen: false;
-  hide-scrollbar: true;
   icon-theme: "Papirus";
   show-icons: false;
   sidebar-mode: false;
@@ -11,19 +9,21 @@ configuration {
 
 @import "colors.rasi"
 
-window {
+#window {
   transparency:                   "real";
   background-color:               @background;
   text-color:                     @foreground;
   border-radius:                  0 20px 0 20px;
-  height:                         200px;
-  width:                          790px;
+  border-color:                   @bordercolor;
+  border:                         1;
+  height:                         350px;
+  width:                          200px;
   location:                       center;
   x-offset:                       0;
   y-offset:                       0;
 }
 
-prompt {
+#prompt {
   background-color: @background;
   enabled: false;
   padding: 0.5% 0.5% 0.5% 0%;
@@ -34,80 +34,71 @@ textbox-prompt-colon {
   background-color: @background;
   expand: true;
   padding: 1% 0.5% 1% 0.5%;
-  str: "Goodbye, Berks";
+  str: "À bientôt";
   text-color: @foreground;
 }
 
-inputbar {
+#inputbar {
   background-color: @background;
-  border-color: @blue;
-  border-radius: 0% 100% 0% 100%;
-  border: 0.2%; //0% 0.2% 0.2% 0%;
   children: [ textbox-prompt-colon ];
   expand: false;
-  margin: 0% 9% 0% 9%;
-  padding: 0.5%;
+  margin: 0% 1%;
+  padding: 0.9% 0;
   position: center;
   text-color: @foreground;
 }
 
-listview {
+#listview {
   background-color:               @background;
   margin:                         0% 0% 0% 0%;
   spacing:                        1%;
   cycle:                          true;
   dynamic:                        true;
-  layout:                         horizontal;
+  layout:                         vertical;
+  text-color:                     @foreground;
 }
 
-mainbox {
+#mainbox {
   background-color:               @background;
   children:                       [ inputbar, listview ];
   spacing:                        1.5%;
   padding:                        0.1% 0% 0% 0%;
 }
 
-element {
+#element {
   background-color:               @background-alt;
-  text-color:                     @selected;
   orientation:                    horizontal;
-  border-radius:                  50%;
+  border-radius:                  100%;
 }
 
-element-text {
+#element-text {
   expand:                         true;
   horizontal-align:               0.5;
   vertical-align:                 0.5;
-  margin:                         2.5% 1.7% 2.5% 1.7%;
+  margin:                         0.5% 0.7% 0.5% 0.7%;
+  text-color: @foreground;
 }
 
 element normal.urgent,
 element alternate.urgent {
-  background-color:               @red;
-  text-color:                     @foreground;
+  text-color:                     @red;
   border-radius:                  0.2%;
 }
 
-element normal.active,
-element alternate.active {
+#element selected {
   background-color:               @background;
-  text-color:                     @foreground;
+  border:                         0.1% 0 0.1% 0;
+  border-radius:                  0%;
+  border-color:                   @bordercolor;
 }
 
-element selected {
-  background-color:               @background;
-  text-color:                     @red;
-  border:                         0.2%;
-  border-radius:                  50%;
-  border-color:                   @blue;
-}
-
-element selected.urgent {
+#element selected.urgent {
   background-color:               @urgent;
   text-color:                     @foreground;
 }
 
-element selected.active {
+#element selected.active {
   background-color:               @background-alt;
-  color:                          @foreground;
+  text-color:                     @foreground;
 }
+// vim:ft=stylus

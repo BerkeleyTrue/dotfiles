@@ -34,11 +34,11 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -theme $dir/$theme"
 
 # Options
-shutdown=" "
-reboot=" "
-lock=" "
-suspend=" "
-logout=" "
+shutdown="Shutdown"
+reboot="Restart"
+lock="Lock"
+suspend="Suspend"
+logout="Logout"
 
 # Confirmation
 confirm_exit() {
@@ -65,8 +65,6 @@ case $chosen in
       systemctl poweroff
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
-    else
-      msg
     fi
     ;;
   $reboot)
@@ -75,8 +73,6 @@ case $chosen in
       systemctl reboot
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
-    else
-      msg
     fi
     ;;
   $lock)
@@ -89,8 +85,6 @@ case $chosen in
       systemctl suspend
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
-    else
-      msg
     fi
     ;;
   $logout)
@@ -99,8 +93,6 @@ case $chosen in
       killall xmonad;
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
-    else
-      msg
     fi
     ;;
 esac
