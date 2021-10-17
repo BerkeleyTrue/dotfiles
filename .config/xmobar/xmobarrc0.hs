@@ -26,7 +26,28 @@ Config
       [ Run
           Cpu
           ["-t", "\xf108  cpu: (<total>%)", "-H", "50", "--high", "red"]
-          20
+          10
+      , Run
+          MultiCoreTemp
+          [ "-t"
+          , "temp: <avg>°C"
+          , "-L"
+          , "30"
+          , "-H"
+          , "100"
+          , "-l"
+          , "green"
+          , "-n"
+          , "yellow"
+          , "-h"
+          , "red"
+          , "--"
+          , "--mintemp"
+          , "20"
+          , "--maxtemp"
+          , "100"
+          ]
+          10
       , Run Date "\xf133 %a %b %d | Week %V  %H:%M:%S " "date" 10
       , Run Network "enp5s0" ["-t", "\xf0aa  <rx>kb  \xf0ab  <tx>kb"] 20
       , Run Memory ["-t", "\xf233  mem: <used>M (<usedratio>%)"] 20
@@ -58,7 +79,8 @@ Config
     \<fc=#50fa7b>  %wakatime% </fc>\
     \<fc=#8be9fd> ﲹ $%eth% </fc>\
     \ { \
-    \<fc=#666666>|</fc><fc=#ffb86c> %cpu% </fc>\
+    \<fc=#666666>|</fc><fc=#ff79c6> %cpu% </fc>\
+    \<fc=#666666>|</fc><fc=#ffb86c> %multicoretemp% </fc>\
     \<fc=#666666>|</fc><fc=#ff5555> %memory% </fc>\
     \<fc=#666666>|</fc><fc=#6272a4> %disku% </fc>\
     \ %trayerpad% \
