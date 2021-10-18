@@ -13,15 +13,36 @@
 (defn make-get [coin]
   (curl/get (make-uri coin)))
 
+(comment
+  (->
+    "btc"
+    (make-get)
+    (:body)
+    (json/parse-string true)
+    (:data)
+    (:coins)
+    (#(filter
+        (fn [{:keys [price]}]
+          (not (nil? price)))
+        %1))
+    (first)
+    (:price)))
+
 (defn res-to-price [res]
   (-> res
     (:body)
     (json/parse-string true)
     (:data)
     (:coins)
+    (#(filter
+        (fn [{:keys [price]}]
+          (not (nil? price)))
+        %1))
     (first)
     (:price)
     (json/parse-string)))
+
+(comment (-> "btc" (make-get) (res-to-price)))
 
 (defn display-price [price]
   (condp > price
