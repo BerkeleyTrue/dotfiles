@@ -37,7 +37,7 @@
   (fn [fallback]
     (if
       (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
-      (cmp.visible) (feedkeys-noremap " ")
+      (cmp.visible) (cmp.confirm {:select true})
       (check-if-backspace) (feedkeys-noremap "<CR>")
       (fallback))))
 
