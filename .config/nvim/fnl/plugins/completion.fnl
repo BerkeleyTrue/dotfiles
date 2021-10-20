@@ -22,8 +22,6 @@
   (feedkeys "i")
   (feedkeys-noremap "i"))
 
-(defn pumvisible [] (= (utils.fn.pumvisible) 1))
-
 (defn check-if-backspace []
   (let [col (- (utils.fn.col ".") 1)]
     (or (= col 0)
@@ -35,25 +33,28 @@
               (: :match :%s)))))))
 
 
-(defn enter-mapping [fallback]
-  (if
-    (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
-    (pumvisible) (feedkeys-noremap " ")
-    (check-if-backspace) (feedkeys-noremap "<CR>")
-    (fallback)))
+(defn enter-mapping [cmp]
+  (fn [fallback]
+    (if
+      (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
+      (cmp.visible) (feedkeys-noremap " ")
+      (check-if-backspace) (feedkeys-noremap "<CR>")
+      (fallback))))
 
-(defn tab-mapping [fallback]
-  (if
-    (pumvisible) (feedkeys-noremap :<C-n>)
-    (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
-    (check-if-backspace (feedkeys-noremap :<Tab>))
-    (fallback)))
+(defn tab-mapping [cmp]
+  (fn [fallback]
+    (if
+      (cmp.visible) (cmp.select_next_item)
+      (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
+      (check-if-backspace (feedkeys-noremap :<Tab>))
+      (fallback))))
 
-(defn stab-mapping [fallback]
-  (if
-    (pumvisible) (feedkeys-noremap :<C-p>)
-    (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpBackwards()<CR>")
-    (fallback)))
+(defn stab-mapping [cmp]
+  (fn [fallback]
+    (if
+      (cmp.visible) (cmp.select_prev_item)
+      (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpBackwards()<CR>")
+      (fallback))))
 
 (defn main []
   (let [(ok res) (pcall utils.ex.packadd :nvim-cmp)]
@@ -78,9 +79,9 @@
               {:expand (fn [args] (utils.fn.UltiSnips#Anon (. args :body)))}
 
               :mapping
-              {:<CR> (cmp.mapping enter-mapping [:i :s])
-               :<Tab> (cmp.mapping tab-mapping [:i :s])
-               :<S-Tab> (cmp.mapping stab-mapping [:i :s])
+              {:<CR> (cmp.mapping (enter-mapping cmp) [:i :s])
+               :<Tab> (cmp.mapping (tab-mapping cmp) [:i :s])
+               :<S-Tab> (cmp.mapping (stab-mapping cmp) [:i :s])
                :<C-Space> (cmp.mapping.complete)
                :<C-d> (cmp.mapping.scroll_docs -4)
                :<C-f> (cmp.mapping.scroll_docs 4)
