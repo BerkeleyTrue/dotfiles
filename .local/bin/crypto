@@ -11,9 +11,10 @@
     (str "https://api.coinranking.com/v1/public/coins?prefix=" coin "&base=USD")))
 
 (defn make-get [coin]
-  (curl/get (make-uri coin)))
+  (curl/get (make-uri coin) {:headers {"x-access-token" "i-have-to-migrate-to-v2"}}))
 
 (comment
+  (make-get "eth")
   (->
     "btc"
     (make-get)
