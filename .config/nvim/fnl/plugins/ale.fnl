@@ -17,7 +17,7 @@
                    :javascript [:eslint]
                    :typescript [:tslint :tsserver]
                    :pug [:pug-lint]
-                   :clojure [:clj-kondo :joker]
+                   :clojure [:clj-kondo]
                    :yaml.ansible [:ansible-lint]}})
   (let [(ok res) (pcall utils.ex.packadd :ale)]
     (if ok
