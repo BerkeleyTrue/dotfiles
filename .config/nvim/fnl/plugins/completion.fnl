@@ -5,14 +5,12 @@
 
    require-macros [macros]})
 
-(defn t [str] (utils.replace_termcodes str true true true))
-(comment (t "<CR>"))
 
 (defn feedkeys [str noremap]
   (let [mode (if noremap :n :m)]
     (->
       str
-      (t)
+      (utils.replace-termcodes)
       (utils.fn.feedkeys mode))))
 
 (defn feedkeys-noremap [str]

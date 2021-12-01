@@ -225,3 +225,6 @@
   (nvim.ex.packadd package))
 
 (def regex vim.regex)
+
+(defn replace-termcodes [str] (nvim.replace_termcodes str true true true))
+(comment (replace-termcodes "<CR>"))
