@@ -58,9 +58,10 @@
      :signcolumn     :yes                             ;  always show signcolumns
      :spell          true                             ;  enable spell checking
      :spelllang      :en_us                           ;  set spell language to US english
+     :nosmarttab     true
      :relativenumber false                            ;  no relative numbers
      :synmaxcol      512                              ;  prevent long lines from hanging vim
-     :tabstop        2                                ;  a tab is two spaces
+     :tabstop        1                                ;  a tab is two spaces
      :termguicolors  true                             ;  use gui colors in term's that support it
      :timeoutlen     1000                             ;  add mapping key timeout delay
      :title          true                             ;  change the terminal"s title
