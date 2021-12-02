@@ -1,5 +1,6 @@
 (module plugins.defx
-  {:require {: utils
+  {:require {a aniseed.core
+             : utils
              : r}
    :require-macros [macros]})
 
@@ -55,7 +56,7 @@
 
     (if is-defx
       (utils.fn.call :defx#call_action ["quit"])
-      (utils.ex.Defx (.. "-search=" search) "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
+      (utils.ex.Defx (.. "-search_recursive=" search) "\"-buffername=`'defx' . tabpagenr()`\"" dir))))
 
 (defn defx-change-root []
   (let [is-dir (utils.fn.call :defx#is_directory)]
