@@ -1,5 +1,6 @@
 (module plugins.lspconfig
-  {:require {: r
+  {:require {a aniseed.core
+             : r
              : utils
              null-ls plugins.null-ls}
 
@@ -8,6 +9,13 @@
 (defn get-capabilities []
   (let [cmplsp (require :cmp_nvim_lsp)]
     (cmplsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))))
+
+(defn caramel-configs [lsputil]
+  {:default_config
+   {:cmd [:caramel-lsp :start]
+    :filetypes [:ocaml]
+    :root_dir (lsputil.root_pattern ".merlin" "package.json" ".git")
+    :settings {}}})
 
 (def lsps
   {:bashls {}
@@ -34,17 +42,12 @@
     (if (not ok) (print (.. "Could not load nvim-lspconfig: " (tostring res)))
       (let [(ok lspconfig) (pcall require :lspconfig)]
         (if (not ok) (print (.. "require: " lspconfig))
-          (let [lspcnf (require :lspconfig/configs)
-                lsputil (require :lspconfig/util)]
+          (let [configs (require :lspconfig.configs)
+                lsputil (require :lspconfig.util)]
 
-            (when (not lspcnf.caramel_lsp)
-              (set
-                lspcnf.caramel_lsp
-                {:default_config
-                 {:cmd [:caramel-lsp :start]
-                  :filetypes [:ocaml]
-                  :root_dir (lsputil.root_pattern ".merlin" "package.json" ".git")
-                  :settings {}}}))
+            (when (not configs.caramel_lsp)
+              (set configs.caramel_lsp (caramel-configs lsputil)))
+
             (->>
               lsps
               (r.to-pairs)
