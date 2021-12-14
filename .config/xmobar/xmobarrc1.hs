@@ -42,39 +42,39 @@ Config
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "dpi"]
-          "0.xx"
-          "dpi"
-          10
-      , Run
-          ComX
-          "/home/berkeleytrue/.local/bin/crypto"
           ["--coin", "pickle"]
           "0.xx"
           "pickle"
-          10
+          600
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto"
           ["--coin", "sol"]
           "0.xx"
           "sol"
-          10
+          200
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto"
           ["--coin", "paxg"]
           "0.xx"
           "paxg"
-          10
+          100
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto"
           ["--coin", "xtz"]
           "0.xx"
           "xtz"
-          10
-      , Run ComX "/home/berkeleytrue/.local/bin/spy" [] "0.xx" "spy" 10
+          50
+      , Run
+          ComX
+          "/home/berkeleytrue/.local/bin/crypto"
+          ["--coin", "ohm"]
+          "0.xx"
+          "ohm"
+          50
+      , Run ComX "/home/berkeleytrue/.local/bin/spy" [] "0.xx" "spy" 600
       , Run UnsafeStdinReader
       ]
   , sepChar = "%"
@@ -87,11 +87,11 @@ Config
     \<fc=#8be9fd> ﲹ $%eth% </fc>\
     \<fc=#8be9fd> %eth-gas% </fc>\
     \ { \
-    \<fc=#f1fa8c> SPY: %spy% </fc>\
     \<fc=#50fa7b>  $%btc% </fc>\
-    \<fc=#ffb86c> PAXG $%paxg% </fc>\
+    \<fc=#bd93f9>  $%ohm% </fc>\
+    \<fc=#ff5555> XTZ $%xtz% </fc>\
     \<fc=#ff79c6> PICKLE $%pickle% </fc>\
-    \<fc=#ff5555> Tezos $%xtz% </fc>\
-    \<fc=#bd93f9> DPI $%dpi% </fc>\
+    \<fc=#f1fa8c> SPY: $%spy% </fc>\
+    \<fc=#ffb86c> PAXG $%paxg% </fc>\
     \ "
   }
