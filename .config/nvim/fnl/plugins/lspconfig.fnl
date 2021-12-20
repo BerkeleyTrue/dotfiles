@@ -1,8 +1,7 @@
 (module plugins.lspconfig
   {:require {a aniseed.core
              : r
-             : utils
-             null-ls plugins.null-ls}
+             : utils}
 
    :require-macros [macros]})
 
@@ -26,7 +25,6 @@
    :hls {}
    :html {}
    :jsonls {}
-   :null-ls {}
    :rls {}
    :tsserver {:on_attach
               (fn [client]
@@ -37,7 +35,6 @@
 
 (defn main []
   (let [(ok res) (pcall utils.ex.packadd :nvim-lspconfig)]
-    (null-ls.main)
 
     (if (not ok) (print (.. "Could not load nvim-lspconfig: " (tostring res)))
       (let [(ok lspconfig) (pcall require :lspconfig)]
