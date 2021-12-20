@@ -10,7 +10,7 @@ configuration {
   line-margin: 2;
   lines: 10;
   location: 0;
-  m: -1;
+  m: "-4";
   modi: "drun,calc,run";
   padding: 14;
   parse-hosts: true;
