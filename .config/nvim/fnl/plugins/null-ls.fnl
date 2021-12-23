@@ -11,7 +11,4 @@
                            {:command "npx"
                             :args ["prettier" "--stdin-filepath" "$FILENAME"]})]]
 
-            (null-ls.setup {: sources
-                            :on_attach
-                            (fn [client]
-                              (tset client.resolved_capabilities :document_formatting false))})))))))
+            (null-ls.setup {: sources})))))))
