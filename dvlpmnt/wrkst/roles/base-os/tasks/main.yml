@@ -5,13 +5,18 @@
     update_cache: true
     upgrade: true
 
-- name: base-os.install packages
+- name: base-os.aur update
+  aur:
+    aur_only: true
+    upgrade: true
+
+- name: base-os.ensure packages
   become: true
   pacman:
     name: "{{ packages }}"
     state: present
 
-- name: base-os.install aur packages
+- name: base-os.ensure aur packages
   aur:
     name: "{{ aur }}"
     state: present

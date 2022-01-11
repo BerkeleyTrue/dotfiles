@@ -3,7 +3,6 @@ packages:
   # ui
   - light-locker
   # general
-  - asciinema
   - curl
   - pkgfile
   - unclutter
@@ -23,6 +22,7 @@ packages:
   - neovim
   - task # taskwarrior
   - timew # timewarrior
+  - taskell
   - wakatime
   ## automation
   - ansible
@@ -55,7 +55,6 @@ aur:
   - procs # rusty processes
   # automation
   - terraform-lsp-git
-  - terraform-provider-proxmox
   - yamllint
   # clojure dev
   - babashka-bin # cli clj runner for faster tools
@@ -64,9 +63,6 @@ aur:
   - clj-kondo-bin
   - fennel
   - joker-bin
-  # purescript
-  - purescript
-  - spago
 
 pips:
   # for generating password hashes
