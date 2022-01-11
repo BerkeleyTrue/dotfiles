@@ -60,7 +60,7 @@ Config
           "Bad Trayer"
           "trayerpad"
           10
-      , Run ComX "wakatime" ["--today"] "0" "" 10
+      , Run ComX "wakatime" ["--today"] "0" "" 20
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto"
