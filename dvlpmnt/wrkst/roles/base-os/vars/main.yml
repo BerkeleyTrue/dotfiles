@@ -23,7 +23,6 @@ packages:
   - task # taskwarrior
   - timew # timewarrior
   - taskell
-  - wakatime
   ## automation
   - ansible
   - ansible-lint
@@ -53,6 +52,7 @@ aur:
   - tealdeer # TL;DR for deers (rusty)
   - navi # interactive CL tool for cheats (sorta like TLDR)
   - procs # rusty processes
+  - wakatime-cli-bin # new go version
   # automation
   - terraform-lsp-git
   - yamllint
