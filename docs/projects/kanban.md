@@ -1,17 +1,21 @@
 ## LT Projects
 
+- wireless Keeb
+- Homelab
 - XMonad
-- Purely Functional DS
 - printer.hw-updates
   > Updates for ender three
-- Teardown Greenbike
-  > tear down to replace frame
+- Purely Functional DS
 - Datsun Taillights
+- Sylvia Shifter design
 
 ## In-Progress
 
-- Sylvia Shifter design
-- Homelab
+- crypto-egg
 
 ## Done
 
+- Teardown Greenbike
+  > tear down to replace frame
+- Travel
+- Encrypt ws drive
