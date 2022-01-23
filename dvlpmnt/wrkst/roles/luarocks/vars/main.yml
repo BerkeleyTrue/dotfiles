@@ -1,7 +1,0 @@
----
-packages:
-  - name: lua-lsp
-    server: http://luarocks.org/dev
-  - name: luacheck
-  - name: lcf
-

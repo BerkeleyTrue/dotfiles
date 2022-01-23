@@ -5,19 +5,7 @@ npm_global_packages:
 
   # clojurescript dev
   - shadow-cljs
-
-  # package dev
-  - commitizen
-  - conventional-changelog-angular
-  - conventional-changelog-cli
-  - conventional-commits-detector
-  - conventional-github-releaser
-  - conventional-recommended-bump
-  - cz-conventional-changelog
-  - json
-  - node-gyp
-  - semver
-  - trash
+  - nbb
 
   # linting
   - eslint

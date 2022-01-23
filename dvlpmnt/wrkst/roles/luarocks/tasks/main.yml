@@ -1,8 +1,0 @@
----
-- name: install lua packages
-  become: true
-  luarocks:
-    name: "{{ item.name }}"
-    state: present
-    server: "{{ item.server|default('') }}"
-  loop: "{{ packages }}"

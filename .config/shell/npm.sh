@@ -20,7 +20,7 @@ alias npmlsg='sudo npm list -g --depth=0'
 npmpublish() {
   # travis status --no-interactive &&
   # start with fresh npm install
-  trash node_modules &>/dev/null;
+  npx trash node_modules &>/dev/null;
   # should almost always be angular
   preset=${2:-$(npx conventional-commits-detector)}
   bump=${1:-$(npx conventional-recommended-bump -p $preset)}
