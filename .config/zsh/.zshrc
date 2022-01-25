@@ -66,6 +66,7 @@ antigen bundle bgnotify
 antigen bundle docker
 antigen bundle terraform
 antigen bundle command-not-found
+antigen bundle taskwarrior
 
 antigen theme $ZSH ghanima
 
