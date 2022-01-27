@@ -173,6 +173,11 @@
 (defn- join-events [events]
   (r.reduce #(.. $1 (if (or (r.empty? $1) (r.empty? $2)) "" ",") $2) "" events))
 
+(comment
+  (= (join-events [:CursorHold :CursorHoldI]) "CursorHold,CursorHoldI"))
+
+; warning: cmds must be a vector
+; if single map is provided, this argument will only add the augroup
 (defn augroup [name cmds]
   (nvim.ex.augroup name)
   (nvim.ex.autocmd_)

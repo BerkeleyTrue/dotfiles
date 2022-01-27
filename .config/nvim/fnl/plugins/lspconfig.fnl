@@ -33,7 +33,25 @@
    :yamlls {}})
 
 
+
 (defn main []
+  (vim.diagnostic.config
+    {:virtual_text true
+     :signs true
+     :float
+     {:border :rounded
+      :focus false
+      :max_width 60
+      :scope "cursor"
+      :header false}})
+
+
+  (utils.augroup
+    :diagnositic-float
+    [{:event [:CursorHold :CursorHoldI]
+      :pattern :*
+      :cmd "lua vim.diagnostic.open_float()"}])
+
   (let [(ok res) (pcall utils.ex.packadd :nvim-lspconfig)]
 
     (if (not ok) (print (.. "Could not load nvim-lspconfig: " (tostring res)))

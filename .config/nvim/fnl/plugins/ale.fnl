@@ -10,7 +10,7 @@
      :ale_sign_warning ""
      :ale_echo_msg_format "%linter%(%code%): %s"
      :ale_sign_column_always 1
-     :ale_virtualtext_cursor 1
+     :ale_virtualtext_cursor 0
      :ale_virtualtext_prefix "//=> "
      :ale_virtualtext_delay 300
      :ale_linters {:haskell [:stack-build :hls]

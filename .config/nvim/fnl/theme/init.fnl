@@ -64,6 +64,7 @@
 (add-group :BerksFgBold c.fg c.none s.bold)
 
 (add-group :BerksComment c.comment)
+(add-group :BerksCommentInverse c.bg c.comment)
 (add-group :BerksCommentBold c.comment c.none s.bold)
 
 (add-group :BerksSelection c.none c.selection)
@@ -72,6 +73,7 @@
 (add-group :BerksGray c.gray)
 
 (add-group :BerksCyan c.cyan)
+(add-group :BerksCyanLight (c.cyan:light))
 (add-group :BerksCyanBold c.cyan c.none s.bold)
 (add-group :BerksCyanDark (c.cyan:dark))
 (add-group :BerksCyanItalic c.cyan c.none s.italic)
@@ -91,6 +93,7 @@
 (add-group :BerksPinkItalic c.pink c.none s.italic)
 
 (add-group :BerksPurple c.purple)
+(add-group :BerksPurpleLight (c.purple:light))
 (add-group :BerksPurpleBold c.purple c.none s.bold)
 (add-group :BerksPurpleItalic c.purple c.none s.italic)
 
@@ -153,6 +156,22 @@
 (hi-link! :Visual       :BerksSelection)
 (hi-link! :VisualNOS    :Visual)
 (hi-link! :WarningMsg   :BerksOrangeInverse)
+
+; Diagnostic
+(hi-link! :DiagnosticError :Error)
+(hi-link! :DiagnosticVirtualTextError :Error)
+
+(hi-link! :DiagnosticWarn :BerksWarn)
+(hi-link! :DiagnosticFloatingWarn :BerksCyan)
+(hi-link! :DiagnosticVirtualTextWarn :Comment)
+(hi-link! :DiagnosticVirtualTextInfo :Comment)
+
+(hi-link! :DiagnosticInfo :BerksCyan)
+
+; Floats!
+
+(hi-link! :NormalFloat :Normal)
+(hi-link! :FloatBorder :Comment)
 
 ; Syntax
 (add-group :MatchParen c.cyan c.none)
@@ -241,4 +260,5 @@
    : s})
 (defn main []
   (run-main :theme.ft theme-vars)
-  (run-main :theme.plugins.barbar theme-vars))
+  (run-main :theme.plugins.barbar theme-vars)
+  (run-main :theme.plugins.ale theme-vars))
