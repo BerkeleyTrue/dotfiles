@@ -144,7 +144,8 @@
    {:name :hhsnopek/vim-sugarss :description ""}
    {:name :leafgarland/typescript-vim :description ""}
    {:name :mattn/emmet-vim :description ""}
-   {:name :meain/vim-package-info :description "" :run "npm install"}
+   ; {:name :meain/vim-package-info :description "" :run "npm install"}
+   {:name :vuki656/package-info.nvim :description "update package json in nvim" :requires [[:MunifTanjim/nui.nvim]]}
    {:name :moll/vim-node :description ""}
    {:name :posva/vim-vue :description ""}
    {:name :wavded/vim-stylus :description ""}])

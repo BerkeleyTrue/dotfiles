@@ -28,6 +28,7 @@
      :sandwich
      :sexp
      :startify
+     :package-info
      :telescope
      :terraform
      :tree-sitter
