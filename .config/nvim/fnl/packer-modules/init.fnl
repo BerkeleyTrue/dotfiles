@@ -4,18 +4,13 @@
 
 (def- main-spec
   ; main utils
-  [{:name :wbthomason/packer.nvim
-    :opt true}
-   {:name :tpope/vim-projectionist
-    :description "jump between related files"}
+  [{:name :wbthomason/packer.nvim :opt true}
+   {:name :tpope/vim-projectionist :description "jump between related files"}
    {:name :nvim-lua/plenary.nvim}
-   {:name :nvim-lua/telescope.nvim
-    :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]]}
+   {:name :nvim-lua/telescope.nvim :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]]}
    {:name :berkeleytrue/colorbuddy.nvim}
-   {:name :norcalli/nvim-colorizer.lua
-    :opt true}
-   {:name :junegunn/vim-easy-align
-    :opt true}
+   {:name :norcalli/nvim-colorizer.lua :opt true}
+   {:name :junegunn/vim-easy-align :opt true}
    {:name :ashisha/image.vim}
    {:name :danilamihailov/beacon.nvim}
    {:name :ntpeters/vim-better-whitespace}
@@ -30,7 +25,7 @@
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
-   {:name :ojroques/nvim-lspfuzzy :description "forces lsp diagnostics to use fzf"}
+   {:name :ojroques/nvim-lspfuzzy :description "forces lsp diagnostics to use fzf" :requires [[:junegunn/fzf] [:junegunn/fzf.vim]]}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine"}
@@ -43,6 +38,7 @@
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
    {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources"}
+   {:name :j-hui/fidget.nvim :config (fn [] (: (require :fidget) :setup {}))}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
