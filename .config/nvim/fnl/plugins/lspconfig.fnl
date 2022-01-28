@@ -52,6 +52,10 @@
       :pattern :*
       :cmd "lua vim.diagnostic.open_float()"}])
 
+  (utils.nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
+
+  (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()")
+
   (let [(ok res) (pcall utils.ex.packadd :nvim-lspconfig)]
 
     (if (not ok) (print (.. "Could not load nvim-lspconfig: " (tostring res)))
@@ -70,6 +74,4 @@
                 (fn [[lsp config]]
                   (let [conf (. lspconfig lsp)
                         setup (. conf :setup)]
-                    (setup (r.merge config {:capabilities (get-capabilities)}))))))
-            (utils.nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
-            (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()")))))))
+                    (setup (r.merge config {:capabilities (get-capabilities)}))))))))))))

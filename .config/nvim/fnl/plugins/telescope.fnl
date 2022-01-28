@@ -21,8 +21,11 @@
 (defn setup-keymaps []
   (utils.noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
   (utils.noremap :<leader>ff (utils.cviml->lua :telescope.builtin :find_files))
-  (utils.noremap :<leader>fb (utils.cviml->lua :telescope.builtin :buffers))
-  (utils.noremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps)))
+  (utils.noremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps))
+  (utils.ex.command_ :HLights (utils.viml->lua :telescope.builtin :highlights))
+  (utils.ex.command_ :NMaps (utils.viml->lua :telescope.builtin :keymaps))
+  (utils.ex.command_ :BBuffs (utils.viml->lua :telescope.builtin :buffers))
+  (utils.ex.command_ :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions)))
 
 (defn main []
   (setup telescope)

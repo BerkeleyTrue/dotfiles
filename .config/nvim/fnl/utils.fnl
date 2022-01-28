@@ -24,13 +24,17 @@
     func-name))
 
 (defn viml->lua [m f opts]
-  "(viml->lua :module.a :module-function {:args ['foo' 'bar']})"
+  "Creates a string that call a lua/fennel module function.
+  (viml->lua :module.a :module-function {:args ['foo' 'bar']})"
   (..
     "lua require('" m "')"
     "['" f "']"
     "(" (or (and opts opts.args) "") ")"))
 
-(defn cviml->lua [m f opts] (.. ":" (viml->lua m f) "<CR>"))
+(defn cviml->lua [m f opts]
+  "Creates a command appropriate string that call a lua/fennel module function.
+  (cviml->lua :module.a :module-function {:args ['foo' 'bar']})"
+  (.. ":" (viml->lua m f) "<CR>"))
 
 (defn viml->luaexp [m f args]
   (.. "luaeval('require(\"" m "\")[\"" f "\"](" (or args "") ")')"))
