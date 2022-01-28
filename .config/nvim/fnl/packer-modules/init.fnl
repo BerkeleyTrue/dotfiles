@@ -30,7 +30,7 @@
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
-   {:name :ojroques/nvim-lspfuzzy}
+   {:name :ojroques/nvim-lspfuzzy :description "forces lsp diagnostics to use fzf"}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine"}
@@ -42,7 +42,6 @@
    {:name :hrsh7th/cmp-emoji}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
-   {:name :kosayoda/nvim-lightbulb :desciption "show a light bulb when a code action is available"}
    {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources"}
 
    ; git
