@@ -20,7 +20,7 @@
   (feedkeys "i")
   (feedkeys-noremap "i"))
 
-(defn check-if-backspace []
+(defn check-if-on-whitespace []
   (let [col (- (utils.fn.col ".") 1)]
     (or (= col 0)
         (not
@@ -35,8 +35,11 @@
   (fn [fallback]
     (if
       (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
-      (cmp.visible) (cmp.confirm {:select true})
-      (check-if-backspace) (feedkeys-noremap "<CR>")
+      (and
+        (cmp.visible)
+        ; make sure something is selected
+        (cmp.get_active_entry)) (cmp.confirm {:select false})
+      (check-if-on-whitespace) (feedkeys-noremap "<CR>")
       (fallback))))
 
 (defn tab-mapping [cmp]
@@ -44,7 +47,7 @@
     (if
       (cmp.visible) (cmp.select_next_item)
       (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
-      (check-if-backspace (feedkeys-noremap :<Tab>))
+      (check-if-on-whitespace) (feedkeys-noremap :<Tab)
       (fallback))))
 
 (defn stab-mapping [cmp]
