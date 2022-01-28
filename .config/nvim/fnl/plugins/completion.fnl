@@ -47,7 +47,7 @@
     (if
       (cmp.visible) (cmp.select_next_item)
       (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
-      (check-if-on-whitespace) (feedkeys-noremap :<Tab)
+      (check-if-on-whitespace) (feedkeys-noremap :<Tab>)
       (fallback))))
 
 (defn stab-mapping [cmp]
@@ -55,6 +55,7 @@
     (if
       (cmp.visible) (cmp.select_prev_item)
       (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpBackwards()<CR>")
+      (check-if-on-whitespace) (feedkeys-noremap :<S-Tab>)
       (fallback))))
 
 (defn main []
