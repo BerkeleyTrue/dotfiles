@@ -3,4 +3,5 @@
 
 
 (defn main []
-  (utils.set-nvim-g! {:markdown_enable_insert_mode_mappings false}))
+  (utils.set-nvim-g!
+    {:markdown_enable_insert_mode_mappings true}))
