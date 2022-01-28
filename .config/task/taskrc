@@ -29,10 +29,14 @@ verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,
 #include /usr/share/doc/task/rc/solarized-light-256.theme
 #include /usr/share/doc/task/rc/no-color.theme
 
-context.mr=+mr
-context.nvim=+nvim
 
 # urgency
 urgency.user.tag.mr.coefficient=4
 urgency.user.tag.nvim.coefficient=-0.8
 urgency.uda.priority.L.coefficient=-2
+news.version=2.6.0
+context.nvim.read=+nvim
+context.nvim.write=+nvim
+context.mr.read=+mr or project:mr
+context.mr.write=+mr or project:mr
+context=mr
