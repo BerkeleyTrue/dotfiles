@@ -72,7 +72,6 @@
    ; tmux integration
    {:name :christoomey/vim-tmux-navigator :description "nav between tmux panes and vim buffs easily"}
    {:name :tmux-plugins/vim-tmux :description "tmux syntax"}
-   {:name :tmux-plugins/vim-tmux-focus-events :description "restore focus events when enter/leave vim bufs in tmux panes"}
 
    ; UI
    {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}
