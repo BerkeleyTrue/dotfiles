@@ -159,7 +159,6 @@
 
 ; Diagnostic
 (hi-link! :DiagnosticError :Error)
-(hi-link! :DiagnosticVirtualTextError :Error)
 
 (hi-link! :DiagnosticWarn :BerksWarn)
 (hi-link! :DiagnosticFloatingWarn :BerksCyan)
@@ -167,6 +166,7 @@
 (hi-link! :DiagnosticVirtualTextInfo :Comment)
 
 (hi-link! :DiagnosticInfo :BerksCyan)
+(hi-link! :DiagnosticHint :Comment)
 
 ; Floats!
 
