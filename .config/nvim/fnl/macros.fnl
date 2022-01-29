@@ -1,16 +1,20 @@
 (local module-sym (gensym))
 
-(fn safe-require [name]
-  `(let [(ok# res#) (pcall require ,name)]
-     (if
-       ok# res#
-       (print (.. "Couldn't load " ,name ": " res#)))))
-
+; TODO: move out of macro
 (fn run-main [name ...]
   `(let [args# ,[...]]
+     ; conditional threadfirst
      (-?>
        ,name
-       (safe-require)
+
+       ; pcall require
+       ((fn [name#]
+          (let [(ok# res#) (pcall require name#)]
+            (if
+              ok# res#
+              (print (.. "Could not load module"
+                         (tostring name#)
+                         ": " (tostring res#)))))))
        ((fn [mod#]
           (assert
             (= (type mod#) "table")
@@ -23,6 +27,7 @@
        ((fn [mod#] ((. mod# :main) (unpack args#)))))))
 
 (fn sym->name [a-sym]
+  "Symbol to name as a string."
   (tostring a-sym))
 
 (fn from-iter [iter-fact]
@@ -41,8 +46,7 @@
        (table.insert tbl# v#))
      tbl#))
 
-{:safe-require safe-require
- :run-main run-main
+{:run-main run-main
  :sym->name sym->name
  :from-iter from-iter
  :from-seq-iter from-seq-iter}

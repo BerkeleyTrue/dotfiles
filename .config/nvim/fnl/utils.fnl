@@ -1,10 +1,11 @@
 (module utils
-  {:require {
-             a aniseed.core
-             nvim aniseed.nvim
-             nutils aniseed.nvim.util
-             : r
-             str aniseed.string}})
+  {:require
+   {
+    a aniseed.core
+    nvim aniseed.nvim
+    nutils aniseed.nvim.util
+    r r
+    str aniseed.string}})
 
 (def vim (. _G :vim))
 
