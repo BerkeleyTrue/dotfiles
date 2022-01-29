@@ -39,6 +39,7 @@
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
    {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources"}
    {:name :j-hui/fidget.nvim :description "add lsp spinner" :config (fn [] (: (require :fidget) :setup {}))}
+   {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}

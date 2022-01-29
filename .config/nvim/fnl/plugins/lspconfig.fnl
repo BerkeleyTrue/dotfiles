@@ -1,7 +1,10 @@
 (module plugins.lspconfig
-  {:require {a aniseed.core
-             : r
-             : utils}
+  {:require
+   {a aniseed.core
+    r r
+    utils utils
+    md utils.module
+    tsserver plugins.lspconfig.tsserver}
 
    :require-macros [macros]})
 
@@ -26,15 +29,11 @@
    :html {}
    :jsonls {}
    :rls {}
-   :tsserver {:on_attach
-              (fn [client]
-                (tset client.resolved_capabilities :document_formatting false))}
+   :tsserver (tsserver.get-config)
    :vimls {}
    :yamlls {}})
 
-
-
-(defn main []
+(defn- set-configs []
   (vim.diagnostic.config
     {:virtual_text true
      :signs true
@@ -45,7 +44,6 @@
       :scope "cursor"
       :header false}})
 
-
   (utils.augroup
     :diagnositic-float
     [{:event [:CursorHold :CursorHoldI]
@@ -53,25 +51,21 @@
       :cmd "lua vim.diagnostic.open_float()"}])
 
   (utils.nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
+  (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()"))
 
-  (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()")
+(defn main []
+  (when-let [lspconfig (md.packadd-n-require :nvim-lspconfig :lspconfig)]
+    (let [configs (require :lspconfig.configs)
+          lsputil (require :lspconfig.util)]
 
-  (let [(ok res) (pcall utils.ex.packadd :nvim-lspconfig)]
+      (when-not configs.caramel_lsp
+        (set configs.caramel_lsp (caramel-configs lsputil)))
 
-    (if (not ok) (print (.. "Could not load nvim-lspconfig: " (tostring res)))
-      (let [(ok lspconfig) (pcall require :lspconfig)]
-        (if (not ok) (print (.. "require: " lspconfig))
-          (let [configs (require :lspconfig.configs)
-                lsputil (require :lspconfig.util)]
-
-            (when (not configs.caramel_lsp)
-              (set configs.caramel_lsp (caramel-configs lsputil)))
-
-            (->>
-              lsps
-              (r.to-pairs)
-              (r.for-each
-                (fn [[lsp config]]
-                  (let [conf (. lspconfig lsp)
-                        setup (. conf :setup)]
-                    (setup (r.merge config {:capabilities (get-capabilities)}))))))))))))
+      (->>
+        lsps
+        (r.to-pairs)
+        (r.for-each
+          (fn [[lsp config]]
+            (let [conf (. lspconfig lsp)
+                  setup (. conf :setup)]
+              (setup (r.merge config {:capabilities (get-capabilities)})))))))))
