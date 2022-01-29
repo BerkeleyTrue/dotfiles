@@ -46,7 +46,22 @@
        (table.insert tbl# v#))
      tbl#))
 
+(fn when-let
+  [bindings ...]
+  (assert
+     (= (type bindings) "table")
+     (.. "expects a table for its binding but found : " (tostring bindings)))
+  (assert
+    (= 2 (table.maxn bindings)) "exactly 2 forms in binding vector")
+  (let [form (. bindings 1)
+        tst (. bindings 2)]
+    `(let [temp# ,tst]
+       (when temp#
+         (let [,form temp#]
+           ,...)))))
+
 {:run-main run-main
  :sym->name sym->name
  :from-iter from-iter
- :from-seq-iter from-seq-iter}
+ :from-seq-iter from-seq-iter
+ :when-let when-let}
