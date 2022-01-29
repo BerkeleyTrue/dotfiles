@@ -12,9 +12,7 @@
                  (tostring namespace)
                  ": " (tostring res))))))
 
-(defn
-  ppackadd
-  [packname]
+(defn ppackadd [packname]
   "Make a safe call to packadd.
   (ppackadd packname)"
   (let [(ok res) (pcall utils.ex.packadd packname)]

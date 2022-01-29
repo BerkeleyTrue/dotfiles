@@ -22,7 +22,10 @@
 (def lsps
   {:bashls {}
    :caramel_lsp {}
-   :clojure_lsp {}
+   :clojure_lsp
+   {:on_attach (fn [client]
+                 ; rely on zprint
+                 (tset client.resolved_capabilities :document_formatting false))}
    :cssls {}
    :dockerls {}
    :hls {}
@@ -54,6 +57,7 @@
   (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()"))
 
 (defn main []
+  (set-configs)
   (when-let [lspconfig (md.packadd-n-require :nvim-lspconfig :lspconfig)]
     (let [configs (require :lspconfig.configs)
           lsputil (require :lspconfig.util)]
