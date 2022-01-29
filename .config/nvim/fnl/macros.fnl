@@ -60,8 +60,15 @@
          (let [,form temp#]
            ,...)))))
 
+(fn when-not
+  [test ...]
+  (list (sym :if)
+        (list (sym :not) test)
+        (list (sym :do) ...)))
+
 {:run-main run-main
  :sym->name sym->name
  :from-iter from-iter
  :from-seq-iter from-seq-iter
- :when-let when-let}
+ :when-let when-let
+ :when-not when-not}

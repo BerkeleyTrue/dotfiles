@@ -29,6 +29,6 @@
   "Make a safe call to packadd and require.
   (safe-packadd packname namespace?)
   (safe-packadd :some-package.nvim :some-package)"
-  (let [namespace (or name namespace)]
+  (let [namespace (or namespace name)]
     (when (ppackadd name)
       (prequire namespace))))
