@@ -1,3 +1,7 @@
+! vim:ft=xdefaults
+! Sets profiles for some older programs
+! loaded in $XDG_CONFIG_HOME/x11/xinitrc
+
 Xft.dpi: 96
 Xft.lcdfilter: lcddefault
 

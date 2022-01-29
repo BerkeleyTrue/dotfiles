@@ -1,3 +1,5 @@
+# Zsh configuration
+# runs on every new shell
 # clear right prompt on execute
 setopt TRANSIENT_RPROMPT
 
@@ -18,7 +20,7 @@ ANTIGEN_LOG="$HOME/.cache/antigen/antigen.log"
 OSNAME=$(uname)
 # uncomment to debug antigen
 # export ANTIGEN_LOG=$HOME/.antigen/antigen.log
-TERMINAL="alacritty"
+TERMINAL="kitty"
 ZSH_THEME="agnoster"
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
