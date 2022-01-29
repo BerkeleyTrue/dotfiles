@@ -29,14 +29,26 @@ verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,
 #include /usr/share/doc/task/rc/solarized-light-256.theme
 #include /usr/share/doc/task/rc/no-color.theme
 
+# UDA priority
+uda.priority.type=string
+uda.priority.label=Priority
+uda.priority.values=h,m,l
+uda.priority.default=m
+urgency.uda.priority.h.coefficient=6.0         # UDA priority coefficient for value 'h'
+urgency.uda.priority.m.coefficient=3.9         # UDA priority coefficient for value 'm'
+urgency.uda.priority.l.coefficient=-2
 
 # urgency
 urgency.user.tag.mr.coefficient=4
 urgency.user.tag.nvim.coefficient=-0.8
-urgency.uda.priority.L.coefficient=-2
+
 news.version=2.6.0
-context.nvim.read=+nvim
-context.nvim.write=+nvim
+context.nvim.read=+nvim or proj:nvim
+context.nvim.write=+nvim proj:nvim
 context.mr.read=+mr or project:mr
-context.mr.write=+mr or project:mr
-context=mr
+context.mr.write=+mr project:mr
+context.home.read=+home or proj:home
+context.home.write=+home proj:home
+context.ws.read=project:ws or project:nvim or +nvim or +ws
+context.ws.write=+ws proj:ws
+context=ws
