@@ -5,31 +5,50 @@
 # TODO: update programs
 
 # make sure lightlocker is running for lighdm lock screen
-/usr/bin/light-locker &
+# /usr/bin/light-locker &
 
+echo "starting xprofile apps"
 # start volumeicon
 volumeicon &
+
 # start pulse audio conf
 pasystray &
+
 # reduce background noise
 cadmus &
+
 # used for controlling system wide privileges
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-# desktop background manager and window composer
-# nitrogen --restore; sleep 1; picom -b
+
+# desktop background manager
+nitrogen --restore &
+
+#window composer
+picom -b --experimental-backends &
+
 # network manager
 nm-applet &
+
 # manage power settings
 xfce4-power-manager &
+
 # manage and install packages
 pamac-tray &
+
 # clipboard manager
 clipit &
+
+# screen shot tool
+flameshot &
+
 # bluetooth
 blueman-applet &
+
 # touchpad support
-synclient NaturalScrolling=1 VertScrollDelta=-113 &
+# synclient NaturalScrolling=1 VertScrollDelta=-113 &
+
 # private internet access vpn
 /opt/piavpn/bin/pia-client &
+
 # hide cursor when inactive
 /bin/unclutter -b &

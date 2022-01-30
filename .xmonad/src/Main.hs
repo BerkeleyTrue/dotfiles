@@ -181,9 +181,6 @@ myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
 myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D" <>
-  spawnOnce "nitrogen --restore &" <>
-  spawnOnce "picom -b --experimental-backends &" <>
-  spawnOnce "flameshot &" <>
   spawn
     "killall trayer; \
     \trayer --edge top \
