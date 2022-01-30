@@ -66,9 +66,30 @@
         (list (sym :not) test)
         (list (sym :do) ...)))
 
-{:run-main run-main
- :sym->name sym->name
- :from-iter from-iter
- :from-seq-iter from-seq-iter
- :when-let when-let
- :when-not when-not}
+(fn if-let
+  [bindings then else]
+  (assert
+     (= (type bindings) "table")
+     (.. "expects a table for its binding but found : " (tostring bindings)))
+  (assert
+    (= 2 (table.maxn bindings)) "exactly 2 forms in binding vector")
+  (let [form (. bindings 1)
+        tst (. bindings 2)]
+    `(let [temp# ,tst]
+       (if temp#
+         (let [,form temp#]
+           ,then)
+         ,else))))
+
+(fn logx [x]
+  "(logx foo) ;=> (print \"foo: \" foo)"
+  `(print ,(.. (tostring x) ": ") ,x))
+
+{: run-main
+ : sym->name
+ : from-iter
+ : from-seq-iter
+ : when-let
+ : when-not
+ : if-let
+ : logx}
