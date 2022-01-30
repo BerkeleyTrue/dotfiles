@@ -62,4 +62,5 @@ aur:
   - clojure-lsp-bin
   - clj-kondo-bin
   - fennel
+  - fnlfmt-git
   - joker-bin

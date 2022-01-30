@@ -1,17 +1,16 @@
 ---
-- name: pak.update
+- name: update
   shell:
     cmd: flatpak update --noninteractive
   tags:
     - update
     - flatpak
 
-- name: pak.install
+- name: install
   flatpak:
     name: "{{ item.name }}"
     remote: "{{ item.remote | default('flathub') }}"
     state: present
-    method: user
   loop: "{{ paks }}"
   tags:
     - packages

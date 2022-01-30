@@ -1,5 +1,5 @@
 ---
-- name: base-os.update-system
+- name: update-system
   become: true
   pacman:
     update_cache: true
@@ -8,7 +8,7 @@
     - update
     - arch
 
-- name: base-os.update-aur
+- name: update-aur
   aur:
     aur_only: true
     upgrade: true
@@ -16,7 +16,7 @@
     - update
     - arch
 
-- name: base-os.install-packages
+- name: install-packages
   become: true
   pacman:
     name: "{{ packages }}"
@@ -25,12 +25,12 @@
     - arch
     - packages
 
-- name: base-os.install-aur-packages
+- name: install-aur-packages
   aur:
     name: "{{ aur }}"
     state: present
 
-- name: base-os.ensure tty1 skips usernames
+- name: ensure tty1 skips usernames
   become: true
   ansible.builtin.copy:
     src: skip-username.conf
@@ -42,7 +42,7 @@
     - systemd
     - resources
 
-- name: base-os.ensure tt1 does not clear
+- name: ensure tt1 does not clear
   become: true
   ansible.builtin.copy:
     src: noclear.conf
@@ -55,7 +55,7 @@
     - resources
 
 
-- name: base-os.ensure zshenv
+- name: ensure zshenv
   become: true
   ansible.builtin.copy:
     src: zshenv

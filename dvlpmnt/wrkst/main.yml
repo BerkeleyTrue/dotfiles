@@ -1,7 +1,9 @@
 ---
+
 - name: workstation init
   hosts: localhost
 
   roles:
+    - check-pass
     - base-os
     - user-packages

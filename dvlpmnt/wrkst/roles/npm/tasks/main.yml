@@ -1,5 +1,5 @@
 ---
-- name: install global npm packages
+- name: npmig
   become: true
   npm:
     global: true
@@ -10,4 +10,3 @@
   tags:
     - npm
     - packages
-
