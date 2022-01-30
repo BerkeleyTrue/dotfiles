@@ -1,27 +1,68 @@
 ---
-- name: base-os.full system update
+- name: base-os.update-system
   become: true
   pacman:
     update_cache: true
     upgrade: true
+  tags:
+    - update
+    - arch
 
-- name: base-os.aur update
+- name: base-os.update-aur
   aur:
     aur_only: true
     upgrade: true
+  tags:
+    - update
+    - arch
 
-- name: base-os.ensure packages
+- name: base-os.install-packages
   become: true
   pacman:
     name: "{{ packages }}"
     state: present
+  tags:
+    - arch
+    - packages
 
-- name: base-os.ensure aur packages
+- name: base-os.install-aur-packages
   aur:
     name: "{{ aur }}"
     state: present
 
-- name: base-os.install pip packages
-  pip:
-    name: "{{ pips }}"
-    state: present
+- name: base-os.ensure tty1 skips usernames
+  become: true
+  ansible.builtin.copy:
+    src: skip-username.conf
+    dest: /etc/systemd/system/getty@tty1.service.d/skip-username.conf
+    backup: true
+    owner: root
+    mode: '0644'
+  tags:
+    - systemd
+    - resources
+
+- name: base-os.ensure tt1 does not clear
+  become: true
+  ansible.builtin.copy:
+    src: noclear.conf
+    dest: /etc/systemd/system/getty@tty1.service.d/noclear.conf
+    backup: true
+    owner: root
+    mode: '0644'
+  tags:
+    - systemd
+    - resources
+
+
+- name: base-os.ensure zshenv
+  become: true
+  ansible.builtin.copy:
+    src: zshenv
+    dest: /etc/zsh/zshenv
+    backup: true
+    owner: root
+    mode: '0644'
+  tags:
+    - systemd
+    - resources

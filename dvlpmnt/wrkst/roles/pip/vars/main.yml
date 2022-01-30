@@ -1,0 +1,5 @@
+---
+pips:
+  # for generating password hashes
+  - passlib
+  - pynvim

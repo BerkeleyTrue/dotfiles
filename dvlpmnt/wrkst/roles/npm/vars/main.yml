@@ -9,7 +9,6 @@ npm_global_packages:
 
   # linting
   - eslint
-
   - typescript
 
   # lsp
@@ -18,3 +17,4 @@ npm_global_packages:
   - vscode-css-languageserver-bin
   - bash-language-server
   - dockerfile-language-server-nodejs
+  - "@ansible/ansible-language-server"

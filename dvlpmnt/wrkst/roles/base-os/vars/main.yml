@@ -63,8 +63,3 @@ aur:
   - clj-kondo-bin
   - fennel
   - joker-bin
-
-pips:
-  # for generating password hashes
-  - passlib
-  - pynvim

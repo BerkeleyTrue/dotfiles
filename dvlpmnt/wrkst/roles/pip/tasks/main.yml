@@ -1,0 +1,17 @@
+---
+- name: pip.update
+  shell:
+    cmd: "python3 -m pip install --user --upgrade {{ pip }}"
+  loop:
+    - pips
+  tags:
+    - python
+    - update
+
+- name: pip.install-packages
+  ansible.builtin.pip:
+    name: "{{ pips }}"
+    state: present
+  tags:
+    - python
+    - packages

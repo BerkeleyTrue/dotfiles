@@ -4,5 +4,4 @@
 
   roles:
     - base-os
-    - paks
-    - npm
+    - user-packages

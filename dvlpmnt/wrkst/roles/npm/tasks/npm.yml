@@ -7,4 +7,7 @@
     name: "{{ item }}"
     state: present
   loop: "{{ npm_global_packages }}"
+  tags:
+    - npm
+    - packages
 
