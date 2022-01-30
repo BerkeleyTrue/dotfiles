@@ -108,6 +108,8 @@
         (= (length xs) 1)) (a.first xs)
         (a.reduce (fn [acc item] (.. acc separater item)) (head xs) (tail xs)))))
 
+(comment (join ", " ["a" "list"]))
+
 ;; array
 (defn find [predicate collection]
   "(find predicate collection)"
@@ -250,10 +252,18 @@
     false))
 
 (defn key-map [keys]
+  "create a key-map from a list of keys."
   (->>
     keys
     (a.map #[$1 $1])
     (from-pairs)))
+
+(defn uniq [list]
+  "create a dublicate-free version of a list."
+  (->
+    list
+    (key-map)
+    (keys)))
 
 (defn size [collection]
   (if (table? collection)

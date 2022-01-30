@@ -15,6 +15,7 @@
      :easy-align
      :easy-motion
      :emmet
+     :fzf
      :lspconfig
      :lspfuzzy
      :lspkind
