@@ -4,10 +4,16 @@
     md utils.module}})
 
 (defn on-output [params done]
-  (let [output (.. "\n" (. params :output))]
-    (done
-      (if
-        output [{:text (: output :gsub "\n[^\n\r]*[\n\r]+" "" 1)}]))))
+  (let [output (.. "\n" (. params :output))
+        err (. params :err)]
+
+    (if err
+      (do
+        (vim.notify "zpring could not format")
+        (done))
+      (done
+        (if
+          output [{:text (: output :gsub "\n[^\n\r]*[\n\r]+" "" 1)}])))))
 
 
 (defn main [null-ls]
@@ -18,7 +24,7 @@
                      :args [:--hang :-i :$FILENAME]
                      :format :raw
                      :use_cache true
-                     :ignore_stderr true
+                     :ignore_stderr false
                      :on_output on-output})]
 
 
