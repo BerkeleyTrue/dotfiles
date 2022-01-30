@@ -19,13 +19,22 @@
     :root_dir (lsputil.root_pattern ".merlin" "package.json" ".git")
     :settings {}}})
 
+(defn jsonls-configs []
+  (if-let [schemastore (md.prequire :schemastore)]
+    (let [schemas ((. schemastore :json :schemas))
+          base-conf (md.prequire :lspconfig.server_configurations.jsonls)]
+      (r.merge base-conf {:settings {:json {: schemas}}}))
+    {}))
+
 (def lsps
-  {:bashls {}
+  {:ansiblels {}
+   :bashls {}
    :caramel_lsp {}
    :clojure_lsp
-   {:on_attach (fn [client]
-                 ; rely on zprint
-                 (tset client.resolved_capabilities :document_formatting false))}
+   {:on_attach
+    (fn [client]
+      ; rely on zprint
+      (tset client.resolved_capabilities :document_formatting false))}
    :cssls {}
    :dockerls {}
    :hls {}
@@ -64,12 +73,13 @@
 
       (when-not configs.caramel_lsp
         (set configs.caramel_lsp (caramel-configs lsputil)))
+      (set configs.jsonls (jsonls-configs))
 
       (->>
         lsps
         (r.to-pairs)
         (r.for-each
-          (fn [[lsp config]]
-            (let [conf (. lspconfig lsp)
-                  setup (. conf :setup)]
-              (setup (r.merge config {:capabilities (get-capabilities)})))))))))
+          (fn [[lsp-name config]]
+            (let [lsp-module (. lspconfig lsp-name)
+                  lsp-setup (. lsp-module :setup)]
+              (lsp-setup (r.merge config {:capabilities (get-capabilities)})))))))))
