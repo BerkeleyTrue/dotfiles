@@ -5,12 +5,13 @@ TERMINAL="kitty"
 
 [[ -s "$SHELL_CONF/.private_aliases" ]] && source $SHELL_CONF/.private_aliases
 
-files=(\
-  'common_paths' \
-  'common_aliases' \
-  'common_helpers' \
-  'npm' \
-  'git' \
+files=(
+  'common_paths'
+  'common_aliases'
+  'common_helpers'
+  'task'
+  'npm'
+  'git'
   'mr_func')
 
 # don't use conditional check for files that should always be there
