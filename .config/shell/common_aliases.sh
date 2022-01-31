@@ -35,4 +35,10 @@ alias :q='exit'
 # taskwarrior
 alias tcon='t context'
 alias tadd='t add'
-alias tmod='t mod'
+
+# tmod 14 proj:foo
+tmod() {
+  local num=$1
+  shift
+  eval "task $num mod $*"
+}
