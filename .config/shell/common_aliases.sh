@@ -33,9 +33,17 @@ alias echodec='declare -f'
 alias :q='exit'
 
 # taskwarrior
-alias tcon='t context'
 alias tadd='t add'
 
+tcon() {
+ if [[ $# -eq 0 ]]; then
+   task context show;
+   return 0;
+ fi
+
+ shift
+ eval "task context $*"
+}
 # tmod 14 proj:foo
 tmod() {
   local num=$1
