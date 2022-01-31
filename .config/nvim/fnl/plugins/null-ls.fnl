@@ -12,5 +12,9 @@
         sources [(null-ls.builtins.formatting.prettier.with
                    {:command "npx"
                     :args ["prettier" "--stdin-filepath" "$FILENAME"]})
-                 (zprint.main null-ls)]]
+                 (zprint.main null-ls)
+                 (null-ls.builtins.formatting.shfmt.with
+                   {:extra_args [:-i 2]})]]
+
+
     (null-ls.setup {: sources})))
