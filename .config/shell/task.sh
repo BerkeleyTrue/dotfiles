@@ -5,11 +5,9 @@ alias tadd='task add'
 
 tcon() {
   if [[ $# -eq 0 ]]; then
-    task context show
-    return 0
+    task context show;
+    return 0;
   fi
-
-  shift
   eval "task context $*"
 }
 # tmod 14 proj:foo
