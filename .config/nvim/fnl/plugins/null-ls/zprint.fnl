@@ -29,7 +29,7 @@
 
 
     {:name "zprint-clj"
-     :filetypes ["clojure" "fennel"]
+     :filetypes ["clojure"]
      :method (. methods :FORMATTING)
      :async true
      : generator}))
