@@ -1,3 +1,4 @@
+#!/bin/sh
 #PostgressApp commands
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin
 # Point to java 7

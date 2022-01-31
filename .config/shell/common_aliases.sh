@@ -1,14 +1,15 @@
+#!/bin/sh
 # Bash helper alias
 LSARG='aFl'
-LISTC=$(command -v exa > /dev/null 2>&1 && echo 'exa' || echo 'ls --color=tty');
-LISTC_N_ARGS=$(command -v exa > /dev/null 2>&1 && echo 'exa -ag'$LSARG || echo 'ls -'$LSARG);
+LISTC=$(command -v exa >/dev/null 2>&1 && echo 'exa' || echo 'ls --color=tty')
+LISTC_N_ARGS=$(command -v exa >/dev/null 2>&1 && echo 'exa -ag'$LSARG || echo 'ls -'$LSARG)
 
 alias ..='cd ..'
 alias ...='cd ../.. && pwd'
 alias ls=$LISTC
 alias ll=$LISTC_N_ARGS
-alias man=$(command -v batman > /dev/null 2>&1 && echo 'batman' || echo 'man')
-alias cat=$(command -v bat > /dev/null 2>&1 && echo 'bat' || echo 'cat')
+alias man=$(command -v batman >/dev/null 2>&1 && echo 'batman' || echo 'man')
+alias cat=$(command -v bat >/dev/null 2>&1 && echo 'bat' || echo 'cat')
 
 alias v='nvim'
 alias vi='nvim'
@@ -31,49 +32,7 @@ alias echodec='declare -f'
 #node aliases
 alias :q='exit'
 
-# add alias for MR on command
-mr_env() {
-  export NODE_PATH=~/dvlpmnt/node/mr/actual/mr_modules
-  export NODE_ENV=local
-}
-
-mr_init() {
-  mr_env
-  /usr/bin/docker start mr-mongo mr-mysql-sanitized mr_redis_1 > /dev/null
-}
-
-mr_sd() {
-  /usr/bin/docker stop mr-mongo mr-mysql-sanitized mr_redis_1 > /dev/null
-}
-
-mr_th() {
-  mr_init
-  npm run dev-tophat
-}
-
-mr_cc() {
-  mr_init
-  npm run dev-cc
-}
-
-mr_ws() {
-  mr_init
-  npm run dev-website
-}
-
-mr_pcm() {
-  mr_init
-  npm run dev-pcm
-}
-
-mr_rv_tests() {
-  mr_init
-  cd ~/dvlpmnt/node/mr/actual/raven
-  npm run test
-}
-
-mr_rv_stories() {
-  mr_init
-  cd ~/dvlpmnt/node/mr/actual/raven
-  npm run stories
-}
+# taskwarrior
+alias tcon='t context'
+alias tadd='t add'
+alias tmod='t mod'

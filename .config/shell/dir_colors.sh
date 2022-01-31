@@ -1,3 +1,4 @@
+#!/bin/sh
 # Configuration file for dircolors, a utility to help you set the
 # LS_COLORS environment variable used by GNU ls with the --color option.
 

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 alias npmig='sudo npm install -g'
 alias npmug='sudo npm uninstall -g'
 

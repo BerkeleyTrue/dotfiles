@@ -1,19 +1,28 @@
+#!/bin/sh
 ISOSX="$(uname | grep -q Darwin)"
-SHELL_CONF="$HOME/.config/shell"
-TERMINAL="alacritty"
+SHELL_CONF="$XDG_CONFIG_HOME/shell"
+TERMINAL="kitty"
 
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
-export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/local/share:/usr/share:$XDG_DATA_HOME}
+[[ -s "$SHELL_CONF/.private_aliases" ]] && source $SHELL_CONF/.private_aliases
 
-[[ -s "$SHELL_CONF/.private_aliases"  ]] && source $SHELL_CONF/.private_aliases
+files=(\
+  'common_paths' \
+  'common_aliases' \
+  'common_helpers' \
+  'npm' \
+  'git' \
+  'mr_func')
 
 # don't use conditional check for files that should always be there
-source $SHELL_CONF/common_paths.sh
-source $SHELL_CONF/common_aliases.sh
-source $SHELL_CONF/common_helpers.sh
-source $SHELL_CONF/npm.sh
-source $SHELL_CONF/git.sh
+for file in $files; do
+  fname="$SHELL_CONF/$file.sh"
+  # debugging
+  # echo $fname
+  source $fname
+done
+unset files
+unset file
+unset fname
 
 [[ -s "$SHELL_CONF/.mr.sh" ]] && source $SHELL_CONF/.mr.sh
 

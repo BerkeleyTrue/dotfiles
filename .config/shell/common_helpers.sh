@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/sh
 
 #Makes and CD's to a new directoy.
 function mkdirandcd() {
