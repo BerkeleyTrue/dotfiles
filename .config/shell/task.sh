@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # taskwarrior
-alias tadd='t add'
+alias tadd='task add'
 
 tcon() {
   if [[ $# -eq 0 ]]; then
