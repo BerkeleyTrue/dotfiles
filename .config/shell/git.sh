@@ -30,6 +30,7 @@ alias ycom='yadm commit'
 alias yamend='yadm commit --amend'
 alias yco='yadm checkout'
 alias ydiff='yadm diff'
+alias ydfcached='yadm diff --cached'
 alias yfetch='yadm fetch'
 alias ylog='yadm log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
 alias ypull='yadm pull --rebase'
@@ -395,4 +396,3 @@ fstash() {
     fi
   done
 }
-
