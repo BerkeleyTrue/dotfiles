@@ -1,6 +1,7 @@
 #! /bin/bash
 
 #git aliases
+# +++++++++++++++++++++++++++++++++++++++++++++{{{
 alias gstat='git status'
 alias tstat='tig status'
 alias gfetch='git fetch && git status'
@@ -23,6 +24,12 @@ alias grsts='git reset --soft'
 alias grsts1='git reset --soft HEAD^'
 alias grsts2='git reset --soft HEAD^^'
 alias gstash='git stash'
+#}}}
+
+# github cli
+# +++++++++++++++++++++++++++++++++++++++++++++{{{
+alias ghcopr='gh pr checkout'
+#}}}
 
 # yadm aliases
 # +++++++++++++++++++++++++++++++++++++++++++++{{{
