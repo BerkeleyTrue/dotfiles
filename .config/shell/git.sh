@@ -6,7 +6,6 @@ alias tstat='tig status'
 alias gfetch='git fetch && git status'
 alias gpush='git push'
 alias gpushntrack='git push -u'
-alias gadd='git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 -o -t git add'
 alias gdiff='tdiff'
 alias gcom='git commit'
 alias gamend='git commit --amend'
@@ -27,7 +26,6 @@ alias gstash='git stash'
 
 # yadm aliases
 # +++++++++++++++++++++++++++++++++++++++++++++{{{
-alias yadd='yadm add'
 alias ycom='yadm commit'
 alias yamend='yadm commit --amend'
 alias yco='yadm checkout'
@@ -36,7 +34,7 @@ alias yfetch='yadm fetch'
 alias ylog='yadm log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
 alias ypull='yadm pull --rebase'
 alias ypush='yadm push'
-alias ystat='yadm status';
+alias ystat='yadm status'
 
 alias yrst='yadm reset'
 alias yrst1='yadm reset HEAD^'
@@ -49,6 +47,26 @@ alias yrsts1='yadm reset --soft HEAD^'
 alias yrsts2='yadm reset --soft HEAD^^'
 #}}}
 
+gadd() {
+  # if no args, gadd goes into fzf of changed files
+  if [[ $# -eq 0 ]]; then
+    git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 -o -t git add
+    return 0
+  fi
+  # regular git add if arguments are given
+  eval "git add $@"
+}
+
+yadd() {
+  # if no args, yadd goes into fzf of changed files
+  # can't do -o for yadm since it will list all the files
+  if [[ $# -eq 0 ]]; then
+    yadm ls-files -m --exclude-standard | fzf -m --print0 | xargs -0 -o -t yadm add
+    return 0
+  fi
+  # regular yadm add if arguments are given
+  eval "yadm add $@"
+}
 ggetcurrentbranch() {
   git rev-parse --abbrev-ref HEAD
 }
@@ -81,8 +99,8 @@ gcorpullrequest() {
   echo "Do you want to continue?"
   select yn in "Yes" "No"; do
     case $yn in
-      Yes ) break;;
-      No ) return 0;;
+    Yes) break ;;
+    No) return 0 ;;
     esac
   done
 
@@ -103,8 +121,8 @@ gresetrpullrequest() {
   echo "continue?"
   select yn in "Yes" "No"; do
     case $yn in
-      Yes ) break;;
-      No ) return 0;;
+    Yes) break ;;
+    No) return 0 ;;
     esac
   done
   echo "switching to $head"
@@ -142,58 +160,58 @@ gremote() {
   fi
   while test $# -gt 0; do
     case "$1" in
-      -h|--help)
-        echo "gremote - a better git remote"
-        echo "gremote [options] [commands]"
-        echo "options:"
-        echo "-h, --help  list options and commands"
-        echo "commands:"
-        echo "add         gremote add remote-name url - Adds a new remote with url"
-        echo "set         gremote set remote-name url - set or overwrite existing remote url"
-        echo "remove      gremote remove remote-name  - remote remote repo"
-        return 0
-        ;;
-      add)
-        if [[ -z "${2//}" || "${#2}" -lt 3 ]]; then
-          echo 'remote name must be atleast three characters'
-          return 2
-        fi
-        # check if url is actual repo
-        if ! git ls-remote --exit-code $3 &>/dev/null; then
-          echo 'remote url does not resolve to proper git repo'
-          return 2
-        fi
-        git remote add $2 $3
-        echo "success"
-        echo "printing remote repositories"
-        git remote -v
-        return 0
-        ;;
-      set)
-        # gremote set remote-name url
-        # check if url is actual repo
-        if ! git ls-remote --exit-code $3 &>/dev/null; then
-          echo 'remote url does not resolve to proper git repo'
-          return 2
-        fi
-        git remote set-url $2 $3
-        echo "printing remote repositories"
-        git remote -v
-        return 0
-        ;;
-      remove)
-        # gremote remove remote-name
-        echo "removing $2"
-        git remote remove $2
-        echo "remove successful"
-        echo "printing remote repositories"
-        git remote -v
-        return 0
-        ;;
-      *)
-        echo "gremote: $1 is not a proper command"
+    -h | --help)
+      echo "gremote - a better git remote"
+      echo "gremote [options] [commands]"
+      echo "options:"
+      echo "-h, --help  list options and commands"
+      echo "commands:"
+      echo "add         gremote add remote-name url - Adds a new remote with url"
+      echo "set         gremote set remote-name url - set or overwrite existing remote url"
+      echo "remove      gremote remove remote-name  - remote remote repo"
+      return 0
+      ;;
+    add)
+      if [[ -z "${2///}" || "${#2}" -lt 3 ]]; then
+        echo 'remote name must be atleast three characters'
         return 2
-        ;;
+      fi
+      # check if url is actual repo
+      if ! git ls-remote --exit-code $3 &>/dev/null; then
+        echo 'remote url does not resolve to proper git repo'
+        return 2
+      fi
+      git remote add $2 $3
+      echo "success"
+      echo "printing remote repositories"
+      git remote -v
+      return 0
+      ;;
+    set)
+      # gremote set remote-name url
+      # check if url is actual repo
+      if ! git ls-remote --exit-code $3 &>/dev/null; then
+        echo 'remote url does not resolve to proper git repo'
+        return 2
+      fi
+      git remote set-url $2 $3
+      echo "printing remote repositories"
+      git remote -v
+      return 0
+      ;;
+    remove)
+      # gremote remove remote-name
+      echo "removing $2"
+      git remote remove $2
+      echo "remove successful"
+      echo "printing remote repositories"
+      git remote -v
+      return 0
+      ;;
+    *)
+      echo "gremote: $1 is not a proper command"
+      return 2
+      ;;
     esac
   done
 }
@@ -261,13 +279,13 @@ gclean() {
   git remote prune $remote
   # List out the merged branches
   echo "deleting remote branches merged into '$currentbranch'"
-  git branch -r --merged $currentbranch |\
+  git branch -r --merged $currentbranch |
     # filter out everything that has the same name as the current branch
-    egrep -iv "$currentbranch" |\
+    egrep -iv "$currentbranch" |
     # grab only those of the current remote
-    egrep -i "$remote/" |\
+    egrep -i "$remote/" |
     # filter out remote name from the string
-    sed "s/$remote\///g" |\
+    sed "s/$remote\///g" |
     # push and delete the branch
     xargs -n 1 git push --delete $remote
 }
@@ -279,8 +297,8 @@ gbranchdelete() {
   echo "Do you want to continue?"
   select yn in "Yes" "No"; do
     case $yn in
-      Yes ) break;;
-      No ) return 0;;
+    Yes) break ;;
+    No) return 0 ;;
     esac
   done
   git push -d $remote $1
@@ -300,7 +318,7 @@ fbranch() {
   # search for branch using fuzzy search
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-    branch=$(echo "$branches" | fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+    branch=$(echo "$branches" | fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 gco() {
@@ -316,13 +334,15 @@ gco() {
   fi
 
   branches=$(
-    git branch --all | grep -v HEAD             |
-    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+    git branch --all | grep -v HEAD |
+      sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+      sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}'
+  ) || return
 
   target=$(
     (echo "$branches") |
-    fzf-tmux -d50% -- --no-hscroll --ansi +m -d "\t" -n 2 -q $query) || return
+      fzf-tmux -d50% -- --no-hscroll --ansi +m -d "\t" -n 2 -q $query
+  ) || return
 
   git checkout $(echo "$target" | awk '{print $2}')
 }
@@ -338,8 +358,8 @@ fcs() {
   # example usage: git rebase -i `fcs`
   local commits commit
   commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
-  echo -n $(echo "$commit" | sed "s/ .*//")
+    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+    echo -n $(echo "$commit" | sed "s/ .*//")
 }
 fstash() {
   # fstash - easier way to deal with stashes
@@ -350,29 +370,29 @@ fstash() {
   local i arr out q k sha
   while out=$(
     git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-    fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b);
-  do
+      fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b
+  ); do
     # below is equivalent to 'mapfile -t out <<< "$out"'
     i=0
-    while IFS=$'\n' read -r line
-    do
+    while IFS=$'\n' read -r line; do
       arr[i]="$line"
       i=$((i + 1))
-    done <<< "$out"
+    done <<<"$out"
 
     q="${arr[0]}"
     k="${arr[1]}"
-    sha="${arr[ ${#arr[@]} - 1]}"
+    sha="${arr[${#arr[@]} - 1]}"
     sha="${sha%% *}"
     [[ -z "$sha" ]] && continue
     if [[ "$k" == 'ctrl-d' ]]; then
       git diff $sha
     elif [[ "$k" == 'ctrl-b' ]]; then
       git stash branch "stash-$sha" $sha
-      break;
+      break
     else
       git stash show -p $sha
     fi
   done
 }
+
