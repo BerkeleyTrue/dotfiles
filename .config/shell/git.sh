@@ -50,7 +50,7 @@ alias yrsts2='yadm reset --soft HEAD^^'
 gadd() {
   # if no args, gadd goes into fzf of changed files
   if [[ $# -eq 0 ]]; then
-    git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 -o -t git add
+    git ls-files -m -o --exclude-standard | fzf -m --print0 --preview "bat --color always --diff  {}" | xargs -0 -o -t git add
     return 0
   fi
   # regular git add if arguments are given
@@ -61,7 +61,7 @@ yadd() {
   # if no args, yadd goes into fzf of changed files
   # can't do -o for yadm since it will list all the files
   if [[ $# -eq 0 ]]; then
-    yadm ls-files -m --exclude-standard | fzf -m --print0 | xargs -0 -o -t yadm add
+    yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "bat --color always --style numbers --line-range=:500 {}" | xargs -0 -o -t yadm add
     return 0
   fi
   # regular yadm add if arguments are given
