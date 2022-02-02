@@ -21,3 +21,21 @@ tmod() {
   shift
   eval "task $num mod $*"
 }
+
+tdone() {
+  if [[ $# -eq 0 ]]; then
+    echo "no arguments supplied";
+    echo "usage: tdone <task-id>"
+    return 1;
+  fi
+  eval "task $1 done"
+}
+
+tedit() {
+  if [[ $# -eq 0 ]]; then
+    echo "no arguments supplied";
+    echo "usage: tedit <task-id>"
+    return 1;
+  fi
+  eval "task $1 edit"
+}
