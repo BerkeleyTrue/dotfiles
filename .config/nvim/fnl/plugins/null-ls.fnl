@@ -3,8 +3,8 @@
    {utils utils
     md utils.module
     a aniseed.core
-    zprint plugins.null-ls.zprint}
-
+    zprint plugins.null-ls.zprint
+    yamlfix plugins.null-ls.yamlfix}
    :require-macros [macros]})
 
 (defn main []
@@ -14,7 +14,8 @@
                     :args ["prettier" "--stdin-filepath" "$FILENAME"]})
                  (zprint.main null-ls)
                  (null-ls.builtins.formatting.shfmt.with
-                   {:extra_args [:-i 2]})]]
+                   {:extra_args [:-i 2]})
+                 (yamlfix.main null-ls)]]
 
 
     (null-ls.setup {: sources})))
