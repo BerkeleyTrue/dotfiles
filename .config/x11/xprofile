@@ -8,6 +8,7 @@
 # /usr/bin/light-locker &
 
 echo "starting xprofile apps"
+source $XDG_CONFIG_HOME/screenlayout/default.sh
 # start volumeicon
 volumeicon &
 

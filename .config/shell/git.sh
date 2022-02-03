@@ -69,7 +69,7 @@ yadd() {
   # if no args, yadd goes into fzf of changed files
   # can't do -o for yadm since it will list all the files
   if [[ $# -eq 0 ]]; then
-    yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "bat --color always --style numbers --line-range=:500 {}" | xargs -0 -o -t yadm add
+    yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always" | xargs -0 -o -t yadm add
     return 0
   fi
   # regular yadm add if arguments are given
