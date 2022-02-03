@@ -22,6 +22,7 @@
      :markdown
      :mta
      :multi-cursor
+     :neogen
      :nerd-commenter
      :null-ls
      :sandwich
