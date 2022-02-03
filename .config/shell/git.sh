@@ -333,13 +333,13 @@ gco() {
   # fco - checkout git branch/tag with fzf search
   local branches target
   local query=$1
-  # rarely do I need to checkout tags
-  # tags=$(git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
   local existed_in_local=$(git branch --list ${query})
   if [[ -n $existed_in_local ]] || [[ -f "$query" ]] || [[ -d "$query" ]]; then
     git checkout $query
     return
   fi
+
+  tags=$(git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
 
   branches=$(
     git branch --all | grep -v HEAD |
@@ -348,7 +348,7 @@ gco() {
   ) || return
 
   target=$(
-    (echo "$branches") |
+    (echo "$branches"; echo "$tags") |
       fzf-tmux -d50% -- --no-hscroll --ansi +m -d "\t" -n 2 -q $query
   ) || return
 
