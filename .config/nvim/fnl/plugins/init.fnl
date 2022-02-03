@@ -28,6 +28,7 @@
      :sexp
      :startify
      :package-info
+     :runtime-utils
      :telescope
      :terraform
      :tree-sitter
