@@ -24,7 +24,6 @@
      :multi-cursor
      :nerd-commenter
      :null-ls
-     :rainbow-parens
      :sandwich
      :sexp
      :startify

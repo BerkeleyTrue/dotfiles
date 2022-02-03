@@ -80,11 +80,9 @@
    {:name :kristijanhusak/defx-icons :description "add dev icons for defx"}
 
     ; parenthesis
-   {:name :kien/rainbow_parentheses.vim :description "make parens rainbow, bruh"}
    {:name :kyazdani42/nvim-web-devicons :description "require web devicons through lua"}
    {:name :raimondi/delimitMate :description "automatic closing of quotes, parenthesis, brackets"}
    {:name :machakann/vim-sandwich :description "adds surround movements"}
-   {:name :valloric/MatchTagAlways :description "highlights the matching tag in html"}
 
    ; (lisp)
    {:name "~/dvlpmnt/lisp/aniseed"}
@@ -108,6 +106,8 @@
    {:name :nvim-treesitter/nvim-treesitter-refactor :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :nvim-treesitter/playground :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :romgrk/nvim-treesitter-context :requires [[:nvim-treesitter/nvim-treesitter]]}
+   {:name :p00f/nvim-ts-rainbow :description "Adds color to parens." :requires [[:nvim-treesitter/nvim-treesitter]]}
+   {:name :andymass/vim-matchup :description "Extends % with treesitter powers." :requires [[:nvim-treesitter/nvim-treesitter]]}
 
    ; general lang syntax plugins
    {:name :gabrielelana/vim-markdown}

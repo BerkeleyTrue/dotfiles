@@ -76,6 +76,7 @@
      :foldtext     format-fold-text-viml}
     (utils.set-nvim-o!)))
 
+(utils.set-nvim-g! {:loaded_matchit true})
 (utils.ex.filetype :plugin :on)
 (utils.ex.filetype :indent :on)
 (utils.ex.syntax :on)

@@ -85,7 +85,7 @@
              :init_selection "gni"      ; maps in normal mode to init the node/scope selection
              :node_incremental "gni"    ; increment to the upper named parent
              :scope_incremental "gci"   ; increment to the upper scope (as defined in locals.scm)
-             :node_decremental "gnd"}}  ; decrement to the previous node}}
+             :node_decremental "gnd"}}  ; decrement to the previous node
            :cindent {:enable false}
            :indent {:enable true}
 
@@ -99,7 +99,12 @@
              :keymaps {:smart_rename "grr"}}}
 
            :playground {:enable true}
-           :query_linter {:enable true}})
+           :query_linter {:enable true}
+           :rainbow {:enable true}
+           :matchup: {:enable true}})
+
+
+
 
         ; don't set queries unless fennel parser is already present
         ; otherwise nvim-ts will error error out and prevent the setup
