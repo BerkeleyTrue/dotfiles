@@ -10,7 +10,6 @@
      :colorizer
      :completion
      :conjure
-     :defx
      :delimit-mate
      :easy-align
      :easy-motion
@@ -23,6 +22,7 @@
      :mta
      :multi-cursor
      :neogen
+     :neotree
      :nerd-commenter
      :null-ls
      :sandwich

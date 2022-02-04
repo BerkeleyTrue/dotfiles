@@ -1,24 +1,11 @@
 (module plugins.completion
-  {require {: r
-            : utils
-            a aniseed.core}
+  {require
+   {r r
+    utils utils
+    keys utils.keys
+    a aniseed.core}
 
    require-macros [macros]})
-
-
-(defn feedkeys [str noremap]
-  (let [mode (if noremap :n :m)]
-    (->
-      str
-      (utils.replace-termcodes)
-      (utils.fn.feedkeys mode))))
-
-(defn feedkeys-noremap [str]
-  (feedkeys str true))
-
-(comment
-  (feedkeys "i")
-  (feedkeys-noremap "i"))
 
 (defn check-if-on-whitespace []
   (let [col (- (utils.fn.col ".") 1)]
@@ -30,32 +17,31 @@
               (: :sub col col)
               (: :match :%s)))))))
 
-
 (defn enter-mapping [cmp]
   (fn [fallback]
     (if
-      (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (feedkeys-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
+      (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (keys.feed-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
       (and
         (cmp.visible)
         ; make sure something is selected
         (cmp.get_active_entry)) (cmp.confirm {:select false})
-      (check-if-on-whitespace) (feedkeys-noremap "<CR>")
+      (check-if-on-whitespace) (keys.feed-noremap "<CR>")
       (fallback))))
 
 (defn tab-mapping [cmp]
   (fn [fallback]
     (if
       (cmp.visible) (cmp.select_next_item)
-      (= (utils.fn.UltiSnips#CanJumpForwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpForwards()<CR>")
-      (check-if-on-whitespace) (feedkeys-noremap :<Tab>)
+      (= (utils.fn.UltiSnips#CanJumpForwards) 1) (keys.feed "<ESC>:call UltiSnips#JumpForwards()<CR>")
+      (check-if-on-whitespace) (keys.feed-noremap :<Tab>)
       (fallback))))
 
 (defn stab-mapping [cmp]
   (fn [fallback]
     (if
       (cmp.visible) (cmp.select_prev_item)
-      (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (feedkeys "<ESC>:call UltiSnips#JumpBackwards()<CR>")
-      (check-if-on-whitespace) (feedkeys-noremap :<S-Tab>)
+      (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (keys.feed "<ESC>:call UltiSnips#JumpBackwards()<CR>")
+      (check-if-on-whitespace) (keys.feed-noremap :<S-Tab>)
       (fallback))))
 
 (defn main []
