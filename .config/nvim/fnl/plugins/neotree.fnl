@@ -13,14 +13,8 @@
   (utils.nnoremap :gef ":NeoTreeFloat<cr>" {:silent true})
   (when-let [neotree (md.packadd-n-require :neo-tree.nvim :neo-tree)]
     (let [fs (md.prequire :neo-tree.sources.filesystem)
-          create-toggle-directory (fn create-toggle-directory [after]
-                                    (fn toggle-directory [state]
-                                      (let [tree (. state :tree)
-                                            node (tree:get_node)]
+          cc (md.prequire :neo-tree.sources.common.commands)]
 
-                                        (when (= :directory (. node :type))
-                                          (fs.toggle_directory node)
-                                          (when after (after))))))]
       (neotree.setup
         {:popup_border_style :rounded
          :enable_git_status true
@@ -41,17 +35,29 @@
            :mappings
            {:<2-LeftMouse> :open
             :<cr> :open
-            ; TODO: needs to close directory if on file
-            :<Space> (create-toggle-directory)
+            :<Space> (fn toggle-directory [state]
+                       (let [tree (. state :tree)
+                             node (tree:get_node)]
+                         (if (= :directory (. node :type))
+                           (do
+                             (fs.toggle_directory node)
+                             (keys.feed :j))
+                           (do
+                             (cc.close_node state)))))
+
             :<C-h> :open_split
             :<C-v> :open_vsplit
 
             :H :close_node
-            :L (create-toggle-directory (fn [] (keys.feed :j)))
+            :L (fn toggle-directory [state]
+                 (let [tree (. state :tree)
+                       node (tree:get_node)]
+                   (when (= :directory (. node :type))
+                     (fs.toggle_directory node)
+                     (when after (after))
+                     (keys.feed :j))))
 
             :R :refresh
-            ; :/ :filter_as_you_type
-            ; :<c-x> :clear_filter
             :a :add
             :D :delete
             :r :rename
