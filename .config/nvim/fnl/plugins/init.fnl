@@ -29,6 +29,7 @@
      :sexp
      :startify
      :package-info
+     :pretty-fold
      :runtime-utils
      :telescope
      :terraform

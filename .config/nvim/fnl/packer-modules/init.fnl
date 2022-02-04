@@ -1,6 +1,9 @@
 (module packer-modules
-  {require {a aniseed.core
-            packer plugins.packer}})
+  {require
+   {a aniseed.core
+    packer plugins.packer
+    md utils.module}})
+
 
 (def- main-spec
   ; main utils
@@ -78,6 +81,7 @@
    {:name :shougo/defx.nvim :description "file explorer"}
    {:name :kristijanhusak/defx-git :description "add git marks for defx"}
    {:name :kristijanhusak/defx-icons :description "add dev icons for defx"}
+   {:name :anuvyklack/pretty-fold.nvim :description "add pretty folding and folding previews"}
 
     ; parenthesis
    {:name :kyazdani42/nvim-web-devicons :description "require web devicons through lua"}
@@ -141,7 +145,6 @@
    {:name :hhsnopek/vim-sugarss :description ""}
    {:name :leafgarland/typescript-vim :description ""}
    {:name :mattn/emmet-vim :description ""}
-   ; {:name :meain/vim-package-info :description "" :run "npm install"}
    {:name :vuki656/package-info.nvim :description "update package json in nvim" :requires [[:MunifTanjim/nui.nvim]]}
    {:name :moll/vim-node :description ""}
    {:name :posva/vim-vue :description ""}
