@@ -19,7 +19,7 @@
 - name: install-packages
   become: true
   pacman:
-    name: "{{ packages }}"
+    name: '{{ packages }}'
     state: present
   tags:
     - arch
@@ -27,7 +27,7 @@
 
 - name: install-aur-packages
   aur:
-    name: "{{ aur }}"
+    name: '{{ aur }}'
     state: present
 
 - name: ensure tty1 skips usernames
@@ -54,7 +54,6 @@
     - systemd
     - resources
 
-
 - name: ensure zshenv
   become: true
   ansible.builtin.copy:
@@ -64,5 +63,5 @@
     owner: root
     mode: '0644'
   tags:
-    - systemd
     - resources
+    - zsh
