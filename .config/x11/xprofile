@@ -50,6 +50,7 @@ blueman-applet &
 
 # private internet access vpn
 /opt/piavpn/bin/pia-client &
+frame &
 
 # hide cursor when inactive
 /bin/unclutter -b &
