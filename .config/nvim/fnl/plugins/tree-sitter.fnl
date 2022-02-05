@@ -9,7 +9,16 @@
           :playground
           :nvim-treesitter-context])
 
-(defn get-ft-query [ft type]
+(def- rainbow
+  ["#8BE9FD"
+   "#50FA7B"
+   "#FFB86C"
+   "#FF79C6"
+   "#BD93F9"
+   "#FF5555"
+   "#F1FA8C"])
+
+(defn- get-ft-query [ft type]
   (let [path (.. (vim.fn.stdpath :config) (.. "/queries/" ft "/" type ".scm"))]
     (vim.fn.join (vim.fn.readfile path) "\n")))
 
@@ -100,13 +109,15 @@
 
            :playground {:enable true}
            :query_linter {:enable true}
-           :rainbow {:enable true}
+           :rainbow
+           {:enable true
+            :colors rainbow}
            :matchup {:enable true}
            :context_commentstring {:enable true}})
 
 
         ; don't set queries unless fennel parser is already present
-        ; otherwise nvim-ts will error error out and prevent the setup
+        ; otherwise nvim-ts will error out and prevent the setup
         ; will not work on the same pass as fennel parser install so a restart is necessary
         (when (parsers.has_parser :fennel)
           (vim-ts-queries.set_query
