@@ -1,7 +1,9 @@
 (module plugins.easy-align
-  {:require {utils utils}})
+  {require
+   {md utils.module
+    utils utils}})
 
 (defn main []
-  (utils.pack-add :vim-easy-align)
+  (md.ppackadd :vim-easy-align)
   (utils.ex.xmap  [:ga "<Plug>(EasyAlign)"])
   (utils.ex.nmap  [:ga "<Plug>(EasyAlign)"]))

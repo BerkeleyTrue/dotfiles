@@ -230,10 +230,6 @@
       (fn [arg] (nvim.ex.set arg))))
   map)
 
-(defn pack-add [package]
-  "add optional package to runtime"
-  (nvim.ex.packadd package))
-
 (def regex vim.regex)
 
 (defn replace-termcodes [str] (nvim.replace_termcodes str true true true))
