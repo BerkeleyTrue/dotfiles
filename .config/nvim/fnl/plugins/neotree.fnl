@@ -61,6 +61,7 @@
             :a :add
             :D :delete
             :r :rename
+            :/ :nop
             :C :copy_to_clipboard
             :X :cut_to_clipboard
             :P :paste_from_clipboard}}}
