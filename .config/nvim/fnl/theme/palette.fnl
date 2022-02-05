@@ -1,9 +1,5 @@
-(module palette
-  {require
-   {a aniseed.core
-    r r
-    md utils.module
-    utils utils}
+(module theme.palette
+  {require {}
    require-macros [macros]})
 
 ; Based on Dracula

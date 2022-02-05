@@ -11,9 +11,8 @@
 
 (when (md.prequire :packer-modules)
   (when-let [cb (md.prequire :plugins.colorbuddy)]
-    ; TODO: idempodize theme
-    (run-main :theme (cb.main)))
-  (run-main :slackline)
+    (let [palette (. (md.prequire :theme.palette) :palette)]
+      (run-main :theme (cb.main palette))))
   (run-main :plugins)
   ; TODO: move into main plugin flow
   (md.prequire :plugins.scroll-fix)

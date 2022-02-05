@@ -15,6 +15,7 @@
    :easy-motion
    :emmet
    :fzf
+   :lualine
    :lspconfig
    :lspfuzzy
    :lspkind

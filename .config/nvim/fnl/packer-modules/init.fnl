@@ -81,6 +81,7 @@
    {:name :romgrk/barbar.nvim :desciption "tab bar built in lua"}
    {:name :anuvyklack/pretty-fold.nvim :description "add pretty folding and folding previews"}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :requires [[:nvim-lua/plenary.nvim] [:kyazdani42/nvim-web-devicons] [:MunifTanjim/nui.nvim]]}
+   {:name :nvim-lualine/lualine.nvim :description "lua status line" :requires [[:kyazdani42/nvim-web-devicons]]}
 
     ; parenthesis
    {:name :machakann/vim-sandwich :description "adds surround movements"}
