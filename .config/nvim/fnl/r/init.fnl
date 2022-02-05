@@ -58,6 +58,8 @@
 
 
 ;; tables - data first
+(def get a.get)
+(def get-in a.get)
 (def assoc a.assoc)
 (def assoc-in a.assoc-in)
 (defn to-pairs [tabl]

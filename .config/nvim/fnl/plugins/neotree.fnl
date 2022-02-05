@@ -1,6 +1,7 @@
 (module plugins.neotree
   {require
    {a aniseed.core
+    r r
     utils utils
     md utils.module
     keys utils.keys}
@@ -14,7 +15,8 @@
   (utils.nnoremap :get ":NeoTreeShow<cr>" {:silent true})
   (when-let [neotree (md.packadd-n-require :neo-tree.nvim :neo-tree)]
     (let [fs (md.prequire :neo-tree.sources.filesystem)
-          cc (md.prequire :neo-tree.sources.common.commands)]
+          cc (md.prequire :neo-tree.sources.common.commands)
+          renderer (md.prequire :neo-tree.ui.renderer)]
 
       (neotree.setup
         {:popup_border_style :rounded
@@ -36,18 +38,38 @@
            :mappings
            {:<2-LeftMouse> :open
             :<cr> :open
-            :<Space> (fn toggle-directory [state]
-                       (let [tree (. state :tree)
-                             node (tree:get_node)]
-                         (if (= :directory (. node :type))
-                           (do
-                             (fs.toggle_directory node)
-                             (keys.feed :j))
-                           (do
-                             (cc.close_node state)))))
+
+            :<Space>
+            (fn toggle-directory [state]
+              (let [tree (. state :tree)
+                    node (tree:get_node)]
+                (if (= :directory (. node :type))
+                  (do
+                    (fs.toggle_directory node)
+                    (keys.feed :j))
+                  (cc.close_node state))))
 
             :<C-h> :open_split
             :<C-v> :open_vsplit
+
+            :<C-t>
+            (fn open-tab [state]
+              (let [tree (. state :tree)
+                    node (tree:get_node)]
+
+                   (when-not (= :directory (. node :type))
+                     (let [path (node:get_id)
+                           events (md.prequire :neo-tree.events)
+                           event-res (events.fire_event
+                                       events.FILE_OPEN_REQUESTED
+                                       {: state
+                                        : path
+                                        :open_cmd :tabnew})]
+
+                       (when-not (r.get event-res :handled)
+                         (renderer.close_all_floating_windows)
+                         (vim.cmd (.. "tabnew " path)))
+                       (events.fire_event events.FILE_OPENED path)))))
 
             :H :close_node
             :L (fn toggle-directory [state]
@@ -55,7 +77,6 @@
                        node (tree:get_node)]
                    (when (= :directory (. node :type))
                      (fs.toggle_directory node)
-                     (when after (after))
                      (keys.feed :j))))
 
             :R :refresh
