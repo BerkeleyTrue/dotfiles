@@ -83,8 +83,8 @@
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :requires [[:nvim-lua/plenary.nvim] [:kyazdani42/nvim-web-devicons] [:MunifTanjim/nui.nvim]]}
 
     ; parenthesis
-   {:name :raimondi/delimitMate :description "automatic closing of quotes, parenthesis, brackets"}
    {:name :machakann/vim-sandwich :description "adds surround movements"}
+   {:name :windwp/nvim-autopairs :description "A super powerful autopair plugin for Neovim that supports multiple characters."}
 
    ; (lisp)
    {:name "~/dvlpmnt/lisp/aniseed"}

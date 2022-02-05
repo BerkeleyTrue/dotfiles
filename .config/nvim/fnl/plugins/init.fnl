@@ -5,13 +5,13 @@
 (defn main []
   (->>
     [:ale
+     :autopairs
      :beacon
      :better-whitespace
      :colorizer
      :comments
      :completion
      :conjure
-     :delimit-mate
      :easy-align
      :easy-motion
      :emmet
