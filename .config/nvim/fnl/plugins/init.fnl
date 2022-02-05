@@ -8,6 +8,7 @@
      :beacon
      :better-whitespace
      :colorizer
+     :comments
      :completion
      :conjure
      :delimit-mate

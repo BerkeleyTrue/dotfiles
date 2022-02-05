@@ -101,7 +101,8 @@
            :playground {:enable true}
            :query_linter {:enable true}
            :rainbow {:enable true}
-           :matchup {:enable true}})
+           :matchup {:enable true}
+           :context_commentstring {:enable true}})
 
 
         ; don't set queries unless fennel parser is already present

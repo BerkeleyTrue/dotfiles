@@ -18,13 +18,13 @@
    {:name :danilamihailov/beacon.nvim}
    {:name :ntpeters/vim-better-whitespace}
    {:name :mg979/vim-visual-multi}
-   {:name :scrooloose/nerdcommenter}
    {:name :wincent/corpus :description "vim wiki written in lua"}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :berkeleyTrue/berkeleys-snippet-emporium :description "my personal snippets"}
    {:name :sirVer/ultisnips :description "snippet engine"}
    {:name :Shelvak/ale :branch :solc_0.8 :description "linting engine"}
-   {:name :acksld/nvim-revj.lua :description "inverse of J, break args over lines"}
+   {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
+   {:name :numToStr/comment.nvim :description "Comment enginer written in lua."}
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
@@ -111,6 +111,7 @@
    {:name :p00f/nvim-ts-rainbow :description "Adds color to parens." :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :andymass/vim-matchup :description "Extends % with treesitter powers." :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :danymat/neogen :description "Auto doc functions" :requires [[:nvim-treesitter/nvim-treesitter]]}
+   {:name :JoosepAlviste/nvim-ts-context-commentstring :description "Updates comentstring option using TS"}
 
    ; general lang syntax plugins
    {:name :gabrielelana/vim-markdown}
