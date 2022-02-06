@@ -6,7 +6,6 @@
 (def name "yamlfix")
 
 (defn on-output [params done]
-  (a.pr params)
   (let [output (. params :output)
         err (. params :err)]
 
