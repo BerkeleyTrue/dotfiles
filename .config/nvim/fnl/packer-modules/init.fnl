@@ -98,8 +98,7 @@
    {:name :berkeleytrue/nvim-local-fennel
     :branch "feat-aniseed-update"
     :description "Execute local Fennel Lisp files in Neovim upon startup "}
-   {:name :guns/vim-clojure-static
-    :description "adds static bindings to clojure files"}
+   {:name :guns/vim-clojure-static :description "adds static bindings to clojure files"}
    {:name :tpope/vim-sexp-mappings-for-regular-people
     :description "adds mappings for easier list manipulation"
     :requires [[:guns/vim-sexp]]}
