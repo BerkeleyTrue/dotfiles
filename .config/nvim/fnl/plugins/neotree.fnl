@@ -25,7 +25,7 @@
          :filesystem
 
          {:filters
-          {:show_hidden false
+          {:show_hidden true
            :respect_gitignore true}
 
           :follow_current_file false
