@@ -38,15 +38,18 @@
            :mappings
            {:<2-LeftMouse> :open
             :<cr> :open
+            :<bs> :nop
 
             :<Space>
             (fn toggle-directory [state]
               (let [tree (. state :tree)
-                    node (tree:get_node)]
-                (if (= :directory (. node :type))
+                    node (tree:get_node)
+                    is-dir (= :directory (. node :type))
+                    is-open (when is-dir (: node :is_expanded))]
+                (if is-dir
                   (do
                     (fs.toggle_directory node)
-                    (keys.feed :j))
+                    (when-not is-open (keys.feed :j)))
                   (cc.close_node state))))
 
             :<C-h> :open_split
