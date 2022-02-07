@@ -261,8 +261,17 @@ gpull() {
   # If given gpull upstream
   # find the current branch and pull that branch
   # from the `upstream` remote repository
-  if [ $# = 1 ]; then
+  if [[ $# = 1 ]]; then
     currentbranch=$(ggetcurrentbranch)
+
+    # force git pull (overrides local changes)
+    if [[ $1 == "-f" ]]; then
+      local remote=$(git remote)
+      git fetch --all
+      git reset --hard $remote/$currentbranch
+      return 0
+    fi
+
     echo "current branch is $currentbranch"
     echo "pulling down branch '$currentbranch' from remote repository '$1'"
     git pull $1 $currentbranch
