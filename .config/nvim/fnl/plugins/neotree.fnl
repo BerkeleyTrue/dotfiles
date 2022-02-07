@@ -22,8 +22,9 @@
         {:popup_border_style :rounded
          :enable_git_status true
          :enable_diagnostics true
-         :filesystem
+         :close_floats_on_escape_key false
 
+         :filesystem
          {:filters
           {:show_hidden true
            :respect_gitignore true}
