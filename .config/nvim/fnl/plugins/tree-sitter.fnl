@@ -68,6 +68,7 @@
          [:bash
           :clojure
           :css
+          :dockerfile
           :fennel
           :html
           :javascript
