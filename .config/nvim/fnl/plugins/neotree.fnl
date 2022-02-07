@@ -49,7 +49,7 @@
                     is-open (when is-dir (: node :is_expanded))]
                 (if is-dir
                   (do
-                    (fs.toggle_directory node)
+                    (fs.toggle_directory state node)
                     (when-not is-open (keys.feed :j)))
                   (cc.close_node state))))
 
