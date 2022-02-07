@@ -27,50 +27,43 @@ Config
       , Run ComX "/home/berkeleytrue/.local/bin/eth-gas" [] "0.xx" "eth-gas" 10
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "btc"]
+          "/home/berkeleytrue/.local/bin/crypto-egg"
+          ["price", "btc"]
           "0.xx"
           "btc"
           10
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "eth"]
+          "/home/berkeleytrue/.local/bin/crypto-egg"
+          ["price", "eth"]
           "0.xx"
           "eth"
           10
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "pickle"]
+          "/home/berkeleytrue/.local/bin/crypto-egg"
+          ["price", "pickle"]
           "0.xx"
           "pickle"
           600
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "sol"]
+          "/home/berkeleytrue/.local/bin/crypto-egg"
+          ["price", "sol"]
           "0.xx"
           "sol"
           200
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "paxg"]
-          "0.xx"
-          "paxg"
-          100
-      , Run
-          ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "xtz"]
+          "/home/berkeleytrue/.local/bin/crypto-egg"
+          ["price", "xtz"]
           "0.xx"
           "xtz"
           50
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "ohm"]
+          "/home/berkeleytrue/.local/bin/crypto-egg"
+          ["price", "ohm"]
           "0.xx"
           "ohm"
           50
@@ -92,6 +85,5 @@ Config
     \<fc=#ff5555> XTZ $%xtz% </fc>\
     \<fc=#ff79c6> PICKLE $%pickle% </fc>\
     \<fc=#f1fa8c> SPY: $%spy% </fc>\
-    \<fc=#ffb86c> PAXG $%paxg% </fc>\
     \ "
   }

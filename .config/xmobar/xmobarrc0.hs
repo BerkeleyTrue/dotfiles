@@ -63,8 +63,8 @@ Config
       , Run ComX "wakatime" ["--today"] "0" "" 20
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto"
-          ["--coin", "eth"]
+          "/home/berkeleytrue/.local/bin/crypto-egg"
+          ["price", "eth"]
           "0.xx"
           "eth"
           10
