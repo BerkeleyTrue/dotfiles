@@ -1,7 +1,7 @@
 (module plugins.emmet
-  {:require {r r
-             utils utils}
-   :require-macros [macros]})
+  {require {r r
+            utils utils}
+   require-macros [macros]})
 
 
 (defn add-emmet []

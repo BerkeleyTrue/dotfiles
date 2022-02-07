@@ -1,6 +1,6 @@
 (module :plugins.ale
-  {:require {: r
-             : utils}})
+  {require {: r
+            : utils}})
 
 
 (defn main []

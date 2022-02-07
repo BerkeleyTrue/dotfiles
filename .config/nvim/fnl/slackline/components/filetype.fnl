@@ -1,10 +1,11 @@
 (module slackline.components.filetype
-  {:require {: r
-             : utils
-             :t theme
-             :hl slackline.highlight
-             :icons nvim-web-devicons}
-   :require-macros [macros]})
+  {require
+   {: r
+    : utils
+    :t theme
+    :hl slackline.highlight
+    :icons nvim-web-devicons}
+   require-macros [macros]})
 
 (defn render-in-context []
   (let [filetype (->

@@ -1,9 +1,10 @@
 (module plugins.runtime-utils
-  {:require {a aniseed.core
-             nvim aniseed.nvim
-             nutils aniseed.nvim.util
-             utils utils}
-   :require-macros [macros]})
+  {require
+   {a aniseed.core
+    nvim aniseed.nvim
+    nutils aniseed.nvim.util
+    utils utils}
+   require-macros [macros]})
 
 (defn- get-syn-id [xys opaque?]
   (let [t? (if opaque? 1 0)

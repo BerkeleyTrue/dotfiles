@@ -1,7 +1,8 @@
 (module r
-  {:require {a aniseed.core
-             str aniseed.string}
-   :require-macros [macros]})
+  {require
+   {a aniseed.core
+    str aniseed.string}
+   require-macros [macros]})
 
 
 
@@ -107,8 +108,8 @@
   (curry
     (fn [separater xs]
       (if
-        (= (length xs) 1)) (a.first xs)
-        (a.reduce (fn [acc item] (.. acc separater item)) (head xs) (tail xs)))))
+        (= (length xs) 1) (a.first xs)
+        (a.reduce (fn [acc item] (.. acc separater item)) (head xs) (tail xs))))))
 
 (comment (join ", " ["a" "list"]))
 

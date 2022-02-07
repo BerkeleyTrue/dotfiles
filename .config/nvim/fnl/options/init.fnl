@@ -1,8 +1,8 @@
 (module options
-  {:require {: r
-             : utils
-             :auto options.auto}
-   :require-macros [macros]})
+  {require {: r
+            : utils
+            :auto options.auto}
+   require-macros [macros]})
 
 
 ; parinfer does not like this file

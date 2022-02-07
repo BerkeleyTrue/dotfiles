@@ -1,10 +1,11 @@
 (module slackline.components.dir
-  {:require {: r
-             : utils
-             :t theme
-             :hl slackline.highlight}
+  {require
+   {: r
+    : utils
+    :t theme
+    :hl slackline.highlight}
 
-   :require-macros [macros]})
+   require-macros [macros]})
 
 (defn render-in-context []
   (let [bufname (utils.fn.bufname "%")

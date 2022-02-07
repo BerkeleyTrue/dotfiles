@@ -1,7 +1,7 @@
 (module plugins.easy-motion
-  {:require {: r
-             : utils}
-   :require-macros [macros]})
+  {require {: r
+            : utils}
+   require-macros [macros]})
 
 
 (def- packages [:vim-easymotion

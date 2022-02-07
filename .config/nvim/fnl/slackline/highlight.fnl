@@ -1,7 +1,8 @@
 (module slackline.highlight
-  {:require {: utils
-             : r
-             :t theme}})
+  {require
+   {: utils
+    : r
+    :t theme}})
 
 (defn- create-hl-comp [str]
   (.. "%#" str "#"))

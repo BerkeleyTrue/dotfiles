@@ -1,8 +1,9 @@
 (module completion-sources.conjure
-  {:require {: r
-             : utils
-             a aniseed.core
-             :ceval conjure.eval}})
+  {require
+   {: r
+    : utils
+    a aniseed.core
+    :ceval conjure.eval}})
 
 (def pattern-regex (utils.regex "[0-9a-zA-Z.!$%&*+/:<=>?#_~\\^\\-\\\\]\\+$"))
 (def- source-conf

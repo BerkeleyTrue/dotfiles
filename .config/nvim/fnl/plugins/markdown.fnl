@@ -1,5 +1,5 @@
 (module plugins.markdown
-  {:require {utils utils}})
+  {require {utils utils}})
 
 
 (defn main []

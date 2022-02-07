@@ -1,5 +1,5 @@
 (module plugins.nerd-commenter
-  {:require {utils utils}})
+  {require {utils utils}})
 
 
 (defn main []

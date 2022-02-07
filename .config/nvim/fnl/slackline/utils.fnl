@@ -1,2 +1,2 @@
 (module slackline.utils
-  {:require {}})
+  {require {}})

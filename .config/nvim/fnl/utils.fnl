@@ -1,5 +1,5 @@
 (module utils
-  {:require
+  {require
    {
     a aniseed.core
     nvim aniseed.nvim

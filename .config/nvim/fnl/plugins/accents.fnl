@@ -1,10 +1,11 @@
 (module plugins.accents
-  {:require {a aniseed.core
-             str aniseed.string
-             nvim aniseed.nvim
-             nutils aniseed.nvim.util
-             utils utils
-             r r}})
+  {require
+   {a aniseed.core
+    str aniseed.string
+    nvim aniseed.nvim
+    nutils aniseed.nvim.util
+    utils utils
+    r r}})
 
 
 (defonce accents

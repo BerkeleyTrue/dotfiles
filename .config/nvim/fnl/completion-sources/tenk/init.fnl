@@ -1,9 +1,10 @@
 (module completion-sources.tenk
-  {:require {: r
-             : utils
-             : completion
-             :opts completion.option
-             :cutils completion.util}})
+  {require
+   {: r
+    : utils
+    : completion
+    :opts completion.option
+    :cutils completion.util}})
 
 (defn slurp [path silent?]
   "Read the file into a string."

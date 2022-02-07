@@ -1,7 +1,8 @@
 (module plugins.scroll-fix
-  {:require {a aniseed.core
-             nvim aniseed.nvim
-             utils utils}})
+  {require
+   {a aniseed.core
+    nvim aniseed.nvim
+    utils utils}})
 
 
 (defn- set-top-of-window [line wintable]

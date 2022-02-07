@@ -1,6 +1,7 @@
 (module plugins.sandwich
-  {:require {r r
-             utils utils}})
+  {require
+   {r r
+    utils utils}})
 
 (defn t [str] (utils.replace_termcodes str true true true))
 

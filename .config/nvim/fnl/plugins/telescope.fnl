@@ -1,11 +1,11 @@
 (module plugins.telescope
-  {:require
+  {require
    {a aniseed.core
     r r
     md utils.module
     utils utils
     live-grep plugins.telescope.live-grep}
-   :require-macros [macros]})
+   require-macros [macros]})
 
 (defn- setup [{: telescope : previewers : sorters}]
   (telescope.setup

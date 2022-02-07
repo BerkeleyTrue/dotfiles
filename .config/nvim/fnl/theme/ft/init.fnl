@@ -1,6 +1,6 @@
 (module theme.ft
-  {:require {: r}
-   :require-macros [macros]})
+  {require {: r}
+   require-macros [macros]})
 
 (defn main [utils]
   (->>

@@ -1,5 +1,5 @@
 (module plugins.mta
-  {:require {utils utils}})
+  {require {utils utils}})
 
 (defn main []
   (utils.set-nvim-g! {:mta_filetypes {:html  1

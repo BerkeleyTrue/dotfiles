@@ -1,5 +1,5 @@
 (module plugins.better-whitespace
-  {:require {utils utils}})
+  {require {utils utils}})
 
 
 (defn main []

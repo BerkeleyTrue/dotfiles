@@ -1,11 +1,11 @@
 (module plugins.null-ls
-  {:require
+  {require
    {utils utils
     md utils.module
     a aniseed.core
     zprint plugins.null-ls.zprint
     yamlfix plugins.null-ls.yamlfix}
-   :require-macros [macros]})
+   require-macros [macros]})
 
 (defn main []
   (let [null-ls (md.packadd-n-require :null-ls.nvim :null-ls)

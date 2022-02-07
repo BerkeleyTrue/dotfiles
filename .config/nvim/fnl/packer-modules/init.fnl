@@ -88,20 +88,14 @@
    {:name :windwp/nvim-autopairs :description "A super powerful autopair plugin for Neovim that supports multiple characters."}
 
    ; (lisp)
-   {:name "~/dvlpmnt/lisp/aniseed"}
-   {:name "~/dvlpmnt/lisp/conjure"}
+   {:name :olical/aniseed}
+   {:name :olical/conjure}
+   {:name :olical/nvim-local-fennel}
    {:name :bakpakin/fennel.vim}
    {:name :eraserhd/parinfer-rust :run "cargo build --release"}
-   {:name :clojure-vim/vim-jack-in
-    :description "Cider style jack in support for Lein, Boot and Clj"
-    :requires [[:radenling/vim-dispatch-neovim] [:tpope/vim-dispatch]]}
-   {:name :berkeleytrue/nvim-local-fennel
-    :branch "feat-aniseed-update"
-    :description "Execute local Fennel Lisp files in Neovim upon startup "}
+   {:name :clojure-vim/vim-jack-in :description "Cider style jack in support for Lein, Boot and Clj" :requires [[:radenling/vim-dispatch-neovim] [:tpope/vim-dispatch]]}
    {:name :guns/vim-clojure-static :description "adds static bindings to clojure files"}
-   {:name :tpope/vim-sexp-mappings-for-regular-people
-    :description "adds mappings for easier list manipulation"
-    :requires [[:guns/vim-sexp]]}
+   {:name :tpope/vim-sexp-mappings-for-regular-people :description "adds mappings for easier list manipulation" :requires [[:guns/vim-sexp]]}
 
    ; treesitter
    {:name :nvim-treesitter/nvim-treesitter}

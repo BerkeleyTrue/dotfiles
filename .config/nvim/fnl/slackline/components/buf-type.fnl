@@ -1,9 +1,10 @@
 (module slackline.components.buf-type
-  {:require {: r
-             : utils
-             :t theme
-             :hl slackline.highlight}
-   :require-macros [macros]})
+  {require
+   {: r
+    : utils
+    :t theme
+    :hl slackline.highlight}
+   require-macros [macros]})
 
 (def- icon-map
   {:help       "  "

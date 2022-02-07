@@ -1,5 +1,6 @@
 (module slackline.mode-map
-  {:require {:t :theme}})
+  {require
+   {:t :theme}})
 
 (def m
   {:n

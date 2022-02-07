@@ -1,7 +1,8 @@
 (module functions
-  {:require {: r
-             : utils}
-   :require-macros [macros]})
+  {require
+   {: r
+    : utils}
+   require-macros [macros]})
 
 
 (defn buff-delete-hidden []

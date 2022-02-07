@@ -1,12 +1,12 @@
 (module plugins.lspconfig
-  {:require
+  {require
    {a aniseed.core
     r r
     utils utils
     md utils.module
     tsserver plugins.lspconfig.tsserver}
 
-   :require-macros [macros]})
+   require-macros [macros]})
 
 (defn get-capabilities []
   (let [cmplsp (require :cmp_nvim_lsp)]

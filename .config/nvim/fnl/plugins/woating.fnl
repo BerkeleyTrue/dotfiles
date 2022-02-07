@@ -1,6 +1,7 @@
 (module plugins.woating
-  {:require {a aniseed.core
-             nvim aniseed.nvim}})
+  {require
+   {a aniseed.core
+    nvim aniseed.nvim}})
 
 (defn create-buffer []
   (let [buf (nvim.create_buf false true)]

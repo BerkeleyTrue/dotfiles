@@ -1,5 +1,5 @@
 (module theme.ft.js
-  {:require {: utils}})
+  {require {: utils}})
 
 (defn main [{: hi-link!}]
   (hi-link! :jsFuncCall :BerksPurple)

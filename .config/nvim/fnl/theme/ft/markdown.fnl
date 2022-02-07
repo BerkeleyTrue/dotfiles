@@ -1,5 +1,5 @@
 (module theme.ft.markdown
-  {:require {: utils}})
+  {require {: utils}})
 
 (defn main [{: hi-link!}]
   (hi-link! :markdownBlockquote        :BerksCyan)

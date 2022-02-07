@@ -1,7 +1,7 @@
 (module plugins.startify
-  {:require {: r
-             : utils}
-   :require-macros [macros]})
+  {require {: r
+            : utils}
+   require-macros [macros]})
 
 
 (defn sig []

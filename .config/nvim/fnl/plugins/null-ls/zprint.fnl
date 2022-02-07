@@ -1,5 +1,5 @@
 (module plugins.null-ls.zprint
-  {:require
+  {require
    {a aniseed.core
     md utils.module}})
 

@@ -1,5 +1,5 @@
 (module plugins.vimtex
-  {:require {utils utils}})
+  {require {utils utils}})
 
 (defn main []
   (utils.set-nvim-g! {:vimtex_fold_enabled 1

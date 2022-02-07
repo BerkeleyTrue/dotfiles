@@ -1,5 +1,5 @@
 (module theme.ft.yaml
-  {:require {: utils}})
+  {require {: utils}})
 
 (defn main [{: hi-link!}]
   (hi-link! :yamlAlias           :BerksGreenItalicUnderline)

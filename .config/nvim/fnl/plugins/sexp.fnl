@@ -1,5 +1,5 @@
 (module plugins.sexp
-  {:require {utils utils}})
+  {require {utils utils}})
 
 (defn main []
   (utils.set-nvim-g! {:sexp_filetypes "clojure,scheme,lisp,timl,fennel,janet"

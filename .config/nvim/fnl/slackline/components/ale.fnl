@@ -1,10 +1,11 @@
 (module slackline.components.ale
-  {:require {: r
-             : utils
-             :t theme
-             :hl slackline.highlight}
+  {require
+   {: r
+    : utils
+    :t theme
+    :hl slackline.highlight}
 
-   :require-macros [macros]})
+   require-macros [macros]})
 
 (defn render-in-context [type]
   (if (> (utils.fn.exists ":ALELint") 0)

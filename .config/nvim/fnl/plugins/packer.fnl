@@ -1,6 +1,7 @@
 (module plugins.packer
-  {:require {a aniseed.core
-             nvim aniseed.nvim}})
+  {require
+   {a aniseed.core
+    nvim aniseed.nvim}})
 
 (defn- get-packer-dir []
   (string.format "%s/pack/packer/opt" (nvim.fn.stdpath "config")))

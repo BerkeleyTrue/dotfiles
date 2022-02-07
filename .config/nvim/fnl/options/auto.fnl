@@ -1,6 +1,6 @@
 (module options.auto
-  {:require {: utils}
-   :require-macros [macros]})
+  {require {: utils}
+   require-macros [macros]})
 
 (defn disable-camel-case-spell []
   (utils.ex.syntax "match CamelCase /\\<[A-Z][a-z]\\+[A-Z].\\{-}\\>/ contains=@NoSpell transparent")

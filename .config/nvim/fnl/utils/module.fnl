@@ -1,5 +1,5 @@
 (module utils.module
-  {:require
+  {require
    {utils utils}})
 
 (defn prequire [namespace]

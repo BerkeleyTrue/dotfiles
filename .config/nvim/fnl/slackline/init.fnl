@@ -1,15 +1,16 @@
 (module slackline
-  {:require {: utils
-             : r
-             :t theme
-             :a aniseed.core
-             :mode slackline.components.mode
-             :dir slackline.components.dir
-             :modified slackline.components.modified
-             :buf-type slackline.components.buf-type
-             :filetype slackline.components.filetype
-             :ale slackline.components.ale}
-   :require-macros [macros]})
+  {require
+   {: utils
+    : r
+    :t theme
+    :a aniseed.core
+    :mode slackline.components.mode
+    :dir slackline.components.dir
+    :modified slackline.components.modified
+    :buf-type slackline.components.buf-type
+    :filetype slackline.components.filetype
+    :ale slackline.components.ale}
+   require-macros [macros]})
 
 (def registry {})
 

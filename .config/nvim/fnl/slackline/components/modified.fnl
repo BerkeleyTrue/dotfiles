@@ -1,9 +1,10 @@
 (module slackline.components.modified
-  {:require {: r
-             : utils
-             :t theme
-             :hl slackline.highlight}
-   :require-macros [macros]})
+  {require
+   {: r
+    : utils
+    :t theme
+    :hl slackline.highlight}
+   require-macros [macros]})
 
 (defn diviser-in-context []
   (let [modified? (->

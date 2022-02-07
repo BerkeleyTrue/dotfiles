@@ -1,10 +1,10 @@
 (module plugins.lspconfig.tsserver
-  {:require
+  {require
    {a aniseed.core
     r r
     utils utils
     md utils.module}
-   :require-macros [macros]})
+   require-macros [macros]})
 
 (defn get-config []
   (let [ts-utils (md.packadd-n-require :nvim-lsp-ts-utils)]

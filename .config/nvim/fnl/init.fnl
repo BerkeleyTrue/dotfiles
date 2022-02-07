@@ -1,7 +1,7 @@
 (module init
-  {:require
+  {require
    {md utils.module}
-   :require-macros [macros]})
+   require-macros [macros]})
 
 ; vim options requires no plugins
 ; side-effecty

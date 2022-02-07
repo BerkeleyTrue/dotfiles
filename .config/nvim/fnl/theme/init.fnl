@@ -1,9 +1,9 @@
 (module theme
-  {:require {: r
-             : utils
-             a aniseed.core
-             str aniseed.string}
-   :require-macros [macros]})
+  {require {: r
+            : utils
+            a aniseed.core
+            str aniseed.string}
+   require-macros [macros]})
 
 (comment (set log.level "debug"))
 

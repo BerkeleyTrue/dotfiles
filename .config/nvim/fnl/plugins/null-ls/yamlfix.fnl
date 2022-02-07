@@ -1,5 +1,5 @@
 (module plugins.null-ls.yamlfix
-  {:require
+  {require
    {a aniseed.core
     md utils.module}})
 

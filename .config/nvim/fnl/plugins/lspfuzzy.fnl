@@ -1,7 +1,7 @@
 (module plugins.lspfuzzy
-  {:require {: r
-             : utils}
-   :require-macros [macros]})
+  {require {: r
+            : utils}
+   require-macros [macros]})
 
 (defn main []
   (let [(ok res) (pcall utils.ex.packadd :nvim-lspfuzzy)]

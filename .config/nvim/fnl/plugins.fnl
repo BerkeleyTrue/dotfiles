@@ -1,6 +1,6 @@
 (module plugins
-  {:require {: r}
-   :require-macros [macros]})
+  {require {: r}
+   require-macros [macros]})
 
 (def- plugins
   [:ale

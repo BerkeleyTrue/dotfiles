@@ -1,5 +1,5 @@
 (module plugins.lspkind
-  {:require {: utils}})
+  {require {: utils}})
 
 
 (defn main []

@@ -1,5 +1,5 @@
 (module theme.ft.spell
-  {:require {: utils}})
+  {require {: utils}})
 
 (defn main [{: add-group : c : s}]
   (add-group :SpellBad c.none c.none s.underline)

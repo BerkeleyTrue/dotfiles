@@ -1,6 +1,6 @@
 (module maps
-  {:require {: r
-             : utils}})
+  {require {: r
+            : utils}})
 
 ; common command aliases
 (->>

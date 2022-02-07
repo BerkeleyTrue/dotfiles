@@ -1,8 +1,9 @@
 (module slackline.components.mode
-  {:require {: utils
-             : r
-             mode slackline.mode-map
-             hl slackline.highlight}})
+  {require
+   {: utils
+    : r
+    mode slackline.mode-map
+    hl slackline.highlight}})
 
 
 (def- mode-map mode.m)

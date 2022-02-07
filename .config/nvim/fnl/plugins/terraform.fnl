@@ -1,5 +1,5 @@
 (module plugins.terraform
-  {:require {utils utils}})
+  {require {utils utils}})
 
 
 (defn main []
