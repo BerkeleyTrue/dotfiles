@@ -27,7 +27,7 @@
          :filesystem
          {:filters
           {:show_hidden true
-           :respect_gitignore true}
+           :respect_gitignore false}
 
           :follow_current_file false
           :use_libuv_file_watcher false
