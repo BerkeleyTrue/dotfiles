@@ -80,7 +80,7 @@
                  (let [tree (. state :tree)
                        node (tree:get_node)]
                    (when (= :directory (. node :type))
-                     (fs.toggle_directory node)
+                     (fs.toggle_directory state node)
                      (keys.feed :j))))
 
             :R :refresh
