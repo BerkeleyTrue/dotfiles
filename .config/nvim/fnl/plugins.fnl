@@ -17,6 +17,7 @@
    :emmet
    :fzf
    :lualine
+   :luasnip
    :lspconfig
    :lspfuzzy
    :markdown

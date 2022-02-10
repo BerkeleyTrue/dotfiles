@@ -1,6 +1,7 @@
 (module utils.module
   {require
-   {utils utils}})
+   {utils utils}
+   require-macros [macros]})
 
 (defn prequire [namespace]
   "Safe require a module. Errors are caught and printed.
@@ -30,3 +31,12 @@
   (let [namespace (or namespace name)]
     (when (ppackadd name)
       (prequire namespace))))
+
+
+(defn prequire-main [name ...]
+  (when-let [mod (prequire name)]
+    (assert
+      (= (type (. mod :main)) "function")
+      (.. "prequire-main expects a module with a public main function but found " (tostring (. mod :main)) " for " name))
+    (let [main (. mod :main)]
+      (main ...))))

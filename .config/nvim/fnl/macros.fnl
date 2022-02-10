@@ -12,7 +12,7 @@
           (let [(ok# res#) (pcall require name#)]
             (if
               ok# res#
-              (print (.. "Could not load module"
+              (print (.. "Could not load module "
                          (tostring name#)
                          ": " (tostring res#)))))))
        ((fn [mod#]
@@ -85,6 +85,13 @@
   "(logx foo) ;=> (print \"foo: \" foo)"
   `(print ,(.. (tostring x) ": ") ,x))
 
+
+(fn viml->lua* [symb opts]
+  `(..
+     "lua require('" *module-name* "')"
+     "['" ,(tostring symb) "']"
+     "(" ,(or (and opts opts.args) "") ")"))
+
 {: run-main
  : sym->name
  : from-iter
@@ -92,4 +99,5 @@
  : when-let
  : when-not
  : if-let
- : logx}
+ : logx
+ : viml->lua*}

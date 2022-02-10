@@ -8,7 +8,7 @@
    require-macros [macros]})
 
 
-(defn recompiler []
+(defn compile-fnl []
   (print :recompiling)
   (anenv.init
     {:force true
@@ -17,4 +17,4 @@
 (defn main []
   (utils.ex.command_
     :AniseedCompile
-    (utils.viml->lua *module-name* (sym->name recompiler))))
+    (utils.viml->lua *module-name* (sym->name compile-fnl))))
