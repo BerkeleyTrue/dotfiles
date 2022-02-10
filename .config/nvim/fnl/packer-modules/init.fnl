@@ -25,6 +25,7 @@
    {:name :Shelvak/ale :branch :solc_0.8 :description "linting engine"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :numToStr/comment.nvim :description "Comment enginer written in lua."}
+   {:name :L3MON4D3/luasnip :description "snippet engine written in lua."}
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
@@ -34,10 +35,12 @@
    {:name :hrsh7th/nvim-cmp :description "completion engine"}
    {:name :hrsh7th/cmp-nvim-lsp :description "cmp lsp"}
    {:name :hrsh7th/cmp-buffer :description "cmp buffer"}
-   {:name :hrsh7th/cmp-path}
-   {:name :PaterJason/cmp-conjure :description "cmp conjure"}
+   {:name :hrsh7th/cmp-path :description "adds path completion."}
+   {:name :hrsh7th/cmp-cmdline :description "adds ?."}
+   {:name :saadparwaiz1/cmp_luasnip :desciption "adds luasnip source"}
+   {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
    {:name :quangnguyen30192/cmp-nvim-ultisnips :description "cmp ultisnips plugin"}
-   {:name :hrsh7th/cmp-emoji}
+   {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
    {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources"}

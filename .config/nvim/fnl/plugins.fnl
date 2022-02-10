@@ -18,7 +18,6 @@
    :lualine
    :lspconfig
    :lspfuzzy
-   :lspkind
    :markdown
    :mta
    :multi-cursor
