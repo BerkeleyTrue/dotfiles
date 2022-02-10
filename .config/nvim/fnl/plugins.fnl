@@ -4,6 +4,7 @@
 
 (def- plugins
   [:ale
+   :aniseed
    :autopairs
    :beacon
    :better-whitespace
