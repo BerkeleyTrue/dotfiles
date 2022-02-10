@@ -38,13 +38,6 @@
           parser-conf (parsers.get_parser_configs)
           vim-ts-queries (md.prequire :vim.treesitter.query)]
 
-      (ts.define_modules
-        {:cindent
-         {:module_path :ts.indents
-          :is_supported
-          (fn [lang]
-            (not (= (queries.get_query lang "indents") nil)))}})
-
       (tset
         parser-conf
         :fennel
@@ -92,7 +85,6 @@
            :node_incremental "gni"    ; increment to the upper named parent
            :scope_incremental "gci"   ; increment to the upper scope (as defined in locals.scm)
            :node_decremental "gnd"}}  ; decrement to the previous node
-         :cindent {:enable false}
          :indent {:enable true}
 
          :refactor

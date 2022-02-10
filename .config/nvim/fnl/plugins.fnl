@@ -20,7 +20,6 @@
    :lspconfig
    :lspfuzzy
    :markdown
-   :mta
    :multi-cursor
    :neogen
    :neotree
