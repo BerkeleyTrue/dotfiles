@@ -10,7 +10,7 @@
 (defn main [{: fmt : fmta : i : s : c : t}]
   {:module
    (s
-     {:trig "module"
+     {:trig "(module)"
       :name "aniseed module"
       :docstr "create an aniseed module expression"
       :wordTrig false}
@@ -26,7 +26,7 @@
 
    :main
    (s
-     {:trig "(main"
+     {:trig "(main)"
       :name "main func"
       :docstr "create an aniseed main func"
       :wordTrig false}
@@ -37,7 +37,7 @@
 
    :when-let
    (s
-     {:trig "(when-let"
+     {:trig "(when-let)"
       :name "when-let expr"
       :docstr "create a when-let expr"
       :wordTrig false}
@@ -50,16 +50,21 @@
         (i 3 "baz")]))
    :fn
    (s
-     {:trig "(fn"
+     {:trig "(fn)"
       :name "fn expr"
       :docstr "create a fn expr"
-      :wordTrig false}
+      :wordTrig true}
      (fmt "
-       ({} {} [{}])
+       ({} {} []{})
        "
-       [(c 1 [(t "defn") (t "defn-") (t "fn")])
-        (i 2)
-        (i 3 "arg")]))
+       [
+        (c
+          1
+          [(t "defn")
+           (t "defn-")
+           (t "fn")])
+        (i 2 "name")
+        (i 3)]))
 
    :package
    (s

@@ -12,9 +12,9 @@
 ; way.
 (defn main []
   (utils.set-nvim-g!
-    {:UltiSnipsExpandTrigger "<C-k>"
-     :UltiSnipsJumpForwardTrigger "<C-b>"
-     :UltiSnipsJumpBackwardTrigger "<C-c>"
+    {;:UltiSnipsExpandTrigger "<C-k>"
+     ;:UltiSnipsJumpForwardTrigger "<C-b>"
+     ;:UltiSnipsJumpBackwardTrigger "<C-c>"
      :UltiSnipsRemoveSelectModeMappings 0
      ; something broke in how ultisnipts finds third party snips
      ; setting it to a static dir ensures my snips are picked up.
@@ -33,6 +33,6 @@
       (print (.. "Could not load ultisnips: " res))
       (do
         (utils.snoremap :<tab> "<Esc>:call UltiSnips#ExpandSnippet()<cr>" {:silent true})
-        (utils.xnoremap :<tab> ":call UltiSnips#SaveLastVisualSelection()<cr>gvs" {:silent true})
-        (utils.inoremap :<C-j> "<C-R>=UltiSnips#JumpForwards()<cr>" {:silent true})
-        (utils.snoremap :<C-j> "<Esc>:call UltiSnips#JumpForwards()<cr>" {:silent true})))))
+        (utils.xnoremap :<tab> ":call UltiSnips#SaveLastVisualSelection()<cr>gvs" {:silent true})))))
+        ; (utils.inoremap :<C-j> "<C-R>=UltiSnips#JumpForwards()<cr>" {:silent true})
+        ; (utils.snoremap :<C-j> "<Esc>:call UltiSnips#JumpForwards()<cr>" {:silent true})))))

@@ -49,7 +49,6 @@
 (defn source-snips []
   (anenv.compile-fnl)
   (utils.ex.source *lua-file*)
-  ; TODO: resource all ft files using *lua-file*
   (->>
     ft-snips
     (r.map #(.. *lua-dir* $ ".lua"))
@@ -59,6 +58,27 @@
     (let [luasnip (md.prequire :luasnip)]
       (set luasnip.snippets snippets))))
 
+(defn expand-or-jump []
+  (when-let [ls (md.prequire :luasnip)]
+    (when (ls.expand_or_jumpable)
+      (ls.expand_or_jump)
+      nil)))
+
+(defn jump-back []
+  (when-let [ls (md.prequire :luasnip)]
+    (when (ls.jumpable -1)
+      (ls.jump -1)
+      nil)))
+
+(defn switch-choice []
+  (when-let [ls (md.prequire :luasnip)]
+    (when (ls.choice_active)
+      (ls.change_choice 1))))
+
+(defn switch-choice-r []
+  (when-let [ls (md.prequire :luasnip)]
+    (when (ls.choice_active)
+      (ls.change_choice -1))))
 
 (defn main []
   (when-let [luasnip (md.packadd-n-require :luasnip)]
@@ -66,15 +86,37 @@
       :SourceSnips
       (viml->lua* source-snips))
 
+    (utils.inoremap
+      :<C-j> (cviml->lua* expand-or-jump) {:silent true})
+    (utils.snoremap
+      :<C-j> (cviml->lua* expand-or-jump) {:silent true})
+
+    (utils.inoremap
+      :<C-k> (cviml->lua* jump-back) {:silent true})
+    (utils.snoremap
+      :<C-k> (cviml->lua* jump-back) {:silent true})
+
+    (utils.imap
+      :<C-l> (cviml->lua* switch-choice))
+
+    (utils.imap
+      :<C-h> (cviml->lua* switch-choice-r))
+
     (let [types (md.prequire :luasnip.util.types)]
       (luasnip.config.set_config
         {:history true
-         :updateevents "TextChanged,TextChangedI"
-         :enable_autosnippets true
+         :update_events "TextChanged,TextChangedI"
+         :delete_check_events "InsertLeave"
+         :enable_autosnippets false
+
          :ext_opts
          {types.choiceNode
           {:active
            {:virt_text
-            [[:<- :Error]]}}}}))
+            [["🌔" :BerksCyan]]}}
+          types.insertNode
+          {:active
+           {:virt_text
+            [["🌖" :BerksGreen]]}}}}))
     (when-let [snippets (source-ft-snips)]
       (set luasnip.snippets snippets))))

@@ -70,6 +70,7 @@
 (defn amap [lhs rhs options] (base-map :a lhs rhs options))
 (defn omap [lhs rhs options] (base-map :o lhs rhs options))
 (defn imap [lhs rhs options] (base-map :i lhs rhs options))
+(defn smap [lhs rhs options] (base-map :s lhs rhs options))
 (defn vmap [lhs rhs options] (base-map :v lhs rhs options))
 
 (defn noremap [lhs rhs options?]

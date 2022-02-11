@@ -92,6 +92,12 @@
      "['" ,(tostring symb) "']"
      "(" ,(or (and opts opts.args) "") ")"))
 
+(fn cviml->lua* [symb opts]
+  `(.. "<CMD>" (viml->lua* ,symb ,opts) "<CR>"))
+
+(fn viml->luaexp* [symb args]
+  `(.. "luaeval('require(\"" *module-name* "\")[\"" ,(tostring symb) "\"](" (or args "") ")')"))
+
 {: run-main
  : sym->name
  : from-iter
@@ -100,4 +106,6 @@
  : when-not
  : if-let
  : logx
- : viml->lua*}
+ : viml->lua*
+ : cviml->lua*
+ : viml->luaexp*}
