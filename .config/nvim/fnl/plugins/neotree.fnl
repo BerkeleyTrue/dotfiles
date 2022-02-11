@@ -40,6 +40,7 @@
            {:<2-LeftMouse> :open
             :<cr> :open
             :<bs> :nop
+            :<esc><esc> :close_window
 
             :<Space>
             (fn toggle-directory [state]
