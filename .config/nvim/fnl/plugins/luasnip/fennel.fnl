@@ -20,9 +20,9 @@
            {a aniseed.core
             r r
             md utils.module
-            utils utils}
+            utils utils<>
            require-macros [macros]})"
-       [(i 1)]))
+       [(i 1 "namespace") (i 2)]))
 
    :main
    (s
@@ -30,32 +30,36 @@
       :name "main func"
       :docstr "create an aniseed main func"
       :wordTrig false}
-     (fmt "
-       (defn main [])
+     (fmta "
+       (defn main []<>)
        "
-       []))
+       [(i 1)]))
 
-   :when-let
+   :let
    (s
-     {:trig "(when-let)"
-      :name "when-let expr"
-      :docstr "create a when-let expr"
+     {:trig "(let)"
+      :name "binding expr"
+      :docstr "create a let binding"
       :wordTrig false}
-     (fmt "
-       (when-let [{} {}]
-         ({})
+     (fmta "
+       (<> [<> <>]
+         (<>))
        "
-       [(i 1 "foo")
-        (i 2 "bar")
-        (i 3 "baz")]))
+       [(c 1
+          [(t "let")
+           (t "when-let")
+           (t "if-let")])
+        (i 2 "foo")
+        (i 3 "bar")
+        (i 0 "baz")]))
    :fn
    (s
      {:trig "(fn)"
       :name "fn expr"
       :docstr "create a fn expr"
       :wordTrig true}
-     (fmt "
-       ({} {} []{})
+     (fmta "
+       (<> <> []<>)
        "
        [
         (c
