@@ -6,7 +6,8 @@
     utils utils}
    require-macros [macros]})
 
-(defn main [{: fmta : i : s}]
+
+(defn main [{: fmt : fmta : i : s : c : t}]
   {:module
    (s
      {:trig "module"
@@ -22,6 +23,44 @@
             utils utils}
            require-macros [macros]})"
        [(i 1)]))
+
+   :main
+   (s
+     {:trig "(main"
+      :name "main func"
+      :docstr "create an aniseed main func"
+      :wordTrig false}
+     (fmt "
+       (defn main [])
+       "
+       []))
+
+   :when-let
+   (s
+     {:trig "(when-let"
+      :name "when-let expr"
+      :docstr "create a when-let expr"
+      :wordTrig false}
+     (fmt "
+       (when-let [{} {}]
+         ({})
+       "
+       [(i 1 "foo")
+        (i 2 "bar")
+        (i 3 "baz")]))
+   :fn
+   (s
+     {:trig "(fn"
+      :name "fn expr"
+      :docstr "create a fn expr"
+      :wordTrig false}
+     (fmt "
+       ({} {} [{}])
+       "
+       [(c 1 [(t "defn") (t "defn-") (t "fn")])
+        (i 2)
+        (i 3 "arg")]))
+
    :package
    (s
      {:trig "package"
@@ -29,7 +68,6 @@
      (fmta
        "{:name <> :description \"<>\"}"
        [(i 1) (i 2)]))})
-
 
 (comment
   (let [fmt (. (require :luasnip.extras.fmt) :fmt)

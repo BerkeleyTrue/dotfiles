@@ -21,8 +21,13 @@
     (let [fmts (md.prequire :luasnip.extras.fmt)
           methods {:fmt (. fmts :fmt)
                    :fmta (. fmts :fmta)
+                   :s (. luasnip :snippet)
+
                    :i (. luasnip :insert_node)
-                   :s (. luasnip :snippet)}]
+                   :t (. luasnip :text_node)
+                   :sn (. luasnip :snippet_node)
+                   :c (. luasnip :choice_node)
+                   :f (. luasnip :function_node)}]
       (->>
         ft-snips
         (r.map
@@ -69,7 +74,7 @@
          :ext_opts
          {types.choiceNode
           {:active
-           {:virtual_text
-            [{:<- :Error}]}}}}))
+           {:virt_text
+            [[:<- :Error]]}}}}))
     (when-let [snippets (source-ft-snips)]
       (set luasnip.snippets snippets))))
