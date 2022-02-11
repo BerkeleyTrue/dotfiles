@@ -21,6 +21,7 @@
    :lspconfig
    :lspfuzzy
    :markdown
+   :mini
    :multi-cursor
    :neogen
    :neotree

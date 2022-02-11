@@ -109,6 +109,7 @@
    {:name :andymass/vim-matchup :description "Extends % with treesitter powers." :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :danymat/neogen :description "Auto doc functions" :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :JoosepAlviste/nvim-ts-context-commentstring :description "Updates comentstring option using TS"}
+   {:name :echasnovski/mini.nvim :description "Lots of mini modules. Mainly used for mini.indent"}
 
    ; general lang syntax plugins
    {:name :gabrielelana/vim-markdown}
