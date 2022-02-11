@@ -7,12 +7,12 @@
    require-macros [macros]})
 
 
-(defn main [{: fmt : fmta : i : s : c : t}]
+(defn main [{: s : fmt : fmta : i  : c : t : sn : d}]
   {:module
    (s
      {:trig "(module)"
       :name "aniseed module"
-      :docstr "create an aniseed module expression"
+      :dscr "create an aniseed module expression"
       :wordTrig false}
      (fmta "
         (module <>
@@ -21,25 +21,27 @@
             r r
             md utils.module
             utils utils<>}
-           require-macros [macros]})"
-       [(i 1 "namespace") (i 2)]))
+           require-macros [macros]})
+        <>"
+       [(i 1 "namespace") (i 2) (i 0)]))
 
    :main
    (s
      {:trig "(main)"
       :name "main func"
-      :docstr "create an aniseed main func"
+      :dscr "Create an main function."
       :wordTrig false}
      (fmta "
-       (defn main []<>)
+       (<> main []<>)
        "
-       [(i 1)]))
+       [(c 1 [(t "defn") (t "fn")])
+        (i 0)]))
 
    :let
    (s
      {:trig "(let)"
       :name "binding expr"
-      :docstr "create a let binding"
+      :dscr "Create a let binding expression."
       :wordTrig false}
      (fmta "
        (<> [<> <>]
@@ -56,7 +58,7 @@
    (s
      {:trig "(fn)"
       :name "fn expr"
-      :docstr "create a fn expr"
+      :dscr "Create a function expresssion."
       :wordTrig true}
      (fmta "
        (<> <> []<>)
@@ -68,22 +70,22 @@
            (t "defn-")
            (t "fn")])
         (i 2 "name")
-        (i 3)]))
+        (i 0)]))
 
    :package
    (s
      {:trig "package"
+      :name "Packer Package"
+      :dscr "Create a packer package entry."
       :wordTrig false}
      (fmta
-       "{:name <> :description \"<>\"}"
-       [(i 1) (i 2)]))})
-
-(comment
-  (let [fmt (. (require :luasnip.extras.fmt) :fmt)
-        fmta (. (require :luasnip.extras.fmt) :fmta)
-        ls (require :luasnip)
-        i (. ls :i)
-        s (. ls :s)
-        fennel-snips (main {: fmt : fmta : s : i})]
-    (a.pri fennel-snips)
-    (tset ls.snippets :fennel fennel-snips)))
+       "{:name :<> :description \"<>\"<>}"
+       [(i 1 "name")
+        (i 2 "a description")
+        (c 3
+           [(t "")
+            (sn 1
+              (fmta
+                " :requires [[:<>]]"
+                [(i 1 "dep")]
+                {:dedent false}))])]))})

@@ -8,7 +8,8 @@
    require-macros [macros]})
 
 (def- ft-snips
-  [:fennel])
+  [:fennel
+   :gitcommit])
 
 (def *lua-file*
   (utils.fn.substitute *file* "^fnl\\|fnl$" "lua" "g"))
@@ -27,7 +28,8 @@
                    :t (. luasnip :text_node)
                    :sn (. luasnip :snippet_node)
                    :c (. luasnip :choice_node)
-                   :f (. luasnip :function_node)}]
+                   :f (. luasnip :function_node)
+                   :d (. luasnip :dynamice_node)}]
       (->>
         ft-snips
         (r.map
