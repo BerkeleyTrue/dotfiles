@@ -8,14 +8,14 @@
 
 (def- none "NONE")
 
-(defn hi-link [from to override?]
+(defn link [from to override?]
   "create a highlight link"
   (if override? (nvim.ex.highlight_ :link from to)
       (nvim.ex.highlight :link from to)))
 
-(defn hi-link! [from to]
+(defn link! [from to]
   "create a highlight! link"
-  (hi-link from to true))
+  (link from to true))
 
 (defn highlight [scope fg bg attrs special]
   "create a highlight using a term/gui palette"
