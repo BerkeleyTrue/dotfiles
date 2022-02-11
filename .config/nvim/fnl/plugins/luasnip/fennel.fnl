@@ -20,7 +20,7 @@
            {a aniseed.core
             r r
             md utils.module
-            utils utils<>
+            utils utils<>}
            require-macros [macros]})"
        [(i 1 "namespace") (i 2)]))
 
