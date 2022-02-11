@@ -84,7 +84,8 @@
         {:name :path}
 
         {:name :emoji
-         :insert true}]
+         :insert true
+         :max-item-count 10}]
 
        :snippet
        {:expand
