@@ -1,1 +1,3 @@
-(list) @indent
+(list (symbol)) @indent
+(table) @auto
+
