@@ -13,8 +13,8 @@
       :name "aniseed module"
       :docstr "create an aniseed module expression"
       :wordTrig false}
-     (fmta
-       "(module <>
+     (fmta "
+        (module <>
           {require
            {a aniseed.core
             r r
