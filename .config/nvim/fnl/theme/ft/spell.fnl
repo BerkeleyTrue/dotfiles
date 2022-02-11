@@ -1,7 +1,9 @@
 (module theme.ft.spell
-  {require {: utils}})
+  {require
+   {: utils
+    hl utils.highlights}})
 
-(defn main [{: add-group : c : s}]
-  (add-group :SpellBad c.none c.none s.underline)
-  (add-group :SpellLocal c.none c.none s.underline)
-  (add-group :SpellRare c.none c.none s.underline))
+(defn main []
+  (hl.link! :SpellBad :BerksUnderline)
+  (hl.link! :SpellLocal :BerksUnderline)
+  (hl.link! :SpellRare :BerksUnderline))

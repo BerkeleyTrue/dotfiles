@@ -1,23 +1,25 @@
 (module theme.ft.js
-  {require {: utils}})
+  {require
+   {: utils
+    hl utils.highlights}})
 
-(defn main [{: hi-link!}]
-  (hi-link! :jsFuncCall :BerksPurple)
-  (hi-link! :jsGlobalObjects :Constant)
-  (hi-link! :jsGlobalNodeObjects :jsGlobalObjects)
-  (hi-link! :jsThis :Constant)
-  (hi-link! :jsString :BerksOrange)
-  (hi-link! :jsTemplateString :BerksOrange)
-  (hi-link! :jsTemplateVar :BerksYellow)
-  (hi-link! :jsTemplateBraces :Comment)
+(defn main []
+  (hl.link! :jsFuncCall :BerksPurple)
+  (hl.link! :jsGlobalObjects :Constant)
+  (hl.link! :jsGlobalNodeObjects :jsGlobalObjects)
+  (hl.link! :jsThis :Constant)
+  (hl.link! :jsString :BerksOrange)
+  (hl.link! :jsTemplateString :BerksOrange)
+  (hl.link! :jsTemplateVar :BerksYellow)
+  (hl.link! :jsTemplateBraces :Comment)
 
-  (hi-link! :jsObjectKey :BerksCyan)
-  (hi-link! :jsObject :jsObjectKey)
-  (hi-link! :jsSpreadExpression :jsObjectKey)
-  (hi-link! :jsObjectKeyComputed :jsObjectKey)
-  (hi-link! :jsObjectProp :jsObjectKey)
+  (hl.link! :jsObjectKey :BerksCyan)
+  (hl.link! :jsObject :jsObjectKey)
+  (hl.link! :jsSpreadExpression :jsObjectKey)
+  (hl.link! :jsObjectKeyComputed :jsObjectKey)
+  (hl.link! :jsObjectProp :jsObjectKey)
 
-  (hi-link! :jsVariableDef :jsFuncName)
-  (hi-link! :jsDestructuringBlock :jsFuncName)
-  (hi-link! :jsDestructuringPropertyValue :jsFuncName)
-  (hi-link! :jsDestructuringProperty :jsFuncName))
+  (hl.link! :jsVariableDef :jsFuncName)
+  (hl.link! :jsDestructuringBlock :jsFuncName)
+  (hl.link! :jsDestructuringPropertyValue :jsFuncName)
+  (hl.link! :jsDestructuringProperty :jsFuncName))

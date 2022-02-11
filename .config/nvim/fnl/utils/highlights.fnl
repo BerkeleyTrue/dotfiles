@@ -49,5 +49,5 @@
 
     (nvim.ex.highlight scope gui cterm guifg ctermfg guibg ctermbg guisp)))
 
-(defn hi-clear [group]
+(defn clear [group]
   (nvim.ex.highlight_ :clear group))

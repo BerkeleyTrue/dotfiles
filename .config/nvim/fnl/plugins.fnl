@@ -6,6 +6,7 @@
   [:ale
    :aniseed
    :autopairs
+   :barbar
    :beacon
    :better-whitespace
    :colorizer

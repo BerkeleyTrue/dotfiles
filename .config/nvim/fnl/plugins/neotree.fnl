@@ -4,15 +4,18 @@
     r r
     utils utils
     md utils.module
+    hl utils.highlights
     keys utils.keys}
    require-macros [macros]})
 
 
 (defn main []
-  (utils.hi-link! :NeoTreeDirectoryName :Directory)
-  (utils.hi-link! :NeoTreeDirectoryIcon :NeoTreeDirectoryName)
+  (hl.link! :NeoTreeDirectoryName :Directory)
+  (hl.link! :NeoTreeDirectoryIcon :NeoTreeDirectoryName)
+
   (utils.nnoremap :gef ":NeoTreeFloat<cr>" {:silent true})
   (utils.nnoremap :get ":NeoTreeShow<cr>" {:silent true})
+
   (when-let [neotree (md.packadd-n-require :neo-tree.nvim :neo-tree)]
     (let [fs (md.prequire :neo-tree.sources.filesystem)
           cc (md.prequire :neo-tree.sources.common.commands)

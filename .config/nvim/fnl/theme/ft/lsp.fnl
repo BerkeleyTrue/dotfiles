@@ -1,22 +1,24 @@
 (module theme.ft.lsp
-  {require {: r
-            : utils}})
+  {require
+   {: r
+    : utils
+    hl utils.highlights}})
 
 
-(defn main [{: hi-link! : hi-clear}]
-  (hi-link! :LspDiagnosticsUnderline :BerksNone)
-  (hi-link! :LspDiagnosticsUnderlineHint :BerksNone)
-  (hi-link! :LspDiagnosticsUnderlineInformation :BerksNone)
+(defn main []
+  (hl.link! :LspDiagnosticsUnderline :BerksNone)
+  (hl.link! :LspDiagnosticsUnderlineHint :BerksNone)
+  (hl.link! :LspDiagnosticsUnderlineInformation :BerksNone)
 
-  (hi-link! :LspDiagnosticsInformation :BerksCyan)
+  (hl.link! :LspDiagnosticsInformation :BerksCyan)
 
            ; LspDiagnosticsUnderlineHint)
-  (hi-link! :LspDiagnosticsHint :Comment)
-  (hi-link! :LspDiagnosticsDefaultHint :Comment)
-  (hi-link! :LspDiagnosticsFloatingHint :Comment)
+  (hl.link! :LspDiagnosticsHint :Comment)
+  (hl.link! :LspDiagnosticsDefaultHint :Comment)
+  (hl.link! :LspDiagnosticsFloatingHint :Comment)
 
-  (hi-link! :LspDiagnosticsWarning :BerksOrange)
-  (hi-link! :LspDiagnosticsUnderlineWarning :BerksWarnLine)
+  (hl.link! :LspDiagnosticsWarning :BerksOrange)
+  (hl.link! :LspDiagnosticsUnderlineWarning :BerksWarnLine)
 
-  (hi-link! :LspDiagnosticsError :BerksError)
-  (hi-link! :LspDiagnosticsUnderlineError :BerksErrorLine))
+  (hl.link! :LspDiagnosticsError :BerksError)
+  (hl.link! :LspDiagnosticsUnderlineError :BerksErrorLine))

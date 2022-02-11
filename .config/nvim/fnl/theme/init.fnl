@@ -1,14 +1,13 @@
 (module theme
-  {require {: r
-            : utils
-            a aniseed.core
-            str aniseed.string}
+  {require
+   {: r
+    : utils
+    a aniseed.core
+    hl utils.highlights
+    str aniseed.string}
    require-macros [macros]})
 
 (comment (set log.level "debug"))
-
-(def- hi-link! utils.hi-link!)
-(def- hi-clear utils.hi-clear)
 
 (defn main [{: add-group : c : s}]
 
@@ -52,6 +51,7 @@
 
   (add-group :BerksPink c.pink)
   (add-group :BerksPinkItalic c.pink c.none s.italic)
+  (add-group :BerksPinkDark c.pink c.bgdark)
 
   (add-group :BerksPurple c.purple)
   (add-group :BerksPurpleLight (c.purple:light))
@@ -74,117 +74,118 @@
   (add-group :BerksSearch c.green c.none s.inverse)
   (add-group :BerksBoundary c.comment c.bgdark)
   (add-group :BerksLink c.cyan c.none s.underline)
+  (add-group :BerksUnderline c.none c.none s.undercurl)
 
   (add-group :BerksDiffChange c.orange c.none)
   (add-group :BerksDiffText c.bg c.orange)
   (add-group :BerksDiffDelete c.red c.bgdark)
   (add-group :YellowToRedInverse c.red c.bg)
 
-  (hi-link! :ColorColumn  :BerksBgDark)
-  (hi-link! :DiffAdd      :BerksGreen)
-  (hi-link! :DiffAdded    :DiffAdd)
-  (hi-link! :DiffChange   :BerksDiffChange)
-  (hi-link! :DiffDelete   :BerksDiffDelete)
-  (hi-link! :DiffRemoved  :DiffDelete)
-  (hi-link! :DiffText     :BerksDiffText)
-  (hi-link! :Directory    :BerksPurpleBold)
-  (hi-link! :ErrorMsg     :BerksRedInverse)
-  (hi-link! :FoldColumn   :BerksSubtle)
-  (hi-link! :Folded       :BerksBoundary)
-  (hi-link! :IncSearch    :BerksOrangeInverse)
-  (hi-link! :MoreMsg      :BerksFgBold)
-  (hi-link! :NonText      :BerksSubtle)
-  (hi-link! :Pmenu        :BerksBgDark)
-  (hi-link! :PmenuSbar    :BerksBgDark)
-  (hi-link! :PmenuSel     :BerksSelection)
-  (hi-link! :PmenuThumb   :BerksSelection)
-  (hi-link! :Question     :BerksFgBold)
-  (hi-link! :Search       :BerksSearch)
-  (hi-link! :TabLine      :BerksBoundary)
-  (hi-link! :TabLineFill  :BerksBgDarker)
-  (hi-link! :TabLineSel   :Normal)
-  (hi-link! :Title        :BerksGreenBold)
-  (hi-link! :VertSplit    :BerksBoundary)
-  (hi-link! :Visual       :BerksSelection)
-  (hi-link! :VisualNOS    :Visual)
-  (hi-link! :WarningMsg   :BerksOrangeInverse)
+  (hl.link! :ColorColumn  :BerksBgDark)
+  (hl.link! :DiffAdd      :BerksGreen)
+  (hl.link! :DiffAdded    :DiffAdd)
+  (hl.link! :DiffChange   :BerksDiffChange)
+  (hl.link! :DiffDelete   :BerksDiffDelete)
+  (hl.link! :DiffRemoved  :DiffDelete)
+  (hl.link! :DiffText     :BerksDiffText)
+  (hl.link! :Directory    :BerksPurpleBold)
+  (hl.link! :ErrorMsg     :BerksRedInverse)
+  (hl.link! :FoldColumn   :BerksSubtle)
+  (hl.link! :Folded       :BerksBoundary)
+  (hl.link! :IncSearch    :BerksOrangeInverse)
+  (hl.link! :MoreMsg      :BerksFgBold)
+  (hl.link! :NonText      :BerksSubtle)
+  (hl.link! :Pmenu        :BerksBgDark)
+  (hl.link! :PmenuSbar    :BerksBgDark)
+  (hl.link! :PmenuSel     :BerksSelection)
+  (hl.link! :PmenuThumb   :BerksSelection)
+  (hl.link! :Question     :BerksFgBold)
+  (hl.link! :Search       :BerksSearch)
+  (hl.link! :TabLine      :BerksBoundary)
+  (hl.link! :TabLineFill  :BerksBgDarker)
+  (hl.link! :TabLineSel   :Normal)
+  (hl.link! :Title        :BerksGreenBold)
+  (hl.link! :VertSplit    :BerksBoundary)
+  (hl.link! :Visual       :BerksSelection)
+  (hl.link! :VisualNOS    :Visual)
+  (hl.link! :WarningMsg   :BerksOrangeInverse)
 
   ; Diagnostic
-  (hi-link! :DiagnosticError :Error)
+  (hl.link! :DiagnosticError :Error)
 
-  (hi-link! :DiagnosticWarn :BerksWarn)
-  (hi-link! :DiagnosticFloatingWarn :BerksCyan)
-  (hi-link! :DiagnosticVirtualTextWarn :Comment)
-  (hi-link! :DiagnosticVirtualTextInfo :Comment)
+  (hl.link! :DiagnosticWarn :BerksWarn)
+  (hl.link! :DiagnosticFloatingWarn :BerksCyan)
+  (hl.link! :DiagnosticVirtualTextWarn :Comment)
+  (hl.link! :DiagnosticVirtualTextInfo :Comment)
 
-  (hi-link! :DiagnosticInfo :BerksCyan)
-  (hi-link! :DiagnosticHint :Comment)
+  (hl.link! :DiagnosticInfo :BerksCyan)
+  (hl.link! :DiagnosticHint :Comment)
 
   ; Floats!
 
-  (hi-link! :NormalFloat :Normal)
-  (hi-link! :FloatBorder :Comment)
+  (hl.link! :NormalFloat :Normal)
+  (hl.link! :FloatBorder :Comment)
 
   ; Syntax
   (add-group :MatchParen c.cyan c.none)
   (add-group :Conceal c.cyan c.none)
 
-  (hi-link! :SpecialKey :BerksRed)
+  (hl.link! :SpecialKey :BerksRed)
 
-  (hi-link! :Comment :BerksComment)
-  (hi-link! :Underlined :BerksFgUnderline)
-  (hi-link! :Todo :BerksTodo)
+  (hl.link! :Comment :BerksComment)
+  (hl.link! :Underlined :BerksFgUnderline)
+  (hl.link! :Todo :BerksTodo)
 
-  (hi-link! :Error :BerksError)
-  (hi-link! :SpellBad :BerksErrorLine)
-  (hi-link! :SpellLocal :BerksWarnLine)
-  (hi-link! :SpellCap :BerksInfoLine)
-  (hi-link! :SpellRare :BerksInfoLine)
+  (hl.link! :Error :BerksError)
+  (hl.link! :SpellBad :BerksErrorLine)
+  (hl.link! :SpellLocal :BerksWarnLine)
+  (hl.link! :SpellCap :BerksInfoLine)
+  (hl.link! :SpellRare :BerksInfoLine)
 
-  (hi-link! :Constant :BerksPurple)
-  (hi-link! :String :BerksYellow)
-  (hi-link! :Character :BerksPink)
-  (hi-link! :Number :Constant)
-  (hi-link! :Boolean :Constant)
-  (hi-link! :Float :Constant)
+  (hl.link! :Constant :BerksPurple)
+  (hl.link! :String :BerksYellow)
+  (hl.link! :Character :BerksPink)
+  (hl.link! :Number :Constant)
+  (hl.link! :Boolean :Constant)
+  (hl.link! :Float :Constant)
 
-  (hi-link! :Identifier :BerksFg)
-  (hi-link! :Function :BerksGreen)
+  (hl.link! :Identifier :BerksFg)
+  (hl.link! :Function :BerksGreen)
 
-  (hi-link! :Statement :BerksPink)
-  (hi-link! :Conditional :BerksPink)
-  (hi-link! :Repeat :BerksPink)
-  (hi-link! :Label :BerksPink)
-  (hi-link! :Operator :BerksPink)
-  (hi-link! :Keyword :BerksPink)
-  (hi-link! :Exception :BerksPink)
+  (hl.link! :Statement :BerksPink)
+  (hl.link! :Conditional :BerksPink)
+  (hl.link! :Repeat :BerksPink)
+  (hl.link! :Label :BerksPink)
+  (hl.link! :Operator :BerksPink)
+  (hl.link! :Keyword :BerksPink)
+  (hl.link! :Exception :BerksPink)
 
-  (hi-link! :PreProc :BerksPink)
-  (hi-link! :Include :BerksPink)
+  (hl.link! :PreProc :BerksPink)
+  (hl.link! :Include :BerksPink)
   (add-group :Namespace (c.purple:light))
-  (hi-link! :Define :BerksPink)
-  (hi-link! :Macro :BerksPink)
-  (hi-link! :PreCondit :BerksPink)
-  (hi-link! :StorageClass :BerksPink)
-  (hi-link! :Structure :BerksPink)
-  (hi-link! :Typedef :BerksPink)
+  (hl.link! :Define :BerksPink)
+  (hl.link! :Macro :BerksPink)
+  (hl.link! :PreCondit :BerksPink)
+  (hl.link! :StorageClass :BerksPink)
+  (hl.link! :Structure :BerksPink)
+  (hl.link! :Typedef :BerksPink)
 
-  (hi-link! :Type :BerksCyanItalic)
+  (hl.link! :Type :BerksCyanItalic)
 
-  (hi-link! :Delimiter :BerksFg)
+  (hl.link! :Delimiter :BerksFg)
 
-  (hi-link! :Special :BerksPink)
-  (hi-link! :SpecialComment :BerksCyanItalic)
-  (hi-link! :Tag :BerksCyan)
-  (hi-link! :helpHyperTextJump :BerksLink)
-  (hi-link! :helpCommand :BerksPurple)
-  (hi-link! :helpExample :BerksGreen)
-  (hi-link! :helpBacktick :Special)
+  (hl.link! :Special :BerksPink)
+  (hl.link! :SpecialComment :BerksCyanItalic)
+  (hl.link! :Tag :BerksCyan)
+  (hl.link! :helpHyperTextJump :BerksLink)
+  (hl.link! :helpCommand :BerksPurple)
+  (hl.link! :helpExample :BerksGreen)
+  (hl.link! :helpBacktick :Special)
 
   ; Cursor Line
   (add-group :CursorColumn (c.bg:negative) (c.bg:light))
   (add-group :CursorLine c.none (c.bg:light))
-  (hi-link! :CursorLineNr :BerksYellow)
+  (hl.link! :CursorLineNr :BerksYellow)
 
   ; make the highlighting of tabs and other non-text less annoying
   (add-group :NonText c.gray)
@@ -197,12 +198,12 @@
   (add-group :TSParameter c.cyan c.none)
   (add-group :TSVariableBuiltIn c.red c.none)
 
-  (hi-link! :TSTag :Tag)
+  (hl.link! :TSTag :Tag)
   (add-group :TSTagDelimiter c.pink c.none)
   (add-group :TSKeyword c.purple c.none)
 
   (add-group :TSConstructor c.orange c.none)
-  (hi-link! :TSNamespace :Namespace)
+  (hl.link! :TSNamespace :Namespace)
 
   ; UI
   (add-group :LineNr c.comment)
@@ -213,12 +214,5 @@
   (add-group :StatusLineTerm c.none c.bglighter s.bold)
   (add-group :StatusLineTermNC c.none c.bglight)
   (add-group :WildMenu c.bg c.purple s.bold)
-  (let [theme-methods {: c
-                       : s
-                       : add-group
-                       : hi-link!
-                       : hi-clear}]
 
-    (run-main :theme.ft theme-methods)
-    (run-main :theme.plugins.barbar theme-methods)
-    (run-main :theme.plugins.ale theme-methods)))
+  (run-main :theme.ft theme-methods))

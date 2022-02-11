@@ -1,8 +1,9 @@
 (module theme.ft
-  {require {: r}
+  {require
+   {: r}
    require-macros [macros]})
 
-(defn main [utils]
+(defn main []
   (->>
     [:js
      :lsp

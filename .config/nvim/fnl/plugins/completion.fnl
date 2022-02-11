@@ -5,7 +5,7 @@
     md utils.module
     utils utils
     keys utils.keys
-    hl utils.hilights
+    hl utils.highlights
     lspkind plugins.lspkind}
 
    require-macros [macros]})
@@ -128,11 +128,11 @@
        {:native_menu false
         :ghost_text true}})
 
-    (utils.hi-link! :CmpItemAbbr :Comment)
-    (utils.hi-link! :CmpItemAbbrDeprecated :Error)
-    (utils.hi-link! :CmpItemAbbrMatchFuzz :BerksSubtle)
-    (utils.hi-link! :CmpItemKind :Special)
-    (utils.hi-link! :CmpItemMenu :NonText)
+    (hl.link! :CmpItemAbbr :Comment)
+    (hl.link! :CmpItemAbbrDeprecated :Error)
+    (hl.link! :CmpItemAbbrMatchFuzz :BerksSubtle)
+    (hl.link! :CmpItemKind :Special)
+    (hl.link! :CmpItemMenu :NonText)
 
     (when-let [apcmp (md.prequire :nvim-autopairs.completion.cmp)]
       (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}})))))
