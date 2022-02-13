@@ -1,6 +1,6 @@
 ## To Do
 
-- figure out nvim-cmp whitespace trigger
+- tonksy fnl format
 
 ## Doing
 
@@ -12,3 +12,4 @@
 - source and reload packer files
 - neo-tree.nvim or nvim-tree.lua
 - whichkey.nvim
+- figure out nvim-cmp whitespace trigger

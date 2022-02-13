@@ -57,15 +57,17 @@
        :menu
        {:nvim_lsp "[LSP]"
         :conjure "[conj]"
-        :ultisnips "[usnips]"
+        :ultisnips "[ulti]"
         :luasnip "[snip]"
         :buffer "[buf]"
-        :nvim_lua "[api]"
+        :nvim_lua "[lua]"
         :path "[path]"
-        :emoji "[emoji]"
-        :cmdline "[[cmd]]"
-        :buffer "[[buff]]"
-        :tmux "[[tmux]]"}})))
+        :emoji "[😏]"
+        :cmdline "[cmd]"
+        :buffer "[buff]"
+        :tmux "[tmux]"
+        :dictionary "[dic]"
+        :treesitter "[tree]"}})))
 
 (defn main []
   (when-let [cmp (md.packadd-n-require :nvim-cmp :cmp)]
@@ -79,8 +81,9 @@
         {:name :treesitter} ; Not sure if this is workig yet
         {:name :nvim_lua}
         {:name :ultisnips}
+        {:name :dictionary :keyword_length 2 :max_item_count 5}
         {:name :buffer :keyword_length 5}
-        {:name :emoji :insert true :max_item_count 10}]
+        {:name :emoji :insert true :max_item_count 5}]
 
        :snippet
        {:expand
@@ -133,4 +136,10 @@
     (hl.link! :CmpItemMenu :NonText)
 
     (when-let [apcmp (md.prequire :nvim-autopairs.completion.cmp)]
-      (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}})))))
+      (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}})))
+
+    (when-let [dic (md.prequire :cmp_dictionary)]
+      (dic.setup
+        {:dic
+         {"*" ["/usr/share/dict/english"]}
+         :debug false}))))
