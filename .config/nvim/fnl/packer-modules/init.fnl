@@ -26,6 +26,7 @@
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :numToStr/comment.nvim :description "Comment enginer written in lua."}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua."}
+   {:name :vimsence/vimsence :description "Post activity to Discord \"currently playing\" "}
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
