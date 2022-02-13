@@ -98,6 +98,14 @@
 (fn viml->luaexp* [symb args]
   `(.. "luaeval('require(\"" *module-name* "\")[\"" ,(tostring symb) "\"](" (or args "") ")')"))
 
+
+(fn get-lua-filename []
+  "requires utils"
+  `(->
+    *file*
+    (utils.fn.substitute "\\.fnl$" ".lua" "")
+    (utils.fn.substitute "fnl/" "lua/" "")))
+
 {: run-main
  : sym->name
  : from-iter
@@ -108,4 +116,5 @@
  : logx
  : viml->lua*
  : cviml->lua*
- : viml->luaexp*}
+ : viml->luaexp*
+ : get-lua-filename}

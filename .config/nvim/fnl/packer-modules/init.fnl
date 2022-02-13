@@ -1,8 +1,11 @@
 (module packer-modules
   {require
    {a aniseed.core
+    anenv plugins.aniseed
+    md utils.module
     packer plugins.packer
-    md utils.module}})
+    utils utils}
+   require-macros [macros]})
 
 
 (def- main-spec
@@ -148,4 +151,13 @@
    {:name :posva/vim-vue :description ""}
    {:name :wavded/vim-stylus :description ""}])
 
-(packer.config main-spec)
+(defn main []
+  (packer.config main-spec)
+  (utils.ex.command_
+    :SourceModules
+    (viml->lua* source-modules)))
+
+(defn source-modules []
+  (anenv.compile-fnl)
+  (utils.ex.source (get-lua-filename))
+  (packer.config main-spec))

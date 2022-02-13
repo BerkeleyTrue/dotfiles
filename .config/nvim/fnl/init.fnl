@@ -9,7 +9,8 @@
 (require :maps)
 (require :functions)
 
-(when (md.prequire :packer-modules)
+(when-let [packer (md.prequire :packer-modules)]
+  (packer.main)
   (when-let [cb (md.prequire :plugins.colorbuddy)]
     (let [palette (. (md.prequire :theme.palette) :palette)]
       (run-main :theme (cb.main palette))))
