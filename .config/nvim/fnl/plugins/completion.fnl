@@ -64,7 +64,8 @@
         :path "[path]"
         :emoji "[emoji]"
         :cmdline "[[cmd]]"
-        :buffer "[[buff]]"}})))
+        :buffer "[[buff]]"
+        :tmux "[[tmux]]"}})))
 
 (defn main []
   (when-let [cmp (md.packadd-n-require :nvim-cmp :cmp)]
@@ -74,7 +75,8 @@
         {:name :luasnip}
         {:name :conjure :max_item_count 10}
         {:name :path}
-        {:name :treesitter}
+        {:name :tmux}
+        {:name :treesitter} ; Not sure if this is workig yet
         {:name :nvim_lua}
         {:name :ultisnips}
         {:name :buffer :keyword_length 5}
