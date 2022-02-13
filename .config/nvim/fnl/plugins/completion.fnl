@@ -69,22 +69,23 @@
         :dictionary "[dic]"
         :treesitter "[tree]"}})))
 
+(defn get-sources []
+  [{:name :nvim_lsp}
+   {:name :luasnip}
+   {:name :conjure :max_item_count 10}
+   {:name :path}
+   {:name :tmux}
+   {:name :treesitter} ; Not sure if this is workig yet
+   {:name :nvim_lua}
+   {:name :ultisnips}
+   {:name :dictionary :keyword_length 2 :max_item_count 5}
+   {:name :buffer :keyword_length 5}
+   {:name :emoji :insert true :max_item_count 5}])
+
 (defn main []
   (when-let [cmp (md.packadd-n-require :nvim-cmp :cmp)]
     (cmp.setup
-      {:sources
-       [{:name :nvim_lsp}
-        {:name :luasnip}
-        {:name :conjure :max_item_count 10}
-        {:name :path}
-        {:name :tmux}
-        {:name :treesitter} ; Not sure if this is workig yet
-        {:name :nvim_lua}
-        {:name :ultisnips}
-        {:name :dictionary :keyword_length 2 :max_item_count 5}
-        {:name :buffer :keyword_length 5}
-        {:name :emoji :insert true :max_item_count 5}]
-
+      {:sources (get-sources)
        :snippet
        {:expand
         (fn [args]
@@ -106,14 +107,10 @@
 
         :<C-Space>
         (cmp.mapping
-          {:i (cmp.mapping.complete)
-           :c
-           (fn command-mode [fallback]
-             (if
-               (cmp.visible)
-               (cmp.confirm {:select true})
-
-               (cmp.complete)))})
+          (cmp.mapping.complete
+            {:reason cmp.ContextReason.Auto
+             :config {:sources (get-sources)}})
+          [:i :c])
 
         :<C-d> (cmp.mapping.scroll_docs -4)
         :<C-f> (cmp.mapping.scroll_docs 4)
