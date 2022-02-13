@@ -62,7 +62,8 @@
         :buffer "[buf]"
         :nvim_lua "[api]"
         :path "[path]"
-        :emoji "[emoji]"}})))
+        :emoji "[emoji]"
+        :cmdline "[[cmd]]"}})))
 
 (defn main []
   (when-let [cmp (md.packadd-n-require :nvim-cmp :cmp)]
@@ -70,12 +71,11 @@
       {:sources
        [{:name :nvim_lsp}
 
+        {:name :luasnip}
         {:name :conjure
-         :priority 100
          :max-item-count 10}
 
         {:name :ultisnips}
-        {:name :luasnip}
         {:name :nvim_lua}
 
         {:name :buffer
@@ -127,6 +127,9 @@
        :experimental
        {:native_menu false
         :ghost_text true}})
+
+    ; Adds completion popup to command line!!!!
+    (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
 
     (hl.link! :CmpItemAbbr :Comment)
     (hl.link! :CmpItemAbbrDeprecated :Error)

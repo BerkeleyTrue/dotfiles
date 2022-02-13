@@ -40,7 +40,7 @@
    {:name :hrsh7th/cmp-nvim-lsp :description "cmp lsp"}
    {:name :hrsh7th/cmp-buffer :description "cmp buffer"}
    {:name :hrsh7th/cmp-path :description "adds path completion."}
-   {:name :hrsh7th/cmp-cmdline :description "adds ?."}
+   {:name :hrsh7th/cmp-cmdline :description "Adds command line completion."}
    {:name :saadparwaiz1/cmp_luasnip :desciption "adds luasnip source"}
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
    {:name :quangnguyen30192/cmp-nvim-ultisnips :description "cmp ultisnips plugin"}
