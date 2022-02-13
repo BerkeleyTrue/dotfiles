@@ -1,12 +1,14 @@
 ## To Do
 
-- switch to snippets.nvim
-- work on statusline
-- whichkey.nvim
-- neo-tree.nvim or nvim-tree.lua
+- figure out nvim-cmp whitespace trigger
 
 ## Doing
 
 
 ## Done
 
+- switch to snippets.nvim
+- work on statusline
+- source and reload packer files
+- neo-tree.nvim or nvim-tree.lua
+- whichkey.nvim
