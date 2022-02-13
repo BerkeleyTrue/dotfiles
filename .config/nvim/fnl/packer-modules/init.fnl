@@ -51,6 +51,7 @@
    {:name :j-hui/fidget.nvim :description "add lsp spinner" :config (fn [] (: (require :fidget) :setup {}))}
    {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
    {:name :b0o/schemastore.nvim :desciption "adds schemastore to jsonls through lspconfig" :requires [[:neovim/nvim-lspconfig]]}
+   {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}

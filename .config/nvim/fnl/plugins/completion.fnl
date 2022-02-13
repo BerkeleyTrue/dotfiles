@@ -63,29 +63,22 @@
         :nvim_lua "[api]"
         :path "[path]"
         :emoji "[emoji]"
-        :cmdline "[[cmd]]"}})))
+        :cmdline "[[cmd]]"
+        :buffer "[[buff]]"}})))
 
 (defn main []
   (when-let [cmp (md.packadd-n-require :nvim-cmp :cmp)]
     (cmp.setup
       {:sources
        [{:name :nvim_lsp}
-
         {:name :luasnip}
-        {:name :conjure
-         :max-item-count 10}
-
-        {:name :ultisnips}
-        {:name :nvim_lua}
-
-        {:name :buffer
-         :keyword_length 5}
-
+        {:name :conjure :max_item_count 10}
         {:name :path}
-
-        {:name :emoji
-         :insert true
-         :max-item-count 10}]
+        {:name :treesitter}
+        {:name :nvim_lua}
+        {:name :ultisnips}
+        {:name :buffer :keyword_length 5}
+        {:name :emoji :insert true :max_item_count 10}]
 
        :snippet
        {:expand
