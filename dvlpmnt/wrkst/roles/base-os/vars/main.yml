@@ -3,6 +3,7 @@ packages:
   # ui
   - light-locker
   # general
+  - base-devel
   - git
   - github-cli
   - hub
@@ -19,13 +20,20 @@ packages:
   - stack
   ## terminal
   - alacritty
+  - bat  # like cat but rusty
+  - dust  # rust based disk usage utility
   - entr  #  watch files and re-run command
   - figlet  # make large banners out of ascii
   - kitty
   - neovim
+  - procs  # rusty processes
   - task  # taskwarrior
-  - timew  # timewarrior
   - taskell
+  - tealdeer  # TL;DR for deers (rusty)
+  - timew  # timewarrior
+  - zoxide  # warp around cd rustily
+  - zsh
+  - yadm
   ## automation
   - ansible
   - ansible-lint
@@ -44,24 +52,15 @@ packages:
 
 aur:
   # ui
-  - lightdm-mini-greeter
   # general
-  - luarocks
   # DB tools
   - robo3t-bin  # mongodb UI tool
   # terminal
-  - bat  # like cat but rusty
-  - zoxide  # warp around cd rustily
-  - taskwarrior-tui  # taskwarrior tui built in rust
   - toilet  # asci out text
-  - dust  # rust based disk usage utility
-  - tealdeer  # TL;DR for deers (rusty)
   - navi  # interactive CL tool for cheats (sorta like TLDR)
-  - procs  # rusty processes
   - wakatime-cli-bin  # new go version
   # automation
   - terraform-lsp-git
-  - yamllint
   # clojure dev
   - babashka-bin  # cli clj runner for faster tools
   - boot

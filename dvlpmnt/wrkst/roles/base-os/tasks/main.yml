@@ -7,6 +7,7 @@
   tags:
     - update
     - arch
+    - pacman
 
 - name: update-aur
   aur:
@@ -15,6 +16,15 @@
   tags:
     - update
     - arch
+    - aur
+
+- name: install yay
+  command: pamac install yay
+  when: ansible_os_family == "Archlinux"
+  tags:
+    - init
+    - arch
+    - pamac
 
 - name: install-packages
   become: true
@@ -24,11 +34,17 @@
   tags:
     - arch
     - packages
+    - pacman
 
 - name: install-aur-packages
-  aur:
+  become: true
+  yay:
     name: '{{ aur }}'
     state: present
+  tags:
+    - arch
+    - packages
+    - aur
 
 - name: ensure tty1 skips usernames
   become: true
