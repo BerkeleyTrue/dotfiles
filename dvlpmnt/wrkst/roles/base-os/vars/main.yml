@@ -56,6 +56,7 @@ aur:
   # DB tools
   - robo3t-bin  # mongodb UI tool
   # terminal
+  - antigen
   - toilet  # asci out text
   - navi  # interactive CL tool for cheats (sorta like TLDR)
   - wakatime-cli-bin  # new go version
