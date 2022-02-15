@@ -1,6 +1,8 @@
 local vim = _G.vim
 -- check if aniseed is installed, if not, run make aniseed to install and
 
+-- ensure packer file
+os.execute('mkdir -p pack/packer')
 -- make sure aniseed path is available for macros lookup
 vim.cmd [[ packadd aniseed ]]
 local isInConf = vim.fn.stdpath("config") == vim.fn.getcwd()
