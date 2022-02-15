@@ -23,6 +23,7 @@ packages:
   - bat  # like cat but rusty
   - dust  # rust based disk usage utility
   - entr  #  watch files and re-run command
+  - exa
   - figlet  # make large banners out of ascii
   - kitty
   - neovim
@@ -31,9 +32,9 @@ packages:
   - taskell
   - tealdeer  # TL;DR for deers (rusty)
   - timew  # timewarrior
+  - yadm
   - zoxide  # warp around cd rustily
   - zsh
-  - yadm
   ## automation
   - ansible
   - ansible-lint
