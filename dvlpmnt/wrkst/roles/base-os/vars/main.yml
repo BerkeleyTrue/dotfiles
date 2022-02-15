@@ -33,6 +33,7 @@ packages:
   - timew  # timewarrior
   - yadm
   - zoxide  # warp around cd rustily
+  - tmux
   - zsh
   ## automation
   - ansible
@@ -51,6 +52,7 @@ packages:
   ## python
   - python-setuptools
   - python2-setuptools
+  - python-pip
 
 aur:
   # ui
