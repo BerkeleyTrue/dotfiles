@@ -10,6 +10,8 @@
   > No idea why this isn't working
 - move to taffybar
   > Don't like the xmobar uses a psuedo haskell file
+- add xmobar compile script
+- add single monitor version
 
 ## Doing
 
