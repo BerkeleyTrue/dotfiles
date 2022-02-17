@@ -63,6 +63,7 @@ packages:
 aur:
   # ui
   # general
+  - handlr-bin  # mime utils written in rust 🎉
   # DB tools
   - robo3t-bin  # mongodb UI tool
   # terminal
