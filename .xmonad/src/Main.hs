@@ -100,6 +100,12 @@ keyMaps XConfig {modMask = modm, layoutHook = layoutHk} =
   , ( (modm .|. shiftMask, xK_r)
     , spawn
         "\
+      \ xmonad --restart && \
+      \ notify-send -a 'XMonad'  'Restarted'")
+    -- Recompile and Restart xmonad
+  , ( (modm .|. controlMask .|. khiftMask, xK_r)
+    , spawn
+        "\
       \ notify-send -a 'XMonad' 'Recompiling...' && \
       \ xmonad --recompile && \
       \ xmonad --restart && \
