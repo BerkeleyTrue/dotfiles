@@ -57,6 +57,8 @@ packages:
   - python-setuptools
   - python2-setuptools
   - python-pip
+  ## Ethereum
+  - solidity
 
 aur:
   # ui

@@ -19,3 +19,4 @@ npm_global_packages:
   - bash-language-server
   - dockerfile-language-server-nodejs
   - "@ansible/ansible-language-server"
+  - vscode-langservers-extracted
