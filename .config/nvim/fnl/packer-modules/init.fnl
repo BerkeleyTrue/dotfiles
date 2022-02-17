@@ -17,7 +17,6 @@
    {:name :berkeleytrue/colorbuddy.nvim}
    {:name :norcalli/nvim-colorizer.lua :opt true}
    {:name :junegunn/vim-easy-align :opt true}
-   {:name :ashisha/image.vim}
    {:name :danilamihailov/beacon.nvim}
    {:name :ntpeters/vim-better-whitespace}
    {:name :mg979/vim-visual-multi}

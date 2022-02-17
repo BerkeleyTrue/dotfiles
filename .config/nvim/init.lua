@@ -6,7 +6,7 @@ local isInConf = confpath == vim.fn.getcwd()
 if isInConf then
   -- ensure packer path
   os.execute('mkdir -p pack/packer')
-  print("[init.vim]: in conf dir")
+  print("[init.vim]: force compile")
 end
 
 -- make sure aniseed path is available for macros lookup
@@ -17,7 +17,6 @@ local ok, anenv = pcall(require, 'aniseed.env')
 -- force aniseed to compile while in nvim dir (in dev mode)
 -- aniseed is available, compile and load
 if ok then
-  print("[init.vim]: force compile")
   anenv.init({ force = isInConf })
 else
   print('Aniseed not found. Running aniseed install now')
