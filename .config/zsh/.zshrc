@@ -2,6 +2,7 @@
 # runs on every new shell
 # clear right prompt on execute
 setopt TRANSIENT_RPROMPT
+source ~/.config/user-dirs.dirs
 
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='fd .'
@@ -12,6 +13,7 @@ export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"
 
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
 ZSH="$XDG_CONFIG_HOME/zsh"
+mkdir -p "$XDG_DATA_HOME/zsh"
 HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 
 # Antigen configs
