@@ -121,7 +121,7 @@
 
        :experimental
        {:native_menu false
-        :ghost_text true}})
+        :ghost_text false}})
 
     ; Adds completion popup to command line!!!!
     (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
