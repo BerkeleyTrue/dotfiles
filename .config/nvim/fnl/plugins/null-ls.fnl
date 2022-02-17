@@ -11,7 +11,24 @@
   (let [null-ls (md.packadd-n-require :null-ls.nvim :null-ls)
         sources [(null-ls.builtins.formatting.prettier.with
                    {:command "npx"
-                    :args ["prettier" "--stdin-filepath" "$FILENAME"]})
+                    :args ["prettier" "--stdin-filepath" "$FILENAME"]
+
+                    :filetypes
+                    [:javascript
+                     :javascriptreact
+                     :typescript
+                     :typescriptreact
+                     :vue
+                     :css
+                     :scss
+                     :less
+                     :html
+                     :json
+                     :jsonc
+                     :yaml
+                     :markdown
+                     :solidity
+                     :graphql]})
                  (zprint.main null-ls)
                  (null-ls.builtins.formatting.shfmt.with
                    {:extra_args [:-i 2]})
