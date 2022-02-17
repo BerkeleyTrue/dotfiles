@@ -9,19 +9,23 @@
 
 (def- ft-snips
   [:fennel
-   :gitcommit])
+   :gitcommit
+   :javascript])
 
 (def *lua-file*
   (utils.fn.substitute *file* "^fnl\\|fnl$" "lua" "g"))
 
+; TODO: use full paths
 (def *lua-dir*
   (utils.fn.substitute *lua-file* "\\.lua$" "/" ""))
 
 (defn source-ft-snips []
   (when-let [luasnip (md.prequire :luasnip)]
     (let [fmts (md.prequire :luasnip.extras.fmt)
+          xtras (md.prequire :luasnip.extras)
           methods {:fmt (. fmts :fmt)
                    :fmta (. fmts :fmta)
+                   :rep (. xtras :rep)
                    :s (. luasnip :snippet)
 
                    :i (. luasnip :insert_node)
