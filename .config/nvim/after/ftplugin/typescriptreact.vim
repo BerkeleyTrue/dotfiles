@@ -1,1 +1,0 @@
-UltiSnipsAddFiletypes typescriptreact.javascript

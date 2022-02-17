@@ -15,6 +15,7 @@ npm_global_packages:
   # lsp
   - javascript-typescript-langserver
   - typescript-eslint-parser
+  - typescript-language-server
   - vscode-css-languageserver-bin
   - bash-language-server
   - dockerfile-language-server-nodejs
