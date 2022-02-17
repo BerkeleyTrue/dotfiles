@@ -71,7 +71,7 @@
           :query
           :regex
           :rust
-          ; :solidity
+          :solidity
           :tsx
           :typescript]
 
