@@ -41,6 +41,7 @@
    :html {}
    :jsonls {}
    :rls {}
+   :solidity_ls {}
    :tsserver (tsserver.get-config)
    :vimls {}
    :yamlls {}})

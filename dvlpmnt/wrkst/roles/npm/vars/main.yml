@@ -20,3 +20,4 @@ npm_global_packages:
   - dockerfile-language-server-nodejs
   - "@ansible/ansible-language-server"
   - vscode-langservers-extracted
+  - solidity-language-server
