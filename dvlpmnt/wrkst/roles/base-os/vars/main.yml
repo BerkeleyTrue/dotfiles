@@ -27,13 +27,14 @@ packages:
   - kitty
   - neovim
   - procs  # rusty processes
+  - shfmt
   - task  # taskwarrior
   - taskell
   - tealdeer  # TL;DR for deers (rusty)
   - timew  # timewarrior
+  - tmux
   - yadm
   - zoxide  # warp around cd rustily
-  - tmux
   - zsh
   ## automation
   - ansible
