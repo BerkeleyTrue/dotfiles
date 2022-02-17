@@ -38,7 +38,6 @@
    :telescope
    :terraform
    :tree-sitter
-   :ultisnips
    :vimtex])
 
 (defn main []

@@ -10,46 +10,6 @@
 
    require-macros [macros]})
 
-(defn- check-if-on-whitespace []
-  (let [col (- (utils.fn.col ".") 1)]
-    (or (= col 0)
-        (not
-          (r.nil?
-            (->
-              (utils.fn.getline :.)
-              (: :sub col col)
-              (: :match :%s)))))))
-
-(defn- enter-mapping [cmp]
-  (fn [fallback]
-    (print "--Deprecated: Use <C-y> instead--")
-    (if
-      (= (utils.fn.UltiSnips#CanExpandSnippet) 1) (keys.feed-noremap "<C-R>=UltiSnips#ExpandSnippet()<CR>")
-      (and
-        (cmp.visible)
-        ; make sure something is selected
-        (cmp.get_active_entry)) (cmp.confirm {:select false})
-      (check-if-on-whitespace) (keys.feed-noremap "<CR>")
-      (fallback))))
-
-(defn- tab-mapping [cmp]
-  (fn [fallback]
-    (print "--Deprecated: Use <C-n> instead--")
-    (if
-      (cmp.visible) (cmp.select_next_item)
-      (= (utils.fn.UltiSnips#CanJumpForwards) 1) (keys.feed "<ESC>:call UltiSnips#JumpForwards()<CR>")
-      (check-if-on-whitespace) (keys.feed-noremap :<Tab>)
-      (fallback))))
-
-(defn- stab-mapping [cmp]
-  (fn [fallback]
-    (print "--Deprecated: Use <C-p> instead--")
-    (if
-      (cmp.visible) (cmp.select_prev_item)
-      (= (utils.fn.UltiSnips#CanJumpBackwards) 1) (keys.feed "<ESC>:call UltiSnips#JumpBackwards()<CR>")
-      (check-if-on-whitespace) (keys.feed-noremap :<S-Tab>)
-      (fallback))))
-
 (defn- create-formatter []
   (when-let [lspkind (lspkind.main)]
     (lspkind.cmp_format
@@ -57,7 +17,6 @@
        :menu
        {:nvim_lsp "[LSP]"
         :conjure "[conj]"
-        :ultisnips "[ulti]"
         :luasnip "[snip]"
         :buffer "[buf]"
         :nvim_lua "[lua]"
@@ -77,7 +36,6 @@
    {:name :tmux}
    {:name :treesitter} ; Not sure if this is workig yet
    {:name :nvim_lua}
-   {:name :ultisnips}
    {:name :dictionary :keyword_length 2 :max_item_count 5}
    {:name :buffer :keyword_length 5}
    {:name :emoji :insert true :max_item_count 5}])
@@ -89,16 +47,11 @@
        :snippet
        {:expand
         (fn [args]
-          (utils.fn.UltiSnips#Anon (. args :body))
           (when-let [luasnip (md.prequire :luasnip)]
             (luasnip.lsp_expand args.body)))}
 
        :mapping
-       {:<CR> (cmp.mapping (enter-mapping cmp) [:i :s])
-        :<Tab> (cmp.mapping (tab-mapping cmp) [:i :s])
-        :<S-Tab> (cmp.mapping (stab-mapping cmp) [:i :s])
-
-        :<C-y>
+       {:<C-y>
         (cmp.mapping
           (cmp.mapping.confirm
             {:behavior cmp.ConfirmBehavior.Insert

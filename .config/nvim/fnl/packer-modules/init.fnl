@@ -22,8 +22,6 @@
    {:name :mg979/vim-visual-multi}
    {:name :wincent/corpus :description "vim wiki written in lua"}
    {:name :wakatime/vim-wakatime :description "track dev time"}
-   {:name :berkeleyTrue/berkeleys-snippet-emporium :description "my personal snippets"}
-   {:name :sirVer/ultisnips :description "snippet engine"}
    {:name :Shelvak/ale :branch :solc_0.8 :description "linting engine"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :numToStr/comment.nvim :description "Comment enginer written in lua."}
@@ -42,7 +40,6 @@
    {:name :hrsh7th/cmp-cmdline :description "Adds command line completion."}
    {:name :saadparwaiz1/cmp_luasnip :desciption "adds luasnip source"}
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
-   {:name :quangnguyen30192/cmp-nvim-ultisnips :description "cmp ultisnips plugin"}
    {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
