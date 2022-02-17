@@ -37,14 +37,22 @@
     - pacman
 
 - name: install-aur-packages
-  become: true
-  yay:
+  aur:
     name: '{{ aur }}'
     state: present
   tags:
     - arch
     - packages
     - aur
+
+- name: ensure getty folder exists
+  become: true
+  file:
+    path: /etc/systemd/system/getty@tty1.service.d/
+    state: directory
+  tags:
+    - systemd
+    - resources
 
 - name: ensure tty1 skips usernames
   become: true

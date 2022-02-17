@@ -1,16 +1,15 @@
 ---
 packages:
-  # ui
-  - light-locker
   # general
   - base-devel
+  - curl
   - git
   - github-cli
   - hub
-  - curl
   - pkgfile
   - unclutter
   - wget
+  - xcape  # key mapping
   - yamllint
   - yay
   # Dev
@@ -38,6 +37,8 @@ packages:
   ## automation
   - ansible
   - ansible-lint
+  - docker
+  - docker-compose
   - packer
   - terraform
   - vault
