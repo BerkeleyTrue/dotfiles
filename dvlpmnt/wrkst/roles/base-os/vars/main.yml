@@ -19,14 +19,17 @@ packages:
   - stack
   ## terminal
   - alacritty
+  - the_silver_searcher
   - bat  # like cat but rusty
   - dust  # rust based disk usage utility
   - entr  #  watch files and re-run command
   - exa
+  - fd
   - figlet  # make large banners out of ascii
   - kitty
   - neovim
   - procs  # rusty processes
+  - ripgrep
   - shfmt
   - task  # taskwarrior
   - taskell
