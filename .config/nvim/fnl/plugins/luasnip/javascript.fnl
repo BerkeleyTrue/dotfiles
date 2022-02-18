@@ -6,7 +6,7 @@
     utils utils}
    require-macros [macros]})
 
-(defn main [{: s : fmt : fmta : i  : c : t : sn : d : rep}]
+(defn main [{: s : fmt : fmta : i  : c : t : sn : d : rep : ai}]
   {:log
    (s
      {:trig "log"
@@ -27,5 +27,24 @@
         console.log(\'<>: \', <>)<>"
        [(i 1 "foo")
         (rep 1)
-        (c 2 [(t "") (t ";")])]))})
-
+        (c 2 [(t "") (t ";")])]))
+   :iferr
+   (s
+     {:trig "iferr"
+      :name "if err handler"
+      :dscr "Create an if-else for err first callbacks."
+      :wordTrig true}
+     (fmta "
+       if (err) {
+         return <>(err);
+       }
+       <>
+       "
+       [(i 1 "callback")
+        (c 2
+          [(sn nil
+             (fmta "
+               return <>(<>);
+               "
+               [(i 1 "callback")
+                (i 2)]))])]))})

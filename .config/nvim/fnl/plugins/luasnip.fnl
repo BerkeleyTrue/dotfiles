@@ -23,6 +23,7 @@
   (when-let [luasnip (md.prequire :luasnip)]
     (let [fmts (md.prequire :luasnip.extras.fmt)
           xtras (md.prequire :luasnip.extras)
+          ai (md.prequire :luasnip.nodes.absolute_indexer)
           methods {:fmt (. fmts :fmt)
                    :fmta (. fmts :fmta)
                    :rep (. xtras :rep)
@@ -33,7 +34,8 @@
                    :sn (. luasnip :snippet_node)
                    :c (. luasnip :choice_node)
                    :f (. luasnip :function_node)
-                   :d (. luasnip :dynamice_node)}]
+                   :d (. luasnip :dynamice_node)
+                   : ai}]
       (->>
         ft-snips
         (r.map
