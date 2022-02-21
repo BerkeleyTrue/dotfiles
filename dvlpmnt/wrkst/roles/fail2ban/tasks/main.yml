@@ -1,0 +1,37 @@
+---
+- name: fail2ban
+  tags:
+    - fail2ban
+    - user
+  block:
+    - name: install
+      become: true
+      package:
+        name: fail2ban
+        state: present
+
+    - name: make slack notification action
+      become: true
+      template:
+        src: slack-notify.conf
+        dest: /etc/fail2ban/action.d/slack-notify.conf
+        mode: 0644
+
+    - name: apply jail.local
+      become: true
+      copy:
+        src: jail.local
+        dest: /etc/fail2ban/jail.local
+        mode: 0644
+
+    - name: enable fail2ban
+      become: true
+      systemd:
+        name: fail2ban
+        enabled: true
+
+    - name: restart fail2ban
+      become: true
+      systemd:
+        name: fail2ban
+        state: restarted

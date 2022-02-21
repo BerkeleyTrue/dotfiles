@@ -1,0 +1,9 @@
+[DEFAULT]
+bantime = 4w
+banaction = ufw slack-notify
+banaction_allports = ufw slack-notify
+
+[sshd]
+enabled = true
+ignoreip = 127.0.0.1/8
+logpath = /var/log/auth.log
