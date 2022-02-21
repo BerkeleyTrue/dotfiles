@@ -7,3 +7,4 @@
     - check-pass
     - base-os
     - user-packages
+    - user-space
