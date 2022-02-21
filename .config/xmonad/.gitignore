@@ -3,10 +3,6 @@ bin/
 
 xmonad-*
 !xmonad-berks.cabal
+!xmonad-git
 xmonad.errors
 xmonad.*
-
-xmonad/
-xmonad-contrib
-xmobar/
-

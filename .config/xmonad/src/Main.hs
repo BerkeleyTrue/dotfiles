@@ -6,7 +6,6 @@ import qualified Data.Semigroup as SG
 import XMonad
 import qualified XMonad.StackSet as W
 import XMonad.Util.Run
-import XMonad.Util.SpawnOnce
 
 -- Actions
 import qualified XMonad.Actions.CycleWS as CWs

@@ -14,8 +14,6 @@ packages:
   - yay
   # Dev
   ## haskell
-  - ghc
-  - ghc-libs
   - stack
   ## terminal
   - alacritty
