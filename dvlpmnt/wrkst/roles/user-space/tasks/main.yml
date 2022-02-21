@@ -5,7 +5,7 @@
     state: directory
     mode: 0755
   loop:
-    - "{{ ansible_env.HOME }}/dvlpmnt/notes/captainslog/"  # captains log command in shell/task.sh
+    - "{{ ansible_env.HOME }}/docs/notes/captainslog/"  # captains log command in shell/task.sh
     - "{{ ansible_env.HOME }}/.local/share/x11"  # x11 logging set up in zprofile
   tags:
     - user
