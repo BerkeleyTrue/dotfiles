@@ -2,16 +2,12 @@
 
 - clean up hooks
   > hooks are all in different formats. These should be a little more uniform
-- move to xdg_conf_home
-  > These files should live in dvl/haskell dir
 - move to standalone tray
   > Trayer is annoying to configure and ignores struct toggling
 - fix picom transparency
   > No idea why this isn't working
 - move to taffybar
   > Don't like the xmobar uses a psuedo haskell file
-- add xmobar compile script
-- add single monitor version
 
 ## Doing
 
@@ -24,3 +20,6 @@
   * [x] update cabal file
   * [x] update haskell build file
   * [x] update stack build 
+- move to xdg_conf_home
+  > These files should live in dvl/haskell dir
+- add xmobar compile script
