@@ -62,6 +62,9 @@ packages:
   ## packages
   - flatpak
   - libpamac-flatpak-plugin
+  - libpamac
+  - pamac-cli
+  - pamac-gtk
   # Apps
   - aspell
   - aspell-en
