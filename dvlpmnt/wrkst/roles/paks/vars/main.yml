@@ -8,3 +8,4 @@ paks:
   - name: com.github.libresprite.LibreSprite
   - name: com.github.wwmm.pulseeffects
   - name: io.dbeaver.DBeaverCommunity
+  - name: org.chromium.Chromium

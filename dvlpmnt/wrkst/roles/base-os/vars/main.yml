@@ -54,14 +54,24 @@ packages:
   - nodejs
   - npm
   ## python
+  - python-pip
   - python-setuptools
   - python2-setuptools
-  - python-pip
   ## Ethereum
   - solidity
+  ## packages
+  - flatpak
+  - libpamac-flatpak-plugin
+  # Apps
+  - aspell
+  - aspell-en
+  - firefox
+  - rofi
+  - rofi-calc
 
 aur:
   # ui
+  - otf-nerd-fonts-fira-code
   # general
   - handlr-bin  # mime utils written in rust 🎉
   # DB tools
