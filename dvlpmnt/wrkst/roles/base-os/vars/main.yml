@@ -5,8 +5,10 @@ packages:
   - curl
   - git
   - github-cli
+  - gufw  # gui for ufw
   - hub
   - pkgfile
+  - ufw
   - unclutter
   - wget
   - xcape  # key mapping

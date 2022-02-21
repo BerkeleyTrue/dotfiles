@@ -6,5 +6,6 @@
   roles:
     - check-pass
     - base-os
+    - firewall
     - user-packages
     - user-space

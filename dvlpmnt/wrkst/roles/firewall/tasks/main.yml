@@ -1,0 +1,39 @@
+---
+- name: firewall
+  tags: firewall
+  block:
+    - name: install ufw
+      become: true
+      package:
+        name: ufw
+        state: present
+
+    # - name: ufw set logging
+    #   become: true
+    #   community.general.ufw:
+    #     logging: 'on'
+
+    - name: allow and limit ssh
+      become: true
+      community.general.ufw:
+        rule: limit
+        port: ssh
+        proto: tcp
+        delete: '{{ firewall.disable_ssh }}'
+
+    - name: apply custom rules
+      become: true
+      community.general.ufw:
+        rule: '{{ item.rule }}'
+        port: '{{ item.port }}'
+        from_ip: "{{ item.from_ip | default('any') }}"
+        proto: '{{ item.proto }}'
+        delete: '{{ item.delete }}'
+      with_items: '{{ firewall.rules | default([]) }}'
+      when: firewall.rules is iterable
+
+    - name: enable ufw and set the default policy to deny
+      become: true
+      community.general.ufw:
+        state: enabled
+        policy: deny
