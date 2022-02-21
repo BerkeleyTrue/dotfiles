@@ -4,8 +4,8 @@
   hosts: localhost
 
   roles:
-    - check-pass
-    - base-os
+    - check_pass
+    - base
     - firewall
-    - user-packages
-    - user-space
+    - user_packages
+    - user_space
