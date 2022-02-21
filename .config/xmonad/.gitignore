@@ -4,5 +4,6 @@ bin/
 xmonad-*
 !xmonad-berks.cabal
 !xmonad-git
+!xmonad-contrib-git
 xmonad.errors
 xmonad.*

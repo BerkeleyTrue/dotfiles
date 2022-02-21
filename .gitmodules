@@ -1,3 +1,12 @@
 [submodule ".config/xmonad/xmonad-git"]
 	path = .config/xmonad/xmonad-git
 	url = https://github.com/xmonad/xmonad.git
+[submodule ".config/xmonad/xmonad-contrib-git"]
+	path = .config/xmonad/xmonad-contrib-git
+	url = https://github.com/xmonad/xmonad-contrib.git
+[submodule ".config/xmonad/xmobar-git"]
+	path = .config/xmonad/xmobar-git
+	url = https://github.com/jaor/xmobar.git
+[submodule ".config/xmonad/taffybar-git"]
+	path = .config/xmonad/taffybar-git
+	url = https://github.com/taffybar/taffybar.git
