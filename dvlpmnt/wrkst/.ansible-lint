@@ -1,5 +1,7 @@
 # vim: ft=yaml
 ---
+skip_list:
+  - meta-no-info
 exclude_paths:
   - .yamllint
   - .ansible-lint
