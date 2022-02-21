@@ -1,11 +1,9 @@
 ## To Do
 
-- make zsh default shell
 - install aniseed in pack
-- install xmonad deps in xmonad
-- install fennel ts grammer in dvl
+- clone  and install fennel ts grammer in dvl
 - build dictionary
-- install haskell-lsp (pacman?)
+- clone and install haskell-language-server
 - install crypto-egg project in dvl
 - enable docker service
 - disable lightdm
@@ -14,3 +12,6 @@
 
 
 ## Done
+
+- make zsh default shell
+- install xmonad deps in xmonad
