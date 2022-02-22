@@ -13,7 +13,6 @@ packages:
   - wget
   - xcape  # key mapping
   - yamllint
-  - yay
   # Dev
   ## haskell
   - stack

@@ -1,10 +1,11 @@
 ---
 - name: update
-  shell:
-    cmd: flatpak update --noninteractive
+  command: flatpak update --noninteractive
+  changed_when: true
   tags:
     - update
     - flatpak
+    - flatpak-update
 
 - name: install
   flatpak:
