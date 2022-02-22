@@ -10,10 +10,39 @@
   tags:
     - user
     - folders
+    - init
 
 - name: make zsh default shell
   become: true
   user: name=berkeleytrue shell=/usr/bin/zsh
   tags:
+    - init
     - user
     - zsh
+
+- name: pacman colored output
+  become: true
+  lineinfile:
+    dest: /etc/pacman.conf
+    state: present
+    regexp: ^(.*)Color
+    line: Color
+  tags:
+    - system
+    - init
+    - user
+
+- name: ensure zshenv
+  become: true
+  ansible.builtin.copy:
+    src: zshenv
+    dest: /etc/zsh/zshenv
+    backup: true
+    owner: root
+    mode: '0644'
+  tags:
+    - init
+    - resources
+    - zsh
+    - files
+    - user
