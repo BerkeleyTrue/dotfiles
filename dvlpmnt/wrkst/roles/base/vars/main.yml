@@ -19,12 +19,12 @@ packages:
   - stack
   ## terminal
   - alacritty
-  - the_silver_searcher
   - bat  # like cat but rusty
+  - dog  # Like dig but a good boi
   - dust  # rust based disk usage utility
   - entr  #  watch files and re-run command
-  - exa
-  - fd
+  - exa  # like ls but extra
+  - fd  # like find but kinder
   - figlet  # make large banners out of ascii
   - kitty
   - neovim
@@ -32,12 +32,13 @@ packages:
   - ripgrep
   - shfmt
   - task  # taskwarrior
-  - taskell
+  - taskell  # kanban in the terminal
   - tealdeer  # TL;DR for deers (rusty)
+  - the_silver_searcher
   - timew  # timewarrior
   - tmux
-  - yadm
-  - zoxide  # warp around cd rustily
+  - yadm  # yet another dotfiles manager
+  - zoxide  # like cd but with more warp
   - zsh
   ## automation
   - ansible
