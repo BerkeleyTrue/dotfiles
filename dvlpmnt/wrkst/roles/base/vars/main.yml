@@ -94,3 +94,6 @@ aur:
   - fennel
   - fnlfmt-git
   - joker-bin
+  # words
+  - wordnet-common
+  - wrodnet-cli

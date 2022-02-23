@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
-word=$(cat /usr/share/dict/english | rofi -p "spell" -dmenu)
+word=$(cat /usr/share/dict/english | rofi -p 'spell' -dmenu)
+
+definition=$(wn $word -over)
+if [[ ! -z "$definition" ]]; then
+  rofi -p -e "$definition"
+fi
+
 echo -n $word | clipboard
 echo $word
