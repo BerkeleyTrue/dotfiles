@@ -3,6 +3,9 @@ npm_global_packages:
   - n
   - neovim
 
+  # cli
+  - clipboard-cli  # universal cli tool
+
   # clojurescript dev
   - shadow-cljs
   - nbb
