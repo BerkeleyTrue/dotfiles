@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+word=$(cat /usr/share/dict/english | rofi -p "spell" -dmenu)
+echo -n $word | clipboard
+echo $word

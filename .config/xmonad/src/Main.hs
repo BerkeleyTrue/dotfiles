@@ -55,6 +55,11 @@ keyMaps XConfig {modMask = modm, layoutHook = layoutHk} =
   , ((modm, xK_p), spawn "dmenu_run")
   -- launch rofi
   , ((modm, xK_d), spawn "rofi -show drun")
+  -- launch spell
+  , ((modm, xK_s), spawn "$HOME/.local/bin/rofi-spell")
+  -- quit menu
+  , ((modm, xK_0), spawn "$HOME/.local/bin/powermenu")
+  -- launch grid selector
   , ((modm, xK_g), GS.createAppGridSpawner ())
   -- close focused window
   , ((modm .|. shiftMask, xK_q), kill)
@@ -109,8 +114,6 @@ keyMaps XConfig {modMask = modm, layoutHook = layoutHk} =
       \ xmonad --recompile && \
       \ xmonad --restart && \
       \ notify-send -a 'XMonad'  'Restarted'")
-    -- quit menu
-  , ((modm, xK_0), spawn "$HOME/.local/bin/powermenu")
   ] ++
   --
   -- mod-[1..9], Switch to workspace N
