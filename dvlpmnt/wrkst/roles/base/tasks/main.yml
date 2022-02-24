@@ -6,27 +6,10 @@
     update_cache: true
     upgrade: true
   tags:
-    - init
+    - bootstrap
     - update
     - arch
     - pacman
-
-- name: Update aur
-  aur:
-    aur_only: true
-    upgrade: true
-  tags:
-    - update
-    - arch
-    - aur
-
-- name: Install yay
-  command: pamac install yay
-  when: ansible_os_family == "Archlinux"
-  tags:
-    - init
-    - arch
-    - pamac
 
 - name: Install packages
   become: true
@@ -35,15 +18,59 @@
     name: '{{ packages }}'
     state: present
   tags:
-    - init
+    - bootstrap
     - arch
     - packages
     - pacman
 
+- name: Install yay
+  command: pamac install yay
+  when: ansible_os_family == "Archlinux"
+  tags:
+    - bootstrap
+    - arch
+    - pamac
+
+- name: Create the `aur_builder` user
+  become: true
+  become_user: root
+  ansible.builtin.user:
+    name: aur_builder
+    create_home: true
+    group: wheel
+  tags:
+    - bootstrap
+    - aur
+
+- name: Allow the `aur_builder` user to run `sudo pacman` without a password
+  become: true
+  become_user: root
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: true
+    validate: visudo -cf %s
+    mode: 0644
+  tags:
+    - bootstrap
+    - aur
+
+- name: Update aur
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    aur_only: true
+    upgrade: true
+  tags:
+    - update
+    - arch
+    - aur
+
 - name: Install aur packages
-  aur:
+  become_user: aur_builder
+  kewlfft.aur.aur:
     name: '{{ aur }}'
     state: present
+    aur_only: true
   tags:
     - arch
     - packages
@@ -57,7 +84,7 @@
     state: directory
     mode: 0644
   tags:
-    - init
+    - bootstrap
     - systemd
     - resources
     - folders
@@ -72,7 +99,7 @@
     owner: root
     mode: '0644'
   tags:
-    - init
+    - bootstrap
     - systemd
     - resources
     - files
@@ -87,8 +114,7 @@
     owner: root
     mode: '0644'
   tags:
-    - init
+    - bootstrap
     - systemd
     - resources
     - files
-...

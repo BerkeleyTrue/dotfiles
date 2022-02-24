@@ -80,7 +80,7 @@ aur:
   # DB tools
   - robo3t-bin  # mongodb UI tool
   # terminal
-  - antigen
+  - antigen-git
   - toilet  # asci out text
   - navi  # interactive CL tool for cheats (sorta like TLDR)
   - wakatime-cli-bin  # new go version
@@ -96,5 +96,5 @@ aur:
   - joker-bin
   # words
   - wordnet-common
-  - wrodnet-cli
+  - wordnet-cli
 ...

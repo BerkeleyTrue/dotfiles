@@ -8,5 +8,4 @@
     - base
     - firewall
     - fail2ban
-    - user_packages
     - user_space
