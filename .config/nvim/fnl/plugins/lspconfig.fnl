@@ -27,7 +27,10 @@
     {}))
 
 (def lsps
-  {:ansiblels {}
+  {:ansiblels
+   {:settings
+    {:ansible
+     {:ansibleLint {:enabled false}}}}
    :bashls {}
    :caramel_lsp {}
    :clojure_lsp
