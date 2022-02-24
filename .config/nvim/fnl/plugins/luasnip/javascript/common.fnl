@@ -47,4 +47,36 @@
                return <>(<>);
                "
                [(i 1 "callback")
-                (i 2)]))])]))})
+                (i 2)]))])]))
+
+   :import
+   (s
+     {:trig "import"
+      :name "Import statement"
+      :dscr "Create an import statement."
+      :wordTrig true}
+     (fmta "
+        import <> from '<>';<>"
+       [(c 2
+          [(sn nil (fmta
+                     "{ <> }"
+                     [(i 1)]))
+           (i "")])
+        (i 1 "module")
+        (i 0)]))
+
+   :require
+   (s
+     {:trig "require"
+      :name "Require expression"
+      :dscr "Create a require expression."
+      :wordTrig true}
+     (fmta "
+        const <> = require('<>');<>"
+       [(c 2
+          [(sn nil (fmta
+                     "{ <> }"
+                     [(i 1)]))
+           (i "")])
+        (i 1 "module")
+        (i 0)]))})
