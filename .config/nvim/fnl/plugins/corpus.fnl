@@ -12,14 +12,18 @@
      {:autocommit true
       :autoreference true
       :autotitle true
-      :base "./"
       :transform "local"}
 
      "~/docs/notes/corpus"
      {:autocommit true
       :autoreference true
       :autotitle true
-      :base "./corpus"
+      :transform "local"}
+
+     "~/docs/notes/captainslog"
+     {:autocommit true
+      :autoreference true
+      :autotitle true
       :transform "local"}
 
      "~/docs/corpus"
