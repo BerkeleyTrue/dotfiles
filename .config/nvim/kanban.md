@@ -4,6 +4,7 @@
 
 ## Doing
 
+- update packers to use make setup
 
 ## Done
 
