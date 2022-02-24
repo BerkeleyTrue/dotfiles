@@ -4,34 +4,40 @@
     - fail2ban
     - user
   block:
-    - name: install
+    - name: Install
       become: true
+      become_user: root
       package:
         name: fail2ban
         state: present
 
-    - name: make slack notification action
+    - name: Make slack notification action
       become: true
+      become_user: root
       template:
         src: slack-notify.conf
         dest: /etc/fail2ban/action.d/slack-notify.conf
         mode: 0644
 
-    - name: apply jail.local
+    - name: Apply jail.local
       become: true
+      become_user: root
       copy:
         src: jail.local
         dest: /etc/fail2ban/jail.local
         mode: 0644
 
-    - name: enable fail2ban
+    - name: Enable fail2ban
       become: true
+      become_user: root
       systemd:
         name: fail2ban
         enabled: true
 
-    - name: restart fail2ban
+    - name: Restart fail2ban
       become: true
+      become_user: root
       systemd:
         name: fail2ban
         state: restarted
+...

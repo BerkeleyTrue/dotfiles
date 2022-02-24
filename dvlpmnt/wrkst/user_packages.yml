@@ -1,0 +1,10 @@
+---
+
+- name: Install user packages
+  hosts: localhost
+
+  roles:
+    - npm
+    - pip
+    - paks
+    - user_space

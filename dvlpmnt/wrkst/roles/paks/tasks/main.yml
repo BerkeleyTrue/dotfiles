@@ -1,5 +1,5 @@
 ---
-- name: update
+- name: Update paks
   command: flatpak update --noninteractive
   changed_when: true
   tags:
@@ -7,7 +7,7 @@
     - flatpak
     - flatpak-update
 
-- name: install
+- name: Install paks
   flatpak:
     name: "{{ item.name }}"
     remote: "{{ item.remote | default('flathub') }}"

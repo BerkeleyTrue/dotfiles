@@ -1,6 +1,7 @@
 ---
-- name: update-system
+- name: Update system
   become: true
+  become_user: root
   pacman:
     update_cache: true
     upgrade: true
@@ -10,7 +11,7 @@
     - arch
     - pacman
 
-- name: update-aur
+- name: Update aur
   aur:
     aur_only: true
     upgrade: true
@@ -19,7 +20,7 @@
     - arch
     - aur
 
-- name: install yay
+- name: Install yay
   command: pamac install yay
   when: ansible_os_family == "Archlinux"
   tags:
@@ -27,8 +28,9 @@
     - arch
     - pamac
 
-- name: install-packages
+- name: Install packages
   become: true
+  become_user: root
   pacman:
     name: '{{ packages }}'
     state: present
@@ -38,7 +40,7 @@
     - packages
     - pacman
 
-- name: install-aur-packages
+- name: Install aur packages
   aur:
     name: '{{ aur }}'
     state: present
@@ -47,8 +49,9 @@
     - packages
     - aur
 
-- name: ensure getty folder exists
+- name: Ensure getty folder exists
   become: true
+  become_user: root
   file:
     path: /etc/systemd/system/getty@tty1.service.d/
     state: directory
@@ -59,8 +62,9 @@
     - resources
     - folders
 
-- name: ensure tty1 skips usernames
+- name: Ensure tty1 skips usernames
   become: true
+  become_user: root
   ansible.builtin.copy:
     src: skip-username.conf
     dest: /etc/systemd/system/getty@tty1.service.d/skip-username.conf
@@ -73,8 +77,9 @@
     - resources
     - files
 
-- name: ensure tt1 does not clear
+- name: Ensure tt1 does not clear
   become: true
+  become_user: root
   ansible.builtin.copy:
     src: noclear.conf
     dest: /etc/systemd/system/getty@tty1.service.d/noclear.conf
@@ -86,3 +91,4 @@
     - systemd
     - resources
     - files
+...

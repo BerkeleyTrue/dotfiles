@@ -7,3 +7,4 @@ firewall:
     #   from_ip: 192.168.1.123
     #   proto: tcp
     #   delete: true
+...

@@ -7,5 +7,7 @@
 - name: Check sudo password first
   command: echo "sudo password correct"
   become: true
+  become_user: root
   changed_when: false
   tags: always
+...

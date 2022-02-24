@@ -1,12 +1,13 @@
 ---
-- name: npmig
+- name: Install global npm packages
   become: true
+  become_user: root
   npm:
     global: true
     production: true
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
-  loop: "{{ npm_global_packages }}"
+  loop: '{{ npm_global_packages }}'
   tags:
     - npm
     - packages

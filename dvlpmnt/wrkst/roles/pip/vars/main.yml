@@ -4,3 +4,4 @@ pips:
   - passlib
   - pynvim
   - yamlfix
+  - ansible-later

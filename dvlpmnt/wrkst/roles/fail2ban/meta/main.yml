@@ -1,3 +1,10 @@
 ---
+galaxy_info:
+  author: Berkeleytrue
+  description: Install and setup fail2ban
+  min_ansible_version: 2.12.2
+  platforms: ArchLinux
+  license: MIT
 dependencies:
   - role: firewall
+...

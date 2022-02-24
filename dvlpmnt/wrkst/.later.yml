@@ -1,0 +1,9 @@
+---
+ansible:
+  literal-bools:
+    - 'true'
+    - 'false'
+rules:
+  exclude_filter:
+    - LINT0009
+  version: '0.2'
