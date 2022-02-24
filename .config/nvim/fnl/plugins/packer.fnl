@@ -1,7 +1,10 @@
 (module plugins.packer
   {require
    {a aniseed.core
-    nvim aniseed.nvim}})
+    r r
+    md utils.module
+    nvim aniseed.nvim}
+   require-macros [macros]})
 
 (defn- get-packer-dir []
   (string.format "%s/pack/packer/opt" (nvim.fn.stdpath "config")))
@@ -36,16 +39,18 @@
 
 (defn- format-plugins [plugin]
   (let [{:name name} plugin]
-    (-> plugin
-        (a.assoc 1 name))))
+    (->
+      plugin
+      (r.assoc 1 name))))
 
 (defn config [spec]
   (let [packer (require :packer)]
     (packer.startup
-      {1 (fn [use]
-           (->> spec
-                (a.map format-plugins)
-                (a.map use)))
+      {1
+       (fn [use]
+         (->> spec
+           (r.map format-plugins)
+           (r.map use)))
 
        :config
        {:display

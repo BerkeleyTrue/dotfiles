@@ -106,6 +106,9 @@
     (utils.fn.substitute "\\.fnl$" ".lua" "")
     (utils.fn.substitute "fnl/" "lua/" "")))
 
+(fn make-on-load [ns]
+  `(.. "require(\"plugins." ,(tostring ns) "\").main()"))
+
 {: run-main
  : sym->name
  : from-iter
@@ -117,4 +120,5 @@
  : viml->lua*
  : cviml->lua*
  : viml->luaexp*
- : get-lua-filename}
+ : get-lua-filename
+ : make-on-load}

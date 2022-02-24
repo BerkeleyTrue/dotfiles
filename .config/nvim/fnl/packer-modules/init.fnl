@@ -20,7 +20,7 @@
    {:name :danilamihailov/beacon.nvim}
    {:name :ntpeters/vim-better-whitespace}
    {:name :mg979/vim-visual-multi}
-   {:name :wincent/corpus :description "vim wiki written in lua"}
+   {:name :wincent/corpus :description "vim wiki written in lua" :config (make-on-load corpus)}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :Shelvak/ale :branch :solc_0.8 :description "linting engine"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
@@ -44,7 +44,7 @@
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps"}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
    {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources"}
-   {:name :j-hui/fidget.nvim :description "add lsp spinner" :config (fn [] (: (require :fidget) :setup {}))}
+   {:name :j-hui/fidget.nvim :description "add lsp spinner" :config (make-on-load fidget)}
    {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
    {:name :b0o/schemastore.nvim :desciption "adds schemastore to jsonls through lspconfig" :requires [[:neovim/nvim-lspconfig]]}
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
