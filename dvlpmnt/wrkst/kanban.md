@@ -10,8 +10,11 @@
 
 ## Doing
 
+- add harden linux role
 
 ## Done
 
 - make zsh default shell
 - install xmonad deps in xmonad
+- add aur builder
+- add aur module from galaxy
