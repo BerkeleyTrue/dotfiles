@@ -88,4 +88,22 @@
               (fmta
                 " :requires [[:<>]]"
                 [(i 1 "dep")]
-                {:dedent false}))])]))})
+                {:dedent false}))])]))
+   :tapx
+   (s
+     {:trig "tapx"
+      :name "Tap a var to x"
+      :dscr "Create a packer package entry."
+      :wordTrig false}
+     (fmta
+       "(tap #(<> <> $))"
+       [(c 1
+           [(t "print")
+            (t "a.pr")])
+        (c 2
+           [(t ":x")
+            (t ":y")
+            (t ":z")
+            (t ":a")
+            (t ":b")
+            (t ":c")])]))})
