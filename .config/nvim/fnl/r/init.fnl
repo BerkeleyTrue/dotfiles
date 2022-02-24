@@ -5,7 +5,6 @@
    require-macros [macros]})
 
 
-
 ;utils
 (def _ :placeholder)
 (defn curry [func arity]
@@ -103,6 +102,24 @@
 (def last a.last)
 (def some a.some)
 (def concat a.concat)
+
+(defn flatten [xs]
+  (a.reduce
+    (fn [res item]
+      (if (= (type item) :table)
+        (concat res item)
+        (do
+          (table.insert res item)
+          res)))
+    []
+    xs))
+
+(defn flatMap [f xs]
+  (->>
+    xs
+    (a.map f)
+    (flatten)))
+
 (def reduce a.reduce)
 (def join
   (curry

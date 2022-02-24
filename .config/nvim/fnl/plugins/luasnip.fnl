@@ -10,14 +10,36 @@
 (def- ft-snips
   [:fennel
    :gitcommit
-   :javascript])
+   {:fts [:javascript :typescript]
+    :ns :javascript.common}])
+
 
 (def *lua-file*
-  (utils.fn.substitute *file* "^fnl\\|fnl$" "lua" "g"))
+  (.. (utils.fn.stdpath "config") "/" (utils.fn.substitute *file* "^fnl\\|fnl$" "lua" "g")))
 
-; TODO: use full paths
 (def *lua-dir*
   (utils.fn.substitute *lua-file* "\\.lua$" "/" ""))
+
+
+(defn- map-fts [spec]
+  (if (r.table? spec)
+    (a.map
+      (fn [ft]
+        (r.merge {: ft} spec))
+      (. spec :fts))
+    spec))
+
+
+(defn- normalize-spec [spec]
+  (let [ft (if (= (type spec) "string")
+             spec
+             (. spec :ft))
+
+        namespace (if (= (type spec) "string")
+                    (.. *module-name* "." ft)
+                    (.. *module-name* "." (. spec :ns)))]
+    {: ft
+     : namespace}))
 
 (defn source-ft-snips []
   (when-let [luasnip (md.prequire :luasnip)]
@@ -38,11 +60,8 @@
                    : ai}]
       (->>
         ft-snips
-        (r.map
-          (fn [ft]
-            {: ft
-             :namespace (.. *module-name* "." ft)}))
-
+        (r.flatMap map-fts)
+        (r.map normalize-spec)
         (r.map
           (fn [{: ft : namespace}]
             {ft

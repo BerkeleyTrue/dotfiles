@@ -1,4 +1,4 @@
-(module plugins.luasnip.javascript
+(module plugins.luasnip.javascript.common
   {require
    {a aniseed.core
     r r
