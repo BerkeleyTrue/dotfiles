@@ -1,10 +1,10 @@
 ---
-- name: Workstation init
+- name: Update workstation packages
   hosts: localhost
 
   roles:
     - check_pass
     - base
-    - firewall
-    - fail2ban
     - user_space
+    - paks
+    - pip
