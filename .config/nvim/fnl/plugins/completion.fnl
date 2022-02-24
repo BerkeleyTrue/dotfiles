@@ -92,4 +92,5 @@
       (dic.setup
         {:dic
          {"*" ["/usr/share/dict/english"]}
-         :debug false}))))
+         :debug false
+         :document true}))))
