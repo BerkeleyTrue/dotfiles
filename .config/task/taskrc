@@ -55,3 +55,10 @@ context.bike.read=proj:bike or +bike
 context.bike.write=proj:bike +bike
 context.crypto.read=+crypto
 context.crypto.write=+crypto
+
+taskd.certificate=/etc/ssl/certs/intheam/private.certificate.pem
+taskd.key=/etc/ssl/certs/intheam/private.key.pem
+taskd.ca=/etc/ssl/certs/intheam/ca.cert.pem
+taskd.server=inthe.am:53589
+taskd.credentials=inthe_am/jn.martinez110/e1ea5b65-425d-4429-8157-1ab25aad6cec
+taskd.trust=strict
