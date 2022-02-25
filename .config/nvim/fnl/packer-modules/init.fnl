@@ -49,7 +49,7 @@
    {:name :b0o/schemastore.nvim :desciption "adds schemastore to jsonls through lspconfig" :requires [[:neovim/nvim-lspconfig]]}
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
    {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
-   {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions." :branch :wordnet}
+   {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
