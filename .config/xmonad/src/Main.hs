@@ -16,6 +16,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
+import XMonad.Hooks.UrgencyHook
 
 -- Hooks
 import XMonad.Hooks.SetWMName
@@ -30,6 +31,7 @@ import XMonad.Layout.WindowNavigation
 import qualified Berks.Colors as Cl
 import qualified Berks.GridSelect as GS
 import qualified Berks.Layouts.Main as L
+import qualified Berks.Urgency as Urg
 
 -- Terminal
 term :: String
@@ -189,6 +191,8 @@ myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
 myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D" <>
+  spawn "source $HOME/.config/screenlayout/default.sh" <>
+  spawn "nitrogen --restore" <>
   spawn
     "killall trayer; \
     \trayer --edge top \
@@ -216,6 +220,7 @@ main = do
   xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
   xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
   xmonad $
+    withUrgencyHook Urg.UrgencyHookInstance $
     enhanceXConf
       def
         { terminal = term
