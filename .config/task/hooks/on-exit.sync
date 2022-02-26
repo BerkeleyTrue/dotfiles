@@ -1,0 +1,19 @@
+#!/bin/sh
+TASK_BACKLOG=~/.config/task/backlog.data
+TASK_SHARE=~/.local/share/task
+SYNC_LOG=$TASK_SHARE/on-exit-sync-hook.log
+LOCK_FILE=$TASK_SHARE/autosync.lock
+
+if [ ! -f $LOCK_FILE ]; then
+  touch $LOCK_FILE
+
+  # Only sync, if the backlog is not empty
+  if (($(cat $TASK_BACKLOG | wc -l) > 1)); then
+    output=$(task sync)
+    echo "$(date "+\%F \%T") - $output" >> $SYNC_LOG 2>&1
+  fi
+
+  rm $LOCK_FILE
+fi
+
+exit 0

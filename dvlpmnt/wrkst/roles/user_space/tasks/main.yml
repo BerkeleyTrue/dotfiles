@@ -7,9 +7,23 @@
   loop:
     - '{{ ansible_env.HOME }}/docs/notes/captainslog/' # captains log command in shell/task.sh
     - '{{ ansible_env.HOME }}/.local/share/x11' # x11 logging set up in zprofile
+    - '{{ ansible_env.HOME }}/.local/share/task' # task logs
   tags:
     - user
     - folders
+    - init
+
+- name: Ensure user dirs
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: file
+    mode: 0644 # owner read/write, group read, world read
+  loop:
+    - '{{ ansible_env.HOME }}/.local/share/x11/x11.log' # x11 logging set up in zprofile
+    - '{{ ansible_env.HOME }}/.local/share/task/on-exit-sync-hook.log' # task logs
+  tags:
+    - user
+    - files
     - init
 
 - name: Make zsh default shell
@@ -51,3 +65,12 @@
     - zsh
     - files
     - user
+
+- name: Ensure Taskwarrior autosyncing
+  ansible.builtin.cron:
+    name: Sync taskwarrior
+    minute: 0  # runs on evey 0 minute (hourly)
+    job: "/home/berkeleytrue/.config/task/hooks/on-exit.sync"
+  tags:
+    - init
+    - taskwarrior-cron
