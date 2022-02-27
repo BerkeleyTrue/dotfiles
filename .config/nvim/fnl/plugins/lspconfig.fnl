@@ -8,6 +8,9 @@
 
    require-macros [macros]})
 
+(defn- silent-nnoremap [lhs rhs]
+  (utils.nnoremap lhs rhs {:silent true}))
+
 (defn get-capabilities []
   (let [cmplsp (require :cmp_nvim_lsp)]
     (cmplsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))))
@@ -26,6 +29,11 @@
       (r.merge base-conf {:settings {:json {: schemas}}}))
     {}))
 
+(defn- general-on-attach [client]
+  (silent-nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
+  (silent-nnoremap :K "<cmd>lua vim.lsp.buf.hover()<CR>")
+  (silent-nnoremap :gd "<cmd>lua vim.lsp.buf.definition()<CR>"))
+
 (def lsps
   {:ansiblels
    {:settings
@@ -37,7 +45,8 @@
    {:on_attach
     (fn [client]
       ; rely on zprint
-      (tset client.resolved_capabilities :document_formatting false))}
+      (tset client.resolved_capabilities :document_formatting false)
+      (general-on-attach client))}
    :cssls {}
    :dockerls {}
    :hls {}
@@ -45,7 +54,7 @@
    :jsonls {}
    :rls {}
    :solidity_ls {}
-   :tsserver (tsserver.get-config)
+   :tsserver (tsserver.get-config {:on_attach general-on-attach})
    :vimls {}
    :yamlls {}})
 
@@ -66,7 +75,6 @@
       :pattern :*
       :cmd "lua vim.diagnostic.open_float()"}])
 
-  (utils.nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
   (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()"))
 
 (defn main []
@@ -86,4 +94,8 @@
           (fn [[lsp-name config]]
             (let [lsp-module (. lspconfig lsp-name)
                   lsp-setup (. lsp-module :setup)]
-              (lsp-setup (r.merge config {:capabilities (get-capabilities)})))))))))
+              (lsp-setup
+                (r.merge
+                  config
+                  {:capabilities (get-capabilities)
+                   :on_attach (or (. config :on_attach) general-on-attach)})))))))))
