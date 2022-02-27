@@ -2,6 +2,7 @@
 npm_global_packages:
   - n
   - neovim
+  - yarn
 
   # cli
   - clipboard-cli  # universal cli tool
