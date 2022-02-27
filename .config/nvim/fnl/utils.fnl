@@ -62,7 +62,7 @@
                             :nowait nowait
                             :script script}]]
     (if
-      buffer (nvim.buf_set_keymap 0 (unpack args))
+      buffer (nvim.buf_set_keymap buffer (unpack args))
       (nvim.set_keymap (unpack args)))))
 
 
@@ -82,6 +82,12 @@
   "(nnoremap 'cr' ':echo foo' {:expr true :buffer false :nowait false})
   create a nnoremap"
   (let [options (r.assoc (or options? {}) :noremap true)]
+    (base-map :n lhs rhs options)))
+
+(defn nnoremap-silent [lhs rhs options?]
+  "(nnoremap 'cr' ':echo foo' {:expr true :buffer false :nowait false})
+  create a nnoremap"
+  (let [options (r.assoc (or options? {}) :noremap true :silent true)]
     (base-map :n lhs rhs options)))
 
 (defn inoremap [lhs rhs options?]

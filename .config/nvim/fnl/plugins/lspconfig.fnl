@@ -8,9 +8,6 @@
 
    require-macros [macros]})
 
-(defn- silent-nnoremap [lhs rhs]
-  (utils.nnoremap lhs rhs {:silent true}))
-
 (defn get-capabilities []
   (let [cmplsp (require :cmp_nvim_lsp)]
     (cmplsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))))
@@ -29,10 +26,10 @@
       (r.merge base-conf {:settings {:json {: schemas}}}))
     {}))
 
-(defn- general-on-attach [client]
-  (silent-nnoremap :zf ":lua vim.lsp.buf.formatting()<CR>")
-  (silent-nnoremap :K "<cmd>lua vim.lsp.buf.hover()<CR>")
-  (silent-nnoremap :gd "<cmd>lua vim.lsp.buf.definition()<CR>"))
+(defn- general-on-attach [client buffnr]
+  (utils.nnoremap-silent :zf ":lua vim.lsp.buf.formatting()<CR>" {:buffer buffnr})
+  (utils.nnoremap-silent :K "<cmd>lua vim.lsp.buf.hover()<CR>" {:buffer buffnr})
+  (utils.nnoremap-silent :gd "<cmd>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr}))
 
 (def lsps
   {:ansiblels
