@@ -49,6 +49,7 @@
    :hls {}
    :html {}
    :jsonls {}
+   :prismals {}
    :rls {}
    :solidity_ls {}
    :tsserver (tsserver.get-config {:on_attach general-on-attach})
