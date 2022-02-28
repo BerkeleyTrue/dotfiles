@@ -63,11 +63,13 @@
           :css
           :dockerfile
           :fennel
+          :haskell
           :html
           :javascript
           :jsdoc
           :json
           :lua
+          :prisma
           :query
           :regex
           :rust
