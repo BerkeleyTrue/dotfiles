@@ -77,6 +77,24 @@
           [(sn nil (fmta
                      "{ <> }"
                      [(i 1)]))
-           (i "")])
+           (t "")])
         (i 1 "module")
-        (i 0)]))})
+        (i 0)]))
+
+   :constructor
+   (s
+     {:trig "const"
+      :name "constructor method"
+      :dscr "Create a constructor."
+      :wordTrig true}
+     (fmta "
+       constructor(<>) {
+         <>
+       }"
+       [(i 1 "")
+        (c 2
+          [(t "")
+           (sn nil (fmta "
+                     super();<>
+                     "
+                     [(i 1 "")]))])]))})
