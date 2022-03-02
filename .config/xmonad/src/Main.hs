@@ -9,7 +9,7 @@ import XMonad.Util.NamedActions
 import XMonad.Util.Run
 
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.EwmhDesktops as Ewmh (ewmh)
 import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (doFullFloat, doRectFloat, isFullscreen)
@@ -86,7 +86,7 @@ myManageHook =
 ------------------------------------------------------------------------
 -- Event handling
 myEventHook :: Event -> X SG.All
-myEventHook = fadeWindowsEventHook <> fullscreenEventHook
+myEventHook = fadeWindowsEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
