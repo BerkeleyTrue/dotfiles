@@ -12,7 +12,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
+import XMonad.Hooks.ManageHelpers (doFullFloat, doRectFloat, isFullscreen)
 import XMonad.Hooks.UrgencyHook
 
 -- Hooks
@@ -80,6 +80,7 @@ myManageHook =
     , className =? "Slack" --> doShift "3"
     , className =? "discord" --> doShift "3"
     , className =? "zoom" --> doShift "4"
+    , className =? "Zenity" --> doRectFloat CheatSh.size
     ]
 
 ------------------------------------------------------------------------
