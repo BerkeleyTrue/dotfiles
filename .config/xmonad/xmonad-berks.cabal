@@ -14,6 +14,7 @@ executable xmonad
     , Berks.Colors
     , Berks.Font
     , Berks.GridSelect
+    , Berks.KeyMaps
     , Berks.Layouts.Horiz
     , Berks.Layouts.Magnify
     , Berks.Layouts.Main
