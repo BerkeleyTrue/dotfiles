@@ -15,6 +15,7 @@ x-scheme-handler/ftp=firefox.desktop;
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird.desktop;
+video/mp4=firefox.desktop;mpv.desktop;
 
 [Default Applications]
 application/pdf=epdfview.desktop;
@@ -33,3 +34,4 @@ x-scheme-handler/ftp=firefox.desktop;
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
 x-scheme-handler/mailto=firefox.desktop;
+video/mp4=mpv.desktop
