@@ -1,0 +1,26 @@
+---
+aur:
+  # ui
+  - otf-nerd-fonts-fira-code
+  # general
+  - handlr-bin  # mime utils written in rust 🎉
+  # DB tools
+  - robo3t-bin  # mongodb UI tool
+  # terminal
+  - antigen-git
+  - toilet  # asci out text
+  - navi  # interactive CL tool for cheats (sorta like TLDR)
+  - wakatime-cli-bin  # new go version
+  # automation
+  - terraform-lsp-git
+  # clojure dev
+  - babashka-bin  # cli clj runner for faster tools
+  - boot
+  - clojure-lsp-bin
+  - clj-kondo-bin
+  - fennel
+  - fnlfmt-git
+  - joker-bin
+  # words
+  - wordnet-common
+  - wordnet-cli

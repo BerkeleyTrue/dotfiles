@@ -1,6 +1,7 @@
 ---
 - name: firewall
-  tags: firewall
+  tags:
+    - firewall
   block:
     - name: Install ufw
       become: true
@@ -42,4 +43,3 @@
       community.general.ufw:
         state: enabled
         policy: deny
-...

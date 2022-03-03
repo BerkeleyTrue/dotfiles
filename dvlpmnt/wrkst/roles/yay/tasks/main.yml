@@ -1,0 +1,81 @@
+---
+- name: Check if yay exists
+  shell: command -v yay > /dev/null 2>&1
+  changed_when: false
+  register: does_yay_exists
+  ignore_errors: true
+  tags:
+    - bootstrap
+    - install-yay
+
+- name: Does yay exists?
+  debug:
+    var: does_yay_exists
+  tags:
+    - bootstrap
+    - install-yay
+
+- name: Install Yay from source
+  when: does_yay_exists.rc
+  tags:
+    - bootstrap
+    - install-yay
+  block:
+    - name: Check for base-devel packages
+      become: true
+      pacman:
+        name: base-devel
+        state: present
+
+    - name: Check for git package
+      become: true
+      pacman:
+        name: git
+        state: present
+
+    - name: Ensure dvl directory
+      file:
+        path: '{{ ansible_env.HOME }}/dvlpmnt'
+        state: directory
+        mode: 0755
+
+    - name: Ensure yay directory
+      file:
+        path: '{{ ansible_env.HOME }}/dvlpmnt/yay'
+        state: directory
+        mode: 0755
+
+    - name: Clone Yay repository
+      git:
+        repo: https://aur.archlinux.org/yay.git
+        dest: '{{ ansible_env.HOME }}/dvlpmnt/yay'
+        version: master
+
+    - name: Allow the user to run makepkg without a password
+      become: true
+      become_user: root
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/11-allow-makepkg-builder
+        line: 'berkeleytrue ALL=(ALL) NOPASSWD: /usr/bin/makepkg'
+        create: true
+        validate: visudo -cf %s
+        mode: 0644
+
+    - name: Install Yay
+      changed_when: true
+      shell: >-
+        echo "y" | makepkg -si
+      args:
+        chdir: '{{ ansible_env.HOME }}/dvlpmnt/yay'
+      register: did_yay_install
+
+    - name: Did yay install?
+      debug:
+        var: did_yay_install
+
+- name: Remove user from sudoers
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: /etc/sudoers.d/11-allow-makepkg-builder
+    state: absent

@@ -1,10 +1,12 @@
 ---
 - name: Workstation init
-  hosts: localhost
+  hosts: all
 
   roles:
     - check_pass
     - base
+    - yay
+    - aur
     - firewall
     - fail2ban
     - user_space
