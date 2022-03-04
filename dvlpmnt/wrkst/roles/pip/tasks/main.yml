@@ -1,6 +1,6 @@
 ---
-- name: Update pip packages
-  anbsible.builtin.pip:
+- name: Update pip packages # noqa package-latest
+  ansible.builtin.pip:
     name: '{{ pips }}'
     state: latest
   tags:
