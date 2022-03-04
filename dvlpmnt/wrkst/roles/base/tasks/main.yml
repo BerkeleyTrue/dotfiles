@@ -33,6 +33,16 @@
         - packages
         - pacman
 
+    - name: Ensure files are absent
+      become: true
+      become_user: root
+      file:
+        path: '{{ file_to_delete }}'
+        state: absent
+      loop: '{{ base_files_to_delete }}'
+      loop_control:
+        loop_var: file_to_delete
+
     - name: Ensure getty folder exists
       become: true
       become_user: root
