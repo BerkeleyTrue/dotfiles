@@ -69,8 +69,8 @@
 - name: Ensure Taskwarrior autosyncing
   ansible.builtin.cron:
     name: Sync taskwarrior
-    minute: 0  # runs on evey 0 minute (hourly)
-    job: "/home/berkeleytrue/.config/task/hooks/on-exit.sync"
+    minute: 0 # runs on evey 0 minute (hourly)
+    job: /home/berkeleytrue/.config/task/hooks/on-exit.sync
   tags:
     - init
     - taskwarrior-cron
