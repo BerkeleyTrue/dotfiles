@@ -13,7 +13,7 @@
     - folders
     - init
 
-- name: Ensure user dirs
+- name: Ensure user log files
   ansible.builtin.file:
     path: '{{ item }}'
     state: file

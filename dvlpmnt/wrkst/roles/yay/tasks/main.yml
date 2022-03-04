@@ -16,12 +16,14 @@
   block:
     - name: Check for base-devel packages
       become: true
+      become_user: root
       pacman:
         name: base-devel
         state: present
 
     - name: Check for git package
       become: true
+      become_user: root
       pacman:
         name: git
         state: present
