@@ -11,3 +11,17 @@
   tags:
     - npm
     - packages
+
+- name: Update global npm packages # noqa package-latest
+  become: true
+  become_user: root
+  npm:
+    global: true
+    production: true
+    name: '{{ item }}'
+    state: latest
+  loop: '{{ npm_global_packages }}'
+  tags:
+    - npm
+    - packages
+    - update

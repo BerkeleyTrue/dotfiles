@@ -1,9 +1,8 @@
 ---
 - name: Update pip packages
-  command: python3 -m pip install --user --upgrade {{ item }}
-  loop: '{{ pips }}'
-  register: pip_update
-  changed_when: '"Successfully installed {{ item }}" in pip_update.stdout'
+  anbsible.builtin.pip:
+    name: '{{ pips }}'
+    state: latest
   tags:
     - python
     - update
