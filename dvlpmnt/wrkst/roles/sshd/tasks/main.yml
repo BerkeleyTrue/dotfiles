@@ -1,0 +1,24 @@
+---
+- name: Register if sshd is running
+  become: true
+  become_user: root
+  command: systemctl status sshd
+  register: sshd_status
+  changed_when: false
+  failed_when: sshd_status.rc != 0 and ("unrecognized service" not in sshd_status.stderr)
+  ignore_errors: true
+  tags:
+    - sshd
+
+- name: Ensure sshd_config setting
+  become: true
+  become_user: root
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '{{ item }}'
+    line: '{{ sshd_settings[item] }}'
+    state: present
+  notify: restart ssh
+  loop: '{{ sshd_settings | flatten }}'
+  tags:
+    - sshd

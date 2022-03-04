@@ -1,0 +1,12 @@
+---
+- name: Restart ssh
+  become: true
+  become_user: root
+  service:
+    name: sshd
+    state: '{{ item }}'
+  when: sshd_status.rc == 0
+  loop:
+    - stopped
+    - started
+  listen: restart ssh

@@ -1,0 +1,6 @@
+---
+sshd_settings:
+  ^PasswordAuthentication: PasswordAuthentication no      # Disable password authentication
+  ^PermitRootLogin: PermitRootLogin no      # Disable SSH root login
+  ^PermitTunnel: PermitTunnel no      # Disable tun(4) device forwarding
+  '^Port ': Port 22    # Set SSHd port
