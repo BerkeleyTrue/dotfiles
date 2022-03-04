@@ -4,7 +4,7 @@
     - aur
     - packages
   block:
-    - name: Add wheel group to insaller
+    - name: Add wheel group to installer
       become: true
       become_user: root
       ansible.builtin.lineinfile:
