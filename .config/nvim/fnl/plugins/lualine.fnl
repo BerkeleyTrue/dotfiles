@@ -6,6 +6,16 @@
     utils utils}
    require-macros [macros]})
 
+(defn file-status []
+  (->
+    ""
+    (#(if (or (not utils.bo.modifiable) utils.bo.readonly)
+        (.. $ "%#BerksStatusLineInfo#%#BerksStatusLineInfoInverse#  %#BerksStatusLineInfo#")
+        $))
+    (#(if utils.bo.modified
+        (.. $ "%#BerksStatusLineRed#%#BerksStatusLineRedInverse#  %#BerksStatusLineRed#")
+        $))))
+
 (def- config
   {:options
    {:icons_enabled true
@@ -32,10 +42,23 @@
      :diagnostics]
 
     :lualine_c
-    [:filename]
+    [{1 :filename
+      :file_status false
+      :path 1
+      :separator ""}
+     [file-status]]
 
     :lualine_x
-    [:filetype]
+    [{1 :diagnostics
+      :sources [:nvim_lsp :ale]
+      :sections [:error :warn]
+      :diagnostics_color
+      {:error :BerksStatusLineRedInverse
+       :warn :BerksStatusLineInfoInverse}
+      :symbols {:error " " :warn " "}
+      :separator {:left "" :right ""}}
+     {1 :filetype
+      :separator ""}]
 
     :lualine_y
     [:progress]
@@ -46,7 +69,13 @@
    :inactive_sections
    {:lualine_a []
     :lualine_b []
-    :lualine_c [:filename]
+    :lualine_c
+    [{1 :filename
+      :file_status false
+      :path 1
+      :separator false}
+     file-status]
+
     :lualine_x [:location]
     :lualine_y []
     :lualine_z []}
