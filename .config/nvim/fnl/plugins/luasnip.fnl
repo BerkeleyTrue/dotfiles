@@ -134,7 +134,7 @@
         {:history true
          :update_events "TextChanged,TextChangedI"
          :delete_check_events "InsertLeave"
-         :enable_autosnippets false
+         :enable_autosnippets true
 
          :ext_opts
          {types.choiceNode
