@@ -4,6 +4,16 @@
     - aur
     - packages
   block:
+    - name: Add wheel group to insaller
+      become: true
+      become_user: root
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/10-installer
+        line: '%wheel ALL=(ALL) ALL'
+        create: true
+        validate: visudo -cf %s
+        mode: 0640
+
     - name: Create the `aur_builder` user
       become: true
       become_user: root
@@ -23,6 +33,7 @@
         mode: 0644
 
     - name: Update aur
+      become: true
       become_user: aur_builder
       kewlfft.aur.aur:
         aur_only: true
@@ -31,8 +42,18 @@
         - update
 
     - name: Install aur packages
+      become: true
       become_user: aur_builder
       kewlfft.aur.aur:
         name: '{{ aur }}'
         state: present
         aur_only: true
+      tags:
+        - install-aur-packages
+
+    - name: Remove `aur_builder` from sudoers
+      become: true
+      become_user: root
+      ansible.builtin.file:
+        path: /etc/sudoers.d/11-install-aur_builder
+        state: absent

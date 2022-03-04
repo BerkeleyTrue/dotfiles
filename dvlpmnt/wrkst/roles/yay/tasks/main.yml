@@ -8,13 +8,6 @@
     - bootstrap
     - install-yay
 
-- name: Does yay exists?
-  debug:
-    var: does_yay_exists
-  tags:
-    - bootstrap
-    - install-yay
-
 - name: Install Yay from source
   when: does_yay_exists.rc
   tags:
@@ -47,31 +40,28 @@
 
     - name: Clone Yay repository
       git:
-        repo: https://aur.archlinux.org/yay.git
+        repo: https://aur.archlinux.org/yay-bin.git
         dest: '{{ ansible_env.HOME }}/dvlpmnt/yay'
         version: master
 
-    - name: Allow the user to run makepkg without a password
+    - name: Allow the `aur_builder` user to run `sudo pacman` without a password
       become: true
       become_user: root
       ansible.builtin.lineinfile:
-        path: /etc/sudoers.d/11-allow-makepkg-builder
-        line: 'berkeleytrue ALL=(ALL) NOPASSWD: /usr/bin/makepkg'
+        path: /etc/sudoers.d/11-install-aur_builder
+        line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
         create: true
         validate: visudo -cf %s
         mode: 0644
 
     - name: Install Yay
+      become: true
+      become_user: aur_builder
       changed_when: true
       shell: >-
-        echo "y" | makepkg -si
+        echo "y" | makepkg --install
       args:
         chdir: '{{ ansible_env.HOME }}/dvlpmnt/yay'
-      register: did_yay_install
-
-    - name: Did yay install?
-      debug:
-        var: did_yay_install
 
 - name: Remove user from sudoers
   become: true
