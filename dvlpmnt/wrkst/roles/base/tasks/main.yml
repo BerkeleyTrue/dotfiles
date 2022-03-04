@@ -3,6 +3,14 @@
   tags:
     - bootstrap
   block:
+    - name: Ensure systemd-timesyncd is running
+      become: true
+      become_user: root
+      systemd:
+        name: systemd-timesyncd
+        enabled: true
+        state: started
+
     - name: Update system
       become: true
       become_user: root
@@ -24,7 +32,6 @@
         - arch
         - packages
         - pacman
-
 
     - name: Ensure getty folder exists
       become: true
