@@ -1,6 +1,8 @@
 ---
 - name: Workstation init
-  hosts: all
+  hosts: localhost
+  vars_files:
+    - vars/secrets.yml
 
   roles:
     - check_pass
