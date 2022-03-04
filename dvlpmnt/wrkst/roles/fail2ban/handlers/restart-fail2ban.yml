@@ -1,0 +1,7 @@
+---
+- name: Restart fail2ban
+  become: true
+  become_user: root
+  systemd:
+    name: fail2ban
+    state: restarted
