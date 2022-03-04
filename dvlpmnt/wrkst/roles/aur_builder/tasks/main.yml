@@ -1,0 +1,30 @@
+---
+- name: Create `aur_builder` user with pacman privileges
+  block:
+    - name: Add wheel group to installer
+      become: true
+      become_user: root
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/10-installer
+        line: '%wheel ALL=(ALL) ALL'
+        create: true
+        validate: visudo -cf %s
+        mode: 0640
+
+    - name: Create the `aur_builder` user
+      become: true
+      become_user: root
+      ansible.builtin.user:
+        name: aur_builder
+        create_home: true
+        group: wheel
+
+    - name: Allow the `aur_builder` user to run `sudo pacman` without a password
+      become: true
+      become_user: root
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/11-install-aur_builder
+        line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+        create: true
+        validate: visudo -cf %s
+        mode: 0644

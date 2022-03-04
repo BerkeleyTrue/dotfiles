@@ -1,0 +1,7 @@
+---
+- name: Remove `aur_builder` pacman privileges
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: /etc/sudoers.d/11-install-aur_builder
+    state: absent
