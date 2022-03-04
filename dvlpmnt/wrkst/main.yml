@@ -1,6 +1,6 @@
 ---
 - name: Workstation init
-  hosts: localhost
+  hosts: all
   vars_files:
     - vars/secrets.yml
 
@@ -11,4 +11,7 @@
     - aur
     - firewall
     - fail2ban
+    - npm
+    - paks
+    - pip
     - user_space

@@ -1,11 +1,12 @@
 ---
-# - name: Update pip packages
-#   command: python3 -m pip install --user --upgrade {{ item }}
-#   loop: '{{ pips }}'
-#   changed_when: true
-#   tags:
-#     - python
-#     - update
+- name: Update pip packages
+  command: python3 -m pip install --user --upgrade {{ item }}
+  loop: '{{ pips }}'
+  register: pip_update
+  changed_when: '"Successfully installed {{ item }}" in pip_update.stdout'
+  tags:
+    - python
+    - update
 
 - name: Install pip packages
   ansible.builtin.pip:
