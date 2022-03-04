@@ -11,6 +11,17 @@
         enabled: true
         state: started
 
+    - name: Ensure mirrorlist
+      become: true
+      become_user: root
+      copy:
+        src: mirrorlist
+        dest: /etc/pacman.d/mirrorlist
+        backup: true
+        owner: root
+        mode: 0644
+      tags: mirrorlist
+
     - name: Update system
       become: true
       become_user: root
