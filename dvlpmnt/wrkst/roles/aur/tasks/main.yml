@@ -4,33 +4,10 @@
     - aur
     - packages
   block:
-    - name: Add wheel group to installer
-      become: true
-      become_user: root
-      ansible.builtin.lineinfile:
-        path: /etc/sudoers.d/10-installer
-        line: '%wheel ALL=(ALL) ALL'
-        create: true
-        validate: visudo -cf %s
-        mode: 0640
-
-    - name: Create the `aur_builder` user
-      become: true
-      become_user: root
-      ansible.builtin.user:
+    - name: Create `aur_builder`
+      include_role:
         name: aur_builder
-        create_home: true
-        group: wheel
-
-    - name: Allow the `aur_builder` user to run `sudo pacman` without a password
-      become: true
-      become_user: root
-      ansible.builtin.lineinfile:
-        path: /etc/sudoers.d/11-install-aur_builder
-        line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
-        create: true
-        validate: visudo -cf %s
-        mode: 0644
+        tasks_from: main
 
     - name: Update aur
       become: true
@@ -51,9 +28,8 @@
       tags:
         - install-aur-packages
 
-    - name: Remove `aur_builder` from sudoers
-      become: true
-      become_user: root
-      ansible.builtin.file:
-        path: /etc/sudoers.d/11-install-aur_builder
-        state: absent
+  always:
+    - name: Cleanup `aur_builder`
+      include_role:
+        name: aur_builder
+        tasks_from: cleanup

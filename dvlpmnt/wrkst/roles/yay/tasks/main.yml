@@ -1,6 +1,6 @@
 ---
 - name: Check if yay exists
-  shell: command -v yay > /dev/null 2>&1
+  shell: command -v yay > /dev/null 2>&1 # needs to error in order to capture command status
   changed_when: false
   register: does_yay_exists
   ignore_errors: true
@@ -44,15 +44,10 @@
         dest: '{{ ansible_env.HOME }}/dvlpmnt/yay'
         version: master
 
-    - name: Allow the `aur_builder` user to run `sudo pacman` without a password
-      become: true
-      become_user: root
-      ansible.builtin.lineinfile:
-        path: /etc/sudoers.d/11-install-aur_builder
-        line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
-        create: true
-        validate: visudo -cf %s
-        mode: 0644
+    - name: Create `aur_builder`
+      include_role:
+        name: aur_builder
+        tasks_from: main
 
     - name: Install Yay
       become: true
@@ -63,9 +58,8 @@
       args:
         chdir: '{{ ansible_env.HOME }}/dvlpmnt/yay'
 
-- name: Remove user from sudoers
-  become: true
-  become_user: root
-  ansible.builtin.file:
-    path: /etc/sudoers.d/11-allow-makepkg-builder
-    state: absent
+  always:
+    - name: Cleanup `aur_builder`
+      include_role:
+        name: aur_builder
+        tasks_from: cleanup
