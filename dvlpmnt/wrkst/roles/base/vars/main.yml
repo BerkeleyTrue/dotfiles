@@ -9,6 +9,7 @@ packages:
   - hub
   - pkgfile
   - ufw
+  - sshguard
   - unclutter
   - wget
   - xcape  # key mapping
