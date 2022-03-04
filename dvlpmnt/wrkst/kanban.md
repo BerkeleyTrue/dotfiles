@@ -1,8 +1,9 @@
 ## To Do
 
-- install aniseed in pack
-- clone  and install fennel ts grammer in dvl
 - build dictionary
+- install aniseed in pack
+- add harden linux role
+- clone  and install fennel ts grammer in dvl
 - clone and install haskell-language-server
 - install crypto-egg project in dvl
 - enable docker service
@@ -10,7 +11,7 @@
 
 ## Doing
 
-- add harden linux role
+- add yadm clone
 
 ## Done
 
