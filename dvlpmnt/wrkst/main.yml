@@ -13,5 +13,4 @@
     - user_space
 
 
-- name: Update Packags
-  import_playbook: update_packages.yml
+- import_playbook: update_packages.yml
