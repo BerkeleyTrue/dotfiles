@@ -5,7 +5,8 @@
   roles:
     - check_pass
     - base
-    - user_space
     - paks
     - pip
+    - aur
     - npm
+    - user_space
