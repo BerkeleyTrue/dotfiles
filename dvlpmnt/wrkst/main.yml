@@ -7,10 +7,11 @@
   roles:
     - check_pass
     - base
+    - sshguard
     - yay
     - firewall
     - fail2ban
     - user_space
 
-
-- import_playbook: update_packages.yml
+- name: Foo
+  import_playbook: update_packages.yml

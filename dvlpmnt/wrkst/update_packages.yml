@@ -1,6 +1,6 @@
 ---
 - name: Update workstation packages
-  hosts: localhost
+  hosts: all
 
   roles:
     - check_pass
