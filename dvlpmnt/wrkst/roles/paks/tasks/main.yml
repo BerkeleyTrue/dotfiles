@@ -1,6 +1,7 @@
 ---
 - name: Update paks
   command: flatpak update --noninteractive
+  timeout: 10
   changed_when: true
   tags:
     - update
@@ -8,6 +9,8 @@
     - flatpak-update
 
 - name: Install paks
+  become: true
+  become_user: root
   flatpak:
     name: "{{ item.name }}"
     remote: "{{ item.remote | default('flathub') }}"
