@@ -1,0 +1,5 @@
+---
+sshguard_whitelist_directory: "/etc/sshguard"
+sshguard_whitelist_file: "{{ sshguard_whitelist_directory }}/whitelist"
+
+sshguard_openntpd_directory: "/etc/"

@@ -1,0 +1,15 @@
+---
+- name: Restart sshguard
+  become: true
+  become_user: root
+  service:
+    name: sshguard
+    state: restarted
+  listen: restart sshguard
+
+- name: Reload ufw
+  become: true
+  become_user: root
+  ufw:
+    state: reloaded
+  listen: reload ufw
