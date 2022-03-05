@@ -12,6 +12,7 @@
     - yay
     - firewall
     - fail2ban
+    - yadm
     - user_space
 
 - name: Foo

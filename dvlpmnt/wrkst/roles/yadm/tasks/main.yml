@@ -1,0 +1,26 @@
+---
+- name: Setup yadm
+  tags:
+    - yadm
+  block:
+    - name: Ensure Yadm
+      package:
+        name: yadm
+        state: present
+
+    - name: Is yadm initialized?
+      command: yadm status
+      ignore_errors: true
+      failed_when: false
+      register: yadm_status
+      changed_when: false
+
+    - name: Register yadm initialized fact
+      set_fact:
+        yadm_initialized: '{{ yadm_status.rc == 0 }}'
+
+    - name: Clone Dotfiles
+      command: yadm clone -f '{{ yadm_dotfiles_remote }}'
+      when: not yadm_initialized
+      changed_when: true
+      register: yadm_cloned
