@@ -15,7 +15,7 @@
   (let [cb (md.prequire :plugins.colorbuddy)
         palette (. (md.prequire :theme.palette) :palette)
         (ok theme-fns) (pcall cb.main palette)]
-    (when ok
+    (when theme-fns
       (run-main :theme theme-fns)))
   (run-main :plugins)
   ; TODO: move into main plugin flow
