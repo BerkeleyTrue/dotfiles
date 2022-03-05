@@ -1,5 +1,6 @@
 ---
 nvim_conf_dir: '{{ ansible_env.HOME }}/.config/nvim'
 nvim_pack_dir: '{{ nvim_conf_dir }}/pack'
-nvim_packer_dir: '{{ nvim_conf_dir }}/pack/opt/packer.nvim'
-nvim_aniseed_dir: '{{ nvim_conf_dir }}/pack/start/aniseed'
+nvim_packer_dir: '{{ nvim_conf_dir }}/pack/packer'
+nvim_packer_nvim_dir: '{{ nvim_packer_dir }}/opt/packer.nvim'
+nvim_aniseed_dir: '{{ nvim_packer_dir }}/start/aniseed'

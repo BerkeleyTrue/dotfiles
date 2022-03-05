@@ -13,6 +13,7 @@
         - '{{ nvim_conf_dir }}'
         - '{{ nvim_pack_dir }}'
         - '{{ nvim_packer_dir }}'
+        - '{{ nvim_packer_nvim_dir }}'
         - '{{ nvim_aniseed_dir }}'
 
     - name: Check for git package
@@ -25,7 +26,7 @@
     - name: Clone packer.nvim repo
       git:
         repo: https://github.com/wbthomason/packer.nvim
-        dest: '{{ nvim_aniseed_dir }}'
+        dest: '{{ nvim_packer_nvim_dir }}'
         version: master
 
     - name: Clone aniseed repo
