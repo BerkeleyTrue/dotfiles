@@ -1,0 +1,42 @@
+---
+- name: Bootstrap Neovim packages
+  tags:
+    - nvim
+    - nvim-bootstrap
+  block:
+    - name: Ensure Nvim packer dirs
+      file:
+        path: '{{ item }}'
+        state: directory
+        mode: 0755
+      loop:
+        - '{{ nvim_conf_dir }}'
+        - '{{ nvim_pack_dir }}'
+        - '{{ nvim_packer_dir }}'
+        - '{{ nvim_aniseed_dir }}'
+
+    - name: Check for git package
+      become: true
+      become_user: root
+      pacman:
+        name: git
+        state: present
+
+    - name: Clone packer.nvim repo
+      git:
+        repo: https://github.com/wbthomason/packer.nvim
+        dest: '{{ nvim_aniseed_dir }}'
+        version: master
+
+    - name: Clone aniseed repo
+      git:
+        repo: https://github.com/Olical/aniseed.git
+        dest: '{{ nvim_aniseed_dir }}'
+        version: master
+
+
+    - name: Install package
+      command:
+        cmd: nvim -E -s -c 'source ~/.config/nvim/init.lua' -c PackerInstall -c qa
+        chdir: $HOME/.config/nvim
+      changed_when: false

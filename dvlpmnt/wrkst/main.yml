@@ -14,6 +14,7 @@
     - fail2ban
     - yadm
     - user_space
+    - nvim
 
 - name: Foo
   import_playbook: update_packages.yml
