@@ -1,6 +1,7 @@
 (module init
   {require
-   {md utils.module}
+   {a aniseed.core
+    md utils.module}
    require-macros [macros]})
 
 ; vim options requires no plugins
@@ -11,9 +12,11 @@
 
 (when-let [packer (md.prequire :packer-modules)]
   (packer.main)
-  (when-let [cb (md.prequire :plugins.colorbuddy)]
-    (let [palette (. (md.prequire :theme.palette) :palette)]
-      (run-main :theme (cb.main palette))))
+  (let [cb (md.prequire :plugins.colorbuddy)
+        palette (. (md.prequire :theme.palette) :palette)
+        (ok theme-fns) (pcall cb.main palette)]
+    (when ok
+      (run-main :theme theme-fns)))
   (run-main :plugins)
   ; TODO: move into main plugin flow
   (md.prequire :plugins.scroll-fix)
