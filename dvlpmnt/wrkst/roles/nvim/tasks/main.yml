@@ -36,8 +36,8 @@
         version: master
 
 
-    - name: Install package
-      command:
-        cmd: nvim -E -s -c 'source ~/.config/nvim/init.lua' -c PackerInstall -c qa
-        chdir: $HOME/.config/nvim
-      changed_when: false
+    # - name: Install package
+    #   command:
+    #     cmd: nvim -E -s -c 'luafile ~/.config/nvim/init.lua' -c PackerInstall -c qa
+    #     chdir: $HOME/.config/nvim
+    #   changed_when: false
