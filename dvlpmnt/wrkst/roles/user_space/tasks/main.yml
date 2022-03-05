@@ -4,10 +4,7 @@
     path: '{{ item }}'
     state: directory
     mode: 0755
-  loop:
-    - '{{ ansible_env.HOME }}/docs/notes/captainslog/' # captains log command in shell/task.sh
-    - '{{ ansible_env.HOME }}/.local/share/x11' # x11 logging set up in zprofile
-    - '{{ ansible_env.HOME }}/.local/share/task' # task logs
+  loop: '{{ user_space_dirs }}'
   tags:
     - user
     - folders
@@ -95,7 +92,6 @@
   tags:
     - systemd
 
-
 - name: Ensure trackpad is set to natural scrolling
   become: true
   become_user: root
@@ -106,3 +102,11 @@
     state: present
   tags:
     - natural-scrolling
+
+- name: Ensure fennel treesitter is present
+  git:
+    repo: https://github.com/sogaiu/tree-sitter-fennel.git
+    dest: '{{ user_space_ts_fennel }}'
+    version: master
+  tags:
+    - fennel
