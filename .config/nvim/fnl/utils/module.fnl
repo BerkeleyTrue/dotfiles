@@ -9,7 +9,7 @@
   (let [(ok res) (pcall require namespace)]
     (if
       ok res
-      (print (.. "Could not load module "
+      (print (.. "[utils.module] Could not load module "
                  (tostring namespace)
                  ": " (tostring res))))))
 
@@ -19,7 +19,7 @@
   (let [(ok res) (pcall utils.ex.packadd packname)]
     (if
       ok (or res true)
-      (print (.. "Could not load package "
+      (print (.. "[utils.module] Could not load package "
                  (tostring packname)
                  ": " (tostring res))))))
 
