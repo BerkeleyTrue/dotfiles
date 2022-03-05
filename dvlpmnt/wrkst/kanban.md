@@ -1,13 +1,13 @@
 ## To Do
 
 - build dictionary
-- clone  and install fennel ts grammer in dvl
-- clone and install haskell-language-server
-- install crypto-egg project in dvl
 
 ## Doing
 
-- install aniseed in pack
+- remove yadm bootstrap
+- use ansible to install xmonad deps
+- clone and install haskell-language-server
+- install crypto-egg project in dvl
 
 ## Done
 
@@ -20,3 +20,5 @@
 - add harden linux role
 - enable docker service
 - add natural scrolling to trackpad
+- install aniseed in pack
+- clone  and install fennel ts grammer in dvl
