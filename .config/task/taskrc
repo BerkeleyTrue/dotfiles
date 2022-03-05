@@ -46,3 +46,5 @@ context.crypto.write=+crypto
 
 context.blog.read=+blog or pro:blog
 context.blog.write=proj:blog
+context.urm.read=proj:mr.urm
+context.urm.write=proj:mr.urm
