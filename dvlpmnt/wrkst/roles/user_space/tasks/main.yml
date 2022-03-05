@@ -84,3 +84,25 @@
     state: stopped
   tags:
     - systemd
+
+- name: Enable docker service
+  become: true
+  become_user: root
+  systemd:
+    name: docker
+    enabled: true
+    state: started
+  tags:
+    - systemd
+
+
+- name: Ensure trackpad is set to natural scrolling
+  become: true
+  become_user: root
+  lineinfile:
+    dest: /etc/X11/xorg.conf.d/30-touchpad.conf
+    search_string: '"NaturalScrolling" "true"'
+    line: '    Option "NaturalScrolling" "true"'
+    state: present
+  tags:
+    - natural-scrolling

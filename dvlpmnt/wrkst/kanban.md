@@ -1,17 +1,13 @@
 ## To Do
 
 - build dictionary
-- install aniseed in pack
-- add harden linux role
 - clone  and install fennel ts grammer in dvl
 - clone and install haskell-language-server
 - install crypto-egg project in dvl
-- enable docker service
-- disable lightdm
 
 ## Doing
 
-- add yadm clone
+- install aniseed in pack
 
 ## Done
 
@@ -19,3 +15,8 @@
 - install xmonad deps in xmonad
 - add aur builder
 - add aur module from galaxy
+- disable lightdm
+- add yadm clone
+- add harden linux role
+- enable docker service
+- add natural scrolling to trackpad
