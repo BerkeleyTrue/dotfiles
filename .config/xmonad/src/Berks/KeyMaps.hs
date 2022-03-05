@@ -2,10 +2,13 @@ module Berks.KeyMaps
   ( createKeyMaps
   ) where
 
+import Data.Ratio as Ratio ((%))
+
 import XMonad
 import XMonad.Core
 import qualified XMonad.StackSet as W
 
+import qualified XMonad.Actions.Warp as Warp
 import XMonad.Hooks.ManageDocks (ToggleStruts(..))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL))
 
@@ -26,7 +29,25 @@ import qualified XMonad.Actions.CycleWS as CWs
 createKeyMaps ::
      String -> [String] -> XConfig Layout -> [((KeyMask, KeySym), NamedAction)]
 createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
-  [ subtitle "Launchers"
+  [ subtitle "Core"
+  , ( (modm .|. shiftMask, xK_r)
+    , addName "Restart XMonad" $
+      spawn
+        "\
+      \ xmonad --restart && \
+      \ notify-send -a 'XMonad'  'Restarted'")
+  , ( (modm .|. controlMask .|. shiftMask, xK_r)
+    , addName "Recompile and Restart xmonad" $
+      spawn
+        "\
+      \ notify-send -a 'XMonad' 'Recompiling...' && \
+      \ xmonad --recompile && \
+      \ xmonad --restart && \
+      \ notify-send -a 'XMonad'  'Restarted'")
+  ---
+  ---
+  ---
+  , subtitle "Launchers"
   , ( (modm .|. shiftMask, xK_Return)
     , addName ("Launch " ++ term ++ " terminal") $ spawn term)
   , ((modm, xK_p), addName "Launch dmenu" $ spawn "dmenu_run")
@@ -41,6 +62,9 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ((modm, xK_g), addName "Launch grid selector" $ GS.createAppGridSpawner ())
   --
   , ((modm .|. shiftMask, xK_q), addName "close focused window" kill)
+  ---
+  ---
+  ---
   , subtitle "Layouts"
   , ((modm, xK_Tab), addName "Rotate through Screens" CWs.nextScreen)
   --
@@ -54,6 +78,9 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ( (modm, xK_f)
     , addName "Switch layout to full screen no topbar" $
       sendMessage (Mt.Toggle NBFULL) >> sendMessage ToggleStruts)
+  ---
+  ---
+  ---
   , subtitle "Focus"
   , ( (modm, xK_j)
     , addName "Move focus to the next window" $ windows W.focusDown)
@@ -85,6 +112,9 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   --
   , ( (modm, xK_t)
     , addName "Sink window into layout" $ withFocused $ windows . W.sink)
+  ---
+  ---
+  ---
   , subtitle "Navigation"
   , ((modm, xK_Right), addName "Go Right" $ sendMessage $ Go R)
   , ((modm, xK_Left), addName "Go Left" $ sendMessage $ Go L)
@@ -96,21 +126,16 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ((modm .|. shiftMask, xK_Left), addName "Swap Left" $ sendMessage $ Swap L)
   , ((modm .|. shiftMask, xK_Up), addName "Swap Up" $ sendMessage $ Swap U)
   , ((modm .|. shiftMask, xK_Down), addName "Swap Down" $ sendMessage $ Swap D)
-  , subtitle "Core"
-  , ( (modm .|. shiftMask, xK_r)
-    , addName "Restart XMonad" $
-      spawn
-        "\
-      \ xmonad --restart && \
-      \ notify-send -a 'XMonad'  'Restarted'")
-  , ( (modm .|. controlMask .|. shiftMask, xK_r)
-    , addName "Recompile and Restart xmonad" $
-      spawn
-        "\
-      \ notify-send -a 'XMonad' 'Recompiling...' && \
-      \ xmonad --recompile && \
-      \ xmonad --restart && \
-      \ notify-send -a 'XMonad'  'Restarted'")
+  ---
+  ---
+  ---
+  , subtitle "UI"
+  , ( (modm, xK_z)
+    , addName "Warp mouse to current screeen." $
+      Warp.warpToWindow (1 % 2) (1 % 2))
+  , ( (modm, xK_b)
+    , addName "Banish cursor to corner of screen." $
+      Warp.banishScreen Warp.UpperLeft)
   , subtitle "Werkspaces"
   ] ++
   --
