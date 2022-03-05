@@ -2,8 +2,8 @@
 
 default: deps test
 
-aniseed:
-	scripts/aniseed.sh
+boostrap:
+	scripts/bootstrap.sh
 
 deps:
 	scripts/deps.sh 4o4 lua-reactivex d2b8244cc8bd6ade712f05f36204765037fa4ec5

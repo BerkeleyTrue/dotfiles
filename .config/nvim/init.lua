@@ -2,32 +2,31 @@
 local vim = _G.vim
 local confpath = vim.fn.stdpath("config")
 local isInConf = confpath == vim.fn.getcwd()
-
-if isInConf then
-  -- ensure packer path
-  os.execute('mkdir -p pack/packer')
-  print("[init.vim]: force compile")
-end
+local log = function(output) print("[init.lua]: " .. output) end
 
 -- make sure aniseed path is available for macros lookup
-vim.cmd [[ packadd aniseed ]]
+pcall(vim.cmd, [[ packadd aniseed ]])
 
 local ok, anenv = pcall(require, 'aniseed.env')
 
 -- force aniseed to compile while in nvim dir (in dev mode)
 -- aniseed is available, compile and load
 if ok then
-  anenv.init({ force = isInConf })
+    if isInConf then
+        -- ensure packer path
+        log("in conf path, force compiling")
+    end
+    anenv.init({force = isInConf})
 else
-  print('Aniseed not found. Running aniseed install now')
-  print(vim.api.nvim_call_function('system', {'make aniseed'}))
-  local ok, anenv = pcall(require, 'aniseed.env')
+    log('Aniseed not found. Running bootstrap')
+    print(vim.api.nvim_call_function('system', {'make bootstrap'}))
+    ok, anenv = pcall(require, 'aniseed.env')
 
-  if not ok then
-    print('Could not load after install')
-  else
-    print("[init.vim]: compile")
-    anenv.init({ force = isInConf })
-  end
+    if not ok then
+        log('Could not load after bootstrap')
+    else
+        log("Bootstrap successful, compiling")
+        anenv.init({force = isInConf})
+    end
 
 end
