@@ -3,6 +3,7 @@ aur:
   # ui
   - otf-nerd-fonts-fira-code
   # general
+  - lua-format
   - handlr-bin  # mime utils written in rust 🎉
   # DB tools
   - robo3t-bin  # mongodb UI tool

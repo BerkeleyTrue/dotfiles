@@ -52,6 +52,7 @@
    :prismals {}
    :rls {}
    :solidity_ls {}
+   :sumneko_lua {}
    :tsserver (tsserver.get-config {:on_attach general-on-attach})
    :vimls {}
    :yamlls {}})

@@ -16,6 +16,7 @@ packages:
   - yamllint
   # Dev
   - go
+  - lua-language-server
   ## haskell
   - stack
   ## terminal
