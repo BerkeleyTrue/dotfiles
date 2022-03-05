@@ -16,7 +16,7 @@
 - name: Ensure user log files
   ansible.builtin.file:
     path: '{{ item }}'
-    state: file
+    state: touch
     mode: 0644 # owner read/write, group read, world read
   loop:
     - '{{ ansible_env.HOME }}/.local/share/x11/x11.log' # x11 logging set up in zprofile
@@ -74,3 +74,13 @@
   tags:
     - init
     - taskwarrior-cron
+
+- name: Disable lightdm
+  become: true
+  become_user: root
+  systemd:
+    name: lightdm
+    enabled: false
+    state: stopped
+  tags:
+    - systemd
