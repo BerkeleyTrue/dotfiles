@@ -2,7 +2,7 @@
 
 default: deps test
 
-boostrap:
+bootstrap:
 	scripts/bootstrap.sh
 
 deps:
