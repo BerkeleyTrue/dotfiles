@@ -14,11 +14,3 @@ cat << EOF > "$HOME/.local/share/yadm/repo.git/info/sparse-checkout"
 !README.md
 EOF
 yadm checkout --quiet
-
-# Init submodules.
-# Because Git submodule commands cannot operate without a work tree, they must
-# be run from within $HOME (assuming this is the root of your dotfiles)
-cd "$HOME"
-
-echo "yadm(bootstrap): init submodules"
-yadm submodule update --recursive --init

@@ -24,3 +24,9 @@
       when: not yadm_initialized
       changed_when: true
       register: yadm_cloned
+
+    - name: Init submodules
+      command: yadm submodule update --recursive --init
+      when: not yadm_initialized
+      changed_when: true
+      register: yadm_submodules_init
