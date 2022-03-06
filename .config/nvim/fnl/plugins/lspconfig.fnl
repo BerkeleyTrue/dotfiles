@@ -57,10 +57,18 @@
    :vimls {}
    :yamlls {}})
 
+
+(defn open-float []
+  "Check if cmp pum is visible, if not, show vim lsp diagnostics float"
+  (let [cmp (md.prequire :cmp)]
+    (when (not (and cmp (cmp.visible)))
+      (vim.diagnostic.open_float))))
+
 (defn- set-configs []
   (vim.diagnostic.config
     {:virtual_text true
      :signs true
+     ; Configure float appearence
      :float
      {:border :rounded
       :focus false
@@ -68,11 +76,12 @@
       :scope "cursor"
       :header false}})
 
+  ; open vim diagnotics float on cursor hold
   (utils.augroup
     :diagnositic-float
     [{:event [:CursorHold :CursorHoldI]
       :pattern :*
-      :cmd "lua vim.diagnostic.open_float()"}])
+      :cmd (viml->lua* open-float)}])
 
   (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()"))
 
