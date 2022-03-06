@@ -29,7 +29,9 @@
 (defn- general-on-attach [client buffnr]
   (utils.nnoremap-silent :zf ":lua vim.lsp.buf.formatting()<CR>" {:buffer buffnr})
   (utils.nnoremap-silent :K "<cmd>lua vim.lsp.buf.hover()<CR>" {:buffer buffnr})
-  (utils.nnoremap-silent :gd "<cmd>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr}))
+  (utils.nnoremap-silent :gd "<cmd>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr})
+  (utils.nnoremap-silent :zca "<cmd>lua vim.lsp.buf.code_action()<CR>" {:buffer buffnr})
+  (utils.nnoremap-silent :zrn "<cmd>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr}))
 
 (def lsps
   {:ansiblels
