@@ -16,5 +16,5 @@
     - user_space
     - nvim
 
-- name: Foo
+- name: Include update packages playbook
   import_playbook: update_packages.yml

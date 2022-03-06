@@ -4,10 +4,16 @@
     - aur
     - packages
   block:
-    - name: Create `aur_builder`
+    - name: Include `aur_builder` main
       include_role:
         name: aur_builder
         tasks_from: main
+        apply:
+          tags:
+            - update
+      tags:
+        - update
+        - install-aur-packages
 
     - name: Update aur
       become: true
@@ -29,7 +35,12 @@
         - install-aur-packages
 
   always:
-    - name: Cleanup `aur_builder`
+    - name: Include `aur_builder` cleanup
       include_role:
         name: aur_builder
         tasks_from: cleanup
+        apply:
+          tags:
+            - update
+      tags:
+        - update

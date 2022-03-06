@@ -4,6 +4,7 @@
 
   roles:
     - check_pass
+    - base
     - aur
     - pip
     - npm
