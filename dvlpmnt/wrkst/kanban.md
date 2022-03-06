@@ -4,8 +4,6 @@
 
 ## Doing
 
-- remove yadm bootstrap
-- use ansible to install xmonad deps
 - clone and install haskell-language-server
 - install crypto-egg project in dvl
 
@@ -22,3 +20,5 @@
 - add natural scrolling to trackpad
 - install aniseed in pack
 - clone  and install fennel ts grammer in dvl
+- remove yadm bootstrap
+- use ansible to install xmonad deps
