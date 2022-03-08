@@ -23,7 +23,7 @@
      :ale_linters
      {:haskell [:stack-build :hls]
       :javascript [:eslint]
-      :typescript [:tslint :tsserver]
+      :typescript [:tslint :tsserver :eslint]
       :pug [:pug-lint]
       :clojure [:clj-kondo]
       :yaml.ansible [:ansible-lint]}})
