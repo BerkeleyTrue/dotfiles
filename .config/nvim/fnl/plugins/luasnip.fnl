@@ -10,7 +10,7 @@
 (def- ft-snips
   [:fennel
    :gitcommit
-   {:fts [:javascript :typescript]
+   {:fts [:javascript :typescript :typescriptreact]
     :ns :javascript.common}])
 
 
