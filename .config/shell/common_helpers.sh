@@ -16,3 +16,7 @@ kll() {
     return
   fi
 }
+
+zsh_edit_history() {
+  nvim ~/.local/share/zsh/.zsh_history
+}
