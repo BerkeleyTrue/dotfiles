@@ -216,6 +216,13 @@ gremote() {
       git remote -v
       return 0
       ;;
+    rename)
+      # gremote remove remote-name
+      echo "renaming $2"
+      git remote rename $2 $3
+      git remote -v
+      return 0
+      ;;
     *)
       echo "gremote: $1 is not a proper command"
       return 2
