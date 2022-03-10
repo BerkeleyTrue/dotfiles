@@ -5,7 +5,8 @@
     utils utils
     md utils.module
     tsserver plugins.lspconfig.tsserver
-    tailwindcss plugins.lspconfig.tailwindcss}
+    tailwindcss plugins.lspconfig.tailwindcss
+    emmetls plugins.lspconfig.emmetls}
    require-macros [macros]})
 
 (defn get-capabilities []
@@ -50,6 +51,7 @@
       (general-on-attach client))}
    :cssls {}
    :dockerls {}
+   :emmet_ls (emmetls.get-config)
    :hls {}
    :html {}
    :jsonls (jsonls-configs)

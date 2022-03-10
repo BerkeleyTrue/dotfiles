@@ -22,6 +22,7 @@ npm_global_packages:
   - "@tailwindcss/language-server"
   - bash-language-server
   - dockerfile-language-server-nodejs
+  - emmet-ls
   - javascript-typescript-langserver
   - solidity-language-server
   - typescript-eslint-parser
