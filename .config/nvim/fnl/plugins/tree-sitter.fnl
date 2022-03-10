@@ -70,6 +70,7 @@
           :json
           :lua
           :prisma
+          :pug
           :query
           :regex
           :rust
