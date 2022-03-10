@@ -23,7 +23,9 @@
   (if-let [schemastore (md.prequire :schemastore)]
     (let [schemas ((. schemastore :json :schemas))
           base-conf (md.prequire :lspconfig.server_configurations.jsonls)]
-      (r.merge base-conf {:settings {:json {: schemas}}}))
+      {:settings
+       {:json
+        {: schemas}}})
     {}))
 
 (defn- general-on-attach [client buffnr]
@@ -50,7 +52,7 @@
    :dockerls {}
    :hls {}
    :html {}
-   :jsonls {}
+   :jsonls (jsonls-configs)
    :prismals {}
    :rls {}
    :solidity_ls {}
@@ -96,8 +98,6 @@
 
       (when-not configs.caramel_lsp
         (set configs.caramel_lsp (caramel-configs lsputil)))
-      (set configs.jsonls (jsonls-configs))
-      (set configs.tailwindcss (tailwindcss.get-config))
 
       (->>
         lsps
