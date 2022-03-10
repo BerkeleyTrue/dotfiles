@@ -19,6 +19,7 @@ npm_global_packages:
   # lsp
   - "@ansible/ansible-language-server"
   - "@prisma/language-server"
+  - "@tailwindcss/language-server"
   - bash-language-server
   - dockerfile-language-server-nodejs
   - javascript-typescript-langserver

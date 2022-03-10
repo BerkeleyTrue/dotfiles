@@ -4,8 +4,8 @@
     r r
     utils utils
     md utils.module
-    tsserver plugins.lspconfig.tsserver}
-
+    tsserver plugins.lspconfig.tsserver
+    tailwindcss plugins.lspconfig.tailwindcss}
    require-macros [macros]})
 
 (defn get-capabilities []
@@ -56,6 +56,7 @@
    :solidity_ls {}
    :sumneko_lua {}
    :tsserver (tsserver.get-config {:on_attach general-on-attach})
+   :tailwindcss (tailwindcss.get-config)
    :vimls {}
    :yamlls {}})
 
@@ -96,6 +97,7 @@
       (when-not configs.caramel_lsp
         (set configs.caramel_lsp (caramel-configs lsputil)))
       (set configs.jsonls (jsonls-configs))
+      (set configs.tailwindcss (tailwindcss.get-config))
 
       (->>
         lsps
