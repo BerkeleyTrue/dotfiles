@@ -29,8 +29,8 @@
         :treesitter "[tree]"}})))
 
 (defn get-sources []
-  [{:name :nvim_lsp}
-   {:name :luasnip}
+  [{:name :luasnip}
+   {:name :nvim_lsp :max_item_count 10}
    {:name :conjure :max_item_count 10}
    {:name :path}
    {:name :tmux}
