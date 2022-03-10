@@ -9,3 +9,4 @@ paks:
   - name: com.github.wwmm.pulseeffects
   - name: io.dbeaver.DBeaverCommunity
   - name: org.chromium.Chromium
+  - name: com.vscodium.codium
