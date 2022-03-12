@@ -31,6 +31,8 @@
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
    {:name :ojroques/nvim-lspfuzzy :description "forces lsp diagnostics to use fzf" :requires [[:junegunn/fzf] [:junegunn/fzf.vim]]}
+   {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :config (make-on-load zen)}
+   {:name :folke/twilight.nvim :description "Dims inactive portions of code" :config (make-on-load twilight)}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine"}
