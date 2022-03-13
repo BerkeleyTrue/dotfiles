@@ -8,8 +8,9 @@ packages:
   - gufw  # gui for ufw
   - hub
   - pkgfile
-  - ufw
+  - plasma-desktop # for games
   - sshguard
+  - ufw
   - unclutter
   - wget
   - xcape  # key mapping
