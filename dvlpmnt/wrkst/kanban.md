@@ -1,6 +1,7 @@
 ## To Do
 
 - build dictionary
+- add tmux plugin install
 
 ## Doing
 
