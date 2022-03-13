@@ -1,0 +1,13 @@
+#!/bin/sh
+
+nvim + "$(date +"%y-%m-%d %H:%M" | while read d t; do
+
+  f=$HOME/docs/notes/captainslog/$d.md
+  (
+    echo
+    echo \#\# $t
+    echo
+    echo
+  ) >>"$f"
+  echo "$f"
+done)"

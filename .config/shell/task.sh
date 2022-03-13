@@ -39,16 +39,3 @@ tedit() {
   fi
   eval "task $1 edit"
 }
-
-captainslog() {
-  vim + "$(date +"%y-%m-%d %H:%M" | while read d t; do
-    f=$HOME/docs/notes/captainslog/$d.md
-    (
-      echo
-      echo \#\# $t
-      echo
-      echo
-    ) >>"$f"
-    echo "$f"
-  done)"
-}
