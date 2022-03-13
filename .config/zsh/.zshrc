@@ -60,7 +60,7 @@ antigen use oh-my-zsh
 
 antigen bundle djui/alias-tips
 antigen bundle lukechilds/zsh-better-npm-completion
-antigen bundle tmux
+antigen bundle $HOME/.config/antigent/bundles/BerkeleyTrue/tmux --no-local-clone
 antigen bundle wd
 antigen bundle vi-mode
 antigen bundle zsh-users/zsh-autosuggestions
