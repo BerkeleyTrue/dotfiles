@@ -8,14 +8,18 @@ packages:
   - gufw  # gui for ufw
   - hub
   - pkgfile
-  - plasma-desktop # for games
   - sshguard
   - ufw
   - unclutter
   - wget
   - xcape  # key mapping
+  # desktop
+  - plasma-desktop # for games
+  - pipewire # audio
+  - pipewire-pulse # pulseaudio compat with pipewire, uninstalls PulseAudio
+  - wireplumber
   - yamllint
-  # Dev
+  # dev
   - go
   - lua-language-server
   ## haskell
