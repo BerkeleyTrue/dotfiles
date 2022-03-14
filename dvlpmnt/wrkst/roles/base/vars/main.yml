@@ -17,6 +17,7 @@ packages:
   - plasma-desktop # for games
   - pipewire # audio
   - pipewire-pulse # pulseaudio compat with pipewire, uninstalls PulseAudio
+  - pipewire-alsa # alsa compat with pipewire, uninstalls alsa
   - wireplumber
   - yamllint
   # dev
