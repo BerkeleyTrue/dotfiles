@@ -45,6 +45,7 @@ packages:
   - the_silver_searcher
   - timew  # timewarrior
   - tmux
+  - yad # CLI to show diaglogs
   - yadm  # yet another dotfiles manager
   - zoxide  # like cd but with more warp
   - zsh

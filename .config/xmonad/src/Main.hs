@@ -81,6 +81,7 @@ myManageHook =
     , className =? "discord" --> doShift "3"
     , className =? "zoom" --> doShift "4"
     , className =? "Zenity" --> doRectFloat CheatSh.size
+    , className =? "Yad" --> doRectFloat CheatSh.size
     ]
 
 ------------------------------------------------------------------------

@@ -21,7 +21,9 @@ cheatSheetView keyMap =
   io $ do
     handle <-
       spawnPipe
-        "zenity --text-info --font='xft:FiraCode Nerd Font:pixelsize=11:antialias=true:hinting=true'"
+        "yad --no-buttons \
+        \--fontname='FiraCode Nerd Font 14' \
+        \--text-info"
     hPutStrLn handle $ unlines $ showKm keyMap
     hClose handle
     return ()
