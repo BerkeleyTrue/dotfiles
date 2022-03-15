@@ -140,7 +140,8 @@ function zle-keymap-select zle-line-init {
   zle -R
 }
 
-SHORT_PROMPT="%F{cyan}%f "
+# 
+SHORT_PROMPT="%F{cyan}=<<%f%F{blue}%*%f%F{cyan}>=>%f"
 function zle-line-finish {
   if [[ $PROMPT != $SHORT_PROMPT ]]; then
     PROMPT=$SHORT_PROMPT
