@@ -77,6 +77,7 @@ myManageHook =
     [ resource =? "desktop_window" --> doIgnore
     , resource =? "kdesktop" --> doIgnore
     , isFullscreen --> doFullFloat
+    , title =? "Zoom Cloud Meetings" --> doFloat -- float zoom login window
     , className =? "Slack" --> doShift "3"
     , className =? "discord" --> doShift "3"
     , className =? "zoom" --> doShift "4"
