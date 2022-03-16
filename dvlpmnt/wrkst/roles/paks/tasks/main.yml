@@ -1,7 +1,6 @@
 ---
 - name: Update paks
   command: flatpak update --noninteractive
-  timeout: 10
   changed_when: true
   tags:
     - update
