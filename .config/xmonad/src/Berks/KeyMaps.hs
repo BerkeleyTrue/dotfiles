@@ -88,12 +88,6 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ( (modm, xK_k)
     , addName "Move focus to the previous window" $ windows W.focusUp)
   --
-  , ( (modm, xK_m)
-    , addName "Move focus to the master window" $ windows W.focusMaster)
-  , ( (modm .|. shiftMask, xK_m)
-    , addName "Swap the focused window and the master window" $
-      windows W.swapMaster)
-  --
   , ( (modm .|. shiftMask, xK_j)
     , addName "Swap the focused window with the next window" $
       windows W.swapDown)

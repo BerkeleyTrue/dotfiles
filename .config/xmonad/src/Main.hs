@@ -71,19 +71,40 @@ mBindings XConfig {XMonad.modMask = modm} =
 -- 'className' and 'resource' are used below.
 --
 -- ex: className =? "Slack" --> doShift (werkspaces !! 1)
+-- NOTE: --> is an infix 0 function (predicate -> action)
+--   If the predicate is true do the action
+--   predicate and action are wrapped in monoids
+-- NOTE: =? is a query class
+-- NOTE: Useful here is <&&> which is infix op, same as && (AND) but for wrapped monoids
+-- NOTE: Useful here is <||> which is infix op, same as || (OR) but for wrapped monoids
+-- NOTE: <+> composes two monoids
 myManageHook :: Query (SG.Endo WindowSet)
 myManageHook =
   composeAll
     [ resource =? "desktop_window" --> doIgnore
     , resource =? "kdesktop" --> doIgnore
     , isFullscreen --> doFullFloat
-    , title =? "Zoom Cloud Meetings" --> doFloat -- float zoom login window
     , className =? "Slack" --> doShift "3"
     , className =? "discord" --> doShift "3"
-    , className =? "zoom" --> doShift "4"
+    , className =? zoomClassName <&&> shouldFloat <$>
+      title --> doShift "4" <+> doFloat
+    , className =? zoomClassName <&&> shouldSink <$>
+      title --> doShift "4" <+> doSink
     , className =? "Zenity" --> doRectFloat CheatSh.size
     , className =? "Yad" --> doRectFloat CheatSh.size
+    -- , title =? "Zoom Cloud Meetings" --> doFloat <+> doShift "3" -- float zoom login window
     ]
+  where
+    zoomClassName = "zoom"
+    tileTitles =
+      [ "Zoom - Free Account" -- main window
+      , "Zoom - Licensed Account" -- main window
+      , "Zoom" -- meeting window on creation
+      , "Zoom Meeting" -- meeting window shortly after creation
+      ]
+    shouldFloat thisTitle = thisTitle `notElem` tileTitles
+    shouldSink thisTitle = thisTitle `elem` tileTitles
+    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
 ------------------------------------------------------------------------
 -- Event handling
