@@ -12,7 +12,8 @@ files=(
   'task'
   'npm'
   'git'
-  'mr_func')
+  'mr_func'
+  'pacman')
 
 # don't use conditional check for files that should always be there
 for file in $files; do
