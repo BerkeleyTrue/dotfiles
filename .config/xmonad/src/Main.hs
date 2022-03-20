@@ -26,6 +26,7 @@ import qualified Berks.KeyMaps as KMaps
 import qualified Berks.Layouts.Main as L
 import qualified Berks.Scratchpads as Scratch
 import qualified Berks.Urgency as Urg
+import qualified Berks.Utils as Utils
 
 -- Terminal
 term :: String
@@ -93,6 +94,7 @@ myManageHook =
       title --> doShift "4" <+> doSink
     , className =? "Zenity" --> doRectFloat CheatSh.size
     , className =? "Yad" --> doRectFloat CheatSh.size
+    , className =? "Xdg-desktop-portal-gtk" --> doRectFloat Utils.centerWindow
     ] <+>
   Scratch.scratchpadManageHook
   where
