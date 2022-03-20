@@ -12,6 +12,7 @@ import qualified XMonad.Actions.Warp as Warp
 import XMonad.Hooks.ManageDocks (ToggleStruts(..))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL))
 
+import XMonad.Util.DynamicScratchpads
 import XMonad.Util.NamedActions
 
 -- layout modifiers
@@ -126,6 +127,11 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   ---
   , subtitle "ScatchPads"
   , ((modm, xK_m), addName "Music Scratchpad" $ Scratch.getAction "music")
+  , ( (modm, xK_a)
+    , addName "Spawn|Toggle Scratchpad" $ spawnDynamicSP "scratch1")
+  , ( (modm .|. shiftMask, xK_a)
+    , addName "Make Window a Scratchpad" $
+      withFocused $ makeDynamicSP "scratch1")
   ---
   ---
   ---
