@@ -1,9 +1,8 @@
 ## To Do
 
-- clean up hooks
-  > hooks are all in different formats. These should be a little more uniform
 - move to standalone tray
   > Trayer is annoying to configure and ignores struct toggling
+- add dynamic scratpad
 - fix picom transparency
   > No idea why this isn't working
 - move to taffybar
@@ -12,6 +11,8 @@
 ## Doing
 
 - seperate by CCP
+  * [ ] mouse bindings
+  * [ ] manage hooks
 
 ## Done
 
@@ -23,3 +24,5 @@
 - move to xdg_conf_home
   > These files should live in dvl/haskell dir
 - add xmobar compile script
+- clean up hooks
+  > hooks are all in different formats. These should be a little more uniform
