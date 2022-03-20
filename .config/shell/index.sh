@@ -6,6 +6,7 @@ TERMINAL="kitty"
 [[ -s "$SHELL_CONF/.private_aliases" ]] && source $SHELL_CONF/.private_aliases
 
 files=(
+  'ansible'
   'common_paths'
   'common_aliases'
   'common_helpers'
