@@ -20,7 +20,7 @@ alias suvim='sudo -E nvim'
 ## Will make parent directories if they don't exist
 ## Also verbose
 alias mkdir="mkdir -pv"
-alias whatismyip="curl https://ipecho.net/plain; echo"
+alias getexternalip="curl http://icanhazip.com"
 ## Make file executable
 alias chmodx='chmod 755'
 ## Make file read/write-able
