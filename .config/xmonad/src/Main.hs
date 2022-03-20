@@ -24,6 +24,7 @@ import qualified Berks.CheatSheet as CheatSh
 import qualified Berks.Colors as Cl
 import qualified Berks.KeyMaps as KMaps
 import qualified Berks.Layouts.Main as L
+import qualified Berks.Scratchpads as Scratch
 import qualified Berks.Urgency as Urg
 
 -- Terminal
@@ -92,8 +93,8 @@ myManageHook =
       title --> doShift "4" <+> doSink
     , className =? "Zenity" --> doRectFloat CheatSh.size
     , className =? "Yad" --> doRectFloat CheatSh.size
-    -- , title =? "Zoom Cloud Meetings" --> doFloat <+> doShift "3" -- float zoom login window
-    ]
+    ] <+>
+  Scratch.scratchpadManageHook
   where
     zoomClassName = "zoom"
     tileTitles =

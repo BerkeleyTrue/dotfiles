@@ -21,6 +21,7 @@ executable xmonad
     , Berks.Layouts.Monocle
     , Berks.Layouts.TabTheme
     , Berks.Layouts.Vert
+    , Berks.Scratchpads
     , Berks.Trayer
     , Berks.Urgency
   build-depends:

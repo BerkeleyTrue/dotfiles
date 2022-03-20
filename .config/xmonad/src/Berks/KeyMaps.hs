@@ -23,6 +23,7 @@ import XMonad.Layout.WindowNavigation as WN
   )
 
 import qualified Berks.GridSelect as GS
+import qualified Berks.Scratchpads as Scratch
 import qualified XMonad.Actions.CycleWS as CWs
 
 -- NOTE: We are deconstructuring XConfig below (i.e. Type {property = <local symbol>})
@@ -120,6 +121,11 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ((modm .|. shiftMask, xK_Left), addName "Swap Left" $ sendMessage $ Swap L)
   , ((modm .|. shiftMask, xK_Up), addName "Swap Up" $ sendMessage $ Swap U)
   , ((modm .|. shiftMask, xK_Down), addName "Swap Down" $ sendMessage $ Swap D)
+  ---
+  ---
+  ---
+  , subtitle "ScatchPads"
+  , ((modm, xK_m), addName "Music Scratchpad" $ Scratch.getAction "music")
   ---
   ---
   ---
