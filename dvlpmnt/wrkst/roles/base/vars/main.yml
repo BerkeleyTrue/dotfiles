@@ -43,6 +43,7 @@ packages:
   - taskell  # kanban in the terminal
   - tealdeer  # TL;DR for deers (rusty)
   - the_silver_searcher
+  - thefuck # corrects errors in previous console commands
   - timew  # timewarrior
   - tmux
   - yad # CLI to show diaglogs
