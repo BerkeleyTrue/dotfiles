@@ -6,6 +6,7 @@ import qualified Data.Semigroup as SG
 import XMonad
 import qualified XMonad.StackSet as W
 import XMonad.Util.NamedActions
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 
 import XMonad.Hooks.DynamicLog
@@ -111,15 +112,18 @@ myManageHook =
 
 ------------------------------------------------------------------------
 -- Event handling
+-- fadeWindowsEventHook -> A handleEventHook to handle fading and unfading of newly mapped or unmapped windows;
 myEventHook :: Event -> X SG.All
 myEventHook = fadeWindowsEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
+-- workspaceHistoryHook -> A logHook that keeps track of the order in which workspaces have been viewed.
+-- fadeWindowsLogHook -> A logHook to fade windows under control of a FadeHook, which is similar to but not identical to ManageHook.
 myLogHook :: X ()
 myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
   where
-    myFadeHook = composeAll [isUnfocused --> transparency 0.5, opaque]
+    myFadeHook = composeAll [opaque, isUnfocused --> transparency 0.02]
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -134,7 +138,7 @@ myStartupHook =
   spawn "source $HOME/.config/screenlayout/default.sh" <>
   spawn "nitrogen --restore" <>
   spawn
-    "killall trayer; \
+    "killall trayer > /dev/null 2&>1; \
     \trayer --edge top \
     \--align right \
     \--widthtype request \
@@ -149,14 +153,6 @@ myStartupHook =
     \--height 18 &"
 
 ------------------------------------------------------------------------
--- Now run xmonad with all the defaults we set up.
--- Run xmonad with the settings you specify. No need to modify this.
---
--- Keybinding to display the keybinding cheatsheet
--- myCheatsheetKey conf = addDescrKeys' (myModMask .|. shiftMask, xK_slash) keyMaps conf
-enhanceXConf :: XConfig a -> XConfig a
-enhanceXConf = docks . ewmh
-
 main :: IO ()
 main = do
   xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
@@ -189,7 +185,7 @@ main = do
         , startupHook = myStartupHook
         , logHook =
             myLogHook <>
-            dynamicLogWithPP
+            createPPLog
               xmobarPP
                 -- outputs of the entire bar
                 -- input from xmonad gets sent to xmonad proc 0,
@@ -204,3 +200,6 @@ main = do
                 , ppOrder = \(ws:l:t:_) -> [ws, t, l]
                 }
         }
+  where
+    enhanceXConf = docks . ewmh
+    createPPLog = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag]

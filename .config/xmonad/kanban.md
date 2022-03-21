@@ -2,17 +2,11 @@
 
 - move to standalone tray
   > Trayer is annoying to configure and ignores struct toggling
-- add dynamic scratpad
-- fix picom transparency
-  > No idea why this isn't working
 - move to taffybar
   > Don't like the xmobar uses a psuedo haskell file
 
 ## Doing
 
-- seperate by CCP
-  * [ ] mouse bindings
-  * [ ] manage hooks
 
 ## Done
 
@@ -26,3 +20,9 @@
 - add xmobar compile script
 - clean up hooks
   > hooks are all in different formats. These should be a little more uniform
+- add dynamic scratpad
+- seperate by CCP
+  * [ ] mouse bindings
+  * [ ] manage hooks
+- fix picom transparency
+  > No idea why this isn't working
