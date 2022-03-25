@@ -5,13 +5,13 @@ module Berks.Layouts.Main
   ) where
 
 import qualified Berks.Layouts.Horiz as Horiz
-import qualified Berks.Layouts.Magnify as Mag
 import qualified Berks.Layouts.Monocle as Mono
+import qualified Berks.Layouts.ThreeCol as ThreeCol
 import qualified Berks.Layouts.Vert as Vert
 import qualified XMonad.Actions.MouseResize as MR
 import qualified XMonad.Hooks.ManageDocks as MD
-import qualified XMonad.Layout as L
-import qualified XMonad.Layout.MultiToggle as MT
+import XMonad.Layout as L ((|||))
+import XMonad.Layout.MultiToggle as MT
   ( EOT(EOT)
   -- , HCons
   -- , MultiToggle
@@ -24,11 +24,15 @@ import qualified XMonad.Layout.MultiToggle.Instances as MT
   )
 import qualified XMonad.Layout.Reflect as LR
 import qualified XMonad.Layout.WindowArranger as WA
+import qualified XMonad.Layout.WindowNavigation as WN
+
+layoutModifier =
+  MD.avoidStruts . MR.mouseResize . WA.windowArrange . WN.windowNavigation
 
 layout =
-  MD.avoidStruts . MR.mouseResize . WA.windowArrange $
-  MT.mkToggle (MT.single LR.REFLECTY) $
-  MT.mkToggle (MT.single LR.REFLECTX) $
-  MT.mkToggle (MT.NBFULL MT.?? MT.NOBORDERS MT.?? MT.EOT) layouts'
+  layoutModifier $
+  mkToggle (single LR.REFLECTY) $
+  mkToggle (single LR.REFLECTX) $
+  mkToggle (MT.NBFULL ?? MT.NOBORDERS ?? MT.EOT) layouts'
   where
-    layouts' = Mono.monocle L.||| Mag.magnify L.||| Vert.vert L.||| Horiz.horiz
+    layouts' = Mono.monocle ||| Vert.vert ||| Horiz.horiz ||| ThreeCol.threeCol
