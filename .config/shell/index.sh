@@ -14,7 +14,8 @@ files=(
   'npm'
   'git'
   'mr_func'
-  'pacman')
+  'pacman'
+  'x11')
 
 # don't use conditional check for files that should always be there
 for file in $files; do
