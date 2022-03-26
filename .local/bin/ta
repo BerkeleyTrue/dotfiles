@@ -1,25 +1,17 @@
 #!/bin/bash
 
-# original source https://github.com/WaylonWalker/devtainer/blob/main/bin/.local/bin/ta
-# Usage:
-# (with no active session) ta => start dev session
-# (with active sessions)
-#   ta => list all sessions
-#   ta proj => list all git
-#
-#
-#
-#
-#
-#
-#
-#
-#
-
+MAIN_KEY="dev"
+MAIN_DIR=$HOME/dvlpmnt
+PROJ_KEY="dvl"
+SCRIPT_NAME=$(basename $0)
 ARG=$1
-DEBUG=true
-session_name="dev"
-path_name="$(basename "$PWD" | tr . -)" # defualt to current directory
+DEBUG=false
+CWD="$(basename "$PWD" | tr . -)" # default to current directory
+LOG_FILE=$HOME/.local/share/tmux/ta.log
+
+if $DEBUG; then
+  mkdir -p $HOME/.local/share/tmux 2 >/dev/null &>1
+fi
 
 not_in_tmux() {
   [ -z "$TMUX" ]
@@ -27,20 +19,36 @@ not_in_tmux() {
 
 log() {
   if $DEBUG; then
-    echo "$@"
+    echo "$@" >>$LOG_FILE
   fi
+}
+
+usage() {
+  echo "\
+Usage:
+  (with no active session)
+    $SCRIPT_NAME => start '$MAIN_KEY' session
+  (with active sessions)
+    $SCRIPT_NAME => join first session
+    $SCRIPT_NAME $PROJ_KEY => list all '$(basename $MAIN_DIR)' projects with git repos
+    $SCRIPT_NAME some-sesh => if some-sesh exists attach to some-sesh
+    $SCRIPT_NAME some-sesh => if some-sesh does not exists, same as
+    $SCRIPT_NAME -h => show this menu
+    $SCRIPT_NAME --help => show this menu
+  "
 }
 
 does_session_exists() {
   # checks if the $session_name exists
-  tmux has-session -t "=$session_name"
+  tmux has-session -t "=$1"
 }
 
 create_session_from_dir() {
   local dir=$1
   local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename $dir) >")
   local session_name=${_session_name//./_}
-  return session_name
+  log "session-from-dir $session_name"
+  echo $session_name
 }
 
 create_detached_session() {
@@ -62,26 +70,57 @@ create_if_needed_and_attach() {
   local session_name=$1
   local path_name=$2
 
+  log "create-if-needed; session: $session_name path: $path_name"
   if not_in_tmux; then
     tmux new-session -As "$session_name" -c $path_name
   else
-    if ! does_session_exists; then
+    # already in tmux, let's switch
+    if ! does_session_exists $session_name; then
       create_detached_session $session_name $path_name
 
-      if [ ! "$arg" == "--start" ]; then
-        update_session_for_project $session_name $path_name
-      fi
+      # if [ ! "$arg" == "--start" ]; then
+      #   update_session_for_project $session_name $path_name
+      # fi
     fi
+    log "switch to $session_name"
     tmux switch-client -t "$session_name"
   fi
 }
 
-attatch_to_first_session() {
-  local session_name=$1
+attach_to_first_session() {
+  local session_name=$(tmux list-sessions -F "#{session_name}" | head -n 1)
+  log "attach-to-first: session_name: $session_name"
+  tmux attach -t $session_name
+  tmux choose-tree -Z
+}
 
-  log "attach first"
-  tmux attach -t $(tmux list-sessions -F "${session_name}" | head -n 1)
-  tmux choose-tree -Za
+attach_to_dir_session() {
+  local dir=$1
+  local session_name=$(create_session_from_dir $dir)
+  local path_name=$PWD/$dir/$session_name
+  log "attach-to-directory; session: $session_name path: $path_name"
+  create_if_needed_and_attach $session_name $path_name
+}
+
+attach_to_proj() {
+  local session_name
+  local path_name
+  res=$(
+    gfold $MAIN_DIR |
+      awk 'NR%4==1' |
+      sed 's/\x1b\[[0-9;]*m//g' |
+      fzf --reverse --header="Select project>"
+  )
+  if [ -z "$res"]; then
+    echo "nothing selected"
+    exit 1
+  fi
+  echo $res
+
+  session_name=$(echo $res | awk -F ' ~ ' '{print $1}')
+  path_name=$(echo $res | awk -F ' ~ ' '{print $2}')
+
+  create_if_needed_and_attach $session_name $path_name
 }
 
 log "arg: $ARG"
@@ -89,33 +128,31 @@ log "arg: $ARG"
 # If no arguments are passed in try to immediately attach or start without further input
 if [ -z "$ARG" ]; then
   if not_in_tmux; then
-    tmux attach && exit 1 || ARG="--start"
+    # try to attach and exit as soon as detach
+    # on fail, set arg to start
+    tmux attach && exit 1 || ARG="dev-start"
   else
+    echo "In tmux"
+    usage
     exit 1
   fi
 fi
 
 # If --start was passed in immediately start a new session based on the current directory
-if [ "$ARG" == "--start" ]; then
-  log "starting"
-elif [ "$ARG" == "proj" ]; then
-  session_name=$(gfold $HOME/dvlpmnt | fzf --reverse --header="Select project>")
-  echo $session_name
-  session_name=
+if [[ "$ARG" == "-h" || "$ARG" == "--help" ]]; then
+  usage
+  exit 0
+elif [ "$ARG" == "dev-start" ]; then
+  log "dev-start"
+  create_if_needed_and_attach "dev" $CWD && exit 0 || exit 1
+elif [ "$ARG" == $PROJ_KEY ]; then
+  attach_to_proj && exit 0 || exit 1
 elif [ -d "$ARG" ]; then
-  # TODO: change to list gfold output, instead of dirs
-  log "Creating from directory"
   # ask the user which directory to start in
-  session_name=$(create_session_from_dir $ARG)
-  path_name=$ARG/$session_name
+  attach_to_dir_session $ARG && exit 0 || exit 1
+elif does_session_exists $ARG; then
+  log "named-session: $ARG"
+  tmux attach -t $ARG && exit 0 || exit 1
 fi
 
-log "session name is \"$session_name\""
-log "path name is $path_name"
-
-if [ -z "$session_name" ]; then
-  # operation cancelled by user
-  exit 1
-fi
-
-create_if_needed_and_attach $session_name $path_name || attatch_to_first_session $session_name
+attach_to_first_session
