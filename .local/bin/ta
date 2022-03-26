@@ -130,7 +130,8 @@ if [ -z "$ARG" ]; then
   if not_in_tmux; then
     # try to attach and exit as soon as detach
     # on fail, set arg to start
-    tmux attach && exit 1 || ARG="dev-start"
+    tmux attach && exit 1 || ARG=$MAIN_KEY
+    log "dev-start"
   else
     echo "In tmux"
     usage
@@ -138,21 +139,21 @@ if [ -z "$ARG" ]; then
   fi
 fi
 
-# If --start was passed in immediately start a new session based on the current directory
+# If $MAIN_KEY was passed in immediately start a new session based on the current directory
 if [[ "$ARG" == "-h" || "$ARG" == "--help" ]]; then
   usage
   exit 0
-elif [ "$ARG" == "dev-start" ]; then
-  log "dev-start"
-  create_if_needed_and_attach "dev" $CWD && exit 0 || exit 1
+elif does_session_exists $ARG; then
+  log "named-session: $ARG"
+  tmux attach -t $ARG && exit 0 || exit 1
+elif [ "$ARG" == $MAIN_KEY ]; then
+  log "dev"
+  create_if_needed_and_attach $MAIN_KEY $CWD && exit 0 || exit 1
 elif [ "$ARG" == $PROJ_KEY ]; then
   attach_to_proj && exit 0 || exit 1
 elif [ -d "$ARG" ]; then
   # ask the user which directory to start in
   attach_to_dir_session $ARG && exit 0 || exit 1
-elif does_session_exists $ARG; then
-  log "named-session: $ARG"
-  tmux attach -t $ARG && exit 0 || exit 1
 fi
 
 attach_to_first_session
