@@ -96,6 +96,7 @@ myManageHook =
     , className =? "Zenity" --> doRectFloat CheatSh.size
     , className =? "Yad" --> doRectFloat CheatSh.size
     , className =? "Xdg-desktop-portal-gtk" --> doRectFloat Utils.centerWindow
+    , className =? "Blueman-manager" --> doRectFloat Utils.centerWindow
     ] <+>
   Scratch.scratchpadManageHook
   where
