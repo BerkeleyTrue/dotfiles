@@ -13,4 +13,4 @@ import qualified XMonad.Layout.WindowNavigation as WN
 
 threeCol =
   RN.renamed [RN.Replace "three"] $
-  limitWindows 7 $ ThreeCol 1 (3 / 100) (1 / 2)
+  limitWindows 7 $ ThreeColMid 1 (3 / 100) (1 / 2)
