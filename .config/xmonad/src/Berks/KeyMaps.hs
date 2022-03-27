@@ -80,6 +80,10 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ( (modm, xK_f)
     , addName "Switch layout to full screen no topbar" $
       sendMessage (Mt.Toggle NBFULL) >> sendMessage ToggleStruts)
+  , ( (modm .|. controlMask, xK_y)
+    , addName "Flip layout on Y axis" $ sendMessage $ Toggle LR.REFLECTY)
+  , ( (modm .|. controlMask, xK_x)
+    , addName "Flip layout on X axis" $ sendMessage $ Toggle LR.REFLECTX)
   ---
   ---
   ---
@@ -97,10 +101,6 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ( (modm .|. shiftMask, xK_k)
     , addName "Swap the focused window with the previous window" $
       windows W.swapUp)
-  , ( (modm .|. controlMask, xK_y)
-    , addName "Flip layout on Y axis" $ sendMessage $ Toggle LR.REFLECTY)
-  , ( (modm .|. controlMask, xK_x)
-    , addName "Flip layout on X axis" $ sendMessage $ Toggle LR.REFLECTX)
   --
   , ((modm, xK_h), addName "Shrink the master area" $ sendMessage Shrink)
   --
