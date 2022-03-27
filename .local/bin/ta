@@ -100,7 +100,7 @@ attach_to_first_session() {
 attach_to_dir_session() {
   local dir=$1
   local session_name=$(create_session_from_dir $dir)
-  if [ ! -d "$session_name" ]; then
+  if [ -z "$session_name" ]; then
     echo "No directory selected"
     exit 1
   fi
