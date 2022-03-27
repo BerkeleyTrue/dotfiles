@@ -9,12 +9,12 @@ MAIN_DIR=$HOME/dvlpmnt
 PROJ_KEY="dvl"
 SCRIPT_NAME=$(basename $0)
 ARG=$1
-DEBUG=true
+DEBUG=false
 CWD="$(basename "$PWD" | tr . -)" # default to current directory
 LOG_FILE=$HOME/.local/share/tmux/ta.log
 
 if $DEBUG; then
-  mkdir -p $HOME/.local/share/tmux 2 >/dev/null &>1
+  mkdir -p $HOME/.local/share/tmux >/dev/null 2>&1
 fi
 
 not_in_tmux() {
@@ -44,7 +44,7 @@ Usage:
 
 does_session_exists() {
   # checks if the $session_name exists
-  tmux has-session -t "=$1"
+  tmux has-session -t "=$1" >/dev/null 2>&1
 }
 
 create_session_from_dir() {
