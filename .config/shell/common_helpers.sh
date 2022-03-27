@@ -46,7 +46,7 @@ notessync() {
   echo "===-<starting>-==="
   for dir in ${dirs[@]}; do
     outputs[$dir]=$(mktemp /tmp/notessync.XXX)
-    { _syncdir $dir >&$outputs[$dir] 2>&1 & } 2>/dev/null
+    { _syncdir $dir &>$outputs[$dir] & } 2>/dev/null
   done
 
   wait
