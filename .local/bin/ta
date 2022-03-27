@@ -1,6 +1,7 @@
 #!/bin/bash
 
 TMUX="$TMUX"
+ARG=$1
 
 set -euo pipefail
 
@@ -8,7 +9,6 @@ MAIN_KEY="dev"
 MAIN_DIR=$HOME/dvlpmnt
 PROJ_KEY="dvl"
 SCRIPT_NAME=$(basename $0)
-ARG=$1
 DEBUG=false
 CWD="$(basename "$PWD" | tr . -)" # default to current directory
 LOG_FILE=$HOME/.local/share/tmux/ta.log
