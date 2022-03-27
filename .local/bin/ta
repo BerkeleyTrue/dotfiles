@@ -1,11 +1,15 @@
 #!/bin/bash
 
+TMUX="$TMUX"
+
+set -euo pipefail
+
 MAIN_KEY="dev"
 MAIN_DIR=$HOME/dvlpmnt
 PROJ_KEY="dvl"
 SCRIPT_NAME=$(basename $0)
 ARG=$1
-DEBUG=false
+DEBUG=true
 CWD="$(basename "$PWD" | tr . -)" # default to current directory
 LOG_FILE=$HOME/.local/share/tmux/ta.log
 
@@ -47,7 +51,6 @@ create_session_from_dir() {
   local dir=$1
   local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename $dir) >")
   local session_name=${_session_name//./_}
-  log "session-from-dir $session_name"
   echo $session_name
 }
 
@@ -72,7 +75,7 @@ create_if_needed_and_attach() {
 
   log "create-if-needed; session: $session_name path: $path_name"
   if not_in_tmux; then
-    tmux new-session -As "$session_name" -c $path_name
+    tmux new-session -A -s "$session_name" -c $path_name
   else
     # already in tmux, let's switch
     if ! does_session_exists $session_name; then
@@ -97,6 +100,10 @@ attach_to_first_session() {
 attach_to_dir_session() {
   local dir=$1
   local session_name=$(create_session_from_dir $dir)
+  if [ ! -d "$session_name" ]; then
+    echo "No directory selected"
+    exit 1
+  fi
   local path_name=$PWD/$dir/$session_name
   log "attach-to-directory; session: $session_name path: $path_name"
   create_if_needed_and_attach $session_name $path_name
@@ -111,7 +118,7 @@ attach_to_proj() {
       sed 's/\x1b\[[0-9;]*m//g' |
       fzf --reverse --header="Select project>"
   )
-  if [ -z "$res"]; then
+  if [ -z "$res" ]; then
     echo "nothing selected"
     exit 1
   fi
