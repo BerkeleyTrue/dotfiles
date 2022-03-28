@@ -7,12 +7,13 @@ LOG_FILE=$HOME/.local/share/tmux/ta.log
 SCRIPT_NAME=$(basename $0)
 MAIN_DIR=$HOME/dvlpmnt
 
+DIR=false
+GIT=false
 DEV=false
 KILL=false
-GIT=false
+CUR_SESSION=
 
 CWD="$(basename "$PWD" | tr . -)" # default to current directory
-DIR=$PWD
 
 if $DEBUG; then
   mkdir -p $HOME/.local/share/tmux >/dev/null 2>&1
@@ -47,6 +48,21 @@ log "OPTS; DIR:$DIR, GIT:$GIT, KILL:$KILL, DEV:$DEV, Arg:$1"
 
 ARG=$1
 set -euo pipefail
+
+path_resolve() {
+  if [[ -d "$1" ]]; then
+    pushd "$1" >/dev/null
+    pwd
+    popd >/dev/null
+  elif [[ -e "$1" ]]; then
+    pushd "$(dirname "$1")" >/dev/null
+    echo "$(pwd)/$(basename "$1")"
+    popd >/dev/null
+  else
+    echo "$1" does not exist! >&2
+    return 127
+  fi
+}
 
 not_in_tmux() {
   [ -z "$TMUX" ]
@@ -93,6 +109,7 @@ create_if_needed_and_attach() {
     fi
     log "switch to $session_name"
     tmux switch-client -t "$session_name"
+    ensure_kill_session
   fi
 }
 
@@ -103,13 +120,13 @@ attach_to_dir_session() {
     echo "No directory selected"
     exit 1
   fi
-  local path_name=$PWD/$dir/$session_name
+  local path_name=$(path_resolve $dir/$session_name)
   log "attach-to-directory; session: $session_name path: $path_name"
   create_if_needed_and_attach $session_name $path_name
 }
 
 attach_to_git() {
-  local dir=$1
+  local dir=$(path_resolve $1)
   log "attach-to-git: $dir"
   if ! is_dir $dir; then
     echo "git requires directory, but was given $dir" 1>&2
@@ -157,23 +174,34 @@ attach_to_first_session() {
 
   log "attach-to-first: session_name: $session_name"
   tmux attach -t $session_name
+  ensure_kill_session
+}
+
+ensure_kill_session() {
+  if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
+    tmux kill-session -t $CUR_SESSION
+  fi
 }
 
 log "arg: $ARG"
 
 main() {
+  if [ $KILL ] && ! not_in_tmux; then
+    CUR_SESSION=$(tmux display-message -p "#S")
+  fi
+
   if [ $DEV ]; then
-    log "dev:$DEV;"
     attach_to_proj
   elif [ $GIT ]; then
     # ask the user which git project to start in
-    attach_to_git $(test $ARG && echo $PWD/$ARG || echo $CWD)
+    attach_to_git $(test $ARG && echo $ARG || echo $CWD)
   elif [ $DIR ]; then
     # ask the user which directory to start in
-    attach_to_dir_session $(test $ARG && echo $PWD/$ARG || echo $CWD)
+    attach_to_dir_session $(test $ARG && echo $ARG || echo $CWD)
   elif [ $ARG ] && does_session_exists $ARG; then
     log "named-session: $ARG"
-    tmux attach -t $ARG
+    create_if_needed_and_attach $ARG $PWD
+    ensure_kill_session
   else
     log "no args"
     if is_tmux_running; then
@@ -182,6 +210,7 @@ main() {
       log "no tmux running"
       create_if_needed_and_attach "dev" $PWD
     fi
+
   fi
 }
 
