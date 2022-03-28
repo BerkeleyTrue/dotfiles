@@ -10,8 +10,9 @@ aur:
   - robo3t-bin  # mongodb UI tool
   # terminal
   - antigen-git
-  - toilet  # asci out text
+  - getoptions # better options parser for posix
   - navi  # interactive CL tool for cheats (sorta like TLDR)
+  - toilet  # asci out text
   - wakatime-cli-bin  # new go version
   # automation
   - terraform-lsp-git

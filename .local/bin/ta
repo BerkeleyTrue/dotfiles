@@ -1,25 +1,22 @@
 #!/bin/bash
-
 TMUX="$TMUX"
-ARG=$1
 
-set -euo pipefail
-
-MAIN_KEY="dev"
-MAIN_DIR=$HOME/dvlpmnt
-PROJ_KEY="dvl"
-SCRIPT_NAME=$(basename $0)
 DEBUG=false
-CWD="$(basename "$PWD" | tr . -)" # default to current directory
 LOG_FILE=$HOME/.local/share/tmux/ta.log
+
+SCRIPT_NAME=$(basename $0)
+MAIN_DIR=$HOME/dvlpmnt
+
+DEV=false
+KILL=false
+GIT=false
+
+CWD="$(basename "$PWD" | tr . -)" # default to current directory
+DIR=$PWD
 
 if $DEBUG; then
   mkdir -p $HOME/.local/share/tmux >/dev/null 2>&1
 fi
-
-not_in_tmux() {
-  [ -z "$TMUX" ]
-}
 
 log() {
   if $DEBUG; then
@@ -27,31 +24,45 @@ log() {
   fi
 }
 
-usage() {
-  echo "\
-Usage:
-  (with no active session)
-    $SCRIPT_NAME => start '$MAIN_KEY' session
-  (with active sessions)
-    $SCRIPT_NAME => join first session
-    $SCRIPT_NAME $PROJ_KEY => list all '$(basename $MAIN_DIR)' projects with git repos
-    $SCRIPT_NAME some-sesh => if some-sesh exists attach to some-sesh
-    $SCRIPT_NAME some-sesh => if some-sesh does not exists, same as
-    $SCRIPT_NAME -h => show this menu
-    $SCRIPT_NAME --help => show this menu
-  "
+parser_definition() {
+  setup REST help:usage -- \
+    "Usage: $SCRIPT_NAME [options...] [arguments...] [dir-or-session]
+
+  $SCRIPT_NAME -- will attach to first session or create dev session if none available
+
+Options:
+"
+  flag DIR -d --dir -- "select from list of directories, defaults to searching current directory"
+  flag GIT -g --git -- "Select from list of projects, searches directory recursively using gfold"
+  flag KILL -k --kill -- "Switches to next session or searches for session-name, killing the current session on success"
+  flag DEV --dev -- "Select projects from $MAIN_DIR"
+  disp :usage -h --help -- "This menu"
+}
+
+eval "$(getoptions parser_definition parse) exit 1"
+parse "$@"
+eval "set -- $REST"
+
+log "OPTS; DIR:$DIR, GIT:$GIT, KILL:$KILL, DEV:$DEV, Arg:$1"
+
+ARG=$1
+set -euo pipefail
+
+not_in_tmux() {
+  [ -z "$TMUX" ]
+}
+
+is_dir() {
+  [ -d "$1" ]
+}
+
+is_tmux_running() {
+  pgrep tmux >/dev/null 2>&1
 }
 
 does_session_exists() {
   # checks if the $session_name exists
   tmux has-session -t "=$1" >/dev/null 2>&1
-}
-
-create_session_from_dir() {
-  local dir=$1
-  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename $dir) >")
-  local session_name=${_session_name//./_}
-  echo $session_name
 }
 
 create_detached_session() {
@@ -61,12 +72,11 @@ create_detached_session() {
   tmux new-session -Ad -s "$session_name" -c $path_name
 }
 
-update_session_for_project() {
-  local session_name=$1
-  local path_name=$2
-
-  tmux split-window -vb -t "$session_name" -c $path_name -p 70
-  tmux send-keys -t "$session_name" "nvim '+Telescope find_files'" Enter
+create_session_from_dir() {
+  local dir=$1
+  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename $dir) >")
+  local session_name=${_session_name//./_}
+  echo $session_name
 }
 
 create_if_needed_and_attach() {
@@ -80,21 +90,10 @@ create_if_needed_and_attach() {
     # already in tmux, let's switch
     if ! does_session_exists $session_name; then
       create_detached_session $session_name $path_name
-
-      # if [ ! "$arg" == "--start" ]; then
-      #   update_session_for_project $session_name $path_name
-      # fi
     fi
     log "switch to $session_name"
     tmux switch-client -t "$session_name"
   fi
-}
-
-attach_to_first_session() {
-  local session_name=$(tmux list-sessions -F "#{session_name}" | head -n 1)
-  log "attach-to-first: session_name: $session_name"
-  tmux attach -t $session_name
-  tmux choose-tree -Z
 }
 
 attach_to_dir_session() {
@@ -109,20 +108,27 @@ attach_to_dir_session() {
   create_if_needed_and_attach $session_name $path_name
 }
 
-attach_to_proj() {
+attach_to_git() {
+  local dir=$1
+  log "attach-to-git: $dir"
+  if ! is_dir $dir; then
+    echo "git requires directory, but was given $dir" 1>&2
+    exit 1
+  fi
   local session_name
   local path_name
   res=$(
-    gfold $MAIN_DIR |
+    gfold $dir |
       awk 'NR%4==1' |
       sed 's/\x1b\[[0-9;]*m//g' |
-      fzf --reverse --header="Select project>"
+      fzf --reverse --header="Select project>" || exit 0
   )
+
   if [ -z "$res" ]; then
-    echo "nothing selected"
+    echo "Nothing selected" 1>&2
     exit 1
   fi
-  log "attach-to-proj: $res"
+  log "attach-to-git: $res"
 
   session_name=$(echo $res | awk -F ' ~ ' '{print $1}')
   path_name=$(echo $res | awk -F ' ~ ' '{print $2}')
@@ -130,37 +136,53 @@ attach_to_proj() {
   create_if_needed_and_attach $session_name $path_name
 }
 
+attach_to_proj() {
+  log "attach-to-proj"
+  attach_to_git $MAIN_DIR
+}
+
+attach_to_first_session() {
+  local session_name=
+  if [ $(tmux list-sessions | wc -l) -gt 1 ]; then
+    session_name=$(tmux list-sessions -F "#{session_name}" | fzf --reverse --header="Select session>")
+  fi
+
+  if [ -z "$session_name" ]; then
+    session_name=$(tmux list-sessions -F "#{session_name}" | head -n 1)
+  fi
+
+  if [ -z "$session_name" ]; then
+    session_name="dev"
+  fi
+
+  log "attach-to-first: session_name: $session_name"
+  tmux attach -t $session_name
+}
+
 log "arg: $ARG"
 
-# If no arguments are passed in try to immediately attach or start without further input
-if [ -z "$ARG" ]; then
-  if not_in_tmux; then
-    # try to attach and exit as soon as detach
-    # on fail, set arg to start
-    tmux attach && exit 1 || ARG=$MAIN_KEY
-    log "dev-start"
+main() {
+  if [ $DEV ]; then
+    log "dev:$DEV;"
+    attach_to_proj
+  elif [ $GIT ]; then
+    # ask the user which git project to start in
+    attach_to_git $(test $ARG && echo $PWD/$ARG || echo $CWD)
+  elif [ $DIR ]; then
+    # ask the user which directory to start in
+    attach_to_dir_session $(test $ARG && echo $PWD/$ARG || echo $CWD)
+  elif [ $ARG ] && does_session_exists $ARG; then
+    log "named-session: $ARG"
+    tmux attach -t $ARG
   else
-    echo "In tmux"
-    usage
-    exit 1
+    log "no args"
+    if is_tmux_running; then
+      attach_to_first_session
+    else
+      log "no tmux running"
+      create_if_needed_and_attach "dev" $PWD
+    fi
   fi
-fi
+}
 
-# If $MAIN_KEY was passed in immediately start a new session based on the current directory
-if [[ "$ARG" == "-h" || "$ARG" == "--help" ]]; then
-  usage
-  exit 0
-elif does_session_exists $ARG; then
-  log "named-session: $ARG"
-  tmux attach -t $ARG && exit 0 || exit 1
-elif [ "$ARG" == $MAIN_KEY ]; then
-  log "dev"
-  create_if_needed_and_attach $MAIN_KEY $CWD && exit 0 || exit 1
-elif [ "$ARG" == $PROJ_KEY ]; then
-  attach_to_proj && exit 0 || exit 1
-elif [ -d "$ARG" ]; then
-  # ask the user which directory to start in
-  attach_to_dir_session $ARG && exit 0 || exit 1
-fi
-
-attach_to_first_session
+main
