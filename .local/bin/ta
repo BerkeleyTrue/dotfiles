@@ -1,6 +1,5 @@
 #!/bin/bash
 TMUX="$TMUX"
-
 DEBUG=false
 LOG_FILE=$HOME/.local/share/tmux/ta.log
 
@@ -173,8 +172,7 @@ attach_to_first_session() {
   fi
 
   log "attach-to-first: session_name: $session_name"
-  tmux attach -t $session_name
-  ensure_kill_session
+  create_if_needed_and_attach $session_name ''
 }
 
 ensure_kill_session() {
