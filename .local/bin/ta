@@ -172,7 +172,7 @@ attach_to_first_session() {
   fi
 
   log "attach-to-first: session_name: $session_name"
-  create_if_needed_and_attach $session_name ''
+  create_if_needed_and_attach $session_name $PWD
 }
 
 ensure_kill_session() {
