@@ -7,11 +7,12 @@ TERMINAL="kitty"
 
 files=(
   'ansible'
-  'common_paths'
   'common_aliases'
   'common_helpers'
-  'task'
+  'common_paths'
+  'docker'
   'npm'
+  'task'
   'git'
   'mr_func'
   'pacman'
