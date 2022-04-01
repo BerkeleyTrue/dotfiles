@@ -12,9 +12,10 @@
 
 # NOTE: anything that takes long to run here will make it take longer to start WM
 # NOTE: not run by lightdm
-source $XDG_CONFIG_HOME/user-dirs.dirs
-
 export DESKTOP_SESSION=plasma
+
+XDG_CONFIG_HOME=$HOME/.config
+XDG_DATA_HOME=$HOME/.local/share
 X11_HOME=$XDG_CONFIG_HOME/x11
 userresources=$X11_HOME/xresources
 usermodmap=$X11_HOME/xmodmap
