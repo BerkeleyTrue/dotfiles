@@ -1,8 +1,21 @@
 #!/bin/bash
 
-doc-pull-n-tty() {
-  set -u
+doc-tty() {
   local arg=$1
+  if [ -z "$arg" ]; then
+    echo "Requires image url but found none" 1>&2
+    return 1
+  fi
 
-  docker pull $arg && docker run -i --tty --entrypoint /bin/sh $arg
+  docker run -i --tty --entrypoint /bin/sh $arg
+}
+
+doc-pull-n-tty() {
+  local arg=$1
+  if [ -z "$arg" ]; then
+    echo "Requires image url but found none" 1>&2
+    return 1
+  fi
+
+  docker pull $arg && doc-tty $arg
 }
