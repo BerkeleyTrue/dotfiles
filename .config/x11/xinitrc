@@ -22,7 +22,7 @@ usermodmap=$X11_HOME/xmodmap
 xprofile=$X11_HOME/xprofile
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
-XMONAD_EXEC=$XDG_DATA_HOME/xmonad/xmonad-x86_64-linux
+XMONAD_EXEC=$HOME/.local/bin/xmonad-x86_64-linux
 SESSION=${1:-xmonad}
 
 # merge in defaults and keymaps
