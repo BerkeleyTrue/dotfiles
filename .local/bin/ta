@@ -71,6 +71,10 @@ is_dir() {
   [ -d "$1" ]
 }
 
+num_sessions() {
+  tmux list-sessions | wc -l
+}
+
 is_tmux_running() {
   pgrep tmux >/dev/null 2>&1
 }
@@ -89,7 +93,7 @@ create_detached_session() {
 
 create_session_from_dir() {
   local dir=$1
-  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename $dir):" --prompt="$(ensure_kill_prompt)")
+  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)")
   local session_name=${_session_name//./_}
   echo $session_name
 }
@@ -159,8 +163,8 @@ attach_to_proj() {
 
 attach_to_first_session() {
   local session_name=
-  if [ $(tmux list-sessions | wc -l) -gt 1 ]; then
-    session_name=$(tmux list-sessions -F "#{session_name}" | fzf --reverse --header="Select session:" --prompt="$(ensure_kill_prompt)")
+  if [ $(num_sessions) -gt 1 ]; then
+    session_name=$(tmux list-sessions -F "#{session_name}" | grep -v "$CUR_SESSION" | fzf --reverse --header="Select session:" --prompt="$(ensure_kill_prompt)")
   fi
 
   if [ -z "$session_name" ]; then
@@ -192,7 +196,7 @@ ensure_kill_prompt() {
 log "arg: $ARG"
 
 main() {
-  if [ $KILL ] && ! not_in_tmux; then
+  if [ $(num_sessions) -gt 1 ]; then
     CUR_SESSION=$(tmux display-message -p "#S")
   fi
 
