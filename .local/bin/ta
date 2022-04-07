@@ -89,7 +89,7 @@ create_detached_session() {
 
 create_session_from_dir() {
   local dir=$1
-  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename $dir) >")
+  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select project from $(basename $dir):" --prompt="$(ensure_kill_prompt)")
   local session_name=${_session_name//./_}
   echo $session_name
 }
@@ -137,7 +137,7 @@ attach_to_git() {
     gfold $dir |
       awk 'NR%4==1' |
       sed 's/\x1b\[[0-9;]*m//g' |
-      fzf --reverse --header="Select project>" || exit 0
+      fzf --reverse --header="Select project" --prompt="$(ensure_kill_prompt)" || exit 0
   )
 
   if [ -z "$res" ]; then
@@ -160,7 +160,7 @@ attach_to_proj() {
 attach_to_first_session() {
   local session_name=
   if [ $(tmux list-sessions | wc -l) -gt 1 ]; then
-    session_name=$(tmux list-sessions -F "#{session_name}" | fzf --reverse --header="Select session>")
+    session_name=$(tmux list-sessions -F "#{session_name}" | fzf --reverse --header="Select session:" --prompt="$(ensure_kill_prompt)")
   fi
 
   if [ -z "$session_name" ]; then
@@ -178,6 +178,14 @@ attach_to_first_session() {
 ensure_kill_session() {
   if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
     tmux kill-session -t $CUR_SESSION
+  fi
+}
+
+ensure_kill_prompt() {
+  if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
+    echo "(killing $CUR_SESSION)>"
+  else
+    echo ">"
   fi
 }
 
