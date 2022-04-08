@@ -5,8 +5,10 @@ LOG_FILE=$HOME/.local/share/tmux/ta.log
 
 SCRIPT_NAME=$(basename $0)
 MAIN_DIR=$HOME/dvlpmnt
+CONF_DIR=$HOME/.config
 
 DIR=false
+CONF=false
 GIT=false
 DEV=false
 KILL=false
@@ -36,6 +38,7 @@ Options:
   flag GIT -g --git -- "Select from list of projects, searches directory recursively using gfold"
   flag KILL -k --kill -- "Switches to next session or searches for session-name, killing the current session on success"
   flag DEV --dev -- "Select projects from $MAIN_DIR"
+  flag CONF -c --conf -- "Select conf dir in $CONF_DIR"
   disp :usage -h --help -- "This menu"
 }
 
@@ -205,6 +208,8 @@ main() {
   elif [ $GIT ]; then
     # ask the user which git project to start in
     attach_to_git $(test $ARG && echo $ARG || echo $CWD)
+  elif [ $CONF ]; then
+    attach_to_dir_session $CONF_DIR
   elif [ $DIR ]; then
     # ask the user which directory to start in
     attach_to_dir_session $(test $ARG && echo $ARG || echo $CWD)
