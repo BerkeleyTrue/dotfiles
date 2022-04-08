@@ -77,12 +77,16 @@ is_dir() {
   [ -d "$1" ]
 }
 
-num_sessions() {
-  tmux list-sessions | wc -l
-}
-
 is_tmux_running() {
   pgrep tmux >/dev/null 2>&1
+}
+
+num_sessions() {
+  if is_tmux_running; then
+    tmux list-sessions | wc -l
+  else
+    echo "0"
+  fi
 }
 
 does_session_exists() {
