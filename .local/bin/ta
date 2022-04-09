@@ -174,11 +174,13 @@ attach_to_proj() {
 attach_to_first_session() {
   local session_name=
   if [ $(num_sessions) -gt 1 ]; then
-    if not_in_tmux; then
-      session_name=$(tmux list-sessions -F "#{session_name}" | fzf --reverse --header="Select session:" --prompt="$(ensure_kill_prompt)")
-    else
-      session_name=$(tmux list-sessions -F "#{session_name}" | grep -v "$CUR_SESSION" | fzf --reverse --header="Select session:" --prompt="$(ensure_kill_prompt)")
+    local sessions=$(tmux list-sessions -F "#{session_name}")
+    local prompt="Select session"
+    if ! not_in_tmux; then
+      sessions=$(echo "$sessions" | grep -v "$CUR_SESSION")
     fi
+
+    session_name=$(echo "$sessions" | fzf --reverse --header="$prompt$(not_in_tmux && echo "(not in tmux):" || echo "(in $CUR_SESSION):")" --prompt="$(ensure_kill_prompt)")
   fi
 
   if [ -z "$session_name" ]; then
