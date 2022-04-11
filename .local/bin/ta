@@ -7,11 +7,13 @@ SCRIPT_NAME=$(basename $0)
 MAIN_DIR=$HOME/dvlpmnt
 CONF_DIR=$HOME/.config
 BIN_DIR=$HOME/.local/bin
+WS_DIR=$MAIN_DIR/wrkst
 
 DIR=false
 CONF=false
 BIN=false
 GIT=false
+WS=false
 DEV=false
 KILL=false
 CUR_SESSION=
@@ -42,6 +44,7 @@ Options:
   flag DEV --dev -- "Select projects from $MAIN_DIR"
   flag CONF -c --conf -- "Select conf dir in $CONF_DIR"
   flag BIN -b --bin -- "create a bin session"
+  flag WS -w --ws -- "create a workstation session"
   disp :usage -h --help -- "This menu"
 }
 
@@ -225,6 +228,8 @@ main() {
     attach_to_dir_session $CONF_DIR
   elif [ $BIN ]; then
     create_if_needed_and_attach "bin" $BIN_DIR
+  elif [ $WS ]; then
+    create_if_needed_and_attach "wrkst" $WS_DIR
   elif [ $DIR ]; then
     # ask the user which directory to start in
     attach_to_dir_session $(test $ARG && echo $ARG || echo $CWD)
