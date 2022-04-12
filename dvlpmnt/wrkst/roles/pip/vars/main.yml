@@ -6,3 +6,4 @@ pips:
   - pynvim
   - yamlfix
   - ansible-later
+  - docker

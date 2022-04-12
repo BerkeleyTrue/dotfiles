@@ -1,0 +1,23 @@
+---
+- name: Running {{ item }} container
+  block:
+  - name: Ensure Dir {{ item }}
+    file:
+      path: '{{ container_home }}/{{ item }}'
+      mode: 0755
+      state: directory
+
+  - name: Ensure compose file {{ item }}
+    template:
+      src: '{{ item }}/docker-compose.yml'
+      dest: '{{ container_home }}/{{ item }}/docker-compose.yml'
+      mode: 0644
+
+  - name: Ensure volume exists {{ item }}
+    docker_volume:
+      name: '{{ item }}-db'
+
+  - name: Ensure Container is up {{ item }}
+    docker_compose:
+      project_name: '{{ item }}'
+      project_src: '{{ container_home }}/portainer'

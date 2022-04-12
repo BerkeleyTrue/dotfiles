@@ -1,0 +1,57 @@
+---
+version: '2'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:2.9.3
+    command: -H unix:///var/run/docker.sock
+    container_name: portainer
+    restart: unless-stopped
+    networks:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-db:/data
+
+    labels:
+      - traefik.enable=true
+      # - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
+      # - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+
+      # portainer frontend
+      # web
+      - traefik.http.routers.portainer-web.entrypoints=web
+      - traefik.http.routers.portainer-web.rule=Host(`portainer.{{ ansible_hostname }}.lan`)
+      - traefik.http.routers.portainer-web.service=portainer-frontend-service
+
+      - traefik.http.services.portainer-frontend-service.loadbalancer.server.port=9000
+
+      # secure - ssl terminates from main ssl
+      # - traefik.http.routers.portainer-frontend.rule=Host(`{{ sub_domain }}.{{ TRAEFIK_PUBLIC_URL }}`) && Path(`/portainer`)
+      # - traefik.http.routers.portainer-frontend.entrypoints=secureweb
+      # - traefik.http.routers.portainer-frontend.service=portainer-frontend-service
+      # - traefik.http.routers.portainer-frontend.priority=100
+
+
+      # portainer edge
+      # web
+      - traefik.http.routers.portainer-edge-web.entrypoints=web
+      - traefik.http.routers.portainer-edge-web.rule=Host(`edge.{{ ansible_hostname }}.lan`)
+      - traefik.http.routers.portainer-edge-web.service=portainer-edge-service
+
+      - traefik.http.services.portainer-edge-service.loadbalancer.server.port=8000
+
+      # secure
+      # - traefik.http.routers.portainer-edge.entrypoints=secureweb
+      # - traefik.http.routers.portainer-edge.rule=Host(`{{ sub_domain }}.{{ TRAEFIK_PUBLIC_URL }}`) && Path(`/edge`)
+      # - traefik.http.routers.portainer-edge.service=portainer-edge-service
+      #
+      # - traefik.http.services.portainer-edge-service.loadbalancer.server.port=8000
+
+volumes:
+  portainer-db:
+    external: true
+
+networks:
+  web:
+    external: true

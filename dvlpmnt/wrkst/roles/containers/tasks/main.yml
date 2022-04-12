@@ -1,0 +1,9 @@
+---
+- name: Ensure docker network
+  docker_network:
+    name: web
+
+- name: Running container block
+  include_tasks: block_loop.yml
+  loop:
+    - portainer
