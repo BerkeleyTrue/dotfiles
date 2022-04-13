@@ -9,4 +9,4 @@
 
 (defn get-config []
   {:filetypes
-   [:html :css :javascript :typescriptreact :pug]})
+   [:html :css :pug]})
