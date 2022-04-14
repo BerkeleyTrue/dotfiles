@@ -23,10 +23,6 @@ services:
 
       - "{{ traefik_folder }}/traefik.yml:/traefik.yml:ro"
       - "{{ traefik_folder }}/config.yml:/config.yml:ro"
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.traefik.entrypoints=web
-      - traefik.http.routers.traefik.rule=Host(`traefik.{{ ansible_hostname }}.lan`)
 
 networks:
   host:
