@@ -1,0 +1,3 @@
+---
+container_home: '{{ ansible_env.HOME }}/dvlpmnt/containers'
+sub_domain: delora

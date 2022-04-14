@@ -1,0 +1,9 @@
+---
+- name: Update workstation packages
+  hosts: all
+  vars_files:
+    - vars/main.yml
+    - vars/secrets.yml
+
+  roles:
+    - containers
