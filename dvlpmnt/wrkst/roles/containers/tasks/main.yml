@@ -6,4 +6,5 @@
 - name: Running container block
   include_tasks: block_loop.yml
   loop:
-    - portainer
+    - name: portainer
+      volume: portainer-agent
