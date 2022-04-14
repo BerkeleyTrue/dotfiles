@@ -1,0 +1,60 @@
+---
+- name: Ensure traefik folders exits
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: 0755
+  loop:
+    - '{{ traefik_folder }}'
+
+- name: Ensure log folder exits
+  become: true
+  become_user: root
+  file:
+    path: /var/log/traefik
+    mode: 0755
+    state: directory
+    group: docker
+
+- name: Ensure log files exits
+  become: true
+  become_user: root
+  copy:
+    content: ''
+    dest: /var/log/traefik/{{ item }}
+    mode: 0644
+    force: false
+  loop:
+    - access.log
+    - traefik.log
+
+- name: Copy config file
+  template:
+    src: traefik/config.yml
+    dest: '{{ traefik_folder }}/config.yml'
+    mode: 0644
+  notify:
+    - Restart traefik
+
+- name: Copy traefik file
+  template:
+    src: traefik/traefik.yml
+    dest: '{{ traefik_folder }}/traefik.yml'
+    mode: 0644
+  notify:
+    - Restart traefik
+
+- name: Ensure docker compose file exits
+  template:
+    src: traefik/docker-compose.yml
+    dest: '{{ traefik_folder}}/docker-compose.yml'
+    mode: 0644
+
+- name: Ensure docker network
+  docker_network:
+    name: web
+
+- name: Ensure traefik is up
+  docker_compose:
+    project_name: traefik
+    project_src: '{{ traefik_folder }}'

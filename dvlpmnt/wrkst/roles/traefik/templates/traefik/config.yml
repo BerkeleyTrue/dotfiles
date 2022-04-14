@@ -1,0 +1,16 @@
+---
+http:
+  routers:
+    dev-router:
+      rule: Host(`{{ ansible_hostname }}.{{ traefik_public_url }}`)
+      service: dev-service
+      priority: 1
+      entryPoints:
+        - web
+
+  services:
+    dev-service:
+      loadBalancer:
+        servers:
+          - url: http://172.17.0.1:3000
+        passHostHeader: true

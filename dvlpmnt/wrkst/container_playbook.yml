@@ -6,4 +6,5 @@
     - vars/secrets.yml
 
   roles:
+    - traefik
     - containers
