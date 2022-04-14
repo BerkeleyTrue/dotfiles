@@ -20,24 +20,6 @@ services:
       - CAP_HOST_MANAGEMENT=1
       - EDGE_INSECURE_POLL=1
 
-    labels:
-      - traefik.enable=true
-
-      # portainer edge
-      # web
-      - traefik.http.routers.portainer-edge-web.entrypoints=web
-      - traefik.http.routers.portainer-edge-web.rule=Host(`edge.{{ ansible_hostname }}.lan`)
-      - traefik.http.routers.portainer-edge-web.service=portainer-edge-service
-
-      - traefik.http.services.portainer-edge-service.loadbalancer.server.port=8000
-
-      # secure
-      # - traefik.http.routers.portainer-edge.entrypoints=secureweb
-      # - traefik.http.routers.portainer-edge.rule=Host(`{{ sub_domain }}.{{ TRAEFIK_PUBLIC_URL }}`) && Path(`/edge`)
-      # - traefik.http.routers.portainer-edge.service=portainer-edge-service
-      #
-      # - traefik.http.services.portainer-edge-service.loadbalancer.server.port=8000
-
 volumes:
   portainer-agent-db:
     external: true
