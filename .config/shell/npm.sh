@@ -20,21 +20,21 @@ alias npmlsg='sudo npm list -g --depth=0'
 npmpublish() {
   # travis status --no-interactive &&
   # start with fresh npm install
-  npx trash node_modules &>/dev/null;
+  npx trash node_modules &>/dev/null
   # should almost always be angular
   preset=${2:-$(npx conventional-commits-detector)}
   bump=${1:-$(npx conventional-recommended-bump -p $preset)}
   if [ -z $CONVENTIONAL_GITHUB_RELEASER_TOKEN ]; then
     echo "CONVENTIONAL_GITHUB_RELEASER_TOKEN not found"
-    return 1;
+    return 1
   fi
   echo "Bump: $bump."
   echo "Preset: $preset"
   echo "Do you wish to continue?"
   select yn in "Yes" "No"; do
     case $yn in
-      Yes ) break;;
-      No ) return 0;;
+    Yes) break ;;
+    No) return 0 ;;
     esac
   done
   # make sure we have the latest commits
@@ -49,7 +49,7 @@ npmpublish() {
     echo "creating/updating changelong" &&
     npx conventional-changelog -i CHANGELOG.md -s -p $preset &&
     git add CHANGELOG.md &&
-    version=`cat package.json | json version` &&
+    version=$(cat package.json | json version) &&
     echo "Adding changelog" &&
     git commit -m "docs(CHANGELOG): v$version" &&
     mv -f _package.json package.json &&
@@ -62,4 +62,12 @@ npmpublish() {
     npx conventional-github-releaser -p $preset &&
     echo "publishing to npm" &&
     npm publish
+}
+
+npmrs() {
+  local script=$(cat package.json | json scripts | json -k | json -ga | fzf -m --print0 --preview="cat package.json | json scripts.{} | bat --language bash --color always" --height 40%)
+  if [ -z "$script" ]; then
+    return 0
+  fi
+  npm run $script
 }
