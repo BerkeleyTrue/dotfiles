@@ -82,3 +82,5 @@ packages:
   - firefox
   - rofi
   - rofi-calc
+    # security
+  - pam-u2f
