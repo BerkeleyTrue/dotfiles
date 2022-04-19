@@ -253,6 +253,8 @@
 
 
 ;; lang
+(defn number? [val] (= (type val) :number))
+(comment (number? 0) (number? :foo))
 (defn boolean? [val] (= (type val) :boolean))
 (defn true? [val] (= val true))
 (defn false? [val] (= val false))

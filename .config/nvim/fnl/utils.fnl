@@ -61,8 +61,9 @@
                             :silent silent
                             :nowait nowait
                             :script script}]]
+
     (if
-      buffer (nvim.buf_set_keymap buffer (unpack args))
+      buffer (nvim.buf_set_keymap (if (r.number? buffer) buffer 0) (unpack args))
       (nvim.set_keymap (unpack args)))))
 
 
