@@ -1,9 +1,0 @@
----
-pips:
-  - pip
-  # for generating password hashes
-  - passlib
-  - pynvim
-  - yamlfix
-  - ansible-later
-  - docker

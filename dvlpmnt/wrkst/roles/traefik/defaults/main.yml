@@ -1,2 +1,0 @@
----
-traefik_folder: '{{ ansible_env.HOME }}/dvlpmnt/containers/traefik'
