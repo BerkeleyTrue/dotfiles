@@ -136,9 +136,8 @@ myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
 myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D" <>
-  spawn "killall trayer > /dev/null 2&>1" <>
+  spawn "killall trayer &> /dev/null" <>
   spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh" <>
-  spawn "nitrogen --restore &" <>
   spawn
     "sleep 2 && \
     \trayer --edge top \
