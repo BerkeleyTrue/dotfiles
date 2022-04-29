@@ -5,5 +5,4 @@ set -e
 stack build :xmonad --verbosity error
 stack install :xmonad --local-bin-path bin/ --verbosity error
 cp bin/xmonad $HOME/.local/share/xmonad/xmonad-x86_64-linux
-cp bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux
 mv bin/xmonad "$1"
