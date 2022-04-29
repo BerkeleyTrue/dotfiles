@@ -38,9 +38,6 @@ nm-applet &
 # manage power settings
 xfce4-power-manager &
 
-# manage and install packages
-pamac-tray &
-
 # clipboard manager
 clipit &
 
