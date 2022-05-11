@@ -66,13 +66,29 @@
                  (cmp.confirm
                    {:behavior cmp.ConfirmBehavior.Insert
                     :select true})))}
-            [:i :s])
+            [:i :s :c])
 
           :<C-Space>
           (cmp.mapping
             (cmp.mapping.complete
               {:reason cmp.ContextReason.Auto
                :config {:sources (get-sources)}})
+            [:i :c])
+
+          :<C-n>
+          (cmp.mapping
+            (fn [fallback]
+              (print :foobar)
+              (if (cmp.visible) (cmp.select_next_item)
+                (fallback)))
+            [:i :c])
+
+          :<C-p>
+          (cmp.mapping
+            (fn [fallback]
+              (print :foobar)
+              (if (cmp.visible) (cmp.select_prev_item)
+                (fallback)))
             [:i :c])
 
           :<C-d> (cmp.mapping.scroll_docs -4)
