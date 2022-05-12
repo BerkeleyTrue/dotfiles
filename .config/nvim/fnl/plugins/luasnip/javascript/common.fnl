@@ -7,7 +7,7 @@
    require-macros [macros]})
 
 (defn main [{: s : fmt : fmta : i  : c : t : sn : d : rep : ai}]
-  {:log
+  {;:log
    (s
      {:trig "log"
       :name "console log"
@@ -17,7 +17,7 @@
         console.log(\'<>\')<>"
        [(i 1 "foo")
         (c 2 [(t "") (t ";")])]))
-   :logd
+   ;:logd
    (s
      {:trig "logd"
       :name "console log a var"
@@ -28,7 +28,7 @@
        [(i 1 "foo")
         (rep 1)
         (c 2 [(t "") (t ";")])]))
-   :iferr
+   ;:iferr
    (s
      {:trig "iferr"
       :name "if err handler"
@@ -49,7 +49,7 @@
                [(i 1 "callback")
                 (i 2)]))])]))
 
-   :import
+   ;:import
    (s
      {:trig "import"
       :name "Import statement"
@@ -65,7 +65,7 @@
         (i 1 "module")
         (i 0)]))
 
-   :require
+   ;:require
    (s
      {:trig "require"
       :name "Require expression"
@@ -81,7 +81,7 @@
         (i 1 "module")
         (i 0)]))
 
-   :constructor
+   ;:constructor
    (s
      {:trig "const"
       :name "constructor method"

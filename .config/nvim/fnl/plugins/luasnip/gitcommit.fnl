@@ -33,7 +33,7 @@ BREAKING CHANGE: <breaking change summary>
 Fixes #<issue number>")
 
 (defn main [{: fmt : fmta : i : s : c : t}]
-  {:commit
+  [;:commit
    (s
      {:trig "com"
       :name "commit"
@@ -58,7 +58,7 @@ Fixes #<issue number>")
         (i 3 "Summary in present tense. Not capitalized. No period at the end.")
         (i 0)]))
 
-   :break
+   ;:break
    (s
      {:trig "break"
       :name "breaking change"
@@ -68,7 +68,7 @@ Fixes #<issue number>")
        BREAKING CHANGE: <>"
        [(i 1 "Summary in present tense. Not capitalized. No period at the end.")]))
 
-   :break
+   ;:break
    (s
      {:trig "issue"
       :name "link issue"
@@ -76,4 +76,4 @@ Fixes #<issue number>")
       : docstring}
      (fmta "
        Closes #<>"
-       [(i 1 "1337")]))})
+       [(i 1 "1337")]))])

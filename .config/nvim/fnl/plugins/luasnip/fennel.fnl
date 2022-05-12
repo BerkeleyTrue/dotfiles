@@ -8,7 +8,7 @@
 
 
 (defn main [{: s : fmt : fmta : i  : c : t : sn : d}]
-  {:module
+  [;:module
    (s
      {:trig "(module)"
       :name "aniseed module"
@@ -25,7 +25,7 @@
         <>"
        [(i 1 "namespace") (i 2) (i 0)]))
 
-   :main
+   ;:main
    (s
      {:trig "(main)"
       :name "main func"
@@ -37,7 +37,7 @@
        [(c 1 [(t "defn") (t "fn")])
         (i 0)]))
 
-   :let
+   ;:let
    (s
      {:trig "(let)"
       :name "binding expr"
@@ -54,7 +54,7 @@
         (i 2 "foo")
         (i 3 "bar")
         (i 0 "baz")]))
-   :fn
+   ;:fn
    (s
      {:trig "(fn)"
       :name "fn expr"
@@ -72,7 +72,7 @@
         (i 2 "name")
         (i 0)]))
 
-   :package
+   ;:package
    (s
      {:trig "package"
       :name "Packer Package"
@@ -89,7 +89,7 @@
                 " :requires [[:<>]]"
                 [(i 1 "dep")]
                 {:dedent false}))])]))
-   :tapx
+   ;:tapx
    (s
      {:trig "tapx"
       :name "Tap a var to x"
@@ -106,4 +106,4 @@
             (t ":z")
             (t ":a")
             (t ":b")
-            (t ":c")])]))})
+            (t ":c")])]))])

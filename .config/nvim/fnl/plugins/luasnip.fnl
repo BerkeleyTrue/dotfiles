@@ -74,6 +74,8 @@
 (comment (source-ft-snips))
 
 (defn source-snips []
+  "Compile fennel files, source this file in lua, for each filtype file,
+  map to the lua version and source file"
   (anenv.compile-fnl)
   (utils.ex.source *lua-file*)
   (->>
@@ -83,7 +85,7 @@
 
   (when-let [snippets (source-ft-snips)]
     (let [luasnip (md.prequire :luasnip)]
-      (set luasnip.snippets snippets))))
+      (luasnip.add_snippets nil snippets))))
 
 (defn expand-or-jump []
   (when-let [ls (md.prequire :luasnip)]
@@ -146,4 +148,4 @@
            {:virt_text
             [["🌖" :BerksGreen]]}}}}))
     (when-let [snippets (source-ft-snips)]
-      (set luasnip.snippets snippets))))
+      (luasnip.add_snippets nil snippets))))
