@@ -10,9 +10,13 @@
 (def- ft-snips
   [:fennel
    :gitcommit
+   {:ns :typescript.react
+    :fts [:typescriptreact]}
+   ; spec format for shared config
+   ; ns is the file to load
+   ; fts are the filetypes this spec applies to
    {:fts [:javascript :typescript :typescriptreact]
     :ns :javascript.common}])
-
 
 (def *lua-file*
   (.. (utils.fn.stdpath "config") "/" (utils.fn.substitute *file* "^fnl\\|fnl$" "lua" "g")))
@@ -22,6 +26,7 @@
 
 
 (defn- map-fts [spec]
+  "Allow common specs to spread to multiple filetypes"
   (if (r.table? spec)
     (a.map
       (fn [ft]
@@ -64,11 +69,14 @@
         (r.map normalize-spec)
         (r.map
           (fn [{: ft : namespace}]
-            {ft
-             (md.prequire-main namespace methods)}))
+            {: ft
+             :snips (md.prequire-main namespace methods)}))
         (r.reduce
-          (fn [snippets ft-snips]
-            (r.merge snippets ft-snips))
+          (fn [snippets {: ft : snips}]
+            ; pull already merged snippets
+            (let [pSnippets (or (. snippets ft) [])]
+              ; merge new and prev snips, then map to ft, then merge with old map
+              (r.merge snippets {ft (r.concat pSnippets snips)})))
           {:all [(luasnip.parser.parse_snippet "test" "; tested")]})))))
 
 (comment (source-ft-snips))

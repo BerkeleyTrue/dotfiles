@@ -7,7 +7,7 @@
    require-macros [macros]})
 
 (defn main [{: s : fmt : fmta : i  : c : t : sn : d : rep : ai}]
-  {;:log
+  [;:log
    (s
      {:trig "log"
       :name "console log"
@@ -81,6 +81,24 @@
         (i 1 "module")
         (i 0)]))
 
+   (s
+     {:trig "import_"
+      :name "Import lodash"
+      :dscr "Create a lodash import statement."
+      :wordTrig true}
+     (fmta "
+        import _ from 'lodash/fp';<>"
+       [(i 1)]))
+
+   (s
+     {:trig "require_"
+      :name "Require lodash"
+      :dscr "Create a lodash require expression."
+      :wordTrig true}
+     (fmta "
+        const _ = require('lodash/fp');<>"
+       [(i 1)]))
+
    ;:constructor
    (s
      {:trig "const"
@@ -97,4 +115,4 @@
            (sn nil (fmta "
                      super();<>
                      "
-                     [(i 1 "")]))])]))})
+                     [(i 1 "")]))])]))])
