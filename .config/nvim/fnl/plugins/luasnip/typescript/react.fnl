@@ -14,9 +14,13 @@
       :dscr "A typescript react comp."
       :wordTrig false}
      (fmta "
-        inteface Props {}
-        export const <> = (props: Props) =>> {
-          return ();<>
-        }"
+       interface Props {
+       }
+       export const <> = ({}: Props) =>> {
+         return (
+             <>
+         );<>
+       }"
        [(i 1 "Comp")
+        (i 2 "<div>Hello World</div>")
         (i 0)]))])
