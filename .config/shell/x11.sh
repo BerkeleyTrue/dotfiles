@@ -2,13 +2,13 @@ LOG=$HOME/.local/share/x11/x11.log
 
 startxmonad() {
   if [[ "$(tty)" = "/dev/tty1" ]]; then
-    pgrep -x X || startx $HOME/.config/x11/xinitrc &>$LOG
+    pgrep -x Xorg || startx $HOME/.config/x11/xinitrc &>$LOG
   fi
 }
 
 startplasma() {
   if [[ "$(tty)" = "/dev/tty1" ]]; then
-    pgrep -x X || startx $HOME/.config/x11/xinitrc kde &>$LOG
+    pgrep -x Xorg || startx $HOME/.config/x11/xinitrc kde &>$LOG
   fi
 }
 
