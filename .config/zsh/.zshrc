@@ -10,7 +10,8 @@ export TASKDATA="$XDG_CONFIG_HOME/task"
 export TASKRC="$TASKDATA/taskrc"
 export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"
 
-XDG_CONFIG_HOME"$HOME/.config"
+XDG_CONFIG_HOME="$HOME/.config"
+XDG_DATA_HOME="$HOME/.local/share"
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
 ZSH="$XDG_CONFIG_HOME/zsh"
 mkdir -p "$XDG_DATA_HOME/zsh"
@@ -60,7 +61,7 @@ antigen use oh-my-zsh
 
 antigen bundle djui/alias-tips
 antigen bundle lukechilds/zsh-better-npm-completion
-antigen bundle $HOME/.config/antigent/bundles/BerkeleyTrue/tmux --no-local-clone
+# antigen bundle $HOME/.config/antigen/bundles/BerkeleyTrue/tmux --no-local-clone
 antigen bundle wd
 antigen bundle vi-mode
 antigen bundle zsh-users/zsh-autosuggestions
