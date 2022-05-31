@@ -2,7 +2,7 @@
 ! Sets profiles for some older programs
 ! loaded in $XDG_CONFIG_HOME/x11/xinitrc
 
-Xft.dpi: 192
+Xft.dpi: 144
 Xft.lcdfilter: lcddefault
 
 XTerm*pointerColor: #16A085
