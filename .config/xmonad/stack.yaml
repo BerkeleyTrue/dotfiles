@@ -20,7 +20,7 @@
 # resolver: https://example.com/snapshots/2018-01-01.yaml
 resolver:
   url: "\
-    https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/4.yaml"
+    https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml"
 
 # should point to dir with package.cabal
 packages:
