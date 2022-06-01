@@ -38,6 +38,9 @@ nm-applet &
 # manage power settings
 xfce4-power-manager &
 
+# notification daemon
+dunst &
+
 # clipboard manager
 clipit &
 
