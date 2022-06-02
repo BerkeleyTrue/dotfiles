@@ -175,26 +175,6 @@
   # Limit icons size.
   max_icon_size=100
 
-[shortcuts]
-
-  # Shortcuts are specified as [modifier+][modifier+]...key
-  # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-  # "mod3" and "mod4" (windows-key).
-  # Xev might be helpful to find names for keys.
-
-  # Close notification.
-  close = mod1+space
-
-  # Close all notifications.
-  # close_all = ctrl+shift+space
-  close_all = ctrl+mod1+space
-
-  # Redisplay last message(s).
-  history = ctrl+mod4+h
-
-  # Context menu.
-  context = ctrl+mod1+c
-
 [urgency_low]
   # IMPORTANT: colors have to be defined in quotation marks.
   # Otherwise the "#" and following would be interpreted as a comment.

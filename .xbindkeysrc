@@ -19,3 +19,12 @@
   F8
 "playerctl next"
   F9
+
+"dunstctl close"
+  control + space
+
+"dunstctl close-all"
+  control + mod1 + space
+
+"dunstctl history-pop"
+  control + mod1 + shift + h
