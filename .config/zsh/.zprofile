@@ -1,4 +1,5 @@
 PATH=$PATH:$HOME/.local/bin
+GOPATH=$HOME/dvlpmnt/go
 # Run by login shell (zsh)
 
 # If we are in TTY1 (login) and not already running xorg,

@@ -52,6 +52,7 @@
    :cssls {}
    :dockerls {}
    :emmet_ls (emmetls.get-config)
+   :golangci_lint_ls {}
    :hls {}
    :html {}
    :jsonls (jsonls-configs)
