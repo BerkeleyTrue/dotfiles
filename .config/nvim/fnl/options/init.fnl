@@ -45,7 +45,7 @@
      :expandtab      true                             ;  convert tabs to spaces
      :ignorecase     true                             ;  ignore case when searching
      :list           true                             ;  set list mode for listchars
-     :listchars      "tab:>."                         ;  mark whitespace
+     :listchars      "tab:\\ \\ "                     ;  mark whitespace
      :mouse          :a                               ;  enable the use of the mouse
      :backup         false                            ;  disable backups"
      :swapfile       false                            ;  disable backups"

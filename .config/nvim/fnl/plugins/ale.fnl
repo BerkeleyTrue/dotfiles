@@ -26,6 +26,7 @@
       :typescript [:tslint :tsserver :eslint]
       :pug [:pug-lint]
       :clojure [:clj-kondo]
+      :go []
       :yaml.ansible [:ansible-lint]}})
 
   (when-let [ale (md.ppackadd :ale)]
