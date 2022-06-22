@@ -24,45 +24,44 @@ Config
   , persistent = True
   , commands =
       [ Run Date " %H:%M:%S " "date" 5
-      , Run ComX "/home/berkeleytrue/.local/bin/eth-gas" [] "0.xx" "eth-gas" 10
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg"
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["price", "btc"]
           "0.xx"
           "btc"
           10
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg"
-          ["price", "eth"]
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
+          ["price", "steth"]
           "0.xx"
-          "eth"
+          "steth"
           10
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg"
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["price", "pickle"]
           "0.xx"
           "pickle"
           600
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg"
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["price", "sol"]
           "0.xx"
           "sol"
           200
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg"
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["price", "xtz"]
           "0.xx"
           "xtz"
           50
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg"
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["price", "ohm"]
           "0.xx"
           "ohm"
@@ -77,9 +76,8 @@ Config
     \%UnsafeStdinReader% \
     \ } \
     \<fc=#ff79c6> %date% </fc>\
-    \<fc=#8be9fd> ﲹ $%eth% </fc>\
-    \<fc=#8be9fd> %eth-gas% </fc>\
     \ { \
+    \<fc=#8be9fd> ﲹ $%steth% </fc>\
     \<fc=#50fa7b>  $%btc% </fc>\
     \<fc=#bd93f9>  $%ohm% </fc>\
     \<fc=#ff5555> XTZ $%xtz% </fc>\

@@ -63,10 +63,24 @@ Config
       , Run ComX "wakatime" ["--today"] "0" "" 20
       , Run
           ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg"
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["price", "eth"]
           "0.xx"
           "eth"
+          10
+      , Run
+          ComX
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
+          ["gas"]
+          "0.xx"
+          "eth-gas"
+          10
+      , Run
+          ComX
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
+          ["flip"]
+          "0.xx"
+          "eth-flip"
           10
       ]
   , sepChar = "%"
@@ -78,6 +92,8 @@ Config
     \<fc=#ff79c6> %date% </fc>\
     \<fc=#50fa7b>  %wakatime% </fc>\
     \<fc=#8be9fd> ﲹ $%eth% </fc>\
+    \<fc=#8be9fd> %eth-gas% </fc>\
+    \<fc=#8be9fd>勒 %eth-flip% </fc>\
     \ { \
     \<fc=#666666>|</fc><fc=#ff79c6> %cpu% </fc>\
     \<fc=#666666>|</fc><fc=#ffb86c> %multicoretemp% </fc>\
