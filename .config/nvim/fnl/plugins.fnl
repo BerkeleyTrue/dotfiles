@@ -13,6 +13,7 @@
    :comments
    :completion
    :conjure
+   :corpus
    :vimsence
    :easy-align
    :easy-motion

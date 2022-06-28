@@ -78,7 +78,6 @@
           :<C-n>
           (cmp.mapping
             (fn [fallback]
-              (print :foobar)
               (if (cmp.visible) (cmp.select_next_item)
                 (fallback)))
             [:i :c])
@@ -86,7 +85,6 @@
           :<C-p>
           (cmp.mapping
             (fn [fallback]
-              (print :foobar)
               (if (cmp.visible) (cmp.select_prev_item)
                 (fallback)))
             [:i :c])
