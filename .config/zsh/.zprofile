@@ -7,3 +7,4 @@ export GOPATH=$HOME/dvlpmnt/go
 # if [[ "$(tty)" = "/dev/tty1" ]]; then
 #   pgrep X || startx $HOME/.config/x11/xinitrc > $HOME/.local/share/x11/x11.log 2>&1
 # fi
+xcape -e 'Control_L=Escape'
