@@ -76,7 +76,7 @@ case $chosen in
     fi
     ;;
   $lock)
-    betterlockscreen -l
+    XSECURELOCK_NO_COMPOSITE=1 xsecurelock
     ;;
   $suspend)
     ans=$(confirm_exit &)
