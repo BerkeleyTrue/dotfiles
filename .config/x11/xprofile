@@ -2,10 +2,8 @@
 # X11 profile
 #
 # NOTE: Run by lighdm
-# TODO: update programs
 
-# make sure lightlocker is running for lighdm lock screen
-# /usr/bin/light-locker &
+xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
 
 # make CapsLock behave like Ctrl:
 setxkbmap -option ctrl:nocaps &
