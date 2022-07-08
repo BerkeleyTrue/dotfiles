@@ -29,6 +29,8 @@ alias chmodrw='chmod 644'
 ## Used to make sure profile changes are reflecting
 alias echodec='declare -f'
 
-#node aliases
 alias :q='exit'
 alias :wq='exit'
+
+# ufw
+alias ufw="sudo ufw"
