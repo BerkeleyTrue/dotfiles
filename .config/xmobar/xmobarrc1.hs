@@ -34,13 +34,6 @@ Config
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto-egg-go"
-          ["price", "steth"]
-          "0.xx"
-          "steth"
-          10
-      , Run
-          ComX
-          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["price", "pickle"]
           "0.xx"
           "pickle"
@@ -77,7 +70,6 @@ Config
     \ } \
     \<fc=#ff79c6> %date% </fc>\
     \ { \
-    \<fc=#8be9fd> ﲹ $%steth% </fc>\
     \<fc=#50fa7b>  $%btc% </fc>\
     \<fc=#bd93f9>  $%ohm% </fc>\
     \<fc=#ff5555> XTZ $%xtz% </fc>\

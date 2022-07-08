@@ -78,6 +78,13 @@ Config
       , Run
           ComX
           "/home/berkeleytrue/.local/bin/crypto-egg-go"
+          ["steth"]
+          "0.xx"
+          "steth-discount"
+          10
+      , Run
+          ComX
+          "/home/berkeleytrue/.local/bin/crypto-egg-go"
           ["flip"]
           "0.xx"
           "eth-flip"
@@ -94,6 +101,7 @@ Config
     \<fc=#8be9fd> ﲹ $%eth% </fc>\
     \<fc=#8be9fd> %eth-gas% </fc>\
     \<fc=#8be9fd>勒 %eth-flip% </fc>\
+    \<fc=#ff79c6> </fc><fc=#8be9fd>%steth-discount% </fc>\
     \ { \
     \<fc=#666666>|</fc><fc=#ff79c6> %cpu% </fc>\
     \<fc=#666666>|</fc><fc=#ffb86c> %multicoretemp% </fc>\
