@@ -1,82 +1,87 @@
 configuration {
-  disable-history: false;
-  drun-display-format: "{name}";
-  font: "FiraCode Nerd Font 16";
-  icon-theme: "Papirus";
-  show-icons: false;
-  sidebar-mode: false;
+  disable-history:                false;
+  drun-display-format:            "{name}";
+  font:                           "FiraCode Nerd Font 16";
+  icon-theme:                     "Papirus";
+  show-icons:                     false;
+  sidebar-mode:                   false;
 }
 
 @import "colors.rasi"
 
-#window {
+window {
   transparency:                   "real";
   background-color:               @background;
   text-color:                     @foreground;
-  border-radius:                  0 20px 0 20px;
+  border-radius:                  0;
   border-color:                   @bordercolor;
   border:                         1;
-  height:                         350px;
-  width:                          200px;
+  height:                         28.5%;
+  width:                          100%;
   location:                       center;
   x-offset:                       0;
   y-offset:                       0;
 }
 
-#prompt {
-  background-color: @background;
-  enabled: false;
-  padding: 0.5% 0.5% 0.5% 0%;
-  text-color: @foreground;
+prompt {
+  enabled:                        true;
+  text-color:                     @foreground;
+  background-color:               @background-alt;
+  padding:                        0.7% 0.5% 0.5% 0.5%;
 }
 
 textbox-prompt-colon {
-  background-color: @background;
-  expand: true;
-  padding: 1% 0.5% 1% 0.5%;
-  str: "À bientôt";
-  text-color: @foreground;
+  expand:                         false;
+  background-color:               @background;
+  text-color:                     @foreground;
+  padding:                        0.5% 0.5% 0.5% 0.5%;
+  font:                           "FiraCode Nerd Font 19";
+  str:                            "嗀";
 }
 
-#inputbar {
-  background-color: @background;
-  children: [ textbox-prompt-colon ];
-  expand: false;
-  margin: 0% 1%;
-  padding: 0.9% 0;
-  position: center;
-  text-color: @foreground;
+inputbar {
+  children:                       [ textbox-prompt-colon, prompt ];
+  expand:                         false;
+  background-color:               @background-alt;
+  text-color:                     @foreground;
+  margin:                         0% 45% 0% 0%;
+  padding:                        0.5% 0.5% 0.5% 0.5%;
+  position:                       center;
+  border:                         0% 0% 0% 0.2%;
+  border-radius:                  0;
+  border-color:                   @bordercolor;
 }
 
-#listview {
+listview {
   background-color:               @background;
   margin:                         0% 0% 0% 0%;
-  spacing:                        1%;
+  spacing:                        2%;
   cycle:                          true;
   dynamic:                        true;
-  layout:                         vertical;
-  text-color:                     @foreground;
+  layout:                         horizontal;
 }
 
-#mainbox {
+mainbox {
   background-color:               @background;
   children:                       [ inputbar, listview ];
-  spacing:                        1.5%;
-  padding:                        0.1% 0% 0% 0%;
+  spacing:                        5%;
+  padding:                        4% 0% 0% 30%;
 }
 
-#element {
+element {
   background-color:               @background-alt;
   orientation:                    horizontal;
-  border-radius:                  100%;
+  border-radius:                  0%;
 }
 
-#element-text {
+element-text {
+  background-color:               @background-alt;
+  text-color:                     inherit;
+  font:                           "FiraCode Nerd Font 25";
   expand:                         true;
   horizontal-align:               0.5;
   vertical-align:                 0.5;
-  margin:                         0.5% 0.7% 0.5% 0.7%;
-  text-color: @foreground;
+  margin:                         3% 2.4% 3% 1.9%;
 }
 
 element normal.urgent,
@@ -85,19 +90,23 @@ element alternate.urgent {
   border-radius:                  0.2%;
 }
 
-#element selected {
-  background-color:               @background;
-  border:                         0.1% 0 0.1% 0;
+element selected {
+  background-color:               @selected;
+  text-color:                     @foreground;
+  border:                         0% 0% 0% 0.2%;
   border-radius:                  0%;
   border-color:                   @bordercolor;
 }
+element-text selected {
+  background-color:               @selected;
+}
 
-#element selected.urgent {
+element selected.urgent {
   background-color:               @urgent;
   text-color:                     @foreground;
 }
 
-#element selected.active {
+element selected.active {
   background-color:               @background-alt;
   text-color:                     @foreground;
 }
