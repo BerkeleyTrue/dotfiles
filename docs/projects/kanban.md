@@ -8,10 +8,11 @@
 - Purely Functional DS
 - Datsun Taillights
 - Sylvia Shifter design
+- storeleft
 
 ## In-Progress
 
-- crypto-egg
+- nov8
 
 ## Done
 
@@ -19,3 +20,4 @@
   > tear down to replace frame
 - Travel
 - Encrypt ws drive
+- crypto-egg
