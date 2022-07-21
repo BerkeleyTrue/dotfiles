@@ -12,7 +12,8 @@
      {:tailwindCSS
       (r.merge
         base-conf.default_config.settings.tailwindCSS
-        {:emmetCompletions true})}
+        {:emmetCompletions false
+         :classAttributes ["class" "className" "classList" "ngClass" "activeClass"]})}
      :init_options
      {:userLanguages
       {:pug "html"}}
