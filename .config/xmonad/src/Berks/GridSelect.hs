@@ -18,11 +18,11 @@ gsConf =
     }
 
 selections =
-  [ ("Firefox", "firefox")
+  [ ("Firefox", "org.mozilla.firefox")
   , ("Frame", "frame")
   , ("PCManFM", "pcmanfm")
   , ("Discord", "com.discordapp.Discord")
-  , ("Slack", "slack")
+  , ("Slack", "com.slack.Slack")
   ]
 
 -- spawnWhenJust :: Maybe String -> X ()
