@@ -87,7 +87,6 @@
    {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}
    {:name :mhinz/vim-startify :desciption "show a start up screen"}
    {:name :romgrk/barbar.nvim :desciption "tab bar built in lua"}
-   {:name :anuvyklack/pretty-fold.nvim :description "add pretty folding and folding previews" :requires [[:anuvyklack/nvim-keymap-amend]]}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :requires [[:nvim-lua/plenary.nvim] [:kyazdani42/nvim-web-devicons] [:MunifTanjim/nui.nvim]]}
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :requires [[:kyazdani42/nvim-web-devicons]]}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings."}
