@@ -14,7 +14,8 @@ import qualified XMonad.StackSet as W
 myScratchPads :: NamedScratchpads
 myScratchPads = [NS "music" spawnMusic findMusic manageMusic]
   where
-    spawnMusic = "chromium --app='https://music.youtube.com' --class='music'"
+    spawnMusic =
+      "org.chromium.Chromium --app='https://music.youtube.com' --class='music'"
     findMusic = className =? "music"
     manageMusic = customFloating Utils.centerWindow
 
