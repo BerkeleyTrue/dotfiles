@@ -60,7 +60,7 @@
                 :select true})
              :i
              (fn []
-               (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry)))
+               (comment (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry))))
                (if (and luasnip (not (cmp.get_active_entry)))
                  (luasnip.expand_auto)
                  (cmp.confirm
