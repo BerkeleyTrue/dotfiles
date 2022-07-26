@@ -100,7 +100,7 @@ myManageHook =
     ] <+>
   Scratch.scratchpadManageHook
   where
-    zoomClassName = "zoom.real "
+    zoomClassName = "zoom"
     tileTitles =
       [ "Zoom - Free Account" -- main window
       , "Zoom - Licensed Account" -- main window
