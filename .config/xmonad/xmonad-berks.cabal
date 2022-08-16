@@ -19,10 +19,12 @@ executable xmonad
     , Berks.Layouts.Main
     , Berks.Layouts.Monocle
     , Berks.Layouts.TabTheme
+    , Berks.Layouts.ThreeCol
     , Berks.Layouts.Vert
     , Berks.Scratchpads
     , Berks.Trayer
     , Berks.Urgency
+    , Berks.Utils
   build-depends:
       base ^>=4.14.1.0
     , containers
