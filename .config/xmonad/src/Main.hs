@@ -151,7 +151,7 @@ myStartupHook =
     \--transparent true \
     \--alpha 0 \
     \--tint 0x282c34 \
-    \--height 18 &"
+    \--height 22 &"
 
 ------------------------------------------------------------------------
 main :: IO ()
