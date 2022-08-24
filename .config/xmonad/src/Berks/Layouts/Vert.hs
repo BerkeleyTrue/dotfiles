@@ -10,5 +10,5 @@ import qualified XMonad.Layout.Spacing as Spacing
 import qualified XMonad.Layout.WindowNavigation as WN
 
 vert =
-  RN.renamed [RN.Replace "||"] $
+  RN.renamed [RN.Replace " \xf8de "] $
   Spacing.smartSpacing 1 $ WN.windowNavigation $ L.Tall 1 (3 / 100) (1 / 2)

@@ -25,5 +25,5 @@ type Monocle
 
 monocle :: Monocle
 monocle =
-  RN.renamed [RN.Replace "ﱢ"] $
+  RN.renamed [RN.Replace " ﱢ "] $
   SL.subLayout [] (NB.smartBorders SM.Simplest) $ LW.limitWindows 20 L.Full

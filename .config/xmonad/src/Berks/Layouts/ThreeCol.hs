@@ -12,4 +12,5 @@ import XMonad.Layout.ThreeColumns as TC (ThreeCol(..))
 import qualified XMonad.Layout.WindowNavigation as WN
 
 threeCol =
-  RN.renamed [RN.Replace "ﰦ"] $ limitWindows 7 $ ThreeColMid 1 (3 / 100) (1 / 2)
+  RN.renamed [RN.Replace " ﰦ "] $
+  limitWindows 7 $ ThreeColMid 1 (3 / 100) (1 / 2)

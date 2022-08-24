@@ -12,4 +12,5 @@ import qualified XMonad.Layout.WindowNavigation as WN
 import qualified Berks.Layouts.Vert as Vert
 
 horiz =
-  RN.renamed [RN.Replace "="] $ Spacing.smartSpacing 1 $ L.Mirror Vert.vert
+  RN.renamed [RN.Replace " \xf8dd "] $
+  Spacing.smartSpacing 1 $ L.Mirror Vert.vert

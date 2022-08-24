@@ -27,6 +27,8 @@ import qualified Berks.GridSelect as GS
 import qualified Berks.Scratchpads as Scratch
 import qualified XMonad.Actions.CycleWS as CWs
 
+xmonadCmd = "xmonad-x86_64-linux"
+
 -- NOTE: We are deconstructuring XConfig below (i.e. Type {property = <local symbol>})
 createKeyMaps ::
      String -> [String] -> XConfig Layout -> [((KeyMask, KeySym), NamedAction)]
@@ -35,17 +37,21 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
   , ( (modm .|. shiftMask, xK_r)
     , addName "Restart XMonad" $
       spawn
-        "\
-      \ xmonad --restart && \
-      \ notify-send -a 'XMonad'  'Restarted'")
+        (xmonadCmd ++
+         " --restart && \
+      \ notify-send -a 'XMonad'  'Restarted'"))
   , ( (modm .|. controlMask .|. shiftMask, xK_r)
     , addName "Recompile and Restart xmonad" $
       spawn
-        "\
+        ("\
       \ notify-send -a 'XMonad' 'Recompiling...' && \
-      \ xmonad --recompile && \
-      \ xmonad --restart && \
-      \ notify-send -a 'XMonad'  'Restarted'")
+      \ " ++
+         xmonadCmd ++
+         " --recompile && \
+      \ " ++
+         xmonadCmd ++
+         " --restart && \
+      \ notify-send -a 'XMonad'  'Restarted'"))
   ---
   ---
   ---
