@@ -8,3 +8,4 @@ PATH=$PATH:$HOME/.local/bin:$GOPATH/bin
 #   pgrep X || startx $HOME/.config/x11/xinitrc > $HOME/.local/share/x11/x11.log 2>&1
 # fi
 xcape -e 'Control_L=Escape'
+bindkey -a -r ':' # remove execute widget command
