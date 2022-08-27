@@ -1,7 +1,7 @@
 #!/bin/sh
 # X11 profile
 #
-# NOTE: Run by lighdm
+# NOTE: Run by display manager
 
 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
 
@@ -13,8 +13,6 @@ xcape -e 'Control_L=Escape' &
 
 echo "starting xprofile apps" &
 
-# source $XDG_CONFIG_HOME/screenlayout/default.sh & # running from xmonad
-
 # start volumeicon
 volumeicon &
 
@@ -23,9 +21,6 @@ pasystray &
 
 # used for controlling system wide privileges
 /usr/lib/polkit-kde-authentication-agent-1 &
-
-# desktop background manager
-# nitrogen --restore & # running from xmonad
 
 #window composer
 picom -b --experimental-backends &
@@ -39,21 +34,14 @@ xfce4-power-manager &
 # notification daemon
 dunst &
 
-# clipboard manager
-clipit &
-
 # screen shot tool
 flameshot &
 
 # bluetooth
 blueman-applet &
 
-# touchpad support
-# synclient NaturalScrolling=1 VertScrollDelta=-113 &
-
 # private internet access vpn
 /opt/piavpn/bin/pia-client &
-frame &
 
 # hide cursor when inactive
 /bin/unclutter -b &
