@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-word=$(cat /usr/share/dict/english | rofi -p 'spell' -dmenu)
+word=$(cat $HOME/.local/share/dict/english | rofi -p 'spell' -dmenu)
 
 definition=$(wn $word -over)
 if [[ ! -z "$definition" ]]; then

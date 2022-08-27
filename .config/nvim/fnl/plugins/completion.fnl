@@ -115,6 +115,6 @@
     (when-let [dic (md.prequire :cmp_dictionary)]
       (dic.setup
         {:dic
-         {"*" ["/usr/share/dict/english"]}
+         {"*" ["~/.local/share/dict/english"]}
          :debug false
          :document true}))))
