@@ -1,3 +1,4 @@
+-- vim:ft=haskell
 -- background = #282a36
 -- selection = #44475a
 -- foreground = #f8f8f2
@@ -25,12 +26,12 @@ Config
   , commands =
       [ Run
           Cpu
-          ["-t", "\xf108: <total>%", "-H", "50", "--high", "red"]
+          ["-t", "\xf108 <total>%", "-H", "50", "--high", "red"]
           10
       , Run
           MultiCoreTemp
           [ "-t"
-          , "temp: <avg>°C"
+          , "  <avg>°C"
           , "-L"
           , "30"
           , "-H"
@@ -49,9 +50,8 @@ Config
           ]
           10
       , Run Date "\xf133 %a %b %d | Week %V  %H:%M:%S " "date" 10
-      , Run Network "enp5s0" ["-t", "\xf0aa  <rx>kb  \xf0ab  <tx>kb"] 20
-      , Run Memory ["-t", "\xf233: <usedratio>%"] 20
-      , Run DiskU [("/", "\xf0c7: <free>")] [] 60
+      , Run Memory ["-t", "\xf233 <usedratio>%"] 20
+      , Run DiskU [("/", "\xf0c7 <free>")] [] 60
       , Run UnsafeStdinReader
       , Run
           ComX
