@@ -89,27 +89,12 @@ myManageHook =
     , isFullscreen --> doFullFloat
     , className =? "Slack" --> doShift "3"
     , className =? "discord" --> doShift "3"
-    , className =? zoomClassName <&&> shouldFloat <$>
-      title --> doShift "4" <+> doFloat
-    , className =? zoomClassName <&&> shouldSink <$>
-      title --> doShift "4" <+> doSink
     , className =? "Zenity" --> doRectFloat CheatSh.size
     , className =? "Yad" --> doRectFloat CheatSh.size
     , className =? "Xdg-desktop-portal-gtk" --> doRectFloat Utils.centerWindow
     , className =? "Blueman-manager" --> doRectFloat Utils.centerWindow
     ] <+>
   Scratch.scratchpadManageHook
-  where
-    zoomClassName = "zoom"
-    tileTitles =
-      [ "Zoom - Free Account" -- main window
-      , "Zoom - Licensed Account" -- main window
-      , "Zoom" -- meeting window on creation
-      , "Zoom Meeting" -- meeting window shortly after creation
-      ]
-    shouldFloat thisTitle = thisTitle `notElem` tileTitles
-    shouldSink thisTitle = thisTitle `elem` tileTitles
-    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
 ------------------------------------------------------------------------
 -- Event handling
