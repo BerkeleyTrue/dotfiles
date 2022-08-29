@@ -15,8 +15,8 @@ myScratchPads :: NamedScratchpads
 myScratchPads = [NS "music" spawnMusic findMusic manageMusic]
   where
     spawnMusic =
-      "org.chromium.Chromium --app='https://music.youtube.com' --class='music'"
-    findMusic = className =? "music"
+      "app.ytmdesktop.ytmdesktop"
+    findMusic = className =? "youtube-music-desktop-app"
     manageMusic = customFloating Utils.centerWindow
 
 scratchpadManageHook :: ManageHook
