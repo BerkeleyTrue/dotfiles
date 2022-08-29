@@ -2,10 +2,8 @@
 
 set -e
 
-stack build :xmonad --verbosity error
-stack install :xmonad --local-bin-path bin/ --verbosity error
+stack build :xmonad
+stack install :xmonad --local-bin-path bin/
 cp bin/xmonad $HOME/.local/share/xmonad/xmonad-x86_64-linux
 cp bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux
-cd xmobar-git
-stack build
-stack install --flag xmobar:all_extensions
+cp bin/xmonad $HOME/.local/bin/xmonad
