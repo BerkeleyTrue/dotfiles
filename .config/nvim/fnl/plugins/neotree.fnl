@@ -28,9 +28,9 @@
          :close_floats_on_escape_key false
 
          :filesystem
-         {:filters
-          {:show_hidden true
-           :respect_gitignore false}
+         {:filtered_items
+          {:hide_dotfiles false
+           :hide_gitignore false}
 
           :follow_current_file false
           :use_libuv_file_watcher false
