@@ -68,9 +68,6 @@
    {:name :tpope/vim-unimpaired :description "expands [] to command ex commands"}
    {:name :matze/vim-move :description "move visual selections up, down, left, or right easily"}
    {:name :easymotion/vim-easymotion :description "move with ease using highlighted visual guides"}
-   {:name :haya14busa/incsearch.vim :description "inc highlight searchs live" :opt true}
-   {:name :haya14busa/incsearch-fuzzy.vim :description "adds fuzzy search to incsearch" :opt true}
-   {:name :haya14busa/incsearch-easymotion.vim :description "integrate easymotion with incsearch" :opt true}
    {:name :mileszs/ack.vim :description "use terminal searcher (Ag)"}
 
    ; text obj manipulation
