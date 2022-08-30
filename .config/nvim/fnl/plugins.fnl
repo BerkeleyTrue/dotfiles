@@ -14,15 +14,14 @@
    :completion
    :conjure
    :corpus
-   :vimsence
    :easy-align
-   :easy-motion
    :emmet
    :fzf
-   :lualine
-   :luasnip
+   :hop
    :lspconfig
    :lspfuzzy
+   :lualine
+   :luasnip
    :markdown
    :mini
    :multi-cursor
@@ -30,14 +29,15 @@
    :neotree
    :nerd-commenter
    :null-ls
+   :package-info
+   :runtime-utils
    :sandwich
    :sexp
    :startify
-   :package-info
-   :runtime-utils
    :telescope
    :terraform
    :tree-sitter
+   :vimsence
    :vimtex])
 
 (defn main []

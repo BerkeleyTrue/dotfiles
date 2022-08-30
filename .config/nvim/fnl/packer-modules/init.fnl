@@ -67,8 +67,8 @@
    {:name :tmhedberg/matchit :description "expands % to match more then single chars"}
    {:name :tpope/vim-unimpaired :description "expands [] to command ex commands"}
    {:name :matze/vim-move :description "move visual selections up, down, left, or right easily"}
-   {:name :easymotion/vim-easymotion :description "move with ease using highlighted visual guides"}
    {:name :mileszs/ack.vim :description "use terminal searcher (Ag)"}
+   {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim."}
 
    ; text obj manipulation
    {:name :tpope/vim-repeat :description "expands . to repeat plugin commands"}
