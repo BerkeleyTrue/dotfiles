@@ -63,7 +63,7 @@ Config
       , Run ComX "wakatime" ["--today"] "0" "" 20
       , Run
           Battery
-          [ "--template" , ": <acstatus>"
+          [ "--template" , " <acstatus>"
           , "--Low"      , "10"        -- units: %
           , "--High"     , "80"        -- units: %
           , "--low"      , "darkred"
