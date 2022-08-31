@@ -32,9 +32,9 @@
    :null-ls
    :package-info
    :runtime-utils
-   :sandwich
    :sexp
    :startify
+   :surround
    :telescope
    :terraform
    :tree-sitter

@@ -56,7 +56,7 @@
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
-   {:name :tpope/vim-rhubarb :description "github integrations (lacing yadm support)"}
+   {:name :tpope/vim-rhubarb :description "github integrations (lacking yadm support)"}
    {:name :mhinz/vim-signify :desciption "show git diffs in the gutter"}
 
    ; buffers
@@ -90,9 +90,9 @@
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :requires [[:kyazdani42/nvim-web-devicons]]}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings."}
 
-    ; parenthesis
-   {:name :machakann/vim-sandwich :description "adds surround movements"}
-   {:name :windwp/nvim-autopairs :description "A super powerful autopair plugin for Neovim that supports multiple characters."}
+   ; parenthesis
+   {:name :kylechui/nvim-surround :description "Add surround movements, written in lua."}
+   {:name :windwp/nvim-autopairs :description "Auto add closing pairs."}
 
    ; (lisp)
    {:name :olical/aniseed}
