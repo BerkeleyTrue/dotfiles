@@ -17,6 +17,7 @@
    :easy-align
    :emmet
    :fzf
+   :hlslens
    :hop
    :lspconfig
    :lspfuzzy

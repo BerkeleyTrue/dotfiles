@@ -24,23 +24,16 @@
 
 (utils.augroup
   :general-au
-  [{:event [:BufEnter :BufReadPost]
+  [{:event [:BufEnter :BufReadPost :WinEnter]
     :pattern :*
     :cmd (utils.viml->lua *module-name* (sym->name disable-camel-case-spell))}
-    ; Resize splits when the window is resized
-    {:event :VimResized
-     :pattern :*
-     :cmd "exe \"normal! \\<c-w>=\""}
 
-    ; Make vim open on the line you closed the buffer on
-    ; {:event [:BufEnter :BufReadPost]
-    ;  :pattern :*
-    ;  :cmd (utils.viml->lua *module-name* (sym->name go-to-last-edit))}
+   ; Resize splits when the window is resized
+   {:event :VimResized
+    :pattern :*
+    :cmd "exe \"normal! \\<c-w>=\""}
 
-    ; remove highlight after cursor stops moving
-    {:event :CursorHold
-     :pattern :*
-     :cmd "set nohlsearch | let @/=''"}
-    {:event :CursorMoved
-     :pattern :*
-     :cmd "set hlsearch"}])
+   ; Make vim open on the line you closed the buffer on
+   {:event [:BufEnter :BufReadPost]
+    :pattern :*
+    :cmd (utils.viml->lua *module-name* (sym->name go-to-last-edit))}])
