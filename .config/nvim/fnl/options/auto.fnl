@@ -1,5 +1,6 @@
 (module options.auto
-  {require {: utils}
+  {require
+   {utils utils}
    require-macros [macros]})
 
 (defn disable-camel-case-spell []
@@ -26,7 +27,7 @@
   :general-au
   [{:event [:BufEnter :BufReadPost :WinEnter]
     :pattern :*
-    :cmd (utils.viml->lua *module-name* (sym->name disable-camel-case-spell))}
+    :cmd (viml->lua* disable-camel-case-spell)}
 
    ; Resize splits when the window is resized
    {:event :VimResized
@@ -34,6 +35,6 @@
     :cmd "exe \"normal! \\<c-w>=\""}
 
    ; Make vim open on the line you closed the buffer on
-   {:event [:BufEnter :BufReadPost]
+   {:event [:BufReadPost]
     :pattern :*
-    :cmd (utils.viml->lua *module-name* (sym->name go-to-last-edit))}])
+    :cmd (viml->lua* go-to-last-edit)}])
