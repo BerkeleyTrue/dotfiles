@@ -35,7 +35,7 @@
 (defn cviml->lua [m f opts]
   "Creates a command appropriate string that call a lua/fennel module function.
   (cviml->lua :module.a :module-function {:args ['foo' 'bar']})"
-  (.. ":" (viml->lua m f) "<CR>"))
+  (.. "<CMD>" (viml->lua m f) "<CR>"))
 
 (defn viml->luaexp [m f args]
   (.. "luaeval('require(\"" m "\")[\"" f "\"](" (or args "") ")')"))
