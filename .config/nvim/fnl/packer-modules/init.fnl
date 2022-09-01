@@ -52,7 +52,8 @@
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
    {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
    {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
-   {:name :github/copilot.vim :description "Add AI overlords to IDE, and I for one welcome them."}
+   {:name :zbirenbaum/copilot.lua :description "Copilot as an LSP." :event [:InsertEnter] :config (make-on-load copilot)}
+   {:name :samodostal/copilot-client.lua :description "Copilot client with key trigger." :requires [[:nvim-lua/plenary.nvim] [:zbirenbaum/copilot.lua]]}
 
    ; git
    {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
