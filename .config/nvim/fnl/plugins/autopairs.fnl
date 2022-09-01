@@ -7,5 +7,5 @@
    require-macros [macros]})
 
 (defn main []
-  (when-let [ap (md.packadd-n-require :nvim-autopairs)]
+  (when-let [ap (md.prequire :nvim-autopairs)]
     (ap.setup {})))

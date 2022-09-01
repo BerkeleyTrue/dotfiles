@@ -3,9 +3,8 @@
    require-macros [macros]})
 
 (def- plugins
-  [:ale
+  [:accents
    :aniseed
-   :autopairs
    :barbar
    :beacon
    :better-whitespace

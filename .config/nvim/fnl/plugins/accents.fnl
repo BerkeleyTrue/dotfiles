@@ -5,8 +5,8 @@
     nvim aniseed.nvim
     nutils aniseed.nvim.util
     utils utils
-    r r}})
-
+    r r}
+   require-macros [macros]})
 
 (defonce accents
   [["a" "ä" "à" "â"]
@@ -20,7 +20,6 @@
    ["s" "ß"]
    ["u" "ü" "û" "ù"]
    ["U" "Ü" "Û" "Ù"]])
-
 
 (defn cycle []
   "cycle through the accents
@@ -45,7 +44,7 @@
           ; execute replace
           (nvim.ex.normal_))))
 
-(defn accent-completion [findstart base]
+(defn completion [findstart base]
   "completion for accents: get a list of the corresponding accents for a char"
   (if (not= findstart 0)
     (let [char (utils.get-char-under-curs)]
@@ -59,24 +58,17 @@
          (r.find #(r.some (r.is-equal base) $1))
          (r.default-to []))))
 
-(nutils.fn-bridge :AccentCompletion :plugins.accents :accent-completion)
-(nutils.fn-bridge :AccentCycle :plugins.accents :cycle)
-
-(defn accents-settings []
+(defn setup []
   "set up for accents"
-  (nvim.buf_set_option 0 :completefunc :AccentCompletion)
+  (nvim.buf_set_option 0 :completefunc (viml->lua* completion))
   (utils.nnoremap
     "gax"
-    ":call AccentCycle()<CR>"
+    (cviml->lua* cycle)
     {:silent true :buffer true}))
 
-(nutils.fn-bridge :AccentSettings :plugins.accents :accents-settings)
-
-(do
-  (nvim.ex.augroup :accents-group)
-  (nvim.ex.autocmd_)
-  (nvim.ex.autocmd "FileType markdown :call AccentSettings()")
-  (nvim.ex.augroup :END)
-  {:accent-completion accent-completion
-   :cycle cycle
-   :accents-settings accents-settings})
+(defn main []
+  (utils.augroup
+    :AccentsGroup
+    [{:event :FileType
+      :pattern :markdown
+      :cmd (viml->lua* setup)}]))
