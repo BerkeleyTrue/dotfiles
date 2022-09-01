@@ -63,6 +63,7 @@
           :css
           :dockerfile
           :fennel
+          :go
           :haskell
           :html
           :javascript
