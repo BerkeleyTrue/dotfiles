@@ -43,6 +43,7 @@
            {:<2-LeftMouse> :open
             :<cr> :open
             :<bs> :nop
+            :w :noop
             :<esc><esc> :close_window
 
             :<Space>
