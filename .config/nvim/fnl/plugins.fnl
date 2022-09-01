@@ -31,7 +31,6 @@
    :nerd-commenter
    :null-ls
    :package-info
-   :runtime-utils
    :sexp
    :startify
    :surround
