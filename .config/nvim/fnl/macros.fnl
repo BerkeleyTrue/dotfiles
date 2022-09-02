@@ -109,6 +109,16 @@
 (fn make-on-load [ns]
   `(.. "require(\"plugins." ,(tostring ns) "\").main()"))
 
+
+(fn parse-command-args [args]
+  (local out {:force true})
+  (each [key val (pairs (or args {}))]
+    (tset out key val))
+  out)
+
+(fn command! [lhs rhs args]
+  `(vim.api.nvim_create_user_command ,lhs ,rhs ,(parse-command-args args)))
+
 {: run-main
  : sym->name
  : from-iter
@@ -121,4 +131,5 @@
  : cviml->lua*
  : viml->luaexp*
  : get-lua-filename
- : make-on-load}
+ : make-on-load
+ : command!}
