@@ -4,7 +4,6 @@
 
 (def- plugins
   [:accents
-   :aniseed
    :barbar
    :beacon
    :better-whitespace

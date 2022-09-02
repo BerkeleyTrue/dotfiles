@@ -96,7 +96,7 @@
    {:name :windwp/nvim-autopairs :description "Auto add closing pairs." :config (make-on-load autopairs)}
 
    ; (lisp)
-   {:name :olical/aniseed}
+   {:name :olical/aniseed :config (make-on-load aniseed)}
    {:name :olical/conjure}
    {:name :olical/nvim-local-fennel}
    {:name :bakpakin/fennel.vim}

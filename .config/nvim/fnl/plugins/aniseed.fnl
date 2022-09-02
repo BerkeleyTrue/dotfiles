@@ -15,6 +15,4 @@
      :init :foo}))
 
 (defn main []
-  (utils.ex.command_
-    :AniseedCompile
-    (utils.viml->lua *module-name* (sym->name compile-fnl))))
+  (command! :AniseedCompile (viml->lua* compile-fnl)))
