@@ -67,8 +67,8 @@
    {:name :tpope/vim-unimpaired :description "expands [] to command ex commands"}
    {:name :matze/vim-move :description "move visual selections up, down, left, or right easily"}
    {:name :mileszs/ack.vim :description "use terminal searcher (Ag)"}
-   {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim."}
-   {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement"}
+   {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
+   {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement" :config (make-on-load hlslens)}
 
    ; text obj manipulation
    {:name :tpope/vim-repeat :description "expands . to repeat plugin commands"}

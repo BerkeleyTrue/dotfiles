@@ -5,8 +5,6 @@
 (def- plugins
   [:accents
    :completion
-   :hlslens
-   :hop
    :lspconfig
    :lualine
    :luasnip
