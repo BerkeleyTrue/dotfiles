@@ -31,6 +31,7 @@
    :null-ls
    :package-info
    :sexp
+   :scroll-fix
    :surround
    :telescope
    :terraform

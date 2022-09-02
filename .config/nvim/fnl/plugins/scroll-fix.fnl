@@ -2,7 +2,8 @@
   {require
    {a aniseed.core
     nvim aniseed.nvim
-    utils utils}})
+    utils utils}
+   require-macros [macros]})
 
 
 (defn- set-top-of-window [line wintable]
@@ -107,15 +108,9 @@
                             (- current-buf-line desired-win-line)
                             1))))))
 
-(do
-  (nvim.ex.augroup :scroll_fix_au)
-  (nvim.ex.autocmd_)
-  (nvim.ex.autocmd (..
-                     "CursorMoved,CursorMovedI,BufEnter,BufFilePre * "
-                     ":"
-                     (utils.viml->lua
-                       :plugins.scroll-fix
-                       :scroll-fix)))
-
-  (nvim.ex.augroup :END)
-  {:scroll-fix scroll-fix})
+(defn main []
+  (utils.augroup
+    :ScrollFixGroup
+    [{:event [:CursorMoved :CursorMovedI :BufEnter :BufFilePre]
+      :pattern :*
+      :cmd (viml->lua* scroll-fix)}]))
