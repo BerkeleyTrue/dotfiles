@@ -29,8 +29,6 @@
    {:name :vimsence/vimsence :description "Post activity to Discord \"currently playing\" "}
 
    ; search
-   {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
-   {:name :ojroques/nvim-lspfuzzy :description "forces lsp diagnostics to use fzf" :requires [[:junegunn/fzf] [:junegunn/fzf.vim]]}
    {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :opt true :config (make-on-load zen) :cmd [:ZenMode]}
    {:name :folke/twilight.nvim :description "Dims inactive portions of code" :opt true :config (make-on-load twilight) :cmd [:Twilight]}
 

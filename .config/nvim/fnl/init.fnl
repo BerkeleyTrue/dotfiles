@@ -17,6 +17,4 @@
         (ok theme-fns) (pcall cb.main palette)]
     (when theme-fns
       (run-main :theme theme-fns)))
-  (run-main :plugins)
-  ; TODO: move into main plugin flow
-  (md.prequire :plugins.fzf))
+  (run-main :plugins))

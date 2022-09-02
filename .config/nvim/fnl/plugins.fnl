@@ -5,11 +5,9 @@
 (def- plugins
   [:accents
    :completion
-   :fzf
    :hlslens
    :hop
    :lspconfig
-   :lspfuzzy
    :lualine
    :luasnip
    :markdown
