@@ -7,14 +7,14 @@
    require-macros [macros]})
 
 (def- header
-  ["<<- ----------------------------------- ->>"
-   "||     , __  ______                       "
-   "||    /|/ \\\\(_) ||      BerkeleyTrue     "
-   "||     | _//    ||                        "
-   "||     |  \\\\  __||                       " ; extra backslash are needed to escape, this line needs to be longer to support the escaping chars
-   "||    _|(_// (__/                         "
-   "||"
-   "<<- ----------------------------------- ->>"])
+  [""
+   "       , __  ______                       "
+   "      /|/ \\\\(_) ||      BerkeleyTrue     "
+   "       | _//    ||                        "
+   "       |  \\\\  __||                       " ; extra backslash are needed to escape, this line needs to be longer to support the escaping chars
+   "      _|(_// (__/                         "
+   "                                          "
+   ""])
 
 (def- center [{:icon "  "
                :desc "Recently opened files                   "
