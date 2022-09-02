@@ -58,5 +58,5 @@
    :post_hook nil})
 
 (defn main []
-  (when-let [cmmnt (md.packadd-n-require :comment.nvim :Comment)]
+  (when-let [cmmnt (md.prequire :Comment)]
     (cmmnt.setup configs)))

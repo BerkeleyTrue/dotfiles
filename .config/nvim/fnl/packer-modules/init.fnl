@@ -15,24 +15,24 @@
    {:name :nvim-lua/plenary.nvim}
    {:name :nvim-lua/telescope.nvim :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]]}
    {:name :berkeleytrue/colorbuddy.nvim}
-   {:name :norcalli/nvim-colorizer.lua :opt true}
-   {:name :junegunn/vim-easy-align :opt true}
-   {:name :danilamihailov/beacon.nvim}
-   {:name :ntpeters/vim-better-whitespace}
+   {:name :norcalli/nvim-colorizer.lua :opt true :config (make-on-load colorizer)}
+   {:name :junegunn/vim-easy-align :opt true :config (make-on-load easy-align)}
+   {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
+   {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
    {:name :mg979/vim-visual-multi}
    {:name :wincent/corpus :description "vim wiki written in lua" :config (make-on-load corpus)}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :Shelvak/ale :branch :solc_0.8 :description "linting engine" :config (make-on-load ale)}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
-   {:name :numToStr/comment.nvim :description "Comment enginer written in lua."}
+   {:name :numToStr/comment.nvim :description "Comment engineer written in lua." :config (make-on-load comments)}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua."}
    {:name :vimsence/vimsence :description "Post activity to Discord \"currently playing\" "}
 
    ; search
    {:name :junegunn/fzf.vim :requires [[:junegunn/fzf]]}
    {:name :ojroques/nvim-lspfuzzy :description "forces lsp diagnostics to use fzf" :requires [[:junegunn/fzf] [:junegunn/fzf.vim]]}
-   {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :config (make-on-load zen)}
-   {:name :folke/twilight.nvim :description "Dims inactive portions of code" :config (make-on-load twilight)}
+   {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :opt true :config (make-on-load zen) :cmd [:ZenMode]}
+   {:name :folke/twilight.nvim :description "Dims inactive portions of code" :opt true :config (make-on-load twilight) :cmd [:Twilight]}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine"}
@@ -86,7 +86,7 @@
    {:name :kyazdani42/nvim-web-devicons :description "require web devicons through lua"}
    {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}
    {:name :glepnir/dashboard-nvim :desciption "show a dashboard on startup" :config (make-on-load dashboard)}
-   {:name :romgrk/barbar.nvim :desciption "tab bar built in lua"}
+   {:name :romgrk/barbar.nvim :desciption "tab bar built in lua" :config (make-on-load barbar)}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :requires [[:nvim-lua/plenary.nvim] [:kyazdani42/nvim-web-devicons] [:MunifTanjim/nui.nvim]]}
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :requires [[:kyazdani42/nvim-web-devicons]]}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings."}
@@ -97,7 +97,7 @@
 
    ; (lisp)
    {:name :olical/aniseed :config (make-on-load aniseed)}
-   {:name :olical/conjure}
+   {:name :olical/conjure :config (make-on-load conjure)}
    {:name :olical/nvim-local-fennel}
    {:name :bakpakin/fennel.vim}
    {:name :eraserhd/parinfer-rust :run "cargo build --release"}
@@ -146,7 +146,7 @@
    {:name :elzr/vim-json :description ""}
    {:name :hhsnopek/vim-sugarss :description ""}
    {:name :leafgarland/typescript-vim :description ""}
-   {:name :mattn/emmet-vim :description ""}
+   {:name :mattn/emmet-vim :description "DSL for html" :config (make-on-load emmet)}
    {:name :vuki656/package-info.nvim :description "update package json in nvim" :requires [[:MunifTanjim/nui.nvim]]}
    {:name :moll/vim-node :description ""}
    {:name :posva/vim-vue :description ""}

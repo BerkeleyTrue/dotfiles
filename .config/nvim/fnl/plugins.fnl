@@ -4,16 +4,7 @@
 
 (def- plugins
   [:accents
-   :barbar
-   :beacon
-   :better-whitespace
-   :colorizer
-   :comments
    :completion
-   :conjure
-   :corpus
-   :easy-align
-   :emmet
    :fzf
    :hlslens
    :hop

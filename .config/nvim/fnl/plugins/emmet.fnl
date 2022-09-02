@@ -1,6 +1,7 @@
 (module plugins.emmet
-  {require {r r
-            utils utils}
+  {require
+   {r r
+    utils utils}
    require-macros [macros]})
 
 
@@ -10,7 +11,14 @@
   (utils.inoremap "/<leader><tab>" "<esc>:call emmet#expandAbbr(0,'')<cr>h:call emmet#splitJoinTag()<cr>wwi" {:buffer true}))
 
 
-(def filetypes [:css :html :javascript :jsx :markdown :typescriptreact :xml])
+(def filetypes
+  [:css
+   :html
+   :javascript
+   :jsx
+   :markdown
+   :typescriptreact
+   :xml])
 
 (defn main []
   (utils.set-nvim-g!
@@ -20,10 +28,8 @@
       :jsx {:quote_char "'"}
       :javascript.jsx {:extends "jsx"}}})
 
-  (let [(ok res) (pcall utils.ex.packadd :emmet-vim)]
-    (if (not ok) (print (.. "Could not load emmet: " res))
-      (utils.augroup
-        :emmet-au
-        [{:event :FileType
-          :pattern filetypes
-          :cmd (.. ":" (utils.viml->lua *module-name* (sym->name add-emmet)))}]))))
+  (utils.augroup
+    :EmmetGroup
+    [{:event :FileType
+      :pattern filetypes
+      :cmd (viml->lua* add-emmet)}]))

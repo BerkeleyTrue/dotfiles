@@ -4,7 +4,7 @@
 
 (defn main []
   (utils.set-nvim-g!
-    {:better_whitespace_enabled false
+    {:better_whitespace_enabled false ; don't highlight whitespace
      :strip_whitespace_on_save true
      :strip_whitespace_confirm false
      :strip_whitelines_at_eof true
