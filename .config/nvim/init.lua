@@ -1,8 +1,34 @@
--- check if aniseed is installed, if not, run make aniseed to install and
 local vim = _G.vim
 local confpath = vim.fn.stdpath("config")
+-- force aniseed to compile while in nvim dir (in dev mode)
 local isInConf = confpath == vim.fn.getcwd()
 local log = function(output) print("[init.lua]: " .. output) end
+
+local disabled_built_ins = {
+  "2html_plugin",
+  "getscript",
+  "getscriptPlugin",
+  "gzip",
+  "logipat",
+  "matchit",
+  "netrw",
+  "netrwFileHandlers",
+  "netrwPlugin",
+  "netrwSettings",
+  "rrhelper",
+  "spellfile_plugin",
+  "tar",
+  "tarPlugin",
+  "vimball",
+  "vimballPlugin",
+  "zip",
+  "zipPlugin",
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
+
 
 -- make sure aniseed path is available for macros lookup
 pcall(vim.cmd, [[ packadd packer.nvim ]])
@@ -10,7 +36,6 @@ pcall(vim.cmd, [[ packadd aniseed ]])
 
 local ok, anenv = pcall(require, 'aniseed.env')
 
--- force aniseed to compile while in nvim dir (in dev mode)
 -- aniseed is available, compile and load
 if ok then
     if isInConf then
