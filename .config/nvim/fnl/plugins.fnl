@@ -1,5 +1,5 @@
 (module plugins
-  {require {: r}
+  {require {r r}
    require-macros [macros]})
 
 (def- plugins
@@ -31,7 +31,6 @@
    :null-ls
    :package-info
    :sexp
-   :startify
    :surround
    :telescope
    :terraform
