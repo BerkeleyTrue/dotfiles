@@ -24,7 +24,7 @@
                :action "Telescope find_files find_command=rg,--hidden,--files"}
               {:icon "  "
                :desc "File Browser                            "
-               :action "NeotreeFloat"}
+               :action "NeoTreeFloat"}
               {:icon "  "
                :desc "Find  word                              "
                :action "Telescope live_grep"}
