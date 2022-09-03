@@ -1,7 +1,7 @@
 (module functions
   {require
-   {: r
-    : utils}
+   {r r
+    utils utils}
    require-macros [macros]})
 
 
@@ -27,9 +27,9 @@
                     (r.filter #(= (utils.fn.empty (utils.fn.getbufvar $1 "&buftype")) 1))
                     ; filter for unmodified buffers
                     (r.filter #(= (utils.fn.getbufvar $1 "&mod") 0)))]
-    (when (not (r.empty? to-delete))
+    (when-not (r.empty? to-delete)
        (r.for-each #(utils.ex.bwipeout $1) to-delete)
        (utils.print (.. "Closed " (r.size to-delete) " hidden buffers")))))
 
-
-(utils.ex.command_ :BufDeleteHidden (utils.viml->lua *module-name* (sym->name buff-delete-hidden)))
+(command! :BufDeleteHidden (viml->lua* buff-delete-hidden))
+(command! :Bdh (viml->lua* buff-delete-hidden))

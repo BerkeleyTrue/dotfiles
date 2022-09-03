@@ -151,9 +151,7 @@
 
 (defn main []
   (packer.config main-spec)
-  (utils.ex.command_
-    :SourceModules
-    (viml->lua* source-modules)))
+  (command! :SourceModules (viml->lua* source-modules)))
 
 (defn source-modules []
   (anenv.compile-fnl)

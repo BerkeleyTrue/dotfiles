@@ -100,11 +100,11 @@
 
 
 (fn get-lua-filename []
-  "requires utils"
+  "Get the lua filename of the current file"
   `(->
     *file*
-    (utils.fn.substitute "\\.fnl$" ".lua" "")
-    (utils.fn.substitute "fnl/" "lua/" "")))
+    (vim.fn.substitute "\\.fnl$" ".lua" "")
+    (vim.fn.substitute "fnl/" "lua/" "")))
 
 (fn make-on-load [ns]
   `(.. "require(\"plugins." ,(tostring ns) "\").main()"))
