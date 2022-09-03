@@ -50,7 +50,7 @@
     (utils.ex.echoe "'ag not found. Is silver searcher installed?'"))
 
   (let [args [...]
-        args (if (r.empty? args) (vim.fn.expand "<cword>") args)]
+        args (if (r.empty? args) [(vim.fn.expand "<cword>")] args)]
 
     (if (r.empty? args)
       (utils.ex.echoe "'Usage: \":Ag {pattern}\" (or just :Ag to search for the word under the cursor).'")
