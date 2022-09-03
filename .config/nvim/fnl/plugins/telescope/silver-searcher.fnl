@@ -57,7 +57,7 @@
       (let [args (r.concat [:ag (r.head args)] (r.tail args))]
         (: (pickers.new
             default-opts
-            {:promp_title :Ag
+            {:prompt_title :Ag
              :finder (finders.new_oneshot_job args default-opts)
              :previewer (config.values.grep_previewer default-opts)
              :sorter (config.values.file_sorter default-opts)})

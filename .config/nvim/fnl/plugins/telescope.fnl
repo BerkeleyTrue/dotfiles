@@ -16,13 +16,6 @@
       :selection_caret "> "
       :entry_prefix "  "
       :path_display [:truncate]
-      :vimgrep_arguments
-      [:ag
-       :--vimgrep
-       :--nocolor
-       :--noheading
-       :--smart-case
-       :--column]
 
       :layout_strategy :vertical
 
