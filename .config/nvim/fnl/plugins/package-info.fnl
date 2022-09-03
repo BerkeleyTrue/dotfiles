@@ -1,19 +1,15 @@
 (module plugins.package-info
-  {require {: r
-            : utils}
-
+  {require
+   {r r
+    utils utils
+    md utils.module}
    require-macros [macros]})
 
 (defn main []
-  (let [(ok res) (pcall utils.ex.packadd :package-info.nvim)]
+  (when-let [pi (md.prequire :package-info)]
+    (pi.setup
+      {:colors
+       {:up_to_date "#6272A4"
+        :outdated "#8BE9FD"}
 
-    (if
-      ok (let [pi (require :package-info)]
-           (pi.setup
-             {:colors
-              {:up_to_date "#6272A4"
-               :outdated "#8BE9FD"}
-
-              :autostart true}))
-
-      (print "package-info not found in path"))))
+       :autostart true})))

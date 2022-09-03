@@ -50,14 +50,14 @@
   (utils.noremap :z= (utils.cviml->lua :telescope.builtin :spell_suggest)))
 
 (defn setup-commands []
-  (utils.ex.command_ :HLights (utils.viml->lua :telescope.builtin :highlights))
-  (utils.ex.command_ :NMaps (utils.viml->lua :telescope.builtin :keymaps))
-  (utils.ex.command_ :BBuffs (utils.viml->lua :telescope.builtin :buffers))
-  (utils.ex.command_ :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions))
-  (utils.ex.command_ :Help (utils.viml->lua :telescope.builtin :help_tags)))
+  (command! :HLights (utils.viml->lua :telescope.builtin :highlights))
+  (command! :NMaps (utils.viml->lua :telescope.builtin :keymaps))
+  (command! :BBuffs (utils.viml->lua :telescope.builtin :buffers))
+  (command! :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions))
+  (command! :Help (utils.viml->lua :telescope.builtin :help_tags)))
 
 (defn main []
-  (when-let [telescope (md.packadd-n-require :telescope.nvim :telescope)]
+  (when-let [telescope (md.prequire :telescope)]
     (let [sorters (md.prequire :telescope.sorters)
           previewers (md.prequire :telescope.previewers)
           builtins (md.prequire :telescope.builtin)]

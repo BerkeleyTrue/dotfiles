@@ -8,6 +8,6 @@
    require-macros [macros]})
 
 (defn main []
-  (when-let [indent (md.packadd-n-require :mini.nvim :mini.indentscope)]
+  (when-let [indent (md.prequire :mini.indentscope)]
     (indent.setup)
     (hl.link! :MiniIndentscopeSymbol :BerksSubtle)))

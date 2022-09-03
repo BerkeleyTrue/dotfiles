@@ -6,5 +6,5 @@
 
 
 (defn main []
-  (when-let [neogen (md.packadd-n-require :neogen)]
+  (when-let [neogen (md.prequire :neogen)]
     (neogen.setup {:enabled true})))

@@ -29,7 +29,7 @@
   (->>
     ensure_modules
     (r.reduce md.ppackadd))
-  (when-let [ts (md.packadd-n-require :nvim-treesitter)]
+  (when-let [ts (md.prequire :nvim-treesitter)]
     (let [tsconfigs (md.prequire :nvim-treesitter.configs)
           tshighlights (md.prequire :nvim-treesitter.highlight)
           queries (md.prequire :nvim-treesitter.query)

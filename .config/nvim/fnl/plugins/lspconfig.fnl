@@ -91,11 +91,11 @@
       :pattern :*
       :cmd (viml->lua* open-float)}])
 
-  (utils.ex.command_ :Format ":lua vim.lsp.buf.formatting()"))
+  (command! :Format ":lua vim.lsp.buf.formatting()"))
 
 (defn main []
   (set-configs)
-  (when-let [lspconfig (md.packadd-n-require :nvim-lspconfig :lspconfig)]
+  (when-let [lspconfig (md.prequire :lspconfig)]
     (let [configs (require :lspconfig.configs)
           lsputil (require :lspconfig.util)]
 

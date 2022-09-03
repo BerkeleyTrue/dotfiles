@@ -8,7 +8,7 @@
    require-macros [macros]})
 
 (defn main []
-  (let [null-ls (md.packadd-n-require :null-ls.nvim :null-ls)
+  (let [null-ls (md.prequire :null-ls)
         sources [(null-ls.builtins.formatting.prettier.with
                    {:command "npx"
                     :args ["prettier" "--stdin-filepath" "$FILENAME"]

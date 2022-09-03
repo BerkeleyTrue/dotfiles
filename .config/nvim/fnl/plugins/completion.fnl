@@ -41,7 +41,7 @@
    {:name :emoji :insert true :max_item_count 5}])
 
 (defn main []
-  (when-let [cmp (md.packadd-n-require :nvim-cmp :cmp)]
+  (when-let [cmp (md.prequire :cmp)]
     (let [luasnip (md.prequire :luasnip)]
       (cmp.setup
         {:sources (get-sources)

@@ -83,5 +83,5 @@
    :extensions {}})
 
 (defn main []
-  (when-let [lualine (md.packadd-n-require :lualine.nvim :lualine)]
+  (when-let [lualine (md.prequire :lualine)]
     (lualine.setup config)))

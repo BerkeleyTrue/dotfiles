@@ -4,26 +4,7 @@
 
 (def- plugins
   [:accents
-   :completion
-   :lspconfig
-   :lualine
-   :luasnip
-   :markdown
-   :mini
-   :multi-cursor
-   :neogen
-   :neotree
-   :nerd-commenter
-   :null-ls
-   :package-info
-   :sexp
-   :scroll-fix
-   :surround
-   :telescope
-   :terraform
-   :tree-sitter
-   :vimsence
-   :vimtex])
+   :scroll-fix])
 
 (defn main []
   (->>

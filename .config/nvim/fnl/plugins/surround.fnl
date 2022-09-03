@@ -7,5 +7,5 @@
    require-macros [macros]})
 
 (defn main []
-  (when-let [surround (md.packadd-n-require :nvim-surround)]
+  (when-let [surround (md.prequire :nvim-surround)]
     (surround.setup {})))

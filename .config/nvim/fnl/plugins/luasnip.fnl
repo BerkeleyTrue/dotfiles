@@ -118,8 +118,8 @@
       (ls.change_choice -1))))
 
 (defn main []
-  (when-let [luasnip (md.packadd-n-require :luasnip)]
-    (utils.ex.command_
+  (when-let [luasnip (md.prequire :luasnip)]
+    (command!
       :SourceSnips
       (viml->lua* source-snips))
 
