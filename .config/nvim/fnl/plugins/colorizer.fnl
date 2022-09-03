@@ -1,12 +1,9 @@
 (module plugins.colorizer
-  {require {a aniseed.core
-            nvim aniseed.nvim}})
+  {require
+   {a aniseed.core
+    md utils.module}
+   require-macros [macros]})
 
 (defn main []
-  (let [(ok res) (pcall nvim.ex.packadd :nvim-colorizer.lua)]
-    (if
-      ok (let [colorizer (require :colorizer)]
-           (colorizer.setup))
-      (print "Colorizer not found in path"))))
-
-(comment (main))
+  (when-let [colorizer (md.prequire :colorizer)]
+    (colorizer.setup [:css :javascript :lua :fennel :typescript]))) ; kinda slow with large files, restrict scope

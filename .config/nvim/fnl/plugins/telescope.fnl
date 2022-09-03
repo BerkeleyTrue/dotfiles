@@ -4,7 +4,8 @@
     r r
     md utils.module
     utils utils
-    live-grep plugins.telescope.live-grep}
+
+    ag plugins.telescope.silver-searcher}
    require-macros [macros]})
 
 (defn- setup [{: telescope : previewers : sorters}]
@@ -65,4 +66,4 @@
       (setup {: telescope : sorters : previewers})
       (setup-keymaps)
       (setup-commands)
-      (live-grep.main {: builtins}))))
+      (ag.main))))
