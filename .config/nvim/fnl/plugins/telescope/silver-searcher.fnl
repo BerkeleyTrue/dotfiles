@@ -68,4 +68,5 @@
     :Ag
     (viml->lua* ag {:args "<f-args>"})
     {:nargs :*
+     :complete :file
      :desc "Silver search for files"}))
