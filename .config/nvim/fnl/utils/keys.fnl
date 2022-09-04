@@ -4,12 +4,19 @@
     utils utils}
    require-macros [macros]})
 
+(defn replace-termcodes [str]
+  (vim.api.nvim_replace_termcodes str true true true))
+
+(comment (replace-termcodes "<CR>"))
+
 (defn feed [str noremap]
   (let [mode (if noremap :n :m)]
     (->
       str
-      (utils.replace-termcodes)
-      (utils.fn.feedkeys mode))))
+      (replace-termcodes)
+      (vim.fn.feedkeys mode))))
+
+(comment (feed "<CR>"))
 
 (defn feed-noremap [str]
   (feed str true))
