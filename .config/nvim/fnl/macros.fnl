@@ -1,7 +1,89 @@
 (local module-sym (gensym))
 
+(local M {})
+
+; =<< utils >=>
+(fn keys [t]
+  "Get all keys of a table."
+  (let [result []]
+    (when t
+      (each [k _ (pairs t)]
+        (table.insert result k)))
+    result))
+
+(fn table? [x]
+  "checks if 'x' is of table type."
+  `(= :table (type ,x)))
+
+(fn string? [val] (= (type val) :string))
+
+(fn nil? [val] (= (type val) :nil))
+
+(fn empty? [val]
+  "(empty? {}) ;=> true
+   (empty? []) ;=> true
+   (empty? \"\") ;=> true"
+  (if
+    (table? val) (nil? (next val))
+    (string? val) (= (length val) 0)
+    (nil? val) true
+    false))
+
+(fn count [xs]
+  (if
+    (table? xs) (let [maxn (table.maxn xs)]
+                  ;; We only count the keys if maxn returns 0.
+                  (if (= 0 maxn)
+                    (table.maxn (keys xs))
+                    maxn))
+    (not xs) 0
+    (length xs)))
+
+(fn run! [f xs]
+  "Execute the function (for side effects) for every xs."
+  (when xs
+    (let [nxs (count xs)]
+      (when (> nxs 0)
+        (for [i 1 nxs]
+          (f (. xs i)))))))
+
+(fn reduce [f init xs]
+  "Reduce xs into a result by passing each subsequent value into the fn with
+  the previous value as the first arg. Starting with init."
+  (var result init)
+  (run!
+    (fn [x]
+      (set result (f result x)))
+    xs)
+  result)
+
+(fn merge! [base ...]
+  (reduce
+    (fn [acc m]
+      (when m
+        (each [k v (pairs m)]
+          (tset acc k v)))
+      acc)
+    (or base {})
+    [...]))
+
+(fn merge [...]
+  (merge! {} ...))
+
+(fn dolist [lst]
+  "unpacks 'lst' and wrap it within do block."
+  `(do ,(unpack lst)))
+
+; =<< module system >=>
+(macro defn [name args ...]
+  "defines an exported function 'name'."
+  `(tset
+    M
+    ,(tostring name)
+    (fn ,name ,args ,...)))
+
 ; TODO: move out of macro
-(fn run-main [name ...]
+(defn run-main [name ...]
   `(let [args# ,[...]]
      ; conditional threadfirst
      (-?>
@@ -26,11 +108,11 @@
 
        ((fn [mod#] ((. mod# :main) (unpack args#)))))))
 
-(fn sym->name [a-sym]
+(defn sym->name [a-sym]
   "Symbol to name as a string."
   (tostring a-sym))
 
-(fn from-iter [iter-fact]
+(defn from-iter [iter-fact]
   "(from-iter (pairs {:apple \"red\" :orange \"orange\"})) ;=> {:red \"apple\" :orange \"orange\"}
    When vals are
    (from-iter (: \"foo bar\" :gmatch \"%S+\")) ;=> {:foo true :bar true}"
@@ -39,14 +121,14 @@
        (tset tbl# k# (if (= v# nil) true v#)))
      tbl#))
 
-(fn from-seq-iter [iter-fact]
+(defn from-seq-iter [iter-fact]
   "(from-seq-iter (ipairs [:apple :orange])) ;=> [:apple :orange]"
   `(let [tbl# []]
      (each [_# v# ,iter-fact]
        (table.insert tbl# v#))
      tbl#))
 
-(fn when-let
+(defn when-let
   [bindings ...]
   (assert
      (= (type bindings) "table")
@@ -60,13 +142,13 @@
          (let [,form temp#]
            ,...)))))
 
-(fn when-not
+(defn when-not
   [test ...]
   (list (sym :if)
         (list (sym :not) test)
         (list (sym :do) ...)))
 
-(fn if-let
+(defn if-let
   [bindings then else]
   (assert
      (= (type bindings) "table")
@@ -81,55 +163,69 @@
            ,then)
          ,else))))
 
-(fn logx [x]
+(defn logx [x]
   "(logx foo) ;=> (print \"foo: \" foo)"
   `(print ,(.. (tostring x) ": ") ,x))
 
 
-(fn viml->lua* [symb opts]
+(defn viml->lua* [symb opts]
   `(..
      "lua require('" *module-name* "')"
      "['" ,(tostring symb) "']"
      "(" ,(or (and opts opts.args) "") ")"))
 
-(fn cviml->lua* [symb opts]
+(defn cviml->lua* [symb opts]
   `(.. "<CMD>" (viml->lua* ,symb ,opts) "<CR>"))
 
-(fn viml->luaexp* [symb args]
+(defn viml->luaexp* [symb args]
   `(.. "luaeval('require(\"" *module-name* "\")[\"" ,(tostring symb) "\"](" (or args "") ")')"))
 
 
-(fn get-lua-filename []
+(defn get-lua-filename []
   "Get the lua filename of the current file"
   `(->
     *file*
     (vim.fn.substitute "\\.fnl$" ".lua" "")
     (vim.fn.substitute "fnl/" "lua/" "")))
 
-(fn make-on-load [ns]
+(defn make-on-load [ns]
   `(.. "require(\"plugins." ,(tostring ns) "\").main()"))
 
 
-(fn parse-command-args [args]
+(defn parse-command-args [args]
   (local out {:force true})
   (each [key val (pairs (or args {}))]
     (tset out key val))
   out)
 
-(fn command! [lhs rhs args]
+(defn command! [lhs rhs args]
   `(vim.api.nvim_create_user_command ,lhs ,rhs ,(parse-command-args args)))
 
-{: run-main
- : sym->name
- : from-iter
- : from-seq-iter
- : when-let
- : when-not
- : if-let
- : logx
- : viml->lua*
- : cviml->lua*
- : viml->luaexp*
- : get-lua-filename
- : make-on-load
- : command!}
+; =<< augroup >=>
+(fn autocmd [id config]
+  (let [event config.event
+        events (if (string? event) [event] event)]
+    (tset config :event nil)
+    (when
+      config.cmd
+      (do
+        (tset config :command config.cmd)
+        (tset config :cmd nil)))
+    `(vim.api.nvim_create_autocmd ,events ,(merge config {:group id}))))
+
+(defn augroup [name ...]
+  (let [cmds [...]
+        id (gensym :augid)
+        out (reduce
+              (fn [out cmd]
+                (assert-compile
+                  (and (table? cmd) (not (empty? cmd)))
+                  (.. " augroup expects autocommands to be tables, but found: " (view cmd))
+                  cmd)
+                (table.insert out (autocmd id cmd))
+                out)
+              [`(local ,id (vim.api.nvim_create_augroup ,name {:clear true}))]
+              cmds)]
+    (dolist out)))
+
+:return M

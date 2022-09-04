@@ -48,11 +48,11 @@
     (utils.nnoremap :* (.. "*" (cviml->lua* start)) {:silent true})
     (utils.nnoremap :# (.. "#" (cviml->lua* start)) {:silent true})
     (utils.nnoremap :<ESC><ESC> ":noh<CR>" {:silent true})
-    (utils.augroup
+    (augroup
       :VMLens
-      [{:event :User
-        :pattern :visual_multi_start
-        :cmd (viml->lua* start-vm)}
-       {:event :User
-        :pattern :visual_multi_exit
-        :cmd (viml->lua* exit-vm)}])))
+      {:event :User
+       :pattern :visual_multi_start
+       :callback start-vm}
+      {:event :User
+       :pattern :visual_multi_exit
+       :callback exit-vm})))

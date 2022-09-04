@@ -85,11 +85,11 @@
       :header false}})
 
   ; open vim diagnotics float on cursor hold
-  (utils.augroup
-    :diagnositic-float
-    [{:event [:CursorHold :CursorHoldI]
-      :pattern :*
-      :cmd (viml->lua* open-float)}])
+  (augroup
+    :DiagnositicFloat
+    {:event [:CursorHold :CursorHoldI]
+     :pattern :*
+     :callback open-float})
 
   (command! :Format ":lua vim.lsp.buf.formatting()"))
 

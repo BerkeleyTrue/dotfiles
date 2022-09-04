@@ -23,18 +23,19 @@
     ; zz center cursor line on screen
     (utils.ex.normal_ "g`\"zvzz")))
 
-(utils.augroup
-  :general-au
-  [{:event [:BufEnter :BufReadPost :WinEnter]
-    :pattern :*
-    :cmd (viml->lua* disable-camel-case-spell)}
+(augroup
+  :GeneralAu
 
-   ; Resize splits when the window is resized
-   {:event :VimResized
-    :pattern :*
-    :cmd "exe \"normal! \\<c-w>=\""}
+  {:event [:BufEnter :BufReadPost :WinEnter]
+   :pattern :*
+   :callback disable-camel-case-spell}
 
-   ; Make vim open on the line you closed the buffer on
-   {:event [:BufReadPost]
-    :pattern :*
-    :cmd (viml->lua* go-to-last-edit)}])
+  ; Resize splits when the window is resized
+  {:event :VimResized
+   :pattern :*
+   :cmd "exe \"normal! \\<c-w>=\""}
+
+  ; Make vim open on the line you closed the buffer on
+  {:event [:BufReadPost]
+   :pattern :*
+   :callback go-to-last-edit})

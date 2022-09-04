@@ -66,7 +66,6 @@
       buffer (nvim.buf_set_keymap (if (r.number? buffer) buffer 0) (unpack args))
       (nvim.set_keymap (unpack args)))))
 
-
 (defn nmap [lhs rhs options] (base-map :n lhs rhs options))
 (defn amap [lhs rhs options] (base-map :a lhs rhs options))
 (defn omap [lhs rhs options] (base-map :o lhs rhs options))
@@ -137,33 +136,6 @@
         matchReg (.. "\\%" col "c.")]
     (nvim.fn.matchstr line matchReg)))
 
-(def- none "NONE")
-
-(defn- join-events [events]
-  (r.reduce #(.. $1 (if (or (r.empty? $1) (r.empty? $2)) "" ",") $2) "" events))
-
-(comment
-  (= (join-events [:CursorHold :CursorHoldI]) "CursorHold,CursorHoldI"))
-
-; warning: cmds must be a vector
-; if single map is provided, this argument will only add the augroup
-(defn augroup [name cmds]
-  (nvim.ex.augroup name)
-  (nvim.ex.autocmd_)
-  (->>
-    cmds
-    (r.forEach
-      (fn [{: event : pattern : cmd}]
-        (let [event (if (r.table? event) (join-events event) event)
-              pattern (if (r.table? pattern) (join-events pattern) pattern)]
-          (nvim.ex.autocmd (.. event " " pattern " " cmd))))))
-  (nvim.ex.augroup :END))
-
-(defn autogroup [...]
-  (print (.. "Warning: " *module-name* ".autogroup should be " *module-name* ".augroup"))
-  (augroup ...))
-
-
 (defn set-nvim-g! [map]
   (assert (= (type map) "table") (.. "set-nvim-g! expects a table but got a: " (tostring map)))
   (->>
@@ -195,6 +167,3 @@
   map)
 
 (def regex vim.regex)
-
-(defn replace-termcodes [str] (nvim.replace_termcodes str true true true))
-(comment (replace-termcodes "<CR>"))

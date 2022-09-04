@@ -28,8 +28,8 @@
       :jsx {:quote_char "'"}
       :javascript.jsx {:extends "jsx"}}})
 
-  (utils.augroup
+  (augroup
     :EmmetGroup
-    [{:event :FileType
-      :pattern filetypes
-      :cmd (viml->lua* add-emmet)}]))
+    {:event :FileType
+     :pattern filetypes
+     :callback add-emmet}))

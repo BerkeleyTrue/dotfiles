@@ -67,8 +67,8 @@
     {:silent true :buffer true}))
 
 (defn main []
-  (utils.augroup
+  (augroup
     :AccentsGroup
-    [{:event :FileType
-      :pattern :markdown
-      :cmd (viml->lua* setup)}]))
+    {:event :FileType
+     :pattern :markdown
+     :callback setup}))

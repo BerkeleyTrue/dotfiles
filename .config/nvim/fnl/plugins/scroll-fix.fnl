@@ -109,8 +109,8 @@
                             1))))))
 
 (defn main []
-  (utils.augroup
+  (augroup
     :ScrollFixGroup
-    [{:event [:CursorMoved :CursorMovedI :BufEnter :BufFilePre]
-      :pattern :*
-      :cmd (viml->lua* scroll-fix)}]))
+    {:event [:CursorMoved :CursorMovedI :BufEnter :BufFilePre]
+     :pattern :*
+     :callback scroll-fix}))
