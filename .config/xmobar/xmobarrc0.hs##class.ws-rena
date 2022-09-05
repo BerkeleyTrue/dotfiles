@@ -88,6 +88,7 @@ Config
     \<fc=#ff79c6> %date% </fc>\
     \<fc=#50fa7b>  %wakatime% </fc>\
     \ { \
+    \<fc=#ff5555><action=`$HOME/.local/bin/powermenu`>  ⏻  </action></fc>\
     \<fc=#666666>|</fc><fc=#ff79c6> %cpu% </fc>\
     \<fc=#666666>|</fc><fc=#ffb86c> %multicoretemp% </fc>\
     \<fc=#666666>|</fc><fc=#6272a4> %battery% </fc>\
