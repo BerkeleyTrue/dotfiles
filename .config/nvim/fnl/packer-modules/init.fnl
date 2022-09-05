@@ -53,9 +53,9 @@
    {:name :samodostal/copilot-client.lua :description "Copilot client with key trigger." :requires [[:nvim-lua/plenary.nvim] [:zbirenbaum/copilot.lua]]}
 
    ; git
-   {:name :tpope/vim-fugitive :description "git integrations (lacking yadm support)"}
-   {:name :tpope/vim-rhubarb :description "github integrations (lacking yadm support)"}
-   {:name :mhinz/vim-signify :desciption "show git diffs in the gutter"}
+   {:name :f-person/git-blame.nvim :description "git blame "}
+   {:name :lewis6991/gitsigns.nvim :description "git signs (supports yadm)" :config (make-on-load gitsigns)}
+   {:name :sindrets/diffview.nvim :desciption "git diff view" :requires [[:nvim-lua/plenary.nvim]]}
 
    ; buffers
    {:name :vim-scripts/BufOnly.vim :description ":BufOnly removes all the buffers except the current one"}
