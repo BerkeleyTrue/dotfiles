@@ -35,7 +35,7 @@
 
       :file_sorter (. sorters :get_fuzzy_file)
       :generic_sorter (. sorters :get_generic_fuzzy_sorter)
-      :file_ignore_patterns [:node_modules]}}))
+      :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]}}))
 
 (defn setup-keymaps []
   (utils.noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
