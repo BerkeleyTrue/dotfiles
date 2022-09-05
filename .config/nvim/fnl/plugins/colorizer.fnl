@@ -6,4 +6,4 @@
 
 (defn main []
   (when-let [colorizer (md.prequire :colorizer)]
-    (colorizer.setup [:css :javascript :lua :fennel :typescript]))) ; kinda slow with large files, restrict scope
+    (colorizer.setup)))
