@@ -13,7 +13,7 @@
   [{:name :wbthomason/packer.nvim :opt true}
    {:name :tpope/vim-projectionist :description "jump between related files"}
    {:name :berkeleytrue/colorbuddy.nvim}
-   {:name :akianonymus/nvim-colorizer.lua :opt true :config (make-on-load colorizer)}
+   {:name :NvChad/nvim-colorizer.lua :config (make-on-load colorizer)}
    {:name :junegunn/vim-easy-align :opt true :config (make-on-load easy-align)}
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
