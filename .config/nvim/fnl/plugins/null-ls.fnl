@@ -33,7 +33,8 @@
                  (null-ls.builtins.formatting.shfmt.with
                    {:extra_args [:-i 2]})
                  (yamlfix.main null-ls)
-                 null-ls.builtins.formatting.lua_format]]
+                 null-ls.builtins.formatting.lua_format
+                 null-ls.builtins.formatting.brittany]]
 
 
     (null-ls.setup {: sources})))

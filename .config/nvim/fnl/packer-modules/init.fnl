@@ -117,27 +117,16 @@
    {:name :gabrielelana/vim-markdown :config (make-on-load markdown)}
    {:name :jxnblk/vim-mdx-js}
    {:name :godlygeek/tabular}
-   {:name :chr4/nginx.vim}
    {:name :chrisbra/csv.vim}
-   {:name :digitaltoad/vim-jade}
    {:name :glench/vim-jinja2-syntax}
    {:name :hashivim/vim-terraform :ft :terraform :config (make-on-load terraform)}
    {:name :lervag/vimtex :ft :latex :config (make-on-load vimtex)}
    {:name :othree/xml.vim}
    {:name :pearofducks/ansible-vim}
-   {:name :potatoesmaster/i3-vim-syntax}
-   {:name :rust-lang/rust.vim}
    {:name :sirtaj/vim-openscad}
-   {:name :tbastos/vim-lua}
-   {:name :purescript-contrib/purescript-vim}
    {:name :janet-lang/janet.vim :description "janet highlighting"}
-   {:name :keith/swift.vim}
    {:name :tomlion/vim-solidity :description "solidity indenting"}
    {:name :vyperlang/vim-vyper :description "ether evm language"}
-
-   ; haskell
-   {:name :alx741/vim-hindent :desciption "haskell formatter"}
-   {:name :neovimhaskell/haskell-vim :desciption "haskell highlighting"}
 
    ;   
    {:name :elzr/vim-json :description ""}
