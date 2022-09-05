@@ -3,45 +3,45 @@
 #
 # NOTE: Run by display manager
 
-xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
+/usr/bin/xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
 
 # set x11 keybindings
-xbindkeys &
+/usr/bin/xbindkeys &
 
 # make CapsLock behave like Ctrl:
-setxkbmap -option ctrl:nocaps &
+/usr/bin/setxkbmap -option ctrl:nocaps &
 
 # make short-pressed Ctrl behave like Escape:
-xcape -e 'Control_L=Escape' &
+/usr/bin/xcape -e 'Control_L=Escape' &
 
 echo "starting xprofile apps" &
 
 # start volumeicon
-volumeicon &
+/usr/bin/volumeicon &
 
 # start pulse audio conf
-pasystray &
+/usr/bin/pasystray &
 
 # used for controlling system wide privileges
 /usr/lib/polkit-kde-authentication-agent-1 &
 
 #window composer
-picom -b --experimental-backends &
+/usr/bin/picom -b --experimental-backends &
 
 # network manager
-nm-applet &
+/usr/bin/nm-applet &
 
 # notification daemon
-dunst &
+/usr/bin/dunst &
 
 # screen shot tool
-flameshot &
+/usr/bin/flameshot &
 
 # bluetooth
-blueman-applet &
+/usr/bin/blueman-applet &
 
 # private internet access vpn
 /opt/piavpn/bin/pia-client &
 
 # hide cursor when inactive
-/bin/unclutter -b &
+/usr/bin/unclutter -b &
