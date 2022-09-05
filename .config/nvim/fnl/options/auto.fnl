@@ -16,8 +16,8 @@
       ; so if the last mark is more than the first line (>0)
       ; and less then the files last line ("$")
       (and
-        (> (utils.fn.line "'\"") 0)
-        (<= (utils.fn.line "'\"") (utils.fn.line "$"))))
+        (> (vim.fn.line "'\"") 0)
+        (<= (vim.fn.line "'\"") (vim.fn.line "$"))))
     ; g'"|g`"" Jump to the last known position, but don't change the jumplist
     ; zv open folds enough to view cursor
     ; zz center cursor line on screen
@@ -38,4 +38,8 @@
   ; Make vim open on the line you closed the buffer on
   {:event [:BufReadPost]
    :pattern :*
-   :callback go-to-last-edit})
+   :callback go-to-last-edit}
+  ; make sure cursor always starts on the first line for gitcommit files
+  {:event [:FileType]
+   :pattern :gitcommit
+   :cmd "call setpos ('.', [0, 1, 1, 0])"})
