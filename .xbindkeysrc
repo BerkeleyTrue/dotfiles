@@ -20,6 +20,12 @@
 "playerctl next"
   F9
 
+"kitty"
+  mod4 + shift + return
+
+"$HOME/.local/bin/powermenu"
+  mod4 + 0
+
 "dunstctl close"
   control + space
 

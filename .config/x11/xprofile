@@ -5,6 +5,9 @@
 
 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
 
+# set x11 keybindings
+xbindkeys &
+
 # make CapsLock behave like Ctrl:
 setxkbmap -option ctrl:nocaps &
 
@@ -27,9 +30,6 @@ picom -b --experimental-backends &
 
 # network manager
 nm-applet &
-
-# manage power settings
-xfce4-power-manager &
 
 # notification daemon
 dunst &
