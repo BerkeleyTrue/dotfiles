@@ -8,7 +8,7 @@
     ag plugins.telescope.silver-searcher}
    require-macros [macros]})
 
-(defn- setup [{: telescope : previewers : sorters}]
+(defn- setup [{: telescope : previewers : sorters : actions}]
   (telescope.setup
     {:defaults
      {:borderchars ["─" "│" "─" "│" "╭" "╮" "╯" "╰"]
@@ -35,7 +35,10 @@
 
       :file_sorter (. sorters :get_fuzzy_file)
       :generic_sorter (. sorters :get_generic_fuzzy_sorter)
-      :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]}}))
+      :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]
+      :mappings
+      {:n
+       {:q (. actions :close)}}}}))
 
 (defn setup-keymaps []
   (utils.noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
@@ -45,18 +48,20 @@
 
 (defn setup-commands []
   (command! :HLights (utils.viml->lua :telescope.builtin :highlights))
-  (command! :NMaps (utils.viml->lua :telescope.builtin :keymaps))
+  (command! :MMaps (utils.viml->lua :telescope.builtin :keymaps))
   (command! :BBuffs (utils.viml->lua :telescope.builtin :buffers))
   (command! :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions))
-  (command! :Help (utils.viml->lua :telescope.builtin :help_tags)))
+  (command! :HHelp (utils.viml->lua :telescope.builtin :help_tags))
+  (command! :RRegisters (utils.viml->lua :telescope.builtin :registers)))
 
 (defn main []
   (when-let [telescope (md.prequire :telescope)]
     (let [sorters (md.prequire :telescope.sorters)
           previewers (md.prequire :telescope.previewers)
-          builtins (md.prequire :telescope.builtin)]
+          builtins (md.prequire :telescope.builtin)
+          actions (md.prequire :telescope.actions)]
 
-      (setup {: telescope : sorters : previewers})
+      (setup {: telescope : sorters : previewers : actions})
       (setup-keymaps)
       (setup-commands)
       (ag.main))))
