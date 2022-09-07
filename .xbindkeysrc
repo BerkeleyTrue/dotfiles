@@ -20,11 +20,23 @@
 "playerctl next"
   F9
 
-"kitty"
-  mod4 + shift + return
+# Increase volume
+"pactl set-sink-volume @DEFAULT_SINK@ +1000"
+  XF86AudioRaiseVolume
 
-"$HOME/.local/bin/powermenu"
-  mod4 + 0
+# Decrease volume
+"pactl set-sink-volume @DEFAULT_SINK@ -1000"
+  XF86AudioLowerVolume
+
+# Mute volume
+"pactl set-sink-mute @DEFAULT_SINK@ toggle; dunstify '  '"
+  XF86AudioMute
+
+# "kitty"
+#   mod4 + shift + return
+#
+# "$HOME/.local/bin/powermenu"
+#   mod4 + 0
 
 "dunstctl close"
   control + space
@@ -34,3 +46,9 @@
 
 "dunstctl history-pop"
   control + mod1 + shift + h
+
+"$HOME/.local/bin/brighten-up"
+  XF86MonBrightnessUp
+
+"$HOME/.local/bin/brighten-down"
+  XF86MonBrightnessDown
