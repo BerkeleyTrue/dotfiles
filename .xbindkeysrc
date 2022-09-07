@@ -29,7 +29,7 @@
   XF86AudioLowerVolume
 
 # Mute volume
-"pactl set-sink-mute @DEFAULT_SINK@ toggle; dunstify '  '"
+"$HOME/.local/bin/orpheus-mute"
   XF86AudioMute
 
 # "kitty"
