@@ -1,0 +1,25 @@
+#!/bin/sh
+DSINK="@DEFAULT_SINK@"
+MAX=65536
+NINEPER=58982
+ID=9932
+MSG=''
+
+getcurrvol() {
+  pactl get-sink-volume $DSINK | awk '{print $5;exit}'
+}
+getcurrvolint() {
+  pactl get-sink-volume $DSINK | awk '{print $3;exit}'
+}
+
+if (( $(getcurrvolint) >= $MAX )); then
+  MSG=' 墳 '
+elif (( $(getcurrvolint) >= $NINEPER)); then
+  pactl set-sink-volume $DSINK 100%
+  MSG=" ﱛ $(getcurrvol)"
+else
+  pactl set-sink-volume $DSINK +10%
+  MSG=" ﱛ $(getcurrvol)"
+fi
+
+dunstify -a 'orpheus' -r $ID $MSG

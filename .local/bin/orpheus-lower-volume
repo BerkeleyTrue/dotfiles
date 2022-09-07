@@ -1,0 +1,19 @@
+#!/bin/sh
+DSINK="@DEFAULT_SINK@"
+ID=9932
+MSG=''
+
+getcurrvol() {
+  pactl get-sink-volume $DSINK | awk '{print $5;exit}'
+}
+
+CURR=$(getcurrvol) # get value
+
+if [ $CURR = '0%' ]; then
+  MSG='  '
+else
+  pactl set-sink-volume $DSINK -10%
+  MSG=" ﱜ $(getcurrvol)"
+fi
+
+dunstify -a 'orpheus' -r $ID $MSG
