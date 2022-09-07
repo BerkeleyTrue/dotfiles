@@ -96,6 +96,7 @@ Config
   , template =
       "\
     \ } \
+    \<fc=#8be9fd>ﲹ $%eth% </fc>\
     \<fc=#8be9fd> %eth-gas% </fc>\
     \<fc=#8be9fd>勒 %eth-flip% </fc>\
     \<fc=#ff79c6> </fc><fc=#8be9fd>%steth-discount% </fc>\
