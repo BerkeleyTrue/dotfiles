@@ -3,11 +3,6 @@
 #
 # NOTE: Run by display manager
 
-/usr/bin/xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
-
-# set x11 keybindings
-/usr/bin/xbindkeys &
-
 # make CapsLock behave like Ctrl:
 /usr/bin/setxkbmap -option ctrl:nocaps &
 
