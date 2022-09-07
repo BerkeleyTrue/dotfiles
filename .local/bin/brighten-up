@@ -3,6 +3,7 @@
 MAX=$(brightnessctl max)
 CURR=$(brightnessctl get)
 MSG=""
+ID=4321
 
 if (($CURR >= $MAX)); then
   MSG='  '
@@ -10,10 +11,10 @@ else
   brightnessctl set +10%
   CURR=$(brightnessctl get)
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
-  MSG=" $PER "
+  MSG="$PER  "
   if (($CURR >= $MAX)); then
-    MSG='  '
+    MSG="  "
   fi
 fi
 
-dunstify -a luna $MSG
+dunstify -a luna -r $ID $MSG
