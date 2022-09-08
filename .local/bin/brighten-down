@@ -1,16 +1,21 @@
 #!/bin/sh
 
-MIN=0
+MIN=1
 MAX=$(brightnessctl max)
 CURR=$(brightnessctl get)
 ID=1234
 
-if (( $CURR <= $MIN )); then
+if ( ($CURR <= $MIN)); then
   dunstify -a luna -r $ID 'Going Dark 望'
   sleep 1
   brightnessctl set 0
 else
-  brightnessctl set 10-%
+  if ( ($CURR <= 10)); then
+    brightnessctl set 1%
+  else
+    brightnessctl set 10-%
+  fi
+
   CURR=$(brightnessctl get)
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
   dunstify -a luna -r $ID "$PER "
