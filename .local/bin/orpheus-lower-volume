@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 DSINK="@DEFAULT_SINK@"
 ID=9932
 MSG=''

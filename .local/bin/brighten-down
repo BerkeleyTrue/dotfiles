@@ -1,16 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
-MIN=1
+MIN=960
 MAX=$(brightnessctl max)
 CURR=$(brightnessctl get)
 ID=1234
 
-if ( ($CURR <= $MIN)); then
+if (($CURR <= $MIN)); then
   dunstify -a luna -r $ID 'Going Dark 望'
   sleep 1
   brightnessctl set 0
 else
-  if ( ($CURR <= 10)); then
+  echo $CURR
+  if (($CURR <= 9600)); then
     brightnessctl set 1%
   else
     brightnessctl set 10-%

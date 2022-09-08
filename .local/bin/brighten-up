@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 MAX=$(brightnessctl max)
 CURR=$(brightnessctl get)
