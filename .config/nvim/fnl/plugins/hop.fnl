@@ -27,5 +27,6 @@
   (when-let [hop (md.packadd-n-require :hop.nvim :hop)]
     (hop.setup)
     (utils.nmap :f (cviml->lua* hop-find))
+    (utils.vmap :f (cviml->lua* hop-find))
     (utils.nmap :<leader>j (cviml->lua* hop-vertical-j))
     (utils.nmap :<leader>k (cviml->lua* hop-vertical-k))))
