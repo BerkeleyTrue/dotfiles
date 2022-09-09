@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MIN=960
 MAX=$(brightnessctl max)
 CURR=$(brightnessctl get)
 MSG=""
@@ -8,13 +9,21 @@ ID=1234
 if (($CURR >= $MAX)); then
   MSG='  '
 else
-  brightnessctl set +10%
+  if (($CURR == 0)); then
+    brightnessctl set 1%
+  elif (($CURR == $MIN)); then
+    brightnessctl set 10%
+  else
+    brightnessctl set +10%
+  fi
+
   CURR=$(brightnessctl get)
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
-  MSG="$PER  "
+  MSG="$PER "
+
   if (($CURR >= $MAX)); then
     MSG="  "
   fi
 fi
 
-dunstify -a luna -r $ID $MSG
+dunstify -a Selena -r $ID $MSG
