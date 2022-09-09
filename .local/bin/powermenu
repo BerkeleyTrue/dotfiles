@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 theme="card_circle"
 dir="$HOME/.config/rofi"
 
@@ -18,20 +18,20 @@ options="$lock\n$shutdown\n$reboot\n$suspend\n$logout"
 
 chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 0)"
 case $chosen in
-  $shutdown)
-    systemctl poweroff
-    ;;
-  $reboot)
-    systemctl reboot
-    ;;
-  $lock)
-    xsecurelock
-    ;;
-  $suspend)
-    playerctl pause
-    systemctl suspend
-    ;;
-  $logout)
-    kill $(pgrep X);
-    ;;
+$shutdown)
+  systemctl poweroff
+  ;;
+$reboot)
+  systemctl reboot
+  ;;
+$lock)
+  xsecurelock
+  ;;
+$suspend)
+  playerctl pause
+  systemctl suspend
+  ;;
+$logout)
+  kill $(pgrep X)
+  ;;
 esac
