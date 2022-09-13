@@ -1,17 +1,17 @@
 #!/bin/sh
 # add alias for MR on command
 mrenv() {
-  export NODE_PATH=~/dvlpmnt/node/mr/actual/mr_modules
+  export NODE_PATH=$HOME/dvlpmnt/madison-reed/mr/mr_modules
   export NODE_ENV=local
 }
 
 mrinit() {
   mrenv
-  /usr/bin/docker start mr-mongo mr-mysql-sanitized mr-redis-1 > /dev/null
+  /usr/bin/docker start mr-mongo mr-mysql-sanitized redis-server > /dev/null
 }
 
 mrsd() {
-  /usr/bin/docker stop mr-mongo mr-mysql-sanitized mr-redis-1 > /dev/null
+  /usr/bin/docker stop mr-mongo mr-mysql-sanitized redis-server > /dev/null
 }
 
 mrth() {
