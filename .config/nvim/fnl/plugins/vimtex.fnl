@@ -3,6 +3,7 @@
 
 (defn main []
   (utils.set-nvim-g!
-    {:vimtex_fold_enabled 1
-     :tex_conceal 0
+    {:vimtex_fold_enabled 0
+     :tex_conceal 1
+     :vimtex_view_method :zathura
      :tex_flavor :plain}))

@@ -120,7 +120,7 @@
    {:name :chrisbra/csv.vim}
    {:name :glench/vim-jinja2-syntax}
    {:name :hashivim/vim-terraform :ft :terraform :config (make-on-load terraform)}
-   {:name :lervag/vimtex :ft :latex :config (make-on-load vimtex)}
+   {:name :lervag/vimtex :ft :tex :config (make-on-load vimtex)}
    {:name :othree/xml.vim}
    {:name :pearofducks/ansible-vim}
    {:name :sirtaj/vim-openscad}
