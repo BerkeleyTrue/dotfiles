@@ -5,9 +5,10 @@ image/webp=viewnior.desktop;
 inode/directory=pcmanfm.desktop;
 model/stl=io.github.f3d_app.f3d.desktop;
 video/mp4=mpv.desktop;
+application/pdf=zathura.desktop
 
 [Default Applications]
-application/pdf=org.pwmt.zathura.desktop;
+application/pdf=zathura.desktop
 application/sla=io.github.f3d_app.f3d.desktop;
 image/jpeg=viewnior.desktop;
 image/png=viewnior.desktop;
@@ -18,3 +19,5 @@ text/html=org.mozilla.firefox.desktop;
 video/mp4=mpv.desktop;
 x-scheme-handler/http=org.mozilla.firefox.desktop;
 x-scheme-handler/https=org.mozilla.firefox.desktop;
+x-scheme-handler/web+stellar=keybase.desktop
+x-scheme-handler/keybase=keybase.desktop
