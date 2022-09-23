@@ -22,6 +22,7 @@ X11_HOME=$XDG_CONFIG_HOME/x11
 userresources=$X11_HOME/xresources
 usermodmap=$X11_HOME/xmodmap
 xprofile=$X11_HOME/xprofile
+xbindrc=$HOME/.xbindkeysrc
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 XMONAD_EXEC=$HOME/.local/bin/xmonad-x86_64-linux
@@ -42,6 +43,10 @@ fi
 
 if [ -f "$usermodmap" ]; then
   xmodmap "$usermodmap"
+fi
+
+if [ -f "$xbindrc" ]; then
+  xbindkeys
 fi
 
 # source xprofile. This is done natively with some WM's but not xmonad

@@ -40,10 +40,6 @@ ZSH_TMUX_AUTOSTART=false
 ZSH_TMUX_AUTOQUIT=false
 # automatically connect to tmux session if there is one runnning
 ZSH_TMUX_AUTOCONNECT=false
-# add bound keys
-if (( $+commands[xbindkeys] )); then
-  xbindkeys
-fi
 
 # ensure cache directory exists
 if [[ ! -f $ANTIGEN_LOG  ]]; then
