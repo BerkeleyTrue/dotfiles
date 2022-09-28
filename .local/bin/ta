@@ -151,9 +151,8 @@ attach_to_git() {
   local session_name
   local path_name
   res=$(
-    gfold $dir |
-      awk 'NR%4==1' |
-      sed 's/\x1b\[[0-9;]*m//g' |
+    gfold -d json $dir |
+      json -ga name parent |
       fzf --reverse --header="Select project" --prompt="$(ensure_kill_prompt)" || exit 0
   )
 
@@ -163,8 +162,8 @@ attach_to_git() {
   fi
   log "attach-to-git: $res"
 
-  session_name=$(echo $res | awk -F ' ~ ' '{print $1}')
-  path_name=$(echo $res | awk -F ' ~ ' '{print $2}')
+  session_name=$(echo $res | awk '{print $1}')
+  path_name=$(echo $res | awk '{print $2}')/$session_name
 
   create_if_needed_and_attach $session_name $path_name
 }
