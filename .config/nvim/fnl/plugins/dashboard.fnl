@@ -18,7 +18,7 @@
 
 (def- center [{:icon "  "
                :desc "Recently opened files                   "
-               :action "Telescope oldfiles"}
+               :action "Telescope oldfiles cwd_only=true"}
               {:icon "  "
                :desc "Find  File                              "
                :action "Telescope find_files find_command=rg,--hidden,--files"}

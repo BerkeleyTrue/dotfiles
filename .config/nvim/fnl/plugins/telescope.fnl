@@ -52,7 +52,9 @@
   (command! :BBuffs (utils.viml->lua :telescope.builtin :buffers))
   (command! :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions))
   (command! :HHelp (utils.viml->lua :telescope.builtin :help_tags))
-  (command! :RRegisters (utils.viml->lua :telescope.builtin :registers)))
+  (command! :RRegisters (utils.viml->lua :telescope.builtin :registers))
+  (command! :OldFiles (utils.viml->lua :telescope.builtin :oldfiles {:args "{cwd_only = true}"})))
+
 
 (defn main []
   (when-let [telescope (md.prequire :telescope)]
