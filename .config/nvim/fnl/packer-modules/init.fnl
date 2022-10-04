@@ -11,7 +11,6 @@
 (def- main-spec
   ; main utils
   [{:name :wbthomason/packer.nvim :opt true}
-   {:name :tpope/vim-projectionist :description "jump between related files"}
    {:name :berkeleytrue/colorbuddy.nvim}
    {:name :NvChad/nvim-colorizer.lua :config (make-on-load colorizer)}
    {:name :junegunn/vim-easy-align :opt true :config (make-on-load easy-align)}
@@ -30,6 +29,7 @@
    {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :opt true :config (make-on-load zen) :cmd [:ZenMode]}
    {:name :folke/twilight.nvim :description "Dims inactive portions of code" :opt true :config (make-on-load twilight) :cmd [:Twilight]}
    {:name :nvim-lua/telescope.nvim :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]] :config (make-on-load telescope)}
+   {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :requires [[:nvim-lua/telescope.nvim]]}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion)}

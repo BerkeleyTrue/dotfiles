@@ -5,7 +5,8 @@
     md utils.module
     utils utils
 
-    ag plugins.telescope.silver-searcher}
+    ag plugins.telescope.silver-searcher
+    alt plugins.telescope.alternate}
    require-macros [macros]})
 
 (defn- setup [{: telescope : previewers : sorters : actions}]
@@ -66,4 +67,5 @@
       (setup {: telescope : sorters : previewers : actions})
       (setup-keymaps)
       (setup-commands)
-      (ag.main))))
+      (ag.main)
+      (alt.main telescope))))
