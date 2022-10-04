@@ -1,7 +1,8 @@
 (module options
-  {require {: r
-            : utils
-            auto options.auto}
+  {require
+   {r r
+    utils utils
+    auto options.auto}
    require-macros [macros]})
 
 

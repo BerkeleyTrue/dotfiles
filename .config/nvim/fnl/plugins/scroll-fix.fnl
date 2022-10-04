@@ -27,10 +27,10 @@
       (pcall nvim.ex.redraw)
 
       ;; echo info
-      (nvim.echo (..
-                   "Scroll fixed at line " (a.pr-str (. nvim.b :desired_win_line))
-                   "/" winheight
-                   " (" fix-percent "%)"))
+      (comment (nvim.echo (..)
+                          "Scroll fixed at line " (a.pr-str (. nvim.b :desired_win_line))
+                          "/" winheight
+                          " (" fix-percent "%)"))
 
       ;; revert lazyredraw settings
       (set nvim.o.lazyredraw saved-lzy-redraw-option))))

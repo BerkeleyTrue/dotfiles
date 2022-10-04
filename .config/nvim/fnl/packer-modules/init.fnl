@@ -51,6 +51,8 @@
    {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
    {:name :zbirenbaum/copilot.lua :description "Copilot as an LSP." :event [:InsertEnter] :config (make-on-load copilot)}
    {:name :samodostal/copilot-client.lua :description "Copilot client with key trigger." :requires [[:nvim-lua/plenary.nvim] [:zbirenbaum/copilot.lua]]}
+   {:name :rcarriga/nvim-notify :description "used by noice, need to set config" :config (make-on-load notify)}
+   {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and popupmenu" :requires [[:MunifTanjim/nui.nvim] [:rcarriga/nvim-notify] [:hrsh7th/nvim-cmp]] :config (make-on-load noice)}
 
    ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
