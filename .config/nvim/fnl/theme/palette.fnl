@@ -1,5 +1,6 @@
 (module theme.palette
-  {require {}
+  {require
+   {r r}
    require-macros [macros]})
 
 ; Based on Dracula
@@ -23,3 +24,9 @@
    :purple    ["#BD93F9" 141]
    :red       ["#FF5555" 203]
    :yellow    ["#F1FA8C" 228]})
+
+
+(defn get-color-by-name [name]
+  (r.head (. palette name)))
+
+(comment (get-color-by-name :purple))

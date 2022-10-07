@@ -185,7 +185,7 @@
   ; Cursor Line
   (add-group :CursorColumn (c.bg:negative) (c.bg:light))
   (add-group :CursorLine c.none (c.bg:light))
-  (hl.link! :CursorLineNr :BerksYellow)
+  (hl.link! :CursorLineNr :BerksPurple)
 
   ; make the highlighting of tabs and other non-text less annoying
   (add-group :NonText c.gray)

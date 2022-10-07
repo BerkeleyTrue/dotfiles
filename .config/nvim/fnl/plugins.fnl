@@ -4,7 +4,8 @@
 
 (def- plugins
   [:accents
-   :scroll-fix])
+   :scroll-fix
+   :mumber])
 
 (defn main []
   (->>
