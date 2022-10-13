@@ -74,6 +74,12 @@
   "unpacks 'lst' and wrap it within do block."
   `(do ,(unpack lst)))
 
+(lambda parse-sym [xs]
+  "parses symbol 'xs' converts it to string if not a variable."
+  (if (or (in-scope? xs) (not (sym? xs)))
+    xs
+    (tostring xs)))
+
 ; =<< module system >=>
 (macro defn [name args ...]
   "defines an exported function 'name'."
@@ -201,6 +207,60 @@
 (defn command! [lhs rhs args]
   `(vim.api.nvim_create_user_command ,lhs ,rhs ,(parse-command-args args)))
 
+
+; =<< variables >=>
+(defn g [name]
+  "gets global variable 'name'."
+  `(. vim.g ,(parse-sym name)))
+
+(defn g! [name val]
+  "sets global variable 'name' to 'val'."
+  `(tset vim.g ,(parse-sym name) ,val))
+
+(defn b [name val]
+  "sets buffer scoped variable 'name'."
+  `(. vim.b ,(parse-sym name)))
+
+(defn b! [name val]
+  "sets buffer scoped variable 'name' to 'val'."
+  `(tset vim.b ,(parse-sym name) ,val))
+
+(defn o [name]
+  "get the option value"
+  `(. vim.o ,(parse-sym name)))
+
+(defn o! [name val]
+  "sets buffer scoped option 'name' to 'val'."
+  `(tset vim.o ,(parse-sym name) ,val))
+
+(defn v [name]
+  "get the value of the variable 'name'"
+  `(. vim.v ,(parse-sym name)))
+
+; =<< execute >=>
+(defn cmd [name def]
+  "execute command 'name' with the structured Dictionary 'def'.
+  if 'name' is a variable, it is used as cmd option to nvim_cmd,
+  if name is a string or a sym, we parse out the bang."
+  (let [var? (in-scope? name)
+        cmd-string (if var? name (tostring name))
+        (cmd bangs?) (if var? (values cmd-string 0) (string.gsub cmd-string "!" ""))
+        bang? (>= bangs? 1)]
+    `(vim.api.nvim_cmd ,(merge {:cmd cmd :bang bang?} def))))
+
+(defn command [name ...]
+  "execute command 'name' and concat with arguments"
+  `(vim.api.nvim_command (table.concat (vim.tbl_flatten [,(tostring name) ,...]) " ")))
+
+(defn n [name ...]
+  "run vim.api.nvim_[n] api"
+  (let [f (.. "vim.api.nvim_" (tostring name))]
+    `(,f ,...)))
+
+(defn vf [name ...]
+  "run viml function 'name'"
+  `(vim.api.nvim_call_function ,(tostring name) ,...))
+
 ; =<< augroup >=>
 (fn autocmd [id config]
   (let [event config.event
@@ -214,6 +274,7 @@
     `(vim.api.nvim_create_autocmd ,events ,(merge config {:group id}))))
 
 (defn augroup [name ...]
+  "Create an autogroup 'name' of autocmds of args passed to augroup"
   (let [cmds [...]
         id (gensym :augid)
         out (reduce

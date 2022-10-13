@@ -141,15 +141,16 @@
   "(find-index predicate collection)"
   "Iterates over elements of collection, returning the index element predicate returns truthy for."
   (var found false)
-  (var n 1)
+  (var idx 1)
   (let [cnt (a.count collection)]
-    (while (and (not found) (<= n cnt))
-      (let [res (predicate (. collection n))]
+    (while (and (not found) (<= idx cnt))
+      (let [res (predicate (. collection idx))]
         (when res
           (set found true))
         (when (not found)
-          (set n (a.inc n)))))
-    (if found n -1)))
+          (set idx (a.inc idx)))))
+    (if found idx -1)))
+
 ;; utils
 (defn default-to [val x]
   "(default-to val any)"
