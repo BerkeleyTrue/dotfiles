@@ -88,19 +88,63 @@
             (command normal! "0m[")
             (vf cursor last 1)
             (command normal! "$m]")
-            (save-move-info (< distance 0) "up" "down")))))))
+            (save-move-info (if (< distance 0) "up" "down"))))))))
 
 (defn- move-line-vertically [distance]
   (let [old-col (vf col ".")]
-    (command "normal! ^")
+    (command normal! "^")
     (let [old-indent (vf col ".")]
-      (move-vertically "." "." distance))))
+      (move-vertically "." "." distance)
+      (command normal! "^")
+      (let [new-indent (vf col ".")]
+        (vf cursor (vf line ".") (vf max [1 (-old-col (+ old-indent new-indent))]))))))
 
-(defn- move-block-vertically [distance])
+(defn- move-block-vertically [distance]
+  (move-vertically "'<" "'>" distance)
+  (command normal! "gv"))
 
-(defn- move-horizontally [cornerStart cornerEnd distance])
-(defn- move-char-horizontally [distance])
-(defn- move-block-horizontally [distance])
+(defn- move-horizontally [corner-start corner-end distance]
+  "If in normal mode, moves the character under the cursor.
+  If in blockwise visual mode, moves the selected rectangular area.
+  Goes right if (distance > 0) and left if (distance < 0).
+  Returns whether an edit was made.)"
+  (if (or (not (o :modifiable)) (= distance 0))
+    false
+
+    (let [cols [(vf col corner-start) (vf col corner-end)]
+          first (vf min cols)
+          last (vf max cols)
+          width (- last (+ first 1))
+          before (vf max [1 (+ first distance)])]
+      (when (> distance 0)
+        (let [lines (vf getline corner-start corner-end)
+              shortest (vf min (vf map lines "strwidth(v:val)"))
+              before (if (> last shortest) first (vf min [before (- shortest (+ width 1))]))]
+          (if (= first before)
+            false
+
+            (do
+              (undo-join (if (< distance 0) "left" "right"))
+
+              (let [old-def-reg (vf getreg "\"")]
+                (command normal! "x")
+
+                (let [old-ve (o :virtualedit)]
+                  (o! :virtualedit (if (> before (vf col "$")) "all" ""))
+                  (vf cursor (vf line ".") before)
+                  (command normal! "P")
+                  (o! :virtualedit old-ve)
+                  (vf setreg "\"" old-def-reg)
+                  (save-move-info (if (< distance 0) "left" "right"))
+                  true)))))))))
+
+
+(defn- move-char-horizontally [distance]
+  (move-horizontally "." "." distance))
+(defn- move-block-horizontally [distance]
+  (command normal! "g`<\\<C-v>g`>")
+  (when (move-horizontally "'<" "'>" distance)
+    (command norma! "g`[\\<C-v>g`]")))
 
 (defn move-block-down [] (move-block-vertically (v count1)))
 (defn move-block-up [] (move-block-vertically (- (v count1))))

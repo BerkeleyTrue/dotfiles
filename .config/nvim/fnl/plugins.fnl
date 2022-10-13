@@ -5,7 +5,8 @@
 (def- plugins
   [:accents
    :scroll-fix
-   :mumber])
+   :mumber
+   :move])
 
 (defn main []
   (->>
