@@ -6,7 +6,8 @@
     utils utils
 
     ag plugins.telescope.silver-searcher
-    alt plugins.telescope.alternate}
+    alt plugins.telescope.alternate
+    tabs plugins.telescope.tabs}
    require-macros [macros]})
 
 (defn- setup [{: telescope : previewers : sorters : actions}]
@@ -39,7 +40,8 @@
       :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]
       :mappings
       {:n
-       {:q (. actions :close)}}}}))
+       {:q (. actions :close)
+        :<esc><esc> (. actions :close)}}}}))
 
 (defn setup-keymaps []
   (utils.noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
@@ -68,4 +70,5 @@
       (setup-keymaps)
       (setup-commands)
       (ag.main)
-      (alt.main telescope))))
+      (alt.main telescope)
+      (tabs.main telescope))))

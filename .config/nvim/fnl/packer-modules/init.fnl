@@ -30,6 +30,7 @@
    {:name :folke/twilight.nvim :description "Dims inactive portions of code" :opt true :config (make-on-load twilight) :cmd [:Twilight]}
    {:name :nvim-lua/telescope.nvim :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]] :config (make-on-load telescope)}
    {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :requires [[:nvim-lua/telescope.nvim]]}
+   {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :requires [[:nvim-lua/telescope.nvim]]}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion)}
