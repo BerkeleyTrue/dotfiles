@@ -26,7 +26,7 @@
      :on_attach
      (fn [client bufnr]
        ; rely on prettier
-       (tset client.resolved_capabilities :document_formatting false)
+       (tset client.server_capabilities :documentFormattingProvider false)
        (when ts-utils
          (ts-utils.setup {})
          (ts-utils.setup_client client))

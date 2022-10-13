@@ -47,7 +47,7 @@
    {:on_attach
     (fn [client]
       ; rely on zprint
-      (tset client.resolved_capabilities :document_formatting false)
+      (tset client.server_capabilities :documentFormattingProvider false)
       (general-on-attach client))}
    :cssls {}
    :dockerls {}
