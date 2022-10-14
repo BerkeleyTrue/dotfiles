@@ -9,12 +9,17 @@
 (defn file-status []
   (->
     ""
-    (#(if (or (not utils.bo.modifiable) utils.bo.readonly)
+    (#(if (or (not (bo modifiable)) (bo readonly))
         (.. $ "%#BerksStatusLineInfo#%#BerksStatusLineInfoInverse#  %#BerksStatusLineInfo#")
         $))
-    (#(if utils.bo.modified
+    (#(if (bo modified)
         (.. $ "%#BerksStatusLineRed#%#BerksStatusLineRedInverse#  %#BerksStatusLineRed#")
         $))))
+
+(defn navic-location []
+  (if-let [navic (md.prequire :nvim-navic)]
+    (navic.get_location)
+    ""))
 
 (def- config
   {:options
@@ -35,19 +40,12 @@
    :sections
    {:lualine_a
     [:mode]
-
     :lualine_b
     [:branch
      :diff
      :diagnostics]
-
     :lualine_c
-    [{1 :filename
-      :file_status false
-      :path 1
-      :separator ""}
-     [file-status]]
-
+    [navic-location]
     :lualine_x
     [{1 :diagnostics
       :sources [:nvim_lsp :ale]
@@ -59,14 +57,36 @@
       :separator {:left "" :right ""}}
      {1 :filetype
       :separator ""}]
+    :lualine_y [:progress]
+    :lualine_z [:location]}
 
-    :lualine_y
-    [:progress]
-
-    :lualine_z
-    [:location]}
 
    :inactive_sections
+   {:lualine_a []
+    :lualine_b []
+    :lualine_c []
+
+    :lualine_x [:location]
+    :lualine_y []
+    :lualine_z []}
+
+   :tabline {}
+
+   :winbar
+   {:lualine_a
+    [:mode]
+    :lualine_b
+    [:branch
+     :diff
+     :diagnostics]
+    :lualine_c
+    [{1 :filename
+      :file_status false
+      :path 1
+      :separator false}
+     file-status]}
+
+   :inactive_winbar
    {:lualine_a []
     :lualine_b []
     :lualine_c
@@ -74,12 +94,7 @@
       :file_status false
       :path 1
       :separator false}
-     file-status]
-
-    :lualine_x [:location]
-    :lualine_y []
-    :lualine_z []}
-   :tabline {}
+     file-status]}
    :extensions {}})
 
 (defn main []

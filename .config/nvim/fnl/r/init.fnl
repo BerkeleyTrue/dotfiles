@@ -54,8 +54,18 @@
 
 (def apply
   (curry
-    (fn [args f] (f (unpack args)))))
+    (fn [f args] (f (unpack args)))))
 
+(defn over [...]
+  "Creates a function that invokes each provided function with the
+  arguments the resulting function receives and returns the results.
+  ((over max min) [1 2 3 4 5]) => [5 1]"
+  (let [fs [...]]
+    (fn [...]
+      (let [args [...]]
+        (a.map
+          (fn [f] (apply f args))
+          fs)))))
 
 ;; tables - data first
 (def get a.get)

@@ -230,8 +230,20 @@
   `(. vim.o ,(parse-sym name)))
 
 (defn o! [name val]
-  "sets buffer scoped option 'name' to 'val'."
+  "sets scoped option 'name' to 'val'."
   `(tset vim.o ,(parse-sym name) ,val))
+
+(defn bo [name bufnr]
+  "get the buffer option value"
+  (if bufnr
+    `(. vim.bo ,bufnr ,(parse-sym name))
+    `(. vim.bo ,(parse-sym name))))
+
+(defn bo! [name val bufnr]
+  "sets buffer scoped option 'name' to 'val'."
+  (if bufnr
+    `(tset vim.bo ,bufnr ,(parse-sym name) ,val)
+    `(tset vim.bo ,(parse-sym name) ,val)))
 
 (defn v [name]
   "get the value of the variable 'name'"

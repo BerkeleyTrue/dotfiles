@@ -30,39 +30,38 @@
     {}))
 
 (defn- general-on-attach [client buffnr]
-  (utils.nnoremap-silent :zf "<CMD>lua vim.lsp.buf.formatting()<CR>" {:buffer buffnr})
+  (utils.nnoremap-silent :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr})
   (utils.nnoremap-silent :K "<CMD>lua vim.lsp.buf.hover()<CR>" {:buffer buffnr})
   (utils.nnoremap-silent :gd "<CMD>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr})
   (utils.nnoremap-silent :zca "<CMD>lua vim.lsp.buf.code_action()<CR>" {:buffer buffnr})
   (utils.nnoremap-silent :zrn "<CMD>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr}))
 
+(def general-on-attach-with-navic
+  (r.over
+    general-on-attach
+    (fn [client buffnr]
+      (when client.server_capabilities.documentSymbolProvider
+        (when-let [navic (md.prequire :nvim-navic)]
+          (navic.attach client buffnr))))))
+
 (def lsps
   {:ansiblels
-   {:settings
-    {:ansible
-     {:ansibleLint {:enabled false}}}}
-   :bashls {}
-   :caramel_lsp {}
-   :clojure_lsp
-   {:on_attach
-    (fn [client]
-      ; rely on zprint
-      (tset client.server_capabilities :documentFormattingProvider false)
-      (general-on-attach client))}
+   {:settings {:ansible {:ansibleLint {:enabled false}}}
+    :on_attach general-on-attach-with-navic}
+   :bashls {:on_attach general-on-attach-with-navic}
    :cssls {}
    :dockerls {}
    :emmet_ls (emmetls.get-config)
-   :gopls {}
-   :hls {}
+   :gopls {:on_attach general-on-attach-with-navic}
+   :hls {:on_attach general-on-attach-with-navic}
    :html {}
    :jsonls (jsonls-configs)
    :prismals {}
-   :rls {}
    :solidity_ls {}
    :sumneko_lua {}
-   :tsserver (tsserver.get-config {:on_attach general-on-attach})
+   :tsserver (tsserver.get-config {:on_attach general-on-attach-with-navic})
    :tailwindcss (tailwindcss.get-config)
-   :vimls {}
+   :vimls {:on_attach general-on-attach-with-navic}
    :yamlls {}})
 
 
