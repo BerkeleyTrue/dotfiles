@@ -24,6 +24,7 @@
    {:name :numToStr/comment.nvim :description "Comment engineer written in lua." :config (make-on-load comments)}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :config (make-on-load luasnip)}
    {:name :vimsence/vimsence :description "Post activity to Discord \"currently playing\" " :config (make-on-load vimsence)}
+   {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun!"}
 
    ; search
    {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :opt true :config (make-on-load zen) :cmd [:ZenMode]}
