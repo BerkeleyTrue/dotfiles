@@ -60,12 +60,9 @@
    {:name :sindrets/diffview.nvim :desciption "git diff view" :requires [[:nvim-lua/plenary.nvim]]}
 
    ; buffers
-   {:name :vim-scripts/BufOnly.vim :description ":BufOnly removes all the buffers except the current one"}
    {:name :moll/vim-bbye :description "used in Bufdeletehidden"}
 
    ; motion
-   {:name :tmhedberg/matchit :description "expands % to match more then single chars"}
-   {:name :tpope/vim-unimpaired :description "expands [] to command ex commands"}
    {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
    {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement" :config (make-on-load hlslens)}
 
@@ -98,9 +95,6 @@
    {:name :olical/nvim-local-fennel}
    {:name :bakpakin/fennel.vim}
    {:name :eraserhd/parinfer-rust :run "cargo build --release"}
-   {:name :clojure-vim/vim-jack-in :description "Cider style jack in support for Lein, Boot and Clj" :requires [[:radenling/vim-dispatch-neovim] [:tpope/vim-dispatch]]}
-   {:name :guns/vim-clojure-static :description "adds static bindings to clojure files"}
-   {:name :tpope/vim-sexp-mappings-for-regular-people :description "adds mappings for easier list manipulation" :requires [[:guns/vim-sexp]] :config (make-on-load sexp)}
 
    ; treesitter
    {:name :nvim-treesitter/nvim-treesitter :config (make-on-load tree-sitter)}
@@ -115,28 +109,16 @@
 
    ; general lang syntax plugins
    {:name :gabrielelana/vim-markdown :config (make-on-load markdown)}
-   {:name :jxnblk/vim-mdx-js}
-   {:name :godlygeek/tabular}
-   {:name :chrisbra/csv.vim}
    {:name :glench/vim-jinja2-syntax}
    {:name :hashivim/vim-terraform :ft :terraform :config (make-on-load terraform)}
    {:name :lervag/vimtex :ft :tex :config (make-on-load vimtex)}
-   {:name :othree/xml.vim}
    {:name :pearofducks/ansible-vim}
    {:name :sirtaj/vim-openscad}
-   {:name :janet-lang/janet.vim :description "janet highlighting"}
-   {:name :tomlion/vim-solidity :description "solidity indenting"}
-   {:name :vyperlang/vim-vyper :description "ether evm language"}
 
    ;   
-   {:name :elzr/vim-json :description ""}
-   {:name :hhsnopek/vim-sugarss :description ""}
-   {:name :leafgarland/typescript-vim :description ""}
    {:name :mattn/emmet-vim :description "DSL for html" :config (make-on-load emmet)}
    {:name :vuki656/package-info.nvim :description "update package json in nvim" :requires [[:MunifTanjim/nui.nvim]] :config (make-on-load package-info)}
-   {:name :moll/vim-node :description ""}
-   {:name :posva/vim-vue :description ""}
-   {:name :wavded/vim-stylus :description ""}])
+   {:name :wavded/vim-stylus :description "stylus lang syntax"}])
 
 (defn main []
   (packer.config main-spec)
