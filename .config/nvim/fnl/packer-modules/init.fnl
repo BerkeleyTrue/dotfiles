@@ -109,6 +109,7 @@
 
    ; general lang syntax plugins
    {:name :gabrielelana/vim-markdown :config (make-on-load markdown)}
+   {:name :ellisonleao/glow.nvim :description "Preview markdown code directly in your neovim terminal" :config (make-on-load glow) :cmd [:Glow]}
    {:name :glench/vim-jinja2-syntax}
    {:name :hashivim/vim-terraform :ft :terraform :config (make-on-load terraform)}
    {:name :lervag/vimtex :ft :tex :config (make-on-load vimtex)}
