@@ -20,8 +20,8 @@
 
 ; easy insert escape
 (->>
-  {:jj "<ESC>"
-   :kk "<ESC>"}
+  {:jj :<ESC>
+   :kk :<ESC>}
   (r.to-pairs)
   (r.for-each (fn [[from to]] (utils.inoremap from to))))
 
