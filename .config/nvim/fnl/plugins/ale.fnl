@@ -20,6 +20,8 @@
      :ale_virtualtext_cursor false
      :ale_virtualtext_prefix "//=> "
      :ale_virtualtext_delay 300
+     :ale_echo_cursor 0
+     :ale_hover_cursor 0
      :ale_linters
      {:haskell [:stack-build :hls]
       :javascript [:eslint]
