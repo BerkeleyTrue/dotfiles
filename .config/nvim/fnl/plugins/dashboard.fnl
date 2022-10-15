@@ -16,23 +16,26 @@
    "                                          "
    ""])
 
-(def- center [{:icon "  "
-               :desc "Recently opened files                   "
-               :action "Telescope oldfiles cwd_only=true"}
-              {:icon "  "
-               :desc "Find  File                              "
-               :action "Telescope find_files find_command=rg,--hidden,--files"}
-              {:icon "  "
-               :desc "File Browser                            "
-               :action "NeoTreeFloat"}
-              {:icon "  "
-               :desc "Find  word                              "
-               :action "Telescope live_grep"}
-              {:icon "  "
-               :desc "Quit                                    "
-               :action "q"}])
+(def- center
+  [{:icon "  "
+    :desc "Recently opened files                   "
+    :action "OOldFiles"}
+   {:icon "  "
+    :desc "Find  File                              "
+    :action "FFiles"}
+   {:icon "  "
+    :desc "File Browser                            "
+    :action "NeoTreeFloat"}
+   {:icon "  "
+    :desc "Find  word                              "
+    :action "Telescope live_grep"}
+   {:icon "  "
+    :desc "Quit                                    "
+    :action "q!"}])
 
 (defn main []
   (when-let [db (md.prequire :dashboard)]
     (set db.custom_center center)
-    (set db.custom_header header)))
+    (set db.custom_header header)
+    (set db.hide_statusline false)
+    (set db.hide_winbar false)))
