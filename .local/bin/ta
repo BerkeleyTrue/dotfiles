@@ -150,9 +150,9 @@ attach_to_git() {
   fi
   local session_name
   local path_name
+  local opts=$(gum spin --spinner moon --title "Finding projects..." --show-output -- gfold -d json $dir | json -ga name parent)
   res=$(
-    gfold -d json $dir |
-      json -ga name parent |
+    echo "$opts" |
       fzf --reverse --header="Select project" --prompt="$(ensure_kill_prompt)" || exit 0
   )
 
