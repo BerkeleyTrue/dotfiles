@@ -213,6 +213,7 @@
   (add-group :StatusLineNC c.none c.bglight)
   (add-group :StatusLineTerm c.none c.bglighter s.bold)
   (add-group :StatusLineTermNC c.none c.bglight)
+  (add-group :WinBar c.none c.bglighter s.bold)
   (add-group :BerksStatusLineRed c.red c.bglighter)
   (add-group :BerksStatusLineRedInverse c.bglighter c.red)
   (add-group :BerksStatusLineInfo c.cyan c.bglighter)

@@ -71,6 +71,7 @@
      :updatetime     300                              ;  smaller updatetime for CursorHold & CursorHoldI
      :visualbell     true                             ;  flash screen on error
      :wildignore     "*.swp,*.bak,*.pyc,*.class"      ;  ignore these files
+     :winbar         ">=>%f"                          ;  default winbar, prevent FOUC
 
      ; nvim blinking cursor see :help 'guicursor'
      :guicursor  "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
