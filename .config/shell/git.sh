@@ -42,7 +42,6 @@ alias yfetch='yadm fetch'
 alias ylog='yadm log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
 alias ypull='yadm pull --rebase'
 alias ypush='yadm push'
-alias ystat='yadm status'
 
 alias yrst='yadm reset'
 alias yrst1='yadm reset HEAD^'
@@ -53,6 +52,29 @@ alias yrsth2='yadm reset --hard HEAD^^'
 alias yrsts='yadm reset --soft'
 alias yrsts1='yadm reset --soft HEAD^'
 alias yrsts2='yadm reset --soft HEAD^^'
+
+# add unignored files to intent to add
+yunignored() {
+  unignore="$XDG_CONFIG_HOME/yadm/unignored"
+  test -r "$unignore" && cat "$unignore" | envsubst | yadm add --intent-to-add --pathspec-from-file=-
+}
+# yadm status w/ unignored files
+ystat() {
+  yunignored
+  yadm status
+}
+# yadm add using fzf including unignored files
+yadd() {
+  # if no args, yadd goes into fzf of changed files
+  # can't do -o for yadm since it will list all the files
+  if [[ $# -eq 0 ]]; then
+    yunignored # add unignored files
+    yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always" | xargs -0 -o -t yadm add
+    return 0
+  fi
+  # regular yadm add if arguments are given
+  eval "yadm add $@"
+}
 #}}}
 
 gadd() {
@@ -65,16 +87,6 @@ gadd() {
   eval "git add $@"
 }
 
-yadd() {
-  # if no args, yadd goes into fzf of changed files
-  # can't do -o for yadm since it will list all the files
-  if [[ $# -eq 0 ]]; then
-    yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always" | xargs -0 -o -t yadm add
-    return 0
-  fi
-  # regular yadm add if arguments are given
-  eval "yadm add $@"
-}
 ggetcurrentbranch() {
   git rev-parse --abbrev-ref HEAD
 }
