@@ -43,6 +43,7 @@
 
 (defn main []
   (when-let [lens (md.prequire :hlslens)]
+    (lens.setup {})
     (utils.nnoremap :n (.. "<CMD>execute('normal! '.v:count1.'n')<CR>" (cviml->lua* start)) {:silent true})
     (utils.nnoremap :N (.. "<CMD>execute('normal! '.v:count1.'N')<CR>" (cviml->lua* start)) {:silent true})
     (utils.nnoremap :* (.. "*" (cviml->lua* start)) {:silent true})
