@@ -11,7 +11,7 @@
 
 (defn get-capabilities []
   (let [cmplsp (require :cmp_nvim_lsp)]
-    (cmplsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))))
+    (cmplsp.default_capabilities)))
 
 (defn caramel-configs [lsputil]
   {:default_config
