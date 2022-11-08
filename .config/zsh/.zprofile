@@ -1,3 +1,5 @@
+OSNAME=$(uname)
+
 export GOPATH=$HOME/dvlpmnt/go
 
 PATH=$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/.cargo/bin
@@ -8,5 +10,9 @@ PATH=$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/.cargo/bin
 # if [[ "$(tty)" = "/dev/tty1" ]]; then
 #   pgrep X || startx $HOME/.config/x11/xinitrc > $HOME/.local/share/x11/x11.log 2>&1
 # fi
-xcape -e 'Control_L=Escape'
+
+if [[ $OSNAME != 'Darwin' ]]; then
+  xcape -e 'Control_L=Escape'
+fi
+
 bindkey -a -r ':' # remove execute widget command
