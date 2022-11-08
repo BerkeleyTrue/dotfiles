@@ -52,7 +52,7 @@
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
    {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
    {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
-   {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot)}
+   {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
    {:name :rcarriga/nvim-notify :description "used by noice, need to set config" :config (make-on-load notify)}
    {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and popupmenu" :requires [[:MunifTanjim/nui.nvim] [:rcarriga/nvim-notify] [:hrsh7th/nvim-cmp]] :config (make-on-load noice)}
    {:name :SmiteshP/nvim-navic :description "A simple statusline/winbar component that uses LSP to show your current code context." :requires [[:neovim/nvim-lspconfig]] :config (make-on-load navic)}
