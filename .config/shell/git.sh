@@ -359,9 +359,11 @@ fbranch() {
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 gco() {
-  # fco - checkout git branch/tag with fzf search
+  # gco - checkout git branch/tag with fzf search
   local branches target
   local query=$1
+
+  # TODO: make search through remote branches
   local existed_in_local=$(git branch --list ${query})
   if [[ -n $existed_in_local ]] || [[ -f "$query" ]] || [[ -d "$query" ]]; then
     git checkout $query
@@ -384,7 +386,15 @@ gco() {
       fzf-tmux -d50% -- --no-hscroll --ansi +m -d "\t" -n 2 --preview="git --no-pager log -150 --pretty=format:%s '..{2}'" -q $query
   ) || return
 
-  git checkout $(echo "$target" | awk '{print $2}')
+  branch_name=$(echo "$target" | awk '{print $2}')
+
+  # check if target starts with origin/
+  # TODO: make generic to remote name
+  if [[ $branch_name = origin/* ]]; then
+    git checkout -b ${branch_name#"origin/"} --track $branch_name
+  else
+    git checkout $branch_name
+  fi
 }
 
 flog() {
