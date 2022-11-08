@@ -17,7 +17,7 @@
      :ale_sign_warning "🌑"
      :ale_echo_msg_format "%linter%(%code%): %s"
      :ale_sign_column_always true
-     :ale_virtualtext_cursor false
+     :ale_virtualtext_cursor true
      :ale_virtualtext_prefix "//=> "
      :ale_virtualtext_delay 300
      :ale_echo_cursor 0
