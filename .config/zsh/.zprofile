@@ -1,5 +1,6 @@
 export GOPATH=$HOME/dvlpmnt/go
-PATH=$PATH:$HOME/.local/bin:$GOPATH/bin
+
+PATH=$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/.cargo/bin
 # Run by login shell (zsh)
 
 # If we are in TTY1 (login) and not already running xorg,
