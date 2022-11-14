@@ -1,4 +1,4 @@
-(module plugins.lspconfig.fennel
+(module plugins.lspconfig.fennel-ls
   {require
    {a aniseed.core
     r r
@@ -8,7 +8,7 @@
 
 (defn main [lsputil]
   {:default_config
-   {:cmd [:fennel-language-server]
+   {:cmd [:fennel-ls]
     :filetypes [:fennel]
     :root_dir (lsputil.root_pattern :fnl)
     :single_file_support true

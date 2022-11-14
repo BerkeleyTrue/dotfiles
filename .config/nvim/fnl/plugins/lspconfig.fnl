@@ -7,7 +7,8 @@
     tsserver plugins.lspconfig.tsserver
     tailwindcss plugins.lspconfig.tailwindcss
     emmetls plugins.lspconfig.emmetls
-    fennel plugins.lspconfig.fennel}
+    fennel-ls plugins.lspconfig.fennel-ls
+    fennel-language-server plugins.lspconfig.fennel-language-server}
    require-macros [macros]})
 
 (defn get-capabilities []
@@ -53,7 +54,8 @@
    :cssls {}
    :dockerls {}
    :emmet_ls (emmetls.get-config)
-   ; :fennells {} disabled for now, since it doesn't pick up macros
+   ; :fennel_ls {} ; disabled for now, since it doesn't pick up macros
+   ; :fennel_language_server {} ; disabled for now, since it doesn't pick up macros
    :gopls {:on_attach general-on-attach-with-navic}
    :hls {:on_attach general-on-attach-with-navic}
    :html {}
@@ -103,8 +105,11 @@
       (when-not configs.caramel_lsp
         (set configs.caramel_lsp (caramel-configs lsputil)))
 
+      (when-not configs.fennel_ls
+        (set configs.fennel_ls (fennel_ls.main lsputil)))
+
       (when-not configs.fennel_language_server
-        (set configs.fennells (fennel.main lsputil)))
+        (set configs.fennel_language_server (fennel-language-server.main lsputil)))
 
       (->>
         lsps
