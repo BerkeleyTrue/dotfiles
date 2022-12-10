@@ -6,9 +6,9 @@
 
 
 (defn add-emmet []
-  (utils.ex.EmmetInstall)
-  (utils.imap :<leader><tab> "<plug>(emmet-expand-abbr)" {:buffer true})
-  (utils.inoremap "/<leader><tab>" "<esc>:call emmet#expandAbbr(0,'')<cr>h:call emmet#splitJoinTag()<cr>wwi" {:buffer true}))
+  (cmd EmmetInstall)
+  (imap :<leader><tab> "<plug>(emmet-expand-abbr)" {:buffer true})
+  (inoremap "/<leader><tab>" "<esc>:call emmet#expandAbbr(0,'')<cr>h:call emmet#splitJoinTag()<cr>wwi" {:buffer true}))
 
 
 (def filetypes
