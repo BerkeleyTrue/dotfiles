@@ -3,9 +3,9 @@
    {a aniseed.core
     r r
     md utils.module
-    utils utils}
+    utils utils
+    keys utils.keys}
    require-macros [macros]})
-
 
 (defn main []
   (when-let [copilot (md.prequire :copilot)]
@@ -24,7 +24,7 @@
         :auto_trigger true
         :debounce 250
         :keymap
-        {:accept :<Tab>
+        {:accept false
          :next "]]"
          :prev "[["
          :dismiss "<C-]>"}}
@@ -40,4 +40,13 @@
         :. false}
        :copilot_node_command :node
        :plugin_manager_path (.. (vim.fn.stdpath :config) :/pack/packer)
-       :server_opts_overrides {}})))
+       :server_opts_overrides {}})
+
+    (let [cpsuggestions (md.prequire :copilot.suggestion)]
+      (imap
+        :<Tab>
+        (fn []
+          (if (cpsuggestions.is_visible)
+            (cpsuggestions.accept)
+            (keys.feed :<Tab> true)))
+        {:silent true}))))
