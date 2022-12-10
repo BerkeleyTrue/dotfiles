@@ -7,11 +7,15 @@
    require-macros [macros]})
 
 
-(defn main [])
-  ;; (when-let [nnp (md.prequire :no-neck-pain)]
-  ;;   (nnp.setup
-  ;;     {:width 100})
-  ;;   (augroup :NoNeckPainEnter
-  ;;     {:event :VimEnter
-  ;;      :pattern :*
-  ;;      :callback (fn [] (vim.schedule (fn [] (nnp.start))))})))
+(defn main []
+  (when-let [nnp (md.prequire :no-neck-pain)]
+    (nnp.setup
+      {:width 100})
+    (augroup :NoNeckPainEnter
+      {:event :VimEnter
+       :pattern :*
+       :callback
+       (fn []
+          (if (not= (utils.buf_get_name 0) "")
+            (vim.schedule
+              (fn [] (nnp.start)))))})))
