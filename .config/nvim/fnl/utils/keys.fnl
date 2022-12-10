@@ -9,8 +9,8 @@
 
 (comment (replace-termcodes "<CR>"))
 
-(defn feed [str noremap]
-  (let [mode (if noremap :n :m)]
+(defn feed [str noremap_]
+  (let [mode (if noremap_ :n :m)]
     (->
       str
       (replace-termcodes)

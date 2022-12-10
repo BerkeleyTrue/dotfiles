@@ -43,10 +43,10 @@
        {:qq (. actions :close)}}}}))
 
 (defn setup-keymaps []
-  (utils.noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
-  (utils.noremap :<leader>ff (utils.cviml->lua :telescope.builtin :find_files))
-  (utils.noremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps))
-  (utils.noremap :z= (utils.cviml->lua :telescope.builtin :spell_suggest)))
+  (noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
+  (noremap :<leader>ff (utils.cviml->lua :telescope.builtin :find_files))
+  (noremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps))
+  (noremap :z= (utils.cviml->lua :telescope.builtin :spell_suggest)))
 
 (defn setup-commands []
   (command! :HLights (utils.viml->lua :telescope.builtin :highlights))

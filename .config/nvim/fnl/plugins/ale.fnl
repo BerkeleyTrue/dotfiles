@@ -36,4 +36,4 @@
       {:<leader>ak "<Plug>(ale_previous_wrap)"
        :<leader>aj "<Plug>(ale_next_wrap)"}
       (r.to-pairs)
-      (r.for-each (fn [[from to]] (utils.nmap from to))))))
+      (r.for-each (fn [[from to]] (nmap from to))))))

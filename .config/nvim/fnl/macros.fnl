@@ -29,6 +29,12 @@
     (nil? val) true
     false))
 
+(fn even? [n]
+  (= (% n 2) 0))
+
+(fn odd? [n]
+  (not (even? n)))
+
 (fn count [xs]
   (if
     (table? xs) (let [maxn (table.maxn xs)]
@@ -66,6 +72,22 @@
       acc)
     (or base {})
     [...]))
+
+(fn assoc [t ...]
+  (let [[k v & xs] [...]
+        rem (count xs)
+        t (or t {})]
+
+    (when (odd? rem)
+      (error "assoc expects even number of arguments after table, found odd number"))
+
+    (when (not (nil? k))
+      (tset t k v))
+
+    (when (> rem 0)
+      (assoc t (unpack xs)))
+
+    t))
 
 (fn merge [...]
   (merge! {} ...))
@@ -300,5 +322,69 @@
               [`(local ,id (vim.api.nvim_create_augroup ,name {:clear true}))]
               cmds)]
     (dolist out)))
+
+
+; =<< keymap  >>=>
+
+(local map-types
+  {:n :n
+   :o :o
+   :v :v
+   :i :i
+   :x :x
+   :s :s
+   :a ""})
+
+(fn base-map [mtype lhs rhs options]
+  "(base-map :n :<CR> ':echo foo' {:expr true :buffer false :nowait false})"
+  (let [mode (. map-types mtype)
+        {:expr expr
+         :silent silent
+         :buffer buffer
+         :nowait nowait
+         :script script
+         :unique unique} (or options {})]
+
+
+    `(vim.keymap.set ,mode ,lhs ,rhs ,{:expr expr
+                                       :silent silent
+                                       :nowait nowait
+                                       :script script
+                                       :unique unique
+                                       :buffer buffer})))
+
+(defn nmap [lhs rhs options] (base-map :n lhs rhs options))
+(defn amap [lhs rhs options] (base-map :n lhs rhs options))
+(defn omap [lhs rhs options] (base-map :o lhs rhs options))
+(defn imap [lhs rhs options] (base-map :i lhs rhs options))
+(defn smap [lhs rhs options] (base-map :s lhs rhs options))
+(defn vmap [lhs rhs options] (base-map :v lhs rhs options))
+
+(defn noremap [lhs rhs options?]
+  "norecur map for all modes"
+  (let [options (assoc (or options? {}) :noremap true)]
+    (base-map :a lhs rhs options)))
+
+(defn nnoremap [lhs rhs options?]
+  "(nnoremap 'cr' ':echo foo' {:expr true :buffer false :nowait false})
+  create a nnoremap"
+  (let [options (assoc (or options? {}) :noremap true)]
+    (base-map :n lhs rhs options)))
+
+(defn inoremap [lhs rhs options?]
+  (let [options (assoc (or options? {}) :noremap true)]
+    (base-map :i lhs rhs options)))
+
+(defn vnoremap [lhs rhs options?]
+  (let [options (assoc (or options? {}) :noremap true)]
+    (base-map :v lhs rhs options)))
+
+(defn xnoremap [lhs rhs options?]
+  (let [options (assoc (or options? {}) :noremap true)]
+    (base-map :x lhs rhs options)))
+
+(defn snoremap [lhs rhs options?]
+  (let [options (assoc (or options? {}) :noremap true)]
+    (base-map :s lhs rhs options)))
 
 :return M

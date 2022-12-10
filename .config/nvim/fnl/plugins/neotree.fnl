@@ -13,8 +13,8 @@
   (hl.link! :NeoTreeDirectoryName :Directory)
   (hl.link! :NeoTreeDirectoryIcon :NeoTreeDirectoryName)
 
-  (utils.nnoremap :gef ":NeoTreeFloat<cr>" {:silent true})
-  (utils.nnoremap :get ":NeoTreeShow<cr>" {:silent true})
+  (nnoremap :gef ":NeoTreeFloat<cr>" {:silent true})
+  (nnoremap :get ":NeoTreeShow<cr>" {:silent true})
 
   (when-let [neotree (md.prequire :neo-tree)]
     (let [fs (md.prequire :neo-tree.sources.filesystem)

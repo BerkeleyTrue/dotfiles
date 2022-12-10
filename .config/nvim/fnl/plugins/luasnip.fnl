@@ -123,20 +123,20 @@
       :SourceSnips
       (viml->lua* source-snips))
 
-    (utils.inoremap
+    (inoremap
       :<C-j> (cviml->lua* expand-or-jump) {:silent true})
-    (utils.snoremap
+    (snoremap
       :<C-j> (cviml->lua* expand-or-jump) {:silent true})
 
-    (utils.inoremap
+    (inoremap
       :<C-k> (cviml->lua* jump-back) {:silent true})
-    (utils.snoremap
+    (snoremap
       :<C-k> (cviml->lua* jump-back) {:silent true})
 
-    (utils.imap
+    (imap
       :<C-l> (cviml->lua* switch-choice))
 
-    (utils.imap
+    (imap
       :<C-h> (cviml->lua* switch-choice-r))
 
     (let [types (md.prequire :luasnip.util.types)]

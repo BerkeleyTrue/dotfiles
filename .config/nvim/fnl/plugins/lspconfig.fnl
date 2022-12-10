@@ -32,11 +32,11 @@
     {}))
 
 (defn- general-on-attach [client buffnr]
-  (utils.nnoremap-silent :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr})
-  (utils.nnoremap-silent :K "<CMD>lua vim.lsp.buf.hover()<CR>" {:buffer buffnr})
-  (utils.nnoremap-silent :gd "<CMD>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr})
-  (utils.nnoremap-silent :zca "<CMD>lua vim.lsp.buf.code_action()<CR>" {:buffer buffnr})
-  (utils.nnoremap-silent :zrn "<CMD>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr}))
+  (nnoremap :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr :silent true})
+  (nnoremap :K "<CMD>lua vim.lsp.buf.hover()<CR>" {:buffer buffnr :silent true})
+  (nnoremap :gd "<CMD>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr :silent true})
+  (nnoremap :zca "<CMD>lua vim.lsp.buf.code_action()<CR>" {:buffer buffnr :silent true})
+  (nnoremap :zrn "<CMD>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr :silent true}))
 
 (def general-on-attach-with-navic
   (r.over

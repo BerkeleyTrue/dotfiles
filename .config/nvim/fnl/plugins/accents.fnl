@@ -61,7 +61,7 @@
 (defn setup []
   "set up for accents"
   (nvim.buf_set_option 0 :completefunc (viml->lua* completion))
-  (utils.nnoremap
+  (nnoremap
     "gax"
     (cviml->lua* cycle)
     {:silent true :buffer true}))

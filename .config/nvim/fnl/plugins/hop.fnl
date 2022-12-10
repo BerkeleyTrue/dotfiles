@@ -24,9 +24,9 @@
    {:direction (. (require :hop.hint) :HintDirection :BEFORE_CURSOR)}))
 
 (defn main []
-  (when-let [hop (md.packadd-n-require :hop.nvim :hop)]
+  (when-let [hop (md.prequire :hop)]
     (hop.setup)
-    (utils.nmap :f (cviml->lua* hop-find))
-    (utils.vmap :f (cviml->lua* hop-find))
-    (utils.nmap :<leader>j (cviml->lua* hop-vertical-j))
-    (utils.nmap :<leader>k (cviml->lua* hop-vertical-k))))
+    (nmap :f (cviml->lua* hop-find))
+    (vmap :f (cviml->lua* hop-find))
+    (nmap :<leader>j (cviml->lua* hop-vertical-j))
+    (nmap :<leader>k (cviml->lua* hop-vertical-k))))

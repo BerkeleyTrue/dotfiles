@@ -160,12 +160,12 @@
 (defn move-char-left [] (move-char-horizontally (v count1)))
 
 (defn main []
-  (utils.vnoremap (create-move-key :j) (cviml->lua* move-block-down) {:silent true})
-  (utils.vnoremap (create-move-key :k) (cviml->lua* move-block-up) {:silent true})
-  (utils.vnoremap (create-move-key :h) (cviml->lua* move-block-left) {:silent true})
-  (utils.vnoremap (create-move-key :l) (cviml->lua* move-block-right) {:silent true})
+  (vnoremap (create-move-key :j) (cviml->lua* move-block-down) {:silent true})
+  (vnoremap (create-move-key :k) (cviml->lua* move-block-up) {:silent true})
+  (vnoremap (create-move-key :h) (cviml->lua* move-block-left) {:silent true})
+  (vnoremap (create-move-key :l) (cviml->lua* move-block-right) {:silent true})
 
-  (utils.nnoremap (create-move-key :j) (cviml->lua* move-line-down) {:silent true})
-  (utils.nnoremap (create-move-key :k) (cviml->lua* move-line-up) {:silent true})
-  (utils.nnoremap (create-move-key :h) (cviml->lua* move-char-left) {:silent true})
-  (utils.nnoremap (create-move-key :l) (cviml->lua* move-char-right) {:silent true}))
+  (nnoremap (create-move-key :j) (cviml->lua* move-line-down) {:silent true})
+  (nnoremap (create-move-key :k) (cviml->lua* move-line-up) {:silent true})
+  (nnoremap (create-move-key :h) (cviml->lua* move-char-left) {:silent true})
+  (nnoremap (create-move-key :l) (cviml->lua* move-char-right) {:silent true}))
