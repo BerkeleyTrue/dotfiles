@@ -44,7 +44,7 @@
             :<cr> :open
             :<bs> :nop
             :w :noop
-            :<esc><esc> :close_window
+            :qq :close_window
 
             :<Space>
             (fn toggle-directory [state]

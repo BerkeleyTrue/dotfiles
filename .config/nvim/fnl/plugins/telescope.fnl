@@ -40,8 +40,7 @@
       :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]
       :mappings
       {:n
-       {:q (. actions :close)
-        :<esc><esc> (. actions :close)}}}}))
+       {:qq (. actions :close)}}}}))
 
 (defn setup-keymaps []
   (utils.noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
