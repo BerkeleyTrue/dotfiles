@@ -21,8 +21,8 @@
          :open :<M-CR>}}
        :suggestion
        {:enabled true
-        :auto_trigger false
-        :debounce 75
+        :auto_trigger true
+        :debounce 250
         :keymap
         {:accept :<Tab>
          :next "]]"

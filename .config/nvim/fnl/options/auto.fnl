@@ -3,10 +3,6 @@
    {utils utils}
    require-macros [macros]})
 
-(defn disable-camel-case-spell []
-  (utils.ex.syntax "match CamelCase /\\<[A-Z][a-z]\\+[A-Z].\\{-}\\>/ contains=@NoSpell transparent")
-  (utils.ex.syntax "cluster Spell add=CamelCase"))
-
 (defn go-to-last-edit []
   (when
     (and
@@ -26,10 +22,6 @@
 (augroup
   :GeneralAu
 
-  {:event [:BufEnter :BufReadPost :WinEnter]
-   :pattern :*
-   :callback disable-camel-case-spell}
-
   ; Resize splits when the window is resized
   {:event :VimResized
    :pattern :*
@@ -39,6 +31,7 @@
   {:event [:BufReadPost]
    :pattern :*
    :callback go-to-last-edit}
+
   ; make sure cursor always starts on the first line for gitcommit files
   {:event [:FileType]
    :pattern :gitcommit
