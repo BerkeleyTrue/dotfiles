@@ -131,5 +131,5 @@
 
 (defn source-modules []
   (anenv.compile-fnl)
-  (utils.ex.source (get-lua-filename))
+  (command source (get-lua-filename))
   (packer.config main-spec))

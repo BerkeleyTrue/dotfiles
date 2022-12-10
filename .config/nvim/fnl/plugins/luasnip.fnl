@@ -85,7 +85,7 @@
   "Compile fennel files, source this file in lua, for each filtype file,
   map to the lua version and source file"
   (anenv.compile-fnl)
-  (utils.ex.source *lua-file*)
+  (command source *lua-file*)
   (->>
     ft-snips
     (r.map #(.. *lua-dir* $ ".lua"))

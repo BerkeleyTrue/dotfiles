@@ -8,8 +8,8 @@
 
 ; parinfer does not like this file
 (defn format-fold-text []
-  (let [foldstart (. utils.v :foldstart)
-        foldend (. utils.v :foldend)
+  (let [foldstart (v :foldstart)
+        foldend (v :foldend)
         numcolwidth (+
                       (tonumber (. utils.wo :foldcolumn))
                       (* (if (. utils.wo :number) 1 0)
@@ -79,7 +79,7 @@
      :foldtext     format-fold-text-viml}
     (utils.set-nvim-o!)))
 
-(utils.set-nvim-g! {:loaded_matchit true})
-(utils.ex.filetype :plugin :on)
-(utils.ex.filetype :indent :on)
-(utils.ex.syntax :on)
+(g! loaded_matchit true)
+(command filetype :plugin :on)
+(command filetype :indent :on)
+(command syntax :on)

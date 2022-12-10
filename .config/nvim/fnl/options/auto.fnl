@@ -7,17 +7,18 @@
   (when
     (and
       ; don't run in commit messages
-      (not= (. utils.bo :filetype) :gitcommit)
+      (not= (bo :filetype) :gitcommit)
       ; last mark is at '"
       ; so if the last mark is more than the first line (>0)
       ; and less then the files last line ("$")
       (and
         (> (vim.fn.line "'\"") 0)
         (<= (vim.fn.line "'\"") (vim.fn.line "$"))))
+
     ; g'"|g`"" Jump to the last known position, but don't change the jumplist
     ; zv open folds enough to view cursor
     ; zz center cursor line on screen
-    (utils.ex.normal_ "g`\"zvzz")))
+    (command normal! "g`\"zvzz")))
 
 (augroup
   :GeneralAu

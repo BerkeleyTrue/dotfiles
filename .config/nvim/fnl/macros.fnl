@@ -289,7 +289,7 @@
 (defn n [name ...]
   "run vim.api.nvim_[n] api"
   (let [f (.. "vim.api.nvim_" (tostring name))]
-    `(,f ,...)))
+    `(,(sym f) ,...)))
 
 (defn vf [name ...]
   "run viml function 'name'"

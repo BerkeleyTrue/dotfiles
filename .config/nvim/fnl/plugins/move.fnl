@@ -20,14 +20,14 @@
 
 (defn- undo-join [dir]
   (let [last lastDir
-        unchanged? (= lastChangedTick (. utils.b :changedtick))
+        unchanged? (= lastChangedTick (b :changedtick))
         same-dir? (= lastDir dir)]
     (when (and unchanged? same-dir?)
-      (utils.ex.silent_ :undojoin))))
+      (command silent! :undojoin))))
 
 (defn- save-move-info [dir]
   (set lastDir dir)
-  (set lastChangedTick (. utils.b :changedtick)))
+  (set lastChangedTick (b :changedtick)))
 
 (defn- execute-move-vert [line distance]
   "Compute the destination line. Instead of simply incrementing the line
@@ -53,7 +53,7 @@
   "Move and reindent given lines down (distance > 0) or up (distance < 0)"
   (when
     (and
-      (. utils.o :modifiable)
+      (o :modifiable)
       (not= distance 0))
     (let [down? (> distance 0)
           first (vf line first)

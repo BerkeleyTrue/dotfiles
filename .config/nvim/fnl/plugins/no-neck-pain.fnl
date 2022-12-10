@@ -16,6 +16,6 @@
        :pattern :*
        :callback
        (fn []
-          (if (not= (utils.buf_get_name 0) "")
+          (if (not= (n buf_get_name 0) "")
             (vim.schedule
               (fn [] (nnp.start)))))})))

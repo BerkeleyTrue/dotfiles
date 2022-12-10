@@ -28,7 +28,7 @@
                     ; filter for unmodified buffers
                     (r.filter #(= (vf getbufvar $1 "&mod") 0)))]
     (when-not (r.empty? to-delete)
-       (r.for-each #(utils.ex.bwipeout $1) to-delete)
+       (r.for-each #(command bwipeout $1) to-delete)
        (utils.print (.. "Closed " (r.size to-delete) " hidden buffers")))))
 
 (command! :Bdh (viml->lua* buff-delete-hidden))

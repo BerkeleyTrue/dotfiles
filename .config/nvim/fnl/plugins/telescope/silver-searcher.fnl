@@ -47,13 +47,13 @@
 
 (defn ag [...]
   (when-let [ag-not-found (not (= (vim.fn.executable "ag") 1))]
-    (utils.ex.echoe "'ag not found. Is silver searcher installed?'"))
+    (command echoe "'ag not found. Is silver searcher installed?'"))
 
   (let [args [...]
         args (if (r.empty? args) [(vim.fn.expand "<cword>")] args)]
 
     (if (r.empty? args)
-      (utils.ex.echoe "'Usage: \":Ag {pattern}\" (or just :Ag to search for the word under the cursor).'")
+      (command echoe "'Usage: \":Ag {pattern}\" (or just :Ag to search for the word under the cursor).'")
       (let [args (r.concat [:ag (r.head args)] (r.tail args))]
         (: (pickers.new
             default-opts
