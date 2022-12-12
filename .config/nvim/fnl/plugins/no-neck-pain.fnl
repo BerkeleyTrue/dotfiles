@@ -9,13 +9,32 @@
 
 (defn main []
   (when-let [nnp (md.prequire :no-neck-pain)]
+
     (nnp.setup
-      {:width 100})
+      {:width 120
+       :buffers
+       {:showName true}})
+
     (augroup :NoNeckPainEnter
       {:event :VimEnter
        :pattern :*
        :callback
        (fn []
-          (if (not= (n buf_get_name 0) "")
-            (vim.schedule
-              (fn [] (nnp.start)))))})))
+         (vim.schedule
+           (fn []
+             (when (and
+                     (not= (bo filetype) "dashboard")
+                     (= (. _G :NoNeckPain.state) nil))
+               (nnp.enable)))))}
+
+      {:event :BufWinEnter
+       :pattern :*
+       :callback
+       (fn []
+          (vim.schedule
+            (fn []
+              (when (and
+                       (not= (bo filetype) "dashboard")
+                       (. _G :NoNeckPainLoaded)
+                       (= (. (. _G :NoNeckPain) :state) nil))
+                (nnp.enable)))))})))
