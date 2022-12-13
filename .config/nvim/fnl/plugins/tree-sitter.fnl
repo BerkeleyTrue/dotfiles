@@ -76,8 +76,10 @@
           :regex
           :rust
           :solidity
+          :swift
           :tsx
-          :typescript]
+          :typescript
+          :vim]
 
          :highlight {:enable true}
          :incremental_selection
