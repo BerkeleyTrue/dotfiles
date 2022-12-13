@@ -87,7 +87,6 @@
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :requires [[:nvim-lua/plenary.nvim] [:kyazdani42/nvim-web-devicons] [:MunifTanjim/nui.nvim]] :config (make-on-load neotree)}
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :requires [[:kyazdani42/nvim-web-devicons]] :config (make-on-load lualine)}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings."}
-   {:name :shortcuts/no-neck-pain.nvim :description "Adds empty buffers around main buffer to center on wide screens" :config (make-on-load no-neck-pain)}
 
    ; parenthesis
    {:name :kylechui/nvim-surround :description "Add surround movements, written in lua." :config (make-on-load surround)}

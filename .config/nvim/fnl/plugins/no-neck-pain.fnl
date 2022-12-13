@@ -12,6 +12,7 @@
 
     (nnp.setup
       {:width 120
+       :disableOnLastBuffer true
        :buffers
        {:showName true}})
 
