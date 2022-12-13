@@ -57,7 +57,9 @@
         {:open_fn
          (fn []
            ((. (require "packer.util") :float) {:border "rounded"}))}
-        :package_root (.. (nvim.fn.stdpath "config") "/pack")}})))
+        :package_root (.. (nvim.fn.stdpath "config") "/pack")
+        :max_jobs 10}})))
+
 
 (do
   (ensure-packer-exist)
