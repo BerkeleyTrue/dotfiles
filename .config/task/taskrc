@@ -43,10 +43,8 @@ context.bike.read=proj:bike or +bike
 context.bike.write=proj:bike +bike
 context.crypto.read=+crypto
 context.crypto.write=+crypto
-
 context.blog.read=+blog or pro:blog
 context.blog.write=proj:blog
-context.urm.read=proj:mr.urm
-context.urm.write=proj:mr.urm
-context.move.read=+move
-context.move.write=+move
+context.p400.read=+mr and proj:mr.p400
+context.p400.write=+mr and proj:mr.p400
+
