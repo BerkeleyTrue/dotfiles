@@ -280,7 +280,7 @@
         cmd-string (if var? name (tostring name))
         (cmd bangs?) (if var? (values cmd-string 0) (string.gsub cmd-string "!" ""))
         bang? (>= bangs? 1)]
-    `(vim.api.nvim_cmd ,(merge {:cmd cmd :bang bang?} def))))
+    `(vim.api.nvim_cmd ,(merge {:cmd cmd :bang bang?} def) {})))
 
 (defn command [name ...]
   "execute command 'name' and concat with arguments"
