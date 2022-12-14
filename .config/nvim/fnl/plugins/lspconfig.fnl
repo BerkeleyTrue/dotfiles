@@ -111,6 +111,9 @@
       (when-not configs.fennel_language_server
         (set configs.fennel_language_server (fennel-language-server.main lsputil)))
 
+      (when (os.execute "which sourcekit-lsp")
+        (set lsps.sourcekit {}))
+
       (->>
         lsps
         (r.to-pairs)

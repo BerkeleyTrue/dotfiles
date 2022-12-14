@@ -34,7 +34,8 @@
                    {:extra_args [:-i 2]})
                  (yamlfix.main null-ls)
                  null-ls.builtins.formatting.lua_format
-                 null-ls.builtins.formatting.brittany]]
+                 null-ls.builtins.formatting.brittany
+                 null-ls.builtins.formatting.swiftformat]]
 
 
     (null-ls.setup {: sources})))
