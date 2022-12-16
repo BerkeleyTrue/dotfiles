@@ -9,7 +9,10 @@
 
 (defn main []
   (let [null-ls (md.prequire :null-ls)
-        sources [(null-ls.builtins.formatting.prettier.with
+        sources [
+                 (zprint.main null-ls)
+                 (yamlfix.main null-ls)
+                 (null-ls.builtins.formatting.prettier.with
                    {:command "npx"
                     :args ["prettier" "--stdin-filepath" "$FILENAME"]
 
@@ -29,13 +32,12 @@
                      :markdown
                      :solidity
                      :graphql]})
-                 (zprint.main null-ls)
-                 (null-ls.builtins.formatting.shfmt.with
-                   {:extra_args [:-i 2]})
-                 (yamlfix.main null-ls)
+                 (null-ls.builtins.formatting.shfmt.with {:extra_args [:-i 2]})
                  null-ls.builtins.formatting.lua_format
                  null-ls.builtins.formatting.brittany
-                 null-ls.builtins.formatting.swiftformat]]
+                 null-ls.builtins.formatting.swiftformat
+                 null-ls.builtins.diagnostics.eslint
+                 null_ls.builtins.diagnostics.ansiblelint]]
 
 
     (null-ls.setup {: sources})))

@@ -19,7 +19,6 @@
    {:name :mg979/vim-visual-multi :config (make-on-load multi-cursor)}
    {:name :wincent/corpus :description "vim wiki written in lua" :config (make-on-load corpus)}
    {:name :wakatime/vim-wakatime :description "track dev time"}
-   {:name :Shelvak/ale :branch :solc_0.8 :description "linting engine" :config (make-on-load ale)}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :numToStr/comment.nvim :description "Comment engineer written in lua." :config (make-on-load comments)}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :config (make-on-load luasnip)}
