@@ -111,7 +111,7 @@
       (when-not configs.fennel_language_server
         (set configs.fennel_language_server (fennel-language-server.main lsputil)))
 
-      (when (os.execute "which sourcekit-lsp")
+      (when (= (os.execute "which sourcekit-lsp > /dev/null 2>&1") 0)
         (set lsps.sourcekit {}))
 
       (->>
