@@ -106,7 +106,8 @@ create_detached_session() {
 
 create_session_from_dir() {
   local dir=$1
-  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)")
+  local query=$(test $2 && echo $2 || echo "")
+  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)" --query="$query")
   local session_name=${_session_name//./_}
   echo $session_name
 }
@@ -131,7 +132,8 @@ create_if_needed_and_attach() {
 
 attach_to_dir_session() {
   local dir=$1
-  local session_name=$(create_session_from_dir $dir)
+  local query=$(test "$2" && echo "$2" || echo "")
+  local session_name=$(create_session_from_dir $dir $query)
   if [ -z "$session_name" ]; then
     echo "No directory selected"
     exit 1
@@ -224,7 +226,7 @@ main() {
     # ask the user which git project to start in
     attach_to_git $(test $ARG && echo $ARG || echo $CWD)
   elif [ $CONF ]; then
-    attach_to_dir_session $CONF_DIR
+    attach_to_dir_session $CONF_DIR $(test $ARG && echo $ARG)
   elif [ $BIN ]; then
     create_if_needed_and_attach "bin" $BIN_DIR
   elif [ $WS ]; then
