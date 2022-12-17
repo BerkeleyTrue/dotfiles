@@ -7,4 +7,10 @@
    require-macros [macros]})
 
 (defn main []
-  (: (md.prequire :fidget) :setup {}))
+  (when-let [fidget (md.prequire :fidget)]
+    (fidget.setup
+      {:sources
+       {:null-ls
+        {:ignore true}}
+       :text
+       {:spinner :moon}})))
