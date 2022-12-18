@@ -5,7 +5,7 @@ SYNC_LOG=$TASK_SHARE/cron-update.log
 TMUX_SESSION=task-sync
 DELAY=10
 
-if ! tmux has-session -t $TMUX_SESSION 2>/dev/null; then
+if tmux has-session -t $TMUX_SESSION 2>/dev/null; then
   echo "Stopping previous sync" >> $SYNC_LOG
 fi
 

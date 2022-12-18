@@ -7,8 +7,9 @@ DELAY=10
 
 # Only sync, if the backlog is not empty
 if (($(cat $TASK_BACKLOG | wc -l) > 1)); then
+
   # check if session is currently running
-  if ! tmux has-session -t $TMUX_SESSION 2>/dev/null; then
+  if tmux has-session -t $TMUX_SESSION 2>/dev/null; then
     echo "Stopping previous sync"
   fi
 
