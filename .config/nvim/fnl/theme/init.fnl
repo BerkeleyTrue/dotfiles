@@ -201,9 +201,11 @@
   (hl.link! :TSTag :Tag)
   (add-group :TSTagDelimiter c.pink c.none)
   (add-group :TSKeyword c.purple c.none)
+  (hl.link! "@variable.builtin" :TSVariableBuiltIn)
 
   (add-group :TSConstructor c.orange c.none)
   (hl.link! :TSNamespace :Namespace)
+
 
   ; UI
   (add-group :LineNr c.comment)
