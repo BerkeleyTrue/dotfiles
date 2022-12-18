@@ -94,7 +94,10 @@
      :pattern :*
      :callback open-float})
 
-  (command! :Format ":lua vim.lsp.buf.formatting()"))
+  (command! :Format ":lua vim.lsp.buf.formatting()")
+  (command! :LspDiagnostics "lua vim.diagnostic.setloclist()")
+  (noremap  :zj vim.diagnostic.goto_next {:silent true})
+  (noremap  :zk vim.diagnostic.goto_prev {:silent true}))
 
 (defn main []
   (set-configs)
