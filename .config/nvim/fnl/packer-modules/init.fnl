@@ -27,11 +27,12 @@
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}
 
    ; search
+   {:name :nvim-telescope/telescope.nvim :description "Highly extendable fuzzy finder" :requires [[:nvim-lua/plenary.nvim]] :config (make-on-load telescope)}
+   {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :requires [[:nvim-telescope/telescope.nvim]]}
+   {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :requires [[:nvim-telescope/telescope.nvim]]}
+   {:name :jackMort/ChatGPT.nvim :description "Adds a ChatGPT prompt in nvim" :config (make-on-load chatgpt) :requires [[:MunifTanjim/nui.nvim] [:nvim-lua/plenary.nvim] [:nvim-telescope/telescope.nvim]] :cmd [:ChatGPT]}
    {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :opt true :config (make-on-load zen) :cmd [:ZenMode]}
    {:name :folke/twilight.nvim :description "Dims inactive portions of code" :opt true :config (make-on-load twilight) :cmd [:Twilight]}
-   {:name :nvim-lua/telescope.nvim :requires [[:nvim-lua/popup.nvim] [:nvim-lua/plenary.nvim]] :config (make-on-load telescope)}
-   {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :requires [[:nvim-lua/telescope.nvim]]}
-   {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :requires [[:nvim-lua/telescope.nvim]]}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion)}
@@ -55,6 +56,7 @@
    {:name :rcarriga/nvim-notify :description "used by noice, need to set config" :config (make-on-load notify)}
    {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and popupmenu" :requires [[:MunifTanjim/nui.nvim] [:rcarriga/nvim-notify] [:hrsh7th/nvim-cmp]] :config (make-on-load noice)}
    {:name :SmiteshP/nvim-navic :description "A simple statusline/winbar component that uses LSP to show your current code context." :requires [[:neovim/nvim-lspconfig]] :config (make-on-load navic)}
+
 
    ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
