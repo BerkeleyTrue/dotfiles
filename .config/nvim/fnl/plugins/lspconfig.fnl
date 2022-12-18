@@ -31,6 +31,7 @@
         {: schemas}}})
     {}))
 
+
 (defn- general-on-attach [client buffnr]
   (nnoremap :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr :silent true})
   (nnoremap :K "<CMD>lua vim.lsp.buf.hover()<CR>" {:buffer buffnr :silent true})
@@ -46,10 +47,16 @@
         (when-let [navic (md.prequire :nvim-navic)]
           (navic.attach client buffnr))))))
 
+(defn ansible-configs []
+  {:on_attach general-on-attach-with-navic
+   :settings
+   {:ansible
+    {:validation
+     {:lint
+      {:enable false}}}}})
+
 (def lsps
-  {:ansiblels
-   {:settings {:ansible {:ansibleLint {:enabled false}}}
-    :on_attach general-on-attach-with-navic}
+  {:ansiblels (ansible-configs)
    :bashls {:on_attach general-on-attach-with-navic}
    :cssls {}
    :dockerls {}
