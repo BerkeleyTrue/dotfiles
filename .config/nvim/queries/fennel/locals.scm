@@ -2,7 +2,7 @@
   .
   ((symbol) @_keyword) @scope (#any-of? @_keyword "let" "when-let" "if-let")
   .
-  (array (symbol) @definition.var) (#set! "definition.var.scope" "local"))
+  (array (symbol) @definition.var) (#set! definition.var.scope local))
 
 ; (list
 ;   .
@@ -17,12 +17,18 @@
   (symbol) @_callee (#any-of? @_callee "def" "def-" "defonce")
   .
   (symbol) @definition.var
-  (#set! "definition.var.scope" "parent")); defined function symbol
+  (#set! definition.var.scope global)); defined function symbol
 ;
 ; ; defn/defn-
 (list
-  . (symbol) @_callee (#any-of? @_callee "fn" "defn" "defn-") ; defn macro
+  . (symbol) @_callee (#any-of? @_callee "defn" "defn-") ; defn macro
     (symbol) @definition.function
-    (#set! "definition.function.scope" "parent"); defined function symbol
+    (#set! definition.function.scope global); defined function symbol
     (array (symbol)? @definition.parameter)) @scope ;  args
-;
+
+; fn
+(list
+  . (symbol) @_callee (#any-of? @_callee "fn") ; defn macro
+    (symbol) @definition.function
+    (#set! definition.function.scope parent); defined function symbol
+    (array (symbol)? @definition.parameter)) @scope ;  args
