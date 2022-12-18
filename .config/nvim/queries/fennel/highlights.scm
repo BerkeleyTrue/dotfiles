@@ -1,9 +1,9 @@
 (boolean) @boolean
 (nil) @constant.builtin
-(string) @string
+(string) @string @spell
 (number) @number
 (keyword) @constant
-(comment) @comment
+(comment) @comment @spell
 (symbol) @identifier
 
 [
