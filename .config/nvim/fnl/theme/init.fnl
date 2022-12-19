@@ -194,16 +194,20 @@
   ; TS specific
   ; TODO: these should link to already defined
   (add-group :TSProperty c.cyan c.none)
+  (hl.link! "@property" :TSProperty)
   (add-group :TSAttribute c.green c.none)
   (add-group :TSParameter c.cyan c.none)
+  (hl.link! "@parameter" :TSParameter)
   (add-group :TSVariableBuiltIn c.red c.none)
 
   (hl.link! :TSTag :Tag)
   (add-group :TSTagDelimiter c.pink c.none)
   (add-group :TSKeyword c.purple c.none)
   (hl.link! "@variable.builtin" :TSVariableBuiltIn)
+  (hl.link! "@keyword.operator" :Operator)
 
   (add-group :TSConstructor c.orange c.none)
+  (hl.link! "@constructor" :TSConstructor)
   (hl.link! :TSNamespace :Namespace)
 
 
