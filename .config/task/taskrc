@@ -16,6 +16,7 @@ verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,
 # Color theme (uncomment one to use)
 
 include $HOME/.config/task/taskserverrc
+include $HOME/.config/task/colors.theme
 
 # UDA priority
 uda.priority.type=string
@@ -47,4 +48,3 @@ context.blog.read=+blog or pro:blog
 context.blog.write=proj:blog
 context.p400.read=+mr and proj:mr.p400
 context.p400.write=+mr and proj:mr.p400
-
