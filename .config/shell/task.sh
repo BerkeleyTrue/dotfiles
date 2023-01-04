@@ -1,7 +1,10 @@
 #!/bin/sh
 
 # taskwarrior
-alias tadd='task add'
+tadd() {
+    task add "$@"
+    task
+}
 
 tcon() {
   if [[ $# -eq 0 ]]; then
@@ -20,6 +23,7 @@ tmod() {
   local num=$1
   shift
   eval "task $num mod $*"
+  task
 }
 
 tdone() {
@@ -28,7 +32,8 @@ tdone() {
     echo "usage: tdone <task-id>"
     return 1
   fi
-  eval "task $1 done"
+  task "$@" done
+  task
 }
 
 tedit() {
@@ -38,4 +43,5 @@ tedit() {
     return 1
   fi
   eval "task $1 edit"
+  task
 }
