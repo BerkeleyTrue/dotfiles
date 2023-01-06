@@ -59,4 +59,15 @@
 
 (defn main []
   (when-let [cmmnt (md.prequire :Comment)]
-    (cmmnt.setup configs)))
+    (cmmnt.setup configs)
+    (let [api (md.prequire :Comment.api)]
+      (nnoremap
+        ; for some reason, vim doesn't recognize C-/ as a valid mapping
+        ; but it does recognize C-_ so we use that instead
+        :<C-_>
+        (fn []
+          (if (= vim.v.count 0)
+            (api.toggle.linewise.current)
+            (api.toggle.linewise.count vim.v.count))))
+
+      (xnoremap :<C-_> "<Plug>(comment_toggle_linewise_visual)"))))
