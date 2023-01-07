@@ -1,6 +1,8 @@
 (module options.auto
   {require
-   {utils utils}
+   {a aniseed.core
+    r r
+    utils utils}
    require-macros [macros]})
 
 (defn go-to-last-edit []
@@ -20,6 +22,40 @@
     ; zz center cursor line on screen
     (command normal! "g`\"zvzz")))
 
+(defn auto-add-module []
+  (when (and
+          ; only run in fennel files
+          (= (bo :filetype) :fennel)
+          ; only run if the file is empty
+          (= (vim.fn.line "$") 1) ;; last line is also the first line
+          (= (vim.fn.getline 1) "")) ;; first line is empty
+
+    ; get the relative file path of the current file
+    (let [file-path (vim.fn.expand "%:p")
+          fnldir (.. (vim.fn.stdpath :config) "/fnl/")
+          ; is file path in fnl directory
+          in-fnl-dir (not= (vim.fn.stridx file-path fnldir) -1)]
+
+      (when in-fnl-dir
+        ; get the path of the file relative to the fnl directory
+        (let [mname (->
+                      file-path
+                      (vim.fn.substitute fnldir "" "")
+                      (vim.fn.substitute "\\init.fnl$" "" "")
+                      (vim.fn.substitute "\\.fnl$" "" "")
+                      (vim.fn.split "/")
+                      (vim.fn.join "."))]
+          ; insert the module at the top of the file
+          (vim.fn.append 0
+            [(.. "(module " mname)
+             "  {require"
+             "   {a aniseed.core"
+             "    r r"
+             "    md utils.module"
+             "    utils utils}"
+             "   require-macros [macros]})"]))))))
+
+
 (augroup
   :GeneralAu
 
@@ -36,4 +72,9 @@
   ; make sure cursor always starts on the first line for gitcommit files
   {:event [:FileType]
    :pattern :gitcommit
-   :cmd "call setpos ('.', [0, 1, 1, 0])"})
+   :cmd "call setpos ('.', [0, 1, 1, 0])"}
+
+  ; add module to the top of the file when you open it if it's empty
+  {:event [:FileType]
+   :pattern :fennel
+   :callback auto-add-module})
