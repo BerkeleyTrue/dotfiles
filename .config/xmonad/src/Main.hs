@@ -125,18 +125,19 @@ myStartupHook =
   spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh" <>
   spawn
     "sleep 2 && \
-    \trayer --edge top \
-    \--align right \
-    \--widthtype request \
-    \--padding 6 \
-    \--SetDockType true \
-    \--SetPartialStrut false \
-    \--expand true \
-    \--monitor 0 \
-    \--transparent true \
-    \--alpha 0 \
-    \--tint 0x282c34 \
-    \--height 22 &"
+    \ trayer --edge top \
+    \ --align right \
+    \ --widthtype request \
+    \ --padding 6 \
+    \ --SetDockType true \
+    \ --SetPartialStrut false \
+    \ --expand true \
+    \ --monitor 0 \
+    \ --transparent true \
+    \ --alpha 0 \
+    \ --tint 0x282c34 \
+    \ --iconspacing 6 \
+    \ --height 22 &"
 
 ------------------------------------------------------------------------
 main :: IO ()
