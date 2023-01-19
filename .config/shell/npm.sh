@@ -69,5 +69,9 @@ npmrs() {
   if [ -z "$script" ]; then
     return 0
   fi
-  npm run $script
+  command="npm run $script"
+
+  echo $command | clipboard
+  echo "Running '$command'"
+  eval $command
 }
