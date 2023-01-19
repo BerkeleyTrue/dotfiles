@@ -1,33 +1,30 @@
 {-# OPTIONS_GHC -Wall #-}
 
-import qualified Data.Map as M
-import qualified Data.Semigroup as SG
-
+import Berks.CheatSheet as CheatSh
+import Berks.Colors
+import Berks.KeyMaps
+import Berks.Layouts.Main as L
+import Berks.Scratchpads
+import Berks.Urgency
+import Berks.Utils
+import Data.Map
+import Data.Semigroup
 import XMonad
-import qualified XMonad.StackSet as W
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.FadeWindows
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName
+import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.WorkspaceHistory
+import XMonad.StackSet hiding
+  ( focus,
+    workspaces,
+  )
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
-
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops as Ewmh (ewmh)
-import XMonad.Hooks.FadeWindows
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers (doFullFloat, doRectFloat, isFullscreen)
-import XMonad.Hooks.UrgencyHook
-
--- Hooks
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.WorkspaceHistory (workspaceHistoryHook)
-
--- layout modifiers
-import qualified Berks.CheatSheet as CheatSh
-import qualified Berks.Colors as Cl
-import qualified Berks.KeyMaps as KMaps
-import qualified Berks.Layouts.Main as L
-import qualified Berks.Scratchpads as Scratch
-import qualified Berks.Urgency as Urg
-import qualified Berks.Utils as Utils
 
 -- Terminal
 term :: String
@@ -45,18 +42,18 @@ werkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
-mBindings :: XConfig l -> M.Map (KeyMask, Button) (Window -> X ())
+mBindings :: XConfig l -> Map (KeyMask, Button) (Window -> X ())
 mBindings XConfig {XMonad.modMask = modm} =
-  M.fromList
+  fromList
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ( (modm, button1)
-      , \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster)
-    -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
-    -- mod-button3, Set the window to floating mode and resize by dragging
-    , ( (modm, button3)
-      , \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
+    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w >> windows shiftMaster),
+      -- mod-button2, Raise the window to the top of the stack
+      ((modm, button2), \w -> focus w >> windows shiftMaster),
+      -- mod-button3, Set the window to floating mode and resize by dragging
+      ( (modm, button3),
+        \w -> focus w >> mouseResizeWindow w >> windows shiftMaster
+      )
+      -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
 ------------------------------------------------------------------------
@@ -81,25 +78,25 @@ mBindings XConfig {XMonad.modMask = modm} =
 -- NOTE: Useful here is <&&> which is infix op, same as && (AND) but for wrapped monoids
 -- NOTE: Useful here is <||> which is infix op, same as || (OR) but for wrapped monoids
 -- NOTE: <+> composes two monoids
-myManageHook :: Query (SG.Endo WindowSet)
+myManageHook :: Query (Endo WindowSet)
 myManageHook =
   composeAll
-    [ resource =? "desktop_window" --> doIgnore
-    , resource =? "kdesktop" --> doIgnore
-    , isFullscreen --> doFullFloat
-    , className =? "Slack" --> doShift "3"
-    , className =? "discord" --> doShift "3"
-    , className =? "Zenity" --> doRectFloat CheatSh.size
-    , className =? "Yad" --> doRectFloat CheatSh.size
-    , className =? "Xdg-desktop-portal-gtk" --> doRectFloat Utils.centerWindow
-    , className =? "Blueman-manager" --> doRectFloat Utils.centerWindow
-    ] <+>
-  Scratch.scratchpadManageHook
+    [ resource =? "desktop_window" --> doIgnore,
+      resource =? "kdesktop" --> doIgnore,
+      isFullscreen --> doFullFloat,
+      className =? "Slack" --> doShift "3",
+      className =? "discord" --> doShift "3",
+      className =? "Zenity" --> doRectFloat CheatSh.size,
+      className =? "Yad" --> doRectFloat CheatSh.size,
+      className =? "Xdg-desktop-portal-gtk" --> doRectFloat centerWindow,
+      className =? "Blueman-manager" --> doRectFloat centerWindow
+    ]
+    <+> scratchpadManageHook
 
 ------------------------------------------------------------------------
 -- Event handling
 -- fadeWindowsEventHook -> A handleEventHook to handle fading and unfading of newly mapped or unmapped windows;
-myEventHook :: Event -> X SG.All
+myEventHook :: Event -> X All
 myEventHook = fadeWindowsEventHook
 
 ------------------------------------------------------------------------
@@ -120,24 +117,24 @@ myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
 -- By default, do nothing.
 myStartupHook :: X ()
 myStartupHook =
-  setWMName "LG3D" <>
-  spawn "killall trayer &> /dev/null" <>
-  spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh" <>
-  spawn
-    "sleep 2 && \
-    \ trayer --edge top \
-    \ --align right \
-    \ --widthtype request \
-    \ --padding 6 \
-    \ --SetDockType true \
-    \ --SetPartialStrut false \
-    \ --expand true \
-    \ --monitor 0 \
-    \ --transparent true \
-    \ --alpha 0 \
-    \ --tint 0x282c34 \
-    \ --iconspacing 6 \
-    \ --height 22 &"
+  setWMName "LG3D"
+    <> spawn "killall trayer &> /dev/null"
+    <> spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh"
+    <> spawn
+      "sleep 2 && \
+      \ trayer --edge top \
+      \ --align right \
+      \ --widthtype request \
+      \ --padding 6 \
+      \ --SetDockType true \
+      \ --SetPartialStrut false \
+      \ --expand true \
+      \ --monitor 0 \
+      \ --transparent true \
+      \ --alpha 0 \
+      \ --tint 0x282c34 \
+      \ --iconspacing 6 \
+      \ --height 22 &"
 
 ------------------------------------------------------------------------
 main :: IO ()
@@ -145,48 +142,48 @@ main = do
   xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
   xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
   xmonad $
-    withUrgencyHook Urg.UrgencyHookInstance $
-    addDescrKeys'
-      ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
-      (KMaps.createKeyMaps term werkspaces) $
-    enhanceXConf
-      def
-        { terminal = term
-        -- Whether focus follows the mouse pointer.
-        , focusFollowsMouse = True
-        -- Whether clicking on a window to focus also passes the click to the window
-        , clickJustFocuses = True
-        -- Width of the window border in pixels.
-        , borderWidth = 1
-        , modMask = myModMask
-        , workspaces = werkspaces
-        -- Border colors for unfocused and focused windows, respectively.
-        , normalBorderColor = Cl.background
-        , focusedBorderColor = Cl.cyan
-        -- bindings
-        , mouseBindings = mBindings
-        -- hooks, layouts
-        , layoutHook = L.layout
-        , manageHook = myManageHook
-        , handleEventHook = myEventHook
-        , startupHook = myStartupHook
-        , logHook =
-            myLogHook <>
-            createPPLog
-              xmobarPP
-                -- outputs of the entire bar
-                -- input from xmonad gets sent to xmonad proc 0,
-                -- then the output from that gets sent into hPutStrLn
-                -- and then into xmonad to be displayed
-                { ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
-                , ppCurrent = xmobarColor Cl.cyan "" . wrap "[" "]"
-                , ppVisible = xmobarColor Cl.comment "" . wrap "[[" "]]"
-                , ppTitle = xmobarColor Cl.purple "" . pad . shorten 20
-                , ppLayout = xmobarColor Cl.red "" . wrap "<" ">"
-                , ppSep = " "
-                , ppOrder = \(ws:l:t:_) -> [ws, t, l]
-                }
-        }
+    withUrgencyHook UrgencyHookInstance $
+      addDescrKeys'
+        ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
+        (createKeyMaps term werkspaces)
+        $ enhanceXConf
+          def
+            { terminal = term,
+              -- Whether focus follows the mouse pointer.
+              focusFollowsMouse = True,
+              -- Whether clicking on a window to focus also passes the click to the window
+              clickJustFocuses = True,
+              -- Width of the window border in pixels.
+              borderWidth = 1,
+              modMask = myModMask,
+              workspaces = werkspaces,
+              -- Border colors for unfocused and focused windows, respectively.
+              normalBorderColor = background,
+              focusedBorderColor = cyan,
+              -- bindings
+              mouseBindings = mBindings,
+              -- hooks, layouts
+              layoutHook = L.layout,
+              manageHook = myManageHook,
+              handleEventHook = myEventHook,
+              startupHook = myStartupHook,
+              logHook =
+                myLogHook
+                  <> createPPLog
+                    xmobarPP
+                      { -- outputs of the entire bar
+                        -- input from xmonad gets sent to xmonad proc 0,
+                        -- then the output from that gets sent into hPutStrLn
+                        -- and then into xmonad to be displayed
+                        ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,
+                        ppCurrent = xmobarColor cyan "" . wrap "[" "]",
+                        ppVisible = xmobarColor comment "" . wrap "[[" "]]",
+                        ppTitle = xmobarColor purple "" . pad . shorten 20,
+                        ppLayout = xmobarColor red "" . wrap "<" ">",
+                        ppSep = " ",
+                        ppOrder = \(ws : l : t : _) -> [ws, t, l]
+                      }
+            }
   where
     enhanceXConf = docks . ewmh
     createPPLog = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag]

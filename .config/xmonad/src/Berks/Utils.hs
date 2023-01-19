@@ -3,12 +3,12 @@ module Berks.Utils
   , centerWindow
   ) where
 
-import qualified XMonad.StackSet as W
+import XMonad.StackSet
 
 center :: Rational -> Rational
 center ratio = (1 - ratio) / 2
 
-centerWindow = W.RationalRect x y w h
+centerWindow = RationalRect x y w h
   where
     w = 2 / 5
     h = 3 / 5

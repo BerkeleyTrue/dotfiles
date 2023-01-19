@@ -1,38 +1,38 @@
 {-# OPTIONS_GHC -Wall #-}
 
 module Berks.Layouts.Main
-  ( layout
-  ) where
+  ( layout,
+  )
+where
 
-import qualified Berks.Layouts.Horiz as Horiz
-import qualified Berks.Layouts.Monocle as Mono
-import qualified Berks.Layouts.ThreeCol as ThreeCol
-import qualified Berks.Layouts.Vert as Vert
-import qualified XMonad.Actions.MouseResize as MR
-import qualified XMonad.Hooks.ManageDocks as MD
-import XMonad.Layout as L ((|||))
+import Berks.Layouts.Horiz
+import Berks.Layouts.Monocle as Mono
+import Berks.Layouts.ThreeCol as ThreeCol
+import Berks.Layouts.Vert as Vert
+import XMonad.Actions.MouseResize as MR
+import XMonad.Hooks.ManageDocks as MD
+import XMonad.Layout as L
+  ( (|||),
+  )
 import XMonad.Layout.MultiToggle as MT
-  ( EOT(EOT)
-  -- , HCons
-  -- , MultiToggle
-  , (??)
-  , mkToggle
-  , single
+  ( EOT (EOT),
+    -- , HCons
+    -- , MultiToggle
+    mkToggle,
+    single,
+    (??),
   )
-import qualified XMonad.Layout.MultiToggle.Instances as MT
-  ( StdTransformers(NBFULL, NOBORDERS)
-  )
-import qualified XMonad.Layout.Reflect as LR
-import qualified XMonad.Layout.WindowArranger as WA
-import qualified XMonad.Layout.WindowNavigation as WN
+import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.Reflect
+import XMonad.Layout.WindowArranger
+import XMonad.Layout.WindowNavigation
 
-layoutModifier =
-  MD.avoidStruts . MR.mouseResize . WA.windowArrange . WN.windowNavigation
+layoutModifier = avoidStruts . mouseResize . windowArrange . windowNavigation
 
 layout =
   layoutModifier $
-  mkToggle (single LR.REFLECTY) $
-  mkToggle (single LR.REFLECTX) $
-  mkToggle (MT.NBFULL ?? MT.NOBORDERS ?? MT.EOT) layouts'
+    mkToggle (single REFLECTY) $
+      mkToggle (single REFLECTX) $
+        mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts'
   where
-    layouts' = Mono.monocle ||| Vert.vert ||| Horiz.horiz ||| ThreeCol.threeCol
+    layouts' = monocle ||| vert ||| horiz ||| threeCol

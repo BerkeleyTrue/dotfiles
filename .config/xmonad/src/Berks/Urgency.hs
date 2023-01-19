@@ -4,7 +4,7 @@ module Berks.Urgency
 
 import XMonad
 import XMonad.Hooks.UrgencyHook
-import qualified XMonad.StackSet as W
+import XMonad.StackSet
 import XMonad.Util.NamedWindows
 import XMonad.Util.Run
 
@@ -21,5 +21,5 @@ data UrgencyHookInstance =
 instance UrgencyHook UrgencyHookInstance where
   urgencyHook UrgencyHookInstance w = do
     name <- getName w
-    Just idx <- W.findTag w <$> gets windowset
+    Just idx <- findTag w <$> gets windowset
     safeSpawn "notify-send" [show name, "workspace " ++ idx]

@@ -1,23 +1,22 @@
 module Berks.Scratchpads
-  ( myScratchPads
-  , scratchpadManageHook
-  , getAction
-  ) where
+  ( myScratchPads,
+    scratchpadManageHook,
+    getAction,
+  )
+where
 
+import Berks.Utils
 import XMonad
 import XMonad.ManageHook
+import XMonad.StackSet
 import XMonad.Util.NamedScratchpad
-
-import qualified Berks.Utils as Utils
-import qualified XMonad.StackSet as W
 
 myScratchPads :: NamedScratchpads
 myScratchPads = [NS "music" spawnMusic findMusic manageMusic]
   where
-    spawnMusic =
-      "app.ytmdesktop.ytmdesktop"
+    spawnMusic = "app.ytmdesktop.ytmdesktop"
     findMusic = className =? "youtube-music-desktop-app"
-    manageMusic = customFloating Utils.centerWindow
+    manageMusic = customFloating centerWindow
 
 scratchpadManageHook :: ManageHook
 scratchpadManageHook = namedScratchpadManageHook myScratchPads

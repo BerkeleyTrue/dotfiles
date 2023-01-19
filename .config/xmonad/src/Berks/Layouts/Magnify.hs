@@ -6,41 +6,40 @@ module Berks.Layouts.Magnify
 import qualified XMonad as X
 
 -- layouts
-import qualified XMonad.Layout as L
-import qualified XMonad.Layout.ResizableTile as RT
-import qualified XMonad.Layout.Simplest as SM
-
-import qualified XMonad.Layout.Decoration as D hiding (LayoutModifier)
+import XMonad.Layout
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Simplest
+import XMonad.Layout.Decoration hiding (LayoutModifier)
 
 -- modifiers
-import qualified XMonad.Layout.LayoutModifier as LM
-import qualified XMonad.Layout.LimitWindows as LW
-import qualified XMonad.Layout.Magnifier as Mag
-import qualified XMonad.Layout.NoBorders as NB
-import qualified XMonad.Layout.Renamed as RN
-import qualified XMonad.Layout.SubLayouts as SL
-import qualified XMonad.Layout.Tabbed as T
-import qualified XMonad.Layout.WindowNavigation as WN
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.LimitWindows
+import XMonad.Layout.Magnifier hiding (magnify)
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.Tabbed
+import XMonad.Layout.WindowNavigation
 
-import qualified Berks.Layouts.TabTheme as TabTheme
+import Berks.Layouts.TabTheme as TabTheme
 
-type SimplyLayout = LM.ModifiedLayout NB.SmartBorder SM.Simplest
+type SimplyLayout = ModifiedLayout SmartBorder Simplest
 
-type LimitedSpaced = LM.ModifiedLayout LW.LimitWindows RT.ResizableTall
+type LimitedSpaced = ModifiedLayout LimitWindows ResizableTall
 
-type LimitedFull = LM.ModifiedLayout LW.LimitWindows L.Full
+type LimitedFull = ModifiedLayout LimitWindows Full
 
-type MagSpaced = LM.ModifiedLayout Mag.Magnifier LimitedSpaced
+type MagSpaced = ModifiedLayout Magnifier LimitedSpaced
 
-type TabbedShrink = D.Decoration T.TabbedDecoration D.DefaultShrinker
+type TabbedShrink = Decoration TabbedDecoration DefaultShrinker
 
 type Magnify
-   = D.ModifiedLayout RN.Rename (D.ModifiedLayout WN.WindowNavigation (D.ModifiedLayout TabbedShrink (D.ModifiedLayout (SL.Sublayout SimplyLayout) MagSpaced))) X.Window
+   = ModifiedLayout Rename (ModifiedLayout WindowNavigation (ModifiedLayout TabbedShrink (ModifiedLayout (Sublayout SimplyLayout) MagSpaced))) X.Window
 
 magnify :: Magnify
 magnify =
-  RN.renamed [RN.Replace "Magnify"] $
-  WN.windowNavigation $
+  renamed [Replace "Magnify"] $
+  windowNavigation $
   TabTheme.tabbedDecorator $
-  SL.subLayout [] (NB.smartBorders SM.Simplest) $
-  Mag.magnifier $ LW.limitWindows 12 $ RT.ResizableTall 1 (3 / 100) (1 / 2) []
+  subLayout [] (smartBorders Simplest) $
+  magnifier $ limitWindows 12 $ ResizableTall 1 (3 / 100) (1 / 2) []

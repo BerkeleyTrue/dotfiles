@@ -1,16 +1,14 @@
 module Berks.Layouts.Horiz
-  ( horiz
-  ) where
+  ( horiz,
+  )
+where
 
-import qualified XMonad as X
-import qualified XMonad.Layout as L
-import qualified XMonad.Layout.LayoutModifier as LM
-import qualified XMonad.Layout.Renamed as RN
-import qualified XMonad.Layout.Spacing as Spacing
-import qualified XMonad.Layout.WindowNavigation as WN
+import Berks.Layouts.Vert
+import XMonad
+import XMonad.Layout
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.Renamed
+import XMonad.Layout.Spacing
+import XMonad.Layout.WindowNavigation
 
-import qualified Berks.Layouts.Vert as Vert
-
-horiz =
-  RN.renamed [RN.Replace " \xf8dd "] $
-  Spacing.smartSpacing 1 $ L.Mirror Vert.vert
+horiz = renamed [Replace " \xf8dd "] $ smartSpacing 1 $ Mirror vert
