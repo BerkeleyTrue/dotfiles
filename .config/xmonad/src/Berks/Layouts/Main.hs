@@ -6,15 +6,13 @@ module Berks.Layouts.Main
 where
 
 import Berks.Layouts.Horiz
-import Berks.Layouts.Monocle as Mono
-import Berks.Layouts.ThreeCol as ThreeCol
-import Berks.Layouts.Vert as Vert
-import XMonad.Actions.MouseResize as MR
-import XMonad.Hooks.ManageDocks as MD
-import XMonad.Layout as L
-  ( (|||),
-  )
-import XMonad.Layout.MultiToggle as MT
+import Berks.Layouts.Monocle
+import Berks.Layouts.ThreeCol
+import Berks.Layouts.Vert
+import XMonad
+import XMonad.Actions.MouseResize
+import XMonad.Hooks.ManageDocks
+import XMonad.Layout.MultiToggle
   ( EOT (EOT),
     -- , HCons
     -- , MultiToggle
