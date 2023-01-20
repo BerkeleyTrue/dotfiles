@@ -21,7 +21,7 @@ echo "starting xprofile apps" &
 /usr/lib/polkit-kde-authentication-agent-1 &
 
 #window composer
-/usr/bin/picom -b --experimental-backends &
+/usr/bin/picom -b &
 
 # network manager
 /usr/bin/nm-applet &
