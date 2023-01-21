@@ -49,6 +49,20 @@ setStrutState ref = do
         >> sendMessage
           (Toggle NOBORDERS)
 
+-- Set the strut back to default
+resetStrutToDefault :: IORef StrutState -> X ()
+resetStrutToDefault ref = do
+  state <- io $ readIORef ref
+  io $ writeIORef ref Default
+  case state of
+    Default -> return ()
+    SingleWindow -> do
+      sendMessage (Toggle FULL)
+    FullScreen -> do
+      sendMessage ToggleStruts >> sendMessage (Toggle FULL)
+        >> sendMessage
+          (Toggle NOBORDERS)
+
 -- NOTE: We are destructuring XConfig below (i.e. Type {property = <local symbol>})
 createKeyMaps ::
   String ->
@@ -120,6 +134,11 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
     ( (modm, xK_f),
       addName "Switch between SingleWindow, FullScreen or default" $
         setStrutState currentStrutStateRef
+    ),
+    -- Reset to default struts on Mod + Shift + F
+    ( (modm .|. shiftMask, xK_f),
+      addName "Reset the struts to default" $
+        resetStrutToDefault currentStrutStateRef
     ),
     ( (modm .|. controlMask, xK_y),
       addName "Flip layout on Y axis" $ sendMessage $ Toggle REFLECTY
