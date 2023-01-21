@@ -9,6 +9,7 @@ import Berks.Urgency
 import Berks.Utils
 import Data.Map
 import Data.Semigroup
+import Data.IORef
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -139,13 +140,14 @@ myStartupHook =
 ------------------------------------------------------------------------
 main :: IO ()
 main = do
+  currentStrutStateRef <- newIORef Default
   xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
   xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
   xmonad $
     withUrgencyHook UrgencyHookInstance $
       addDescrKeys'
         ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
-        (createKeyMaps term werkspaces)
+        (createKeyMaps term werkspaces currentStrutStateRef)
         $ enhanceXConf
           def
             { terminal = term,
@@ -154,7 +156,7 @@ main = do
               -- Whether clicking on a window to focus also passes the click to the window
               clickJustFocuses = True,
               -- Width of the window border in pixels.
-              borderWidth = 1,
+              borderWidth = 4,
               modMask = myModMask,
               workspaces = werkspaces,
               -- Border colors for unfocused and focused windows, respectively.

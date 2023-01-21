@@ -1,5 +1,6 @@
 module Berks.KeyMaps
   ( createKeyMaps,
+    StrutState (Default, FullScreen, SingleWindow),
   )
 where
 
@@ -7,6 +8,7 @@ where
 
 import Berks.GridSelect
 import Berks.Scratchpads
+import Data.IORef
 import Data.Ratio as Ratio
   ( (%),
   )
@@ -14,11 +16,9 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.Warp
 import XMonad.Core
-import XMonad.Hooks.ManageDocks (ToggleStruts (..))
-import XMonad.Layout.MultiToggle (Toggle (Toggle))
+import XMonad.Hooks.ManageDocks
+import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
-  ( StdTransformers (NBFULL),
-  )
 import XMonad.Layout.Reflect
 import XMonad.Layout.WindowNavigation
   ( Direction2D (D, L, R, U),
@@ -30,10 +30,33 @@ import XMonad.Util.NamedActions
 
 xmonadCmd = "xmonad-x86_64-linux"
 
--- NOTE: We are deconstructuring XConfig below (i.e. Type {property = <local symbol>})
+data StrutState = SingleWindow | FullScreen | Default
+
+-- match the current strut state, and send the appropriate named action
+setStrutState :: IORef StrutState -> X ()
+setStrutState ref = do
+  state <- io $ readIORef ref
+  case state of
+    Default -> do
+      io $ writeIORef ref SingleWindow
+      sendMessage (Toggle FULL)
+    SingleWindow -> do
+      io $ writeIORef ref FullScreen
+      sendMessage ToggleStruts >> sendMessage (Toggle NOBORDERS)
+    FullScreen -> do
+      io $ writeIORef ref Default
+      sendMessage ToggleStruts >> sendMessage (Toggle FULL)
+        >> sendMessage
+          (Toggle NOBORDERS)
+
+-- NOTE: We are destructuring XConfig below (i.e. Type {property = <local symbol>})
 createKeyMaps ::
-  String -> [String] -> XConfig Layout -> [((KeyMask, KeySym), NamedAction)]
-createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
+  String ->
+  [String] ->
+  IORef StrutState ->
+  XConfig Layout ->
+  [((KeyMask, KeySym), NamedAction)]
+createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layoutHook = layoutHk} =
   [ subtitle "Core",
     ( (modm .|. shiftMask, xK_r),
       addName "Restart XMonad" $
@@ -44,7 +67,7 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
           )
     ),
     ( (modm .|. controlMask .|. shiftMask, xK_r),
-      addName "Recompile and Restart xmonad" $
+      addName "Recompile and Restart XMonad" $
         spawn
           ( "\
             \ notify-send -a 'XMonad' 'Recompiling...' && \
@@ -76,9 +99,7 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
       addName "Launch power menu" $ spawn "$HOME/.local/bin/powermenu"
     ),
     --
-    ( (modm, xK_g),
-      addName "Launch grid selector" $ createAppGridSpawner ()
-    ),
+    ((modm, xK_g), addName "Launch grid selector" $ createAppGridSpawner ()),
     --
     ((modm .|. shiftMask, xK_q), addName "close focused window" kill),
     ---
@@ -97,9 +118,8 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
     ),
     --
     ( (modm, xK_f),
-      addName "Switch layout to full screen no topbar" $
-        sendMessage (Toggle NBFULL)
-          >> sendMessage ToggleStruts
+      addName "Switch between SingleWindow, FullScreen or default" $
+        setStrutState currentStrutStateRef
     ),
     ( (modm .|. controlMask, xK_y),
       addName "Flip layout on Y axis" $ sendMessage $ Toggle REFLECTY
@@ -174,7 +194,7 @@ createKeyMaps term werkspaces XConfig {modMask = modm, layoutHook = layoutHk} =
     ---
     subtitle "UI",
     ( (modm, xK_z),
-      addName "Warp mouse to current screeen." $ warpToWindow (1 % 2) (1 % 2)
+      addName "Warp mouse to current screen." $ warpToWindow (1 % 2) (1 % 2)
     ),
     ( (modm, xK_b),
       addName "Banish cursor to corner of screen." $ banishScreen UpperLeft

@@ -23,6 +23,8 @@ type ToggleReflectY = MultiToggle (HCons REFLECTY EOT)
 
 type ToggleFull = MultiToggle (HCons StdTransformers EOT)
 
+type ToggleNoBorders = MultiToggle (HCons StdTransformers EOT)
+
 toggleReflectX :: (LayoutClass l a) => l a -> ToggleReflectX l a
 toggleReflectX = mkToggle $ single REFLECTX
 
@@ -30,7 +32,10 @@ toggleReflectY :: (LayoutClass l a) => l a -> ToggleReflectY l a
 toggleReflectY = mkToggle $ single REFLECTY
 
 toggleFull :: (LayoutClass l a) => l a -> ToggleFull l a
-toggleFull = mkToggle $ single NBFULL
+toggleFull = mkToggle $ single FULL
+
+toggleNoBorders :: (LayoutClass l a) => l a -> ToggleNoBorders l a
+toggleNoBorders = mkToggle $ single NOBORDERS
 
 type MouseResizeModifier = ModifiedLayout MouseResize
 
@@ -56,8 +61,14 @@ chooseLayout = threeCol ||| monocle
 
 type MyLayout =
   MyLayoutModifiers
-    (ToggleReflectY (ToggleReflectX (ToggleFull ChooseLayouts)))
+    ( ToggleReflectY
+        (ToggleReflectX (ToggleNoBorders (ToggleFull ChooseLayouts)))
+    )
 
 layout :: MyLayout Window
 layout =
-  layoutModifier $ toggleReflectY $ toggleReflectX $ toggleFull chooseLayout
+  layoutModifier $
+    toggleReflectY $
+      toggleReflectX $
+        toggleNoBorders $
+          toggleFull chooseLayout
