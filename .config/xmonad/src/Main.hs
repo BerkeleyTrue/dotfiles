@@ -7,9 +7,9 @@ import Berks.Layouts.Main as L
 import Berks.Scratchpads
 import Berks.Urgency
 import Berks.Utils
+import Data.IORef
 import Data.Map
 import Data.Semigroup
-import Data.IORef
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -120,7 +120,9 @@ myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D"
     <> spawn "killall trayer &> /dev/null"
+    <> spawn "killall picom &> /dev/null"
     <> spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh"
+    -- Uses Trayer-srg
     <> spawn
       "sleep 2 && \
       \ trayer --edge top \
@@ -136,6 +138,7 @@ myStartupHook =
       \ --tint 0x282c34 \
       \ --iconspacing 6 \
       \ --height 22 &"
+    <> spawn "picom &"
 
 ------------------------------------------------------------------------
 main :: IO ()
