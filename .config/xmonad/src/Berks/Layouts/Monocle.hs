@@ -26,9 +26,8 @@ type Monocle =
   ModifiedLayout
     Rename
     (ModifiedLayout (Sublayout SimplyLayout) LimitedFull)
-    Window
 
-monocle :: Monocle
+monocle :: Monocle Window
 monocle =
   renamed [Replace " ﱢ "] $
     subLayout [] (smartBorders Simplest) $

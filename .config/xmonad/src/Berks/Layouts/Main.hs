@@ -5,32 +5,59 @@ module Berks.Layouts.Main
   )
 where
 
-import Berks.Layouts.Horiz
 import Berks.Layouts.Monocle
 import Berks.Layouts.ThreeCol
-import Berks.Layouts.Vert
 import XMonad
 import XMonad.Actions.MouseResize
 import XMonad.Hooks.ManageDocks
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
-  ( EOT (EOT),
-    -- , HCons
-    -- , MultiToggle
-    mkToggle,
-    single,
-    (??),
-  )
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.Reflect
 import XMonad.Layout.WindowArranger
 import XMonad.Layout.WindowNavigation
 
-layoutModifier = avoidStruts . mouseResize . windowArrange . windowNavigation
+type ToggleReflectX = MultiToggle (HCons REFLECTX EOT)
 
+type ToggleReflectY = MultiToggle (HCons REFLECTY EOT)
+
+type ToggleFull = MultiToggle (HCons StdTransformers EOT)
+
+toggleReflectX :: (LayoutClass l a) => l a -> ToggleReflectX l a
+toggleReflectX = mkToggle $ single REFLECTX
+
+toggleReflectY :: (LayoutClass l a) => l a -> ToggleReflectY l a
+toggleReflectY = mkToggle $ single REFLECTY
+
+toggleFull :: (LayoutClass l a) => l a -> ToggleFull l a
+toggleFull = mkToggle $ single NBFULL
+
+type MouseResizeModifier = ModifiedLayout MouseResize
+
+type WindowArrangerModifier = ModifiedLayout WindowArranger
+
+type WindowNavigationModifier = ModifiedLayout WindowNavigation
+
+type AvoidStrutsModifier = ModifiedLayout AvoidStruts
+
+type MyLayoutModifiers l =
+  MouseResizeModifier
+    ( WindowArrangerModifier
+        (WindowNavigationModifier (AvoidStrutsModifier l))
+    )
+
+layoutModifier :: (LayoutClass l a) => l a -> MyLayoutModifiers l a
+layoutModifier = mouseResize . windowArrange . windowNavigation . avoidStruts
+
+type ChooseLayouts = Choose ThreeColLayout Monocle
+
+chooseLayout :: ChooseLayouts Window
+chooseLayout = threeCol ||| monocle
+
+type MyLayout =
+  MyLayoutModifiers
+    (ToggleReflectY (ToggleReflectX (ToggleFull ChooseLayouts)))
+
+layout :: MyLayout Window
 layout =
-  layoutModifier $
-    mkToggle (single REFLECTY) $
-      mkToggle (single REFLECTX) $
-        mkToggle (NBFULL ?? NOBORDERS ?? EOT) layouts'
-  where
-    layouts' = monocle ||| vert ||| horiz ||| threeCol
+  layoutModifier $ toggleReflectY $ toggleReflectX $ toggleFull chooseLayout

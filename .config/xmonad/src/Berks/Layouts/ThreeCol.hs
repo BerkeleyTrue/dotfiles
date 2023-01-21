@@ -1,5 +1,6 @@
 module Berks.Layouts.ThreeCol
   ( threeCol,
+    ThreeColLayout,
   )
 where
 
