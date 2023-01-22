@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Check if picom is running
+# kill it if it is
+# start it if it isn't
+
+if pgrep -x "picom" > /dev/null
+then
+    killall picom
+else
+    picom &
+fi
