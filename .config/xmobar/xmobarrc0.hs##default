@@ -10,10 +10,10 @@
 -- red = #ff5555
 -- yellow = #f1fa8c
 Config
-  { font = "xft:FiraCode Nerd Font:pixelsize=12:antialias=true:hinting=true"
+  { font = "FiraCode Nerd Font 12"
   , additionalFonts =
-      [ "xft:Font Awesome 5 Free:style=Solid:size=11;-2"
-      , "xft:coins:style=Regular;0"
+      [ "Font Awesome 5 Free Bold 11"
+      , "coins Regular"
       ]
   , bgColor = "#282a36"
   , fgColor = "#f8f8f2"
