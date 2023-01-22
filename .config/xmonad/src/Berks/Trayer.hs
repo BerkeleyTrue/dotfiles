@@ -1,33 +1,38 @@
 module Berks.Trayer
-  ( spawnTray
-  ) where
+  ( startTrayer,
+  )
+where
 
 import Data.List
 import XMonad hiding (kill)
-import XMonad.Util.Run (safeSpawn)
+import XMonad.Util.Run
 
-kill :: MonadIO m => FilePath -> m ()
-kill prog = safeSpawn "killall" [prog]
+trayer = "trayer"
 
-trayer = "trayer" :: FilePath
+-- | Kill a process by name using the bash command 'killall'
+-- and suppress the output of the command.
+kill :: MonadIO m => String -> m ()
+kill prog = spawn $ "killall " ++ prog ++ " &> /dev/null"
 
-flatMap x = x >>= \x -> [head x, last x]
+-- Process the list passed into startTrayer,
+-- pairing, then concating the key with "--" and then returning a flat list
+processArgs :: [String] -> [String]
+processArgs [] = []
+processArgs [_] =
+  error "Expected an even number of arguments but found a odd number"
+processArgs (x : y : xs) = ("--" ++ x) : y : processArgs xs
 
-spawnTray :: MonadIO m => m ()
-spawnTray = do
-  kill "trayer"
-  safeSpawn trayer $
-    flatMap
-      [ ["--edge", "top"]
-      , ["--align", "right"]
-      , ["--expand", "true"]
-      , ["--widthtype", "request"]
-      , ["--height", "18"]
-      , ["--padding", "6"]
-      , ["--monitor", "0"]
-      , ["--alpha", "0"]
-      , ["--transparent", "true"]
-      , ["--tint", "0x282c34"]
-      , ["--SetPartialStrut", "false"]
-      , ["--SetDockType", "true"]
-      ]
+spawnTrayer :: MonadIO m => [String] -> m ()
+spawnTrayer args =
+  spawn $ unwords $ ["sleep", "1", "&&", trayer] ++ (processArgs args ++ ["&"])
+
+-- | Start trayer with the given arguments
+-- Arguments are past in as a flat list of key value,
+-- e.g. ["width", "10", "height", "10"]
+-- The key is prefixed with "--", then passed to trayer through safeSpawn
+-- This function will also kill any existing trayer processes
+-- and wait 2 second before starting trayer
+startTrayer :: MonadIO m => [String] -> m ()
+startTrayer args = do
+  -- _ <- spawn $ "echo '\n trayer args: " ++ unwords (processArgs args) ++ " '"
+  kill "trayer" >> spawnTrayer args
