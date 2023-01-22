@@ -25,8 +25,8 @@ import XMonad.Layout.WindowNavigation
     Navigate (Go, Swap),
   )
 import XMonad.StackSet
-import XMonad.Util.DynamicScratchpads
 import XMonad.Util.NamedActions
+import XMonad.Util.NamedScratchpad
 
 xmonadCmd = "xmonad-x86_64-linux"
 
@@ -200,12 +200,12 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
     subtitle "ScatchPads",
     ((modm, xK_m), addName "Music Scratchpad" $ getAction "music"),
     ( (modm, xK_a),
-      addName "Spawn|Toggle Scratchpad" $ spawnDynamicSP "scratch1"
+      addName "Spawn|Toggle Scratchpad" $ dynamicNSPAction "scratch1"
     ),
     ( (modm .|. shiftMask, xK_a),
       addName "Make Window a Scratchpad" $
         withFocused $
-          makeDynamicSP
+          toggleDynamicNSP
             "scratch1"
     ),
     ---
