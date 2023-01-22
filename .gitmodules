@@ -6,7 +6,7 @@
 	url = https://github.com/xmonad/xmonad-contrib.git
 [submodule ".config/xmonad/xmobar-git"]
 	path = .config/xmonad/xmobar-git
-	url = https://github.com/jaor/xmobar.git
+	url = https://codeberg.org/xmobar/xmobar.git
 [submodule ".config/xmonad/taffybar-git"]
 	path = .config/xmonad/taffybar-git
 	url = https://github.com/taffybar/taffybar.git
