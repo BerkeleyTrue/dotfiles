@@ -10,7 +10,7 @@
 -- red = #ff5555
 -- yellow = #f1fa8c
 Config
-  { font = "FiraCode Nerd Font 11"
+  { font = "FiraCode Nerd Font 10"
   , additionalFonts =
       [ "Font Awesome 5 Free Bold 10"
       , "coins Regular"
@@ -22,6 +22,7 @@ Config
   , hideOnStart = False
   , allDesktops = False
   , persistent = True
+  , textOffset = 1
   , commands =
       [ Run Date " %H:%M:%S " "date" 5
       , Run

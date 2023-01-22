@@ -22,6 +22,7 @@ Config
   , hideOnStart = False
   , allDesktops = False
   , persistent = True
+  , textOffset = 1
   , commands =
       [ Run Cpu ["-t", "\xf108: <total>%", "-H", "50", "--high", "red"] 10
       , Run
