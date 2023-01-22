@@ -120,7 +120,6 @@ myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
 myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D"
-    <> spawn "killall trayer &> /dev/null"
     <> spawn "killall picom &> /dev/null"
     <> spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh"
     -- Uses Trayer-srg
