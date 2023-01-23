@@ -90,6 +90,27 @@ Config
           50
       , Run ComX "/home/bt/.local/bin/spy" [] "0.xx" "spy" 600
       , Run UnsafeStdinReader
+      ,  Run
+          WeatherX
+          "KBDU"
+          [ ("clear", "<fc=#f1fa8c>🌣 </fc>")
+          , ("sunny", "<fc=#f1fa8c>🌣 </fc>")
+          , ("mostly clear", "<fc=#f1fa8c>🌤</fc>")
+          , ("mostly sunny", "<fc=#f1fa8c>🌤</fc>")
+          , ("partly sunny", "⛅")
+          , ("fair", "🌑")
+          , ("cloudy","☁")
+          , ("overcast","☁")
+          , ("partly cloudy", "⛅")
+          , ("mostly cloudy", " ")
+          , ("considerable cloudiness", " ")]
+          ["-t" , "<skyConditionS> <tempF><fc=white>°</fc>  <windMph>mph"
+          , "-L" ,"40"
+          , "-H" , "70"
+          , "--normal", "black"
+          , "--high", "yellow"
+          , "--low", "#6272a4"]
+          18000
       ]
   , sepChar = "%"
   , alignSep = "}{"
@@ -100,6 +121,7 @@ Config
     \<fc=#8be9fd> %eth-gas% </fc>\
     \<fc=#8be9fd>勒 %eth-flip% </fc>\
     \<fc=#ff79c6> </fc><fc=#8be9fd>%steth-discount% </fc>\
+    \<fc=#50fa7b>%KBDU%</fc>\
     \ { \
     \<fc=#50fa7b>  $%btc% </fc>\
     \<fc=#bd93f9>  $%ohm% </fc>\
