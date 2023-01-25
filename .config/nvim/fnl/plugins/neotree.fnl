@@ -30,7 +30,9 @@
          :filesystem
          {:filtered_items
           {:hide_dotfiles false
-           :hide_gitignore false}
+           :hide_gitignored false
+           :hide_by_name [:node_modules :.DS_Store]
+           :never_show [:node_modules :.DS_Store]}
 
           :follow_current_file false
           :use_libuv_file_watcher false
