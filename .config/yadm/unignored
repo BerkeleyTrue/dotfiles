@@ -1,1 +1,7 @@
 $HOME/.config/nvim/fnl
+$HOME/.config/nvim/after
+$HOME/.config/nvim/test
+$HOME/.config/nvim/indent
+$HOME/.config/nvim/ftdetect
+$HOME/.config/nvim/ftplugin
+$HOME/.config/nvim/scripts
