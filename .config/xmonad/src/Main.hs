@@ -158,49 +158,49 @@ main = do
   currentStrutStateRef <- newIORef Default
   xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
   xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
-  xmonad $
-    withUrgencyHook UrgencyHookInstance $
-      addDescrKeys'
-        ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
-        (createKeyMaps term werkspaces currentStrutStateRef)
-        $ enhanceXConf
-          def
-            { terminal = term,
-              -- Whether focus follows the mouse pointer.
-              focusFollowsMouse = True,
-              -- Whether clicking on a window to focus also passes the click to the window
-              clickJustFocuses = True,
-              -- Width of the window border in pixels.
-              borderWidth = 4,
-              modMask = myModMask,
-              workspaces = werkspaces,
-              -- Border colors for unfocused and focused windows, respectively.
-              normalBorderColor = background,
-              focusedBorderColor = cyan,
-              -- bindings
-              mouseBindings = mBindings,
-              -- hooks, layouts
-              layoutHook = L.layout,
-              manageHook = myManageHook,
-              handleEventHook = myEventHook,
-              startupHook = myStartupHook,
-              logHook =
-                myLogHook
-                  <> createPPLog
-                    xmobarPP
-                      { -- outputs of the entire bar
-                        -- input from xmonad gets sent to xmonad proc 0,
-                        -- then the output from that gets sent into hPutStrLn
-                        -- and then into xmonad to be displayed
-                        ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,
-                        ppCurrent = xmobarColor cyan "" . wrap "[" "]",
-                        ppVisible = xmobarColor comment "" . wrap "[[" "]]",
-                        ppTitle = xmobarColor purple "" . pad . shorten 20,
-                        ppLayout = xmobarColor red "" . wrap "<" ">",
-                        ppSep = " ",
-                        ppOrder = \(ws : l : t : _) -> [ws, t, l]
-                      }
-            }
+  xmonad
+    $ withUrgencyHook UrgencyHookInstance
+    $ addDescrKeys'
+      ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
+      (createKeyMaps term werkspaces currentStrutStateRef)
+    $ enhanceXConf
+      def
+        { terminal = term,
+          -- Whether focus follows the mouse pointer.
+          focusFollowsMouse = True,
+          -- Whether clicking on a window to focus also passes the click to the window
+          clickJustFocuses = True,
+          -- Width of the window border in pixels.
+          borderWidth = 4,
+          modMask = myModMask,
+          workspaces = werkspaces,
+          -- Border colors for unfocused and focused windows, respectively.
+          normalBorderColor = background,
+          focusedBorderColor = cyan,
+          -- bindings
+          mouseBindings = mBindings,
+          -- hooks, layouts
+          layoutHook = L.layout,
+          manageHook = myManageHook,
+          handleEventHook = myEventHook,
+          startupHook = myStartupHook,
+          logHook =
+            myLogHook
+              <> createPPLog
+                xmobarPP
+                  { -- outputs of the entire bar
+                    -- input from xmonad gets sent to xmonad proc 0,
+                    -- then the output from that gets sent into hPutStrLn
+                    -- and then into xmonad to be displayed
+                    ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,
+                    ppCurrent = xmobarColor cyan "" . wrap "[" "]",
+                    ppVisible = xmobarColor comment "" . wrap "[[" "]]",
+                    ppTitle = xmobarColor purple "" . pad . shorten 20,
+                    ppLayout = xmobarColor red "" . wrap "<" ">",
+                    ppSep = " ",
+                    ppOrder = \(ws : l : t : _) -> [ws, t, l]
+                  }
+        }
   where
     enhanceXConf = docks . ewmh
     createPPLog = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag]
