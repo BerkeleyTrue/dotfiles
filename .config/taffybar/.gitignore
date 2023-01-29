@@ -1,3 +1,4 @@
 .stack-work/
 *~
 taffybar-berks.cabal
+bin
