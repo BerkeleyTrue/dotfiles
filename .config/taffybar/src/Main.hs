@@ -5,22 +5,13 @@ module Main
   )
 where
 
-import Control.Monad
-import Control.Monad.IO.Class
-import Data.Text
+import Berks.WidgetUtils
 import Data.Default (def)
 import System.Taffybar.Information.CPU
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget
 import System.Taffybar.Widget.Generic.Graph
 import System.Taffybar.Widget.Generic.PollingGraph
-import qualified GI.Gtk as Gtk
-
-setClassAndBoundingBoxes :: MonadIO m => Data.Text.Text -> Gtk.Widget -> m Gtk.Widget
-setClassAndBoundingBoxes className = buildContentsBox >=> flip widgetSetClassGI className
-
-deocrateWithSetClassAndBoxes :: MonadIO m => Data.Text.Text -> m Gtk.Widget -> m Gtk.Widget
-deocrateWithSetClassAndBoxes className builder = builder >>= setClassAndBoundingBoxes className
 
 cpuCallback :: IO [Double]
 cpuCallback = do
@@ -42,19 +33,21 @@ clockConfig =
     }
 
 filterHiddenAndNSP :: Workspace -> Bool
-filterHiddenAndNSP Workspace { workspaceState = Empty } = False
-filterHiddenAndNSP Workspace { workspaceName = "NSP" } = False
+filterHiddenAndNSP Workspace {workspaceState = Empty} = False
+filterHiddenAndNSP Workspace {workspaceName = "NSP"} = False
 filterHiddenAndNSP _ = True
 
 workspaceConfig :: WorkspacesConfig
 workspaceConfig =
   def {minIcons = 1, widgetGap = 1, showWorkspaceFn = filterHiddenAndNSP}
 
-
 main :: IO ()
 main = do
-  let clock = deocrateWithSetClassAndBoxes "clock" $ textClockNewWith clockConfig
-      cpu = deocrateWithSetClassAndBoxes "cpu" $ pollingGraphNew cpuCfg 0.5 cpuCallback
+  let clock =
+        deocrateWithClassname "clock" $ textClockNewWith clockConfig
+      cpu =
+        deocrateWithClassname "cpu" $
+          pollingGraphNew cpuCfg 0.5 cpuCallback
       workspaces = workspacesNew workspaceConfig
       simpleConfig =
         def
