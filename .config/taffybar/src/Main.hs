@@ -31,9 +31,15 @@ clockConfig =
         "<span fgcolor='cyan'> \xf073 %a %b %d | Week %V \988226 %H:%M:%S</span>"
     }
 
+filterHiddenAndNSP :: Workspace -> Bool
+filterHiddenAndNSP Workspace { workspaceState = Empty } = False
+filterHiddenAndNSP Workspace { workspaceName = "NSP" } = False
+filterHiddenAndNSP _ = True
+
 workspaceConfig :: WorkspacesConfig
 workspaceConfig =
-  def {minIcons = 1, widgetGap = 1, showWorkspaceFn = hideEmpty}
+  def {minIcons = 1, widgetGap = 1, showWorkspaceFn = filterHiddenAndNSP}
+
 
 main :: IO ()
 main = do
