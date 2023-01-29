@@ -5,12 +5,22 @@ module Main
   )
 where
 
+import Control.Monad
+import Control.Monad.IO.Class
+import Data.Text
 import Data.Default (def)
 import System.Taffybar.Information.CPU
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget
 import System.Taffybar.Widget.Generic.Graph
 import System.Taffybar.Widget.Generic.PollingGraph
+import qualified GI.Gtk as Gtk
+
+setClassAndBoundingBoxes :: MonadIO m => Data.Text.Text -> Gtk.Widget -> m Gtk.Widget
+setClassAndBoundingBoxes className = buildContentsBox >=> flip widgetSetClassGI className
+
+deocrateWithSetClassAndBoxes :: MonadIO m => Data.Text.Text -> m Gtk.Widget -> m Gtk.Widget
+deocrateWithSetClassAndBoxes className builder = builder >>= setClassAndBoundingBoxes className
 
 cpuCallback :: IO [Double]
 cpuCallback = do
@@ -43,8 +53,8 @@ workspaceConfig =
 
 main :: IO ()
 main = do
-  let clock = textClockNewWith clockConfig
-      cpu = pollingGraphNew cpuCfg 0.5 cpuCallback
+  let clock = deocrateWithSetClassAndBoxes "clock" $ textClockNewWith clockConfig
+      cpu = deocrateWithSetClassAndBoxes "cpu" $ pollingGraphNew cpuCfg 0.5 cpuCallback
       workspaces = workspacesNew workspaceConfig
       simpleConfig =
         def

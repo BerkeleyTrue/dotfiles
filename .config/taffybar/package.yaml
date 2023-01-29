@@ -19,6 +19,8 @@ dependencies:
   - base >= 4.7 && < 5
   - taffybar >= 4
   - data-default >= 0.7
+  - text >= 1
+  - gi-gtk
 ghc-options:
   - -Wall
   - -Wcompat
