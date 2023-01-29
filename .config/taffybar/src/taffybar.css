@@ -1,35 +1,29 @@
-/*
- background = #282a36
- selection = #44475a
- foreground = #f8f8f2
- comment = #6272a4
- cyan = #8be9fd
- green = #50fa7b
- orange = #ffb86c
- pink = #ff79c6
- purple = #bd93f9
- red = #ff5555
- yellow = #f1fa8c
-*/
-@define-color transparent rgba(0.0, 0.0, 0.0, 0.0);
-@define-color background #282a36;
-@define-color background-light #44475a;
+@define-color dracula-background #282a36;
+@define-color dracula-selection #44475a;
+@define-color dracula-foreground #f8f8f2;
+@define-color dracula-comment #6272a4;
+@define-color dracula-cyan #8be9fd;
+@define-color dracula-green #50fa7b;
+@define-color dracula-orange #ffb86c;
+@define-color dracula-pink #ff79c6;
+@define-color dracula-purple #bd93f9;
+@define-color dracula-red #ff5555;
+@define-color dracula-yellow #f1fa8c;
 
-@define-color white #f8f8f2;
-@define-color blue-white #8be9fd;
-@define-color black #000000;
-@define-color taffy-blue #6272a4;
-@define-color alert-red #ff5555;
+@define-color transparent rgba(0.0, 0.0, 0.0, 0.0);
+@define-color background @dracula-background;
+@define-color background-light @dracula-comment;
+
+@define-color white @dracula-foreground;
 
 @define-color active-window-color @white;
-@define-color urgent-window-color @alert-red;
+@define-color urgent-window-color @dracula-red;
 @define-color font-color @white;
 @define-color menu-background-color @background;
-@define-color menu-font-color @blue-white;
+@define-color menu-font-color @dracula-cyan;
 
 .taffy-window * {
   all: unset;
-
   font-family: "FiraCode Nerd Font", sans-serif;
   font-size: 12pt;
   color: @font-color;
@@ -37,69 +31,102 @@
 
 .taffy-box {
   border-radius: 0px;
+  padding-top: 1px;
+  padding-bottom: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
   background-color: @background;
-  padding-left: 3px;
-  padding-right: 3px;
 }
 
-.inner-pad {
-  padding-bottom: 5px;
-  /* padding-top: 5px; */
-  /* padding-left: 2px; */
-  padding-right: 2px;
-}
 
-.contents {
-  padding-bottom: 4px;
-  padding-top: 4px;
-  padding-right: 2px;
-  padding-left: 2px;
-  transition: background-color 0.5s;
+
+
+/* workspaces */
+
+/*
+Theres a top level workspaces box
+Each workspace gets a box
+  Each box has an outer-pad and an inner-pad
+    The outer pad is gets the active class
+    Then there's the inner-pad
+      Inside the inner-pad is the .contents box
+       Inside that box there is a label and another box
+          The label gets an active class as well as .workspace-label
+          The other box contains the app icons
+             each one gets .window-icon-container
+             one gets .active, the others get .normal
+             The window-icon-container has a window-icon inside it with auto-size-image
+
+*/
+/* .workspaces .inner-pad { */
+/*   padding-right: 4px; */
+/* } */
+
+.workspaces .contents {
   border-radius: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  transition: background-color 0.5s;
 }
 
-.workspace-label {
-  padding-right: 3px;
-  padding-left: 2px;
+.workspaces .workspace-label {
   font-size: 12pt;
+  padding-right: 4px;
+  transition: color 0.5s;
+  color: @dracula-comment;
 }
 
-.active .contents {
+.workspaces .workspace-label.active {
+  color: @dracula-cyan;
+}
+
+/* visible but no the current active window */
+.workspaces .workspace-label.visible {
+  color: @dracula-cyan;
+}
+
+.workspaces .active .contents {
   background-color: @background-light;
+}
+
+.window-icon-container.active {
+	box-shadow: inset 0 -3px @dracula-comment;
+}
+
+.window-icon-container.urgent {
+	box-shadow: inset 0 -3px @urgent-window-color;
 }
 
 /* This gives space for the box-shadow (they look like underlines) that follow.
    This will actually affect all widgets, (not just the workspace icons), but
    that is what we want since we want the icons to look the same. */
-.auto-size-image {
+.auto-size-image, .sni-tray-image {
   padding-top: 3px;
   padding-bottom: 3px;
 }
 
-.window-icon-container.inactive .window-icon {
-  padding: 0px;
+
+
+/* sni tray */
+.sni-tray {
+  padding-right: 8px;
 }
 
-.window-icon-container.minimized .window-icon {
-  opacity: 0.3;
-}
 
-.window-icon {
-  opacity: 1;
-  transition: opacity 0.5s;
-}
 
 /* Button styling */
 
 button {
-  background-color: @transparent;
   border-width: 0px;
   border-radius: 0px;
+  background-color: @transparent;
 }
 
 button:checked,
 button:hover .Contents:hover {
-  box-shadow: inset 0 -3px @taffy-blue;
+  box-shadow: inset 0 -3px @dracula-comment;
 }
 
 /* Menu styling */
@@ -118,7 +145,7 @@ menuitem {
 
 .taffy-window menuitem:hover,
 menuitem:hover {
-  background-color: @taffy-blue;
+  background-color: @dracula-comment;
 }
 
 .taffy-window menuitem:hover > label,
