@@ -12,7 +12,7 @@
 
 @define-color transparent rgba(0.0, 0.0, 0.0, 0.0);
 @define-color background @dracula-background;
-@define-color background-light @dracula-comment;
+@define-color background-light @dracula-selection;
 
 @define-color white @dracula-foreground;
 
