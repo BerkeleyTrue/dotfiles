@@ -17,27 +17,38 @@ cpuCallback = do
   (_, systemLoad, totalLoad) <- cpuLoad
   return [totalLoad, systemLoad]
 
+cpuCfg :: GraphConfig
+cpuCfg =
+  def
+    { graphDataColors = [(0, 1, 0, 1), (1, 0, 1, 0.5)],
+      graphLabel = Just "<span fgcolor='cyan'>\xf0aab</span>"
+    }
+
+clockConfig :: ClockConfig
+clockConfig =
+  def
+    { clockFormatString =
+        "<span fgcolor='cyan'> \xf073 %a %b %d | Week %V \988226 %H:%M:%S</span>"
+    }
+
+workspaceConfig :: WorkspacesConfig
+workspaceConfig =
+  def {minIcons = 1, widgetGap = 1, showWorkspaceFn = hideEmpty}
+
 main :: IO ()
 main = do
-  let cpuCfg =
-        def
-          { graphDataColors = [(0, 1, 0, 1), (1, 0, 1, 0.5)],
-            graphLabel = Just "cpu"
-          }
-      clock = textClockNewWith cfg
-        where
-          cfg =
-            def
-              { clockFormatString =
-                  "<span fgcolor='cyan'> \xf073 %a %b %d | Week %V \988226 %H:%M:%S</span>"
-              }
+  let clock = textClockNewWith clockConfig
       cpu = pollingGraphNew cpuCfg 0.5 cpuCallback
-      workspaces = workspacesNew def
+      workspaces = workspacesNew workspaceConfig
       simpleConfig =
         def
           { startWidgets = [workspaces],
             centerWidgets = [clock],
             endWidgets = [cpu, sniTrayNew],
-            barPosition = Bottom
+            barPosition = Bottom,
+            cssPaths = ["src/taffybar.css"],
+            monitorsAction = usePrimaryMonitor,
+            barPadding = 0,
+            barHeight = ExactSize 30
           }
   simpleTaffybar simpleConfig
