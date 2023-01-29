@@ -5,3 +5,5 @@ $HOME/.config/nvim/indent
 $HOME/.config/nvim/ftdetect
 $HOME/.config/nvim/ftplugin
 $HOME/.config/nvim/scripts
+$HOME/.config/xmonad
+$HOME/.config/taffybar
