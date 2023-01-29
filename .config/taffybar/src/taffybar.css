@@ -102,7 +102,7 @@ Each workspace gets a box
 /* This gives space for the box-shadow (they look like underlines) that follow.
    This will actually affect all widgets, (not just the workspace icons), but
    that is what we want since we want the icons to look the same. */
-.auto-size-image, .sni-tray-image {
+.auto-size-image {
   padding-top: 3px;
   padding-bottom: 3px;
 }
@@ -151,4 +151,9 @@ menuitem:hover {
 .taffy-window menuitem:hover > label,
 menuitem:hover > label {
   color: @white;
+}
+
+.cpu {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }

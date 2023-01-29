@@ -5,6 +5,7 @@ module Main
   )
 where
 
+import Berks.Colors as Colors
 import Berks.WidgetUtils
 import Data.Default (def)
 import System.Taffybar.Information.CPU
@@ -13,6 +14,15 @@ import System.Taffybar.Widget
 import System.Taffybar.Widget.Generic.Graph
 import System.Taffybar.Widget.Generic.PollingGraph
 
+myDefaultGraphConfig :: GraphConfig
+myDefaultGraphConfig =
+  defaultGraphConfig
+    { graphPadding = 0,
+      graphBorderWidth = 0,
+      graphWidth = 50,
+      graphBackgroundColor = Colors.selection
+    }
+
 cpuCallback :: IO [Double]
 cpuCallback = do
   (_, systemLoad, totalLoad) <- cpuLoad
@@ -20,8 +30,8 @@ cpuCallback = do
 
 cpuCfg :: GraphConfig
 cpuCfg =
-  def
-    { graphDataColors = [(0, 1, 0, 1), (1, 0, 1, 0.5)],
+  myDefaultGraphConfig
+    { graphDataColors = [Colors.red, Colors.cyan],
       graphLabel = Just "<span fgcolor='cyan'>\xf0aab</span>"
     }
 
@@ -43,17 +53,15 @@ workspaceConfig =
 
 main :: IO ()
 main = do
-  let clock =
-        deocrateWithClassname "clock" $ textClockNewWith clockConfig
+  let clock = deocrateWithClassname "clock" $ textClockNewWith clockConfig
       cpu =
-        deocrateWithClassname "cpu" $
-          pollingGraphNew cpuCfg 0.5 cpuCallback
+        deocrateWithClassname "cpu" $ pollingGraphNew cpuCfg 0.5 cpuCallback
       workspaces = workspacesNew workspaceConfig
       simpleConfig =
         def
           { startWidgets = [workspaces],
             centerWidgets = [clock],
-            endWidgets = [cpu, sniTrayNew],
+            endWidgets = [sniTrayNew, cpu],
             barPosition = Bottom,
             cssPaths = ["src/taffybar.css"],
             monitorsAction = usePrimaryMonitor,
