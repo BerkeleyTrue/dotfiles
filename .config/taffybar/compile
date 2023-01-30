@@ -4,6 +4,3 @@ set -e
 
 stack build
 stack install --local-bin-path bin/
-# cp bin/xmonad $HOME/.local/share/xmonad/xmonad-x86_64-linux
-# cp bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux
-# cp bin/xmonad $HOME/.local/bin/xmonad

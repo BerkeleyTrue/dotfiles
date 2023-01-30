@@ -8,16 +8,12 @@ where
 import Berks.Colors as Colors
 import Berks.WidgetUtils
 import Data.Default (def)
-import Data.Text
-import qualified GI.Gtk as Gtk
 import System.Taffybar.Information.CPU
 import System.Taffybar.Information.Memory
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget
 import System.Taffybar.Widget.Generic.Graph
 import System.Taffybar.Widget.Generic.PollingGraph
-import System.Taffybar.Widget.Generic.PollingLabel
-import System.Taffybar.Information.CPU2 (getCPUTemperatures)
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
