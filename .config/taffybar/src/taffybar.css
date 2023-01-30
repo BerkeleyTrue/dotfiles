@@ -38,9 +38,6 @@
   background-color: @background;
 }
 
-
-
-
 /* workspaces */
 
 /*
@@ -92,11 +89,11 @@ Each workspace gets a box
 }
 
 .window-icon-container.active {
-	box-shadow: inset 0 -3px @dracula-comment;
+  box-shadow: inset 0 -3px @dracula-comment;
 }
 
 .window-icon-container.urgent {
-	box-shadow: inset 0 -3px @urgent-window-color;
+  box-shadow: inset 0 -3px @urgent-window-color;
 }
 
 /* This gives space for the box-shadow (they look like underlines) that follow.
@@ -107,14 +104,10 @@ Each workspace gets a box
   padding-bottom: 3px;
 }
 
-
-
 /* sni tray */
 .sni-tray {
-  padding-right: 8px;
+  padding-left: 20px;
 }
-
-
 
 /* Button styling */
 
@@ -153,7 +146,13 @@ menuitem:hover > label {
   color: @white;
 }
 
-.cpu {
-  padding-top: 4px;
-  padding-bottom: 4px;
+.graph {
+  border-radius: 8px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 8px;
+  padding-left: 8px;
+  padding-right: 10px;
+  border-color: @dracula-comment;
+  background-color: @dracula-selection;
 }

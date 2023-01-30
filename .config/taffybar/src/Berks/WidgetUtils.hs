@@ -1,5 +1,5 @@
 module Berks.WidgetUtils
-  ( deocrateWithClassname,
+  ( decorateWithClassname,
   )
 where
 
@@ -13,6 +13,6 @@ setWidgetClassname :: MonadIO m => Text -> Widget -> m Widget
 setWidgetClassname classname =
   buildContentsBox >=> flip widgetSetClassGI classname
 
-deocrateWithClassname :: MonadIO m => Data.Text.Text -> m Widget -> m Widget
-deocrateWithClassname classname builder =
+decorateWithClassname :: MonadIO m => Text -> m Widget -> m Widget
+decorateWithClassname classname builder =
   builder >>= setWidgetClassname classname

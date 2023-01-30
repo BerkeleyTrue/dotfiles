@@ -1,5 +1,6 @@
 module Berks.Colors
-  ( background,
+  ( transparent,
+    background,
     selection,
     foreground,
     comment,
@@ -14,6 +15,9 @@ module Berks.Colors
 where
 
 import Berks.Hexes
+
+transparent :: RGBA
+transparent = (0, 0, 0, 0)
 
 background :: RGBA
 background = hexToRGBA "#282a36"
