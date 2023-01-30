@@ -23,6 +23,10 @@ echo "starting xprofile apps" &
 #window composer
 /usr/bin/picom -b &
 
+# status notifier used by sni tray
+# must install with stack install status-notifier-item
+$HOME/.local/bin/status-notifier-watcher &
+
 # network manager
 /usr/bin/nm-applet &
 
