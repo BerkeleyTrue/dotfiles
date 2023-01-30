@@ -1,10 +1,9 @@
 ## To Do
 
-- move to taffybar
-  > Don't like the xmobar uses a psuedo haskell file
 
 ## Doing
 
+- move to taffybar
 
 ## Done
 
