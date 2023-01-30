@@ -78,7 +78,6 @@ main = do
             centerWidgets = [clock],
             endWidgets = [sniTrayNew, mem, cpu],
             barPosition = Bottom,
-            cssPaths = ["src/taffybar.css"],
             monitorsAction = usePrimaryMonitor,
             barPadding = 0,
             barHeight = ExactSize 30
