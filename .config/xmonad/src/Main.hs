@@ -20,6 +20,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.TaffybarPagerHints
 import XMonad.StackSet hiding
   ( focus,
     workspaces,
@@ -189,7 +190,7 @@ main = do
               <> createPPLog
                 xmobarPP
                   { -- outputs of the entire bar
-                    -- input from xmonad gets sent to xmonad proc 0,
+                    -- input from xmonad gets sent to xmobar 0 and 1,
                     -- then the output from that gets sent into hPutStrLn
                     -- and then into xmonad to be displayed
                     ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,
@@ -202,5 +203,5 @@ main = do
                   }
         }
   where
-    enhanceXConf = docks . ewmh
+    enhanceXConf = docks . ewmh . pagerHints
     createPPLog = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag]
