@@ -36,7 +36,6 @@
                  null-ls.builtins.formatting.lua_format
                  null-ls.builtins.formatting.brittany
                  null-ls.builtins.formatting.swiftformat
-                 null-ls.builtins.diagnostics.eslint
                  null_ls.builtins.diagnostics.ansiblelint]]
 
 

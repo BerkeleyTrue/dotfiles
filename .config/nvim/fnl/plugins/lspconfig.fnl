@@ -61,6 +61,7 @@
    :cssls {}
    :dockerls {}
    :emmet_ls (emmetls.get-config)
+   :eslint {}
    ; :fennel_ls {} ; disabled for now, since it doesn't pick up macros
    ; :fennel_language_server {} ; disabled for now, since it doesn't pick up macros
    :gopls {:on_attach general-on-attach-with-navic}
