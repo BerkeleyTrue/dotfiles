@@ -1,5 +1,6 @@
 module Berks.WidgetUtils
   ( decorateWithClassname,
+    setWidgetClassname,
   )
 where
 

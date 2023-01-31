@@ -6,14 +6,24 @@ module Main
 where
 
 import Berks.Colors as Colors
+import Berks.MultiCoreTemp
 import Berks.WidgetUtils
+import Control.Monad.IO.Class (MonadIO)
 import Data.Default (def)
+import Data.Functor
+import Data.Text hiding (reverse)
+import GI.Gtk as Gtk
+  ( Widget,
+  )
 import System.Taffybar.Information.CPU
 import System.Taffybar.Information.Memory
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget
 import System.Taffybar.Widget.Generic.Graph
 import System.Taffybar.Widget.Generic.PollingGraph
+import System.Taffybar.Widget.Generic.PollingLabel
+import Text.Printf
+import Berks.Widgets.FSMonitor (fsMonitorWidget)
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -55,6 +65,13 @@ clockConfig =
         "<span fgcolor='cyan'> \xf073 %a %b %d | Week %V \988226 %H:%M:%S</span>"
     }
 
+cpuTemp :: MonadIO m => m Widget
+cpuTemp =
+  pollingLabelNew 1 $
+    getMultiCoreTemps
+      <&> pack
+        . (\temp -> "\63687: " ++ temp ++ "°C")
+        . printf "%.0f"
 
 filterHiddenAndNSP :: Workspace -> Bool
 filterHiddenAndNSP Workspace {workspaceState = Empty} = False
@@ -76,7 +93,7 @@ main = do
         def
           { startWidgets = [workspaces],
             centerWidgets = [clock],
-            endWidgets = [mem, cpu],
+            endWidgets = reverse [cpuTemp, fsMonitorWidget, cpu, mem],
             barPosition = Bottom,
             monitorsAction = usePrimaryMonitor,
             barPadding = 0,
