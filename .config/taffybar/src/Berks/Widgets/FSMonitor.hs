@@ -4,9 +4,8 @@ module Berks.Widgets.FSMonitor
   )
 where
 
--- import Berks.WidgetUtils (setWidgetClassname)
+import Berks.WidgetUtils (setWidgetClassnameFromString)
 import Control.Monad.IO.Class (MonadIO)
--- import Data.Functor
 import Data.Text as T
   ( append,
     pack,
@@ -30,4 +29,7 @@ showFSInfo fsList =
 
 fsMonitorWidget :: MonadIO m => m Widget
 fsMonitorWidget =
-   pollingLabelNew 1 $ (append . pack) "\xf0c7: " . pack <$> showFSInfo ["/"]
+  setWidgetClassnameFromString "fs-monitor"
+    =<< pollingLabelNew
+      1
+      ((append . pack) "\xf0c7 " . pack <$> showFSInfo ["/"])

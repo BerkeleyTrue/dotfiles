@@ -1,6 +1,7 @@
 module Berks.WidgetUtils
   ( decorateWithClassname,
     setWidgetClassname,
+    setWidgetClassnameFromString
   )
 where
 
@@ -9,6 +10,9 @@ import Control.Monad.IO.Class
 import Data.Text
 import GI.Gtk
 import System.Taffybar.Widget.Util
+
+setWidgetClassnameFromString :: MonadIO m => String -> Widget -> m Widget
+setWidgetClassnameFromString = setWidgetClassname . pack
 
 setWidgetClassname :: MonadIO m => Text -> Widget -> m Widget
 setWidgetClassname classname =
