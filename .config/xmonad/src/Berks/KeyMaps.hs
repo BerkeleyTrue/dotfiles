@@ -97,6 +97,10 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
                  \ notify-send -a 'XMonad'  'Restarted'"
           )
     ),
+    -- restart taffybar
+    ((modm .|. shiftMask, xK_t), addName "Restart Taffybar" startTaffybar),
+    -- rebuild taffybar
+    ((modm .|. controlMask, xK_t), addName "Recompile and restart Taffybar" rebuildTaffybar),
     ---
     ---
     ---
@@ -119,8 +123,6 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
     ((modm, xK_g), addName "Launch grid selector" $ createAppGridSpawner ()),
     --
     ((modm .|. shiftMask, xK_q), addName "close focused window" kill),
-    -- restart taffybar
-    ((modm .|. shiftMask, xK_t), addName "Restart taffybar" startTaffybar),
     ---
     ---
     ---
