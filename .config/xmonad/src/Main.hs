@@ -151,6 +151,7 @@ myStartupHook =
         "height",
         "22"
       ]
+    <> spawn "killall bottom-taffybar &> /dev/null; sleep 1 && bottom-taffybar &"
     <> spawn "killall picom &> /dev/null; sleep 1 && picom &"
 
 ------------------------------------------------------------------------

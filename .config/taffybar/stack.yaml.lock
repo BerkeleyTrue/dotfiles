@@ -10,7 +10,7 @@ packages:
       sha256: 38867928e5d44a3af92cedd5b3ada01101e4724ae1dff0e6951244cccc626bff
       size: 6032
   original:
-    hackage: taffybar-4.0.0
+    hackage: taffybar-4.0.0@sha256:667ccc958f6d793d3c4cdee3578f8586387ff3c86df02bee0ce130e115b1329b,7029
 - completed:
     hackage: rate-limit-1.4.3@sha256:ede2fd61c08dd6bc1849a5ca777baf5b68476f33e57cca40bc7c742603969f06,963
     pantry-tree:

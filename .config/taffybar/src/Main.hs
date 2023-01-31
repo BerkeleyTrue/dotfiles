@@ -76,7 +76,7 @@ main = do
         def
           { startWidgets = [workspaces],
             centerWidgets = [clock],
-            endWidgets = [sniTrayNew, mem, cpu],
+            endWidgets = [mem, cpu],
             barPosition = Bottom,
             monitorsAction = usePrimaryMonitor,
             barPadding = 0,
