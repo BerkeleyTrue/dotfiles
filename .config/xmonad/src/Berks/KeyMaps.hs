@@ -100,7 +100,7 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
     -- restart taffybar
     ((modm .|. shiftMask, xK_t), addName "Restart Taffybar" startTaffybar),
     -- rebuild taffybar
-    ((modm .|. controlMask, xK_t), addName "Recompile and restart Taffybar" rebuildTaffybar),
+    ((modm .|. controlMask .|. shiftMask, xK_t), addName "Recompile and restart Taffybar" rebuildTaffybar),
     ---
     ---
     ---

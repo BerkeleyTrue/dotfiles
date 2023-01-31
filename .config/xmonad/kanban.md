@@ -1,9 +1,19 @@
 ## To Do
 
+- move from trayer to taffybar sni tray
+  > Will wait to try again in a while. Doesn't seem to work with all systray apps
 
 ## Doing
 
 - move to taffybar
+  * [ ] wakatime
+  * [ ] current app title
+  * [ ] eth info
+  * [ ] weather
+  * [ ] current layout
+  * [ ] picom switch
+  * [ ] power menu button
+  * [ ] hdd space
 
 ## Done
 
