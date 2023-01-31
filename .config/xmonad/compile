@@ -4,6 +4,6 @@ set -e
 
 stack build :xmonad
 stack install :xmonad --local-bin-path bin/
+stack install
 cp bin/xmonad $HOME/.local/share/xmonad/xmonad-x86_64-linux
-cp bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux
-cp bin/xmonad $HOME/.local/bin/xmonad
+cp bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux &> /dev/null # errors when xmonad is already running

@@ -2,7 +2,17 @@
 
 set -e
 
-stack build :xmonad --verbosity error
-stack install :xmonad --local-bin-path bin/ --verbosity error
+SRC_DIR=$HOME/.config/xmonad
+EXE_NAME=xmonad-x86_64-linux
+
+# Unset STACK_YAML, to ensure that $SRC_DIR/stack.yaml is used.
+unset STACK_YAML
+
+stack build --verbosity error
+stack install --local-bin-path bin/ --verbosity error
+
 cp bin/xmonad $HOME/.local/share/xmonad/xmonad-x86_64-linux
-mv bin/xmonad "$1"
+
+# see https://github.com/xmonad/xmonad-contrib/blob/master/scripts/build/build-with-stack.sh
+# Create a hard link at the requested destination, replacing any existing one.
+ln -f -T $(stack exec -- which $EXE_NAME) $1
