@@ -2,5 +2,9 @@
 
 set -e
 
+# make sure we are in the right directory for stack
+cd $HOME/.config/taffybar
+
 stack build
 stack install --local-bin-path bin/
+stack install
