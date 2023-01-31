@@ -8,6 +8,7 @@ where
 
 import Berks.GridSelect
 import Berks.Scratchpads
+import Berks.Taffybar
 import Data.IORef
 import Data.Ratio as Ratio
   ( (%),
@@ -45,7 +46,8 @@ setStrutState ref = do
       sendMessage ToggleStruts >> sendMessage (Toggle NOBORDERS)
     FullScreen -> do
       io $ writeIORef ref Default
-      sendMessage ToggleStruts >> sendMessage (Toggle FULL)
+      sendMessage ToggleStruts
+        >> sendMessage (Toggle FULL)
         >> sendMessage
           (Toggle NOBORDERS)
 
@@ -59,7 +61,8 @@ resetStrutToDefault ref = do
     SingleWindow -> do
       sendMessage (Toggle FULL)
     FullScreen -> do
-      sendMessage ToggleStruts >> sendMessage (Toggle FULL)
+      sendMessage ToggleStruts
+        >> sendMessage (Toggle FULL)
         >> sendMessage
           (Toggle NOBORDERS)
 
@@ -116,6 +119,8 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
     ((modm, xK_g), addName "Launch grid selector" $ createAppGridSpawner ()),
     --
     ((modm .|. shiftMask, xK_q), addName "close focused window" kill),
+    -- restart taffybar
+    ((modm .|. shiftMask, xK_t), addName "Restart taffybar" startTaffybar),
     ---
     ---
     ---

@@ -22,6 +22,7 @@ executable xmonad
     , Berks.Layouts.ThreeCol
     , Berks.Layouts.Vert
     , Berks.Scratchpads
+    , Berks.Taffybar
     , Berks.Trayer
     , Berks.Urgency
     , Berks.Utils

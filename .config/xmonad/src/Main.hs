@@ -5,6 +5,7 @@ import Berks.Colors
 import Berks.KeyMaps
 import Berks.Layouts.Main as L
 import Berks.Scratchpads
+import Berks.Taffybar
 import Berks.Trayer
 import Berks.Urgency
 import Berks.Utils
@@ -18,9 +19,9 @@ import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.TaffybarPagerHints
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WorkspaceHistory
-import XMonad.Hooks.TaffybarPagerHints
 import XMonad.StackSet hiding
   ( focus,
     workspaces,
@@ -151,7 +152,7 @@ myStartupHook =
         "height",
         "22"
       ]
-    <> spawn "killall bottom-taffybar &> /dev/null; sleep 1 && bottom-taffybar &"
+    <> startTaffybar
     <> spawn "killall picom &> /dev/null; sleep 1 && picom &"
 
 ------------------------------------------------------------------------
