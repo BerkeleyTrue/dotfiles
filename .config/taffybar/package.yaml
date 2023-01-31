@@ -16,11 +16,14 @@ copyright: 2023 Berkeley True
 # common to point users to the README.md file.
 description: Please see the README on GitHub at <https://github.com/berkeleytrue/dotfiles#readme>
 dependencies:
-  - base >= 4.7 && < 5
-  - taffybar >= 4
-  - data-default >= 0.7
-  - text >= 1
-  - gi-gtk
+  base: ">= 4.7 && < 5"
+  taffybar: ">= 4"
+  data-default: ">= 0.7"
+  text: ">= 1"
+  gi-gtk:
+  directory:
+  process:
+
 ghc-options:
   - -Wall
   - -Wcompat
@@ -37,10 +40,6 @@ executables:
     source-dirs: src
     ghc-options: [-threaded, -rtsopts, -with-rtsopts=-N]
     dependencies: [taffybar]
-    other-modules:
-      - Berks.Colors
-      - Berks.Hexes
-      - Berks.WidgetUtils
 tests:
   taffybar-test:
     main: Spec.hs
