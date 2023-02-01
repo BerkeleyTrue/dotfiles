@@ -9,8 +9,15 @@ import Berks.Widgets.Clock (clockWidget)
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
+import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.Default (def)
+import System.Log.Logger
+  ( Priority (..),
+    getLogger,
+    saveGlobalLogger,
+    setLevel,
+  )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
 
@@ -25,10 +32,12 @@ myDefaultGraphConfig =
 
 main :: IO ()
 main = do
+  logger <- getLogger "System.Taffybar.Widget.Weather"
+  saveGlobalLogger $ setLevel ERROR logger
   let simpleConfig =
         def
           { startWidgets = [workspacesWidget],
-            centerWidgets = [clockWidget],
+            centerWidgets = [clockWidget, weatherWidget],
             endWidgets =
               reverse
                 [ cpuTempWidget,

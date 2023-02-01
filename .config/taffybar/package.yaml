@@ -23,7 +23,12 @@ dependencies:
   gi-gtk:
   directory:
   process:
-
+  hslogger:
+  http-client-tls:
+  http-conduit:
+  http-types:
+  bytestring:
+  parsec:
 ghc-options:
   - -Wall
   - -Wcompat
@@ -35,6 +40,7 @@ ghc-options:
   - -Wpartial-fields
   - -Wredundant-constraints
   - -XOverloadedStrings
+  - -XImportQualifiedPost
 executables:
   bottom-taffybar:
     main: Main.hs
