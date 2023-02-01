@@ -7,8 +7,7 @@ where
 import Berks.WidgetUtils (setWidgetClassnameFromString)
 import Control.Monad.IO.Class (MonadIO)
 import Data.Text as T
-  ( append,
-    pack,
+  ( pack,
   )
 import GI.Gtk as Gtk
   ( Widget,
@@ -30,6 +29,4 @@ showFSInfo fsList =
 fsMonitorWidget :: MonadIO m => m Widget
 fsMonitorWidget =
   setWidgetClassnameFromString "fs-monitor"
-    =<< pollingLabelNew
-      1
-      ((append . pack) "\xf0c7 " . pack <$> showFSInfo ["/"])
+    =<< pollingLabelNew 1 ((<> "\xf0c7 ") . pack <$> showFSInfo ["/"])

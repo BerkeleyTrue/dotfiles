@@ -34,6 +34,7 @@ ghc-options:
   - -Wmissing-home-modules
   - -Wpartial-fields
   - -Wredundant-constraints
+  - -XOverloadedStrings
 executables:
   bottom-taffybar:
     main: Main.hs
