@@ -8,11 +8,11 @@ import XMonad.Core
 
 taffyRestartCmd :: String
 taffyRestartCmd =
-  "killall bottom-taffybar &> /dev/null; sleep 1 && bottom-taffybar &"
+  "killall bottom-taffybar &> /dev/null"
 
 rebuildTaffybar :: X ()
 rebuildTaffybar =
   spawn $ "notify-send -a 'XMonad' 'Rebuilding Taffybar' && $HOME/.config/taffybar/compile && " ++ taffyRestartCmd
 
 startTaffybar :: X ()
-startTaffybar = spawn taffyRestartCmd
+startTaffybar = spawn "systemctl start --user taffybar"
