@@ -1,0 +1,9 @@
+[Unit]
+Description=Taffybar Status Bar
+
+[Service]
+ExecStart=/home/berkeleytrue/.local/bin/bottom-taffybar
+Restart=always
+
+[Install]
+WantedBy=default.target
