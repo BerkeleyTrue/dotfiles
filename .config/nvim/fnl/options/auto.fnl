@@ -55,6 +55,11 @@
              "    utils utils}"
              "   require-macros [macros]})"]))))))
 
+(defn hpack-auto-gen []
+  (let [res (vim.fn.system (.. "hpack " (vim.fn.expand "%")))]
+    (if (not= (v shell_error) 0)
+      (echoerr res)
+      (print res))))
 
 (augroup
   :GeneralAu
@@ -77,4 +82,8 @@
   ; add module to the top of the file when you open it if it's empty
   {:event [:FileType]
    :pattern :fennel
-   :callback auto-add-module})
+   :callback auto-add-module}
+
+  {:event [:BufWritePost]
+   :pattern :package.yaml
+   :callback hpack-auto-gen})

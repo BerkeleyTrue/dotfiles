@@ -286,6 +286,10 @@
   "execute command 'name' and concat with arguments"
   `(vim.api.nvim_command (table.concat (vim.tbl_flatten [,(tostring name) ,...]) " ")))
 
+(defn echoerr [errstring]
+  "Echo error message"
+  `(vim.api.nvim_command (.. "echoerr \"" ,errstring "\"")))
+
 (defn n [name ...]
   "run vim.api.nvim_[n] api"
   (let [f (.. "vim.api.nvim_" (tostring name))]

@@ -7,12 +7,12 @@ import Berks.Colors as Colors
 import Berks.Widgets.CPU (cpuWidget)
 import Berks.Widgets.Clock (clockWidget)
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
+import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
+import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.Default (def)
 import System.Taffybar.SimpleConfig
-import System.Taffybar.Widget
 import System.Taffybar.Widget.Generic.Graph
-import Berks.Widgets.Memory (memoryWidget)
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -23,26 +23,19 @@ myDefaultGraphConfig =
       graphBackgroundColor = Colors.transparent
     }
 
-
-filterHiddenAndNSP :: Workspace -> Bool
-filterHiddenAndNSP Workspace {workspaceState = Empty} = False
-filterHiddenAndNSP Workspace {workspaceName = "NSP"} = False
-filterHiddenAndNSP _ = True
-
-workspaceConfig :: WorkspacesConfig
-workspaceConfig =
-  def {minIcons = 1, widgetGap = 1, showWorkspaceFn = filterHiddenAndNSP}
-
 main :: IO ()
 main = do
-  let workspaces = workspacesNew workspaceConfig
-      simpleConfig =
+  let simpleConfig =
         def
-          { startWidgets = [workspaces],
+          { startWidgets = [workspacesWidget],
             centerWidgets = [clockWidget],
             endWidgets =
               reverse
-                [cpuTempWidget, fsMonitorWidget, cpuWidget myDefaultGraphConfig, memoryWidget myDefaultGraphConfig],
+                [ cpuTempWidget,
+                  fsMonitorWidget,
+                  cpuWidget myDefaultGraphConfig,
+                  memoryWidget myDefaultGraphConfig
+                ],
             barPosition = Bottom,
             monitorsAction = usePrimaryMonitor,
             barPadding = 0,
