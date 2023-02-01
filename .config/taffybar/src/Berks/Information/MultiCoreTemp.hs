@@ -1,5 +1,5 @@
 -- Sourced from: https://codeberg.org/xmobar/xmobar/src/branch/master/src/Xmobar/Plugins/Monitors/MultiCoreTemp.hs
-module Berks.MultiCoreTemp
+module Berks.Information.MultiCoreTemp
   ( getMultiCoreTemps,
   )
 where
