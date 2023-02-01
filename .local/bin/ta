@@ -107,8 +107,17 @@ create_detached_session() {
 
 create_session_from_dir() {
   local dir=$1
-  local query=$(test $2 && echo $2 || echo "")
-  local _session_name=$(cd $dir && ls -d */ | sed "s|/||g" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)" --query="$query")
+  local query=$(test ${2-} && echo $2 || echo "")
+  local sessions=$(cd $dir && ls -d */ | sed "s|/||g")
+
+  # check if sessions is longer than 1 and if so, prompt for selection
+  # else just use the first session
+  if [ $(echo "$sessions" | wc -l) -gt 1 ]; then
+    local _session_name=$(echo "$sessions" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)" --query="$query")
+  else
+    local _session_name=$(echo "$sessions" | head -n 1)
+  fi
+
   local session_name=${_session_name//./_}
   echo $session_name
 }
@@ -133,7 +142,7 @@ create_if_needed_and_attach() {
 
 attach_to_dir_session() {
   local dir=$1
-  local query=$(test "$2" && echo "$2" || echo "")
+  local query=$(test "${2-}" && echo "$2" || echo "")
   local session_name=$(create_session_from_dir $dir $query)
   if [ -z "$session_name" ]; then
     echo "No directory selected"
