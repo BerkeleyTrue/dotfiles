@@ -45,6 +45,7 @@ Options:
   flag CONF -c --conf -- "Select conf dir in $CONF_DIR"
   flag BIN -b --bin -- "create a bin session"
   flag WS -w --ws -- "create a workstation session"
+  flag LIST -l --list -- "list all sessions"
   disp :usage -h --help -- "This menu"
 }
 
@@ -52,7 +53,7 @@ eval "$(getoptions parser_definition parse) exit 1"
 parse "$@"
 eval "set -- $REST"
 
-log "OPTS; DIR:$DIR, GIT:$GIT, KILL:$KILL, DEV:$DEV, Arg:$1"
+log "OPTS; DIR:$DIR, GIT:$GIT, KILL:$KILL, DEV:$DEV, LIST:$LIST Arg:$1"
 
 ARG=$1
 set -euo pipefail
@@ -213,6 +214,10 @@ ensure_kill_prompt() {
   fi
 }
 
+list_sessions() {
+  tmux list-sessions | awk '{print $1}' | tr ':' ' '
+}
+
 log "arg: $ARG"
 
 main() {
@@ -220,7 +225,10 @@ main() {
     CUR_SESSION=$(tmux display-message -p "#S")
   fi
 
-  if [ $DEV ]; then
+  if [ $LIST ]; then
+    list_sessions
+    exit 0
+  elif [ $DEV ]; then
     attach_to_proj
   elif [ $GIT ]; then
     # ask the user which git project to start in
