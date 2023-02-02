@@ -70,9 +70,15 @@ yadd() {
   # can't do -o for yadm since it will list all the files
   if [[ $# -eq 0 ]]; then
     yunignored # add unignored files
-    yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always" | xargs -0 -o -t yadm add
+    toAdd=$(yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always")
+    if [[ -n "$toAdd" ]]; then
+      yadm add "$toAdd"
+    else
+      echo "No files selected"
+    fi
     return 0
   fi
+
   # regular yadm add if arguments are given
   eval "yadm add $@"
 }
