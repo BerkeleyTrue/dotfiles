@@ -13,6 +13,10 @@ import Data.IORef
 import Data.Map
 import Data.Semigroup
 import XMonad
+import XMonad.Actions.TagWindows
+  ( addTag,
+    delTag,
+  )
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeWindows
@@ -22,8 +26,10 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.TaffybarPagerHints
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Prelude (bool)
 import XMonad.StackSet hiding
   ( focus,
+    member,
     workspaces,
   )
 import XMonad.Util.NamedActions
@@ -85,8 +91,8 @@ mBindings XConfig {XMonad.modMask = modm} =
 myManageHook :: Query (Endo WindowSet)
 myManageHook =
   composeAll
-    [ resource =? "desktop_window" --> doIgnore,
-      resource =? "kdesktop" --> doIgnore,
+    [ appName =? "desktop_window" --> doIgnore,
+      appName =? "kdesktop" --> doIgnore,
       isFullscreen --> doFullFloat,
       className =? "Slack" --> doShift "3",
       className =? "discord" --> doShift "3",
@@ -107,10 +113,18 @@ myEventHook = fadeWindowsEventHook
 -- Status bars and logging
 -- workspaceHistoryHook -> A logHook that keeps track of the order in which workspaces have been viewed.
 -- fadeWindowsLogHook -> A logHook to fade windows under control of a FadeHook, which is similar to but not identical to ManageHook.
+-- tagHook -> Add floating tag to windows in the floating layer on every change
 myLogHook :: X ()
-myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook
+myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook >> tagHook
   where
     myFadeHook = composeAll [opaque, isUnfocused --> transparency 0.02]
+
+    toggleTagOn = bool delTag addTag
+    isWindowInFloatingSet windowSet window = member window $ floating windowSet
+    toggleFloatingTag windowSet window =
+      toggleTagOn (isWindowInFloatingSet windowSet window) "floating" window
+
+    tagHook = withWindowSet $ mapM_ <$> toggleFloatingTag <*> allWindows
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -189,19 +203,20 @@ main = do
           startupHook = myStartupHook,
           logHook =
             myLogHook
-              <> createPPLog
+              >> createPPLog
                 xmobarPP
                   { -- outputs of the entire bar
                     -- input from xmonad gets sent to xmobar 0 and 1,
                     -- then the output from that gets sent into hPutStrLn
                     -- and then into xmonad to be displayed
                     ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,
-                    ppCurrent = xmobarColor cyan "" . wrap "[" "]",
-                    ppVisible = xmobarColor comment "" . wrap "[[" "]]",
-                    ppTitle = xmobarColor purple "" . pad . shorten 20,
-                    ppLayout = xmobarColor red "" . wrap "<" ">",
+                    ppCurrent = xmobarColor cyan "" . wrap "[" "]", -- Current workspace in xmobar
+                    ppVisible = xmobarColor comment "" . wrap "[[" "]]", -- visible workspace id formatter
+                    ppTitle = xmobarColor purple "" . pad . shorten 20, -- current window title formatter
+                    ppLayout = xmobarColor red "" . wrap "<" ">", -- layout name formatter
                     ppSep = " ",
-                    ppOrder = \(ws : l : t : _) -> [ws, t, l]
+                    ppOrder = \(workspaces : layouts : windowTitle : _) ->
+                      [workspaces, windowTitle, layouts]
                   }
         }
   where
