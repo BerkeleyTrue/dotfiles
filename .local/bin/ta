@@ -46,6 +46,7 @@ Options:
   flag BIN -b --bin -- "create a bin session"
   flag WS -w --ws -- "create a workstation session"
   flag LIST -l --list -- "list all sessions"
+  flag RENAME -r --rename -- "Rename current session"
   disp :usage -h --help -- "This menu"
 }
 
@@ -239,8 +240,12 @@ main() {
     CUR_SESSION=$(tmux display-message -p "#S")
   fi
 
+  # rename the current session
   if [ $LIST ]; then
     list_sessions
+    exit 0
+  elif [ $RENAME ]; then
+    tmux rename-session -t $(tmux display-message -p "#S") $ARG
     exit 0
   elif [ $DEV ]; then
     attach_to_proj
