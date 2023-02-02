@@ -2,7 +2,7 @@
 Description=Taffybar Status Bar
 
 [Service]
-ExecStart=/home/berkeleytrue/.local/bin/bottom-taffybar
+ExecStart=/home/berkeleytrue/.local/bin/taffybar
 Restart=always
 
 [Install]

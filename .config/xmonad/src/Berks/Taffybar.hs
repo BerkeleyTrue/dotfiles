@@ -8,7 +8,7 @@ import XMonad.Core
 
 taffyRestartCmd :: String
 taffyRestartCmd =
-  "killall bottom-taffybar &> /dev/null"
+  "killall taffybar &> /dev/null"
 
 rebuildTaffybar :: X ()
 rebuildTaffybar =
