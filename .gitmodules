@@ -7,9 +7,6 @@
 [submodule ".config/xmonad/xmobar-git"]
 	path = .config/xmonad/xmobar-git
 	url = https://codeberg.org/xmobar/xmobar.git
-[submodule ".config/xmonad/taffybar-git"]
-	path = .config/xmonad/taffybar-git
-	url = https://github.com/taffybar/taffybar.git
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
