@@ -215,10 +215,12 @@ main = do
                     ppTitle = xmobarColor purple "" . pad . shorten 20, -- current window title formatter
                     ppLayout = xmobarColor red "" . wrap "<" ">", -- layout name formatter
                     ppSep = " ",
-                    ppOrder = \(workspaces : layouts : windowTitle : _) ->
-                      [workspaces, windowTitle, layouts]
+                    ppOrder = myPPOrder
                   }
         }
   where
     enhanceXConf = docks . ewmh . pagerHints
     createPPLog = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag]
+    myPPOrder [werkspces, layouts, windowTitle] = [werkspces, windowTitle, layouts]
+    myPPOrder (werkspces : layouts : windowTitle : _) = myPPOrder [werkspces, windowTitle, layouts]
+    myPPOrder _ = []
