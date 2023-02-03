@@ -57,13 +57,6 @@ Config
           20
       , Run DiskU [("/", "\xf0c7 <free>")] [] 60
       , Run UnsafeStdinReader
-      , Run
-          ComX
-          "/home/berkeleytrue/.config/xmobar/gen-trayer-padding.sh"
-          ["panel"]
-          "Bad Trayer"
-          "trayerpad"
-          10
       , Run ComX "wakatime" ["--today"] "0" "" 20
       , Run
           ComX
@@ -114,6 +107,7 @@ Config
           , "--high", "yellow"
           , "--low", "#6272a4"]
           18000
+      , Run XPropertyLog "_XMONAD_TRAYPAD"
       ]
   , sepChar = "%"
   , alignSep = "}{"
@@ -135,6 +129,6 @@ Config
     \<fc=#666666>|</fc><fc=#ffb86c> %multicoretemp% </fc>\
     \<fc=#666666>|</fc><fc=#ff5555> %memory% </fc>\
     \<fc=#666666>|</fc><fc=#6272a4> %disku% </fc>\
-    \ %trayerpad% \
+    \ %_XMONAD_TRAYPAD% \
     \ "
   }

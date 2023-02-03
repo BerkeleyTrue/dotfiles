@@ -23,7 +23,10 @@ processArgs (x : y : xs) = ("--" ++ x) : y : processArgs xs
 
 spawnTrayer :: MonadIO m => [String] -> m ()
 spawnTrayer args =
-  spawn $ unwords $ ["sleep", "1", "&&", trayer] ++ (processArgs args ++ ["&"])
+  spawn $
+    unwords $
+      ["sleep", "1", "&&", trayer]
+        ++ (processArgs args ++ ["-l", "&"])
 
 -- | Start trayer with the given arguments
 -- Arguments are past in as a flat list of key value,

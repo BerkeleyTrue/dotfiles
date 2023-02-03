@@ -35,6 +35,7 @@ import XMonad.StackSet hiding
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
+import XMonad.Util.Hacks (trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook)
 
 -- Terminal
 term :: String
@@ -107,17 +108,17 @@ myManageHook =
 -- Event handling
 -- fadeWindowsEventHook -> A handleEventHook to handle fading and unfading of newly mapped or unmapped windows;
 myEventHook :: Event -> X All
-myEventHook = fadeWindowsEventHook
+myEventHook = trayerAboveXmobarEventHook  <+> trayerPaddingXmobarEventHook
 
 ------------------------------------------------------------------------
--- Status bars and logging
+-- Log hook actions are triggered with any change in the window state by XMonad
+--
 -- workspaceHistoryHook -> A logHook that keeps track of the order in which workspaces have been viewed.
 -- fadeWindowsLogHook -> A logHook to fade windows under control of a FadeHook, which is similar to but not identical to ManageHook.
 -- tagHook -> Add floating tag to windows in the floating layer on every change
 myLogHook :: X ()
-myLogHook = workspaceHistoryHook >> fadeWindowsLogHook myFadeHook >> tagHook
+myLogHook = workspaceHistoryHook >> tagHook
   where
-    myFadeHook = composeAll [opaque, isUnfocused --> transparency 0.02]
 
     toggleTagOn = bool delTag addTag
     isWindowInFloatingSet windowSet window = member window $ floating windowSet
