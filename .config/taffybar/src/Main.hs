@@ -46,9 +46,9 @@ main = do
             centerWidgets =
               [ clockWidget,
                 plainDividerWidget,
-                windowsWidget,
-                plainDividerWidget,
                 layoutWidget,
+                plainDividerWidget,
+                windowsWidget,
                 plainDividerWidget,
                 weatherWidget
               ],

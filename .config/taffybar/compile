@@ -8,3 +8,4 @@ cd $HOME/.config/taffybar
 stack build
 stack install --local-bin-path bin/
 stack install
+killall taffybar
