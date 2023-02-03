@@ -23,6 +23,7 @@ dependencies:
   directory:
   filepath:
   unix:
+  X11:
 ghc-options:
   - -Wall
   - -Wcompat
