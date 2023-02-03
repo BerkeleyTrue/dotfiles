@@ -7,8 +7,6 @@ where
 
 import Berks.Utils
 import XMonad
-import XMonad.ManageHook
-import XMonad.StackSet
 import XMonad.Util.NamedScratchpad
 
 myScratchPads :: NamedScratchpads
@@ -21,4 +19,5 @@ myScratchPads = [NS "music" spawnMusic findMusic manageMusic]
 scratchpadManageHook :: ManageHook
 scratchpadManageHook = namedScratchpadManageHook myScratchPads
 
+getAction :: String -> X ()
 getAction = namedScratchpadAction myScratchPads

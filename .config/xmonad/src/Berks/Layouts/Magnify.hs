@@ -6,13 +6,11 @@ module Berks.Layouts.Magnify
 import qualified XMonad as X
 
 -- layouts
-import XMonad.Layout
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Simplest
 import XMonad.Layout.Decoration hiding (LayoutModifier)
 
 -- modifiers
-import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.Magnifier hiding (magnify)
 import XMonad.Layout.NoBorders
@@ -26,8 +24,6 @@ import Berks.Layouts.TabTheme as TabTheme
 type SimplyLayout = ModifiedLayout SmartBorder Simplest
 
 type LimitedSpaced = ModifiedLayout LimitWindows ResizableTall
-
-type LimitedFull = ModifiedLayout LimitWindows Full
 
 type MagSpaced = ModifiedLayout Magnifier LimitedSpaced
 

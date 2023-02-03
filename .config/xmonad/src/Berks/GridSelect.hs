@@ -4,10 +4,10 @@ module Berks.GridSelect
 where
 
 import Berks.Font
-import Data.Tuple
 import XMonad
 import XMonad.Actions.GridSelect
 
+gsConf :: GSConfig String
 gsConf =
   def
     { gs_cellheight = 40,
@@ -18,6 +18,7 @@ gsConf =
       gs_font = font
     }
 
+selections :: [(String, String)]
 selections =
   [ ("Firefox", "org.mozilla.firefox"),
     ("Frame", "frame"),
@@ -26,7 +27,7 @@ selections =
     ("Slack", "com.slack.Slack")
   ]
 
--- spawnWhenJust :: Maybe String -> X ()
+spawnWhenJust :: Maybe String -> X ()
 spawnWhenJust = flip whenJust spawn
 
 createAppGridSpawner :: () -> X ()

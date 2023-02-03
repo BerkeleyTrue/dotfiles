@@ -3,10 +3,9 @@ module Berks.Trayer
   )
 where
 
-import Data.List
 import XMonad hiding (kill)
-import XMonad.Util.Run
 
+trayer :: String
 trayer = "trayer"
 
 -- | Kill a process by name using the bash command 'killall'

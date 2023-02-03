@@ -16,19 +16,16 @@ import Data.Ratio as Ratio
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.Warp
-import XMonad.Core
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.Reflect
-import XMonad.Layout.WindowNavigation
-  ( Direction2D (D, L, R, U),
-    Navigate (Go, Swap),
-  )
+import XMonad.Layout.WindowNavigation (Navigate (Go, Swap))
 import XMonad.StackSet
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 
+xmonadCmd :: String
 xmonadCmd = "xmonad-x86_64-linux"
 
 data StrutState = SingleWindow | FullScreen | Default
@@ -36,8 +33,8 @@ data StrutState = SingleWindow | FullScreen | Default
 -- match the current strut state, and send the appropriate named action
 setStrutState :: IORef StrutState -> X ()
 setStrutState ref = do
-  state <- io $ readIORef ref
-  case state of
+  state' <- io $ readIORef ref
+  case state' of
     Default -> do
       io $ writeIORef ref SingleWindow
       sendMessage (Toggle FULL)
@@ -54,9 +51,9 @@ setStrutState ref = do
 -- Set the strut back to default
 resetStrutToDefault :: IORef StrutState -> X ()
 resetStrutToDefault ref = do
-  state <- io $ readIORef ref
+  state' <- io $ readIORef ref
   io $ writeIORef ref Default
-  case state of
+  case state' of
     Default -> return ()
     SingleWindow -> do
       sendMessage (Toggle FULL)
@@ -100,7 +97,9 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
     -- restart taffybar
     ((modm .|. shiftMask, xK_t), addName "Restart Taffybar" startTaffybar),
     -- rebuild taffybar
-    ((modm .|. controlMask .|. shiftMask, xK_t), addName "Recompile and restart Taffybar" rebuildTaffybar),
+    ( (modm .|. controlMask .|. shiftMask, xK_t),
+      addName "Recompile and restart Taffybar" rebuildTaffybar
+    ),
     ---
     ---
     ---

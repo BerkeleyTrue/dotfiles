@@ -8,6 +8,7 @@ import XMonad.StackSet
 center :: Rational -> Rational
 center ratio = (1 - ratio) / 2
 
+centerWindow :: RationalRect
 centerWindow = RationalRect x y w h
   where
     w = 2 / 5

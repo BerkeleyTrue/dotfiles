@@ -1,6 +1,7 @@
 module Berks.Urgency
-  ( UrgencyHookInstance(..)
-  ) where
+  ( UrgencyHookInstance (..),
+  )
+where
 
 import XMonad
 import XMonad.Hooks.UrgencyHook
@@ -14,8 +15,7 @@ import XMonad.Util.Run
 -- Allows you to use notifications for xmonad
 -- thanks to https://pbrisbin.com/posts/using_notify_osd_for_xmonad_notifications/
 ---------------------------------------------------------------------------
-data UrgencyHookInstance =
-  UrgencyHookInstance
+data UrgencyHookInstance = UrgencyHookInstance
   deriving (Read, Show)
 
 instance UrgencyHook UrgencyHookInstance where
