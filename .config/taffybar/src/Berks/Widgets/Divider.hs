@@ -1,18 +1,31 @@
 module Berks.Widgets.Divider
   ( dividerWidget,
+    plainDividerWidget,
   )
 where
 
+import Berks.Colors
+import Control.Monad.IO.Class (MonadIO)
+import Data.Text (pack)
 import GI.Gtk
 import System.Taffybar.Widget (vFillCenter)
-import System.Taffybar.Context (TaffyIO)
 
-dividerWidget :: TaffyIO Widget
-dividerWidget = do
+dividerWidget :: MonadIO m => Maybe Hex -> m Widget
+dividerWidget maybeColor = do
+  color <- case maybeColor of
+    Just color -> return color
+    Nothing -> return commentHex
   grid <- gridNew
-  label <- labelNew (Just " | ")
+  label <- labelNew Nothing
+
+  _ <- onWidgetRealize label $ do
+    labelSetMarkup label $ pack $ "<span fgcolor='" ++ color ++ "'> | </span>"
+
   vFillCenter label
   vFillCenter grid
   containerAdd grid label
   widgetShowAll grid
   toWidget grid
+
+plainDividerWidget :: MonadIO m => m Widget
+plainDividerWidget = dividerWidget Nothing

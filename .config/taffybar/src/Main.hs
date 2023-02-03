@@ -6,6 +6,10 @@ where
 import Berks.Colors as Colors
 import Berks.Widgets.CPU (cpuWidget)
 import Berks.Widgets.Clock (clockWidget)
+import Berks.Widgets.Divider
+  ( dividerWidget,
+    plainDividerWidget,
+  )
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
@@ -20,7 +24,6 @@ import System.Log.Logger
   )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
-import Berks.Widgets.Divider (dividerWidget)
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -38,10 +41,11 @@ main = do
   let simpleConfig =
         def
           { startWidgets = [workspacesWidget],
-            centerWidgets = [clockWidget, dividerWidget, weatherWidget],
+            centerWidgets = [clockWidget, plainDividerWidget, weatherWidget],
             endWidgets =
               reverse
                 [ cpuTempWidget,
+                  dividerWidget Nothing,
                   fsMonitorWidget,
                   cpuWidget myDefaultGraphConfig,
                   memoryWidget myDefaultGraphConfig

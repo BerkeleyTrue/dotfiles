@@ -1,53 +1,100 @@
 module Berks.Colors
   ( transparent,
     background,
+    backgroundHex,
     selection,
+    selectionHex,
     foreground,
+    foregroundHex,
     comment,
+    commentHex,
     cyan,
+    cyanHex,
     green,
+    greenHex,
     orange,
+    orangeHex,
     pink,
+    pinkHex,
     purple,
+    purpleHex,
     red,
+    redHex,
     yellow,
+    yellowHex,
+    Hex,
   )
 where
 
 import Berks.Hexes
 
+type Hex = String
+
 transparent :: RGBA
 transparent = (0, 0, 0, 0)
 
+backgroundHex :: Hex
+backgroundHex = "#282a36"
+
 background :: RGBA
-background = hexToRGBA "#282a36"
+background = hexToRGBA backgroundHex
+
+selectionHex :: Hex
+selectionHex = "#44475a"
 
 selection :: RGBA
-selection = hexToRGBA "#44475a"
+selection = hexToRGBA selectionHex
+
+foregroundHex :: Hex
+foregroundHex = "#f8f8f2"
 
 foreground :: RGBA
-foreground = hexToRGBA "#f8f8f2"
+foreground = hexToRGBA foregroundHex
+
+commentHex :: Hex
+commentHex = "#6272a4"
 
 comment :: RGBA
-comment = hexToRGBA "#6272a4"
+comment = hexToRGBA commentHex
+
+cyanHex :: Hex
+cyanHex = "#8be9fd"
 
 cyan :: RGBA
-cyan = hexToRGBA "#8be9fd"
+cyan = hexToRGBA cyanHex
+
+greenHex :: Hex
+greenHex = "#50fa7b"
 
 green :: RGBA
-green = hexToRGBA "#50fa7b"
+green = hexToRGBA greenHex
+
+orangeHex :: Hex
+orangeHex = "#ffb86c"
 
 orange :: RGBA
-orange = hexToRGBA "#ffb86c"
+orange = hexToRGBA orangeHex
+
+pinkHex :: Hex
+pinkHex = "#ff79c6"
 
 pink :: RGBA
-pink = hexToRGBA "#ff79c6"
+pink = hexToRGBA pinkHex
+
+purpleHex :: Hex
+purpleHex = "#bd93f9"
 
 purple :: RGBA
-purple = hexToRGBA "#bd93f9"
+purple = hexToRGBA purpleHex
+
+redHex :: Hex
+redHex = "#ff5555"
 
 red :: RGBA
-red = hexToRGBA "#ff5555"
+red = hexToRGBA redHex
+
+yellowHex :: Hex
+yellowHex = "#f1fa8c"
 
 yellow :: RGBA
-yellow = hexToRGBA "#f1fa8c"
+yellow = hexToRGBA yellowHex
