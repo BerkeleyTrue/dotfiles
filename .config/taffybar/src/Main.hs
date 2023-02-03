@@ -14,6 +14,7 @@ import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
 import Berks.Widgets.Weather (weatherWidget)
+import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.Default (def)
 import System.Log.Logger
@@ -41,7 +42,13 @@ main = do
   let simpleConfig =
         def
           { startWidgets = [workspacesWidget],
-            centerWidgets = [clockWidget, plainDividerWidget, weatherWidget],
+            centerWidgets =
+              [ clockWidget,
+                plainDividerWidget,
+                windowsWidget,
+                plainDividerWidget,
+                weatherWidget
+              ],
             endWidgets =
               reverse
                 [ cpuTempWidget,
