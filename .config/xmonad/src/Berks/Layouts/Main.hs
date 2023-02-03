@@ -10,7 +10,8 @@ import Berks.Layouts.ThreeCol
 import XMonad
 import XMonad.Actions.MouseResize
 import XMonad.Hooks.ManageDocks
-import XMonad.Layout.LayoutModifier
+import XMonad.Hooks.ScreenCorners
+-- import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.Reflect
@@ -37,35 +38,41 @@ toggleFull = mkToggle $ single FULL
 toggleNoBorders :: (LayoutClass l a) => l a -> ToggleNoBorders l a
 toggleNoBorders = mkToggle $ single NOBORDERS
 
-type MouseResizeModifier = ModifiedLayout MouseResize
+-- type MouseResizeModifier = ModifiedLayout MouseResize
+--
+-- type WindowArrangerModifier = ModifiedLayout WindowArranger
+--
+-- type WindowNavigationModifier = ModifiedLayout WindowNavigation
+--
+-- type AvoidStrutsModifier = ModifiedLayout AvoidStruts
 
-type WindowArrangerModifier = ModifiedLayout WindowArranger
+-- type MyLayoutModifiers l =
+--     ( MouseResizeModifier
+--         ( WindowArrangerModifier
+--             (WindowNavigationModifier (AvoidStrutsModifier l))
+--         )
+--     )
 
-type WindowNavigationModifier = ModifiedLayout WindowNavigation
-
-type AvoidStrutsModifier = ModifiedLayout AvoidStruts
-
-type MyLayoutModifiers l =
-  MouseResizeModifier
-    ( WindowArrangerModifier
-        (WindowNavigationModifier (AvoidStrutsModifier l))
-    )
-
-layoutModifier :: (LayoutClass l a) => l a -> MyLayoutModifiers l a
-layoutModifier = mouseResize . windowArrange . windowNavigation . avoidStruts
+-- layoutModifier :: (LayoutClass l a) => l a -> MyLayoutModifiers l a -- ScreenCornersLayoutHook is not exported!
+layoutModifier =
+  screenCornerLayoutHook
+    . mouseResize
+    . windowArrange
+    . windowNavigation
+    . avoidStruts
 
 type ChooseLayouts = Choose ThreeColLayout Monocle
 
 chooseLayout :: ChooseLayouts Window
 chooseLayout = threeCol ||| monocle
 
-type MyLayout =
-  MyLayoutModifiers
-    ( ToggleReflectY
-        (ToggleReflectX (ToggleNoBorders (ToggleFull ChooseLayouts)))
-    )
+-- type MyLayout =
+--   MyLayoutModifiers
+--     ( ToggleReflectY
+--         (ToggleReflectX (ToggleNoBorders (ToggleFull ChooseLayouts)))
+--     )
 
-layout :: MyLayout Window
+-- layout :: MyLayout Window
 layout =
   layoutModifier $
     toggleReflectY $

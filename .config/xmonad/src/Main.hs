@@ -19,9 +19,13 @@ import XMonad.Actions.TagWindows
   )
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.ScreenCorners
+  ( ScreenCorner (SCLowerRight),
+    addScreenCorners,
+    screenCornerEventHook,
+  )
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.TaffybarPagerHints
 import XMonad.Hooks.UrgencyHook
@@ -32,10 +36,13 @@ import XMonad.StackSet hiding
     member,
     workspaces,
   )
+import XMonad.Util.Hacks
+  ( trayerAboveXmobarEventHook,
+    trayerPaddingXmobarEventHook,
+  )
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
-import XMonad.Util.Hacks (trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook)
 
 -- Terminal
 term :: String
@@ -106,9 +113,13 @@ myManageHook =
 
 ------------------------------------------------------------------------
 -- Event handling
--- fadeWindowsEventHook -> A handleEventHook to handle fading and unfading of newly mapped or unmapped windows;
+-- trayer above fixes trayer, xmobar and full screen issues (needs a setting in xmobar config)
+-- trayer padding fixes trayer and xmobar overlapping issues (requires a XProp command in xmobar config)
 myEventHook :: Event -> X All
-myEventHook = trayerAboveXmobarEventHook  <+> trayerPaddingXmobarEventHook
+myEventHook =
+  trayerAboveXmobarEventHook
+    <+> trayerPaddingXmobarEventHook
+    <+> screenCornerEventHook
 
 ------------------------------------------------------------------------
 -- Log hook actions are triggered with any change in the window state by XMonad
@@ -119,7 +130,6 @@ myEventHook = trayerAboveXmobarEventHook  <+> trayerPaddingXmobarEventHook
 myLogHook :: X ()
 myLogHook = workspaceHistoryHook >> tagHook
   where
-
     toggleTagOn = bool delTag addTag
     isWindowInFloatingSet windowSet window = member window $ floating windowSet
     toggleFloatingTag windowSet window =
@@ -169,6 +179,7 @@ myStartupHook =
       ]
     <> startTaffybar
     <> spawn "killall picom &> /dev/null; sleep 1 && picom &"
+    <> addScreenCorners [(SCLowerRight, spawn "xsecurelock")]
 
 ------------------------------------------------------------------------
 main :: IO ()
@@ -222,6 +233,8 @@ main = do
   where
     enhanceXConf = docks . ewmh . pagerHints
     createPPLog = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag]
-    myPPOrder [werkspces, layouts, windowTitle] = [werkspces, windowTitle, layouts]
-    myPPOrder (werkspces : layouts : windowTitle : _) = myPPOrder [werkspces, windowTitle, layouts]
+    myPPOrder [werkspces, layouts, windowTitle] =
+      [werkspces, windowTitle, layouts]
+    myPPOrder (werkspces : layouts : windowTitle : _) =
+      myPPOrder [werkspces, windowTitle, layouts]
     myPPOrder _ = []
