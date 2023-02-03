@@ -14,6 +14,7 @@ import XMonad.Util.NamedActions
 import XMonad.Util.Run
 
 -- Size and location of the popup
+size :: RationalRect
 size = RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)
 
 -- How to display the cheatsheet (adapted from Ethan Schoonover's config)
