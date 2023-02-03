@@ -2,7 +2,7 @@ bin/
 .stack-work/
 
 xmonad-*
-!xmonad-berks.cabal
+xmonad-berks.cabal
 !xmonad-git
 !xmonad-contrib-git
 xmonad.errors
