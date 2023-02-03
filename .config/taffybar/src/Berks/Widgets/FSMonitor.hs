@@ -3,6 +3,7 @@ module Berks.Widgets.FSMonitor
   )
 where
 
+import Berks.Colors (commentHex)
 import Berks.Information.FSMonitor (showFSInfo)
 import Berks.WidgetUtils (setWidgetClassnameFromString)
 import Control.Monad.IO.Class (MonadIO)
@@ -15,8 +16,11 @@ import GI.Gtk as Gtk
 import System.Taffybar.Widget.Generic.PollingLabel
   ( pollingLabelNew,
   )
+import System.Taffybar.Widget.Util (colorize)
 
 fsMonitorWidget :: MonadIO m => m Widget
 fsMonitorWidget =
   setWidgetClassnameFromString "fs-monitor"
-    =<< pollingLabelNew 1 (("\xf0c7 " <>) . pack <$> showFSInfo ["/"])
+    =<< pollingLabelNew
+      1
+      (pack . colorize commentHex "" . ("\xf0c7 " <>) <$> showFSInfo ["/"])

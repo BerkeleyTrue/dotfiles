@@ -3,6 +3,11 @@ module Berks.Widgets.MultiCoreTemp
   )
 where
 
+import Berks.Colors
+  ( cyanHex,
+    orangeHex,
+    yellowHex,
+  )
 import Berks.Information.MultiCoreTemp
   ( getMultiCoreTemps,
   )
@@ -13,6 +18,7 @@ import GI.Gtk (Widget)
 import System.Taffybar.Widget.Generic.PollingLabel
   ( pollingLabelNew,
   )
+import System.Taffybar.Widget.Util (colorize)
 import Text.Printf (printf)
 
 cpuTempWidget :: MonadIO m => m Widget
@@ -20,5 +26,11 @@ cpuTempWidget =
   pollingLabelNew 1 $
     getMultiCoreTemps
       <&> pack
-        . (\temp -> "\63687: " ++ temp ++ "°C")
+        . ( \temp ->
+              colorize
+                orangeHex
+                ""
+                ("\63687: " <> temp <> colorize cyanHex "" "°" <> "C")
+          )
+        . colorize yellowHex ""
         . printf "%.0f"
