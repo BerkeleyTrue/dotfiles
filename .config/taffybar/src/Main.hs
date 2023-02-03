@@ -20,6 +20,7 @@ import System.Log.Logger
   )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
+import Berks.Widgets.Divider (dividerWidget)
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -37,7 +38,7 @@ main = do
   let simpleConfig =
         def
           { startWidgets = [workspacesWidget],
-            centerWidgets = [clockWidget, weatherWidget],
+            centerWidgets = [clockWidget, dividerWidget, weatherWidget],
             endWidgets =
               reverse
                 [ cpuTempWidget,
