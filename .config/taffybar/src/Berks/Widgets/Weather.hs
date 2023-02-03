@@ -3,21 +3,39 @@ module Berks.Widgets.Weather
   )
 where
 
+import Berks.Colors
+import Berks.Information.Weather
+  ( WeatherInfo (..),
+    WindInfo (..),
+    getWeatherInfoFor,
+  )
 import Berks.WidgetUtils (decorateWithClassname)
 import Control.Monad.IO.Class (MonadIO)
+import Data.Text
+  ( Text,
+    pack,
+  )
 import GI.Gtk (Widget)
-import Berks.Information.Weather (getWeatherInfoFor, WeatherInfo(..), WindInfo (..))
-import System.Taffybar.Widget.Generic.PollingLabel (pollingLabelNew)
-import Data.Text (pack, Text)
-
+import System.Taffybar.Widget.Generic.PollingLabel
+  ( pollingLabelNew,
+  )
+import System.Taffybar.Widget.Util (colorize)
 
 getLocalWheather :: IO [WeatherInfo]
-getLocalWheather =  getWeatherInfoFor "KBDU"
+getLocalWheather = getWeatherInfoFor "KBDU"
 
 formatWeatherInfo :: [WeatherInfo] -> Text
 formatWeatherInfo [] = "N/A"
-formatWeatherInfo (_:_:_) = "N/A"
-formatWeatherInfo [wi] = pack $ show (tempF wi) <> "° \57982 " <> windMph (windInfo wi) <> "mph"
+formatWeatherInfo (_ : _ : _) = "N/A"
+formatWeatherInfo [wi] =
+  pack $
+    colorize pinkHex "" (show $ tempF wi)
+      <> colorize "white" "" "°"
+      <> colorize greenHex "" (" \57982 " <> windMph (windInfo wi) <> "mph")
 
 weatherWidget :: MonadIO m => m Widget
-weatherWidget = decorateWithClassname "weather" $ pollingLabelNew 10 $ formatWeatherInfo <$> getLocalWheather
+weatherWidget =
+  decorateWithClassname "weather" $
+    pollingLabelNew 10 $
+      formatWeatherInfo
+        <$> getLocalWheather
