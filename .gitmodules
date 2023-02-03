@@ -1,12 +1,3 @@
-[submodule ".config/xmonad/xmonad-git"]
-	path = .config/xmonad/xmonad-git
-	url = https://github.com/xmonad/xmonad.git
-[submodule ".config/xmonad/xmonad-contrib-git"]
-	path = .config/xmonad/xmonad-contrib-git
-	url = https://github.com/xmonad/xmonad-contrib.git
-[submodule ".config/xmonad/xmobar-git"]
-	path = .config/xmonad/xmobar-git
-	url = https://codeberg.org/xmobar/xmobar.git
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
