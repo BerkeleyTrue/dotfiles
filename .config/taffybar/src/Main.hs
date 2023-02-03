@@ -11,6 +11,7 @@ import Berks.Widgets.Divider
     plainDividerWidget,
   )
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
+import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
 import Berks.Widgets.Weather (weatherWidget)
@@ -46,6 +47,8 @@ main = do
               [ clockWidget,
                 plainDividerWidget,
                 windowsWidget,
+                plainDividerWidget,
+                layoutWidget,
                 plainDividerWidget,
                 weatherWidget
               ],
