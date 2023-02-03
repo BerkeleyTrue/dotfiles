@@ -4,8 +4,6 @@ module Berks.Layouts.Vert
 where
 
 import XMonad
-import XMonad.Layout
-import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Reflect
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
