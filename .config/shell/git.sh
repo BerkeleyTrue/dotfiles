@@ -294,28 +294,28 @@ gclone() {
   cd ${2:-$(basename $1 .git)}
 }
 gpull() {
-  # If given gpull upstream
-  # find the current branch and pull that branch
-  # from the `upstream` remote repository
-  if [[ $# = 1 ]]; then
-    currentbranch=$(ggetcurrentbranch)
-
-    # force git pull (overrides local changes)
-    if [[ $1 == "-f" ]]; then
-      local remote=$(git remote)
-      git fetch --all
-      git reset --hard $remote/$currentbranch
-      return 0
-    fi
-
-    echo "current branch is $currentbranch"
-    echo "pulling down branch '$currentbranch' from remote repository '$1'"
-    git pull $1 $currentbranch
+  # if no arguments, pull from the repository this branch is tracking by rebase
+  if [[ $# -eq 0 ]]; then
+    git pull --rebase
     return 0
   fi
-  # Otherwise pull from the repository this branch is tracking
-  # always do a rebase pull
-  git pull --rebase
+
+  # If given gpull <remote>
+  # find the current branch and pull that branch
+  # from the <remote> remote repository
+  currentbranch=$(ggetcurrentbranch)
+
+  # force git pull (overrides local changes)
+  if [[ $1 == "-f" ]]; then
+    local remote=$(git remote)
+    git fetch --all
+    git reset --hard $remote/$currentbranch
+    return 0
+  fi
+
+  echo "current branch is $currentbranch"
+  echo "pulling down branch '$currentbranch' from remote repository '$1'"
+  git pull $1 $currentbranch
 }
 
 gclean() {
@@ -357,15 +357,6 @@ gbranchdelete() {
   git push -d $remote $1
   git branch -D $1
 }
-
-# git and tig/fzf
-tdiff() {
-  if [ $# = 0 ]; then
-    git diff | tig
-    return 0
-  fi
-  git diff $1 | tig
-}
 fbranch() {
   # fbranch
   # search for branch using fuzzy search
@@ -374,6 +365,7 @@ fbranch() {
     branch=$(echo "$branches" | fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+# TODO: make gco ./path/to/file work as well
 gco() {
   # gco - checkout git branch/tag with fzf search
   local branches target
@@ -411,53 +403,4 @@ gco() {
   else
     git checkout $branch_name
   fi
-}
-
-flog() {
-  # fshow - git commit browser
-  git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute: (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF' {} FZF-EOF"
-}
-fcs() {
-  # fcs - get git commit sha
-  # example usage: git rebase -i `fcs`
-  local commits commit
-  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
-    echo -n $(echo "$commit" | sed "s/ .*//")
-}
-fstash() {
-  # fstash - easier way to deal with stashes
-  # type fstash to get a list of your stashes
-  # enter shows you the contents of the stash
-  # ctrl-d shows a diff of the stash against your current HEAD
-  # ctrl-b checks the stash out as a branch, for easier merging
-  local i arr out q k sha
-  while out=$(
-    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-      fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b
-  ); do
-    # below is equivalent to 'mapfile -t out <<< "$out"'
-    i=0
-    while IFS=$'\n' read -r line; do
-      arr[i]="$line"
-      i=$((i + 1))
-    done <<<"$out"
-
-    q="${arr[0]}"
-    k="${arr[1]}"
-    sha="${arr[${#arr[@]} - 1]}"
-    sha="${sha%% *}"
-    [[ -z "$sha" ]] && continue
-    if [[ "$k" == 'ctrl-d' ]]; then
-      git diff $sha
-    elif [[ "$k" == 'ctrl-b' ]]; then
-      git stash branch "stash-$sha" $sha
-      break
-    else
-      git stash show -p $sha
-    fi
-  done
 }
