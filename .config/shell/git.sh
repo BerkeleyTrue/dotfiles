@@ -64,23 +64,33 @@ ystat() {
   yunignored
   yadm status
 }
+#
 # yadm add using fzf including unignored files
 yadd() {
-  # if no args, yadd goes into fzf of changed files
-  # can't do -o for yadm since it will list all the files
-  if [[ $# -eq 0 ]]; then
-    yunignored # add unignored files
-    toAdd=$(yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always")
-    if [[ -n "$toAdd" ]]; then
-      yadm add "$toAdd"
-    else
-      echo "No files selected"
-    fi
-    return 0
+  # if args are provided, assume those are args to yadm add
+  # and pass them through, exiting early
+  if [ $# -gt 0 ]; then
+    yadm add "$@"
+    return
   fi
 
-  # regular yadm add if arguments are given
-  eval "yadm add $@"
+  # if no args, go into fzf of changed files
+  # can't do -o for yadm since it will list all the files
+
+  # add unignored files to intent to add
+  yunignored
+
+  # user selects files to add
+  toAdd=$(yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always")
+
+  # if toAdd is empty, exit
+  if [ -z "$toAdd" ]; then
+    return
+  fi
+
+  $(echo -n $toAdd | xargs -0 -o -t yadm add &> /dev/null)
+
+  yadm status
 }
 #}}}
 
