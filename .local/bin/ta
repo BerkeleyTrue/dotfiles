@@ -7,7 +7,7 @@ SCRIPT_NAME=$(basename $0)
 MAIN_DIR=$HOME/dvlpmnt
 CONF_DIR=$HOME/.config
 BIN_DIR=$HOME/.local/bin
-WS_DIR=$MAIN_DIR/wrkst
+WS_DIR=$HOME/dvlpmnt/workstation
 
 DIR=false
 CONF=false
