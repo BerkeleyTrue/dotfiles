@@ -4,12 +4,15 @@ import Berks.CheatSheet as CheatSh
 import Berks.Colors
 import Berks.KeyMaps
 import Berks.Layouts.Main as L
+import Berks.MultiToggleState
+  ( createToggleStateLogHook,
+    toggleRefIO,
+  )
 import Berks.Scratchpads
 import Berks.Taffybar
 import Berks.Trayer
 import Berks.Urgency
 import Berks.Utils
-import Data.IORef
 import Data.Map
 import Data.Semigroup
 import XMonad
@@ -184,14 +187,16 @@ myStartupHook =
 ------------------------------------------------------------------------
 main :: IO ()
 main = do
-  currentStrutStateRef <- newIORef Default
+  putStrLn "Starting XMonad"
+  toggleDataRef <- toggleRefIO
+  let toggleStateLogHook = createToggleStateLogHook toggleDataRef
   xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
   xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
   xmonad
     $ withUrgencyHook UrgencyHookInstance
     $ addDescrKeys'
       ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
-      (createKeyMaps term werkspaces currentStrutStateRef)
+      (createKeyMaps term werkspaces toggleDataRef)
     $ enhanceXConf
       def
         { terminal = term,
@@ -215,6 +220,7 @@ main = do
           startupHook = myStartupHook,
           logHook =
             myLogHook
+              >> toggleStateLogHook
               >> createPPLog
                 xmobarPP
                   { -- outputs of the entire bar

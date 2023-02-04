@@ -1,14 +1,15 @@
 module Berks.KeyMaps
   ( createKeyMaps,
-    StrutState (Default, FullScreen, SingleWindow),
   )
 where
 
 -- layout modifiers
 
 import Berks.GridSelect
+import Berks.MultiToggleState (ToggleData (..))
 import Berks.Scratchpads
 import Berks.Taffybar
+import Control.Monad (when)
 import Data.IORef
 import Data.Ratio as Ratio
   ( (%),
@@ -28,49 +29,57 @@ import XMonad.Util.NamedScratchpad
 xmonadCmd :: String
 xmonadCmd = "xmonad-x86_64-linux"
 
-data StrutState = SingleWindow | FullScreen | Default
-
 -- match the current strut state, and send the appropriate named action
-setStrutState :: IORef StrutState -> X ()
+setStrutState :: IORef ToggleData -> X ()
 setStrutState ref = do
   state' <- io $ readIORef ref
-  case state' of
-    Default -> do
-      io $ writeIORef ref SingleWindow
+  io $ putStrLn $ "setStrutState: " ++ show state'
+  case (isFull state', isNoBorders state') of
+    (False, False) ->
+      sendMessage (Toggle FULL) >> io (putStrLn "setStrutState: FULL")
+    (True, False) ->
+      sendMessage (Toggle NOBORDERS) >> sendMessage (SetStruts [] [U, D, L, R]) -- hides docks
+      -- >> io (putStrLn "setStrutState: NOBORDERS and NoStruts")
+    (False, True) -> sendMessage (Toggle NOBORDERS)
+    -- >> io (putStrLn "setStrutState: remove NOBORDERS")
+    (True, True) ->
       sendMessage (Toggle FULL)
-    SingleWindow -> do
-      io $ writeIORef ref FullScreen
-      sendMessage ToggleStruts >> sendMessage (Toggle NOBORDERS)
-    FullScreen -> do
-      io $ writeIORef ref Default
-      sendMessage ToggleStruts
-        >> sendMessage (Toggle FULL)
+        >> sendMessage (Toggle NOBORDERS)
         >> sendMessage
-          (Toggle NOBORDERS)
+          (SetStruts [U, D, L, R] []) -- shows docks
+          -- >> io (putStrLn "setStrutState: remove Empty and BORDERS and Struts")
 
 -- Set the strut back to default
-resetStrutToDefault :: IORef StrutState -> X ()
+resetStrutToDefault :: IORef ToggleData -> X ()
 resetStrutToDefault ref = do
   state' <- io $ readIORef ref
-  io $ writeIORef ref Default
-  case state' of
-    Default -> return ()
-    SingleWindow -> do
-      sendMessage (Toggle FULL)
-    FullScreen -> do
-      sendMessage ToggleStruts
-        >> sendMessage (Toggle FULL)
-        >> sendMessage
-          (Toggle NOBORDERS)
+  io $ putStrLn $ "resetStrutToDefault: " ++ show state'
+
+  sendMessage (SetStruts [U, D, L, R] [U, D, L, R]) -- works?????
+  -- >> io
+  --   (putStrLn "resetStrutToDefault: SetStruts [minBound .. maxBound] []")
+  when (isFull state') $ sendMessage (Toggle FULL)
+  -- >> io
+  --   (putStrLn "resetStrutToDefault: Toggle FULL")
+
+  when (isNoBorders state') $ sendMessage (Toggle NOBORDERS)
+
+-- >> io
+--   (putStrLn "resetStrutToDefault: Toggle NOBORDERS")
 
 -- NOTE: We are destructuring XConfig below (i.e. Type {property = <local symbol>})
 createKeyMaps ::
+  -- | terminal command
   String ->
+  -- | workspace names
   [String] ->
-  IORef StrutState ->
+  -- | toggle state
+  IORef ToggleData ->
+  -- | XMonad Config
   XConfig Layout ->
+  -- | Keymap for
   [((KeyMask, KeySym), NamedAction)]
-createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layoutHook = layoutHk} =
+createKeyMaps term werkspaces toggleDataRef XConfig {modMask = modm, layoutHook = layoutHk} =
   [ subtitle "Core",
     ( (modm .|. shiftMask, xK_r),
       addName "Restart XMonad" $
@@ -139,12 +148,12 @@ createKeyMaps term werkspaces currentStrutStateRef XConfig {modMask = modm, layo
     --
     ( (modm, xK_f),
       addName "Switch between SingleWindow, FullScreen or default" $
-        setStrutState currentStrutStateRef
+        setStrutState toggleDataRef
     ),
     -- Reset to default struts on Mod + Shift + F
     ( (modm .|. shiftMask, xK_f),
       addName "Reset the struts to default" $
-        resetStrutToDefault currentStrutStateRef
+        resetStrutToDefault toggleDataRef
     ),
     ( (modm .|. controlMask, xK_y),
       addName "Flip layout on Y axis" $ sendMessage $ Toggle REFLECTY
