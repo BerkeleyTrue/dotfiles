@@ -68,6 +68,7 @@
    :hls {:on_attach general-on-attach-with-navic}
    :html {}
    :jsonls (jsonls-configs)
+   :nil_ls {}
    :prismals {}
    :solidity_ls {}
    :sumneko_lua {}

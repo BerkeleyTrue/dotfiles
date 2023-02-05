@@ -1,0 +1,9 @@
+[Unit]
+Description=Status Notifier Watcher
+
+[Service]
+ExecStart=/home/berkeleytrue/.nix-profile/bin/status-notifier-watcher
+Restart=always
+
+[Install]
+WantedBy=default.target
