@@ -1,3 +1,4 @@
+-- no longer using trayer, but keeping this file for posterity
 module Berks.Trayer
   ( startTrayer,
   )

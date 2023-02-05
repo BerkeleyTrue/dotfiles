@@ -10,7 +10,6 @@ import Berks.MultiToggleState
   )
 import Berks.Scratchpads
 import Berks.Taffybar
-import Berks.Trayer
 import Berks.Urgency
 import Berks.Utils
 import Data.Map
@@ -38,10 +37,6 @@ import XMonad.StackSet hiding
   ( focus,
     member,
     workspaces,
-  )
-import XMonad.Util.Hacks
-  ( trayerAboveXmobarEventHook,
-    trayerPaddingXmobarEventHook,
   )
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
@@ -116,13 +111,8 @@ myManageHook =
 
 ------------------------------------------------------------------------
 -- Event handling
--- trayer above fixes trayer, xmobar and full screen issues (needs a setting in xmobar config)
--- trayer padding fixes trayer and xmobar overlapping issues (requires a XProp command in xmobar config)
 myEventHook :: Event -> X All
-myEventHook =
-  trayerAboveXmobarEventHook
-    <+> trayerPaddingXmobarEventHook
-    <+> screenCornerEventHook
+myEventHook = screenCornerEventHook
 
 ------------------------------------------------------------------------
 -- Log hook actions are triggered with any change in the window state by XMonad
@@ -151,35 +141,6 @@ myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D"
     <> spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh"
-    -- Uses Trayer-srg
-    <> startTrayer
-      [ "edge",
-        "top",
-        "align",
-        "right",
-        "widthtype",
-        "request",
-        "padding",
-        "6",
-        "SetDockType",
-        "true",
-        "SetPartialStrut",
-        "false",
-        "expand",
-        "true",
-        "monitor",
-        "0",
-        "transparent",
-        "true",
-        "alpha",
-        "0",
-        "tint",
-        "0x282c34",
-        "iconspacing",
-        "6",
-        "height",
-        "22"
-      ]
     <> startTaffybar
     <> spawn "killall picom &> /dev/null; sleep 1 && picom &"
     <> addScreenCorners [(SCLowerRight, spawn "xsecurelock")]

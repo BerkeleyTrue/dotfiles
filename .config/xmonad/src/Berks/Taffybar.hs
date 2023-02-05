@@ -15,4 +15,4 @@ rebuildTaffybar =
   spawn $ "notify-send -a 'XMonad' 'Rebuilding Taffybar' && $HOME/.config/taffybar/compile && " ++ taffyRestartCmd
 
 startTaffybar :: X ()
-startTaffybar = spawn "sleep 2 && systemctl start --user taffybar"
+startTaffybar = spawn "sleep 1 && systemctl start --user taffybar"

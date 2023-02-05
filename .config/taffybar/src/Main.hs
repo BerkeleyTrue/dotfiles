@@ -26,6 +26,7 @@ import System.Log.Logger
   )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
+import System.Taffybar.Widget.SNITray
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -58,7 +59,8 @@ main = do
                   dividerWidget Nothing,
                   fsMonitorWidget,
                   cpuWidget myDefaultGraphConfig,
-                  memoryWidget myDefaultGraphConfig
+                  memoryWidget myDefaultGraphConfig,
+                  sniTrayNew
                 ],
             barPosition = Bottom,
             monitorsAction = usePrimaryMonitor,

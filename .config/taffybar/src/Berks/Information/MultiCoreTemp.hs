@@ -95,4 +95,4 @@ coreDatas = do
 -- | Returns the average of all core-temperatures
 getMultiCoreTemps :: IO Double
 getMultiCoreTemps =
-  coreDatas <&> (/ 1000) . liftA2 (/) sum (fromIntegral . length)
+  (/ 1000) . liftA2 (/) sum (fromIntegral . length) <$> coreDatas
