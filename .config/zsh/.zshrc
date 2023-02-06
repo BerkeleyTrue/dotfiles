@@ -68,7 +68,7 @@ antigen bundle docker
 antigen bundle terraform
 antigen bundle command-not-found
 antigen bundle taskwarrior
-antigen bundle mikcho/zsh-systemd
+antigen bundle systemd
 antigen bundle ufw
 
 antigen theme $ZSH ghanima
