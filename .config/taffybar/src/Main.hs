@@ -62,7 +62,7 @@ main = do
                   memoryWidget myDefaultGraphConfig,
                   sniTrayNew
                 ],
-            barPosition = Bottom,
+            barPosition = Top,
             monitorsAction = usePrimaryMonitor,
             barPadding = 0,
             barHeight = ExactSize 30

@@ -19,7 +19,6 @@ import XMonad.Actions.TagWindows
   ( addTag,
     delTag,
   )
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -39,8 +38,6 @@ import XMonad.StackSet hiding
     workspaces,
   )
 import XMonad.Util.NamedActions
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run
 
 -- Terminal
 term :: String
@@ -150,21 +147,21 @@ main :: IO ()
 main = do
   putStrLn "Starting XMonad"
   toggleDataRef <- toggleRefIO
-  let toggleStateLogHook = createToggleStateLogHook toggleDataRef
-  xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
-  xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
+  let logHook' = createToggleStateLogHook toggleDataRef >> myLogHook
+      keyBindings = createKeyMaps term werkspaces toggleDataRef
+  -- xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
+  -- xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
   xmonad
-    $ withUrgencyHook UrgencyHookInstance
     $ addDescrKeys'
       ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
-      (createKeyMaps term werkspaces toggleDataRef)
+      keyBindings
     $ enhanceXConf
       def
         { terminal = term,
           -- Whether focus follows the mouse pointer.
           focusFollowsMouse = True,
           -- Whether clicking on a window to focus also passes the click to the window
-          clickJustFocuses = True,
+          clickJustFocuses = False,
           -- Width of the window border in pixels.
           borderWidth = 4,
           modMask = myModMask,
@@ -179,29 +176,8 @@ main = do
           manageHook = myManageHook,
           handleEventHook = myEventHook,
           startupHook = myStartupHook,
-          logHook =
-            myLogHook
-              >> toggleStateLogHook
-              >> createPPLog
-                xmobarPP
-                  { -- outputs of the entire bar
-                    -- input from xmonad gets sent to xmobar 0 and 1,
-                    -- then the output from that gets sent into hPutStrLn
-                    -- and then into xmonad to be displayed
-                    ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,
-                    ppCurrent = xmobarColor cyan "" . wrap "[" "]", -- Current workspace in xmobar
-                    ppVisible = xmobarColor comment "" . wrap "[[" "]]", -- visible workspace id formatter
-                    ppTitle = xmobarColor purple "" . pad . shorten 20, -- current window title formatter
-                    ppLayout = xmobarColor red "" . wrap "<" ">", -- layout name formatter
-                    ppSep = " ",
-                    ppOrder = myPPOrder
-                  }
+          logHook = logHook'
         }
   where
-    enhanceXConf = docks . ewmh . pagerHints
-    createPPLog = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag]
-    myPPOrder [werkspces, layouts, windowTitle] =
-      [werkspces, windowTitle, layouts]
-    myPPOrder (werkspces : layouts : windowTitle : _) =
-      myPPOrder [werkspces, windowTitle, layouts]
-    myPPOrder _ = []
+    enhanceXConf =
+      withUrgencyHook UrgencyHookInstance . docks . ewmh . pagerHints
