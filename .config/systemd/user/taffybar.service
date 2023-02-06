@@ -1,9 +1,12 @@
 [Unit]
 Description=Taffybar Status Bar
+PartOf=tray.target
 
 [Service]
+Type=dbus
+BusName=org.taffybar.Bar
 ExecStart=/home/berkeleytrue/.local/bin/taffybar
-Restart=always
+Restart=on-failure
 
 [Install]
-WantedBy=default.target
+WantedBy=tray.target

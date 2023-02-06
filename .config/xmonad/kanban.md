@@ -7,13 +7,15 @@
 
 - move to taffybar
   * [ ] wakatime
-  * [ ] current app title
+  * [x] current app title
   * [ ] eth info
-  * [ ] weather
-  * [ ] current layout
+  * [x] weather
+  * [x] current layout
   * [ ] picom switch
   * [ ] power menu button
-  * [ ] hdd space
+  * [x] hdd space
+- incorporate systemd
+  * [ ] Install xplugd and rerun xkbmap
 
 ## Done
 

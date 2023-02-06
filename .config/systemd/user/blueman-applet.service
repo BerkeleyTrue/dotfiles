@@ -1,0 +1,12 @@
+[Unit]
+Description=Blueman Applet
+After=bluetooth.service
+Requires=tray.target
+After=graphical-session-pre.target tray.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/blueman-applet
+
+[Install]
+WantedBy=graphical-session.target

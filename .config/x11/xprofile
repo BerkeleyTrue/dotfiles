@@ -3,49 +3,13 @@
 #
 # NOTE: Run by display manager
 
-
-# make CapsLock behave like Ctrl:
-/usr/bin/setxkbmap -option ctrl:nocaps | sed 's/^/xkbmap: /' &
-
-# make short-pressed Ctrl behave like Escape:
-/usr/bin/xcape -e 'Control_L=Escape' | sed 's/^/xcape: /' && true
+# If there are any running services from a previous session.
+# Need to run this in xprofile because the Xmonad
+# starts up graphical-session.target.
+echo "xprofile: stoping left over services"
+systemctl --user stop graphical-session.target graphical-session-pre.target
 
 echo "xprofile: starting xprofile apps"
 
 # used for controlling system wide privileges
 /usr/lib/polkit-kde-authentication-agent-1 | sed 's/^/polkit: /' &
-
-#window composer
-/usr/bin/picom -b | sed 's/^/picom: /' &
-
-# hide cursor when inactive
-/usr/bin/unclutter -b | sed 's/^/unclutter: /' &
-
-# start status-notifier-watcher (for tray icons) and wait for it to start before stating the rest of the apps:
-/home/berkeleytrue/.nix-profile/bin/status-notifier-watcher | sed 's/^/status-notifier-watcher: /' &
-
-sleep 1 &&
-
-# start xembed proxy to sni
-/usr/bin/xembedsniproxy | sed 's/^/xembedsniproxy: /' &
-
-# start volumeicon
-/usr/bin/volumeicon | sed 's/^/volumeicon: /' &
-
-# start pulse audio conf
-/usr/bin/pasystray | sed 's/^/pasystray: /' &
-
-# network manager
-/usr/bin/nm-applet --indicator --sm-disable | sed 's/^/nm-applet: /' &
-
-# notification daemon
-/usr/bin/dunst | sed 's/^/dunst: /' &
-
-# screen shot tool
-/usr/bin/flameshot | sed 's/^/flameshot: /' &
-
-# bluetooth
-/usr/bin/blueman-applet | sed 's/^/blueman-applet: /' &
-
-# private internet access vpn
-# /opt/piavpn/bin/pia-client | sed 's/^/pia-client: /' &

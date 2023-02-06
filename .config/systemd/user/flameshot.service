@@ -1,0 +1,20 @@
+[Unit]
+Description=Flameshot screenshot tool
+Requires=tray.target
+After=graphical-session-pre.target tray.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/flameshot
+Restart=on-abort
+# Sandboxing.
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateUsers=true
+RestrictNamespaces=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+
+[Install]
+WantedBy=graphical-session.target

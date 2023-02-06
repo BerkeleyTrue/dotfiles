@@ -1,0 +1,14 @@
+[Unit]
+Description=Unclutter hides lazy mouse cursor
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/unclutter -b
+Restart=always
+RestartSec=3
+
+
+[Install]
+WantedBy=graphical-session.target

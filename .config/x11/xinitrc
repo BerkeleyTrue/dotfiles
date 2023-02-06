@@ -64,11 +64,17 @@ case "$SESSION" in
 kde)
   exec startplasma-x11
   ;;
-xmoand)
-  exec $XMONAD_EXEC | sed 's/^/xmonad: /'
-  ;;
 *)
-  # No known session, run default
-  exec $XMONAD_EXEC
+  exec $XMONAD_EXEC | sed 's/^/xmonad: /'
+
+  # cleanup after xmonad exits
+  echo "Xinit: xmonad exited. Cleaning up..."
+  sysctemctl --user stop graphical-session.target
+  systemctl --user stop graphical-session-pre.target
+  # Wait until the units actually stop.
+  while [ -n "$(systemctl --user --no-legend --state=deactivating list-units)" ]; do
+    sleep 0.5
+  done
+  echo "Xinit: Good bye, Beautiful"
   ;;
 esac

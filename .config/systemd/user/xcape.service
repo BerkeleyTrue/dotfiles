@@ -1,0 +1,11 @@
+[Unit]
+Description=XCape
+After=graphical-session-pre.target xkbmap.service
+PartOf=graphical-session.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/xcape -e 'Control_L=Escape'
+
+[Install]
+WantedBy=graphical-session.target

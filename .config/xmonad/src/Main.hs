@@ -9,7 +9,6 @@ import Berks.MultiToggleState
     toggleRefIO,
   )
 import Berks.Scratchpads
-import Berks.Taffybar
 import Berks.Urgency
 import Berks.Utils
 import Data.Map
@@ -38,6 +37,7 @@ import XMonad.StackSet hiding
     workspaces,
   )
 import XMonad.Util.NamedActions
+import XMonad.Util.SpawnOnce (spawnOnce)
 
 -- Terminal
 term :: String
@@ -137,9 +137,15 @@ myLogHook = workspaceHistoryHook >> tagHook
 myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D"
+    -- we use systemd to manage most things since a lot of sni stuff has delicate timing
+    -- the first command imports PATH and DBUS_SESSION_BUS_ADDRESS into the current user session of systemd
+    <> spawnOnce "systemctl --user import-environment PATH DBUS_SESSION_BUS_ADDRESS && systemctl --no-block --user start xmonad.target"
+    -- TODO: move into systemd
+    -- sets wallpapers and xrandr config
+    -- yadm takes care of switching between different hosts
     <> spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh"
-    <> startTaffybar
-    <> spawn "killall picom &> /dev/null; sleep 1 && picom &"
+    -- TODO: Need to the move the mouse out of the corner after before locking
+    -- otherwise the mouse will re-lock immediately after unlocking
     <> addScreenCorners [(SCLowerRight, spawn "xsecurelock")]
 
 ------------------------------------------------------------------------
@@ -149,8 +155,6 @@ main = do
   toggleDataRef <- toggleRefIO
   let logHook' = createToggleStateLogHook toggleDataRef >> myLogHook
       keyBindings = createKeyMaps term werkspaces toggleDataRef
-  -- xmproc0 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc0.hs"
-  -- xmproc1 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc1.hs"
   xmonad
     $ addDescrKeys'
       ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)

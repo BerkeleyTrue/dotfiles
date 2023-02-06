@@ -1,9 +1,13 @@
 [Unit]
-Description=Status Notifier Watcher
+Description=Status Notifier Item watcher
+PartOf=tray.target
+Before=taffybar.service
 
 [Service]
+Type=dbus
+BusName=org.kde.StatusNotifierWatcher
 ExecStart=/home/berkeleytrue/.nix-profile/bin/status-notifier-watcher
 Restart=always
 
 [Install]
-WantedBy=default.target
+WantedBy=tray.target taffybar.service
