@@ -7,3 +7,5 @@ $HOME/.config/nvim/ftplugin
 $HOME/.config/nvim/scripts
 $HOME/.config/xmonad
 $HOME/.config/taffybar
+$HOME/.config/nix
+$HOME/.config/nixpkgs
