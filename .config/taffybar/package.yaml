@@ -29,6 +29,7 @@ dependencies:
   http-types:
   bytestring:
   parsec:
+  gtk-sni-tray:
 ghc-options:
   - -Wall
   - -Wcompat

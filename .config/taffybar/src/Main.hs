@@ -14,6 +14,7 @@ import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
+import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
@@ -26,7 +27,6 @@ import System.Log.Logger
   )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
-import System.Taffybar.Widget.SNITray
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -60,7 +60,7 @@ main = do
                   fsMonitorWidget,
                   cpuWidget myDefaultGraphConfig,
                   memoryWidget myDefaultGraphConfig,
-                  sniTrayNew
+                  sniTrayWidget
                 ],
             barPosition = Top,
             monitorsAction = usePrimaryMonitor,
