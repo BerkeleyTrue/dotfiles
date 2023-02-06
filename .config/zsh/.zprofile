@@ -2,6 +2,7 @@ OSNAME=$(uname)
 
 
 export GOPATH=$HOME/dvlpmnt/go
+export XDG_CURRENT_DESKTOP=Unity
 
 PATH=$PATH:$HOME/.local/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.nix-profile/bin
 
