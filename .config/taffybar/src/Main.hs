@@ -19,6 +19,7 @@ import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.Default (def)
+import Data.List (intersperse)
 import System.Log.Logger
   ( Priority (..),
     getLogger,
@@ -45,14 +46,13 @@ main = do
         def
           { startWidgets = [workspacesWidget],
             centerWidgets =
-              [ clockWidget,
-                plainDividerWidget,
-                layoutWidget,
-                plainDividerWidget,
-                windowsWidget,
-                plainDividerWidget,
-                weatherWidget
-              ],
+              intersperse
+                plainDividerWidget
+                [ clockWidget,
+                  layoutWidget,
+                  windowsWidget,
+                  weatherWidget
+                ],
             endWidgets =
               reverse
                 [ cpuTempWidget,
