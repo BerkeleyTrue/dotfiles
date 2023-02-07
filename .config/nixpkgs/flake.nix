@@ -19,12 +19,12 @@
     let
       system = "x86_64-linux";
       user = "berkeleytrue";
-      # pkgs = nixpkgs.legacyPackages.${system}
+      # pkgs = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (import ./overlays.nix {}).overlays
-        ];
+      #   overlays = [
+      #     (import ./overlays.nix {}).overlays
+        # ];
       };
       # nextUser = "bt";
       # location = "$HOME/.config/flake";
