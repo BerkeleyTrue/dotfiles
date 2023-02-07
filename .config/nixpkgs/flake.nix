@@ -19,7 +19,6 @@
     let
       system = "x86_64-linux";
       user = "berkeleytrue";
-      # pkgs = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
         inherit system;
       #   overlays = [
