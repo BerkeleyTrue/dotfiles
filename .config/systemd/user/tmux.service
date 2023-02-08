@@ -1,10 +1,12 @@
 [Unit]
 Description=Tmux server
+After=graphical-session-pre.target tray.target
+PartOf=graphical-session.target
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/tmux new-session -d -s main
+ExecStart=/usr/bin/tmux new-session -d -s dev
 ExecStop=/usr/bin/tmux kill-server
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
