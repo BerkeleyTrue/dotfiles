@@ -6,6 +6,7 @@ where
 import Berks.Colors as Colors
 import Berks.Widgets.CPU (cpuWidget)
 import Berks.Widgets.Clock (clockWidget)
+import Berks.Widgets.Crypto (ethWidget)
 import Berks.Widgets.Divider
   ( dividerWidget,
     plainDividerWidget,
@@ -28,6 +29,7 @@ import System.Log.Logger
   )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
+import Berks.Widgets.Wakatime (wakatimeWidget)
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -51,6 +53,8 @@ main = do
                 [ clockWidget,
                   layoutWidget,
                   windowsWidget,
+                  wakatimeWidget,
+                  ethWidget,
                   weatherWidget
                 ],
             endWidgets =
