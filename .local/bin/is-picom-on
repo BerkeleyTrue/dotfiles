@@ -2,4 +2,4 @@
 
 
 # Return the current status of picom
-pgrep -x "picom" > /dev/null && echo " " || echo " "
+pgrep -x "picom" > /dev/null && echo "on" || echo "off"
