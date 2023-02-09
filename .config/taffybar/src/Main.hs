@@ -7,15 +7,14 @@ import Berks.Colors as Colors
 import Berks.Widgets.CPU (cpuWidget)
 import Berks.Widgets.Clock (clockWidget)
 import Berks.Widgets.Crypto (ethWidget)
-import Berks.Widgets.Divider
-  ( dividerWidget,
-    plainDividerWidget,
-  )
+import Berks.Widgets.Divider (plainDividerWidget)
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
+import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
+import Berks.Widgets.Wakatime (wakatimeWidget)
 import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
@@ -29,7 +28,6 @@ import System.Log.Logger
   )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
-import Berks.Widgets.Wakatime (wakatimeWidget)
 
 myDefaultGraphConfig :: GraphConfig
 myDefaultGraphConfig =
@@ -59,8 +57,10 @@ main = do
                 ],
             endWidgets =
               reverse
-                [ cpuTempWidget,
-                  dividerWidget Nothing,
+                [ powerMenuButton,
+                  plainDividerWidget,
+                  cpuTempWidget,
+                  plainDividerWidget,
                   fsMonitorWidget,
                   cpuWidget myDefaultGraphConfig,
                   memoryWidget myDefaultGraphConfig,

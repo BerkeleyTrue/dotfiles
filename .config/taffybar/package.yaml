@@ -30,6 +30,7 @@ dependencies:
   bytestring:
   parsec:
   gtk-sni-tray:
+  enclosed-exceptions:
 ghc-options:
   - -Wall
   - -Wcompat
@@ -42,6 +43,8 @@ ghc-options:
   - -Wredundant-constraints
   - -XOverloadedStrings
   - -XImportQualifiedPost
+  - -XImplicitParams
+  - -XTupleSections
 executables:
   taffybar:
     main: Main.hs
