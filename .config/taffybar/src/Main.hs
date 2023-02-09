@@ -12,6 +12,7 @@ import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
+import Berks.Widgets.PicomSwitch (picomSwitchWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
@@ -20,12 +21,12 @@ import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.Default (def)
 import Data.List (intersperse)
-import System.Log.Logger
-  ( Priority (..),
-    getLogger,
-    saveGlobalLogger,
-    setLevel,
-  )
+-- import System.Log.Logger
+--   ( Priority (..),
+--     getLogger,
+--     saveGlobalLogger,
+--     setLevel,
+--   )
 import System.Taffybar.SimpleConfig
 import System.Taffybar.Widget.Generic.Graph
 
@@ -40,8 +41,10 @@ myDefaultGraphConfig =
 
 main :: IO ()
 main = do
-  logger <- getLogger "System.Taffybar.Widget.Weather"
-  saveGlobalLogger $ setLevel ERROR logger
+  -- logger <- getLogger "Berks.WidgetUtils"
+  -- logger2 <- getLogger "System.Taffybar.Util"
+  -- saveGlobalLogger $ setLevel INFO logger
+  -- saveGlobalLogger $ setLevel INFO logger2
   let simpleConfig =
         def
           { startWidgets = [workspacesWidget],
@@ -57,7 +60,9 @@ main = do
                 ],
             endWidgets =
               reverse
-                [ powerMenuButton,
+                [ picomSwitchWidget,
+                  plainDividerWidget,
+                  powerMenuButton,
                   plainDividerWidget,
                   cpuTempWidget,
                   plainDividerWidget,

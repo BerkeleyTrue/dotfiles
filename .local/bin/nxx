@@ -4,6 +4,7 @@ set -e
 
 commndName=$(basename $0)
 flake_uri=$HOME/.config/nixpkgs
+
 username=$(whoami)
 
 build() {

@@ -49,10 +49,10 @@ updateButtonLabelCallback action obj = do
 
 pollingLabelButtonNewWithVariableDelay ::
   (MonadIO m) =>
-  -- | Text to display
   IO (String, Double) ->
-  -- | handleClick
+  -- \^ (Text to display, delay in seconds)
   (Button -> IO ()) ->
+  -- ^ handleClick
   m Widget
 pollingLabelButtonNewWithVariableDelay action handleClick = do
   button <- buttonNew
@@ -79,14 +79,15 @@ pollingLabelButtonNewWithVariableDelay action handleClick = do
 
 pollingLabelButtonNew ::
   (MonadIO m) =>
-  -- | Text to display
+  -- | Interval in seconds
+  Double ->
+  -- | label of button
   IO String ->
-  -- | label
-  (Button -> IO ()) ->
   -- | handleClick
+  (Button -> IO ()) ->
   m Widget
-pollingLabelButtonNew action =
-  pollingLabelButtonNewWithVariableDelay (fmap (,1) action)
+pollingLabelButtonNew interval action =
+  pollingLabelButtonNewWithVariableDelay (fmap (,interval) action)
 
 buttonWithClickHandler ::
   (MonadIO m) => String -> (Button -> IO ()) -> m Widget

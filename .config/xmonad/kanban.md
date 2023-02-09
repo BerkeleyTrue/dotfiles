@@ -6,16 +6,21 @@
 ## Doing
 
 - move to taffybar
-  * [ ] wakatime
+  * [x] wakatime
   * [x] current app title
-  * [ ] eth info
+  * [x] eth info
   * [x] weather
   * [x] current layout
   * [ ] picom switch
-  * [ ] power menu button
+  * [x] power menu button
   * [x] hdd space
+  * [ ] add second bar
+  * [ ] add switch for laptop
 - incorporate systemd
   * [ ] Install xplugd and rerun xkbmap
+  * [x] add tmux server service
+    * [x] needs to start as part of graphical session pre so clipboard works as
+        expected
 
 ## Done
 
