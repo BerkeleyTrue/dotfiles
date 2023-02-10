@@ -4,7 +4,7 @@ After=graphical-session-pre.target
 PartOf=graphical-session.target
 
 [Service]
-type=forking
+Type=forking
 ExecStart=/home/berkeleytrue/.nix-profile/bin/xplugd
 
 [Install]
