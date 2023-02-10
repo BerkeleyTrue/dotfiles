@@ -12,6 +12,7 @@
     hpack # A command-line tool for creating and manipulating Haskell packages
     stack # The Haskell Tool Stack
     nil #nix language server
+    direnv # A shell extension that manages your environment
     haskellPackages.status-notifier-item # sni system tray protocol
   ];
 

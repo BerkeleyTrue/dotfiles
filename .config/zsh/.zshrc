@@ -159,6 +159,7 @@ zle -N zle-keymap-select
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
 eval $(thefuck --alias)
+eval "$(direnv hook zsh)"
 
 # Define an init function and append to zvm_after_init_commands
 # this is required to work around zsh-vi-mode plugin
