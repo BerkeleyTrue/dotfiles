@@ -1,7 +1,5 @@
 ## To Do
 
-- move from trayer to taffybar sni tray
-  > Will wait to try again in a while. Doesn't seem to work with all systray apps
 
 ## Doing
 
@@ -11,16 +9,11 @@
   * [x] eth info
   * [x] weather
   * [x] current layout
-  * [ ] picom switch
+  * [x] picom switch
   * [x] power menu button
   * [x] hdd space
   * [ ] add second bar
   * [ ] add switch for laptop
-- incorporate systemd
-  * [ ] Install xplugd and rerun xkbmap
-  * [x] add tmux server service
-    * [x] needs to start as part of graphical session pre so clipboard works as
-        expected
 
 ## Done
 
@@ -43,3 +36,10 @@
 - move to standalone tray
   > Trayer is annoying to configure and ignores struct toggling
   > UPDATE: can't get stalone tray to even appear. Lame
+- incorporate systemd
+  * [x] Install xplugd and rerun xkbmap
+  * [x] add tmux server service
+    * [x] needs to start as part of graphical session pre so clipboard works as
+        expected
+- move from trayer to taffybar sni tray
+  > Will wait to try again in a while. Doesn't seem to work with all systray apps
