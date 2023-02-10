@@ -7,6 +7,7 @@
   home.homeDirectory = "/home/${user}";
 
   home.packages = with pkgs; [
+    vlc
     hpack
     stack
     nil #nix language server
