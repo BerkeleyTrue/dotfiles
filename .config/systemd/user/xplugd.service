@@ -1,0 +1,11 @@
+[Unit]
+Description=Rerun after IO has changed using xplugd
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+type=forking
+ExecStart=/home/berkeleytrue/.nix-profile/bin/xplugd
+
+[Install]
+WantedBy=graphical-session.target

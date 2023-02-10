@@ -7,9 +7,10 @@
   home.homeDirectory = "/home/${user}";
 
   home.packages = with pkgs; [
-    vlc
-    hpack
-    stack
+    vlc # Cross-platform media player and streaming server
+    xplugd # A UNIX daemon that executes a script on X input and RandR changes
+    hpack # A command-line tool for creating and manipulating Haskell packages
+    stack # The Haskell Tool Stack
     nil #nix language server
     haskellPackages.status-notifier-item # sni system tray protocol
   ];
