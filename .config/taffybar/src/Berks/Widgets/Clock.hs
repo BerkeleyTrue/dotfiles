@@ -1,5 +1,6 @@
 module Berks.Widgets.Clock
   ( clockWidget,
+    calendarWidget,
   )
 where
 
@@ -14,10 +15,16 @@ import System.Taffybar.Widget
 
 clockConfig :: ClockConfig
 clockConfig =
+  def {clockFormatString = "<span fgcolor='cyan'>\988226 %H:%M:%S</span>"}
+
+calendarConfig :: ClockConfig
+calendarConfig =
   def
-    { clockFormatString =
-        "<span fgcolor='cyan'> \xf073 %a %b %d | Week %V \988226 %H:%M:%S</span>"
+    { clockFormatString = "<span fgcolor='cyan'> \xf073 %a %b %d | Week %V</span>"
     }
 
 clockWidget :: MonadIO m => m Widget
 clockWidget = decorateWithClassname "clock" $ textClockNewWith clockConfig
+
+calendarWidget :: MonadIO m => m Widget
+calendarWidget = decorateWithClassname "calendar" $ textClockNewWith calendarConfig
