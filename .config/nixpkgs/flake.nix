@@ -23,7 +23,7 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-      mkHome = { system, user }: home-manager.lib.homeManagerConfiguration {
+      mkHome = { system ? system, user }: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules = [
