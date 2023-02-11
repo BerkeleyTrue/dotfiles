@@ -18,17 +18,12 @@
   outputs = { self, nixpkgs, home-manager, nur, ... }:
     let
       system = "x86_64-linux";
-      user = "berkeleytrue";
+      desktop = "berkeleytrue";
+      laptop = "bt";
       pkgs = import nixpkgs {
         inherit system;
-      #   overlays = [
-      #     (import ./overlays.nix {}).overlays
-        # ];
       };
-      # nextUser = "bt";
-      # location = "$HOME/.config/flake";
-    in {
-      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
+      mkHome = { system, user }: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules = [
@@ -39,5 +34,10 @@
           inherit user nur;
         };
       };
+    in
+    {
+      homeConfigurations.${desktop} = mkHome { user = desktop; };
+      homeConfigurations.${laptop} = mkHome { user = laptop; };
+      formatter.${system} = pkgs.nixpkgs-fmt;
     };
 }
