@@ -4,7 +4,10 @@ module Berks.Widgets.Memory
 where
 
 import Berks.Colors as Colors
-import Berks.WidgetUtils (decorateWithClassname)
+import Berks.WidgetUtils
+  ( decorateWithClassname,
+    myDefaultGraphConfig,
+  )
 import Control.Monad.IO.Class (MonadIO)
 import GI.Gtk (Widget)
 import System.Taffybar.Information.Memory
@@ -26,14 +29,13 @@ memCallback = do
   mi <- parseMeminfo
   return [memoryUsedRatio mi]
 
-memCfg :: GraphConfig -> GraphConfig
-memCfg cfg =
-  cfg
+memCfg :: GraphConfig
+memCfg =
+  myDefaultGraphConfig
     { graphDataColors = [Colors.yellow],
       graphLabel = Just "<span size='small' fgcolor='#ff5555'>\xf233</span>"
     }
 
-memoryWidget :: MonadIO m => GraphConfig -> m Widget
-memoryWidget cfg =
-  decorateWithClassname "graph" $
-    pollingGraphNew (memCfg cfg) 0.5 memCallback
+memoryWidget :: MonadIO m => m Widget
+memoryWidget =
+  decorateWithClassname "graph" $ pollingGraphNew memCfg 0.5 memCallback

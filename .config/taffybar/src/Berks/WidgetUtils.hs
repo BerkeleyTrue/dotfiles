@@ -7,9 +7,11 @@ module Berks.WidgetUtils
     pollingLabelButtonNewWithVariableDelay,
     pollingLabelButtonNew,
     buttonWithClickHandler,
+    myDefaultGraphConfig,
   )
 where
 
+import Berks.Colors qualified as Colors
 import Control.Concurrent (killThread)
 import Control.Exception.Enclosed as E
 import Control.Monad
@@ -20,8 +22,21 @@ import Data.Text as T hiding
 import GI.Gtk
 import System.Log.Logger
 import System.Taffybar.Util
+import System.Taffybar.Widget.Generic.Graph
+  ( GraphConfig (..),
+    defaultGraphConfig,
+  )
 import System.Taffybar.Widget.Util
 import Text.Printf (printf)
+
+myDefaultGraphConfig :: GraphConfig
+myDefaultGraphConfig =
+  defaultGraphConfig
+    { graphPadding = 0,
+      graphBorderWidth = 0,
+      graphWidth = 25,
+      graphBackgroundColor = Colors.transparent
+    }
 
 setWidgetClassnameFromString :: MonadIO m => String -> Widget -> m Widget
 setWidgetClassnameFromString = setWidgetClassname . pack
@@ -51,8 +66,9 @@ pollingLabelButtonNewWithVariableDelay ::
   (MonadIO m) =>
   IO (String, Double) ->
   -- \^ (Text to display, delay in seconds)
+
+  -- | handleClick
   (Button -> IO ()) ->
-  -- ^ handleClick
   m Widget
 pollingLabelButtonNewWithVariableDelay action handleClick = do
   button <- buttonNew
@@ -62,6 +78,7 @@ pollingLabelButtonNewWithVariableDelay action handleClick = do
 
   let updateLabel (labelStr, delay) = do
         postGUIASync $ labelSetMarkup label $ pack labelStr
+        putStrLn $ "delay: " ++ show delay
         logM "Berks.WidgetUtils" DEBUG $
           printf "Polling label Button delay was %s" $
             show delay
@@ -70,9 +87,9 @@ pollingLabelButtonNewWithVariableDelay action handleClick = do
       updateLabelHandlingErrors =
         E.tryAny action >>= either (const $ return 1) updateLabel
 
-  _ <- onWidgetRealize button $ do
+  _ <- onWidgetRealize label $ do
     sampleThread <- foreverWithVariableDelay updateLabelHandlingErrors
-    void $ onWidgetUnrealize button $ killThread sampleThread
+    void $ onWidgetUnrealize label $ killThread sampleThread
 
   widgetShowAll button
   toWidget button

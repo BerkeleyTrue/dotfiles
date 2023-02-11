@@ -4,7 +4,10 @@ module Berks.Widgets.CPU
 where
 
 import Berks.Colors as Colors
-import Berks.WidgetUtils (decorateWithClassname)
+import Berks.WidgetUtils
+  ( decorateWithClassname,
+    myDefaultGraphConfig,
+  )
 import Control.Monad.IO.Class (MonadIO)
 import GI.Gtk (Widget)
 import System.Taffybar.Information.CPU
@@ -23,11 +26,11 @@ cpuCallback = do
   (_, systemLoad, totalLoad) <- cpuLoad
   return [totalLoad, systemLoad]
 
-cpuWidget :: MonadIO m => GraphConfig -> m Widget
-cpuWidget cfg =
+cpuWidget :: MonadIO m => m Widget
+cpuWidget =
   decorateWithClassname "graph" $
     pollingGraphNew
-      cfg
+      myDefaultGraphConfig
         { graphDataColors = [Colors.red, Colors.cyan],
           graphLabel = Just "<span fgcolor='cyan'>\xf0ee0</span>"
         }

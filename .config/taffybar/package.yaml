@@ -32,7 +32,7 @@ dependencies:
   parsec:
   gtk-sni-tray:
   enclosed-exceptions:
-  transformers:
+  hostname:
 ghc-options:
   - -Wall
   - -Wcompat
