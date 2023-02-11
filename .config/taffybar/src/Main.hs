@@ -4,6 +4,7 @@ module Main
 where
 
 import Berks.Bars.Delora (delorasBars)
+import Berks.Bars.Rena (renasBars)
 -- import System.Log.Logger
 --   ( Priority (..),
 --     getLogger,
@@ -18,7 +19,10 @@ import System.Taffybar.Context
   )
 
 getBars :: String -> IO [BarConfig]
-getBars = const delorasBars
+getBars hostName = do
+  case hostName of
+    "rena" -> renasBars
+    _ -> delorasBars
 
 main :: IO ()
 main = do
@@ -29,7 +33,6 @@ main = do
   -- saveGlobalLogger $ setLevel INFO logger
   -- saveGlobalLogger $ setLevel DEBUG logger2
   putStrLn $ "Starting Taffybar on " ++ hostName
-  putStrLn "Starting Taffybar"
   startTaffybar $
     TaffybarConfig
       { dbusClientParam = Nothing,
