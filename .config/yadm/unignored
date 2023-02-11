@@ -9,3 +9,4 @@ $HOME/.config/xmonad
 $HOME/.config/taffybar
 $HOME/.config/nix
 $HOME/.config/nixpkgs
+$HOME/.config/systemd/user
