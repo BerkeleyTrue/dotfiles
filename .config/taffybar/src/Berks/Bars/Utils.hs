@@ -6,6 +6,7 @@ module Berks.Bars.Utils
 where
 
 import Data.Int (Int32)
+import Data.Maybe (fromMaybe)
 import Data.Unique
   ( Unique,
     newUnique,
@@ -21,10 +22,10 @@ import Graphics.UI.GIGtkStrut
   )
 import System.Taffybar.Context (BarConfig)
 
-createBarStrut :: Int32 -> StrutPosition -> StrutConfig
-createBarStrut monitor pos =
+createBarStrut :: Int32 -> StrutPosition -> Maybe Int32 -> StrutConfig
+createBarStrut monitor pos size =
   StrutConfig
-    { strutHeight = ExactSize 30,
+    { strutHeight = ExactSize $ fromMaybe 30 size,
       strutWidth = ScreenRatio 1,
       strutXPadding = 0,
       strutYPadding = 0,

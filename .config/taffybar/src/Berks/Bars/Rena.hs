@@ -40,7 +40,7 @@ import System.Taffybar.Context (BarConfig (..))
 createPrimary :: Unique -> BarConfig
 createPrimary barId' =
   BarConfig
-    { strutConfig = createBarStrut 0 TopPos,
+    { strutConfig = createBarStrut 0 TopPos $ Just 35,
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [workspacesWidget],
@@ -67,7 +67,7 @@ createPrimary barId' =
 createSecondary :: Unique -> BarConfig
 createSecondary barId' =
   BarConfig
-    { strutConfig = createBarStrut 0 BottomPos,
+    { strutConfig = createBarStrut 0 BottomPos $ Just 35,
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [calendarWidget],
