@@ -9,5 +9,5 @@ $HOME/.config/nvim/scripts
 $HOME/.config/nvim/test
 $HOME/.config/systemd/user
 $HOME/.config/taffybar
-$HOME/.config/wireplumber/main.lua.d
+$HOME/.config/wireplumber
 $HOME/.config/xmonad
