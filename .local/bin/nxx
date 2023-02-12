@@ -2,28 +2,29 @@
 
 set -e
 
-commndName=$(basename $0)
+commandName=$(basename $0)
 flake_uri=$HOME/.config/nixpkgs
 
 username=$(whoami)
 
 build() {
-  nix build --no-link  $flake_uri#homeConfigurations.$username.activationPackage
-  "$(nix path-info $flake_uri#homeConfigurations.$username.activationPackage)"/activate
+  nix build --no-link $flake_uri\#homeConfigurations.$username.activationPackage
+  "$(nix path-info $flake_uri\#homeConfigurations.$username.activationPackage)"/activate
 }
 
 switch() {
-  home-manager switch --flake "$flake_uri#$username"
+  "$(nix path-info $flake_uri\#homeConfigurations.$username.activationPackage)"/home-path/bin/home-manager switch --flake "$flake_uri#$username"
 }
 
 case $1 in
-  build)
-    build
-    ;;
-  switch)
-    switch
-    ;;
-  *)
-    echo "Usage: $commndName {build|switch}"
-    exit 1
+build)
+  build
+  ;;
+switch)
+  switch
+  ;;
+*)
+  echo "Usage: $commandName {build|switch}"
+  exit 1
+  ;;
 esac
