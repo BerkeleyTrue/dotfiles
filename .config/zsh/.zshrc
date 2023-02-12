@@ -9,6 +9,13 @@ export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
 export TASKDATA="$XDG_CONFIG_HOME/task"
 export TASKRC="$TASKDATA/taskrc"
 export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"
+export GOPATH=$HOME/dvlpmnt/go
+export XDG_CURRENT_DESKTOP=Unity
+
+path+=($HOME/.local/bin) # local binaries and scripts
+path+=($GOPATH/bin) # go binaries
+path+=($HOME/.cargo/bin) # rust binaries
+path+=($HOME/.nix-profile/bin) # nix binaries
 
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_DATA_HOME="$HOME/.local/share"
@@ -155,6 +162,14 @@ zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
 ### end cursor mod ###
+
+# source all the profiles in ~/.nix-profile/etc/profile.d/
+for i in $HOME/.nix-profile/etc/profile.d/*.sh; do
+    if [ -r "$i" ]; then
+        . "$i"
+    fi
+done
+
 [[ -s "$XDG_CONFIG_HOME/shell/index.sh"  ]] && source "$XDG_CONFIG_HOME/shell/index.sh"
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
