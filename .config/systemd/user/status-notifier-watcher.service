@@ -6,7 +6,7 @@ Before=taffybar.service
 [Service]
 Type=dbus
 BusName=org.kde.StatusNotifierWatcher
-ExecStart=status-notifier-watcher
+ExecStart=%h/.nix-profile/bin/status-notifier-watcher
 Restart=always
 
 [Install]

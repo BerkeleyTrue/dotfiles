@@ -5,7 +5,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=forking
-ExecStart=/home/berkeleytrue/.nix-profile/bin/xplugd
+ExecStart=%h/.nix-profile/bin/xplugd
 
 [Install]
 WantedBy=graphical-session.target

@@ -5,7 +5,7 @@ PartOf=tray.target
 [Service]
 Type=dbus
 BusName=org.taffybar.Bar
-ExecStart=/home/berkeleytrue/.local/bin/taffybar
+ExecStart=%h/.local/bin/taffybar
 Restart=on-failure
 
 [Install]

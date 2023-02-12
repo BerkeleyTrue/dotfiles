@@ -6,7 +6,6 @@ PartOf=graphical-session.target
 [Service]
 Type=forking
 ExecStart=/usr/bin/tmux new-session -d -s dev
-ExecStop=/usr/bin/tmux kill-server
 
 [Install]
 WantedBy=graphical-session.target
