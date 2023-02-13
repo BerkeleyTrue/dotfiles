@@ -17,8 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver:
-  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/8.yaml
+resolver: lts-20.10
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -36,9 +35,9 @@ packages:
 # forks / in-progress versions pinned to a git hash. For example:
 #
 extra-deps:
-  - taffybar-4.0.0@sha256:667ccc958f6d793d3c4cdee3578f8586387ff3c86df02bee0ce130e115b1329b,7029
-  - rate-limit-1.4.3@sha256:ede2fd61c08dd6bc1849a5ca777baf5b68476f33e57cca40bc7c742603969f06,963
-  - scotty-0.12@sha256:32a4702316f4a90ca2be65a1191b889efcb0415002fb8c7e15c8606efa6bc134,5359
+  - taffybar-4.0.0@sha256:667ccc958f6d793d3c4cdee3578f8586387ff3c86df02bee0ce130e115b1329b,7029 # not in LTS
+  - rate-limit-1.4.3@sha256:ede2fd61c08dd6bc1849a5ca777baf5b68476f33e57cca40bc7c742603969f06,963 # not in LTS
+  - scotty-0.12@sha256:32a4702316f4a90ca2be65a1191b889efcb0415002fb8c7e15c8606efa6bc134,5359 # currently 12.1 in lts-20.10
 #
 # extra-deps: []
 

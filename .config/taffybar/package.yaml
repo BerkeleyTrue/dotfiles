@@ -18,8 +18,8 @@ description: Please see the README on GitHub at <https://github.com/berkeleytrue
 dependencies:
   base: ">= 4.7 && < 5"
   taffybar: ">= 4"
-  data-default: ">= 0.7"
-  text: ">= 1"
+  data-default:
+  text:
   gi-gtk:
   gtk-strut:
   directory:
@@ -44,6 +44,7 @@ ghc-options:
   - -Wpartial-fields
   - -Wredundant-constraints
   - -XOverloadedStrings
+  - -XOverloadedLabels
   - -XImportQualifiedPost
   - -XImplicitParams
   - -XTupleSections
