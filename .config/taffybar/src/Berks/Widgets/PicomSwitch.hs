@@ -16,8 +16,8 @@ picomToggleCommand = do
   _ <- case isPicomOn of
     Left _ -> runCommand "systemctl" ["--user", "stop", "picom.service"]
     Right res -> case res of
-      "true" -> runCommand "systemctl" ["--user", "stop", "picom.service"]
-      "false" -> runCommand "systemctl" ["--user", "start", "picom.service"]
+      "off\n" -> runCommand "systemctl" ["--user", "start", "picom.service"]
+      "on\n" -> runCommand "systemctl" ["--user", "stop", "picom.service"]
       _ -> runCommand "systemctl" ["--user", "stop", "picom.service"]
 
   return ()
@@ -26,8 +26,11 @@ picomLabel :: IO String
 picomLabel = do
   cmdEither <- runCommand "is-picom-on" []
   label' <- case cmdEither of
-    Left _ -> return "\xf204"
-    Right _ -> return "\xf205"
+    Left _ -> return "\xf1e2"
+    Right res -> case res of
+      "off\n" -> return "\xf204"
+      "on\n" -> return "\xf205"
+      _ -> return "\xf1e2"
 
   return $ colorize cyanHex "" label'
 

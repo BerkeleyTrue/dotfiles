@@ -78,10 +78,6 @@ pollingLabelButtonNewWithVariableDelay action handleClick = do
 
   let updateLabel (labelStr, delay) = do
         postGUIASync $ labelSetMarkup label $ pack labelStr
-        putStrLn $ "delay: " ++ show delay
-        logM "Berks.WidgetUtils" DEBUG $
-          printf "Polling label Button delay was %s" $
-            show delay
         return delay
 
       updateLabelHandlingErrors =
