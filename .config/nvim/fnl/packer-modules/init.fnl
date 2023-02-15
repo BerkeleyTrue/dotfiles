@@ -119,6 +119,7 @@
    {:name :lervag/vimtex :ft :tex :config (make-on-load vimtex)}
    {:name :pearofducks/ansible-vim}
    {:name :sirtaj/vim-openscad}
+   {:name :purescript-contrib/purescript-vim :description "adds purescript syntax" :ft :purescript}
 
    ;   
    {:name :mattn/emmet-vim :description "DSL for html" :config (make-on-load emmet)}

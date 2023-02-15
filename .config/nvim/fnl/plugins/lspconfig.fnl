@@ -70,6 +70,7 @@
    :jsonls (jsonls-configs)
    :nil_ls {}
    :prismals {}
+   :purescriptls {}
    :solidity_ls {}
    :sumneko_lua {}
    :tsserver (tsserver.get-config {:on_attach general-on-attach-with-navic})
