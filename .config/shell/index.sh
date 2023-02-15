@@ -16,6 +16,7 @@ files=(
   'git'
   'mr_func'
   'pacman'
+  'systemd'
   'x11')
 
 # don't use conditional check for files that should always be there
