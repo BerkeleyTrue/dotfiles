@@ -18,6 +18,13 @@ packages:
       size: 168
   original:
     hackage: rate-limit-1.4.3@sha256:ede2fd61c08dd6bc1849a5ca777baf5b68476f33e57cca40bc7c742603969f06,963
+- completed:
+    hackage: scotty-0.12@sha256:32a4702316f4a90ca2be65a1191b889efcb0415002fb8c7e15c8606efa6bc134,5359
+    pantry-tree:
+      sha256: 2ca8f65b151672b911c89bd2eae0de80e395174318c96c0cdc2a7bcd60754d1b
+      size: 1701
+  original:
+    hackage: scotty-0.12@sha256:32a4702316f4a90ca2be65a1191b889efcb0415002fb8c7e15c8606efa6bc134,5359
 snapshots:
 - completed:
     sha256: 17870c63f8041ac17a38096124abeb953cb14d84bfc96deb88f9b24daa97b347

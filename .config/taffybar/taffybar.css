@@ -156,3 +156,9 @@ menuitem:hover > label {
   border-color: @dracula-comment;
   background-color: @dracula-selection;
 }
+
+
+.button #label {
+  padding-left: 8px;
+  padding-right: 8px;
+}

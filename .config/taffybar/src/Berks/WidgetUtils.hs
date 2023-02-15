@@ -73,7 +73,6 @@ pollingLabelButtonNewWithVariableDelay ::
 pollingLabelButtonNewWithVariableDelay action handleClick = do
   button <- buttonNew
   label <- labelNew Nothing
-  buttonSetImage button $ Just label
   _ <- onButtonClicked button $ handleClick button
 
   let updateLabel (labelStr, delay) = do
@@ -87,8 +86,11 @@ pollingLabelButtonNewWithVariableDelay action handleClick = do
     sampleThread <- foreverWithVariableDelay updateLabelHandlingErrors
     void $ onWidgetUnrealize label $ killThread sampleThread
 
+  vFillCenter button
+  vFillCenter label
+  containerAdd button label
   widgetShowAll button
-  toWidget button
+  toWidget button >>= setWidgetClassname "button"
 
 pollingLabelButtonNew ::
   (MonadIO m) =>
@@ -109,7 +111,9 @@ buttonWithClickHandler labelStr handler = do
   labelSetMarkup label (pack labelStr)
   button <- buttonNew
   _ <- onButtonClicked button $ handler button
-  _ <- buttonSetImage button $ Just label
 
+  vFillCenter button
+  vFillCenter label
+  containerAdd button label
   widgetShowAll button
-  toWidget button
+  toWidget button >>= setWidgetClassname "button"
