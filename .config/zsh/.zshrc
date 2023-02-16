@@ -55,9 +55,11 @@ fi
 
 # source antigen plugin manager
 if [[ $OSNAME = 'Darwin' ]]; then
-  source /usr/local/share/antigen/antigen.zsh
+  path+=(/opt/homebrew/bin) # homebrew binaries
+  eval "$(/opt/homebrew/bin/brew shellenv)" # homebrew setup?
+  source $HOME/.nix-profile/share/antigen/antigen.zsh
 else
-  source /usr/share/zsh/share/antigen.zsh
+  source /usr/share/zsh/share/antigen.zsh #TODO: move to nix on linux machines as well
 fi
 
 antigen use oh-my-zsh
@@ -164,11 +166,15 @@ zle -N zle-keymap-select
 ### end cursor mod ###
 
 # source all the profiles in ~/.nix-profile/etc/profile.d/
-for i in $HOME/.nix-profile/etc/profile.d/*.sh; do
+if [ -d "$HOME/.nix-profile/etc/profile.d" ]
+then
+  for i in $HOME/.nix-profile/etc/profile.d/*.sh; do
     if [ -r "$i" ]; then
-        . "$i"
+      . "$i"
+
     fi
-done
+  done
+fi
 
 [[ -s "$XDG_CONFIG_HOME/shell/index.sh"  ]] && source "$XDG_CONFIG_HOME/shell/index.sh"
 
