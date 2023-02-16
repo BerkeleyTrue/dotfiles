@@ -72,7 +72,7 @@
    :prismals {}
    :purescriptls {}
    :solidity_ls {}
-   :sumneko_lua {}
+   :lua_ls {}
    :tsserver (tsserver.get-config {:on_attach general-on-attach-with-navic})
    :tailwindcss (tailwindcss.get-config)
    :vimls {:on_attach general-on-attach-with-navic}
