@@ -12,6 +12,7 @@ files=(
   'common_paths'
   'docker'
   'npm'
+  'nix'
   'task'
   'git'
   'mr_func'
