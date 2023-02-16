@@ -7,13 +7,13 @@
   home.homeDirectory = "/home/${user}";
 
   home.packages = with pkgs; [
-    vlc # Cross-platform media player and streaming server
-    xplugd # A UNIX daemon that executes a script on X input and RandR changes
-    hpack # A command-line tool for creating and manipulating Haskell packages
-    stack # The Haskell Tool Stack
-    nil #nix language server
     direnv # A shell extension that manages your environment
     haskellPackages.status-notifier-item # sni system tray protocol
+    hpack # A command-line tool for creating and manipulating Haskell packages
+    nil #nix language server
+    stack # The Haskell Tool Stack
+    vlc # Cross-platform media player and streaming server
+    xplugd # A UNIX daemon that executes a script on X input and RandR changes
   ];
 
   # This value determines the Home Manager release that your
