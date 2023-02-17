@@ -55,6 +55,12 @@ fi
 
 # source antigen plugin manager
 if [[ $OSNAME = 'Darwin' ]]; then
+
+  # start daemon
+  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  fi
+
   path+=(/opt/homebrew/bin) # homebrew binaries
   eval "$(/opt/homebrew/bin/brew shellenv)" # homebrew setup?
   source $HOME/.nix-profile/share/antigen/antigen.zsh
