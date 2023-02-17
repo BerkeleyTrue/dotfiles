@@ -1,8 +1,10 @@
 # Zsh configuration
 # runs on every new shell
+
 # clear right prompt on execute
 setopt TRANSIENT_RPROMPT
 
+OSNAME=$(uname)
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='fd .'
 export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
@@ -27,7 +29,6 @@ HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 # Antigen configs
 ADOTDIR="$XDG_CONFIG_HOME/antigen"
 ANTIGEN_LOG="$HOME/.cache/antigen/antigen.log"
-OSNAME=$(uname)
 # uncomment to debug antigen
 # export ANTIGEN_LOG=$HOME/.antigen/antigen.log
 TERMINAL="kitty"
@@ -56,14 +57,26 @@ fi
 # source antigen plugin manager
 if [[ $OSNAME = 'Darwin' ]]; then
 
-  # start daemon
+  # start nix daemon
   if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
   fi
 
-  path+=(/opt/homebrew/bin) # homebrew binaries
-  eval "$(/opt/homebrew/bin/brew shellenv)" # homebrew setup?
-  source $HOME/.nix-profile/share/antigen/antigen.zsh
+  # check if homebrew bin exits and add it to path
+  if [ -d '/opt/homebrew/bin' ]; then
+    path+=(/opt/homebrew/bin) # homebrew binaries
+    command -v /opt/homebrew/bin/brew > /dev/null \
+      && eval "$(/opt/homebrew/bin/brew shellenv)" \
+      || echo "brew not found"
+  fi
+
+  # check if antigen is installed
+  if [ -e "$HOME/.nix-profile/share/antigen/antigen.zsh" ]; then
+    source $HOME/.nix-profile/share/antigen/antigen.zsh
+  else
+    echo "antigen not found"
+  fi
+
 else
   source /usr/share/zsh/share/antigen.zsh #TODO: move to nix on linux machines as well
 fi
@@ -72,7 +85,6 @@ antigen use oh-my-zsh
 
 antigen bundle djui/alias-tips
 antigen bundle lukechilds/zsh-better-npm-completion
-# antigen bundle $HOME/.config/antigen/bundles/BerkeleyTrue/tmux --no-local-clone
 antigen bundle wd
 antigen bundle vi-mode
 antigen bundle zsh-users/zsh-autosuggestions
@@ -90,10 +102,6 @@ antigen theme $ZSH ghanima
 
 # apply antigen plugins
 antigen apply
-
-
-# apply zoxide to zsh
-eval "$(zoxide init zsh)"
 
 ###
 # zsh use primary clipboard for vi-keys
@@ -185,8 +193,19 @@ fi
 [[ -s "$XDG_CONFIG_HOME/shell/index.sh"  ]] && source "$XDG_CONFIG_HOME/shell/index.sh"
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
-eval $(thefuck --alias)
-eval "$(direnv hook zsh)"
+
+# init zsh hooks
+command -v thefuck > /dev/null \
+  && eval $(thefuck --alias) \
+  || echo "thefuck not installed"
+
+command -v direnv > /dev/null \
+  && eval "$(direnv hook zsh)" \
+  || echo "direnv not installed"
+
+command -v zoxide > /dev/null \
+  && eval "$(zoxide init zsh)" \
+  || echo "zoxide not installed"
 
 # Define an init function and append to zvm_after_init_commands
 # this is required to work around zsh-vi-mode plugin
