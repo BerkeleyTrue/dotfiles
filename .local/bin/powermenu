@@ -29,6 +29,11 @@ $lock)
   ;;
 $suspend)
   $HOME/.local/bin/sleep
+  # pause music
+  /usr/bin/playerctl pause
+  # enable xsecurelock
+  /usr/bin/xsecurelock &
+  (sleep .250 && /usr/bin/systemctl suspend)
   ;;
 $logout)
   kill $(pgrep X)
