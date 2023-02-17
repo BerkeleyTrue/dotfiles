@@ -5,5 +5,5 @@ jcl() {
 }
 
 jcul() {
-  journalctl-f -n 100 --user -u $1
+  journalctl -f -n 100 --user -u $1
 }
