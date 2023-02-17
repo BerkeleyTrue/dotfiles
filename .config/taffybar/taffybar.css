@@ -107,6 +107,11 @@ Each workspace gets a box
 /* sni tray */
 .sni-tray {
   padding-left: 20px;
+  padding-right: 20px;
+}
+
+.tray-icon-image {
+  padding-left: 8px;
 }
 
 /* Button styling */
