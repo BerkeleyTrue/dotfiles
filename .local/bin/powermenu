@@ -25,11 +25,10 @@ $reboot)
   systemctl reboot
   ;;
 $lock)
-  xsecurelock
+  $HOME/.local/bin/lock
   ;;
 $suspend)
-  playerctl pause
-  systemctl suspend
+  $HOME/.local/bin/sleep
   ;;
 $logout)
   kill $(pgrep X)
