@@ -1,0 +1,14 @@
+[Unit]
+Description=User suspend actions
+Before=sleep.target
+
+[Service]
+Type=forking
+Environment=DISPLAY=:0
+ExecStartPre=/usr/bin/playerctl pause & /usr/bin/dunstctl set-paused true
+ExecStart=/usr/bin/xsecurelock
+ExecStop=/usr/bin/dunstctl set-paused false
+
+
+[Install]
+WantedBy=sleep.target
