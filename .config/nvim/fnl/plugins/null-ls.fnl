@@ -37,6 +37,10 @@
                  null-ls.builtins.formatting.brittany
                  null-ls.builtins.formatting.swiftformat
                  null-ls.builtins.formatting.purs_tidy
+                 (null-ls.builtins.formatting.nixpkgs_fmt.with {:command "nix"
+                                                                :args ["fmt"]
+                                                                :to_temp_file true
+                                                                :from_temp_file true})
                  null_ls.builtins.diagnostics.ansiblelint]]
 
 
