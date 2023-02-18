@@ -83,7 +83,7 @@
    ; UI
    {:name :kyazdani42/nvim-web-devicons :description "require web devicons through lua"}
    {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}
-   {:name :glepnir/dashboard-nvim :desciption "show a dashboard on startup" :config (make-on-load dashboard)}
+   {:name :goolord/alpha-nvim :desciption "show a dashboard on startup" :config (make-on-load dashboard)}
    {:name :romgrk/barbar.nvim :desciption "tab bar built in lua" :config (make-on-load barbar)}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :requires [[:nvim-lua/plenary.nvim] [:kyazdani42/nvim-web-devicons] [:MunifTanjim/nui.nvim]] :config (make-on-load neotree)}
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :requires [[:kyazdani42/nvim-web-devicons]] :config (make-on-load lualine)}
