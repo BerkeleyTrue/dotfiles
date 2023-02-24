@@ -196,7 +196,13 @@ prompt_right_sep() {
 
 # If IN_NIX_SHELL is set, show the name of the current nix-shell
 prompt_nix_shell() {
+  local name
   if [[ -n "$IN_NIX_SHELL" ]]; then
+    if [[ -n "$NIX_SHELL_NAME" ]]; then
+      name="$NIX_SHELL_NAME"
+    else
+      name=$IN_NIX_SHELL
+    fi
 
     if [[ -n "$IN_GIT_REPO" ]]; then
       prompt_right_sep $IN_GIT_REPO "cyan"
@@ -204,7 +210,7 @@ prompt_nix_shell() {
       prompt_right_start "cyan"
     fi
 
-    print -n "%{%K{cyan}%F{black}%} %{%B%}$IN_NIX_SHELL%{%b%} $NIX "
+    print -n "%{%K{cyan}%F{black}%} %{%B%}$name%{%b%} $NIX "
 
   fi
 }
