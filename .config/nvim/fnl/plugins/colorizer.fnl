@@ -5,5 +5,5 @@
    require-macros [macros]})
 
 (defn main []
-  (when-let [colorizer (md.prequire :colorizer)]
-    (colorizer.setup)))
+  (when-let [colorizer (md.prequire :nvim-highlight-colors)]
+    (colorizer.setup {:enable_tailwind true})))

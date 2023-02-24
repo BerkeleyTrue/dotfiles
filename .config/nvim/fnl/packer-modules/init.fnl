@@ -12,7 +12,7 @@
   ; main utils
   [{:name :wbthomason/packer.nvim :opt true}
    {:name :berkeleytrue/colorbuddy.nvim}
-   {:name :NvChad/nvim-colorizer.lua :config (make-on-load colorizer)}
+   {:name :brenoprata10/nvim-highlight-colors :config (make-on-load colorizer)}
    {:name :junegunn/vim-easy-align :opt true :config (make-on-load easy-align)}
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
