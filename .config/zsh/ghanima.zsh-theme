@@ -8,12 +8,15 @@ fi
 
 # Used by vim plugin
 MODE_INDICATOR=""
+IN_GIT_REPO=""
 
 # Characters
 SEGMENT_SEPARATOR=""
 USEGMENT_SEPARATOR=""
+
 RSEGMENT_SEPARATOR=""
 URSEGMENT_SEPARATOR=""
+
 PLUSMINUS="\u00b1"
 BRANCH="\ue0a0"
 DETACHED="\u27a6"
@@ -22,8 +25,17 @@ BOMB=" "
 LIGHTNING="\u26a1"
 GEAR="\u2699"
 DELTA=" "
+NIX=" "
+NODE="󰎙"
 
 SEGMENT_NUM=0
+
+# F set foreground
+# f reset foreground
+# K set background
+# k reset background
+
+
 # Begin a segment
 # prompt_segment bg fg content
 prompt_segment() {
@@ -33,6 +45,7 @@ prompt_segment() {
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
   #vary segment vertical
   [[ $((SEGMENT_NUM % 2 == 0)) -gt 0 ]] && segment=$SEGMENT_SEPARATOR || segment=$USEGMENT_SEPARATOR
+  # increment segment number
   SEGMENT_NUM=$((SEGMENT_NUM+1))
   # if not the first segment and
   # current background is not request background
@@ -51,6 +64,9 @@ prompt_segment() {
   [[ -n $3 ]] && print -n $3
 }
 
+### Prompt components
+# Each component will draw itself, and hide itself if no information needs to be shown
+
 # Status:
 # - was there an error
 # - am I root
@@ -65,10 +81,8 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment '239' $PRIMARY_FG " $symbols"
 }
 
-### Prompt components
-# Each component will draw itself, and hide itself if no information needs to be shown
-
-# Context: user@hostname (who am I and where am I)
+# Context:
+# - user@hostname (who am I and where am I)
 prompt_context() {
   local user=`whoami`
 
@@ -79,7 +93,9 @@ prompt_context() {
   fi
 }
 
-# Dir: current working directory
+# Dir:
+# - current working directory
+# TODO: figure out .config bug
 prompt_dir() {
   local ref
   local wd="$(pwd | sed -e "s,^$HOME,~,")"
@@ -91,9 +107,12 @@ prompt_dir() {
   else
     ref="../$pd/$dir "
   fi
+
   prompt_segment black green $ref
 }
 
+# VIM:
+# - show current mode
 prompt_vim() {
   local fgr bk ref
   if [[ $KEYMAP = 'viins' ]] || [[ $KEYMAP = 'main' ]]; then
@@ -115,7 +134,8 @@ prompt_vim() {
   prompt_segment $bk $fgr $ref
 }
 
-# End the prompt, closing any open segments
+# End:
+# - End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
     print -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
@@ -127,6 +147,10 @@ prompt_end() {
 }
 
 # start the right prompt
+prompt_right_start() {
+  print -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
+}
+
 prompt_right_start() {
   print -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
 }
@@ -150,8 +174,38 @@ prompt_git() {
     else
       ref="${ref/.../} $DETACHED"
     fi
+
     prompt_right_start $color
+    IN_GIT_REPO=$color
+
     print -n "%{%K{$color}%F{$PRIMARY_FG}%}$ref "
+  fi
+}
+
+# Adds a separator between right side segments
+# takes as an argument the current background color
+# so that the separator background matches the previous segment
+# takes as a second argument the background color of the next segment
+# so that the separator foreground matches the next segment
+prompt_right_sep() {
+  local bg fg
+  bg=$1
+  fg=$2
+  print -n "%{%K{$bg}%F{$fg}%}$URSEGMENT_SEPARATOR"
+}
+
+# If IN_NIX_SHELL is set, show the name of the current nix-shell
+prompt_nix_shell() {
+  if [[ -n "$IN_NIX_SHELL" ]]; then
+
+    if [[ -n "$IN_GIT_REPO" ]]; then
+      prompt_right_sep $IN_GIT_REPO "cyan"
+    else
+      prompt_right_start "cyan"
+    fi
+
+    print -n "%{%K{cyan}%F{black}%} %{%B%}$IN_NIX_SHELL%{%b%} $NIX "
+
   fi
 }
 
@@ -178,6 +232,7 @@ prompt_bottom_left() {
 prompt_bottom_right() {
   CURRENT_BG='NONE'
   prompt_git
+  prompt_nix_shell
   prompt_right_end
 }
 
