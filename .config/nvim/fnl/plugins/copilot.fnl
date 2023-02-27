@@ -44,9 +44,9 @@
 
     (let [cpsuggestions (md.prequire :copilot.suggestion)]
       (imap
-        :<Tab>
+        :<Right>
         (fn []
           (if (cpsuggestions.is_visible)
             (cpsuggestions.accept)
-            (keys.feed :<Tab> true)))
+            (keys.feed :<Right> true)))
         {:silent true}))))
