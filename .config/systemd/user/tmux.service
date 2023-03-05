@@ -4,7 +4,6 @@ After=graphical-session-pre.target tray.target
 PartOf=graphical-session.target
 
 [Service]
-Type=forking
 ExecStart=/usr/bin/tmux new-session -d -s dev
 
 [Install]
