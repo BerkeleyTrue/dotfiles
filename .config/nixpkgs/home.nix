@@ -10,6 +10,7 @@
     direnv # A shell extension that manages your environment
     haskellPackages.status-notifier-item # sni system tray protocol
     hpack # A command-line tool for creating and manipulating Haskell packages
+    htop # An interactive process viewer
     nil #nix language server
     stack # The Haskell Tool Stack
     vlc # Cross-platform media player and streaming server
