@@ -11,7 +11,7 @@
   cesc     (tap-hold-next-release 100 esc lctl)
   lparshft (tap-hold-next-release 100 \( lsft)
   rparshft (tap-hold-next-release 100 \) rsft)
-  spacenav (tap-hold-next-release 100 space (layer-toggle nav))
+  spacenav (tap-hold-next-release 250 space (layer-toggle nav))
   numtg    (layer-toggle nums)
   )
 
