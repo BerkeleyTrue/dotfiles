@@ -16,12 +16,19 @@ switch() {
   "$(nix path-info $flake_uri\#homeConfigurations.$username.activationPackage)"/home-path/bin/home-manager switch --flake "$flake_uri#$username"
 }
 
+update() {
+  nix flake update $flake_uri
+}
+
 case $1 in
 build)
   build
   ;;
 switch)
   switch
+  ;;
+update)
+  update
   ;;
 *)
   echo "Usage: $commandName {build|switch}"
