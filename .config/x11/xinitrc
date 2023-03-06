@@ -17,6 +17,7 @@ export DESKTOP_SESSION=plasma
 export XSECURELOCK_NO_COMPOSITE=1 # xsecurelock doesn't work w/ picom
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
+export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
 
 X11_HOME=$XDG_CONFIG_HOME/x11
 userresources=$X11_HOME/xresources
