@@ -2,7 +2,8 @@
   {require
    {r r
     utils utils
-    auto options.auto}
+    auto options.auto
+    aam options.auto-module}
    require-macros [macros]})
 
 
@@ -83,3 +84,5 @@
 (command filetype :plugin :on)
 (command filetype :indent :on)
 (command syntax :on)
+(auto.main)
+(aam.main)
