@@ -22,6 +22,9 @@
       laptop = "bt";
       pkgs = import nixpkgs {
         inherit system;
+        config = {
+          allowUnfree = true;
+        };
       };
       mkHome = { system ? system, user }: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
