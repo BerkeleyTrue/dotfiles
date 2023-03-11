@@ -14,8 +14,9 @@
     hpack # A command-line tool for creating and manipulating Haskell packages
     htop # An interactive process viewer
     mongodb-compass  # mongodb UI tool -- non-free
-    postman # API Development Environment
+    mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2
     nil #nix language server
+    postman # API Development Environment
     stack # The Haskell Tool Stack
     vimv # batch rename files w/ vim
     vlc # Cross-platform media player and streaming server
