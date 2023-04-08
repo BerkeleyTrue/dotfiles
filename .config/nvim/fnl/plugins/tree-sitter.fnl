@@ -115,12 +115,12 @@
       ; otherwise nvim-ts will error out and prevent the setup
       ; will not work on the same pass as fennel parser install so a restart is necessary
       (when (parsers.has_parser :fennel)
-        (vim-ts-queries.set_query
+        (vim-ts-queries.set
           :fennel
           :highlights
           (get-ft-query :fennel :highlights))
 
-        (vim-ts-queries.set_query
+        (vim-ts-queries.set
           :fennel
           :locals
           (get-ft-query :fennel :locals)))
