@@ -17,6 +17,7 @@
     mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2
     nil #nix language server
     postman # API Development Environment
+    rsync # Fast incremental file transfer utility
     stack # The Haskell Tool Stack
     vimv # batch rename files w/ vim
     vlc # Cross-platform media player and streaming server
