@@ -31,13 +31,27 @@
         {: schemas}}})
     {}))
 
+(defn open-hover-float []
+  "disable cursor hold, open hover float, then renamble cursor hold on cursor move"
+  (command set "eventignore=CursorHold")
+  (vim.lsp.buf.hover)
+  (command autocmd "CursorMoved <buffer> ++once set eventignore=\"\""))
+
 
 (defn- general-on-attach [client buffnr]
   (nnoremap :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr :silent true})
-  (nnoremap :K "<CMD>lua vim.lsp.buf.hover()<CR>" {:buffer buffnr :silent true})
   (nnoremap :gd "<CMD>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr :silent true})
   (nnoremap :zca "<CMD>lua vim.lsp.buf.code_action()<CR>" {:buffer buffnr :silent true})
-  (nnoremap :zrn "<CMD>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr :silent true}))
+  (nnoremap :zrn "<CMD>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr :silent true})
+  (nnoremap :K open-hover-float {:buffer buffnr :silent true})
+  (tset
+    vim.lsp.handlers
+    :textDocument/hover
+    (vim.lsp.with vim.lsp.handlers.hover
+      {:border :rounded
+       :title "Definition"
+       :scope "cursor"
+       :zindex 2000})))
 
 (def general-on-attach-with-navic
   (r.over
@@ -96,6 +110,7 @@
       :max_width 60
       :scope "cursor"
       :header false}})
+
 
   ; open vim diagnotics float on cursor hold
   (augroup

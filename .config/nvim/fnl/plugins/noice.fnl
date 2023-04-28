@@ -20,6 +20,7 @@
    :notify {:enabled false}
    :history {:enabled false}
    :messages {:enabled false}
+   :lsp {:hover {:enabled false}}
    :throttle (/ 1000 30)
    :views {}
    :routes {}})
