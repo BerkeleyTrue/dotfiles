@@ -107,8 +107,9 @@
      :float
      {:border :rounded
       :focus false
-      :max_width 60
+      :max_width 120
       :scope "cursor"
+      :title "Diagnostics"
       :header false}})
 
 
