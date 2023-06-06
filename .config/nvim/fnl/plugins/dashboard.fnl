@@ -44,15 +44,15 @@
 
           buttons {:type :group
                    :val
-                   [(create-button "  " "Recently opened files" "OOldFiles")
+                   [(create-button " 󱋡 " "Recently opened files" "OOldFiles")
                     {:type "padding" :val 1}
-                    (create-button "  " "Find File            " "FFiles")
+                    (create-button " 󰱼 " "Find File            " "FFiles")
                     {:type "padding" :val 1}
-                    (create-button "  " "File Browser         " "NeoTreeFloat")
+                    (create-button " 󰙅 " "File Browser         " "NeoTreeFloat")
                     {:type "padding" :val 1}
-                    (create-button "  " "Find word            " "Telescope live_grep")
+                    (create-button " 󰡦 " "Find word            " "Telescope live_grep")
                     {:type "padding" :val 1}
-                    (create-button "  " "Quit                 " "q!")]}
+                    (create-button " 󰩈 " "Quit                 " "q!")]}
 
           config {:layout
                   [{:type "padding" :val 2}
