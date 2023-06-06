@@ -22,7 +22,7 @@ type ThreeColLayout =
 
 threeCol :: ThreeColLayout Window
 threeCol =
-  renamed [Replace " ﰦ "] $
+  renamed [Replace " \xf056d "] $
     withBorder 4 $
       spacingRaw True (Border 4 4 0 6) True (Border 0 0 6 0) True $
         limitWindows 7 $
