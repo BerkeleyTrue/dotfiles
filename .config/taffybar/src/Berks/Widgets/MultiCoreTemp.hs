@@ -30,7 +30,7 @@ cpuTempWidget =
               colorize
                 orangeHex
                 ""
-                ("\63687: " <> temp <> colorize cyanHex "" "°" <> "C")
+                ("\xf03c8: " <> temp <> colorize cyanHex "" "°" <> "C")
           )
         . colorize yellowHex ""
         . printf "%.0f"

@@ -25,7 +25,6 @@ import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
-import Berks.Widgets.PicomSwitch (picomSwitchWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
@@ -56,9 +55,7 @@ createPrimary barId' =
           ],
       endWidgets =
         reverse
-          [ picomSwitchWidget,
-            plainDividerWidget,
-            powerMenuButton,
+          [ powerMenuButton,
             plainDividerWidget,
             cpuTempWidget,
             plainDividerWidget,

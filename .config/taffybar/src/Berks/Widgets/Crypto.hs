@@ -42,9 +42,6 @@ ethPrice = eggCommandRunner ["price", "eth"]
 ethGas :: IO String
 ethGas = eggCommandRunner ["gas"]
 
-stEthPrice :: IO String
-stEthPrice = eggCommandRunner ["steth"]
-
 flippening :: IO String
 flippening = eggCommandRunner ["flip"]
 
@@ -67,7 +64,6 @@ label :: IO Text
 label = do
   eth <- ethPrice
   ethGas' <- ethGas
-  stEth <- stEthPrice
   flip' <- flippening
   return
     . pack
@@ -76,8 +72,6 @@ label = do
       <> colorize cyanHex "" ethGas'
       <> " "
       <> (colorize redHex "" "\xf0450 " <> colorize cyanHex "" flip' <> " ")
-      <> colorize pinkHex "" "\xe62d "
-      <> colorize cyanHex "" stEth
 
 ethWidget :: TaffyIO Widget
 ethWidget = pollingLabelNew 1 label
