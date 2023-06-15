@@ -365,6 +365,11 @@ fbranch() {
     branch=$(echo "$branches" | fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+_gbranches() {
+  git --no-pager branch --all \
+    --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" |
+    sed '/^$/d'
+}
 # TODO: make gco ./path/to/file work as well
 gco() {
   # gco - checkout git branch/tag with fzf search
@@ -380,11 +385,7 @@ gco() {
 
   tags=$(git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
 
-  branches=$(
-    git --no-pager branch --all \
-      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" |
-      sed '/^$/d'
-  ) || return
+  branches=$(_gbranches) || return
 
   target=$(
     (
@@ -403,4 +404,25 @@ gco() {
   else
     git checkout $branch_name
   fi
+}
+
+gmerge() {
+  local branches target
+  local query=$1
+
+  tags=$(git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+
+  branches=$(_gbranches) || return
+
+  target=$(
+    (
+      echo "$branches"
+      echo "$tags"
+    ) |
+      fzf-tmux -d50% -- --no-hscroll --ansi +m -d "\t" -n 2 --preview="git --no-pager log -150 --pretty=format:%s '..{2}'" -q $query
+  ) || return
+
+  branch_name=$(echo "$target" | awk '{print $2}')
+
+  git merge $branch_name
 }
