@@ -99,6 +99,26 @@
     (when (not (and cmp (cmp.visible)))
       (vim.diagnostic.open_float))))
 
+(defn go-to-next []
+  "get next error, if no errors, get next warning, if no warnings, get next info"
+  (let [errors (vim.diagnostic.get 0 {:severity vim.diagnostic.severity.ERROR})]
+    (if (not (r.empty? errors))
+      (vim.diagnostic.goto_next {:severity vim.diagnostic.severity.ERROR})
+      (let [warnings (vim.diagnostic.get 0 {:severity vim.diagnostic.severity.WARNING})]
+        (if (not (r.empty? warnings))
+          (vim.diagnostic.goto_next {:severity vim.diagnostic.severity.WARNING})
+          (vim.diagnostic.goto_next {:severity vim.diagnostic.severity.INFO}))))))
+
+(defn go-to-prev []
+  "get prev error, if no errors, get prev warning, if no warnings, get prev info"
+  (let [errors (vim.diagnostic.get 0 {:severity vim.diagnostic.severity.ERROR})]
+    (if (not (r.empty? errors))
+      (vim.diagnostic.goto_prev {:severity vim.diagnostic.severity.ERROR})
+      (let [warnings (vim.diagnostic.get 0 {:severity vim.diagnostic.severity.WARNING})]
+        (if (not (r.empty? warnings))
+          (vim.diagnostic.goto_prev {:severity vim.diagnostic.severity.WARNING})
+          (vim.diagnostic.goto_prev {:severity vim.diagnostic.severity.INFO}))))))
+
 (defn- set-configs []
   (vim.diagnostic.config
     {:virtual_text true
@@ -122,8 +142,8 @@
 
   (command! :Format ":lua vim.lsp.buf.formatting()")
   (command! :LspDiagnostics "lua vim.diagnostic.setloclist()")
-  (noremap  :zj vim.diagnostic.goto_next {:silent true})
-  (noremap  :zk vim.diagnostic.goto_prev {:silent true}))
+  (noremap  :zk go-to-prev {:silent true})
+  (noremap  :zj go-to-next {:silent true}))
 
 (defn main []
   (set-configs)
