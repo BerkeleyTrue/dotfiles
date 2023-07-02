@@ -10,6 +10,7 @@
     antigen # zsh plugin manager
     direnv # A shell extension that manages your environment
     # getoptions # better options parser for posix -- broken?
+    handlr # Alternative to xdg-open to manage default applications with ease
     haskellPackages.status-notifier-item # sni system tray protocol
     hpack # A command-line tool for creating and manipulating Haskell packages
     htop # An interactive process viewer
