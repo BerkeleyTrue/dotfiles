@@ -13,7 +13,7 @@ if [ $CURR = '0%' ]; then
   MSG='  '
 else
   pactl set-sink-volume $DSINK -10%
-  MSG=" ﱜ $(getcurrvol)"
+  MSG=" 󰝞 $(getcurrvol)"
 fi
 
 dunstify -a 'orpheus' -r $ID $MSG

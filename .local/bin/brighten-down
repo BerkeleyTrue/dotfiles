@@ -6,7 +6,7 @@ CURR=$(brightnessctl get)
 ID=1234
 
 if (($CURR <= $MIN)); then
-  dunstify -a luna -r $ID 'Going Dark 望'
+  dunstify -a Selena -r $ID ' Going Dark'
   brightnessctl set 0
 else
   echo $CURR
@@ -18,5 +18,5 @@ else
 
   CURR=$(brightnessctl get)
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
-  dunstify -a Selena -r $ID "$PER "
+  dunstify -a Selena -r $ID " $PER"
 fi

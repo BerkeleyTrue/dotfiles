@@ -7,7 +7,7 @@ MSG=""
 ID=1234
 
 if (($CURR >= $MAX)); then
-  MSG='  '
+  dunstify -a Selena -r $ID "󰃚 "
 else
   if (($CURR == 0)); then
     brightnessctl set 1%
@@ -19,11 +19,10 @@ else
 
   CURR=$(brightnessctl get)
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
-  MSG="$PER "
 
   if (($CURR >= $MAX)); then
-    MSG="  "
+    dunstify -a Selena -r $ID "󰃚 "
+  else
+    dunstify -a Selena -r $ID "󰽨 $PER"
   fi
 fi
-
-dunstify -a Selena -r $ID $MSG
