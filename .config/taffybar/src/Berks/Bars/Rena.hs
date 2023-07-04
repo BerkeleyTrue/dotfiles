@@ -15,17 +15,13 @@ import Berks.Widgets.Clock
 import Berks.Widgets.Crypto
   ( btcWidget,
     ethWidget,
-    ohmWidget,
-    pickleWidget,
     spyWidget,
-    xtzWidget,
   )
 import Berks.Widgets.Divider (plainDividerWidget)
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
-import Berks.Widgets.PicomSwitch (picomSwitchWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
@@ -40,20 +36,18 @@ import System.Taffybar.Context (BarConfig (..))
 createPrimary :: Unique -> BarConfig
 createPrimary barId' =
   BarConfig
-    { strutConfig = createBarStrut 0 TopPos $ Just 35,
+    { strutConfig = createBarStrut 0 TopPos $ Just 45,
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [workspacesWidget],
       centerWidgets =
         intersperse
           plainDividerWidget
-          [clockWidget, layoutWidget, windowsWidget, wakatimeWidget],
+          [clockWidget, layoutWidget, windowsWidget],
       endWidgets =
         -- TODO: Add battery
         reverse
-          [ picomSwitchWidget,
-            plainDividerWidget,
-            powerMenuButton,
+          [ powerMenuButton,
             plainDividerWidget,
             cpuTempWidget,
             plainDividerWidget,
@@ -67,14 +61,14 @@ createPrimary barId' =
 createSecondary :: Unique -> BarConfig
 createSecondary barId' =
   BarConfig
-    { strutConfig = createBarStrut 0 BottomPos $ Just 35,
+    { strutConfig = createBarStrut 0 BottomPos $ Just 45,
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [calendarWidget],
-      centerWidgets = [ethWidget, weatherWidget],
+      centerWidgets = [weatherWidget, plainDividerWidget, wakatimeWidget, plainDividerWidget, ethWidget],
       endWidgets =
         reverse
-          [btcWidget, ohmWidget, xtzWidget, pickleWidget, spyWidget]
+          [btcWidget, spyWidget]
     }
 
 renasBars :: IO [BarConfig]

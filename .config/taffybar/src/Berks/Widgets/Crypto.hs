@@ -30,8 +30,9 @@ padLeft = (" " <>)
 padRight :: String -> String
 padRight = (<> " ")
 
+-- NOTE: make sure this is in your path
 crypoEggcmd :: FilePath
-crypoEggcmd = "/home/berkeleytrue/.local/bin/crypto-egg-go"
+crypoEggcmd = "crypto-egg-go"
 
 eggCommandRunner :: [String] -> IO String
 eggCommandRunner args = runCommandWithDefault crypoEggcmd args "0.xx"
