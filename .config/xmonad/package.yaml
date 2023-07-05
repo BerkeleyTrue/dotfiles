@@ -34,8 +34,9 @@ ghc-options:
   - -Wmissing-home-modules
   - -Wpartial-fields
   - -Wredundant-constraints
-  - -XOverloadedStrings
-  - -XImportQualifiedPost
+default-extensions:
+  - OverloadedStrings
+  - ImportQualifiedPost
 executables:
   xmonad:
     main: Main.hs
