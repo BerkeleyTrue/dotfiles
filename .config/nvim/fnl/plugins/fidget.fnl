@@ -6,11 +6,12 @@
     utils utils}
    require-macros [macros]})
 
-(defn main []
-  (when-let [fidget (md.prequire :fidget)]
-    (fidget.setup
-      {:sources
-       {:null-ls
-        {:ignore true}}
-       :text
-       {:spinner :moon}})))
+(defn main [])
+  ; (when-let [fidget (md.prequire :fidget)]
+  ;   (fidget.setup
+  ;     {:sources
+  ;      {:null-ls
+  ;       {:ignore true}}
+  ;      :text
+  ;      {:spinner :moon}
+  ;      :legacy true})))
