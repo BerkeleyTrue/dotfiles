@@ -7,9 +7,10 @@
   home.homeDirectory = "/home/${user}";
 
   home.packages = with pkgs; [
+    # getoptions # better options parser for posix -- broken?
+    alacritty # GPU-accelerated terminal emulator
     antigen # zsh plugin manager
     direnv # A shell extension that manages your environment
-    # getoptions # better options parser for posix -- broken?
     handlr # Alternative to xdg-open to manage default applications with ease
     haskellPackages.status-notifier-item # sni system tray protocol
     hpack # A command-line tool for creating and manipulating Haskell packages
@@ -17,9 +18,15 @@
     mongodb-compass  # mongodb UI tool -- non-free
     mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2
     nil #nix language server
+    nodePackages.dockerfile-language-server-nodejs # Dockerfile language server
+    nodePackages.json # A JSON parser and stringifier for JavaScript
+    nodePackages.bash-language-server # A language server for Bash
     postman # API Development Environment
     rsync # Fast incremental file transfer utility
+    silver-searcher # A code-searching tool similar to ack, but faster
     stack # The Haskell Tool Stack
+    taskwarrior # A command-line todo list manager
+    timewarrior # A command-line time tracker
     vimv # batch rename files w/ vim
     vlc # Cross-platform media player and streaming server
     xplugd # A UNIX daemon that executes a script on X input and RandR changes
