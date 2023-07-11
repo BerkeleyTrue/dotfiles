@@ -124,18 +124,18 @@
     ; delete mark
     "<ESC>:delmarks " mark "<CR>"))
 
-(nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>`q" :q)))
+(nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>`q" :q)) {:silent true})
 ; Throw a comma on the end of the line
-(nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>`q" :q)))
+(nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>`q" :q)) {:silent true})
 ; Delete last character on the line
-(nnoremap :zdl (preserve-paste (preserve-cursor-loc "A<esc>x`q" :q)))
+(nnoremap :zdl (preserve-paste (preserve-cursor-loc "A<esc>x`q" :q)) {:silent true})
 ; Move the current char to the end of the line
-(nnoremap :zl (preserve-paste (preserve-cursor-loc "x$p`q" :q)))
+(nnoremap :zl (preserve-paste (preserve-cursor-loc "x$p`q" :q)) {:silent true})
 ; Move line to the end of the next line
 ; useful for move a comment above a line behind it
-(nnoremap :zJ (preserve-paste :ddpkJ))
+(nnoremap :zJ (preserve-paste :ddpkJ) {:silent true})
 ; join line below removing surrounding whitespace
-(nnoremap :gJ "gJi <ESC>diW")
+(nnoremap :gJ "gJi <ESC>diW" {:silent true})
 
 (nnoremap :<Space> :za)
 (vnoremap :<Space> :za)
