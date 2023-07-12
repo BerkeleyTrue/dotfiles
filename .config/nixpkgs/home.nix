@@ -10,6 +10,9 @@
     # getoptions # better options parser for posix -- broken?
     alacritty # GPU-accelerated terminal emulator
     antigen # zsh plugin manager
+    bat # A cat(1) clone with wings
+    bat-extras.batman # A collection of small bash scripts for bat
+    bat-extras.batpipe # A collection of small bash scripts for bat
     direnv # A shell extension that manages your environment
     handlr # Alternative to xdg-open to manage default applications with ease
     haskellPackages.status-notifier-item # sni system tray protocol
