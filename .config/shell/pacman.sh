@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 alias pupdate='sudo pacman -Syu'
 alias pin='sudo pacman -S'
@@ -32,7 +32,7 @@ function pacweb() {
 
 function paclist() {
   # Based on https://bbs.archlinux.org/viewtopic.php?id=93683
-  pacman -Qqe | \
+  pacman -Qqe |
     xargs -I '{}' \
       expac "${bold_color}% 20n ${fg_no_bold[white]}%d${reset_color}" '{}'
 }
