@@ -23,6 +23,7 @@
     nodePackages.bash-language-server # A language server for Bash
     postman # API Development Environment
     rsync # Fast incremental file transfer utility
+    rustscan # The Modern Port Scanner
     silver-searcher # A code-searching tool similar to ack, but faster
     stack # The Haskell Tool Stack
     taskwarrior # A command-line todo list manager
