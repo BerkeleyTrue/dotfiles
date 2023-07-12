@@ -7,11 +7,11 @@ mrenv() {
 
 mrinit() {
   mrenv
-  /usr/bin/docker start mr-mongo mr-mysql-sanitized redis-server > /dev/null
+  /usr/bin/docker start mr-mongo mr-mysql-sanitized redis-server urm_db urm_server > /dev/null
 }
 
 mrsd() {
-  /usr/bin/docker stop mr-mongo mr-mysql-sanitized redis-server > /dev/null
+  /usr/bin/docker stop mr-mongo mr-mysql-sanitized redis-server urm_db urm_server > /dev/null
 }
 
 mrth() {
