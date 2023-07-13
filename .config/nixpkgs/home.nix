@@ -6,34 +6,18 @@
   home.username = user;
   home.homeDirectory = "/home/${user}";
 
+  imports = [
+    ./mixins/commandline.nix
+    ./mixins/dev.nix
+  ];
+
   home.packages = with pkgs; [
-    # getoptions # better options parser for posix -- broken?
     alacritty # GPU-accelerated terminal emulator
-    antigen # zsh plugin manager
-    bat # A cat(1) clone with wings
-    bat-extras.batman # A collection of small bash scripts for bat
-    bat-extras.batpipe # A collection of small bash scripts for bat
-    direnv # A shell extension that manages your environment
-    handlr # Alternative to xdg-open to manage default applications with ease
+    kitty # GPU-accelerated terminal emulator
     haskellPackages.status-notifier-item # sni system tray protocol
-    hpack # A command-line tool for creating and manipulating Haskell packages
-    htop # An interactive process viewer
-    mongodb-compass  # mongodb UI tool -- non-free
     mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2
-    nil #nix language server
-    nodePackages.dockerfile-language-server-nodejs # Dockerfile language server
-    nodePackages.json # A JSON parser and stringifier for JavaScript
-    nodePackages.bash-language-server # A language server for Bash
     postman # API Development Environment
-    rsync # Fast incremental file transfer utility
-    rustscan # The Modern Port Scanner
-    silver-searcher # A code-searching tool similar to ack, but faster
-    stack # The Haskell Tool Stack
-    taskwarrior # A command-line todo list manager
-    timewarrior # A command-line time tracker
-    vimv # batch rename files w/ vim
     vlc # Cross-platform media player and streaming server
-    xplugd # A UNIX daemon that executes a script on X input and RandR changes
   ];
 
   # This value determines the Home Manager release that your
