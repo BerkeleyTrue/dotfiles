@@ -49,6 +49,7 @@
           stack-wrapped
           watch-compile
           compile-xmonad
+          hpack
 
           hPkgs.haskell-language-server
 

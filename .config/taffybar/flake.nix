@@ -49,6 +49,7 @@
           compile-taffybar
 
           hPkgs.haskell-language-server
+          hpack
 
           cairo
           gcc
