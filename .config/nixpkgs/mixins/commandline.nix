@@ -19,7 +19,7 @@
     iputils # Network monitoring tools including ping
     lazygit # simple terminal UI for git commands
     lsof # lists open files
-    neovim # Better vim
+    # neovim # Better vim # need to fix
     p7zip # 7-Zip is a file archiver with a high compression ratio
     playerctl # pause/play music players ci
     procs # A modern replacement for ps written in Rust
