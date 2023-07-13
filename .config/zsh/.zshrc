@@ -5,6 +5,7 @@
 setopt TRANSIENT_RPROMPT
 
 OSNAME=$(uname)
+NIX_PROFILE="$HOME/.nix-profile"
 export DEFAULT_USER=`whoami`
 export FZF_DEFAULT_COMMAND='fd .'
 export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
@@ -17,7 +18,7 @@ export XDG_CURRENT_DESKTOP=Unity
 path+=($HOME/.local/bin) # local binaries and scripts
 path+=($GOPATH/bin) # go binaries
 path+=($HOME/.cargo/bin) # rust binaries
-path+=($HOME/.nix-profile/bin) # nix binaries
+path+=($NIX_PROFILE/bin) # nix binaries
 
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_DATA_HOME="$HOME/.local/share"
@@ -69,16 +70,13 @@ if [[ $OSNAME = 'Darwin' ]]; then
       && eval "$(/opt/homebrew/bin/brew shellenv)" \
       || echo "brew not found"
   fi
+fi
 
-  # check if antigen is installed
-  if [ -e "$HOME/.nix-profile/share/antigen/antigen.zsh" ]; then
-    source $HOME/.nix-profile/share/antigen/antigen.zsh
-  else
-    echo "antigen not found"
-  fi
-
+# check if antigen is installed
+if [ -e "$NIX_PROFILE/share/antigen/antigen.zsh" ]; then
+  source $NIX_PROFILE/share/antigen/antigen.zsh
 else
-  source /usr/share/zsh/share/antigen.zsh #TODO: move to nix on linux machines as well
+  echo "antigen not found"
 fi
 
 antigen use oh-my-zsh
@@ -211,8 +209,8 @@ command -v zoxide > /dev/null \
 # this is required to work around zsh-vi-mode plugin
 function my_init() {
   if [[ $OSNAME != 'Darwin' ]]; then
-    source /usr/share/fzf/completion.zsh
-    source /usr/share/fzf/key-bindings.zsh
+    source $NIX_PROFILE/share/fzf/completion.zsh
+    source $NIX_PROFILE/share/fzf/key-bindings.zsh
   fi
 }
 my_init
