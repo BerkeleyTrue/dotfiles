@@ -9,6 +9,8 @@
   imports = [
     ./mixins/commandline.nix
     ./mixins/dev.nix
+    ./mixins/apps.nix
+    ./mixins/desktop.nix
   ];
 
   home.packages = with pkgs; [
