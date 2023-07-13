@@ -7,6 +7,11 @@ flake_uri=$HOME/.config/nixpkgs
 
 username=$(whoami)
 
+# get path to a package
+path() {
+  nix path-info $flake_uri\#homeConfigurations.$username.pkgs.$1
+}
+
 build() {
   nix build --no-link $flake_uri\#homeConfigurations.$username.activationPackage
   "$(nix path-info $flake_uri\#homeConfigurations.$username.activationPackage)"/activate
@@ -30,8 +35,11 @@ switch)
 update)
   update
   ;;
+path)
+  path $2
+  ;;
 *)
-  echo "Usage: $commandName {build|switch}"
+  echo "Usage: $commandName {update|build|switch|path}"
   exit 1
   ;;
 esac
