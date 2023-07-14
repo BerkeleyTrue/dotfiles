@@ -5,7 +5,6 @@
   ];
 
   home.packages = with pkgs; [
-    flameshot # screenshot util
     nitrogen # wallpaper manager
     picom # X11 compositor
     unclutter # hide mouse when not in use

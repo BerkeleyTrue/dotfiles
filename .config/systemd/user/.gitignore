@@ -1,2 +1,3 @@
 *.wants/
 dunst.service
+flameshot.service
