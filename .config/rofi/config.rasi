@@ -11,7 +11,7 @@ configuration {
   lines: 10;
   location: 0;
   m: "-4";
-  modi: "drun,calc,run";
+  modi: "drun,calc,emoji,run";
   padding: 14;
   parse-hosts: true;
   run-command: "{cmd}";
