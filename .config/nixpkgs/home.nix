@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, user, theme, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -15,7 +15,7 @@
 
   home.packages = with pkgs; [
     alacritty # GPU-accelerated terminal emulator
-    kitty # GPU-accelerated terminal emulator
+    # kitty # GPU-accelerated terminal emulator
     haskellPackages.status-notifier-item # sni system tray protocol
     mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2
     postman # API Development Environment

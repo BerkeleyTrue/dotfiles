@@ -26,6 +26,7 @@
           allowUnfree = true;
         };
       };
+      theme = import ./theme { };
       mkHome = { system ? system, user }: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
@@ -34,7 +35,7 @@
         ];
 
         extraSpecialArgs = {
-          inherit user nur;
+          inherit user nur theme;
         };
       };
     in
