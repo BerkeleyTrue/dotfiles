@@ -20,7 +20,7 @@ wakaCommand :: IO Text
 wakaCommand =
   pack . colorize greenHex "" . ("\xe000 " <>)
     <$> runCommandWithDefault
-      "wakatime"
+      "wakatime-cli"
       ["--today"]
       "x"
 
