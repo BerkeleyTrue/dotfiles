@@ -5,6 +5,7 @@
   ];
 
   home.packages = with pkgs; [
+    haskellPackages.status-notifier-item # sni system tray protocol
     nitrogen # wallpaper manager
     picom # X11 compositor
     unclutter # hide mouse when not in use
