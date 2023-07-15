@@ -6,10 +6,10 @@
   home.homeDirectory = "/home/${user}";
 
   imports = [
-    ./mixins/commandline.nix
-    ./mixins/dev.nix
-    ./mixins/apps.nix
-    ./mixins/desktop.nix
+    ./modules/commandline.nix
+    ./modules/dev.nix
+    ./modules/apps.nix
+    ./modules/desktop.nix
   ];
 
   # This value determines the Home Manager release that your
