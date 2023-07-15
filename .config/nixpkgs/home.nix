@@ -18,8 +18,8 @@ in
   home.packages = with pkgs; [
     (nixGLWrap alacritty) # GPU-accelerated terminal emulator
     (nixGLWrap kitty) # GPU-accelerated terminal emulator
+    (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
     haskellPackages.status-notifier-item # sni system tray protocol
-    mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2
     postman # API Development Environment
     vlc # Cross-platform media player and streaming server
   ];
