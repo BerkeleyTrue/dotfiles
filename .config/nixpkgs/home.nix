@@ -1,16 +1,6 @@
 { pkgs, user, lib, ... }:
 let
-  nixGLWrap = pkg: pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
-    mkdir $out
-    ln -s ${pkg}/* $out
-    rm $out/bin
-    mkdir $out/bin
-    for bin in ${pkg}/bin/*; do
-     wrapped_bin=$out/bin/$(basename $bin)
-     echo "exec ${lib.getExe pkgs.nixgl.nixGLIntel} $bin \$@" > $wrapped_bin
-     chmod +x $wrapped_bin
-    done
-  '';
+  nixGLWrap = import ./lib/nixGL.nix { inherit pkgs lib; };
 in
 {
   # Home Manager needs a bit of information about you and the
@@ -27,7 +17,7 @@ in
 
   home.packages = with pkgs; [
     (nixGLWrap alacritty) # GPU-accelerated terminal emulator
-    # kitty # GPU-accelerated terminal emulator
+    (nixGLWrap kitty) # GPU-accelerated terminal emulator
     haskellPackages.status-notifier-item # sni system tray protocol
     mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2
     postman # API Development Environment
