@@ -18,36 +18,30 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+    };
+
   };
 
-  outputs = { nixpkgs, home-manager, nur, nixgl, ... }:
-    let
-      system = "x86_64-linux";
-      desktop = "berkeleytrue";
-      laptop = "bt";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [ nixgl.overlay ];
-        config = {
-          allowUnfree = true;
+  outputs = inputs@{ self, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit self inputs; } {
+      systems = [ "x86_64-linux" ];
+      imports = [ ./home-manager.nix ];
+      perSystem = { system, ... }:
+        with inputs;
+        let
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ nixgl.overlay ];
+            config = {
+              allowUnfree = true;
+            };
+          };
+        in
+        {
+          _module.args.pkgs = pkgs;
+          formatter = pkgs.nixpkgs-fmt;
         };
-      };
-      theme = import ./theme { };
-      mkHome = { system ? system, user }: home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        modules = [
-          ./home.nix
-        ];
-
-        extraSpecialArgs = {
-          inherit user nur theme;
-        };
-      };
-    in
-    {
-      homeConfigurations.${desktop} = mkHome { user = desktop; };
-      homeConfigurations.${laptop} = mkHome { user = laptop; };
-      formatter.${system} = pkgs.nixpkgs-fmt;
     };
 }

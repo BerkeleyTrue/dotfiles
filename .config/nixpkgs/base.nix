@@ -1,7 +1,4 @@
-{ pkgs, user, lib, ... }:
-let
-  nixGLWrap = import ./lib/nixGL.nix { inherit pkgs lib; };
-in
+{ pkgs, user, nixGLWrap, ... }:
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
