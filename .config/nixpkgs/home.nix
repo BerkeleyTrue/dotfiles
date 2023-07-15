@@ -1,5 +1,17 @@
-{ pkgs, user, theme, ... }:
-
+{ pkgs, user, lib, ... }:
+let
+  nixGLWrap = pkg: pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
+    mkdir $out
+    ln -s ${pkg}/* $out
+    rm $out/bin
+    mkdir $out/bin
+    for bin in ${pkg}/bin/*; do
+     wrapped_bin=$out/bin/$(basename $bin)
+     echo "exec ${lib.getExe pkgs.nixgl.nixGLIntel} $bin \$@" > $wrapped_bin
+     chmod +x $wrapped_bin
+    done
+  '';
+in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -14,7 +26,7 @@
   ];
 
   home.packages = with pkgs; [
-    alacritty # GPU-accelerated terminal emulator
+    (nixGLWrap alacritty) # GPU-accelerated terminal emulator
     # kitty # GPU-accelerated terminal emulator
     haskellPackages.status-notifier-item # sni system tray protocol
     mpv-unwrapped # General-purpose media player, fork of MPlayer and mplayer2

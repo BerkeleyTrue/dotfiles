@@ -13,15 +13,21 @@
       url = "github:nix-community/NUR"; # nix user packages
     };
 
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { nixpkgs, home-manager, nur, ... }:
+  outputs = { nixpkgs, home-manager, nur, nixgl, ... }:
     let
       system = "x86_64-linux";
       desktop = "berkeleytrue";
       laptop = "bt";
       pkgs = import nixpkgs {
         inherit system;
+        overlays = [ nixgl.overlay ];
         config = {
           allowUnfree = true;
         };
