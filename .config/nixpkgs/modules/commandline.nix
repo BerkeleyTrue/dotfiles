@@ -1,4 +1,9 @@
 { pkgs, ... }:
+let
+  getOptions = pkgs.getoptions.overrideAttrs (old: {
+    doCheck = false; # Will break on yash otherwise
+  });
+in
 {
   home.packages = with pkgs; [
     # neovim # Better vim # need to fix
@@ -11,6 +16,7 @@
     exa # A modern replacement for ls
     fd # A simple, fast and user-friendly alternative to find
     fzf # A command-line fuzzy finder
+    getOptions # A library for parsing command line options
     gfold # CLI tool to help keep track of your Git repositories, written in Rust
     gh # GitHub CLI
     glow # Render markdown on the CLI, with pizzazz!
