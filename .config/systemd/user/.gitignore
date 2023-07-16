@@ -2,3 +2,4 @@
 dunst.service
 flameshot.service
 pasystray.service
+unclutter.service
