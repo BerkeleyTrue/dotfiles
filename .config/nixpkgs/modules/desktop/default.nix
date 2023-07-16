@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./dunst.nix
-    ./flameshot.nix
+    ./services
   ];
 }
