@@ -193,10 +193,6 @@ fi
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
 
 # init zsh hooks
-command -v thefuck > /dev/null \
-  && eval $(thefuck --alias) \
-  || echo "thefuck not installed"
-
 command -v direnv > /dev/null \
   && eval "$(direnv hook zsh)" \
   || echo "direnv not installed"
