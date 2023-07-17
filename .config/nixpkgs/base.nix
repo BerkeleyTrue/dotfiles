@@ -10,6 +10,7 @@
     ./modules/dev.nix
     ./modules/apps.nix
     ./modules/desktop.nix
+    ./modules/fonts.nix
   ];
 
   # This value determines the Home Manager release that your
