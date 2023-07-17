@@ -5,5 +5,6 @@
     ./flameshot.nix
     ./pasystray.nix
     ./unclutter.nix
+    ./picom.nix
   ];
 }
