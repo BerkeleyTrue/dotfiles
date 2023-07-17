@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  home.packages = [
+    pkgs.flameshot
+  ];
+
   systemd.user.services.flameshot = {
     Unit = {
       Description = "Flameshot screenshot tool";

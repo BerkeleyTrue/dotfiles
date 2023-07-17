@@ -4,3 +4,4 @@ flameshot.service
 pasystray.service
 unclutter.service
 picom.service
+tmux.service

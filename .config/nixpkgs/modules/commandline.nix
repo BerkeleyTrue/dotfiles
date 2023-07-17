@@ -36,7 +36,6 @@ in
     taskwarrior # A command-line todo list manager
     tealdeer # A very fast implementation of tldr in Rust
     timewarrior # A command-line time tracker
-    tmux # A terminal multiplexer
     traceroute # print the route packets trace to network host
     vimv # batch rename files w/ vim
     wakatime # Command line interface for Wakatime

@@ -6,5 +6,6 @@
     ./pasystray.nix
     ./unclutter.nix
     ./picom.nix
+    ./tmux.nix
   ];
 }

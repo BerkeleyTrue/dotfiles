@@ -1,5 +1,6 @@
 { pkgs, theme, ... }:
 {
+  home.packages = [ pkgs.dunst ];
   services.dunst = {
     enable = true;
 
