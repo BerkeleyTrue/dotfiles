@@ -9,7 +9,7 @@
 
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.unclutter}/bin/unclutter";
+      ExecStart = "${pkgs.unclutter-xfixes}/bin/unclutter";
       Restart = "always";
       RestartSec = 3;
     };
