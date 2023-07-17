@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, nixGLWrap, ... }:
 {
   systemd.user.services.picom = {
     Unit = {
@@ -8,7 +8,7 @@
     };
 
     Service = {
-      ExecStart = "${pkgs.picom}/bin/picom ";
+      ExecStart = "${nixGLWrap pkgs.picom}/bin/picom ";
       Restart = "on-failure";
       RestartSec = 3;
     };
