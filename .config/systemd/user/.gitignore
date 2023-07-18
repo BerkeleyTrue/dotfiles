@@ -5,3 +5,4 @@ pasystray.service
 unclutter.service
 picom.service
 tmux.service
+status-notifier-watcher.service

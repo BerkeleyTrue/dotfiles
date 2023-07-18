@@ -7,5 +7,6 @@
     ./unclutter.nix
     ./picom.nix
     ./tmux.nix
+    ./status-notifier-watcher.nix
   ];
 }
