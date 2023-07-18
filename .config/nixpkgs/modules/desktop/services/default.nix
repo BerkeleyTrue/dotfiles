@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./blueman.nix
     ./dunst.nix
     ./flameshot.nix
     ./pasystray.nix
