@@ -4,9 +4,10 @@
     ./dunst.nix
     ./flameshot.nix
     ./pasystray.nix
-    ./unclutter.nix
     ./picom.nix
-    ./tmux.nix
     ./status-notifier-watcher.nix
+    ./tmux.nix
+    ./unclutter.nix
+    ./xplugd.nix
   ];
 }

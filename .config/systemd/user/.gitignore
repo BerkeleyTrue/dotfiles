@@ -7,3 +7,4 @@ picom.service
 tmux.service
 status-notifier-watcher.service
 tmux-server.service
+xplugd.service
