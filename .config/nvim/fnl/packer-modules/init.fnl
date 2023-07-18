@@ -105,7 +105,6 @@
    {:name :nvim-treesitter/nvim-treesitter-refactor :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :nvim-treesitter/playground :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :romgrk/nvim-treesitter-context :requires [[:nvim-treesitter/nvim-treesitter]]}
-   {:name :p00f/nvim-ts-rainbow :description "Adds color to parens." :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :andymass/vim-matchup :description "Extends % with treesitter powers." :requires [[:nvim-treesitter/nvim-treesitter]]}
    {:name :danymat/neogen :description "Auto doc functions" :requires [[:nvim-treesitter/nvim-treesitter]] :config (make-on-load neogen)}
    {:name :JoosepAlviste/nvim-ts-context-commentstring :description "Updates comentstring option using TS"}
