@@ -12,3 +12,4 @@ blueman-applet.service
 watch-sleep.service
 sleep.target
 sleep.service
+xkbmap.service

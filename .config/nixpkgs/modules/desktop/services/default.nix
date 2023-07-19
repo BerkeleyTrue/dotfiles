@@ -10,6 +10,7 @@
     ./status-notifier-watcher.nix
     ./tmux.nix
     ./unclutter.nix
+    ./xkbmap.nix
     ./xplugd.nix
   ];
 }
