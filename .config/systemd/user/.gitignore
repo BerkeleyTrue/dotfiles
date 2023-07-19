@@ -9,3 +9,6 @@ status-notifier-watcher.service
 tmux-server.service
 xplugd.service
 blueman-applet.service
+watch-sleep.service
+sleep.target
+sleep.service
