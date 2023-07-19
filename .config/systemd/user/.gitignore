@@ -14,3 +14,5 @@ sleep.target
 sleep.service
 xkbmap.service
 xcape.service
+tray.target
+network-manager-applet.service
