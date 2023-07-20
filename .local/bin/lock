@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Turn off notifications
-/usr/bin/systemctl --user stop dunst.service
-
-# Lock screen
-/usr/bin/xsecurelock
