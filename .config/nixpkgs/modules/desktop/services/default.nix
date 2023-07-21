@@ -9,6 +9,7 @@
     ./picom.nix
     ./sleep.nix
     ./status-notifier-watcher.nix
+    ./task.nix
     ./tmux.nix
     ./tray.nix
     ./unclutter.nix
