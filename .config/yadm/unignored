@@ -8,7 +8,6 @@ $HOME/.config/nvim/indent
 $HOME/.config/nvim/scripts
 $HOME/.config/nvim/test
 $HOME/.config/shell
-$HOME/.config/systemd/user
 $HOME/.config/taffybar
 $HOME/.config/wireplumber
 $HOME/.config/xmonad
