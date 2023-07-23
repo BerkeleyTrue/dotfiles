@@ -23,4 +23,13 @@ in
       vlc # Cross-platform media player and streaming server
       zathura # pdf viewer
     ];
+
+  services.keybase = {
+    enable = true;
+  };
+
+  services.kbfs = {
+    enable = true;
+    mountPoint = "docs/keybase";
+  };
 }
