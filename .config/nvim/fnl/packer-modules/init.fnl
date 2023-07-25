@@ -30,9 +30,6 @@
    {:name :nvim-telescope/telescope.nvim :description "Highly extendable fuzzy finder" :requires [[:nvim-lua/plenary.nvim]] :config (make-on-load telescope)}
    {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :requires [[:nvim-telescope/telescope.nvim]]}
    {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :requires [[:nvim-telescope/telescope.nvim]]}
-   {:name :jackMort/ChatGPT.nvim :description "Adds a ChatGPT prompt in nvim" :config (make-on-load chatgpt) :requires [[:MunifTanjim/nui.nvim] [:nvim-lua/plenary.nvim] [:nvim-telescope/telescope.nvim]] :cmd [:ChatGPT]}
-   {:name :folke/zen-mode.nvim :description "adds zen-mode to current window" :opt true :config (make-on-load zen) :cmd [:ZenMode]}
-   {:name :folke/twilight.nvim :description "Dims inactive portions of code" :opt true :config (make-on-load twilight) :cmd [:Twilight]}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion)}
@@ -46,7 +43,6 @@
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)}
    {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list"}
    {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources" :config (make-on-load null-ls)}
-   ; {:name :j-hui/fidget.nvim :description "add lsp spinner" :config (make-on-load fidget)}
    {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
    {:name :b0o/schemastore.nvim :desciption "adds schemastore to jsonls through lspconfig" :requires [[:neovim/nvim-lspconfig]]}
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
@@ -113,14 +109,11 @@
    ; general lang syntax plugins
    {:name :gabrielelana/vim-markdown :config (make-on-load markdown)}
    {:name :ellisonleao/glow.nvim :description "Preview markdown code directly in your neovim terminal" :config (make-on-load glow) :cmd [:Glow]}
-   {:name :glench/vim-jinja2-syntax}
-   {:name :hashivim/vim-terraform :ft :terraform :config (make-on-load terraform)}
    {:name :lervag/vimtex :ft :tex :config (make-on-load vimtex)}
-   {:name :pearofducks/ansible-vim}
    {:name :sirtaj/vim-openscad}
    {:name :purescript-contrib/purescript-vim :description "adds purescript syntax" :ft :purescript}
 
-   ;   
+   ;  
    {:name :mattn/emmet-vim :description "DSL for html" :config (make-on-load emmet)}
    {:name :vuki656/package-info.nvim :description "update package json in nvim" :requires [[:MunifTanjim/nui.nvim]] :config (make-on-load package-info)}
    {:name :wavded/vim-stylus :description "stylus lang syntax"}])
