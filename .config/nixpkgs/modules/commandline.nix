@@ -26,6 +26,7 @@ in
     iputils # Network monitoring tools including ping
     lazygit # simple terminal UI for git commands
     lsof # lists open files
+    nodePackages.clipboard-cli # Access the system clipboard (copy/paste) from the command-line
     p7zip # 7-Zip is a file archiver with a high compression ratio
     playerctl # pause/play music players ci
     procs # A modern replacement for ps written in Rust
@@ -40,6 +41,7 @@ in
     vimv # batch rename files w/ vim
     wakatime # Command line interface for Wakatime
     wget # The non-interactive network downloader # required by jdownloader
+    wordnet # Lexical database for the English language
     yadm # Yet Another Dotfiles Manager
     yt-dlp # A youtube-dl fork with additional features and fixes
     zoxide # A fast alternative to cd that learns your habits
