@@ -14,7 +14,7 @@
   ; main utils
   [{:name :berkeleytrue/colorbuddy.nvim}
    {:name :brenoprata10/nvim-highlight-colors :config (make-on-load colorizer)}
-   {:name :junegunn/vim-easy-align :opt true :init (make-init easy-align)}
+   {:name :junegunn/vim-easy-align :init (make-init easy-align)}
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
    {:name :mg979/vim-visual-multi :config (make-on-load multi-cursor)}
@@ -38,14 +38,14 @@
    {:name :hrsh7th/cmp-buffer :description "cmp buffer"}
    {:name :hrsh7th/cmp-path :description "adds path completion."}
    {:name :hrsh7th/cmp-cmdline :description "Adds command line completion."}
-   {:name :saadparwaiz1/cmp_luasnip :desciption "adds luasnip source"}
+   {:name :saadparwaiz1/cmp_luasnip :description "adds luasnip source"}
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
    {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)}
-   {:name :onsails/lspkind-nvim :desciption "Add pictograms to lsp completion list" :config false}
+   {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
    {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources" :config (make-on-load null-ls)}
    {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
-   {:name :b0o/schemastore.nvim :desciption "adds schemastore to jsonls through lspconfig" :dependencies [[:neovim/nvim-lspconfig]] :lazy false}
+   {:name :b0o/schemastore.nvim :description "adds schemastore to jsonls through lspconfig" :dependencies [[:neovim/nvim-lspconfig]] :lazy false}
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
    {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
    {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
@@ -58,7 +58,7 @@
    ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
    {:name :lewis6991/gitsigns.nvim :description "git signs (supports yadm)" :config (make-on-load gitsigns)}
-   {:name :sindrets/diffview.nvim :desciption "git diff view" :dependencies [[:nvim-lua/plenary.nvim]]}
+   {:name :sindrets/diffview.nvim :description "git diff view" :dependencies [[:nvim-lua/plenary.nvim]]}
 
    ; buffers
    {:name :moll/vim-bbye :description "used in Bufdeletehidden"}
@@ -79,9 +79,9 @@
 
    ; UI
    {:name :nvim-tree/nvim-web-devicons :description "require web devicons through lua"}
-   {:name :kshenoy/vim-signature :desciption "show marks in the gutter"}
-   {:name :goolord/alpha-nvim :desciption "show a dashboard on startup" :config (make-on-load dashboard)}
-   {:name :romgrk/barbar.nvim :desciption "tab bar built in lua" :config (make-on-load barbar)}
+   {:name :kshenoy/vim-signature :description "show marks in the gutter"}
+   {:name :goolord/alpha-nvim :description "show a dashboard on startup" :config (make-on-load dashboard)}
+   {:name :romgrk/barbar.nvim :description "tab bar built in lua" :config (make-on-load barbar)}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :dependencies [[:nvim-lua/plenary.nvim] [:nvim-tree/nvim-web-devicons] [:MunifTanjim/nui.nvim]] :config (make-on-load neotree) :cmd [:Neotree] :init (make-init neotree)}
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :dependencies [[:nvim-tree/nvim-web-devicons]] :config (make-on-load lualine)}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings."}
