@@ -61,14 +61,18 @@ in
     neovim = {
       enable = true;
       extraPackages = with pkgs; [
-        lua51Packages.jsregexp # for luasnip
         parinfer-rust
         tree-sitter # to build grammars from source
       ];
 
       plugins = with pkgs.vimPlugins; [
         aniseed
+        lazy-nvim
         parinfer-rust # doesn't work?
+      ];
+
+      extraLuaPackages = luaPkgs: with luaPkgs; [
+        jsregexp # for luasnip
       ];
     };
   };

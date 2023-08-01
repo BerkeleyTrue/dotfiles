@@ -19,7 +19,7 @@ let
 
     echo -n $word | ${pkgs.nodePackages.clipboard-cli}/bin/clipboard
     echo $word
-    '';
+  '';
 in
 {
   home.packages = with pkgs;
