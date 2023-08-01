@@ -5,8 +5,8 @@
     md utils.module
     utils utils
 
-    ag plugins.telescope.silver-searcher
     alt plugins.telescope.alternate
+    ag plugins.telescope.silver-searcher
     tabs plugins.telescope.tabs}
    require-macros [macros]})
 

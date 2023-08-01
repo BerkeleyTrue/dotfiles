@@ -15,7 +15,7 @@
 
 (defn get-config [conf]
   (let [{: on_attach} (or conf {})
-        ts-utils (md.packadd-n-require :nvim-lsp-ts-utils)]
+        ts-utils (md.prequire :nvim-lsp-ts-utils)]
     {:init_options (when ts-utils (. ts-utils :init_options))
 
      :commands

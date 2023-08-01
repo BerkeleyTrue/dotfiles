@@ -117,43 +117,44 @@
     (when (ls.choice_active)
       (ls.change_choice -1))))
 
+(defn init []
+  (command!
+    :SourceSnips
+    (viml->lua* source-snips))
+
+  (inoremap
+    :<C-j> (cviml->lua* expand-or-jump) {:silent true})
+  (snoremap
+    :<C-j> (cviml->lua* expand-or-jump) {:silent true})
+
+  (inoremap
+    :<C-k> (cviml->lua* jump-back) {:silent true})
+  (snoremap
+    :<C-k> (cviml->lua* jump-back) {:silent true})
+
+  (imap
+    :<C-l> (cviml->lua* switch-choice))
+
+  (imap
+    :<C-h> (cviml->lua* switch-choice-r)))
+
 (defn main []
   (when-let [luasnip (md.prequire :luasnip)]
-    (command!
-      :SourceSnips
-      (viml->lua* source-snips))
-
-    (inoremap
-      :<C-j> (cviml->lua* expand-or-jump) {:silent true})
-    (snoremap
-      :<C-j> (cviml->lua* expand-or-jump) {:silent true})
-
-    (inoremap
-      :<C-k> (cviml->lua* jump-back) {:silent true})
-    (snoremap
-      :<C-k> (cviml->lua* jump-back) {:silent true})
-
-    (imap
-      :<C-l> (cviml->lua* switch-choice))
-
-    (imap
-      :<C-h> (cviml->lua* switch-choice-r))
-
     (let [types (md.prequire :luasnip.util.types)]
       (luasnip.config.set_config
         {:history true
-         :update_events "TextChanged,TextChangedI"
-         :delete_check_events "InsertLeave"
-         :enable_autosnippets true
+          :update_events "TextChanged,TextChangedI"
+          :delete_check_events "InsertLeave"
+          :enable_autosnippets true
 
-         :ext_opts
-         {types.choiceNode
+          :ext_opts
+          {types.choiceNode
           {:active
-           {:virt_text
-            [["🌔" :BerksCyan]]}}
+            {:virt_text
+              [["🌔" :BerksCyan]]}}
           types.insertNode
           {:active
-           {:virt_text
-            [["🌖" :BerksGreen]]}}}}))
+            {:virt_text
+              [["🌖" :BerksGreen]]}}}}))
     (when-let [snippets (source-ft-snips)]
       (luasnip.add_snippets nil snippets))))

@@ -6,5 +6,5 @@
 
 
 (defn main []
-  (when-let [lspkind (md.packadd-n-require :lspkind-nvim :lspkind)]
+  (when-let [lspkind (md.prequire :lspkind)]
     lspkind))

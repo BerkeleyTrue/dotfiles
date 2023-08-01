@@ -31,7 +31,7 @@ end
 
 
 -- make sure aniseed path is available for macros lookup
-pcall(vim.cmd, [[ packadd packer.nvim ]])
+-- installed with nix
 pcall(vim.cmd, [[ packadd aniseed ]])
 
 local ok, anenv = pcall(require, 'aniseed.env')
@@ -39,7 +39,6 @@ local ok, anenv = pcall(require, 'aniseed.env')
 -- aniseed is available, compile and load
 if ok then
     if isInConf then
-        -- ensure packer path
         log("in conf path, force compiling")
     end
     anenv.init({force = isInConf})

@@ -39,7 +39,6 @@
         :cvs false
         :. false}
        :copilot_node_command :node
-       :plugin_manager_path (.. (vim.fn.stdpath :config) :/pack/packer)
        :server_opts_overrides {}})
 
     (let [cpsuggestions (md.prequire :copilot.suggestion)]

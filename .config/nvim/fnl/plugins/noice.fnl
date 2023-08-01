@@ -3,7 +3,6 @@
    {a aniseed.core
     anenv plugins.aniseed
     md utils.module
-    packer plugins.packer
     utils utils}
    require-macros [macros]})
 

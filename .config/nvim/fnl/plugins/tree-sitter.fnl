@@ -26,9 +26,6 @@
     (vim.fn.join (vim.fn.readfile path) "\n")))
 
 (defn main []
-  (->>
-    ensure_modules
-    (r.reduce md.ppackadd))
   (when-let [ts (md.prequire :nvim-treesitter)]
     (let [tsconfigs (md.prequire :nvim-treesitter.configs)
           tshighlights (md.prequire :nvim-treesitter.highlight)

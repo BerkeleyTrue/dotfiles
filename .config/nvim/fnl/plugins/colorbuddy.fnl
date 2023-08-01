@@ -15,7 +15,7 @@
       (G.new name fg bg style))))
 
 (defn main [palette]
-  (when-let [cb (md.packadd-n-require :colorbuddy.nvim :colorbuddy)]
+  (when-let [cb (md.prequire :colorbuddy)]
     ; add palette groups to colorbuddy
     (->>
       palette

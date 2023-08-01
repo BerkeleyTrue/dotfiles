@@ -4,6 +4,6 @@
     utils utils}
    require-macros [macros]})
 
-(defn main []
+(defn init []
   (xmap :ga "<Plug>(EasyAlign)")
   (nmap :ga "<Plug>(EasyAlign)"))

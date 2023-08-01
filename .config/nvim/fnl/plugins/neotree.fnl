@@ -8,13 +8,14 @@
     keys utils.keys}
    require-macros [macros]})
 
+(defn init []
+  "initial setup for neotree"
+  (nnoremap :gef ":Neotree float<cr>" {:silent true})
+  (nnoremap :get ":Neotree show<cr>" {:silent true}))
 
 (defn main []
   (hl.link! :NeoTreeDirectoryName :Directory)
   (hl.link! :NeoTreeDirectoryIcon :NeoTreeDirectoryName)
-
-  (nnoremap :gef ":NeoTreeFloat<cr>" {:silent true})
-  (nnoremap :get ":NeoTreeShow<cr>" {:silent true})
 
   (when-let [neotree (md.prequire :neo-tree)]
     (let [fs (md.prequire :neo-tree.sources.filesystem)

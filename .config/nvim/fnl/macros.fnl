@@ -217,8 +217,12 @@
     (vim.fn.substitute "fnl/" "lua/" "")))
 
 (defn make-on-load [ns]
-  `(.. "require(\"plugins." ,(tostring ns) "\").main()"))
+  "Make a function that loads the main function of a module, lazily."
+  `(fn [] ((. (require ,(.. "plugins." (tostring ns))) :main))))
 
+(defn make-init [ns]
+  "Make a function that loads the init function of a module, eagerly."
+  `(. (require ,(.. "plugins." (tostring ns))) :init))
 
 (defn parse-command-args [args]
   (local out {:force true})
@@ -228,7 +232,6 @@
 
 (defn command! [lhs rhs args]
   `(vim.api.nvim_create_user_command ,lhs ,rhs ,(parse-command-args args)))
-
 
 ; =<< variables >=>
 (defn g [name]
@@ -363,6 +366,7 @@
 (defn imap [lhs rhs options] (base-map :i lhs rhs options))
 (defn smap [lhs rhs options] (base-map :s lhs rhs options))
 (defn vmap [lhs rhs options] (base-map :v lhs rhs options))
+(defn xmap [lhs rhs options] (base-map :x lhs rhs options))
 
 (defn noremap [lhs rhs options?]
   "norecur map for all modes"
