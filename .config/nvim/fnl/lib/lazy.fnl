@@ -42,7 +42,8 @@
     (->
       plugin
       (r.assoc 1 name)
-      (r.assoc :name nil))))
+      (r.assoc :name nil)
+      (r.assoc :description nil))))
 
 (defn setup [spec]
   (when-let [lazy (md.prequire :lazy)]
