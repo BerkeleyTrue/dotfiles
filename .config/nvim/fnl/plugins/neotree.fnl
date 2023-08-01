@@ -26,7 +26,6 @@
         {:popup_border_style :rounded
          :enable_git_status true
          :enable_diagnostics true
-         :close_floats_on_escape_key false
 
          :filesystem
          {:filtered_items
@@ -35,7 +34,8 @@
            :hide_by_name [:node_modules :.DS_Store]
            :never_show [:node_modules :.DS_Store]}
 
-          :follow_current_file false
+          :follow_current_file
+          {:enabled true}
           :use_libuv_file_watcher false
 
           :window
