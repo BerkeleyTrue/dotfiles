@@ -33,7 +33,10 @@
         let
           pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = [ nixgl.overlay ];
+            overlays = [
+              nixgl.overlay
+              (import ./overlays/neovim.nix)
+            ];
             config = {
               allowUnfree = true;
             };
