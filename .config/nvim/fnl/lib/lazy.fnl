@@ -46,8 +46,17 @@
       (r.assoc :description nil))))
 
 (defn setup [spec]
-  (when-let [lazy (md.prequire :lazy)]
-    (lazy.setup (r.map format-plugins spec))))
+  (let [rtp (vim.opt.rtp:get)
+        nix-pack-dirs (r.filter #(string.find $ "vim-pack-dir" 1 true) rtp)]
+    ; (print (vim.inspect nix-pack-dirs))
+    (when-let [lazy (md.prequire :lazy)]
+      (lazy.setup
+        (r.map format-plugins spec)
+        {:performance
+         {:reset_packpath false
+          :rtp
+          {:paths (r.concat ["$HOME/.nix-profile/share/nvim/site"] nix-pack-dirs)}
+          :reset true}}))))
 
 (defn main [spec]
   (ensure-exist)

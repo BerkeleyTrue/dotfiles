@@ -8,7 +8,8 @@
   [:accents
    :scroll-fix
    :mumber
-   :move])
+   :move
+   :aniseed])
 
 (def- external-plugins
   ; main utils

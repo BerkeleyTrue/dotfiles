@@ -33,9 +33,10 @@ end
 -- make sure aniseed path is available for macros lookup
 -- installed with nix
 pcall(vim.cmd, [[ packadd aniseed ]])
+pcall(vim.cmd, [[ packadd parinfer-rust ]])
+pcall(vim.cmd, [[ packadd lazy.nvim ]])
 
 local ok, anenv = pcall(require, 'aniseed.env')
-
 -- aniseed is available, compile and load
 if ok then
     if isInConf then

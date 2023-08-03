@@ -31,11 +31,10 @@
       perSystem = { system, ... }:
         with inputs;
         let
-          pkgs = import inputs.nixpkgs {
+          pkgs = import nixpkgs {
             inherit system;
             overlays = [
               nixgl.overlay
-              (import ./overlays/neovim.nix)
             ];
             config = {
               allowUnfree = true;

@@ -68,7 +68,7 @@ in
       plugins = with pkgs.vimPlugins; [
         aniseed
         lazy-nvim
-        parinfer-rust # doesn't work?
+        parinfer-rust
       ];
 
       extraLuaPackages = luaPkgs: with luaPkgs; [
