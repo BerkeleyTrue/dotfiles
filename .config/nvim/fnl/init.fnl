@@ -10,11 +10,9 @@
 (require :maps)
 (require :functions)
 
-(let [lazy (require :lib.lazy)]
-  (lazy.main) ; ensure lazy is available
-  (run-main :plugins))
-  (let [cb (md.prequire :plugins.colorbuddy)
-        palette (. (md.prequire :theme.palette) :palette)
-        (ok theme-fns) (pcall cb.main palette)]
-    (when theme-fns
-      (run-main :theme theme-fns)))
+(run-main :plugins)
+(let [cb (md.prequire :plugins.colorbuddy)
+      palette (. (md.prequire :theme.palette) :palette)
+      (ok theme-fns) (pcall cb.main palette)]
+  (when theme-fns
+    (run-main :theme theme-fns)))
