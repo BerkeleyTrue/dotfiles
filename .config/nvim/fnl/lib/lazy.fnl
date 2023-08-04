@@ -21,7 +21,8 @@
     (when-let [lazy (md.prequire :lazy)]
       (lazy.setup
         (r.map format-plugins spec)
-        {:performance
+        {:ui {:border ["╭" "─" "╮" "│" "╯" "─" "╰" "│"]}
+         :performance
          {:reset_packpath false
           :rtp
           {:paths (r.concat ["$HOME/.nix-profile/share/nvim/site"] nix-pack-dirs) :reset true}}}))))
