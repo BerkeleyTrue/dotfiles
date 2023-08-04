@@ -63,6 +63,7 @@ in
       extraPackages = with pkgs; [
         parinfer-rust
         tree-sitter # to build grammars from source
+        lua-language-server
       ];
 
       plugins = with pkgs.vimPlugins; [
@@ -76,5 +77,4 @@ in
       ];
     };
   };
-
 }
