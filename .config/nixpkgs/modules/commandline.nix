@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   getOptions = pkgs.getoptions.overrideAttrs (old: {
     doCheck = false; # Will break on yash otherwise
@@ -46,6 +46,29 @@ in
     zoxide # A fast alternative to cd that learns your habits
     zsh # A shell designed for interactive use, although it is also a powerful scripting language
   ];
+
+  home.file.".config/taskell/config.ini".text = lib.generators.toINI { } {
+    general = {
+      filename = "kanban.md";
+    };
+
+    layout = {
+      padding = 1;
+      column_width = 30;
+      column_padding = 3;
+      description_indicator = "≡";
+      statusbar = true;
+    };
+
+    markdown = {
+      title = "##";
+      task = "-";
+      summary = "    >";
+      due = "    @";
+      subtask = "    *";
+      localTimes = false;
+    };
+  };
 
   programs = {
     # A cat(1) clone with wings
