@@ -5,7 +5,6 @@ $HOME/.config/nvim/fnl
 $HOME/.config/nvim/ftdetect
 $HOME/.config/nvim/ftplugin
 $HOME/.config/nvim/indent
-$HOME/.config/nvim/scripts
 $HOME/.config/nvim/test
 $HOME/.config/shell
 $HOME/.config/taffybar
