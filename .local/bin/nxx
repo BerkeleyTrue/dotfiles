@@ -3,22 +3,22 @@
 set -e
 
 commandName=$(basename $0)
-flake_uri=$HOME/.config/nixpkgs
-
+flake_uri=$HOME/.config/home-manager
 username=$(whoami)
+home_uri=$flake_uri\#homeConfigurations.$username
 
 # get path to a package
 path() {
-  nix path-info $flake_uri\#homeConfigurations.$username.pkgs.$1
+  nix path-info $home_uri.pkgs.$1
 }
 
 build() {
-  nix build --no-link $flake_uri\#homeConfigurations.$username.activationPackage
-  "$(nix path-info $flake_uri\#homeConfigurations.$username.activationPackage)"/activate
+  nix build --no-link $home_uri.activationPackage
+  "$(nix path-info $home_uri.activationPackage)"/activate
 }
 
 switch() {
-  "$(nix path-info $flake_uri\#homeConfigurations.$username.activationPackage)"/home-path/bin/home-manager switch --flake "$flake_uri#$username"
+  "$(nix path-info $home_uri.activationPackage)"/home-path/bin/home-manager switch --flake "$flake_uri#$username"
 }
 
 update() {
