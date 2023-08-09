@@ -109,14 +109,15 @@ prompt_context() {
 
 # Dir:
 # - current working directory
-# TODO: figure out .config bug
 prompt_dir() {
   local ref
   local wd="$(pwd | sed -e "s,^$HOME,~,")"
   local dir="$(basename $wd)"
   local pd="$(basename $(dirname $wd))"
   local wdl="$(printf $wd | wc -c)"
-  if [[ wdl -lt 14  ]]; then
+  local numOfDirs="$(echo $wd | sed -e "s,~/,," | tr '/' '\n' | wc -l)"
+
+  if [[ numOfDirs -lt 3  ]]; then
     ref=" $wd "
   else
     ref=".../$pd/$dir "
