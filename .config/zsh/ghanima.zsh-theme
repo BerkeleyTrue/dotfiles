@@ -20,10 +20,10 @@ URSEGMENT_SEPARATOR=""
 PLUSMINUS="󱓊 "
 BRANCH="󰘬"
 DETACHED="󱓌 "
-BOMB=" "
+BOMB=" "
 LIGHTNING="󱐋"
 GEAR=" "
-DELTA=" "
+DELTA="󰚌 "
 NIX=" "
 NODE="󰎙"
 
@@ -177,7 +177,7 @@ prompt_git() {
       symbol=$BRANCH
       ref=${ref#refs/heads/}
     else
-      ref="${ref/.../} $DETACHED"
+      symbol="$DETACHED"
     fi
 
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
