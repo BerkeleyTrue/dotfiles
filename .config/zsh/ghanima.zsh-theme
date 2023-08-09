@@ -17,13 +17,12 @@ USEGMENT_SEPARATOR=""
 RSEGMENT_SEPARATOR=""
 URSEGMENT_SEPARATOR=""
 
-PLUSMINUS="\u00b1"
-BRANCH="\ue0a0"
-DETACHED="\u27a6"
-CROSS="\u2718"
+PLUSMINUS="󱓊 "
+BRANCH="󰘬"
+DETACHED="󱓌 "
 BOMB=" "
-LIGHTNING="\u26a1"
-GEAR="\u2699"
+LIGHTNING="󱐋"
+GEAR=" "
 DELTA=" "
 NIX=" "
 NODE="󰎙"
@@ -56,12 +55,24 @@ prompt_segment() {
     # start using stored previous bg as new foreground
     # prefix separator
     # start using fg color
-    print -n "%{%F{$CURRENT_BG}$bg%}$segment%{$fg%}"
+    echo -n "%{%F{$CURRENT_BG}$bg%}$segment%{$fg%}"
   else
-    print -n "%{$bg%}%{$fg%}"
+    echo -n "%{$bg%}%{$fg%}"
   fi
   CURRENT_BG=$1
-  [[ -n $3 ]] && print -n $3
+  [[ -n $3 ]] && echo -n $3
+}
+
+# End:
+# - End the prompt, closing any open segments
+prompt_end() {
+  if [[ -n $CURRENT_BG ]]; then
+    echo -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  else
+    echo -n "%{%k%}"
+  fi
+  echo -n "%{%f%} "
+  CURRENT_BG=''
 }
 
 ### Prompt components
@@ -74,11 +85,14 @@ prompt_segment() {
 prompt_status() {
   local symbols
   symbols=()
+  # if previous command failed
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$BOMB%{%f%}"
+  # if root
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING%{%f%}"
+  # if background jobs
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR%{%f%}"
 
-  [[ -n "$symbols" ]] && prompt_segment '239' $PRIMARY_FG " $symbols"
+  [[ -n "$symbols" ]] && prompt_segment black $PRIMARY_FG " $symbols"
 }
 
 # Context:
@@ -105,7 +119,7 @@ prompt_dir() {
   if [[ wdl -lt 14  ]]; then
     ref=" $wd "
   else
-    ref="../$pd/$dir "
+    ref=".../$pd/$dir "
   fi
 
   prompt_segment black green $ref
@@ -134,51 +148,49 @@ prompt_vim() {
   prompt_segment $bk $fgr $ref
 }
 
-# End:
-# - End the prompt, closing any open segments
-prompt_end() {
-  if [[ -n $CURRENT_BG ]]; then
-    print -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
-  else
-    print -n "%{%k%}"
-  fi
-  print -n "%{%f%} "
-  CURRENT_BG=''
-}
-
 # start the right prompt
 prompt_right_start() {
-  print -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
+  echo -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
 }
 
-prompt_right_start() {
-  print -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
-}
 # Git: branch/detached head, dirty status
 prompt_git() {
-  local color ref
-  is_dirty() {
-    test -n "$(git status --porcelain --ignore-submodules)"
-  }
-  ref="$vcs_info_msg_0_"
-  if [[ -n "$ref" ]]; then
-    if is_dirty; then
+  local color ref repo_path is_dirty symbol mode
+
+  if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
+    is_dirty=$(git status --porcelain --ignore-submodules 2> /dev/null | tail -n 1)
+    repo_path=$(git rev-parse --git-dir 2> /dev/null)
+
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || \
+    ref="◈ $(git describe --exact-match --tags HEAD 2> /dev/null)" || \
+    ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
+
+    if [[ -n $is_dirty ]]; then
       color=yellow
-      ref="$PLUSMINUS ${ref}"
+      symbol=$PLUSMINUS
     else
       color=green
-      ref="${ref}"
     fi
+
     if [[ "${ref/.../}" == "$ref" ]]; then
-      ref="$ref $BRANCH"
+      symbol=$BRANCH
+      ref=${ref#refs/heads/}
     else
       ref="${ref/.../} $DETACHED"
+    fi
+
+    if [[ -e "${repo_path}/BISECT_LOG" ]]; then
+      mode=" <B>"
+    elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
+      mode=" >M<"
+    elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
+      mode=" >R>"
     fi
 
     prompt_right_start $color
     IN_GIT_REPO=$color
 
-    print -n "%{%K{$color}%F{$PRIMARY_FG}%}$ref "
+    echo -n "%{%K{$color}%F{$PRIMARY_FG}%} $ref $symbol ${mode} "
   fi
 }
 
@@ -191,7 +203,13 @@ prompt_right_sep() {
   local bg fg
   bg=$1
   fg=$2
-  print -n "%{%K{$bg}%F{$fg}%}$URSEGMENT_SEPARATOR"
+  echo -n "%{%K{$bg}%F{$fg}%}$URSEGMENT_SEPARATOR"
+}
+
+# End the right prompt
+prompt_right_end() {
+  echo -n "%{%k%f%}"
+  CURRENT_BG='NONE'
 }
 
 # If IN_NIX_SHELL is set, show the name of the current nix-shell
@@ -210,17 +228,12 @@ prompt_nix_shell() {
       prompt_right_start "cyan"
     fi
 
-    print -n "%{%K{cyan}%F{black}%} %{%B%}$name%{%b%} $NIX "
-
+    echo -n "%{%K{cyan}%F{black}%} %{%B%}$name%{%b%} $NIX "
   fi
 }
 
-prompt_right_end() {
-  print -n "%{%k%f%}"
-  CURRENT_BG=''
-}
-
 prompt_top_left() {
+  # Set the return value of the previous command
   RETVAL=$?
   CURRENT_BG='NONE'
   prompt_status
@@ -243,28 +256,34 @@ prompt_bottom_right() {
 }
 
 prompt_ghanima_precmd() {
-  vcs_info
+  # The right prompt should be on the same line as the first line of the left
+  # prompt. To do so, there is just a quite ugly workaround: Before zsh draws
+  # the RPROMPT, we advise it, to go one line up. At the end of RPROMPT, we
+  # advise it to go one line down. See:
+  # http://superuser.com/questions/357107/zsh-right-justify-in-ps1
+  local rprompt_prefix='\e[1A' # one line up
+  local rprompt_suffix='\e[1B' # one line down
   # Make sure KEYMAP is initial set to insert
   # otherwise this is empty
   KEYMAP="viins"
   TOP_PROMPT='%{%f%b%k%}$(prompt_top_left)'
   PROMPT=$TOP_PROMPT$'\n''$(prompt_bottom_left)'
 
-  RPROMPT='%{%f%b%k%}$(prompt_bottom_right)'
+  RPROMPT='%{%f%b%k%}%{${rprompt_prefix}%}$(prompt_bottom_right)%{${rprompt_suffix}%}'
 }
 
 prompt_ghanima_setup() {
   autoload -Uz add-zsh-hook
-  autoload -Uz vcs_info
 
+  # This variable is a magic variable used when loading themes with zsh's prompt
+  # function. It will ensure the proper prompt options are set.
   prompt_opts=(cr subst percent)
 
-  add-zsh-hook precmd prompt_ghanima_precmd
+  # Borrowed from promptinit, sets the prompt options in case the prompt was not
+  # initialized via promptinit.
+  setopt noprompt{bang,cr,percent,subst} "prompt${^prompt_opts[@]}"
 
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes false
-  zstyle ':vcs_info:git*' formats '%b'
-  zstyle ':vcs_info:git*' actionformats '%b (%a)'
+  add-zsh-hook precmd prompt_ghanima_precmd
 }
 
 prompt_ghanima_setup "$@"

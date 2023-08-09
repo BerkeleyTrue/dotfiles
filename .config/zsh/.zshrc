@@ -31,7 +31,7 @@ HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 ADOTDIR="$XDG_CONFIG_HOME/antigen"
 ANTIGEN_LOG="$HOME/.cache/antigen/antigen.log"
 # uncomment to debug antigen
-# export ANTIGEN_LOG=$HOME/.antigen/antigen.log
+# export ANTIGEN_LOG=$ANTIGEN_LOG
 TERMINAL="kitty"
 ZSH_THEME="agnoster"
 # Uncomment the following line to enable command auto-correction.
