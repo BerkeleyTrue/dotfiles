@@ -159,21 +159,7 @@ function zle-keymap-select zle-line-init {
   zle -R
 }
 
-# 
-SHORT_PROMPT="%F{cyan}=<<%f%F{blue}%*%f%F{cyan}>=>%f"
-function zle-line-finish {
-  if [[ $PROMPT != $SHORT_PROMPT ]]; then
-    PROMPT=$SHORT_PROMPT
-    if [[ $RPROMPT != "" ]]; then
-      RPROMPT=""
-    fi
-    zle .reset-prompt
-  fi
-  print -n -- "$BLOCK"  # block cursor
-}
-
 zle -N zle-line-init
-zle -N zle-line-finish
 zle -N zle-keymap-select
 ### end cursor mod ###
 

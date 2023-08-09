@@ -26,6 +26,7 @@ GEAR=" "
 DELTA="󰚌 "
 NIX=" "
 NODE="󰎙"
+BLOCK="\e[1 q"
 
 SEGMENT_NUM=0
 
@@ -154,17 +155,26 @@ prompt_right_start() {
   echo -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
 }
 
+get_ref() {
+  local ref
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || \
+  ref="◈ $(git describe --exact-match --tags HEAD 2> /dev/null)" || \
+  ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
+  echo $ref
+}
+
+is_inside_git_repo() {
+  test "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true"
+}
+
 # Git: branch/detached head, dirty status
 prompt_git() {
   local color ref repo_path is_dirty symbol mode
 
-  if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
+  if is_inside_git_repo; then
     is_dirty=$(git status --porcelain --ignore-submodules 2> /dev/null | tail -n 1)
     repo_path=$(git rev-parse --git-dir 2> /dev/null)
-
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || \
-    ref="◈ $(git describe --exact-match --tags HEAD 2> /dev/null)" || \
-    ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
+    ref=$(get_ref)
 
     if [[ -n $is_dirty ]]; then
       color=yellow
@@ -273,6 +283,26 @@ prompt_ghanima_precmd() {
   RPROMPT='%{%f%b%k%}%{${rprompt_prefix}%}$(prompt_bottom_right)%{${rprompt_suffix}%}'
 }
 
+zle-line-finish() {
+  local SHORT_PROMPT="%F{cyan}=<<%f%F{blue}%*%f%F{cyan}>=>%f"
+
+  if is_inside_git_repo; then
+    local ref=$(get_ref)
+    SHORT_PROMPT="%F{cyan}=<<%f%F{blue}%* %f%F{green}${ref#refs/heads/} $BRANCH %f%F{cyan}>=>%f"
+  fi
+
+  if [[ $PROMPT != $SHORT_PROMPT ]]; then
+    PROMPT=$SHORT_PROMPT
+    if [[ $RPROMPT != "" ]]; then
+      RPROMPT=""
+    fi
+    zle .reset-prompt
+  fi
+  echo -n -- "$BLOCK"  # block cursor
+}
+
+zle -N zle-line-finish
+
 prompt_ghanima_setup() {
   autoload -Uz add-zsh-hook
 
@@ -285,6 +315,7 @@ prompt_ghanima_setup() {
   setopt noprompt{bang,cr,percent,subst} "prompt${^prompt_opts[@]}"
 
   add-zsh-hook precmd prompt_ghanima_precmd
+
 }
 
 prompt_ghanima_setup "$@"
