@@ -51,7 +51,6 @@
 (defn setup-commands []
   (command! :HLights (utils.viml->lua :telescope.builtin :highlights))
   (command! :MMaps (utils.viml->lua :telescope.builtin :keymaps))
-  (command! :BBuffs (utils.viml->lua :telescope.builtin :buffers))
   (command! :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions))
   (command! :HHelp (utils.viml->lua :telescope.builtin :help_tags))
   (command! :RRegisters (utils.viml->lua :telescope.builtin :registers))
