@@ -10,8 +10,8 @@
 
 (defn init []
   "initial setup for neotree"
-  (nnoremap :gef ":Neotree float<cr>" {:silent true})
-  (nnoremap :get ":Neotree show<cr>" {:silent true}))
+  (nnoremap :gef ":Neotree reveal float<cr>" {:silent true})
+  (nnoremap :get ":Neotree reveal left<cr>" {:silent true}))
 
 (defn main []
   (hl.link! :NeoTreeDirectoryName :Directory)
@@ -34,8 +34,7 @@
            :hide_by_name [:node_modules :.DS_Store]
            :never_show [:node_modules :.DS_Store]}
 
-          :follow_current_file
-          {:enabled true}
+          :follow_current_file {:enabled true}
           :use_libuv_file_watcher false
 
           :window
