@@ -107,12 +107,10 @@
           {:position :left
 
            :mappings
-           {:<2-LeftMouse> :open
-            :<cr> :open
-            :S :open_split
-            :s :open_vsplit
+           {:<cr> :open
+            :<C-h> :open_split
+            :<C-v> :open_vsplit
             :<bs> :navigate_up
-            :. :set_root
             :R :refresh
             :a :add
             :d :delete
