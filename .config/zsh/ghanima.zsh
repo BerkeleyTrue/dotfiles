@@ -34,6 +34,7 @@ GHANIMA_ROOT="$HOME/.config/zsh"
 GHANIMA_LIBS=(
   "lib/cli.zsh"
   "lib/utils.zsh"
+  "lib/emoji.zsh"
 )
 
 for lib in "${GHANIMA_LIBS[@]}"; do
@@ -55,7 +56,7 @@ prompt_segment() {
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
   #vary segment vertical
-  [[ $((SEGMENT_NUM % 2 == 0)) -gt 0 ]] && segment=$SEGMENT_SEPARATOR || segment=$USEGMENT_SEPARATOR
+  [[ $((SEGMENT_NUM % 2 == 0)) -gt 0 ]] && segment=$(ghanima::emoji div) || segment=$(ghanima::emoji divi)
   # increment segment number
   SEGMENT_NUM=$((SEGMENT_NUM+1))
   # if not the first segment and
@@ -79,7 +80,7 @@ prompt_segment() {
 # - End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
-    echo -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+    echo -n "%{%k%F{$CURRENT_BG}%}$(ghanima::emoji div)"
   else
     echo -n "%{%k%}"
   fi
@@ -163,19 +164,7 @@ prompt_vim() {
 
 # start the right prompt
 prompt_right_start() {
-  echo -n "%{%k%F{$1}%}$RSEGMENT_SEPARATOR"
-}
-
-get_ref() {
-  local ref
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || \
-  ref="◈ $(git describe --exact-match --tags HEAD 2> /dev/null)" || \
-  ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
-  echo $ref
-}
-
-is_inside_git_repo() {
-  test "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true"
+  echo -n "%{%k%F{$1}%}$(ghanima::emoji rdiv)"
 }
 
 # Git: branch/detached head, dirty status
@@ -225,7 +214,7 @@ prompt_right_sep() {
   local bg fg
   bg=$1
   fg=$2
-  echo -n "%{%K{$bg}%F{$fg}%}$URSEGMENT_SEPARATOR"
+  echo -n "%{%K{$bg}%F{$fg}%}$(ghanima::emoji rdivi)"
 }
 
 # End the right prompt
@@ -257,8 +246,6 @@ prompt_nix_shell() {
 }
 
 prompt_top_left() {
-  # Set the return value of the previous command
-  RETVAL=$?
   CURRENT_BG='NONE'
   prompt_status
   prompt_vim
@@ -280,6 +267,8 @@ prompt_bottom_right() {
 }
 
 prompt_ghanima_precmd() {
+  # Set the return value of the previous command
+  RETVAL=$?
   # The right prompt should be on the same line as the first line of the left
   # prompt. To do so, there is just a quite ugly workaround: Before zsh draws
   # the RPROMPT, we advise it, to go one line up. At the end of RPROMPT, we
