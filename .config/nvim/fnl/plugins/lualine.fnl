@@ -10,10 +10,10 @@
   (->
     ""
     (#(if (or (not (bo modifiable)) (bo readonly))
-        (.. $ "%#BerksStatusLineInfo#%#BerksStatusLineInfoInverse#  %#BerksStatusLineInfo#")
+        (.. $ "%#BerksStatusLineInfo# %#BerksStatusLineInfoInverse# 󰌾 %#BerksStatusLineInfo#")
         $))
     (#(if (bo modified)
-        (.. $ "%#BerksStatusLineRed#%#BerksStatusLineRedInverse#  %#BerksStatusLineRed#")
+        (.. $ "%#BerksStatusLineMod# %#BerksStatusLineModInverse#  %#BerksStatusLineMod#")
         $))))
 
 (defn navic-location []
