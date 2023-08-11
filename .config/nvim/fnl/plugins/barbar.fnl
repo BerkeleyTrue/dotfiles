@@ -7,21 +7,26 @@
     utils utils}
    require-macros [macros]})
 
+(defn init []
+  (hl.link! :BufferCurrent :Normal)
+  (hl.link! :BufferVisible :BerksComment)
+  (hl.link! :BufferInactive :BerksGray)
+
+  (hl.link! :BufferCurrentMod :BerksOrangeBold)
+  (hl.link! :BufferVisibleMod  :BerksOrange)
+  (hl.link! :BufferInactiveMod :BerksOrangeLight)
+
+  ; divider
+  (hl.link! :BufferCurrentSign :BerksCyan)
+  (hl.link! :BufferVisibleSign :BerksPinkDark)
+  (hl.link! :BufferInactiveSign :BerksPurple))
 
 (defn main []
-  (hl.link! :BufferCurrent :Normal)
-  (hl.link! :BufferCurrentMod :BerksRed)
-  (hl.link! :BufferCurrentSign :BerksPink)
-  (hl.link! :BufferVisible :BerksComment)
-  (hl.link! :BufferVisibleMod :BerksDiffDelete)
-  (hl.link! :BufferVisibleSign :BerksPinkDark))
-  ; (hi-link! :BufferCurrentTarget)
-  ; (hi-link! :BufferVisibleTarget))
-
-  ; (hi-link! :BufferInactive)
-  ; (hi-link! :BufferInactiveMod)
-  ; (hi-link! :BufferInactiveSign)
-  ; (hi-link! :BufferInactiveTarget))
-
-  ; (hi-link! :BufferTabpages)
-  ; (hi-link! :BufferTabpageFill))
+  (when-let [barbar (md.prequire :barbar)]
+    (barbar.setup
+     {:icons
+      {:button " "
+       :modified {:button " "}
+       :separator {:left "󱋱" :right " "}
+       :separator_at_end false
+       :inactive {:separator {:left "󱋱" :right " "}}}})))

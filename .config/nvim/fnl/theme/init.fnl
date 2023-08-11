@@ -44,6 +44,8 @@
   (add-group :BerksGreenItalicUnderline c.green c.none (+ s.italic s.underline))
 
   (add-group :BerksOrange c.orange)
+  (add-group :BerksOrangeDark (c.orange:dark))
+  (add-group :BerksOrangeLight (c.orange:light))
   (add-group :BerksOrangeBold c.orange c.none s.bold)
   (add-group :BerksOrangeItalic c.orange c.none s.italic)
   (add-group :BerksOrangeBoldItalic c.orange c.none (+ s.bold s.italic))
