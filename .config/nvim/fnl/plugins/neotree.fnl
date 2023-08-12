@@ -33,6 +33,7 @@
           {:hide_dotfiles false
            :hide_gitignored false
            :hide_by_name [:node_modules :.DS_Store]
+           :hide_by_pattern [:*.zwc]
            :never_show [:node_modules :.DS_Store]}
 
           :follow_current_file {:enabled true}
@@ -47,6 +48,7 @@
             :<cr> :open
             :<bs> :nop
             :w :noop
+            :<esc> :noop
             :qq :close_window
 
             :<Space>
@@ -111,6 +113,7 @@
             :<C-h> :open_split
             :<C-v> :open_vsplit
             :<bs> :navigate_up
+            :<esc> :noop
             :R :refresh
             :a :add
             :d :delete
