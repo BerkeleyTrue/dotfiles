@@ -12,5 +12,5 @@ ghanima::sections::nodejs() {
 
   [[ $node_version == "system" || $node_version == "node" ]] && return
 
-  ghanima::sections::pack -fg green -bg yellow  "$node_version $(ghanima::emoji nodejs)"
+  ghanima::sections::pack -fg black -bg green  "%{%B%} $node_version $(ghanima::emoji nodejs) %{%b%}"
 }
