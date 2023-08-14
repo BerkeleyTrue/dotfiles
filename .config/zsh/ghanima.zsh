@@ -6,7 +6,6 @@ GHANIMA_PROMPT_ORDER=(
   nodejs
   newline
   context
-  exec_time
 )
 
 GHANIMA_RPROMPT_ORDER=(
