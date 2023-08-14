@@ -27,6 +27,10 @@ ghanima::emoji() {
     echo " "
   elif [[ $name == "delta" ]] then
     echo "󰚌 "
+  elif [[ $name == "block" ]] then
+    echo "\e[1 q"
+  elif [[ $name == "beam" ]] then
+    echo "\e[5 q"
   else
     echo ""
   fi

@@ -52,3 +52,65 @@ ghanima::git_ref() {
   ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
   echo $ref
 }
+# Check if command exists in $PATH
+# USAGE:
+#   ghanima::exists <command>
+ghanima::exists() {
+  command -v $1 >/dev/null 2>&1
+}
+
+# Check if function is defined
+# USAGE:
+#   ghanima::defined <function>
+ghanima::defined() {
+  typeset -f + "$1" &> /dev/null
+}
+
+# Precompile zsh file to ZWC (zsh word code)
+# USAGE:
+#  ghanima::precomile <file>
+ghanima::precompile() {
+  ghanima::exists zcompile || return 1
+
+  local file="$1"
+  # remove zsh extension and add zwc
+  local filezwc="${file%.*}.zwc"
+
+  if [[ ! $filezwc -nt $file && -w "$(dirname $1)" ]]; then
+    zcompile -R -- $filezwc $file
+  fi
+}
+# Union of two or more arrays
+# USAGE:
+#   ghanima::union [arr1[ arr2[ ...]]]
+# EXAMPLE:
+#   $ arr1=('a' 'b' 'c')
+#   $ arr2=('b' 'c' 'd')
+#   $ arr3=('c' 'd' 'e')
+#   $ ghanima::union $arr1 $arr2 $arr3
+#   > a b c d e
+ghanima::union() {
+  typeset -U sections=("$@")
+  echo $sections
+}
+
+# Display seconds in human readable format
+# For that use `strftime` and convert the duration (float) to seconds (integer).
+# USAGE:
+#   ghanima::displaytime <seconds> [precision]
+ghanima::displaytime() {
+  local duration="$1" precision="$2"
+
+  [[ -z "$precision" ]] && precision=1
+
+  integer D=$((duration/60/60/24))
+  integer H=$((duration/60/60%24))
+  integer M=$((duration/60%60))
+  local S=$((duration%60))
+
+  [[ $D > 0 ]] && printf '%dd ' $D
+  [[ $H > 0 ]] && printf '%dh ' $H
+  [[ $M > 0 ]] && printf '%dm ' $M
+
+  printf %.${precision}f%s $S s
+}

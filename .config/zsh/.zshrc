@@ -4,35 +4,25 @@
 # clear right prompt on execute
 setopt TRANSIENT_RPROMPT
 
-OSNAME=$(uname)
-NIX_PROFILE="$HOME/.nix-profile"
-export DEFAULT_USER=`whoami`
-export FZF_DEFAULT_COMMAND='fd .'
-export WD_CONFIG="$XDG_CONFIG_HOME/warpdrive/warprc"
-export TASKDATA="$XDG_CONFIG_HOME/task"
-export TASKRC="$TASKDATA/taskrc"
-export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"
-export GOPATH=$HOME/dvlpmnt/go
-export XDG_CURRENT_DESKTOP=Unity
-
 path+=($HOME/.local/bin) # local binaries and scripts
-path+=($GOPATH/bin) # go binaries
-path+=($HOME/.cargo/bin) # rust binaries
 path+=($NIX_PROFILE/bin) # nix binaries
+path+=($GOPATH/bin) # go binaries
 
-XDG_CONFIG_HOME="$HOME/.config"
-XDG_DATA_HOME="$HOME/.local/share"
-ZSH_CACHE_DIR="$HOME/.cache/zsh"
+TERMINAL="kitty"
+DEFAULT_USER=`whoami`
+
+# Zsh config
 ZSH="$XDG_CONFIG_HOME/zsh"
-mkdir -p "$XDG_DATA_HOME/zsh"
+ZSH_CACHE_DIR="$HOME/.cache/zsh"
 HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
+
+mkdir -p "$XDG_DATA_HOME/zsh"
 
 # Antigen configs
 ADOTDIR="$XDG_CONFIG_HOME/antigen"
 ANTIGEN_LOG="$HOME/.cache/antigen/antigen.log"
 # uncomment to debug antigen
 # export ANTIGEN_LOG=$ANTIGEN_LOG
-TERMINAL="kitty"
 ZSH_THEME="agnoster"
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -56,7 +46,7 @@ if [[ ! -f $ANTIGEN_LOG  ]]; then
 fi
 
 # source antigen plugin manager
-if [[ $OSNAME = 'Darwin' ]]; then
+if [[ $(uname) = 'Darwin' ]]; then
 
   # start nix daemon
   if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -79,6 +69,9 @@ else
   echo "antigen not found"
 fi
 
+# source theme
+source $ZSH/ghanima.zsh
+
 antigen use oh-my-zsh
 
 antigen bundle djui/alias-tips
@@ -96,8 +89,6 @@ antigen bundle taskwarrior
 antigen bundle systemd
 antigen bundle ufw
 
-antigen theme $ZSH ghanima
-
 # apply antigen plugins
 antigen apply
 
@@ -110,8 +101,8 @@ function x11-clip-wrap-widgets() {
   local copy_command='xclip -in -selection clipboard'
   local paste_command='xclip -out -selection clipboard'
 
-  [[ $OSNAME == 'Darwin' ]] && copy_command='pbcopy'
-  [[ $OSNAME == 'Darwin' ]] && paste_command='pbpaste'
+  [[ $(uname) == 'Darwin' ]] && copy_command='pbcopy'
+  [[ $(uname) == 'Darwin' ]] && paste_command='pbpaste'
 
   for widget in $@; do
     if [[ $copy_or_paste == "copy" ]]; then
@@ -142,26 +133,9 @@ x11-clip-wrap-widgets copy $copy_widgets
 x11-clip-wrap-widgets paste  $paste_widgets
 ### end-clipboard paste ###
 
-
-### change cursor shape in xterm ###
-# must come after oh-my-zsh vim plugin
-BLOCK="\e[1 q"
-BEAM="\e[5 q"
-function zle-keymap-select zle-line-init {
-  if [ $KEYMAP = vicmd ]; then
-    # the command mode for vi
-    print -n "$BLOCK"
-  else
-    # the insert mode for vi
-    print -n "$BEAM"
-  fi
-  zle reset-prompt
-  zle -R
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
-### end cursor mod ###
+zle -N zle-line-init ghanima::hooks::line-init
+zle -N zle-keymap-select ghanima::hooks::zle-keymap-select
+zle -N zle-line-finish ghanima::hooks::line-finish
 
 # source all the profiles in ~/.nix-profile/etc/profile.d/
 if [ -d "$HOME/.nix-profile/etc/profile.d" ]
@@ -190,7 +164,7 @@ command -v zoxide > /dev/null \
 # Define an init function and append to zvm_after_init_commands
 # this is required to work around zsh-vi-mode plugin
 function my_init() {
-  if [[ $OSNAME != 'Darwin' ]]; then
+  if [[ $(uname) != 'Darwin' ]]; then
     source $NIX_PROFILE/share/fzf/completion.zsh
     source $NIX_PROFILE/share/fzf/key-bindings.zsh
   fi
