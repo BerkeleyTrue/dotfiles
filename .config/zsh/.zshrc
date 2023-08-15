@@ -73,23 +73,13 @@ fi
 source $ZSH/ghanima.zsh
 
 antigen use oh-my-zsh
-
 antigen bundle djui/alias-tips
-antigen bundle lukechilds/zsh-better-npm-completion
-antigen bundle wd
-antigen bundle vi-mode
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle bgnotify
 antigen bundle docker
-antigen bundle terraform
-antigen bundle command-not-found
 antigen bundle taskwarrior
 antigen bundle systemd
-antigen bundle ufw
-
-# apply antigen plugins
 antigen apply
 
 ###

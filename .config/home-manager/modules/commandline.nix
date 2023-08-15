@@ -3,6 +3,8 @@ let
   getOptions = pkgs.getoptions.overrideAttrs (old: {
     doCheck = false; # Will break on yash otherwise
   });
+  dotDir = ".config/";
+  relToDotDir = file: dotDir + file;
 in
 {
   home.packages = with pkgs; [
@@ -47,7 +49,7 @@ in
     zsh # A shell designed for interactive use, although it is also a powerful scripting language
   ];
 
-  home.file.".config/taskell/config.ini".text = lib.generators.toINI { } {
+  home.file."${relToDotDir "taskell/config.ini"}".text = lib.generators.toINI { } {
     general = {
       filename = "kanban.md";
     };
@@ -69,6 +71,10 @@ in
       localTimes = false;
     };
   };
+
+  home.file."${relToDotDir "zsh/nix-packages.zsh"}".source = pkgs.writeText "nix-packages" ''
+    source "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+  '';
 
   programs = {
     # A cat(1) clone with wings
