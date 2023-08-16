@@ -18,6 +18,7 @@
      {:userLanguages
       {:pug "html"}}
 
+     :autostart false
      :filetypes
      [
       :ejs
