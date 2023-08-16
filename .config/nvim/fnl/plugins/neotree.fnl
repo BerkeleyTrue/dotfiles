@@ -21,12 +21,30 @@
   (when-let [neotree (md.prequire :neo-tree)]
     (let [fs (md.prequire :neo-tree.sources.filesystem)
           cc (md.prequire :neo-tree.sources.common.commands)
-          renderer (md.prequire :neo-tree.ui.renderer)]
+          renderer (md.prequire :neo-tree.ui.renderer)
+          newtab (fn open-tab [state]
+                   (let [tree (. state :tree)
+                         node (tree:get_node)]
+
+                        (when-not (= :directory (. node :type))
+                          (let [path (node:get_id)
+                                events (md.prequire :neo-tree.events)
+                                event-res (events.fire_event
+                                            events.FILE_OPEN_REQUESTED
+                                            {: state
+                                             : path
+                                             :open_cmd :tabnew})]
+
+                            (when-not (r.get event-res :handled)
+                              (renderer.close_all_floating_windows)
+                              (vim.cmd (.. "tabnew " path)))
+                            (events.fire_event events.FILE_OPENED path)))))]
 
       (neotree.setup
         {:popup_border_style :rounded
          :enable_git_status true
          :enable_diagnostics true
+         :close_if_last_window true
 
          :filesystem
          {:filtered_items
@@ -66,24 +84,7 @@
             :<C-h> :open_split
             :<C-v> :open_vsplit
 
-            :<C-t>
-            (fn open-tab [state]
-              (let [tree (. state :tree)
-                    node (tree:get_node)]
-
-                   (when-not (= :directory (. node :type))
-                     (let [path (node:get_id)
-                           events (md.prequire :neo-tree.events)
-                           event-res (events.fire_event
-                                       events.FILE_OPEN_REQUESTED
-                                       {: state
-                                        : path
-                                        :open_cmd :tabnew})]
-
-                       (when-not (r.get event-res :handled)
-                         (renderer.close_all_floating_windows)
-                         (vim.cmd (.. "tabnew " path)))
-                       (events.fire_event events.FILE_OPENED path)))))
+            :<C-t> newtab
 
             :H :close_node
             :L (fn toggle-directory [state]
@@ -112,6 +113,8 @@
            {:<cr> :open
             :<C-h> :open_split
             :<C-v> :open_vsplit
+            :<C-t> newtab
+
             :<bs> :navigate_up
             :<esc> :noop
             :R :refresh
@@ -151,7 +154,7 @@
           :git_status
           {:symbols
            {:renamed "󰁕"
-            :unstaged  "󰄱"}}}
+            :unstaged  " "}}}
          :document_symbols
          {:kinds
           {:File {:icon "󰈙" :hl "Tag"}
