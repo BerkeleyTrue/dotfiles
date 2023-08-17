@@ -1,57 +1,36 @@
 ghanima::sections::vi-mode() {
   local fgr bk ref
 
-  case "${KEYMAP:-viins}" in
-    vicmd)
-      case "${REGION_ACTIVE}" in
-        1)
-          bk=yellow
-          fgr=black
-          ref="VISUAL"
-          ;;
-        2)
-          bk=yellow
-          fgr=black
-          ref="V-LINE"
-          ;;
-        *)
-          bk=blue
-          fgr=black
-          ref="NORMAL"
-          ;;
-      esac
-      ;;
-
-    main|viins)
-      ref="INSERT"
-      if [[ "${ZLE_STATE}" == *overwrite* ]]; then
-        bk=red
-        fgr=black
-        ref="REPLACE"
-      else
-        bk=green
-        fgr=black
-        ref="INSERT"
-      fi
-      ;;
-
-
-    viopp)
-      bk=cyan
+  case "${ZVM_MODE:-$ZVM_MODE_INSERT}" in
+    $ZVM_MODE_NORMAL)
+      bk=blue
       fgr=black
-      ref="OPPER"
+      ref="NORMAL"
       ;;
-
+    $ZVM_MODE_VISUAL)
+      bk=yellow
+      fgr=black
+      ref="VISUAL"
+      ;;
+    $ZVM_MODE_VISUAL_LINE)
+      bk=yellow
+      fgr=black
+      ref="V-LINE"
+      ;;
+    $ZVM_MODE_INSERT)
+      ref="INSERT"
+      bk=green
+      fgr=black
+      ;;
+    $ZVM_MODE_REPLACE)
+      bk=red
+      fgr=black
+      ref="REPLACE"
+      ;;
     *)
       bk=red
       fgr=white
-
-      if [[ -z $KEYMAP ]]; then
-        ref="EMPTY"
-      else
-        ref="UNKNOWN"
-      fi
-
+      ref="UNKNOWN"
       ;;
   esac
 

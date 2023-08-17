@@ -49,7 +49,7 @@ prompt_ghanima_setup() {
   zmodload zsh/mathfunc
 
   add-zsh-hook precmd ghanima::hooks::precmd
-  add-zsh-hook preexec ghanima::hooks::preexec
+  # add-zsh-hook preexec ghanima::hooks::preexec
 
   ghanima::core::load
 }

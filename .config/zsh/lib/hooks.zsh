@@ -18,7 +18,7 @@ ghanima::hooks::precmd() {
   RETVAL=$?
 
   # Stop the timer
-  ghanima::hooks::exec-time-stop
+  # ghanima::hooks::exec-time-stop
 
   # Start building cache from sections
   ghanima::core::start

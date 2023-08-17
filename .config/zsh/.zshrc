@@ -123,9 +123,13 @@ x11-clip-wrap-widgets copy $copy_widgets
 x11-clip-wrap-widgets paste  $paste_widgets
 ### end-clipboard paste ###
 
-zle -N zle-line-init ghanima::hooks::line-init
-zle -N zle-keymap-select ghanima::hooks::zle-keymap-select
+# zle -N zle-line-init ghanima::hooks::line-init
 zle -N zle-line-finish ghanima::hooks::line-finish
+# zle -N zle-keymap-select ghanima::hooks::zle-keymap-select
+#
+zvm_after_select_vi_mode_commands+=(ghanima::hooks::zle-keymap-select)
+ZVM_VI_HIGHLIGHT_FOREGROUND=black
+ZVM_VI_HIGHLIGHT_BACKGROUND=yellow
 
 # source all the profiles in ~/.nix-profile/etc/profile.d/
 if [ -d "$HOME/.nix-profile/etc/profile.d" ]
@@ -160,5 +164,7 @@ function my_init() {
   fi
 }
 my_init
+
+source "$ZSH/nix-packages.zsh"
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
