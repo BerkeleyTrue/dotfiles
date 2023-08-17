@@ -51,15 +51,14 @@
       :sources [:nvim_lsp :ale]
       :sections [:error :warn]
       :diagnostics_color
-      {:error :BerksStatusLineRedInverse
+      {:error :BerksStatusLineErrInverse
        :warn :BerksStatusLineInfoInverse}
-      :symbols {:error " " :warn " "}
-      :separator {:left "" :right ""}}
+      :symbols {:error " " :warn " "}
+      :separator {:left " " :right " "}}
      {1 :filetype
       :separator ""}]
     :lualine_y [:progress]
     :lualine_z [:location]}
-
 
    :inactive_sections
    {:lualine_a []

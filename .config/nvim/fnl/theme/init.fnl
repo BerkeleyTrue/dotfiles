@@ -226,6 +226,8 @@
   (add-group :BerksStatusLineModInverse c.bglighter c.orange)
   (add-group :BerksStatusLineInfo c.cyan c.bglighter)
   (add-group :BerksStatusLineInfoInverse c.bglighter c.cyan)
+  (add-group :BerksStatusLineErr c.red c.bglighter)
+  (add-group :BerksStatusLineErrInverse c.bglighter c.red)
   (add-group :WildMenu c.bg c.purple s.bold)
 
   (run-main :theme.ft theme-methods))
