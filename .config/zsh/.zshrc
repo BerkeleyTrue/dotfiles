@@ -163,7 +163,7 @@ function my_init() {
     source $NIX_PROFILE/share/fzf/key-bindings.zsh
   fi
 }
-my_init
+zvm_after_init_commands+=(my_init)
 
 source "$ZSH/nix-packages.zsh"
 
