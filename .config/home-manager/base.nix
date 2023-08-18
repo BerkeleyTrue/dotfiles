@@ -6,6 +6,7 @@
   home.homeDirectory = "/home/${user}";
 
   imports = [
+    ./modules/programs/rofi-network-manager.nix
     ./modules/commandline.nix
     ./modules/dev.nix
     ./modules/apps.nix
