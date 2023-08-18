@@ -34,7 +34,7 @@ in
     rsync # Fast incremental file transfer utility
     rustscan # The Modern Port Scanner
     silver-searcher # A code-searching tool similar to ack, but faster
-    taskell # Command-line Kanban board/task manager
+    # taskell # Command-line Kanban board/task manager
     taskwarrior # A command-line todo list manager
     tealdeer # A very fast implementation of tldr in Rust
     timewarrior # A command-line time tracker
