@@ -41,7 +41,6 @@ ghanima::prompts::populate-postexec() {
     fi
     zle .reset-prompt
   fi
-  echo -n -- "$BLOCK"  # block cursor
 }
 
 # change cursor shape based on vim mode
