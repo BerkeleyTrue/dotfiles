@@ -34,6 +34,7 @@ in
       postman # API Development Environment
       rofi # launcher
       rofi-spell # spell checker
+      rofi-bluetooth # rofi bluetooth manager
       viewnior # fast image preview
       vlc # Cross-platform media player and streaming server
       zathura # pdf viewer
