@@ -1,22 +1,24 @@
 #!/bin/bash
-theme="card_circle"
+theme="power-menu"
 dir="$HOME/.config/rofi"
 
 uptime=$(uptime -p | sed -e 's/up //g')
+host=$(uname -n)
 
-rofi_command="rofi -theme $dir/$theme"
+rofi_command="rofi -theme $dir/$theme -selected-row 0 -dmenu"
 
 # Options
 shutdown=""
-reboot=""
-lock=""
-suspend="󰒲 "
-logout="󰩈"
+reboot=""
+lock="󰌾"
+suspend=""
+logout="󰍃"
 
 # Variable passed to rofi
 options="$lock\n$shutdown\n$reboot\n$suspend\n$logout"
 
-chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 0)"
+chosen="$(echo -e "$options" | $rofi_command -p "$USER@$host" -mesg "Uptime: $uptime")"
+
 case $chosen in
 $shutdown)
   systemctl poweroff
