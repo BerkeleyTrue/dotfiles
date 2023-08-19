@@ -1,4 +1,5 @@
 * {
+  font: "FiraCode Nerd Font 18";
   foreground: #f8f8f2;
   background: #282a36;
   background-alt: #21222C;
@@ -13,13 +14,15 @@
   yellow: #f1fa8c;
 
   background-color: @background;
-  active-background: @selected;
-  urgent-background: @pink;
+  active-background: @blue;
 
-  selected-background:  @selected;
+  urgent-background: @red;
+  urgent-foreground: @background;
+
+  selected-background:  @active-background;
   selected-urgent-background: @urgent-background;
   selected-active-background: @active-background;
 
   separatorcolor: @active-background;
-  bordercolor: @cyan;
+  bordercolor: @blue;
 }
