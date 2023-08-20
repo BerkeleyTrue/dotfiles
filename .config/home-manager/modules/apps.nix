@@ -40,6 +40,13 @@ in
       zathura # pdf viewer
     ];
 
+  programs.rofi-network-manager = {
+    enable = true;
+    settings = {
+      CHANGE_BARS = true;
+    };
+  };
+
   services.keybase = {
     enable = true;
   };
