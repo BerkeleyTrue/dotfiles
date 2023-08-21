@@ -13,7 +13,7 @@ path() {
 }
 
 build() {
-  nix build --no-link $home_uri.activationPackage
+  nix build --show-trace --no-link $home_uri.activationPackage
   "$(nix path-info $home_uri.activationPackage)"/activate
 }
 
