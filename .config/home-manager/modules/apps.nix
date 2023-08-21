@@ -1,4 +1,4 @@
-{ pkgs, nixGLWrap, ... }:
+{ pkgs, nixGLWrap, theme, config, ... }:
 let
   rofi = pkgs.rofi.override {
     plugins = with pkgs; [
@@ -40,13 +40,6 @@ in
       zathura # pdf viewer
     ];
 
-  programs.rofi-network-manager = {
-    enable = true;
-    settings = {
-      CHANGE_BARS = true;
-    };
-  };
-
   services.keybase = {
     enable = true;
   };
@@ -54,5 +47,131 @@ in
   services.kbfs = {
     enable = true;
     mountPoint = "docs/keybase";
+  };
+
+  programs.rofi-network-manager = {
+    enable = true;
+    settings = {
+      CHANGE_BARS = true;
+      ASCII_OUT = true;
+    };
+    theme =
+      let
+        inherit (config.lib.formats.rasi) mkLiteral;
+        inherit (config.lib.formats.rasi) mkRef;
+        inherit (config.lib.formats.rasi) mkSimpleEl;
+        c = builtins.mapAttrs (name: value: mkLiteral value) theme.colors;
+        cls = theme.colors;
+      in
+      {
+
+        configuration = {
+          show-icons = false;
+          sidebar-mode = false;
+          hover-select = true;
+          me-select-entry = "";
+          me-accept-entry = [ (mkLiteral "MousePrimary") ];
+        };
+
+        "*" = {
+          font = "FiraCode Nerd Font 18";
+          foreground = c.foreground;
+          background = c.background;
+
+          background-color = mkRef "background";
+          active-background = c.comment;
+
+          urgent-background = c.red;
+          urgent-foreground = mkRef "background";
+
+          selected-background = mkRef "active-background";
+          selected-urgent-background = mkRef "urgent-background";
+          selected-active-background = mkRef "active-background";
+
+          separatorcolor = mkRef "active-background";
+          bordercolor = c.comment;
+        };
+
+        window = {
+          text-color = mkRef "foreground";
+          border-color = mkRef "bordercolor";
+          border-radius = 6;
+          border = 3;
+          padding = 10;
+        };
+        mainbox = {
+          border = 0;
+          padding = 0;
+        };
+        textbox = {
+          text-color = mkRef "foreground";
+        };
+        listview = {
+          border = 0;
+          dynamic = true;
+          fixed-height = false;
+          scrollbar = false;
+          spacing = mkLiteral "4px";
+          text-color = mkRef "separatorcolor";
+          padding = mkLiteral "2px 0px 0px";
+        };
+        element = {
+          border = 0;
+          border-radius = mkLiteral "4px";
+          padding = mkLiteral "8px 10px";
+        };
+        element-text = {
+          background-color = mkLiteral "inherit";
+          text-color = mkLiteral "inherit";
+        };
+        "element.normal.normal" = mkSimpleEl (mkRef "background") (mkRef "foreground");
+        "element.normal.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
+        "element.normal.active" = mkSimpleEl (mkRef "active-background") (mkRef "foreground");
+
+        "element.selected.normal" = {
+          background-color = mkLiteral "transparent";
+          background-image = mkLiteral "linear-gradient(40, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.cyan})";
+          text-color = mkRef "background";
+        };
+        "element.selected.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
+        "element.selected.active" = mkSimpleEl (mkRef "active-background") (mkRef "foreground");
+
+        "element.alternate.normal" = mkSimpleEl (mkRef "background-color") (mkRef "foreground");
+        "element.alternate.urgent" = mkSimpleEl (mkRef "background-color") (mkRef "urgent-foreground");
+        "element.alternate.active" = mkSimpleEl (mkRef "active-background") (mkRef "foreground");
+
+        mode-switcher = {
+          border = 0;
+        };
+
+        "button selected" = {
+          text-color = mkRef "foreground";
+          background-color = mkRef "selected-background";
+        };
+        "button normal" = {
+          text-color = mkRef "foreground";
+        };
+
+        inputbar = {
+          text-color = mkRef "foreground";
+          children = [
+            (mkLiteral "textbox-prompt-colon")
+
+            (mkLiteral "entry")
+          ];
+          padding = mkLiteral "1px";
+        };
+
+        textbox-prompt-colon = {
+          expand = false;
+          margin = 0;
+          text-color = mkRef "foreground";
+        };
+        entry = {
+          spacing = 0;
+          text-color = mkRef "foreground";
+          placeholder = "";
+        };
+      };
   };
 }

@@ -2,9 +2,76 @@
 with lib;
 let
   cfg = config.programs.rofi-network-manager;
+
+  mkValueString = value:
+    if isBool value then
+      if value then "true" else "false"
+    else if isInt value then
+      toString value
+    else if (value._type or "") == "literal" then
+      value.value
+    else if isString value then
+      ''"${value}"''
+    else if isList value then
+      "[ ${strings.concatStringsSep "," (map mkValueString value)} ]"
+    else
+      abort "Unhandled value type ${builtins.typeOf value}";
+
+  mkKeyValue = { sep ? ": ", end ? ";" }:
+    name: value:
+      "  ${name}${sep}${mkValueString value}${end}";
+
   toKeyValue = generators.toKeyValue {
     listsAsDuplicateKeys = true;
   };
+
+  mkRasiSection = name: value:
+    if isAttrs value then
+      let
+        toRasiKeyValue = generators.toKeyValue { mkKeyValue = mkKeyValue { }; };
+        # Remove null values so the resulting config does not have empty lines
+        configStr = toRasiKeyValue (filterAttrs (_: v: v != null) value);
+      in
+      ''
+        ${name} {
+        ${configStr}}
+      ''
+    else
+      (mkKeyValue
+        {
+          sep = " ";
+          end = "";
+        }
+        name
+        value) + "\n";
+
+  rasiLiteral = types.submodule
+    {
+      options = {
+        _type = mkOption {
+          type = types.enum [ "literal" ];
+          internal = true;
+        };
+
+        value = mkOption {
+          type = types.str;
+          internal = true;
+        };
+      };
+    } // {
+    description = "Rasi literal string";
+  };
+
+  primitive = with types; (oneOf [ str int bool rasiLiteral ]);
+  configType = with types; attrsOf (either primitive (listOf primitive));
+  themeType = with types; (either (attrsOf configType) bool);
+
+  toRasi = attrs:
+    concatStringsSep "\n" (concatMap (mapAttrsToList mkRasiSection) [
+      (filterAttrs (n: _: n == "@theme") attrs)
+      (filterAttrs (n: _: n == "@import") attrs)
+      (removeAttrs attrs [ "@theme" "@import" ])
+    ]);
 in
 {
   options.programs.rofi-network-manager = {
@@ -72,7 +139,7 @@ in
               if there is too much space at the end when you launch the script.
               It will depend on the font type and size.
             '';
-            default = 50;
+            default = 7;
             type = types.int;
           };
 
@@ -84,7 +151,7 @@ in
               if there is too much space at the end when you launch the script.
               It will depend on the font type and size.
             '';
-            default = 50;
+            default = 10;
             type = types.int;
           };
 
@@ -172,13 +239,71 @@ in
         }
       '';
     };
+
+    theme = mkOption {
+      default = null;
+      type = with types; nullOr themeType;
+      example = literalExpression ''
+        let
+          # Use `mkLiteral` for string-like values that should show without
+          # quotes, e.g.:
+          # {
+          #   foo = "abc"; => foo: "abc";
+          #   bar = mkLiteral "abc"; => bar: abc;
+          # };
+          inherit (config.lib.formats.rasi) mkLiteral;
+        in {
+          "*" = {
+            background-color = mkLiteral "#000000";
+            foreground-color = mkLiteral "rgba ( 250, 251, 252, 100 % )";
+            border-color = mkLiteral "#FFFFFF";
+            width = 512;
+          };
+
+          "#inputbar" = {
+            children = map mkLiteral [ "prompt" "entry" ];
+          };
+
+          "#textbox-prompt-colon" = {
+            expand = false;
+            str = ":";
+            margin = mkLiteral "0px 0.3em 0em 0em";
+            text-color = mkLiteral "@foreground-color";
+          };
+        }
+      '';
+    };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      rofi-network-manager
-    ];
-    home.file."${config.xdg.configHome}/rofi/rofi-network-manager.rasi".source = "${pkgs.rofi-network-manager}/rofi-network-manager.rasi";
-    home.file."${config.xdg.configHome}/rofi/rofi-network-manager.conf".text = toKeyValue cfg.settings;
-  };
+  config = mkIf cfg.enable (mkMerge [
+    {
+      lib.formats.rasi.mkLiteral = value: {
+        _type = "literal";
+        inherit value;
+      };
+
+      lib.formats.rasi.mkRef = value: {
+        _type = "literal";
+        value = "@${value}";
+      };
+
+      lib.formats.rasi.mkSimpleEl = bg: fg: {
+        background-color = bg;
+        text-color = fg;
+      };
+
+      home.packages = with pkgs; [
+        rofi-network-manager
+      ];
+      home.file."${config.xdg.configHome}/rofi/rofi-network-manager.conf".text = toKeyValue cfg.settings;
+    }
+    (mkIf (cfg.theme != false) {
+      home.file."${config.xdg.configHome}/rofi/rofi-network-manager.rasi" =
+        if (cfg.theme == null || !isAttrs cfg.theme) then {
+          source = "${pkgs.rofi-network-manager}/rofi-network-manager.rasi";
+        } else {
+          text = toRasi cfg.theme;
+        };
+    })
+  ]);
 }
