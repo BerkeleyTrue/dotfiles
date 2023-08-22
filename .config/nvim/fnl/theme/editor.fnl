@@ -21,7 +21,7 @@
   ; (add-group :DiffRemoved)
   ; (add-group :DiffText)
   (add-group :Directory         c.blue) ; directory names (and other special names in listings)
-  (add-group :EndOfBuffer       c.base c.text) ; filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
+  (add-group :EndOfBuffer       c.text c.base) ; filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
   (add-group :ErrorMsg          c.red c.none s.bold) ; error messages on the command line
   (add-group :Folded            c.blue c.surface1) ; line used for closed folds
   (add-group :FoldColumn        c.overlay0); column used for 'foldcolumn'
