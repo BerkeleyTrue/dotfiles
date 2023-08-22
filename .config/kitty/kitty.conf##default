@@ -1,4 +1,4 @@
-include dracula.conf
+include frappe.conf
 font_family      FiraCode Nerd Font
 symbol_map       U+EE00-U+EE08 FiraCode
 bold_font        auto
