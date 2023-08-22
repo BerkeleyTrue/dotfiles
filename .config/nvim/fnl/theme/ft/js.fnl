@@ -15,11 +15,11 @@
 
   (hl.link! :jsObjectKey :BerksCyan)
   (hl.link! :jsObject :jsObjectKey)
+  (hl.link! :jsObjectProp :jsObjectKey)
   (hl.link! :jsSpreadExpression :jsObjectKey)
   (hl.link! :jsObjectKeyComputed :jsObjectKey)
-  (hl.link! :jsObjectProp :jsObjectKey)
 
   (hl.link! :jsVariableDef :jsFuncName)
   (hl.link! :jsDestructuringBlock :jsFuncName)
-  (hl.link! :jsDestructuringPropertyValue :jsFuncName)
-  (hl.link! :jsDestructuringProperty :jsFuncName))
+  (hl.link! :jsDestructuringProperty :jsFuncName)
+  (hl.link! :jsDestructuringPropertyValue :jsFuncName))

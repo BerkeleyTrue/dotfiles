@@ -21,8 +21,8 @@
       palette
       (r.to-pairs)
       (r.for-each
-        (fn [[name colors]]
-          (cb.Color.new name (a.first colors)))))
+        (fn [[name color]]
+          (cb.Color.new name color))))
 
     {:c  cb.colors
      :s cb.styles

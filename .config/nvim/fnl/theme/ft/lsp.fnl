@@ -12,7 +12,6 @@
 
   (hl.link! :LspDiagnosticsInformation :BerksCyan)
 
-           ; LspDiagnosticsUnderlineHint)
   (hl.link! :LspDiagnosticsHint :Comment)
   (hl.link! :LspDiagnosticsDefaultHint :Comment)
   (hl.link! :LspDiagnosticsFloatingHint :Comment)

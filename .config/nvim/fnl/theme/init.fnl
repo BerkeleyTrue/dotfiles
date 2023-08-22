@@ -19,7 +19,7 @@
   (add-group :BerksBgDark c.none c.bgdark)
   (add-group :BerksBgDarker c.none c.bgdarker)
 
-  (add-group :BerksFg c.fg)
+  (add-group :BerksFg c.text)
   (add-group :BerksFgUnderline c.fg c.none s.underline)
   (add-group :BerksFgBold c.fg c.none s.bold)
 
@@ -81,36 +81,7 @@
   (add-group :BerksDiffChange c.orange c.none)
   (add-group :BerksDiffText c.bg c.orange)
   (add-group :BerksDiffDelete c.red c.bgdark)
-  (add-group :YellowToRedInverse c.red c.bg)
 
-  (hl.link! :ColorColumn  :BerksBgDark)
-  (hl.link! :DiffAdd      :BerksGreen)
-  (hl.link! :DiffAdded    :DiffAdd)
-  (hl.link! :DiffChange   :BerksDiffChange)
-  (hl.link! :DiffDelete   :BerksDiffDelete)
-  (hl.link! :DiffRemoved  :DiffDelete)
-  (hl.link! :DiffText     :BerksDiffText)
-  (hl.link! :Directory    :BerksPurpleBold)
-  (hl.link! :ErrorMsg     :BerksRedInverse)
-  (hl.link! :FoldColumn   :BerksSubtle)
-  (hl.link! :Folded       :BerksBoundary)
-  (hl.link! :IncSearch    :BerksOrangeInverse)
-  (hl.link! :MoreMsg      :BerksFgBold)
-  (hl.link! :NonText      :BerksSubtle)
-  (hl.link! :Pmenu        :BerksBgDark)
-  (hl.link! :PmenuSbar    :BerksBgDark)
-  (hl.link! :PmenuSel     :BerksSelection)
-  (hl.link! :PmenuThumb   :BerksSelection)
-  (hl.link! :Question     :BerksFgBold)
-  (hl.link! :Search       :BerksSearch)
-  (hl.link! :TabLine      :BerksBoundary)
-  (hl.link! :TabLineFill  :BerksBgDarker)
-  (hl.link! :TabLineSel   :Normal)
-  (hl.link! :Title        :BerksGreenBold)
-  (hl.link! :VertSplit    :BerksBoundary)
-  (hl.link! :Visual       :BerksSelection)
-  (hl.link! :VisualNOS    :Visual)
-  (hl.link! :WarningMsg   :BerksOrangeInverse)
 
   ; Diagnostic
   (hl.link! :DiagnosticError :Error)
@@ -123,16 +94,9 @@
   (hl.link! :DiagnosticInfo :BerksCyan)
   (hl.link! :DiagnosticHint :Comment)
 
-  ; Floats!
-
-  (hl.link! :NormalFloat :Normal)
-  (hl.link! :FloatBorder :Comment)
 
   ; Syntax
-  (add-group :MatchParen c.cyan c.none)
-  (add-group :Conceal c.cyan c.none)
 
-  (hl.link! :SpecialKey :BerksRed)
 
   (hl.link! :Comment :BerksComment)
   (hl.link! :Underlined :BerksFgUnderline)
@@ -184,15 +148,6 @@
   (hl.link! :helpExample :BerksGreen)
   (hl.link! :helpBacktick :Special)
 
-  ; Cursor Line
-  (add-group :CursorColumn (c.bg:negative) (c.bg:light))
-  (add-group :CursorLine c.none (c.bg:light))
-  (hl.link! :CursorLineNr :BerksPurple)
-
-  ; make the highlighting of tabs and other non-text less annoying
-  (add-group :NonText c.gray)
-  (add-group :SpecialKey (c.red:dark))
-
   ; TS specific
   ; TODO: these should link to already defined
   (add-group :TSProperty c.cyan c.none)
@@ -212,22 +167,5 @@
   (hl.link! "@constructor" :TSConstructor)
   (hl.link! :TSNamespace :Namespace)
 
-
-  ; UI
-  (add-group :LineNr c.comment)
-  (add-group :Normal c.fg)
-  (add-group :SignColumn c.comment)
-  (add-group :Statusline c.none c.bglighter s.bold)
-  (add-group :StatusLineNC c.none c.bglight)
-  (add-group :StatusLineTerm c.none c.bglighter s.bold)
-  (add-group :StatusLineTermNC c.none c.bglight)
-  (add-group :WinBar c.none c.bglighter s.bold)
-  (add-group :BerksStatusLineMod c.orange c.bglighter)
-  (add-group :BerksStatusLineModInverse c.bglighter c.orange)
-  (add-group :BerksStatusLineInfo c.cyan c.bglighter)
-  (add-group :BerksStatusLineInfoInverse c.bglighter c.cyan)
-  (add-group :BerksStatusLineErr c.red c.bglighter)
-  (add-group :BerksStatusLineErrInverse c.bglighter c.red)
-  (add-group :WildMenu c.bg c.purple s.bold)
-
-  (run-main :theme.ft theme-methods))
+  (run-main :theme.ft {: add-group : c : s})
+  (run-main :theme.editor {: add-group : c : s}))
