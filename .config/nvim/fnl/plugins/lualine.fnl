@@ -25,7 +25,7 @@
 (def- config
   {:options
    {:icons_enabled true
-    :theme :dracula
+    :theme :catppuccin
 
     :component_separators
     {:left ""
