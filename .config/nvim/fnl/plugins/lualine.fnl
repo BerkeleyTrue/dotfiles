@@ -3,7 +3,8 @@
    {a aniseed.core
     r r
     md utils.module
-    utils utils}
+    utils utils
+    p theme.palette}
    require-macros [macros]})
 
 (defn file-status []
@@ -47,8 +48,18 @@
     :lualine_c
     [navic-location]
     :lualine_x
-    [{1 :diagnostics
-      :sources [:nvim_lsp :ale]
+    [{1 :lsp_progress
+      :display_components [:lsp_client_name :spinner :percentage]
+      :spinner_symbols ["🌑 "  "🌒 "  "🌓 "  "🌔 "  "🌕 "  "🌖 "  "🌗 "  "🌘 "]
+      :timer {:progress_enddelay 500 :spinner 200 :lsp_client_name_enddelay 500}
+      :colors {:percentage (p.get-color-by-name :text)
+               :title (p.get-color-by-name :text)
+               :message (p.get-color-by-name :text)
+               :spinner (p.get-color-by-name :mauve)
+               :lsp_client_name (p.get-color-by-name :sky)
+               :use true}}
+     {1 :diagnostics
+      :sources [:nvim_lsp]
       :sections [:error :warn]
       :diagnostics_color
       {:error :BerksStatusLineErrInverse

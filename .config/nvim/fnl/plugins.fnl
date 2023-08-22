@@ -85,6 +85,7 @@
    {:name :romgrk/barbar.nvim :description "tab bar built in lua" :init (make-init barbar) :config (make-on-load barbar)}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :dependencies [[:nvim-lua/plenary.nvim] [:nvim-tree/nvim-web-devicons] [:MunifTanjim/nui.nvim]] :config (make-on-load neotree) :cmd [:Neotree] :init (make-init neotree)}
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :dependencies [[:nvim-tree/nvim-web-devicons]] :config (make-on-load lualine)}
+   {:name :arkav/lualine-lsp-progress :description "add lsp progress to lualine"}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings."}
 
    ; parenthesis
