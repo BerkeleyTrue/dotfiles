@@ -73,7 +73,7 @@
 
   ; status line helpers for separators
   (add-group :BerksStatusLineMod          c.yellow c.bglighter)
-  (add-group :BerksStatusLineModInverse   c.bglighter c.orange)
+  (add-group :BerksStatusLineModInverse   c.bglighter c.yellow)
   (add-group :BerksStatusLineInfo         c.blue c.bglighter)
   (add-group :BerksStatusLineInfoInverse  c.bglighter c.blue)
   (add-group :BerksStatusLineErr          c.red c.bglighter)
