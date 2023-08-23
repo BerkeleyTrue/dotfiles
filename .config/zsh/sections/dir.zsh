@@ -12,5 +12,5 @@ ghanima::sections::dir() {
     ref=".../$pd/$dir "
   fi
 
-  ghanima::sections::pack -fg green -bg black $ref
+  ghanima::sections::pack -fg purple -bg black $ref
 }

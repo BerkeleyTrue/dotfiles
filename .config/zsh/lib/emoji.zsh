@@ -13,6 +13,10 @@ ghanima::emoji() {
     echo ""
   elif [[ $name == "rdivi" ]] then
     echo ""
+  elif [[ $name == "cir" ]] then
+    echo ""
+  elif [[ $name == "rcir" ]] then
+    echo ""
   elif [[ $name == "plusminus" ]] then
     echo "󱓊 "
   elif [[ $name == "branch" ]] then

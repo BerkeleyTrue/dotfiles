@@ -28,9 +28,13 @@ ghanima::core::compose() {
     [[ -z "$content" ]] && continue
 
     #vary segment separator
-    [[ $((segment_number % 2 == 0)) -gt 0 ]] \
-      && separator=$(ghanima::emoji div) \
-      || separator=$(ghanima::emoji divi)
+    if [[ "$segment_number" -eq 1 ]] && [[ "$#" -gt 1 ]]; then
+      separator=$(ghanima::emoji rcir)
+    elif [[ $((segment_number % 2)) -gt 0 ]]; then
+      separator=$(ghanima::emoji div) \
+    else
+      separator=$(ghanima::emoji divi)
+    fi
 
     # increment segment number
     segment_number=$((segment_number+1))
@@ -47,11 +51,16 @@ ghanima::core::compose() {
     # this is to make the next separator's color (a foreground color)
     # in line with the previous background
     elif [[ $current_bg != 'NONE' ]] && [[ $current_bg != $next_bg ]]; then
-      # start using stored previous bg as new foreground
-      # start using new background
-      # prefix separator
-      # start using fg color
-      print -n " %{%F{$current_bg}%K{$next_bg}%}$separator%{%F{$next_fg}%}"
+      if [[ "$segment_number" -eq 2 ]]; then
+        # the first segment used a reversed separator
+        print -n " %{%F{$next_bg}%K{$current_bg}%}$separator%{%F{$next_fg}%K{$next_bg}%}"
+      else
+        # start using stored previous bg as new foreground
+        # start using new background
+        # prefix separator
+        # start using fg color
+        print -n " %{%F{$current_bg}%K{$next_bg}%}$separator%{%F{$next_fg}%}"
+      fi
     else
       print -n "%{%F{$next_fg}%K{$next_bg}%} "
     fi
@@ -88,9 +97,13 @@ ghanima::core::rcompose() {
     [[ $content == "newline" ]] && continue
 
     #vary segment separator
-    [[ $((segment_number % 2 == 0)) -gt 0 ]] \
-      && separator=$(ghanima::emoji rdiv) \
-      || separator=$(ghanima::emoji rdivi)
+    if [[ "$segment_number" -eq $(("$#" - 1)) ]] && [[ "$#" -gt 1 ]]; then
+      separator=$(ghanima::emoji cir)
+    elif [[ $((segment_number % 2)) -gt 0 ]]; then
+      separator=$(ghanima::emoji rdiv) \
+    else
+      separator=$(ghanima::emoji rdivi)
+    fi
 
     # increment segment number
     segment_number=$((segment_number+1))
@@ -101,11 +114,16 @@ ghanima::core::rcompose() {
     # this is to make the next separator's color (a foreground color)
     # in line with the previous background
     if [[ $current_bg != 'NONE' ]] && [[ $current_bg != $next_bg ]]; then
-      # start using stored previous bg as new foreground
-      # start using new background
-      # prefix separator
-      # start using fg color
-      print -n "%{%F{$next_bg}%K{$current_bg}%}$separator%{%F{$next_fg}%K{$next_bg}%} "
+      if [[ "$segment_number" -eq "$#" ]]; then
+        # the last segment used a reversed separator
+        print -n "%{%F{$current_bg}%K{$next_bg}%}$separator%{%F{$next_fg}%K{$next_bg}%} "
+      else
+        # start using stored previous bg as new foreground
+        # start using new background
+        # prefix separator
+        # start using fg color
+        print -n "%{%F{$next_bg}%K{$current_bg}%}$separator%{%F{$next_fg}%K{$next_bg}%} "
+      fi
     else
       print -n "%{%F{$next_bg}%k%}$separator%{%F{$next_fg}%K{$next_bg}%} "
     fi
