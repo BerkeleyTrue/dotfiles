@@ -48,7 +48,7 @@
                     {:type "padding" :val 1}
                     (create-button " 󰱼 " "Find File            " "FFiles")
                     {:type "padding" :val 1}
-                    (create-button " 󰙅 " "File Browser         " "NeoTreeFloat")
+                    (create-button " 󰙅 " "File Browser         " "Neotree float")
                     {:type "padding" :val 1}
                     (create-button " 󰡦 " "Find word            " "Telescope live_grep")
                     {:type "padding" :val 1}
