@@ -7,29 +7,29 @@
     utils utils}
    require-macros [macros]})
 
-(def- C (. p :palette))
+(def- c (. p :palette))
 
 (def theme
  {:normal
-  {:a {:bg C.blue :fg C.mantle :gui :bold}
-   :b {:bg C.surface1 :fg C.blue}
-   :c {:bg C.mantle :fg C.text}}
+  {:a {:bg c.blue :fg c.mantle :gui :bold}
+   :b {:bg c.surface1 :fg c.blue}
+   :c {:bg c.mantle :fg c.text}}
   :insert
-  {:a {:bg C.green :fg C.base :gui :bold}
-   :b {:bg C.surface1 :fg C.teal}}
+  {:a {:bg c.green :fg c.base :gui :bold}
+   :b {:bg c.surface1 :fg c.teal}}
   :terminal
-  {:a {:bg C.green :fg C.base :gui :bold}
-   :b {:bg C.surface1 :fg C.teal}}
+  {:a {:bg c.green :fg c.base :gui :bold}
+   :b {:bg c.surface1 :fg c.teal}}
   :command
-  {:a {:bg C.peach :fg C.base :gui :bold}
-   :b {:bg C.surface1 :fg C.peach}}
+  {:a {:bg c.peach :fg c.base :gui :bold}
+   :b {:bg c.surface1 :fg c.peach}}
   :visual
-  {:a {:bg C.mauve :fg C.base :gui :bold}
-   :b {:bg C.surface1 :fg C.mauve}}
+  {:a {:bg c.mauve :fg c.base :gui :bold}
+   :b {:bg c.surface1 :fg c.mauve}}
   :replace
-  {:a {:bg C.red :fg C.base :gui :bold}
-   :b {:bg C.surface1 :fg C.red}}
+  {:a {:bg c.red :fg c.base :gui :bold}
+   :b {:bg c.surface1 :fg c.red}}
   :inactive
-  {:a {:bg C.mantle :fg C.blue}
-   :b {:bg C.mantle :fg C.surface1 :gui :bold}
-   :c {:bg C.mantle :fg C.overlay0}}})
+  {:a {:bg c.mantle :fg c.blue}
+   :b {:bg c.mantle :fg c.surface1 :gui :bold}
+   :c {:bg c.mantle :fg c.overlay0}}})

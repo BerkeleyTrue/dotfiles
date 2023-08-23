@@ -72,9 +72,9 @@
   (add-group :WinBar            c.none c.bglighter s.bold)
 
   ; status line helpers for separators
-  (add-group :BerksStatusLineMod          c.yellow c.bglighter)
-  (add-group :BerksStatusLineModInverse   c.bglighter c.yellow)
-  (add-group :BerksStatusLineInfo         c.blue c.bglighter)
-  (add-group :BerksStatusLineInfoInverse  c.bglighter c.blue)
-  (add-group :BerksStatusLineErr          c.red c.bglighter)
-  (add-group :BerksStatusLineErrInverse   c.bglighter c.red))
+  (add-group :BerksStatusLineMod          c.yellow c.mantle)
+  (add-group :BerksStatusLineModInverse   c.mantle c.yellow)
+  (add-group :BerksStatusLineInfo         c.blue c.mantle)
+  (add-group :BerksStatusLineInfoInverse  c.mantle c.blue)
+  (add-group :BerksStatusLineErr          c.red c.mantle)
+  (add-group :BerksStatusLineErrInverse   c.mantle c.red))
