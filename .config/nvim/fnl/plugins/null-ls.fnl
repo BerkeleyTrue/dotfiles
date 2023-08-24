@@ -34,7 +34,6 @@
                      :graphql]})
                  (null-ls.builtins.formatting.shfmt.with {:extra_args [:-i 2]})
                  null-ls.builtins.formatting.lua_format
-                 null-ls.builtins.formatting.brittany
                  null-ls.builtins.formatting.swiftformat
                  null-ls.builtins.formatting.purs_tidy
                  (null-ls.builtins.formatting.nixpkgs_fmt.with {:command "nix"
