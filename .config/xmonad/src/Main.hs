@@ -171,8 +171,8 @@ main = do
           modMask = myModMask,
           workspaces = werkspaces,
           -- Border colors for unfocused and focused windows, respectively.
-          normalBorderColor = background,
-          focusedBorderColor = cyan,
+          normalBorderColor = base hexes,
+          focusedBorderColor = rosewater hexes,
           -- bindings
           mouseBindings = mBindings,
           -- hooks, layouts

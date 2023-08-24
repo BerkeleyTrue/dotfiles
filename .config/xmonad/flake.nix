@@ -49,9 +49,9 @@
           stack-wrapped
           watch-compile
           compile-xmonad
-          hpack
 
           hPkgs.haskell-language-server
+          hpack
 
           gcc
           zlib
@@ -64,6 +64,7 @@
         ];
       in {
         devShells.default = pkgs.mkShell {
+          name = "xmonad";
           buildInputs = devTools;
 
           # Make external Nix c libraries like zlib known to GHC, like
@@ -72,7 +73,6 @@
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath devTools;
 
           shellHook = ''
-            export NIX_SHELL_NAME="xmonad"
             zsh
             exit 0
           '';

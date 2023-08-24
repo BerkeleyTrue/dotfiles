@@ -20,12 +20,12 @@ tabTheme :: Theme
 tabTheme =
   def
     { fontName = font,
-      inactiveTextColor = comment,
-      inactiveColor = background,
-      inactiveBorderColor = background,
-      activeTextColor = foreground,
-      activeColor = cyan,
-      activeBorderColor = cyan
+      inactiveTextColor = text hexes,
+      inactiveColor = base hexes,
+      inactiveBorderColor = base hexes,
+      activeTextColor = rosewater hexes,
+      activeColor = base hexes,
+      activeBorderColor = blue hexes
     }
 
 tabbedDecorator ::
