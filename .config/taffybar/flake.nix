@@ -71,6 +71,7 @@
         ];
       in {
         devShells.default = pkgs.mkShell {
+          name = "taffybar";
           buildInputs = devTools;
 
           # Make external Nix c libraries like zlib known to GHC, like
@@ -79,7 +80,6 @@
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath devTools;
 
           shellHook = ''
-            export NIX_SHELL_NAME="taffybar"
             zsh
             exit 0
           '';
