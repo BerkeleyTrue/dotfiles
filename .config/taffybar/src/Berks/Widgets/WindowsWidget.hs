@@ -3,7 +3,7 @@ module Berks.Widgets.WindowsWidget
   )
 where
 
-import Berks.Colors (purpleHex)
+import Berks.Colors (hexes, C (..))
 import Data.Text as T
   ( pack,
     unpack,
@@ -32,7 +32,7 @@ windowsWidget =
   where
     getActiveLabel' =
       pack
-        . colorize purpleHex ""
+        . colorize (mauve hexes) ""
         . defaultLabel
         . truncateString 20
         . unpack

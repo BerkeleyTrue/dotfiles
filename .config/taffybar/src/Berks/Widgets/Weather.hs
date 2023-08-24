@@ -29,9 +29,9 @@ formatWeatherInfo [] = "N/A"
 formatWeatherInfo (_ : _ : _) = "N/A"
 formatWeatherInfo [wi] =
   pack $
-    colorize pinkHex "" (show $ tempF wi)
+    colorize (pink hexes) "" (show $ tempF wi)
       <> colorize "white" "" "°"
-      <> colorize greenHex "" (" \57982 " <> windMph (windInfo wi) <> "mph")
+      <> colorize (green hexes) "" (" \57982 " <> windMph (windInfo wi) <> "mph")
 
 weatherWidget :: MonadIO m => m Widget
 weatherWidget =

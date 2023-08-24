@@ -9,11 +9,12 @@ module Berks.Widgets.Crypto
 where
 
 import Berks.Colors
-  ( cyanHex,
-    greenHex,
-    pinkHex,
-    purpleHex,
-    redHex,
+  ( hexes,
+    sapphire,
+    green,
+    pink,
+    lavender,
+    red,
   )
 import Berks.WidgetUtils (runCommandWithDefault)
 import Data.Text
@@ -68,11 +69,11 @@ label = do
   flip' <- flippening
   return
     . pack
-    $ colorize cyanHex "" ("\xf086a " <> eth <> " ")
-      <> colorize greenHex "" "\xf0298 "
-      <> colorize cyanHex "" ethGas'
+    $ colorize (sapphire hexes) "" ("\xf086a " <> eth <> " ")
+      <> colorize (green hexes) "" "\xf0298 "
+      <> colorize (sapphire hexes) "" ethGas'
       <> " "
-      <> (colorize redHex "" "\xf0450 " <> colorize cyanHex "" flip' <> " ")
+      <> (colorize (red hexes) "" "\xf0450 " <> colorize (sapphire hexes) "" flip' <> " ")
 
 ethWidget :: TaffyIO Widget
 ethWidget = pollingLabelNew 1 label
@@ -81,7 +82,7 @@ btcWidget :: TaffyIO Widget
 btcWidget =
   pollingLabelNew 1 $
     pack
-      . colorize greenHex ""
+      . colorize (green hexes) ""
       . padRight
       . ("\xf01ac" <>)
       . padLeft
@@ -91,7 +92,7 @@ ohmWidget :: TaffyIO Widget
 ohmWidget =
   pollingLabelNew 1 $
     pack
-      . colorize purpleHex ""
+      . colorize (lavender hexes) ""
       . padRight
       . ("\xf03c9" <>)
       . padLeft
@@ -101,7 +102,7 @@ xtzWidget :: TaffyIO Widget
 xtzWidget =
   pollingLabelNew 1 $
     pack
-      . colorize redHex ""
+      . colorize (red hexes) ""
       . padRight
       . ("XTZ" <>)
       . padLeft
@@ -111,7 +112,7 @@ pickleWidget :: TaffyIO Widget
 pickleWidget =
   pollingLabelNew 1 $
     pack
-      . colorize greenHex ""
+      . colorize (green hexes) ""
       . padRight
       . ("PICKLE" <>)
       . padLeft
@@ -121,7 +122,7 @@ spyWidget :: TaffyIO Widget
 spyWidget =
   pollingLabelNew 1 $
     pack
-      . colorize pinkHex ""
+      . colorize (pink hexes) ""
       . padRight
       . ("\xf11eb" <>)
       . padLeft

@@ -9,7 +9,7 @@ import Control.Monad.IO.Class (MonadIO)
 import GI.Gtk (Widget)
 import System.Taffybar.Util (runCommand)
 import System.Taffybar.Widget.Util (colorize)
-import Berks.Colors (redHex)
+import Berks.Colors (red, hexes)
 
 
 command :: IO ()
@@ -19,4 +19,4 @@ command = void $ runCommand "powermenu" []
 
 powerMenuButton :: MonadIO m => m Widget
 powerMenuButton =
-  buttonWithClickHandler (colorize redHex "" "\x23fb") $ const command
+  buttonWithClickHandler (colorize (red hexes) "" "\x23fb") $ const command

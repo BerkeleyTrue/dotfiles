@@ -3,7 +3,7 @@ module Berks.Widgets.Wakatime
   )
 where
 
-import Berks.Colors (greenHex)
+import Berks.Colors (green, hexes)
 import Berks.WidgetUtils (runCommandWithDefault)
 import Data.Text
   ( Text,
@@ -18,7 +18,7 @@ import System.Taffybar.Widget.Util (colorize)
 
 wakaCommand :: IO Text
 wakaCommand =
-  pack . colorize greenHex "" . ("\xe000 " <>)
+  pack . colorize (green hexes) "" . ("\xe000 " <>)
     <$> runCommandWithDefault
       "wakatime-cli"
       ["--today"]

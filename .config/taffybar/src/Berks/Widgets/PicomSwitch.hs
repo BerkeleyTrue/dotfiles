@@ -3,7 +3,7 @@ module Berks.Widgets.PicomSwitch
   )
 where
 
-import Berks.Colors (cyanHex)
+import Berks.Colors (sapphire, hexes)
 import Berks.WidgetUtils (pollingLabelButtonNew)
 import GI.Gtk (Widget)
 import System.Taffybar.Context (TaffyIO)
@@ -32,7 +32,7 @@ picomLabel = do
       "on\n" -> return "\xf205"
       _ -> return "\xf1e2"
 
-  return $ colorize cyanHex "" label'
+  return $ colorize (sapphire hexes) "" label'
 
 picomSwitchWidget :: TaffyIO Widget
 picomSwitchWidget =

@@ -3,7 +3,7 @@ module Berks.Widgets.FSMonitor
   )
 where
 
-import Berks.Colors (commentHex)
+import Berks.Colors (hexes, lavender)
 import Berks.Information.FSMonitor (showFSInfo)
 import Berks.WidgetUtils (setWidgetClassnameFromString)
 import Control.Monad.IO.Class (MonadIO)
@@ -23,4 +23,4 @@ fsMonitorWidget =
   setWidgetClassnameFromString "fs-monitor"
     =<< pollingLabelNew
       1
-      (pack . colorize commentHex "" . ("\xf0c7 " <>) <$> showFSInfo ["/"])
+      (pack . colorize (lavender hexes) "" . ("\xf0c7 " <>) <$> showFSInfo ["/"])

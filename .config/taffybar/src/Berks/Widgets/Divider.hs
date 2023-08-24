@@ -10,11 +10,11 @@ import Data.Text (pack)
 import GI.Gtk
 import System.Taffybar.Widget (vFillCenter)
 
-dividerWidget :: MonadIO m => Maybe Hex -> m Widget
+dividerWidget :: (MonadIO m) => Maybe Hex -> m Widget
 dividerWidget maybeColor = do
   color <- case maybeColor of
     Just color -> return color
-    Nothing -> return commentHex
+    Nothing -> return (subtext1 hexes)
   grid <- gridNew
   label <- labelNew Nothing
 
@@ -27,5 +27,5 @@ dividerWidget maybeColor = do
   widgetShowAll grid
   toWidget grid
 
-plainDividerWidget :: MonadIO m => m Widget
+plainDividerWidget :: (MonadIO m) => m Widget
 plainDividerWidget = dividerWidget Nothing

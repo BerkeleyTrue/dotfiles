@@ -3,7 +3,7 @@ module Berks.Widgets.CPU
   )
 where
 
-import Berks.Colors as Colors
+import Berks.Colors
 import Berks.WidgetUtils
   ( decorateWithClassname,
     myDefaultGraphConfig,
@@ -31,7 +31,7 @@ cpuWidget =
   decorateWithClassname "graph" $
     pollingGraphNew
       myDefaultGraphConfig
-        { graphDataColors = [Colors.red, Colors.cyan],
+        { graphDataColors = [red rgbas, lavender rgbas],
           graphLabel = Just "<span fgcolor='cyan'>\xf0ee0</span>"
         }
       0.5

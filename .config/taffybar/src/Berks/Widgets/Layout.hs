@@ -3,7 +3,7 @@ module Berks.Widgets.Layout
   )
 where
 
-import Berks.Colors (redHex)
+import Berks.Colors (hexes, red)
 import Data.Text
   ( pack,
     unpack,
@@ -22,4 +22,4 @@ layoutWidget :: TaffyIO Widget
 layoutWidget = layoutNew defaultLayoutConfig {formatLayout = formatLayout'}
   where
     formatLayout' =
-      return . pack . colorize redHex "" . ("[" <>) . (<> "]") . unpack
+      return . pack . colorize (red hexes) "" . ("[" <>) . (<> "]") . unpack

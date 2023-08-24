@@ -4,9 +4,10 @@ module Berks.Widgets.MultiCoreTemp
 where
 
 import Berks.Colors
-  ( cyanHex,
-    orangeHex,
-    yellowHex,
+  ( hexes,
+    sapphire,
+    peach,
+    yellow,
   )
 import Berks.Information.MultiCoreTemp
   ( getMultiCoreTemps,
@@ -28,9 +29,9 @@ cpuTempWidget =
       <&> pack
         . ( \temp ->
               colorize
-                orangeHex
+                (peach hexes)
                 ""
-                ("\xf03c8: " <> temp <> colorize cyanHex "" "°" <> "C")
+                ("\xf03c8: " <> temp <> colorize (sapphire hexes) "" "°" <> "C")
           )
-        . colorize yellowHex ""
+        . colorize (yellow hexes) ""
         . printf "%.0f"

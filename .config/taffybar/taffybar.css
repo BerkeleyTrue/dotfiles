@@ -1,26 +1,39 @@
-@define-color dracula-background #282a36;
-@define-color dracula-selection #44475a;
-@define-color dracula-foreground #f8f8f2;
-@define-color dracula-comment #6272a4;
-@define-color dracula-cyan #8be9fd;
-@define-color dracula-green #50fa7b;
-@define-color dracula-orange #ffb86c;
-@define-color dracula-pink #ff79c6;
-@define-color dracula-purple #bd93f9;
-@define-color dracula-red #ff5555;
-@define-color dracula-yellow #f1fa8c;
+@define-color catppuccin-rosewater #f2d5cf;
+@define-color catppuccin-flamingo #eebebe;
+@define-color catppuccin-pink #f4b8e4;
+@define-color catppuccin-mauve #ca9ee6;
+@define-color catppuccin-red #e78284;
+@define-color catppuccin-maroon #ea999c;
+@define-color catppuccin-peach #ef9f76;
+@define-color catppuccin-yellow #e5c890;
+@define-color catppuccin-green #a6d189;
+@define-color catppuccin-teal #81c8be;
+@define-color catppuccin-sky #99d1db;
+@define-color catppuccin-sapphire #85c1dc;
+@define-color catppuccin-blue #8caaee;
+@define-color catppuccin-lavender #babbf1;
+@define-color catppuccin-text #c6d0f5;
+@define-color catppuccin-subtext1 #b5bfe2;
+@define-color catppuccin-subtext0 #a5adce;
+@define-color catppuccin-overlay2 #949cbb;
+@define-color catppuccin-overlay1 #838ba7;
+@define-color catppuccin-overlay0 #737994;
+@define-color catppuccin-surface2 #626880;
+@define-color catppuccin-surface1 #51576d;
+@define-color catppuccin-surface0 #414559;
+@define-color catppuccin-base #303446;
+@define-color catppuccin-mantle #292c3c;
+@define-color catppuccin-crust #232634;
 
 @define-color transparent rgba(0.0, 0.0, 0.0, 0.0);
-@define-color background @dracula-background;
-@define-color background-light @dracula-selection;
+@define-color background @catppuccin-base;
+@define-color background-light @catppuccin-surface1;
 
-@define-color white @dracula-foreground;
-
-@define-color active-window-color @white;
-@define-color urgent-window-color @dracula-red;
-@define-color font-color @white;
-@define-color menu-background-color @background;
-@define-color menu-font-color @dracula-cyan;
+@define-color active-window-color @catppuccin-blue;
+@define-color urgent-window-color @catppuccin-red;
+@define-color font-color @catppuccin-text;
+@define-color menu-background-color @catppuccin-surface0;
+@define-color menu-font-color @catppuccin-text;
 
 .taffy-window * {
   all: unset;
@@ -72,16 +85,16 @@ Each workspace gets a box
   font-size: 12pt;
   padding-right: 4px;
   transition: color 0.5s;
-  color: @dracula-comment;
+  color: @catppuccin-lavender;
 }
 
 .workspaces .workspace-label.active {
-  color: @dracula-cyan;
+  color: @catppuccin-sapphire;
 }
 
 /* visible but no the current active window */
 .workspaces .workspace-label.visible {
-  color: @dracula-cyan;
+  color: @catppuccin-sapphire;
 }
 
 .workspaces .active .contents {
@@ -89,7 +102,7 @@ Each workspace gets a box
 }
 
 .window-icon-container.active {
-  box-shadow: inset 0 -3px @dracula-comment;
+  box-shadow: inset 0 -3px @catppuccin-blue;
 }
 
 .window-icon-container.urgent {
@@ -124,7 +137,7 @@ button {
 
 button:checked,
 button:hover .Contents:hover {
-  box-shadow: inset 0 -3px @dracula-comment;
+  box-shadow: inset 0 -3px @catppuccin-blue;
 }
 
 /* Menu styling */
@@ -133,22 +146,22 @@ button:hover .Contents:hover {
    the top level .Taffybar selector takes precedence */
 .taffy-window menuitem *,
 menuitem * {
-  color: @menu-font-color;
+  color: @catppuccin-text;
 }
 
 .taffy-window menuitem,
 menuitem {
-  background-color: @menu-background-color;
+  background-color: @catppuccin-surface1;
 }
 
 .taffy-window menuitem:hover,
 menuitem:hover {
-  background-color: @dracula-comment;
+  background-color: @catppuccin-surface0;
 }
 
 .taffy-window menuitem:hover > label,
 menuitem:hover > label {
-  color: @white;
+  color: @catppuccin-text;
 }
 
 .graph {
@@ -158,8 +171,8 @@ menuitem:hover > label {
   margin-left: 8px;
   padding-left: 8px;
   padding-right: 10px;
-  border-color: @dracula-comment;
-  background-color: @dracula-selection;
+  border-color: @catppuccin-surface2;
+  background-color: @catppuccin-surface2;
 }
 
 
