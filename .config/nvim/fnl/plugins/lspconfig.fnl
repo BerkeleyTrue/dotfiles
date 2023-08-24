@@ -7,8 +7,8 @@
     tsserver plugins.lspconfig.tsserver
     tailwindcss plugins.lspconfig.tailwindcss
     emmetls plugins.lspconfig.emmetls
-    fennel-ls plugins.lspconfig.fennel-ls
-    fennel-language-server plugins.lspconfig.fennel-language-server}
+    fennel-language-server plugins.lspconfig.fennel-language-server
+    fennel_ls plugins.lspconfig.fennel-ls}
    require-macros [macros]})
 
 (defn get-capabilities []
@@ -93,7 +93,7 @@
    :hls {:on_attach general-on-attach-with-navic}
    :html {}
    :jsonls (jsonls-configs)
-   :nil_ls {}
+   :nixd {}
    :prismals {}
    :purescriptls {}
    :solidity_ls {}
