@@ -14,12 +14,12 @@
   (add-group :CursorIM          c.base c.text) ; like Cursor, but used when in IME mode |CursorIM|
   (add-group :CursorColumn      c.none c.mantle) ; Screen-column at the cursor, when 'cursorcolumn' is set.
   (add-group :CursorLine        c.none (c.surface0:dark)) ; Screen-line at the cursor, when 'cursorline' is set.
-  ; (add-group :DiffAdd) ;
-  ; (add-group :DiffAdded) ;
-  ; (add-group :DiffChange) ;
-  ; (add-group :DiffDelete)
-  ; (add-group :DiffRemoved)
-  ; (add-group :DiffText)
+
+  (add-group :DiffAdd           (c.green:dark)) ; diff mode: Added line |diff.txt|
+  (add-group :DiffChange        c.blue) ; diff mode: Changed text within a changed line |diff.txt|
+  (add-group :DiffDelete        (c.red:dark)) ; diff mode: Deleted line |diff.txt|
+  (add-group :DiffText          (c.blue:dark)) ; diff mode: Changed text within a changed line |diff.txt|
+
   (add-group :Directory         c.blue) ; directory names (and other special names in listings)
   (add-group :EndOfBuffer       c.text c.base) ; filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
   (add-group :ErrorMsg          c.red c.none s.bold) ; error messages on the command line
