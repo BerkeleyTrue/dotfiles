@@ -63,6 +63,7 @@ in
         c = builtins.mapAttrs (name: value: mkLiteral value) theme.colors;
         cls = theme.colors;
       in
+      with cls;
       {
 
         configuration = {
@@ -75,11 +76,11 @@ in
 
         "*" = {
           font = "FiraCode Nerd Font 18";
-          foreground = c.foreground;
-          background = c.background;
+          foreground = c.text;
+          background = c.base;
 
           background-color = mkRef "background";
-          active-background = c.comment;
+          active-background = c.subtext1;
 
           urgent-background = c.red;
           urgent-foreground = mkRef "background";
@@ -89,7 +90,7 @@ in
           selected-active-background = mkRef "active-background";
 
           separatorcolor = mkRef "active-background";
-          bordercolor = c.comment;
+          bordercolor = c.rosewater;
         };
 
         window = {
@@ -124,17 +125,29 @@ in
           background-color = mkLiteral "inherit";
           text-color = mkLiteral "inherit";
         };
+        # normal rows
         "element.normal.normal" = mkSimpleEl (mkRef "background") (mkRef "foreground");
         "element.normal.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
-        "element.normal.active" = mkSimpleEl (mkRef "active-background") (mkRef "foreground");
+
+        # table header is active
+        "element.normal.active" = {
+          background-color = mkLiteral "transparent";
+          background-image = mkLiteral "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})";
+          text-color = mkLiteral base;
+        };
+        # table header when selected
+        "element.selected.active" = {
+          background-color = mkLiteral "transparent";
+          background-image = mkLiteral "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})";
+          text-color = mkLiteral base;
+        };
 
         "element.selected.normal" = {
           background-color = mkLiteral "transparent";
-          background-image = mkLiteral "linear-gradient(40, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.purple}, ${cls.cyan})";
+          background-image = mkLiteral "linear-gradient(40, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${sky})";
           text-color = mkRef "background";
         };
         "element.selected.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
-        "element.selected.active" = mkSimpleEl (mkRef "active-background") (mkRef "foreground");
 
         "element.alternate.normal" = mkSimpleEl (mkRef "background-color") (mkRef "foreground");
         "element.alternate.urgent" = mkSimpleEl (mkRef "background-color") (mkRef "urgent-foreground");

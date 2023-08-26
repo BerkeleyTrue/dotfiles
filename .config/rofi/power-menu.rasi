@@ -34,7 +34,7 @@ imagebox {
   expand: false;
 
   background-color: transparent;
-  background-image: linear-gradient(75, #6272a4, #6272a4, #6272a4, #6272a4, #6272a4, #6272a4, #bd93f9, #ff79c6);
+  background-image: linear-gradient(75, #8caaee, #8caaee, #8caaee, #8caaee, #8caaee, #8caaee, #ca9ee6, #f4b8e4);
 
   padding: 100px 80px;
   spacing: 0px;
@@ -48,7 +48,7 @@ message {
 
   text-color: @background;
   background-color: transparent;
-  background-image: linear-gradient(40, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #8be9fd);
+  background-image: linear-gradient(40, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #85c1dc);
 
   border-radius: 8px;
   margin: 0px;
@@ -76,7 +76,7 @@ userimage {
 inputbar {
   text-color: @background;
   background-color: transparent;
-  background-image: linear-gradient(60, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #8be9fd);
+  background-image: linear-gradient(60, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #85c1dc);
 
   border-radius: 8px;
   border: 4px solid;
@@ -135,7 +135,7 @@ element-text {
 
 element selected.normal {
   background-color: @pink;
-  background-image: linear-gradient(40, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #bd93f9, #8be9fd);
-  text-color: @cyan;
+  background-image: linear-gradient(40, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #ca9ee6, #85c1dc);
+  text-color: @sky;
 }
 // vim: ft=stylus

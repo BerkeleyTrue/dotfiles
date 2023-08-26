@@ -1,7 +1,7 @@
 { pkgs, theme, ... }:
 {
   home.packages = [ pkgs.dunst ];
-  services.dunst = {
+  services.dunst = with theme.colors; {
     enable = true;
 
     iconTheme = {
@@ -12,7 +12,7 @@
     settings = {
       global = {
         frame_width = 1;
-        frame_color = theme.colors.purple;
+        frame_color = rosewater;
         font = "FiraCode Nerd Font 10";
         format = "<b>%a</b>: <i>%s</i> %p\n%b";
         markup = "full";
@@ -63,7 +63,7 @@
         #  * foreground: use the same color as the foreground;
         #  * frame: use the same color as the frame;
         #  * anything else will be interpreted as a X color.
-        separator_color = "#6272a4";
+        separator_color = lavender;
 
         # dmenu path.
         dmenu = "${pkgs.rofi} -dmenu -p dunst:";
@@ -83,21 +83,21 @@
       };
 
       urgency_low = {
-        background = theme.colors.background;
-        foreground = theme.colors.foreground;
+        background = surface1;
+        foreground = subtext1;
         timeout = 10;
       };
 
       urgency_normal = {
-        background = theme.colors.selection;
-        foreground = theme.colors.foreground;
+        background = base;
+        foreground = text;
         timeout = 10;
       };
 
       urgency_critical = {
-        background = theme.colors.red;
-        foreground = theme.colors.background;
-        frame_color = theme.colors.red;
+        background = red;
+        foreground = surface1;
+        frame_color = rosewater;
         timeout = 0;
       };
     };
