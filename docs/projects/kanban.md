@@ -1,23 +1,27 @@
 ## LT Projects
 
-- wireless Keeb
+- Wireless Keeb
 - Homelab
 - XMonad
-- printer.hw-updates
-  > Updates for ender three
-- Purely Functional DS
+- Purely Functional Datastructures
 - Datsun Taillights
-- Sylvia Shifter design
 - storeleft
+  > inventory tracker
+- nov8
+  > innovate clone in Golang
 
 ## In-Progress
 
-- nov8
+- gogal
+  > a cli to great a web gallery from nested directories of images/gifs
+- printer.hw-updates.duet-wifi
+  > Updates for ender three
+  - [x] model duet wifi mounts
+  - [x] model power supply mounts
+  - [ ] finish wiring up new board
 
 ## Done
 
-- Teardown Greenbike
-  > tear down to replace frame
-- Travel
-- Encrypt ws drive
-- crypto-egg
+- Sylvia Shifter design
+  > Sram axes blipbox buttons mounted on top of narrow grip, side of brakes, and
+  > on the drops
