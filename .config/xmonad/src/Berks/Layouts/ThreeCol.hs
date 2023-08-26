@@ -24,6 +24,6 @@ threeCol :: ThreeColLayout Window
 threeCol =
   renamed [Replace " \xf056d "] $
     withBorder 4 $
-      spacingRaw True (Border 4 4 0 6) True (Border 0 0 6 0) True $
+      spacingRaw False (Border 8 18 0 12) True (Border 0 0 12 0) True $
         limitWindows 7 $
           ThreeColMid 1 (3 / 100) (1 / 2)

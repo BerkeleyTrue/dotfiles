@@ -1,7 +1,15 @@
 ## To Do
 
+- add tabbing to threecol
 
 ## Doing
+
+- move to nix build
+  - make flake default build xmonad binary
+  - make ./compile use nix
+  - remove global stack
+
+## Done
 
 - move to taffybar
   * [x] wakatime
@@ -12,11 +20,8 @@
   * [x] picom switch
   * [x] power menu button
   * [x] hdd space
-  * [ ] add second bar
-  * [ ] add switch for laptop
-
-## Done
-
+  * [x] add second bar
+  * [x] add switch for laptop
 - move to src dir
   > It's pretty annoying that source files are in the project root. These should be in a src dir
   * [x] update cabal file
