@@ -16,14 +16,19 @@
   (capitalize-word "hello")
   (captialize-words ["hello" "world"]))
 
-(defn auto-add-fennel-module []
-  (when (and
-          ; only run in fennel files
-          (= (bo :filetype) :fennel)
-          ; only run if the file is empty
-          (= (vim.fn.line "$") 1) ;; last line is also the first line
-          (= (vim.fn.getline 1) "")) ;; first line is empty
+(defn- is-empty-file []
+  "Check if the current file is empty."
+  (and
+    ; only run if the file is empty
+    (= (vim.fn.line "$") 1) ;; last line is also the first line
+    (= (vim.fn.getline 1) ""))) ;; first line is empty
 
+(defn- is-file-type [filetype]
+  "check if the current file is of a certain type"
+  (= (bo :filetype) filetype))
+
+(defn auto-add-fennel-module []
+  (when (and (is-file-type :fennel) (is-empty-file))
     ; get the relative file path of the current file
     (let [file-path (vim.fn.expand "%:p")
           fnldir (.. (vim.fn.stdpath :config) "/fnl/")
@@ -50,12 +55,7 @@
              "   require-macros [macros]})"]))))))
 
 (defn auto-add-purescript-module []
-  (when (and
-          (= (bo :filetype) :purescript)
-          ; only run if the file is empty
-          (= (vim.fn.line "$") 1) ;; last line is also the first line
-          (= (vim.fn.getline 1) "")) ;; first line is empty
-
+  (when (and (is-file-type :purescript) (is-empty-file))
     ; get the relative file path of the current file
     (let [file-path (vim.fn.expand "%:p")
           rootdir (vim.fn.finddir :.git/.. (.. (vim.fn.expand "%:p:h") ";"))]
@@ -78,12 +78,7 @@
              "import Prelude"]))))))
 
 (defn auto-add-haskell-module []
-  (when (and
-          (= (bo :filetype) :haskell)
-          ; only run if the file is empty
-          (= (vim.fn.line "$") 1) ;; last line is also the first line
-          (= (vim.fn.getline 1) "")) ;; first line is empty
-
+  (when (and (is-file-type :haskell)  (is-empty-file))
     ; get the relative file path of the current file
     (let [file-path (vim.fn.expand "%:p")
           rootdir (vim.fn.finddir :.git/.. (.. (vim.fn.expand "%:p:h") ";"))
@@ -110,6 +105,17 @@
              "import Prelude"]))
         :else (vim.fn.echo "No root directory found")))))
 
+(comment
+  ; get the name of the current file folder
+  (vim.fn.expand "%:p:h:t"))
+
+(defn auto-add-go-package []
+  (when (and (is-file-type :go) (is-empty-file))
+    ; get the relative file path of the current file
+    (let [name (vim.fn.expand "%:p:h:t")]
+      ; insert the module at the top of the file
+      (vim.fn.append 0 [(.. "package " name)]))))
+
 (defn main []
   ; add module to the top of the file when you open it if it's empty
   (augroup
@@ -124,4 +130,8 @@
 
     {:event [:Filetype]
      :pattern "haskell"
-     :callback auto-add-haskell-module}))
+     :callback auto-add-haskell-module}
+
+    {:event [:Filetype]
+     :pattern "go"
+     :callback auto-add-go-package}))
