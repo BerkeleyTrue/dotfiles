@@ -11,22 +11,23 @@ import XMonad.Layout.Decoration hiding
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
-import XMonad.Layout.Simplest
-import XMonad.Layout.SubLayouts
-
-type SimplyLayout = ModifiedLayout SmartBorder Simplest
+import XMonad.Layout.Spacing
 
 type LimitedFull = ModifiedLayout LimitWindows Full
 
 type Monocle =
   ModifiedLayout
     Rename
-    (ModifiedLayout (Sublayout SimplyLayout) LimitedFull)
+    ( ModifiedLayout
+        WithBorder
+        (ModifiedLayout Spacing LimitedFull)
+    )
 
 monocle :: Monocle Window
 monocle =
-  renamed [Replace " ﱢ "] $
-    subLayout [] (smartBorders Simplest) $
-      limitWindows
-        20
-        Full
+  renamed [Replace " \xf0c8 "] $
+    noBorders $
+      spacingRaw False (Border 8 18 12 12) True (Border 0 0 0 0) True $
+        limitWindows
+          20
+          Full
