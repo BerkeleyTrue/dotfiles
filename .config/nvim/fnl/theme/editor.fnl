@@ -55,26 +55,26 @@
   (add-group :SpellCap          c.none c.none s.undercurl) ; Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
   (add-group :SpellLocal        c.none c.none s.undercurl) ; Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
   (add-group :SpellRare         c.none c.none s.undercurl) ; Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-  (add-group :Statusline        c.text c.mantle) ; status line of current window
+  (add-group :Statusline        c.text c.base) ; status line of current window
   (add-group :StatusLineNC      c.surface1 c.mantle) ; status lines of not-current windows
-  (hl.link!  :StatusLineTerm    :StatusLine) s.bold ; status line of current terminal window
+  (hl.link!  :StatusLineTerm    :StatusLine s.bold) ; status line of current terminal window
   (hl.link!  :StatusLineTermNC  :StatusLineNC) ; status lines of not-current terminal windows
-  (add-group :TabLine           c.surface1 c.mantle) ; tab pages line, not active tab page label
+  (add-group :TabLine           c.surface1 c.base) ; tab pages line, not active tab page label
   (add-group :TabLineFill       c.none c.none) ; tab pages line, where there are no labels
   (add-group :TabLineSel        c.green c.surface1) ; tab pages line, active tab page label
   (add-group :Title             c.blue c.none s.bold) ; titles for output from ":set all", ":autocmd" etc.
-  (add-group :VertSplit         c.none c.none) ; the column separating vertically split windows
+  (add-group :VertSplit         c.red c.base) ; the column separating vertically split windows
   (add-group :Visual            c.none c.surface1 s.bold) ; Visual mode selection
   (add-group :VisualNOS         c.none c.surface1 s.bold) ; Visual mode selection when vim is "Not Owning the Selection".
   (add-group :WarningMsg        c.yellow) ; warning messages
   (add-group :Whitespace        c.surface1) ; "nbsp", "space", "tab" and "trail" in 'listchars'
   (add-group :WildMenu          c.none c.overlay0) ; current match in 'wildmenu' completion
-  (add-group :WinBar            c.none c.bglighter s.bold)
+  (add-group :WinBar            c.none c.base s.bold)
 
   ; status line helpers for separators
-  (add-group :BerksStatusLineMod          c.yellow c.mantle)
-  (add-group :BerksStatusLineModInverse   c.mantle c.yellow)
-  (add-group :BerksStatusLineInfo         c.blue c.mantle)
-  (add-group :BerksStatusLineInfoInverse  c.mantle c.blue)
-  (add-group :BerksStatusLineErr          c.red c.mantle)
-  (add-group :BerksStatusLineErrInverse   c.mantle c.red))
+  (add-group :BerksStatusLineMod          c.yellow c.base)
+  (add-group :BerksStatusLineModInverse   c.base c.yellow)
+  (add-group :BerksStatusLineInfo         c.blue c.base)
+  (add-group :BerksStatusLineInfoInverse  c.base c.blue)
+  (add-group :BerksStatusLineErr          c.red c.base)
+  (add-group :BerksStatusLineErrInverse   c.base c.red))

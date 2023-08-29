@@ -11,9 +11,9 @@
 
 (def theme
  {:normal
-  {:a {:bg c.blue :fg c.mantle :gui :bold}
+  {:a {:bg c.blue :fg c.base :gui :bold}
    :b {:bg c.surface1 :fg c.blue}
-   :c {:bg c.mantle :fg c.text}}
+   :c {:bg c.base :fg c.text}}
   :insert
   {:a {:bg c.green :fg c.base :gui :bold}
    :b {:bg c.surface1 :fg c.teal}}
@@ -30,6 +30,6 @@
   {:a {:bg c.red :fg c.base :gui :bold}
    :b {:bg c.surface1 :fg c.red}}
   :inactive
-  {:a {:bg c.mantle :fg c.blue}
-   :b {:bg c.mantle :fg c.surface1 :gui :bold}
-   :c {:bg c.mantle :fg c.overlay0}}})
+  {:a {:bg c.base :fg c.blue}
+   :b {:bg c.base :fg c.surface1 :gui :bold}
+   :c {:bg c.base :fg c.overlay0}}})
