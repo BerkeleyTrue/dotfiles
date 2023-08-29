@@ -94,6 +94,7 @@
    :html {}
    :jsonls (jsonls-configs)
    :nixd {}
+   :nil_ls {}
    :prismals {}
    :purescriptls {}
    :solidity_ls {}
