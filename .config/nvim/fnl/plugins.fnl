@@ -116,7 +116,7 @@
    {:name :purescript-contrib/purescript-vim :description "adds purescript syntax" :ft :purescript}
 
    ;  
-   {:name :mattn/emmet-vim :description "DSL for html" :config (make-on-load emmet)}
+   {:name :mattn/emmet-vim :description "DSL for html" :init (make-init emmet) :config (make-on-load emmet)}
    {:name :vuki656/package-info.nvim :description "update package json in nvim" :dependencies [[:MunifTanjim/nui.nvim]] :config (make-on-load package-info)}
    {:name :wavded/vim-stylus :description "stylus lang syntax"}])
 

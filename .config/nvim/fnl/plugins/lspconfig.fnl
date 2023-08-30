@@ -12,7 +12,7 @@
    require-macros [macros]})
 
 (defn get-capabilities []
-  (let [cmplsp (require :cmp_nvim_lsp)]
+  (when-let [cmplsp (md.prequire :cmp_nvim_lsp)]
     (cmplsp.default_capabilities)))
 
 (defn caramel-configs [lsputil]
