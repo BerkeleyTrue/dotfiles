@@ -62,10 +62,10 @@
              (fn []
                (comment (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry))))
                (if (and luasnip (not (cmp.get_active_entry)))
-                 (luasnip.expand_auto)
-                 (cmp.confirm
-                   {:behavior cmp.ConfirmBehavior.Insert
-                    :select true})))}
+                 (luasnip.expand_auto))
+               (cmp.confirm
+                 {:behavior cmp.ConfirmBehavior.Insert
+                  :select false}))}
             [:i :s :c])
 
           :<C-Space>
