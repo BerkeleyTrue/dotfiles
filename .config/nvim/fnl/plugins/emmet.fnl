@@ -20,16 +20,18 @@
    :typescriptreact
    :xml])
 
-(defn main []
+(defn init []
   (utils.set-nvim-g!
     {:user_emmet_install_global 0
+     :user_emmet_leader_key "<c-e>"
      :user_emmet_settings
      {:html {:quote_char "'"}
       :jsx {:quote_char "'"}
       :javascript.jsx {:extends "jsx"}}})
-
   (augroup
     :EmmetGroup
     {:event :FileType
      :pattern filetypes
      :callback add-emmet}))
+
+(defn main [])
