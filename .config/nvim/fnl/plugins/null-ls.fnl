@@ -40,7 +40,7 @@
                                                                 :args ["fmt"]
                                                                 :to_temp_file true
                                                                 :from_temp_file true})
-                 null_ls.builtins.diagnostics.ansiblelint]]
+                 null-ls.builtins.diagnostics.ansiblelint]]
 
 
     (null-ls.setup {: sources})))

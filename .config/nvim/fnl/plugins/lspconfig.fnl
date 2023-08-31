@@ -80,6 +80,13 @@
      {:lint
       {:enable false}}}}})
 
+(defn html-configs []
+ {:on_attach
+  (fn html-on-attach [client buffnr]
+    (tset client.server_capabilities :documentFormattingProvider false)
+    (general-on-attach client buffnr))})
+
+
 (def lsps
   {:ansiblels (ansible-configs)
    :bashls {:on_attach general-on-attach-with-navic}
@@ -87,11 +94,9 @@
    :dockerls {}
    :emmet_ls (emmetls.get-config)
    :eslint {}
-   ; :fennel_ls {} ; disabled for now, since it doesn't pick up macros
-   ; :fennel_language_server {} ; disabled for now, since it doesn't pick up macros
    :gopls {:on_attach general-on-attach-with-navic}
    :hls {:on_attach general-on-attach-with-navic}
-   :html {}
+   :html (html-configs)
    :jsonls (jsonls-configs)
    :nixd {}
    :nil_ls {}
