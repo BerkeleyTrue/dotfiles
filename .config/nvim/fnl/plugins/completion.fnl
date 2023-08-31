@@ -13,7 +13,7 @@
 (defn- create-formatter []
   (when-let [lspkind (lspkind.main)]
     (lspkind.cmp_format
-      {:with_text true
+      {:mode :text_symbol
        :menu
        {:nvim_lsp "[LSP]"
         :conjure "[conj]"
@@ -30,18 +30,49 @@
 
 (defn get-sources []
   [{:name :luasnip}
-   {:name :nvim_lsp :max_item_count 10}
+   {:name :nvim_lsp}
    {:name :conjure :max_item_count 10}
    {:name :path}
    {:name :tmux}
-   {:name :treesitter} ; Not sure if this is workig yet
+   {:name :treesitter} ; Not sure if this is working yet
    {:name :nvim_lua}
    {:name :dictionary :keyword_length 2 :max_item_count 5}
    {:name :buffer :keyword_length 5}
    {:name :emoji :insert true :max_item_count 5}])
 
+(defn open-on-insert []
+  "Close popup if we are on ./,/ or space.
+   Open popup if we are on a word. "
+  (print "open-on-insert")
+  (when-let [cmp (md.prequire :cmp)]
+    (let [line (vim.api.nvim_get_current_line)
+          cursor (. (vim.api.nvim_win_get_cursor 0) 2)
+          current (string.sub line cursor (+ cursor 1))]
+      (when (or (= current ".")
+                (= current ",")
+                (= current " "))
+        (print "close")
+        (cmp.close))
+      (let [before-line (string.sub line 1 (+ cursor 1))
+            after-line (string.sub line (+ cursor 1) (- 1))]
+        (when (not (string.match before-line "^%s+$"))
+          (when (or (= after-line "")
+                    (string.match before-line " $")
+                    (string.match before-line "%.$"))
+            (print "open")
+            (cmp.complete)))))))
+
+(comment (open-on-insert))
+
 (defn main []
   (when-let [cmp (md.prequire :cmp)]
+    (inoremap :<C-s> "<Cmd>lua require('cmp').complete()<CR>" {:silent true})
+    (augroup
+      :AutoPopup
+      {:event [:TextChangedI :TextChangedP]
+       :pattern :*
+       :callback open-on-insert})
+
     (let [luasnip (md.prequire :luasnip)]
       (cmp.setup
         {:sources (get-sources)
@@ -68,12 +99,10 @@
                   :select false}))}
             [:i :s :c])
 
-          :<C-Space>
-          (cmp.mapping
-            (cmp.mapping.complete
-              {:reason cmp.ContextReason.Auto
-               :config {:sources (get-sources)}})
-            [:i :c])
+          ; :<C-s>
+          ; (cmp.complete
+          ;   {:reason cmp.ContextReason.Manual
+          ;    :config {:sources (get-sources)}})
 
           :<C-n>
           (cmp.mapping
