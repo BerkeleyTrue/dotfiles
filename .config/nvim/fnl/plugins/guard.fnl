@@ -27,8 +27,24 @@
 (defn main []
   (when-let [guard (md.prequire :guard)]
     (let [ft (md.prequire :guard.filetype)]
-      (doto (ft prettier-fts)
-        (: :fmt :prettier))
-      (doto (ft :nix)
-        (: :fmt {:cmd "nix" :args ["fmt" "--" "-c" "--quiet"] :stdin true})) ; requires alejandra for formatting
+      (->
+        (ft prettier-fts)
+        (: :fmt :prettier)) ; requires prettier for formatting
+
+      (->
+        (ft :nix)
+        (: :fmt {:cmd "alejandra" :args [:-c :--quiet] :stdin true})) ; requires alejandra for formatting
+
+      (->
+        (ft "bash,sh,zsh")
+        (: :fmt :shfmt)) ; requires shfmt for formatting
+
+      (->
+        (ft :purescript)
+        (: :fmt {:cmd "purs-tidy" :args [:format] :stdin true})) ; requires purs-tidy for formatting
+
+      (->
+        (ft :go)
+        (: :fmt :lsp)
+        (: :append :golines))
       (guard.setup {}))))

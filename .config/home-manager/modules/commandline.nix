@@ -114,8 +114,17 @@ in {
       extraPackages = with pkgs; [
         parinfer-rust
         tree-sitter # to build grammars from source
-        lua-language-server
-        nodePackages.prettier # for formatting
+
+        lua-language-server # A language server for Lua
+        nodePackages.bash-language-server # A language server for Bash
+        nil #nix language server
+        nixd # nix language server
+
+        nodePackages.prettier # for formatting js, ts, css, html, json, yaml, markdown
+        alejandra # formatting nix
+        shfmt # formatting shell scripts
+        nodePackages.purs-tidy # formatting purescript
+        golines # formatting long lines in go
       ];
 
       plugins = with pkgs.vimPlugins; [

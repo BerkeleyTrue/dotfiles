@@ -49,20 +49,10 @@
   (nnoremap :zca "<CMD>lua vim.lsp.buf.code_action()<CR>" {:buffer buffnr :silent true})
   (nnoremap :zrn "<CMD>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr :silent true})
   (nnoremap :K open-hover-float {:buffer buffnr :silent true})
-  (vnoremap
-    :zf
-    (fn []
-      (let [(start-row _) (unpack (vim.api.nvim_buf_get_mark 0 "<"))
-            (end-row _) (unpack (vim.api.nvim_buf_get_mark 0 ">"))]
-        (vim.lsp.buf.format
-          {:async true
-           :range ; still seems to effect the whole buffer
-           {:start [start-row 0]
-            :end [end-row 0]}})))
-    {:buffer buffnr :silent true})
-  (if (client.supports_method :textDocument/formatting)
-    (nnoremap :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr :silent true})
-    (nnoremap :zf "<CMD>GuardFmt<CR>" {:buffer buffnr :silent true}))
+
+  ; always go through guard.nvim for formatting
+  ; will need to add them to plugins.guard if you want to use them
+  (nnoremap :zf "<CMD>GuardFmt<CR>" {:buffer buffnr :silent true})
   (tset
     vim.lsp.handlers
     :textDocument/hover
