@@ -29,4 +29,6 @@
     (let [ft (md.prequire :guard.filetype)]
       (doto (ft prettier-fts)
         (: :fmt :prettier))
+      (doto (ft :nix)
+        (: :fmt {:cmd "nix" :args ["fmt" "--" "-c" "--quiet"] :stdin true})) ; requires alejandra for formatting
       (guard.setup {}))))

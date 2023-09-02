@@ -15,6 +15,11 @@
   (when-let [cmplsp (md.prequire :cmp_nvim_lsp)]
     (cmplsp.default_capabilities)))
 
+(defn create-disable-formatting [on-attach]
+  (fn [client buffnr]
+    (tset client.server_capabilities :documentFormattingProvider false)
+    (on-attach client buffnr)))
+
 (defn caramel-configs [lsputil]
   {:default_config
    {:cmd [:caramel-lsp :start]
@@ -83,13 +88,6 @@
      {:lint
       {:enable false}}}}})
 
-(defn html-configs []
- {:on_attach
-  (fn html-on-attach [client buffnr]
-    (tset client.server_capabilities :documentFormattingProvider false)
-    (general-on-attach client buffnr))})
-
-
 (def lsps
   {:ansiblels (ansible-configs)
    :bashls {:on_attach general-on-attach-with-navic}
@@ -99,10 +97,10 @@
    :eslint {}
    :gopls {:on_attach general-on-attach-with-navic}
    :hls {:on_attach general-on-attach-with-navic}
-   :html (html-configs)
+   :html {:on_attach (create-disable-formatting general-on-attach)}
    :jsonls (jsonls-configs)
-   :nixd {}
-   :nil_ls {}
+   :nixd {:on_attach (create-disable-formatting general-on-attach)}
+   :nil_ls {:on_attach (create-disable-formatting general-on-attach-with-navic)}
    :prismals {}
    :purescriptls {}
    :solidity_ls {}
