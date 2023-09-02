@@ -13,6 +13,12 @@
    {:direction (. (require :hop.hint) :HintDirection :AFTER_CURSOR)
     :current_line_only true}))
 
+(defn hop-till []
+  ((. (require :hop) :hint_char1)
+   {:direction (. (require :hop.hint) :HintDirection :AFTER_CURSOR)
+    :current_line_only true
+    :hint_offset -1}))
+
 (defn hop-vertical-j []
   ((. (require :hop)
     :hint_vertical)
@@ -28,5 +34,6 @@
     (hop.setup)
     (nmap :f (cviml->lua* hop-find))
     (vmap :f (cviml->lua* hop-find))
+    (vmap :t (cviml->lua* hop-till))
     (nmap :<leader>j (cviml->lua* hop-vertical-j))
     (nmap :<leader>k (cviml->lua* hop-vertical-k))))
