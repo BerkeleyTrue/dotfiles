@@ -44,7 +44,7 @@
    {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)}
    {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
-   {:name :jose-elias-alvarez/null-ls.nvim :description "non lsp lsp sources" :config (make-on-load null-ls)}
+   {:name :nvimdev/guard.nvim :description "Async formatting and linting utility for neovim." :config (make-on-load guard)}
    {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
    {:name :b0o/schemastore.nvim :description "adds schemastore to jsonls through lspconfig" :dependencies [[:neovim/nvim-lspconfig]] :lazy false}
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}

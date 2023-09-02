@@ -80,24 +80,13 @@
 
          :highlight {:enable true}
          :incremental_selection
-         {
-          :enable true
-          :keymaps
-          {                           ; mappings for incremental selection (visual mappings)
-           :init_selection "gni"      ; maps in normal mode to init the node/scope selection
+         {:enable true
+          :keymaps                    ; mappings for incremental selection (visual mappings)
+          {:init_selection "gni"      ; maps in normal mode to init the node/scope selection
            :node_incremental "gni"    ; increment to the upper named parent
            :scope_incremental "gci"   ; increment to the upper scope (as defined in locals.scm)
            :node_decremental "gnd"}}  ; decrement to the previous node
          :indent {:enable true}
-
-         :refactor
-         {
-          :highlight_definitions {:enable true}
-          :highlight_current_scope {:enable false}
-          :smart_rename
-          {
-           :enable true
-           :keymaps {:smart_rename "grr"}}}
 
          :playground {:enable true}
          :query_linter {:enable true}

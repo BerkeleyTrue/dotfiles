@@ -32,15 +32,15 @@
     {}))
 
 (defn open-hover-float []
-  "disable cursor hold, open hover float, then renamble cursor hold on cursor move"
+  "disable cursor hold, open hover float, then re-enable cursor hold on cursor move"
   (command set "eventignore=CursorHold")
   (vim.lsp.buf.hover)
   (command autocmd "CursorMoved <buffer> ++once set eventignore=\"\""))
 
 
 (defn- general-on-attach [client buffnr]
-  (nnoremap :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr :silent true})
-  (nnoremap :gd "<CMD>lua vim.lsp.buf.definition()<CR>" {:buffer buffnr :silent true})
+  (nnoremap :gd "<CMD>Telescope lsp_definitions<CR>" {:buffer buffnr :silent true})
+  (nnoremap :gr "<CMD>Telescope lsp_references<CR>" {:buffer buffnr :silent true})
   (nnoremap :zca "<CMD>lua vim.lsp.buf.code_action()<CR>" {:buffer buffnr :silent true})
   (nnoremap :zrn "<CMD>lua vim.lsp.buf.rename()<CR>" {:buffer buffnr :silent true})
   (nnoremap :K open-hover-float {:buffer buffnr :silent true})
@@ -55,6 +55,9 @@
            {:start [start-row 0]
             :end [end-row 0]}})))
     {:buffer buffnr :silent true})
+  (if (client.supports_method :textDocument/formatting)
+    (nnoremap :zf "<CMD>lua vim.lsp.buf.format({ async = true })<CR>" {:buffer buffnr :silent true})
+    (nnoremap :zf "<CMD>GuardFmt<CR>" {:buffer buffnr :silent true}))
   (tset
     vim.lsp.handlers
     :textDocument/hover
