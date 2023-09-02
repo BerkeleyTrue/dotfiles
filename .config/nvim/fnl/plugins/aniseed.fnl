@@ -8,11 +8,17 @@
    require-macros [macros]})
 
 
-(defn compile-fnl []
+(defn aniseed-compile []
   (print :recompiling)
-  (anenv.init
-    {:force true
-     :init :foo}))
+  (anenv.init {:force true}))
 
 (defn main []
-  (command! :AniseedCompile (viml->lua* compile-fnl)))
+  (command! :AniseedCompile aniseed-compile)
+  (let [fnl-dir (.. (vim.fn.stdpath :config) "/fnl/*.fnl")]
+
+    (augroup
+      :AniseedMaps
+      {:event :BufReadPost
+       :pattern fnl-dir
+       :callback (fn add-aniseed-compile []
+                   (nnoremap :<leader>ac aniseed-compile {:silent true :buffer true}))})))
