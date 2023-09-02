@@ -6,34 +6,29 @@
     utils utils}
    require-macros [macros]})
 
-;-- place this in one of your configuration file(s)
-(defn hop-find []
-  ((. (require :hop)
-    :hint_char1)
-   {:direction (. (require :hop.hint) :HintDirection :AFTER_CURSOR)
-    :current_line_only true}))
-
-(defn hop-till []
-  ((. (require :hop) :hint_char1)
-   {:direction (. (require :hop.hint) :HintDirection :AFTER_CURSOR)
-    :current_line_only true
-    :hint_offset -1}))
-
-(defn hop-vertical-j []
-  ((. (require :hop)
-    :hint_vertical)
-   {:direction (. (require :hop.hint) :HintDirection :AFTER_CURSOR)}))
-
-(defn hop-vertical-k []
-  ((. (require :hop)
-    :hint_vertical)
-   {:direction (. (require :hop.hint) :HintDirection :BEFORE_CURSOR)}))
-
 (defn main []
   (when-let [hop (md.prequire :hop)]
-    (hop.setup)
-    (nmap :f (cviml->lua* hop-find))
-    (vmap :f (cviml->lua* hop-find))
-    (vmap :t (cviml->lua* hop-till))
-    (nmap :<leader>j (cviml->lua* hop-vertical-j))
-    (nmap :<leader>k (cviml->lua* hop-vertical-k))))
+    (let [hint (require :hop.hint)
+          hop-find (fn hop-find []
+                     (hop.hint_char1
+                       {:direction hint.HintDirection.AFTER_CURSOR
+                        :current_line_only true}))
+
+          hop-till (fn hop-till []
+                     (hop.hint_char1
+                       {:direction hint.HintDirection.AFTER_CURSOR
+                        :current_line_only true
+                        :hint_offset -1}))
+          hop-vertical-j (fn hop-vertical-j []
+                           (hop.hint_vertical
+                             {:direction hint.HintDirection.AFTER_CURSOR}))
+
+          hop-vertical-k (fn hop-vertical-k []
+                           (hop.hint_vertical
+                             {:direction hint.HintDirection.BEFORE_CURSOR}))]
+      (nmap :f hop-find)
+      (vmap :f hop-find)
+      (vmap :t hop-till)
+      (nmap :<leader>j hop-vertical-j)
+      (nmap :<leader>k hop-vertical-k)
+      (hop.setup))))
