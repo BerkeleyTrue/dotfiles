@@ -113,6 +113,7 @@ in
         parinfer-rust
         tree-sitter # to build grammars from source
         lua-language-server
+        nodePackages.prettier # for formatting
       ];
 
       plugins = with pkgs.vimPlugins; [
