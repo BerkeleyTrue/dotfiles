@@ -34,19 +34,19 @@
 
     ; Resize splits when the window is resized
     {:event :VimResized
-    :pattern :*
-    :cmd "exe \"normal! \\<c-w>=\""}
+     :pattern :*
+     :cmd "exe \"normal! \\<c-w>=\""}
 
     ; Make vim open on the line you closed the buffer on
     {:event [:BufReadPost]
-    :pattern :*
-    :callback go-to-last-edit}
+     :pattern :*
+     :callback go-to-last-edit}
 
     ; make sure cursor always starts on the first line for gitcommit files
     {:event [:FileType]
-    :pattern :gitcommit
-    :cmd "call setpos ('.', [0, 1, 1, 0])"}
+     :pattern :gitcommit
+     :cmd "call setpos ('.', [0, 1, 1, 0])"}
 
     {:event [:BufWritePost]
-    :pattern :package.yaml
-    :callback hpack-auto-gen})
+     :pattern :package.yaml
+     :callback hpack-auto-gen})
