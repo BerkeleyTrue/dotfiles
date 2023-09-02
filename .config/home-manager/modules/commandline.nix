@@ -5,6 +5,26 @@ let
   });
   dotDir = ".config/";
   relToDotDir = file: dotDir + file;
+
+  projects = pkgs.writeShellScriptBin "projects" ''
+    # This script is used to find all the top level git folders in a directory
+    _get_git_folders() {
+      local dir="$1"
+      local git_folder
+
+      # throw error if no directory is passed
+      if [ -z "$dir" ]; then
+        echo "No directory passed"
+        exit 1
+      fi
+
+      while read -r git_folder; do
+        echo "$git_folder"
+      done < <(fd ".git$" "$dir" -t d --hidden | xargs dirname | xargs realpath | sort)
+    }
+
+    _get_git_folders "$@"
+  '';
 in
 {
   home.packages = with pkgs; [
@@ -18,7 +38,6 @@ in
     fd # A simple, fast and user-friendly alternative to find
     fzf # A command-line fuzzy finder
     getOptions # A library for parsing command line options
-    gfold # CLI tool to help keep track of your Git repositories, written in Rust
     gh # GitHub CLI
     glow # Render markdown on the CLI, with pizzazz!
     handlr # Alternative to xdg-open to manage default applications with ease
@@ -30,6 +49,7 @@ in
     p7zip # 7-Zip is a file archiver with a high compression ratio
     playerctl # pause/play music players ci
     procs # A modern replacement for ps written in Rust
+    projects # A script to find all the top level git folders in a directory
     ripgrep # recursively searches directories for a regex pattern
     rsync # Fast incremental file transfer utility
     rustscan # The Modern Port Scanner

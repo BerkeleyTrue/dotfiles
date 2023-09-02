@@ -27,7 +27,7 @@ let
 in
 {
   # A terminal multiplexer
-  home.packages =  [
+  home.packages = [
     pkgs.tmux
   ] ++ tmuxPlugins;
 
