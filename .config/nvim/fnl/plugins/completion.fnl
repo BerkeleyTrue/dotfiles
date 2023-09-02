@@ -43,7 +43,7 @@
 (defn open-on-insert []
   "Close popup if we are on ./,/ or space.
    Open popup if we are on a word. "
-  (print "open-on-insert")
+  ; (print "open-on-insert")
   (when-let [cmp (md.prequire :cmp)]
     (let [line (vim.api.nvim_get_current_line)
           cursor (. (vim.api.nvim_win_get_cursor 0) 2)
@@ -51,7 +51,7 @@
       (when (or (= current ".")
                 (= current ",")
                 (= current " "))
-        (print "close")
+        ; (print "close")
         (cmp.close))
       (let [before-line (string.sub line 1 (+ cursor 1))
             after-line (string.sub line (+ cursor 1) (- 1))]
@@ -59,7 +59,7 @@
           (when (or (= after-line "")
                     (string.match before-line " $")
                     (string.match before-line "%.$"))
-            (print "open")
+            ; (print "open")
             (cmp.complete)))))))
 
 (comment (open-on-insert))
