@@ -22,9 +22,13 @@
       url = "github:hercules-ci/flake-parts";
     };
 
+    parinfer-rust = {
+      url = "github:PhilTaken/parinfer-rust";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, flake-parts, ... }:
+  outputs = inputs@{ self, flake-parts, parinfer-rust, ... }:
     flake-parts.lib.mkFlake { inherit self inputs; } {
       systems = [ "x86_64-linux" ];
       imports = [ ./home-manager.nix ];
@@ -38,6 +42,7 @@
               (final: prev: {
                 rofi-network-manager = prev.pkgs.callPackage ./packages/rofi-network-manager { };
               })
+              parinfer-rust.overlays.default
             ];
             config = {
               allowUnfree = true;
@@ -46,7 +51,7 @@
         in
         {
           _module.args.pkgs = pkgs;
-          formatter = pkgs.nixpkgs-fmt;
+          formatter = pkgs.alejandra;
         };
     };
 }
