@@ -1,5 +1,8 @@
-{ pkgs, lib }:
-pkg: pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
+{
+  pkgs,
+  lib,
+}: pkg:
+pkgs.runCommand "${pkg.name}-nixgl-wrapper" {} ''
   mkdir $out
   ln -s ${pkg}/* $out
   rm $out/bin

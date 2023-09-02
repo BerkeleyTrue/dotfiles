@@ -1,8 +1,14 @@
 # ref: https://superuser.com/questions/1581577/running-two-tmux-sessions-as-systemd-service/1582196#1582196
-{ pkgs, lib, ... }:
-with lib;
-let
-  pluginName = p: if types.package.check p then p.pname else p.plugin.pname;
+{
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  pluginName = p:
+    if types.package.check p
+    then p.pname
+    else p.plugin.pname;
   tmuxPlugins = with pkgs.tmuxPlugins; [
     battery
     better-mouse-mode
@@ -18,18 +24,24 @@ let
     # Load plugins Managed by Home-Manager          #
     # --------------------------------------------- #
     ${(concatMapStringsSep "\n" (p: ''
-      # ${pluginName p}
-      # ---------------------
-      run-shell ${if types.package.check p then p.rtp else p.plugin.rtp}
-    '') tmuxPlugins)}
+        # ${pluginName p}
+        # ---------------------
+        run-shell ${
+          if types.package.check p
+          then p.rtp
+          else p.plugin.rtp
+        }
+      '')
+      tmuxPlugins)}
     # ============================================= #
   '';
-in
-{
+in {
   # A terminal multiplexer
-  home.packages = [
-    pkgs.tmux
-  ] ++ tmuxPlugins;
+  home.packages =
+    [
+      pkgs.tmux
+    ]
+    ++ tmuxPlugins;
 
   home.file.".config/tmux/tmux-plugins.tmux".source = tmuxPluginsConf;
 
@@ -39,8 +51,8 @@ in
   systemd.user.services.tmux-server = {
     Unit = {
       Description = "Tmux Server";
-      After = [ "graphical-session-pre.target" "tray.target" ];
-      PartOf = [ "graphical-session.target" ];
+      After = ["graphical-session-pre.target" "tray.target"];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -52,15 +64,15 @@ in
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 
   systemd.user.services.tmux = {
     Unit = {
       Description = "Tmux session";
-      PartOf = [ "tmux-server.service" ];
-      After = [ "tmux-server.service" ];
+      PartOf = ["tmux-server.service"];
+      After = ["tmux-server.service"];
     };
 
     Service = {
@@ -71,7 +83,7 @@ in
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

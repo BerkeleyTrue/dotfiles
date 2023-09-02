@@ -1,6 +1,9 @@
-{ pkgs, theme, ... }:
 {
-  home.packages = [ pkgs.dunst ];
+  pkgs,
+  theme,
+  ...
+}: {
+  home.packages = [pkgs.dunst];
   services.dunst = with theme.colors; {
     enable = true;
 
@@ -70,7 +73,6 @@
 
         # Browser for opening urls in context menu.
         browser = "org.mozilla.firefox";
-
 
         # Align icons left/right/off
         icon_position = "left";

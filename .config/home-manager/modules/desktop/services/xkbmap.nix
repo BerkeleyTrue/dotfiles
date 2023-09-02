@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   systemd.user.services.xkbmap = {
     Unit = {
       Description = "Set up keyboard in X";
       After = "graphical-session-pre.target";
-      PartOf = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -14,7 +13,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

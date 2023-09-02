@@ -1,10 +1,13 @@
-{ pkgs, nixGLWrap, ... }:
 {
+  pkgs,
+  nixGLWrap,
+  ...
+}: {
   systemd.user.services.picom = {
     Unit = {
       Description = "Picom X11 compositor";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
+      After = ["graphical-session-pre.target"];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -14,7 +17,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

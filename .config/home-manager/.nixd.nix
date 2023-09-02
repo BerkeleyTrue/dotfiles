@@ -3,7 +3,7 @@
   options = {
     enable = true;
     target = {
-      args = [ ];
+      args = [];
       # home-manager configuration
       installable = "/flakeref#homeConfigurations.<name>.options";
     };

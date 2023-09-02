@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./blueman.nix
     ./dunst.nix

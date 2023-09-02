@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-{
-
+{pkgs, ...}: {
   home.packages = with pkgs; [
     blueman
   ];
@@ -10,8 +8,8 @@
     Unit = {
       Description = "Blueman Applet";
       Requires = "tray.target";
-      After = [ "graphical-session-pre.target" "tray.target" ];
-      PartOf = [ "graphical-session.target" ];
+      After = ["graphical-session-pre.target" "tray.target"];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -19,7 +17,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

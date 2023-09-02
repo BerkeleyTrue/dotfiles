@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   getOptions = pkgs.getoptions.overrideAttrs (old: {
     doCheck = false; # Will break on yash otherwise
   });
@@ -25,8 +28,7 @@ let
 
     _get_git_folders "$@"
   '';
-in
-{
+in {
   home.packages = with pkgs; [
     antigen # zsh plugin manager
     bind # dns client
@@ -69,7 +71,7 @@ in
     zsh # A shell designed for interactive use, although it is also a powerful scripting language
   ];
 
-  home.file."${relToDotDir "taskell/config.ini"}".text = lib.generators.toINI { } {
+  home.file."${relToDotDir "taskell/config.ini"}".text = lib.generators.toINI {} {
     general = {
       filename = "kanban.md";
     };
@@ -117,14 +119,15 @@ in
       ];
 
       plugins = with pkgs.vimPlugins; [
+        parinfer-rust
         aniseed
         lazy-nvim
-        parinfer-rust
       ];
 
-      extraLuaPackages = luaPkgs: with luaPkgs; [
-        jsregexp # for luasnip
-      ];
+      extraLuaPackages = luaPkgs:
+        with luaPkgs; [
+          jsregexp # for luasnip
+        ];
     };
   };
 }

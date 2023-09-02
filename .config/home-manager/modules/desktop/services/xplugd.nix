@@ -1,9 +1,8 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   systemd.user.services.xplugd = {
     Unit = {
       Description = "Rerun after IO has changed using xplugd";
-      After = [ "graphical-session-pre.target" ];
+      After = ["graphical-session-pre.target"];
       PartOf = "graphical-session.target";
     };
 
@@ -13,7 +12,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

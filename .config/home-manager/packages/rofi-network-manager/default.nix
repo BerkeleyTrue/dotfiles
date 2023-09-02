@@ -1,7 +1,5 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.stdenv.mkDerivation {
-
   name = "rofi-network-manager";
 
   src = pkgs.fetchgit {
@@ -16,5 +14,4 @@ pkgs.stdenv.mkDerivation {
     cp ./rofi-network-manager.rasi $out/rofi-network-manager.rasi
     cp ./rofi-network-manager.conf $out/rofi-network-manager.conf
   '';
-
 }

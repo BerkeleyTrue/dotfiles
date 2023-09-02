@@ -28,19 +28,23 @@
     };
   };
 
-  outputs = inputs@{ self, flake-parts, parinfer-rust, ... }:
-    flake-parts.lib.mkFlake { inherit self inputs; } {
-      systems = [ "x86_64-linux" ];
-      imports = [ ./home-manager.nix ];
-      perSystem = { system, ... }:
-        with inputs;
-        let
+  outputs = inputs @ {
+    self,
+    flake-parts,
+    parinfer-rust,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit self inputs;} {
+      systems = ["x86_64-linux"];
+      imports = [./home-manager.nix];
+      perSystem = {system, ...}:
+        with inputs; let
           pkgs = import nixpkgs {
             inherit system;
             overlays = [
               nixgl.overlay
               (final: prev: {
-                rofi-network-manager = prev.pkgs.callPackage ./packages/rofi-network-manager { };
+                rofi-network-manager = prev.pkgs.callPackage ./packages/rofi-network-manager {};
               })
               parinfer-rust.overlays.default
             ];
@@ -48,8 +52,7 @@
               allowUnfree = true;
             };
           };
-        in
-        {
+        in {
           _module.args.pkgs = pkgs;
           formatter = pkgs.alejandra;
         };

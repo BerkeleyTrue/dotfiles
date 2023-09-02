@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   sync = pkgs.writeScriptBin "sync-tasks" ''
     #!/bin/bash
     TMUX_SESSION=__task-sync__
@@ -19,8 +18,7 @@ let
     cat $SYNC_LOG
     exit
   '';
-in
-{
+in {
   systemd.user.services.task-sync = {
     Unit = {
       Description = "Run Taskwarrior sync";
@@ -43,7 +41,7 @@ in
     };
 
     Install = {
-      WantedBy = [ "timers.target" ];
+      WantedBy = ["timers.target"];
     };
   };
 }

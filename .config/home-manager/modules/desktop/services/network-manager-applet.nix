@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     networkmanagerapplet
   ];
@@ -8,8 +7,8 @@
     Unit = {
       Description = "Network Manager applet";
       Requires = "tray.target";
-      After = [ "graphical-session-pre.target" "tray.target" ];
-      PartOf = [ "graphical-session.target" ];
+      After = ["graphical-session-pre.target" "tray.target"];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -17,7 +16,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

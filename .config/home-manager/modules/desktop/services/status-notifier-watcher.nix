@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     haskellPackages.status-notifier-item # sni system tray protocol
   ];
@@ -7,8 +6,8 @@
   systemd.user.services.status-notifier-watcher = {
     Unit = {
       Description = "Status Notifier Item watcher";
-      PartOf = [ "tray.target" ];
-      Before = [ "taffybar.service" ];
+      PartOf = ["tray.target"];
+      Before = ["taffybar.service"];
     };
 
     Service = {
@@ -19,7 +18,7 @@
     };
 
     Install = {
-      WantedBy = [ "tray.target" "taffybar.service" ];
+      WantedBy = ["tray.target" "taffybar.service"];
     };
   };
 }

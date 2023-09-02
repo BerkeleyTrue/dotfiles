@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   watch-sleep = pkgs.writeScriptBin "watch-sleep" ''
     #!/bin/bash
     dbus-monitor --system "type='signal',interface='org.freedesktop.login1.Manager',member=PrepareForSleep" | while read x; do
@@ -9,8 +8,7 @@ let
         esac
     done
   '';
-in
-{
+in {
   home.packages = with pkgs; [
     playerctl
     xsecurelock
@@ -28,7 +26,7 @@ in
   systemd.user.services.watch-sleep = {
     Unit = {
       Description = "Watch for sleep events and start/stop sleep.target";
-      After = [ "graphical-session.target" ];
+      After = ["graphical-session.target"];
     };
 
     Service = {
@@ -37,7 +35,7 @@ in
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 

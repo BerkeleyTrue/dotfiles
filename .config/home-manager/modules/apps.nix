@@ -1,5 +1,10 @@
-{ pkgs, nixGLWrap, theme, config, ... }:
-let
+{
+  pkgs,
+  nixGLWrap,
+  theme,
+  config,
+  ...
+}: let
   rofi = pkgs.rofi.override {
     plugins = with pkgs; [
       rofi-calc
@@ -7,7 +12,7 @@ let
     ];
   };
 
-  aspell = (pkgs.aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]));
+  aspell = pkgs.aspellWithDicts (dicts: with dicts; [en en-computers en-science]);
 
   rofi-spell = pkgs.writeShellScriptBin "rofi-spell" ''
     word=$(${aspell}/bin/aspell -d en dump master | ${aspell}/bin/aspell -l en expand | rofi -p 'spell' -dmenu)
@@ -20,25 +25,23 @@ let
     echo -n $word | ${pkgs.nodePackages.clipboard-cli}/bin/clipboard
     echo $word
   '';
-in
-{
-  home.packages = with pkgs;
-    [
-      (nixGLWrap alacritty) # GPU-accelerated terminal emulator
-      (nixGLWrap kitty) # GPU-accelerated terminal emulator
-      (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
-      aspell # spell checker
-      gparted # graphical partition manager
-      keybase # encrypted chat
-      keybase-gui # encrypted chat
-      postman # API Development Environment
-      rofi # launcher
-      rofi-spell # spell checker
-      rofi-bluetooth # rofi bluetooth manager
-      viewnior # fast image preview
-      vlc # Cross-platform media player and streaming server
-      zathura # pdf viewer
-    ];
+in {
+  home.packages = with pkgs; [
+    (nixGLWrap alacritty) # GPU-accelerated terminal emulator
+    (nixGLWrap kitty) # GPU-accelerated terminal emulator
+    (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
+    aspell # spell checker
+    gparted # graphical partition manager
+    keybase # encrypted chat
+    keybase-gui # encrypted chat
+    postman # API Development Environment
+    rofi # launcher
+    rofi-spell # spell checker
+    rofi-bluetooth # rofi bluetooth manager
+    viewnior # fast image preview
+    vlc # Cross-platform media player and streaming server
+    zathura # pdf viewer
+  ];
 
   services.keybase = {
     enable = true;
@@ -55,23 +58,20 @@ in
       CHANGE_BARS = true;
       ASCII_OUT = true;
     };
-    theme =
-      let
-        inherit (config.lib.formats.rasi) mkLiteral;
-        inherit (config.lib.formats.rasi) mkRef;
-        inherit (config.lib.formats.rasi) mkSimpleEl;
-        c = builtins.mapAttrs (name: value: mkLiteral value) theme.colors;
-        cls = theme.colors;
-      in
-      with cls;
-      {
-
+    theme = let
+      inherit (config.lib.formats.rasi) mkLiteral;
+      inherit (config.lib.formats.rasi) mkRef;
+      inherit (config.lib.formats.rasi) mkSimpleEl;
+      c = builtins.mapAttrs (name: value: mkLiteral value) theme.colors;
+      cls = theme.colors;
+    in
+      with cls; {
         configuration = {
           show-icons = false;
           sidebar-mode = false;
           hover-select = true;
           me-select-entry = "";
-          me-accept-entry = [ (mkLiteral "MousePrimary") ];
+          me-accept-entry = [(mkLiteral "MousePrimary")];
         };
 
         "*" = {

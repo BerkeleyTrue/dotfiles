@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   systemd.user.services.pasystray = {
     Unit = {
       Description = "Pulse Audio system tray";
@@ -8,7 +7,7 @@
         "graphical-session-pre.target"
         "tray.target"
       ];
-      PartOf = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -16,7 +15,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

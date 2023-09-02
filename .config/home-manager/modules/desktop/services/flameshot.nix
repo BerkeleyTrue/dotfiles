@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = [
     pkgs.flameshot
   ];
@@ -12,7 +11,7 @@
         "graphical-session-pre.target"
         "tray.target"
       ];
-      PartOf = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -28,7 +27,7 @@
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 }

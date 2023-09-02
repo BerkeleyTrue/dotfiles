@@ -1,41 +1,47 @@
-{ pkgs, config, lib, ... }:
-with lib;
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.programs.rofi-network-manager;
 
   mkValueString = value:
-    if isBool value then
-      if value then "true" else "false"
-    else if isInt value then
-      toString value
-    else if (value._type or "") == "literal" then
-      value.value
-    else if isString value then
-      ''"${value}"''
-    else if isList value then
-      "[ ${strings.concatStringsSep "," (map mkValueString value)} ]"
-    else
-      abort "Unhandled value type ${builtins.typeOf value}";
+    if isBool value
+    then
+      if value
+      then "true"
+      else "false"
+    else if isInt value
+    then toString value
+    else if (value._type or "") == "literal"
+    then value.value
+    else if isString value
+    then ''"${value}"''
+    else if isList value
+    then "[ ${strings.concatStringsSep "," (map mkValueString value)} ]"
+    else abort "Unhandled value type ${builtins.typeOf value}";
 
-  mkKeyValue = { sep ? ": ", end ? ";" }:
-    name: value:
-      "  ${name}${sep}${mkValueString value}${end}";
+  mkKeyValue = {
+    sep ? ": ",
+    end ? ";",
+  }: name: value: "  ${name}${sep}${mkValueString value}${end}";
 
   toKeyValue = generators.toKeyValue {
     listsAsDuplicateKeys = true;
   };
 
   mkRasiSection = name: value:
-    if isAttrs value then
-      let
-        toRasiKeyValue = generators.toKeyValue { mkKeyValue = mkKeyValue { }; };
-        # Remove null values so the resulting config does not have empty lines
-        configStr = toRasiKeyValue (filterAttrs (_: v: v != null) value);
-      in
-      ''
-        ${name} {
-        ${configStr}}
-      ''
+    if isAttrs value
+    then let
+      toRasiKeyValue = generators.toKeyValue {mkKeyValue = mkKeyValue {};};
+      # Remove null values so the resulting config does not have empty lines
+      configStr = toRasiKeyValue (filterAttrs (_: v: v != null) value);
+    in ''
+      ${name} {
+      ${configStr}}
+    ''
     else
       (mkKeyValue
         {
@@ -43,13 +49,15 @@ let
           end = "";
         }
         name
-        value) + "\n";
+        value)
+      + "\n";
 
-  rasiLiteral = types.submodule
+  rasiLiteral =
+    types.submodule
     {
       options = {
         _type = mkOption {
-          type = types.enum [ "literal" ];
+          type = types.enum ["literal"];
           internal = true;
         };
 
@@ -58,11 +66,12 @@ let
           internal = true;
         };
       };
-    } // {
-    description = "Rasi literal string";
-  };
+    }
+    // {
+      description = "Rasi literal string";
+    };
 
-  primitive = with types; (oneOf [ str int bool rasiLiteral ]);
+  primitive = with types; (oneOf [str int bool rasiLiteral]);
   configType = with types; attrsOf (either primitive (listOf primitive));
   themeType = with types; (either (attrsOf configType) bool);
 
@@ -70,10 +79,9 @@ let
     concatStringsSep "\n" (concatMap (mapAttrsToList mkRasiSection) [
       (filterAttrs (n: _: n == "@theme") attrs)
       (filterAttrs (n: _: n == "@import") attrs)
-      (removeAttrs attrs [ "@theme" "@import" ])
+      (removeAttrs attrs ["@theme" "@import"])
     ]);
-in
-{
+in {
   options.programs.rofi-network-manager = {
     enable = mkEnableOption "rofi-network-manager: network manager in rofi";
     settings = mkOption {
@@ -213,11 +221,9 @@ in
             type = types.str;
           };
         };
-
-
       };
 
-      default = { };
+      default = {};
 
       example = literalExpression ''
         {
@@ -299,9 +305,11 @@ in
     }
     (mkIf (cfg.theme != false) {
       home.file."${config.xdg.configHome}/rofi/rofi-network-manager.rasi" =
-        if (cfg.theme == null || !isAttrs cfg.theme) then {
+        if (cfg.theme == null || !isAttrs cfg.theme)
+        then {
           source = "${pkgs.rofi-network-manager}/rofi-network-manager.rasi";
-        } else {
+        }
+        else {
           text = toRasi cfg.theme;
         };
     })
