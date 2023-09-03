@@ -47,4 +47,7 @@
         (ft :go)
         (: :fmt :lsp)
         (: :append :golines))
+      (->
+        (ft :haskell)
+        (: :fmt :lsp))
       (guard.setup {}))))
