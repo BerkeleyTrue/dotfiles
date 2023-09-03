@@ -15,7 +15,6 @@ import Berks.Widgets.Clock
 import Berks.Widgets.Crypto
   ( btcWidget,
     ethWidget,
-    spyWidget,
   )
 import Berks.Widgets.Divider (plainDividerWidget)
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
@@ -32,6 +31,7 @@ import Data.List (intersperse)
 import Data.Unique (Unique)
 import Graphics.UI.GIGtkStrut (StrutPosition (..))
 import System.Taffybar.Context (BarConfig (..))
+import Berks.Widgets.Battery (batteryWidget)
 
 createPrimary :: Unique -> BarConfig
 createPrimary barId' =
@@ -45,9 +45,10 @@ createPrimary barId' =
           plainDividerWidget
           [clockWidget, layoutWidget, windowsWidget],
       endWidgets =
-        -- TODO: Add battery
         reverse
           [ powerMenuButton,
+            plainDividerWidget,
+            batteryWidget,
             plainDividerWidget,
             cpuTempWidget,
             plainDividerWidget,
@@ -68,7 +69,7 @@ createSecondary barId' =
       centerWidgets = [weatherWidget, plainDividerWidget, wakatimeWidget, plainDividerWidget, ethWidget],
       endWidgets =
         reverse
-          [btcWidget, spyWidget]
+          [btcWidget]
     }
 
 renasBars :: IO [BarConfig]

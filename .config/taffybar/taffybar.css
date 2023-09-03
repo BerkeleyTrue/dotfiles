@@ -175,8 +175,23 @@ menuitem:hover > label {
   background-color: @catppuccin-surface2;
 }
 
-
-.button #label {
+.button label {
   padding-left: 8px;
   padding-right: 8px;
 }
+
+.battery label {
+  color: @catppuccin-blue;
+}
+
+.battery .high {
+  color: @catppuccin-green
+}
+
+.batter .low {
+  color: @catppuccin-yellow
+}
+.batter .critical {
+  color: @catppuccin-red
+}
+/* vim:ft=scss */
