@@ -46,6 +46,7 @@
   (noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
   (noremap :<leader>ff (utils.cviml->lua :telescope.builtin :find_files))
   (noremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps))
+  (noremap :<leader>fo (utils.cviml->lua :telescope.builtin :oldfiles {:args "{cwd_only = true}"}))
   (noremap :z= (utils.cviml->lua :telescope.builtin :spell_suggest)))
 
 (defn setup-commands []
