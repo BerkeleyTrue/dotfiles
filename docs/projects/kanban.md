@@ -19,6 +19,11 @@
   - [x] model duet wifi mounts
   - [x] model power supply mounts
   - [ ] finish wiring up new board
+- Workstation
+  - move xlock back to yay install
+    > I can't get it to unlock when install with home-manager
+  - add online status to taffybar
+  - add border to full view layout
 
 ## Done
 
