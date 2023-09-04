@@ -32,7 +32,7 @@
 
         watch-compile = pkgs.writeShellScriptBin "watch-compile" ''
           set -x
-          stack build --fast --file-watch
+          stack build --fast --file-watch --copy-bins --local-bin-path bin/
         '';
 
         compile-taffybar = pkgs.writeShellScriptBin "compile-taffybar" ''
