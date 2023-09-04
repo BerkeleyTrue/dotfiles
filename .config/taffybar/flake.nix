@@ -2,24 +2,41 @@
   description = "My taffybar config";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    mission-control.url = "github:Platonic-Systems/mission-control";
+    flake-root.url = "https://flakehub.com/f/srid/flake-root/0.1.0.tar.gz";
   };
 
-  outputs = inputs@{ self, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit self inputs; } {
-
-      systems = [ "x86_64-linux" "x86_64-darwin" ];
+  outputs = inputs @ {
+    self,
+    flake-parts,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit self inputs;} {
+      systems = ["x86_64-linux"];
       imports = [
         inputs.flake-parts.flakeModules.easyOverlay
+        inputs.flake-root.flakeModule
+        inputs.mission-control.flakeModule
       ];
 
-      perSystem = { self', config, system, pkgs, lib, ... }:
-       let
+      perSystem = {
+        self',
+        config,
+        system,
+        pkgs,
+        lib,
+        ...
+      }: let
         hPkgs = pkgs.haskell.packages."ghc945";
         stack-wrapped = pkgs.symlinkJoin {
           name = "stack-wrapped";
-          paths = [ pkgs.stack ];
-          buildInputs = [ pkgs.makeWrapper ];
+          paths = [pkgs.stack];
+          buildInputs = [pkgs.makeWrapper];
           postBuild = ''
             wrapProgram $out/bin/stack \
               --add-flags "\
@@ -45,8 +62,6 @@
 
         devTools = with pkgs; [
           stack-wrapped
-          watch-compile
-          compile-taffybar
 
           hPkgs.haskell-language-server
           hpack
@@ -70,8 +85,26 @@
           xorg.libxcb
         ];
       in {
+        mission-control.scripts = {
+          watch-compile = {
+            exec = watch-compile;
+            description = "Watch and compile taffybar to local-bin-path";
+            category = "dev tools";
+          };
+
+          compile-taffybar = {
+            exec = compile-taffybar;
+            description = "Compile taffybar, install, and restart user service";
+            category = "dev tools";
+          };
+        };
+
         devShells.default = pkgs.mkShell {
           name = "taffybar";
+          inputsFrom = [
+            config.flake-root.devShell
+            config.mission-control.devShell
+          ];
           buildInputs = devTools;
 
           # Make external Nix c libraries like zlib known to GHC, like
@@ -84,7 +117,6 @@
             exit 0
           '';
         };
-
       };
-  };
+    };
 }
