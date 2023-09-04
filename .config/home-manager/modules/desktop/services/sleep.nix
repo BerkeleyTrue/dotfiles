@@ -11,7 +11,6 @@
 in {
   home.packages = with pkgs; [
     playerctl
-    xsecurelock
     dunst
     watch-sleep
   ];
@@ -39,23 +38,23 @@ in {
     };
   };
 
-  # xsecurelock wouldn't unlock
-  # systemd.user.services.sleep = {
-  #   Unit = {
-  #     Description = "User suspend actions";
-  #     Before = [ "sleep.target" ];
-  #   };
-  #
-  #   Service = {
-  #     Type = "forking";
-  #     Environment = "DISPLAY=:0";
-  #     ExecStartPre = "${pkgs.playerctl}/bin/playerctl pause & ${pkgs.dunst}/bin/dunstctl set-paused true";
-  #     ExecStart = "${pkgs.xsecurelock}/bin/xsecurelock";
-  #     ExecStop = "${pkgs.dunst}/bin/dunstctl set-paused false";
-  #   };
-  #
-  #   Install = {
-  #     WantedBy = [ "sleep.target" ];
-  #   };
-  # };
+  # home-manager xsecurelock won't unlock, use system package
+  systemd.user.services.sleep = {
+    Unit = {
+      Description = "User suspend actions";
+      Before = [ "sleep.target" ];
+    };
+
+    Service = {
+      Type = "forking";
+      Environment = "DISPLAY=:0";
+      ExecStartPre = "${pkgs.playerctl}/bin/playerctl pause & ${pkgs.dunst}/bin/dunstctl set-paused true";
+      ExecStart = "/usr/bin/xsecurelock";
+      ExecStop = "${pkgs.dunst}/bin/dunstctl set-paused false";
+    };
+
+    Install = {
+      WantedBy = [ "sleep.target" ];
+    };
+  };
 }
