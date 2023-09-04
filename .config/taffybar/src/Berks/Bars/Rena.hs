@@ -7,6 +7,7 @@ import Berks.Bars.Utils
   ( createBarConfigs,
     createBarStrut,
   )
+import Berks.Widgets.Battery (batteryWidget)
 import Berks.Widgets.CPU (cpuWidget)
 import Berks.Widgets.Clock
   ( calendarWidget,
@@ -21,6 +22,7 @@ import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
+import Berks.Widgets.Ping (connectivityWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
@@ -31,8 +33,6 @@ import Data.List (intersperse)
 import Data.Unique (Unique)
 import Graphics.UI.GIGtkStrut (StrutPosition (..))
 import System.Taffybar.Context (BarConfig (..))
-import Berks.Widgets.Battery (batteryWidget)
-import Berks.Widgets.Ping (connectivityWidget)
 
 createPrimary :: Unique -> BarConfig
 createPrimary barId' =
@@ -48,8 +48,6 @@ createPrimary barId' =
       endWidgets =
         reverse
           [ powerMenuButton,
-            plainDividerWidget,
-            batteryWidget,
             plainDividerWidget,
             cpuTempWidget,
             plainDividerWidget,
@@ -67,10 +65,13 @@ createSecondary barId' =
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [calendarWidget],
-      centerWidgets = [weatherWidget, plainDividerWidget, wakatimeWidget, plainDividerWidget, ethWidget],
+      centerWidgets = [weatherWidget, plainDividerWidget, wakatimeWidget, plainDividerWidget, ethWidget, btcWidget],
       endWidgets =
         reverse
-          [connectivityWidget, btcWidget]
+          [ batteryWidget,
+            plainDividerWidget,
+            connectivityWidget
+          ]
     }
 
 renasBars :: IO [BarConfig]

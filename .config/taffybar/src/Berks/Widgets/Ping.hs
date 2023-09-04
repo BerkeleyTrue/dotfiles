@@ -3,10 +3,10 @@ module Berks.Widgets.Ping
   )
 where
 
-import Berks.Colors (C (green, red), hexes)
+import Berks.Colors (C (..), hexes)
 import Data.Text
 import GI.Gtk (Widget)
-import System.Log.Logger (Priority (..), logM)
+import System.Log.Logger (errorM)
 import System.Taffybar.Context (TaffyIO)
 import System.Taffybar.Util (runCommand)
 import System.Taffybar.Widget (colorize)
@@ -30,16 +30,15 @@ routeToPing :: String
 routeToPing = "1.1.1.1" -- Cloudflare DNS
 
 pingCmdRunner :: [String] -> IO Bool
-pingCmdRunner args = runCommand pingCmd args >>= either logReturn logError
+pingCmdRunner args = runCommand pingCmd args >>= either logError (return . const True)
   where
-    logReturn val = logM "Berks.WidgetUtils" DEBUG (printf "Got return in CommandRunner %s" val) >> return True
-    logError err = logM "Berks.WidgetUtils" DEBUG (printf "Got error in CommandRunner %s" err) >> return False
+    logError err = errorM "Berks.Widgets.Ping" (printf "Got error in CommandRunner %s" err) >> return False
 
 isOnline :: IO Text
 isOnline = do
   isConnected <- pingCmdRunner ["-c", "1", "-w", pingTimeout, routeToPing]
   let icon = if isConnected then connectedIcon else disconnectedIcon
-  return $ pack $ colorize (if isConnected then green hexes else red hexes) "" icon
+  return $ pack $ colorize (if isConnected then sky hexes else red hexes) "" icon <> " "
 
 connectivityWidget :: TaffyIO Widget
 connectivityWidget = pollingLabelNew 1 isOnline
