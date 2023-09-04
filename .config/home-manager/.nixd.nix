@@ -5,7 +5,7 @@
     target = {
       args = [];
       # home-manager configuration
-      installable = "/flakeref#homeConfigurations.<name>.options";
+      installable = "/flakeref#homeConfigurations.berkeleytrue.options";
     };
   };
 }
