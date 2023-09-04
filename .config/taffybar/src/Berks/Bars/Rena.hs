@@ -32,6 +32,7 @@ import Data.Unique (Unique)
 import Graphics.UI.GIGtkStrut (StrutPosition (..))
 import System.Taffybar.Context (BarConfig (..))
 import Berks.Widgets.Battery (batteryWidget)
+import Berks.Widgets.Ping (connectivityWidget)
 
 createPrimary :: Unique -> BarConfig
 createPrimary barId' =
@@ -69,7 +70,7 @@ createSecondary barId' =
       centerWidgets = [weatherWidget, plainDividerWidget, wakatimeWidget, plainDividerWidget, ethWidget],
       endWidgets =
         reverse
-          [btcWidget]
+          [connectivityWidget, btcWidget]
     }
 
 renasBars :: IO [BarConfig]
