@@ -15,16 +15,13 @@ import Berks.Widgets.Clock
 import Berks.Widgets.Crypto
   ( btcWidget,
     ethWidget,
-    ohmWidget,
-    pickleWidget,
-    spyWidget,
-    xtzWidget,
   )
 import Berks.Widgets.Divider (plainDividerWidget)
 import Berks.Widgets.FSMonitor (fsMonitorWidget)
 import Berks.Widgets.Layout (layoutWidget)
 import Berks.Widgets.Memory (memoryWidget)
 import Berks.Widgets.MultiCoreTemp (cpuTempWidget)
+import Berks.Widgets.Ping (connectivityWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
@@ -51,16 +48,18 @@ createPrimary monitor barId' =
             layoutWidget,
             windowsWidget,
             wakatimeWidget,
-            ethWidget,
-            weatherWidget
+            ethWidget
           ],
       endWidgets =
         reverse
           [ powerMenuButton,
             plainDividerWidget,
+            connectivityWidget,
+            plainDividerWidget,
             cpuTempWidget,
             plainDividerWidget,
             fsMonitorWidget,
+            plainDividerWidget,
             cpuWidget,
             memoryWidget,
             sniTrayWidget
@@ -74,14 +73,14 @@ createSecondary monitor barId' =
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [workspacesWidget],
-      centerWidgets = [calendarWidget, plainDividerWidget, clockWidget],
+      centerWidgets = intersperse plainDividerWidget [calendarWidget, clockWidget, weatherWidget],
       endWidgets =
         reverse
-          [btcWidget, ohmWidget, xtzWidget, pickleWidget, spyWidget]
+          [btcWidget]
     }
 
 delorasBars :: Int32 -> IO [BarConfig]
 delorasBars monitors =
-  if monitors >= 1
-    then createBarConfigs [createPrimary monitors, createSecondary monitors]
+  if monitors >= 2
+    then createBarConfigs [createPrimary 0, createSecondary 1]
     else createBarConfigs [createPrimary 0, createSecondary 0]
