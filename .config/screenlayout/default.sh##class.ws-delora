@@ -2,7 +2,7 @@
 
 # This script is used to configure the monitors when the system starts up.
 
-update-xrandr() {
+update_xrandr() {
   local MAIN="DP-3"
   local SECONDARY="HDMI-1"
 
@@ -17,7 +17,7 @@ update-xrandr() {
   fi
 }
 
-update-xrandr
+update_xrandr
 
 sleep 500ms
 
