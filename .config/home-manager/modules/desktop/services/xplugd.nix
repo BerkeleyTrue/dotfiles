@@ -3,6 +3,7 @@
 
     if [ "$1" == "display" ]; then
       $HOME/.config/screenlayout/default.sh
+      systemd --user restart taffybar.service
       exit 0
     fi
 

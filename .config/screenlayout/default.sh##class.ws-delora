@@ -19,8 +19,6 @@ update_xrandr() {
 
 update_xrandr
 
-sleep 500ms
+sleep 200ms
 
 nitrogen --restore
-
-systemctl --user restart taffybar
