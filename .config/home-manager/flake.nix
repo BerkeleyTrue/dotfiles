@@ -43,10 +43,8 @@
             inherit system;
             overlays = [
               nixgl.overlay
-              (final: prev: {
-                rofi-network-manager = prev.pkgs.callPackage ./packages/rofi-network-manager {};
-              })
               parinfer-rust.overlays.default
+              (import ./overlays/rofi-network-manager)
             ];
             config = {
               allowUnfree = true;
