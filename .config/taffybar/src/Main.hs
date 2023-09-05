@@ -13,6 +13,7 @@ import System.Taffybar.Context
   ( BarConfig (..),
     TaffybarConfig (..),
   )
+import qualified GI.Gtk as Gdk
 
 getBars :: String -> Int32 -> IO [BarConfig]
 getBars hostName monitors = do
@@ -22,6 +23,7 @@ getBars hostName monitors = do
 
 main :: IO ()
 main = do
+  _ <- Gdk.init Nothing
   monitors <- getMonitorCount
   hostName <- getHostName
   bars <- getBars hostName monitors
