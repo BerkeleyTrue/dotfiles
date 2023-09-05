@@ -26,7 +26,7 @@ type Monocle =
 monocle :: Monocle Window
 monocle =
   renamed [Replace " \xf0c8 "] $
-    noBorders $
+    withBorder 4 $
       spacingRaw False (Border 8 18 12 12) True (Border 0 0 0 0) True $
         limitWindows
           20
