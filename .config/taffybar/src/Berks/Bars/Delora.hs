@@ -31,15 +31,16 @@ import Berks.Widgets.Wakatime (wakatimeWidget)
 import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
+import Data.Int (Int32)
 import Data.List (intersperse)
 import Data.Unique (Unique)
-import Graphics.UI.GIGtkStrut (StrutPosition (TopPos))
+import Graphics.UI.GIGtkStrut (StrutPosition (..))
 import System.Taffybar.Context (BarConfig (..))
 
-createPrimary :: Unique -> BarConfig
-createPrimary barId' =
+createPrimary :: Int32 -> Unique -> BarConfig
+createPrimary monitor barId' =
   BarConfig
-    { strutConfig = createBarStrut 0 TopPos Nothing,
+    { strutConfig = createBarStrut monitor TopPos Nothing,
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [workspacesWidget, calendarWidget],
@@ -66,10 +67,10 @@ createPrimary barId' =
           ]
     }
 
-createSecondary :: Unique -> BarConfig
-createSecondary barId' =
+createSecondary :: Int32 -> Unique -> BarConfig
+createSecondary monitor barId' =
   BarConfig
-    { strutConfig = createBarStrut 1 TopPos Nothing,
+    { strutConfig = createBarStrut monitor BottomPos Nothing,
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [workspacesWidget],
@@ -79,5 +80,8 @@ createSecondary barId' =
           [btcWidget, ohmWidget, xtzWidget, pickleWidget, spyWidget]
     }
 
-delorasBars :: IO [BarConfig]
-delorasBars = createBarConfigs [createPrimary, createSecondary]
+delorasBars :: Int32 -> IO [BarConfig]
+delorasBars monitors =
+  if monitors >= 1
+    then createBarConfigs [createPrimary monitors, createSecondary monitors]
+    else createBarConfigs [createPrimary 0, createSecondary 0]

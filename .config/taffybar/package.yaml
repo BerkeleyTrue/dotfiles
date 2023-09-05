@@ -21,7 +21,9 @@ dependencies:
   data-default:
   text:
   gi-gtk:
+  gi-gdk:
   gtk-strut:
+  gtk3:
   directory:
   process:
   hslogger:
