@@ -6,6 +6,7 @@ where
 import Berks.Bars.Delora (delorasBars)
 import Berks.Bars.Rena (renasBars)
 import Berks.Bars.Utils (getMonitorCount)
+import Control.Monad.Trans.Class (lift)
 import Data.Int (Int32)
 import Network.HostName (getHostName)
 import System.Taffybar (startTaffybar)
@@ -13,7 +14,6 @@ import System.Taffybar.Context
   ( BarConfig (..),
     TaffybarConfig (..),
   )
-import qualified GI.Gtk as Gdk
 
 getBars :: String -> Int32 -> IO [BarConfig]
 getBars hostName monitors = do
@@ -23,16 +23,16 @@ getBars hostName monitors = do
 
 main :: IO ()
 main = do
-  _ <- Gdk.init Nothing
-  monitors <- getMonitorCount
-  hostName <- getHostName
-  bars <- getBars hostName monitors
-  putStrLn $ "Starting Taffybar on " ++ hostName ++ " with " ++ show monitors ++ " monitors"
   startTaffybar $
     TaffybarConfig
       { dbusClientParam = Nothing,
         startupHook = return (),
-        getBarConfigsParam = return bars,
+        getBarConfigsParam = do
+          monitors <- lift getMonitorCount
+          hostName <- lift getHostName
+          bars <- lift $ getBars hostName monitors
+          lift $ putStrLn $ "Starting Taffybar on " ++ hostName ++ " with " ++ show monitors ++ " monitors"
+          return bars,
         cssPaths = [],
         errorMsg = Nothing
       }

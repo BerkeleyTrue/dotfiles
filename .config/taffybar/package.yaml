@@ -35,6 +35,7 @@ dependencies:
   gtk-sni-tray:
   enclosed-exceptions:
   hostname:
+  transformers:
 ghc-options:
   - -Wall
   - -Wcompat
