@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  withSystem,
   ...
 }:
 with lib; {
@@ -9,48 +8,45 @@ with lib; {
     inherit (inputs) home-manager nixpkgs;
 
     username = "berkeleytrue";
-    exposePackages = false;
+    exposePackages = true;
   };
 
-  profile-parts.global.home-manager = {
-    modules = {profile, ...}: let
-      pkgs = mkForce (import profile.nixpkgs {
-        inherit (profile) system;
+  profile-parts.global.home-manager = {profile, ...}: let
+    pkgs = mkForce (import profile.nixpkgs {
+      inherit (profile) system;
 
-        overlays = [
-          inputs.nixgl.overlay
-          inputs.parinfer-rust.overlays.default
-          (import ../overlays/rofi-network-manager)
-        ];
+      overlays = [
+        inputs.nixgl.overlay
+        inputs.parinfer-rust.overlays.default
+        (import ../overlays/rofi-network-manager)
+      ];
 
-        config = {
-          allowUnfree = true;
-        };
-      });
-    in [
+      config = {
+        allowUnfree = true;
+      };
+    });
+
+    theme = import ../theme {};
+
+    nixGLWrap = import ../lib/nixGL.nix {inherit pkgs lib;};
+  in {
+    modules = [
       {
         _module.args.pkgs = pkgs;
       }
     ];
 
-    specialArgs = {profile, ...}:
-      withSystem profile.system ({
-        pkgs,
-        ...
-      }: let
-        theme = import ../theme {};
-        nixGLWrap = import ./lib/nixGL.nix {inherit pkgs lib;};
-      in {
-        inherit inputs;
-
-        specialArgs = {
-          inherit theme nixGLWrap;
-        };
-      });
+    specialArgs = {inherit inputs theme nixGLWrap;};
   };
 
   profile-parts.home-manager = {
-    desktop = {
+    berkeleytrue = {
+      modules = [
+        ../base.nix
+      ];
+    };
+
+    bt = {
       modules = [
         ../base.nix
       ];
