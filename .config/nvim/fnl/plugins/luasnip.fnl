@@ -143,12 +143,13 @@
     (let [types (md.prequire :luasnip.util.types)]
       (luasnip.config.set_config
         {:history true
-          :update_events "TextChanged,TextChangedI"
-          :delete_check_events "InsertLeave"
-          :enable_autosnippets true
+         :update_events [:TextChanged :TextChangedI]
+         :delete_check_events [:TextChanged :InsertLeave]
+         :region_check_events [:CursorMoved]
+         :enable_autosnippets true
 
-          :ext_opts
-          {types.choiceNode
+         :ext_opts
+         {types.choiceNode
           {:active
             {:virt_text
               [["🌔" :BerksCyan]]}}
