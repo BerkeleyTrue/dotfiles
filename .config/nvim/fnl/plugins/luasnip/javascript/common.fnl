@@ -115,4 +115,12 @@
            (sn nil (fmta "
                      super();<>
                      "
-                     [(i 1 "")]))])]))])
+                     [(i 1 "")]))])]))
+   (s
+     {:trig "cx"
+      :name "class modules"
+      :dscr "Create a class module"
+      :wordTrig true}
+     (fmta "
+       className={cx('<>')}"
+       [(i 1 "")]))])
