@@ -5,20 +5,12 @@
   withSystem,
   ...
 }: let
-  defaults = config.profile-parts.default.home-manager;
-  globals = config.profile-parts.global.home-manager;
+  defaults = config.home-manager-parts.defaults;
+  globals = config.home-manager-parts.global;
 in
   with lib; {
     options = {
-      profile-parts.default.home-manager = {
-        enable = lib.mkOption {
-          type = types.bool;
-          description = mdDoc "Whether all homeManagerConfigurations should be enabled by default";
-          default = true;
-        };
-
-        exposePackages = mkEnableOption (mdDoc "Expose all homeManagerConfigurations at `.#packages.<system>.home/<profile name>`");
-
+      home-manager-parts.defaults = {
         home-manager = mkOption {
           type = types.unspecified;
           description = mdDoc "home-manager input to use for building all homeManagerConfigurations. Required";
@@ -29,25 +21,31 @@ in
           description = mdDoc "The default nixpkgs input to use for building homeManagerConfigurations. Required";
         };
 
+        enable = lib.mkOption {
+          type = types.bool;
+          description = mdDoc "Whether all homeManagerConfigurations should be enabled by default";
+          default = true;
+        };
+
         system = mkOption {
           type = types.enum platforms.all;
           description = mdDoc "The default system to use for building homeManagerConfigurations";
           default = "x86_64-linux";
         };
 
-        username = mkOption {
-          type = types.nullOr types.str;
-          description = mdDoc "The default username passed to home-manager, or `home.username`. If unset, profiles will use their attribute name.";
-          default = null;
+        exposePackages = mkOption {
+          type = types.bool;
+          description = mdDoc "Whether to expose homeManagerConfigurations output at `.#packages.<system>.home/<profile name>`";
+          default = true;
         };
       };
 
-      profile-parts.global.home-manager = mkOption {
+      home-manager-parts.global = mkOption {
         type = types.functionTo (types.submodule {
           options = {
             modules = mkOption {
               type = types.listOf types.unspecified;
-              description = mdDoc "List of modules to include in all homeManagerConfigurations. Can also be a function that will be passed the `name` and `profile`";
+              description = mdDoc "List of modules to include in all homeManagerConfigurations";
               default = [];
             };
 
@@ -58,12 +56,12 @@ in
             };
           };
         });
-        description = mdDoc "Global options for all homeManagerConfigurations, a function supplied name and profile";
+        description = mdDoc "Global options for all homeManagerConfigurations, a function supplied name, profile and pkgs";
       };
 
-      profile-parts.home-manager = mkOption {
+      home-manager-parts.profiles = mkOption {
         type = types.attrsOf (types.submodule ({
-          name,
+          name, # Key of the profile?
           config,
           ...
         }: {
@@ -79,13 +77,13 @@ in
               description = mdDoc "The home directory passed to home-manager, or `home.homeDirectory`";
               default =
                 if config.nixpkgs.legacyPackages.${config.system}.stdenv.isDarwin
-                then "/Users/${config.username}"
-                else "/home/${config.username}";
+                then "/Users/${name}"
+                else "/home/${name}";
             };
 
             home-manager = mkOption {
               type = types.unspecified;
-              description = mdDoc "home-manager input to use for building the homeManagerConfiguration. Required to be set per-profile or using `default.home-manager.home-manager`";
+              description = mdDoc "home-manager input to use for building the homeManagerConfiguration. Required to be set per-profile or using `defaults.home-manager`";
               default = defaults.home-manager;
             };
 
@@ -97,7 +95,7 @@ in
 
             nixpkgs = mkOption {
               type = types.unspecified;
-              description = mdDoc "nixpkgs input to use for building the homeManagerConfiguration. Required to be set per-profile or using `default.home-manager.nixpkgs";
+              description = mdDoc "nixpkgs input to use for building the homeManagerConfiguration. Required to be set per-profile or using `defaults.nixpkgs";
               default = defaults.nixpkgs;
             };
 
@@ -115,27 +113,25 @@ in
 
             username = mkOption {
               type = types.str;
-              description = mdDoc "The username passed to home-manager, or `home.username`. Defaults to default username if set, otherwise reads from the profile name";
-              default =
-                if (defaults.username == null)
-                then name
-                else defaults.username;
+              description = mdDoc "The username passed to home-manager, or `home.username`. Defaults to the profile name";
+              default = name;
             };
 
             # readOnly
 
-            finalHome = mkOption {
+            homeConfigOutput = mkOption {
               type = types.unspecified;
               readOnly = true;
+              description = mdDoc "Output of homeConfigurations call for this profile";
             };
 
             finalModules = mkOption {
               type = types.unspecified;
-              description = mdDoc "Final set of modules available for ";
+              description = mdDoc "Final set of modules available to be used in homeConfigurations input";
               readOnly = true;
             };
 
-            finalPackage = mkOption {
+            activationPackage = mkOption {
               type = types.unspecified;
               description = mdDoc "Package to be added to the flake to provide schema-supported access to activationPackage";
               readOnly = true;
@@ -144,22 +140,13 @@ in
 
           config = let
             profile = config;
-            pkgs = withSystem profile.system ({ pkgs, ...}: pkgs);
+            pkgs = withSystem profile.system ({pkgs, ...}: pkgs);
             globalConfig =
               if lib.isFunction globals
               then globals {inherit name profile pkgs;}
-              else throw "profile-parts.global.home-manager must be a function";
+              else throw "home-manager-parts.global must be a function";
           in
             lib.mkIf profile.enable {
-              finalHome = withSystem profile.system ({pkgs, ...}:
-                profile.home-manager.lib.homeManagerConfiguration {
-                  inherit pkgs;
-
-                  extraSpecialArgs = lib.recursiveUpdate globalConfig.specialArgs profile.specialArgs;
-
-                  modules = profile.finalModules;
-                });
-
               finalModules =
                 globalConfig.modules
                 ++ [
@@ -170,18 +157,31 @@ in
                 ]
                 ++ profile.modules;
 
-              finalPackage.${profile.system}."home/${name}" = profile.finalHome.activationPackage;
+              homeConfigOutput = profile.home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+
+                extraSpecialArgs = lib.recursiveUpdate globalConfig.specialArgs profile.specialArgs;
+
+                modules = profile.finalModules;
+              };
+
+              activationPackage = {
+                ${profile.system}."home/${name}" = profile.homeConfigOutput.activationPackage;
+              };
             };
         }));
-        description = lib.mdDoc "";
+
+        description = lib.mdDoc "An attribute set of profiles to be built using homeConfigurations, where the key is the username and the value is a set of options. Each profile is built using the following options:";
       };
     };
 
     config = let
-      homes = builtins.mapAttrs (_: config: config.finalHome) config.profile-parts.home-manager;
+      # homes.<name> = <homeManagerConfiguration>
+      homes = builtins.mapAttrs (_: profile: profile.homeConfigOutput) config.home-manager-parts.profiles;
 
       # group checks into system-based sortings
-      packages = lib.zipAttrs (builtins.attrValues (lib.mapAttrs (_: i: i.finalPackage) config.profile-parts.home-manager));
+      # packages.<system>."home/<name>" = homeConfigurationOutput.activationPackage
+      packages = lib.zipAttrs (builtins.attrValues (lib.mapAttrs (_: i: i.activationPackage) config.home-manager-parts.profiles));
     in {
       flake.homeConfigurations = homes;
 
