@@ -36,7 +36,7 @@
             overlays = [
               nixgl.overlay
               parinfer-rust.overlays.default
-              (import ../overlays/rofi-network-manager)
+              (import ./overlays/rofi-network-manager)
             ];
 
             config = {
