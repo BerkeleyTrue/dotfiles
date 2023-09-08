@@ -7,18 +7,24 @@ flake_uri=$HOME/.config/home-manager
 username=$(whoami)
 home_uri=$flake_uri\#homeConfigurations.$username
 
+get-home-manager() {
+  echo "$(nix path-info $home_uri.activationPackage)/home-path/bin/home-manager"
+}
+
 # get path to a package
 path() {
   nix path-info $home_uri.pkgs.$1
 }
 
 build() {
-  nix build --show-trace --no-link $home_uri.activationPackage
-  "$(nix path-info $home_uri.activationPackage)"/activate
+  # --show-trace show stack trace
+  # --no-link don't link the result to the directory
+  # --print-build-logs print build logs
+  nix build --show-trace --no-link --print-build-logs $home_uri.activationPackage
 }
 
 switch() {
-  "$(nix path-info $home_uri.activationPackage)"/home-path/bin/home-manager switch --flake "$flake_uri#$username"
+  "$(get-home-manager)" switch
 }
 
 update() {
