@@ -144,15 +144,16 @@ in
 
           config = let
             profile = config;
+            pkgs = withSystem profile.system ({ pkgs, ...}: pkgs);
             globalConfig =
               if lib.isFunction globals
-              then globals {inherit name profile;}
+              then globals {inherit name profile pkgs;}
               else throw "profile-parts.global.home-manager must be a function";
           in
             lib.mkIf profile.enable {
               finalHome = withSystem profile.system ({pkgs, ...}:
                 profile.home-manager.lib.homeManagerConfiguration {
-                  pkgs = profile.nixpkgs.legacyPackages.${profile.system};
+                  inherit pkgs;
 
                   extraSpecialArgs = lib.recursiveUpdate globalConfig.specialArgs profile.specialArgs;
 

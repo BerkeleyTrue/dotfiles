@@ -24,8 +24,28 @@
         ./lib/home-manager-parts
         ./home
       ];
-      perSystem = {pkgs, ...}: {
-        formatter = pkgs.alejandra;
-      };
+      perSystem = {
+        pkgs,
+        system,
+        ...
+      }:
+        with inputs; let
+          pkgs = import nixpkgs {
+            inherit system;
+
+            overlays = [
+              nixgl.overlay
+              parinfer-rust.overlays.default
+              (import ../overlays/rofi-network-manager)
+            ];
+
+            config = {
+              allowUnfree = true;
+            };
+          };
+        in {
+          formatter = pkgs.alejandra;
+          _module.args.pkgs = pkgs;
+        };
     };
 }

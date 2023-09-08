@@ -2,8 +2,7 @@
   inputs,
   lib,
   ...
-}:
-with lib; {
+}: {
   profile-parts.default.home-manager = {
     inherit (inputs) home-manager nixpkgs;
 
@@ -11,31 +10,13 @@ with lib; {
     exposePackages = true;
   };
 
-  profile-parts.global.home-manager = {profile, ...}: let
-    pkgs = mkForce (import profile.nixpkgs {
-      inherit (profile) system;
-
-      overlays = [
-        inputs.nixgl.overlay
-        inputs.parinfer-rust.overlays.default
-        (import ../overlays/rofi-network-manager)
-      ];
-
-      config = {
-        allowUnfree = true;
-      };
-    });
-
+  profile-parts.global.home-manager = {pkgs, profile, ...}: let
     theme = import ../theme {};
 
-    nixGLWrap = import ../lib/nixGL.nix {inherit pkgs lib;};
+    nixGLWrap = import ../lib/nixGL.nix {
+      inherit lib pkgs;
+    };
   in {
-    modules = [
-      {
-        _module.args.pkgs = pkgs;
-      }
-    ];
-
     specialArgs = {inherit inputs theme nixGLWrap;};
   };
 
