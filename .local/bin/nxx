@@ -20,7 +20,9 @@ build() {
 	# --show-trace show stack trace
 	# --no-link don't link the result to the directory
 	# --print-build-logs print build logs
-	nix build --show-trace --no-link --print-build-logs $home_uri.activationPackage
+	# then output the flake structure
+	nix build --show-trace --no-link --print-build-logs $home_uri.activationPackage\
+	  && nix flake show
 }
 
 switch() {
