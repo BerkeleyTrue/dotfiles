@@ -22,7 +22,7 @@ build() {
 	# --print-build-logs print build logs
 	# then output the flake structure
 	nix build --show-trace --no-link --print-build-logs $home_uri.activationPackage\
-	  && nix flake show
+	  && nix flake show $flake_uri
 }
 
 switch() {
