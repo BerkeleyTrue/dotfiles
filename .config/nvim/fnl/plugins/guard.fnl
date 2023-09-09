@@ -50,4 +50,4 @@
       (->
         (ft :haskell)
         (: :fmt :lsp))
-      (guard.setup {}))))
+      (guard.setup {:fmt_on_save false}))))
