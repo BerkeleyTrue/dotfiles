@@ -5,7 +5,7 @@ configuration {
   columns: 1;
   fixed-num-lines: true;
   hide-scrollbar: true;
-  icon-theme: "Papirus";
+  icon-theme: "Dracula";
   lines: 10;
   location: 0;
   m: "-1";
