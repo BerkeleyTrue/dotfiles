@@ -51,8 +51,6 @@ in {
   systemd.user.services.tmux-server = {
     Unit = {
       Description = "Tmux Server";
-      After = ["graphical-session-pre.target" "tray.target"];
-      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -64,7 +62,7 @@ in {
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["default.target"];
     };
   };
 
@@ -83,7 +81,7 @@ in {
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["default.target"];
     };
   };
 }
