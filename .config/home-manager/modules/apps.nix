@@ -187,4 +187,14 @@ in {
         };
       };
   };
+
+  xdg.desktopEntries.rofi-bluetooth = {
+    name = "Rofi Bluetooth Manager";
+    genericName = "Bluetooth Manager";
+    comment = "Bluetooth";
+    icon = "bluetooth";
+    exec = "rofi-bluetooth";
+    terminal = false;
+    categories = [ "Network" ];
+  };
 }
