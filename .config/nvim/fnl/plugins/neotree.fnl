@@ -56,7 +56,7 @@
            :never_show [:node_modules :.DS_Store]}
 
           :follow_current_file {:enabled true}
-          :use_libuv_file_watcher false
+          :use_libuv_file_watcher true
 
           :window
           {:position :left
