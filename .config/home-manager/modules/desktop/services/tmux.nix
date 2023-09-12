@@ -70,7 +70,7 @@ in {
     Unit = {
       Description = "Tmux session";
       PartOf = ["tmux-server.service"];
-      After = ["tmux-server.service"];
+      After = ["graphical-session-pre.target"];
     };
 
     Service = {
