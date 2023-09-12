@@ -36,7 +36,7 @@ in {
     direnv # A shell extension that manages your environment
     dogdns # A command-line DNS cliento
     du-dust # A more intuitive version of du in rust
-    exa # A modern replacement for ls
+    eza # A modern replacement for ls
     fd # A simple, fast and user-friendly alternative to find
     fzf # A command-line fuzzy finder
     getOptions # A library for parsing command line options

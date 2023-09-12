@@ -1,8 +1,8 @@
 #!/bin/sh
 # Bash helper alias
 LSARG='aFl'
-LISTC=$(command -v exa >/dev/null 2>&1 && echo 'exa' || echo 'ls --color=tty')
-LISTC_N_ARGS=$(command -v exa >/dev/null 2>&1 && echo 'exa -ag'$LSARG || echo 'ls -'$LSARG)
+LISTC=$(command -v eza >/dev/null 2>&1 && echo 'eza' || echo 'ls --color=tty')
+LISTC_N_ARGS=$(command -v eza >/dev/null 2>&1 && echo 'eza -ag'$LSARG || echo 'ls -'$LSARG)
 
 alias ..='cd ..'
 alias ...='cd ../.. && pwd'
