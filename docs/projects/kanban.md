@@ -23,7 +23,8 @@
 
 - gogal
   > a cli to great a web gallery from nested directories of images/gifs
-  - [ ] add timer to image carousel
+  - [x] add timer to image carousel
+  - [ ] build css for package
 - printer.hw-updates.duet-wifi
   > Updates for ender three
   - [x] model duet wifi mounts
