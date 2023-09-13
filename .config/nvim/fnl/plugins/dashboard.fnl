@@ -18,10 +18,10 @@
 
 
 ; create a display unit from a text and command
-(defn create-button [txt sc _cmd]
+(defn create-button [txt sc on-press]
   {:type "button"
     :val txt
-    :on_press (fn [] (cmd _cmd {}))
+    :on_press on-press
 
     :opts
     {:position :center
@@ -44,15 +44,13 @@
 
           buttons {:type :group
                    :val
-                   [(create-button " 󱋡 " "Recently opened files" "OOldFiles")
+                   [(create-button " 󱋡 " "Recently opened files" (fn [] (cmd "Telescope" {:args ["oldfiles" "cwd_only=true"]})))
                     {:type "padding" :val 1}
-                    (create-button " 󰱼 " "Find File            " "FFiles")
+                    (create-button " 󰱼 " "Find File            " (fn [] (cmd "FFiles")))
                     {:type "padding" :val 1}
-                    (create-button " 󰙅 " "File Browser         " "Neotree float")
+                    (create-button " 󰙅 " "File Browser         " (fn [] (cmd "Neotree" {:args [:float]})))
                     {:type "padding" :val 1}
-                    (create-button " 󰡦 " "Find word            " "Telescope live_grep")
-                    {:type "padding" :val 1}
-                    (create-button " 󰩈 " "Quit                 " "q!")]}
+                    (create-button " 󰩈 " "Quit                 " (fn [] (cmd "q!")))]}
 
           config {:layout
                   [{:type "padding" :val 2}
