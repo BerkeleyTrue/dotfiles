@@ -21,33 +21,33 @@ CUR_SESSION=
 CWD="$(basename "$PWD" | tr . -)" # default to current directory
 
 if $DEBUG; then
-  mkdir -p $HOME/.local/share/tmux >/dev/null 2>&1
+	mkdir -p $HOME/.local/share/tmux >/dev/null 2>&1
 fi
 
 log() {
-  if $DEBUG; then
-    echo "$@" >>$LOG_FILE
-  fi
+	if $DEBUG; then
+		echo "$@" >>$LOG_FILE
+	fi
 }
 
 parser_definition() {
-  setup REST help:usage -- \
-    "Usage: $SCRIPT_NAME [options...] [arguments...] [dir-or-session]
+	setup REST help:usage -- \
+		"Usage: $SCRIPT_NAME [options...] [arguments...] [dir-or-session]
 
   $SCRIPT_NAME -- will attach to first session or create dev session if none available
 
 Options:
 "
-  flag DIR -d --dir -- "select from list of directories, defaults to searching current directory"
-  flag GIT -g --git -- "Select from list of projects, searches directory recursively using gfold"
-  flag KILL -k --kill -- "Switches to next session or searches for session-name, killing the current session on success"
-  flag DEV --dev -- "Select projects from $MAIN_DIR"
-  flag CONF -c --conf -- "Select conf dir in $CONF_DIR"
-  flag BIN -b --bin -- "create a bin session"
-  flag WS -w --ws -- "create a workstation session"
-  flag LIST -l --list -- "list all sessions"
-  flag RENAME -r --rename -- "Rename current session"
-  disp :usage -h --help -- "This menu"
+	flag DIR -d --dir -- "select from list of directories, defaults to searching current directory"
+	flag GIT -g --git -- "Select from list of projects, searches directory recursively using gfold"
+	flag KILL -k --kill -- "Switches to next session or searches for session-name, killing the current session on success"
+	flag DEV --dev -- "Select projects from $MAIN_DIR"
+	flag CONF -c --conf -- "Select conf dir in $CONF_DIR"
+	flag BIN -b --bin -- "create a bin session"
+	flag WS -w --ws -- "create a workstation session"
+	flag LIST -l --list -- "list all sessions"
+	flag RENAME -r --rename -- "Rename current session"
+	disp :usage -h --help -- "This menu"
 }
 
 eval "$(getoptions parser_definition parse) exit 1"
@@ -60,221 +60,219 @@ ARG=$1
 set -euo pipefail
 
 path_resolve() {
-  if [[ -d "$1" ]]; then
-    pushd "$1" >/dev/null
-    pwd
-    popd >/dev/null
-  elif [[ -e "$1" ]]; then
-    pushd "$(dirname "$1")" >/dev/null
-    echo "$(pwd)/$(basename "$1")"
-    popd >/dev/null
-  else
-    echo "$1" does not exist! >&2
-    return 127
-  fi
+	if [[ -d "$1" ]]; then
+		pushd "$1" >/dev/null
+		pwd
+		popd >/dev/null
+	elif [[ -e "$1" ]]; then
+		pushd "$(dirname "$1")" >/dev/null
+		echo "$(pwd)/$(basename "$1")"
+		popd >/dev/null
+	else
+		echo "$1" does not exist! >&2
+		return 127
+	fi
 }
 
 not_in_tmux() {
-  [ -z "$TMUX" ]
+	[ -z "$TMUX" ]
 }
 
 is_dir() {
-  [ -d "$1" ]
+	[ -d "$1" ]
 }
 
 is_tmux_running() {
-  pgrep tmux >/dev/null 2>&1
+	pgrep tmux >/dev/null 2>&1
 }
 
 num_sessions() {
-  if is_tmux_running; then
-    tmux list-sessions | wc -l
-  else
-    echo "0"
-  fi
+	if is_tmux_running; then
+		tmux list-sessions | wc -l
+	else
+		echo "0"
+	fi
 }
 
 does_session_exists() {
-  # checks if the $session_name exists
-  tmux has-session -t "=$1" >/dev/null 2>&1
+	# checks if the $session_name exists
+	tmux has-session -t "=$1" >/dev/null 2>&1
 }
 
 create_detached_session() {
-  local session_name=$1
-  local path_name=$2
-  TMUX=''
-  tmux new-session -Ad -s "$session_name" -c $path_name
+	local session_name=$1
+	local path_name=$2
+	TMUX=''
+	tmux new-session -Ad -s "$session_name" -c $path_name
 }
 
 create_session_from_dir() {
-  local dir=$1
-  local query=$(test ${2-} && echo $2 || echo "")
-  local sessions=$(cd $dir && ls -d */ | sed "s|/||g")
+	local dir=$1
+	local query=$(test ${2-} && echo $2 || echo "")
+	local sessions=$(cd $dir && ls -d */ | sed "s|/||g")
 
-  # check if sessions is longer than 1 and if so, prompt for selection
-  # else just use the first session
-  if [ $(echo "$sessions" | wc -l) -gt 1 ]; then
-    local _session_name=$(echo "$sessions" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)" --query="$query")
-  else
-    local _session_name=$(echo "$sessions" | head -n 1)
-  fi
+	# check if sessions is longer than 1 and if so, prompt for selection
+	# else just use the first session
+	if [ $(echo "$sessions" | wc -l) -gt 1 ]; then
+		local _session_name=$(echo "$sessions" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)" --query="$query")
+	else
+		local _session_name=$(echo "$sessions" | head -n 1)
+	fi
 
-  local session_name=${_session_name//./_}
-  echo $session_name
+	local session_name=${_session_name//./_}
+	echo $session_name
 }
 
 create_if_needed_and_attach() {
-  local session_name=$1
-  local path_name=$2
+	local session_name=$1
+	local path_name=$2
 
-  log "create-if-needed; session: $session_name path: $path_name"
-  if not_in_tmux; then
-    tmux new-session -A -s "$session_name" -c $path_name
-  else
-    # already in tmux, let's switch
-    if ! does_session_exists $session_name; then
-      create_detached_session $session_name $path_name
-    fi
-    log "switch to $session_name"
-    tmux switch-client -t "$session_name"
-    ensure_kill_session
-  fi
+	log "create-if-needed; session: $session_name path: $path_name"
+	if not_in_tmux; then
+		tmux new-session -A -s "$session_name" -c $path_name
+	else
+		# already in tmux, let's switch
+		if ! does_session_exists $session_name; then
+			create_detached_session $session_name $path_name
+		fi
+		log "switch to $session_name"
+		tmux switch-client -t "$session_name"
+		ensure_kill_session
+	fi
 }
 
 attach_to_dir_session() {
-  local dir=$1
-  local query=$(test "${2-}" && echo "$2" || echo "")
-  local session_name=$(create_session_from_dir $dir $query)
-  if [ -z "$session_name" ]; then
-    echo "No directory selected"
-    exit 1
-  fi
-  local path_name=$(path_resolve $dir/$session_name)
-  log "attach-to-directory; session: $session_name path: $path_name"
-  create_if_needed_and_attach $session_name $path_name
+	local dir=$1
+	local query=$(test "${2-}" && echo "$2" || echo "")
+	local session_name=$(create_session_from_dir $dir $query)
+	if [ -z "$session_name" ]; then
+		echo "No directory selected"
+		exit 1
+	fi
+	local path_name=$(path_resolve $dir/$session_name)
+	log "attach-to-directory; session: $session_name path: $path_name"
+	create_if_needed_and_attach $session_name $path_name
 }
 
 attach_to_git() {
-  local dir=$(path_resolve $1)
-  log "attach-to-git: $dir"
-  if ! is_dir $dir; then
-    echo "git requires directory, but was given $dir" 1>&2
-    exit 1
-  fi
-  local session_name
-  local path_name
-  local opts=$(gum spin --spinner moon --title "Finding projects..." --show-output -- projects $dir | awk -F "/" '{print $NF " " $0}')
-  res=$(
-    echo "$opts" |
-      fzf --reverse --header="Select project" --prompt="$(ensure_kill_prompt)" || exit 0
-  )
+	local dir=$(path_resolve $1)
+	log "attach-to-git: $dir"
+	if ! is_dir $dir; then
+		echo "git requires directory, but was given $dir" 1>&2
+		exit 1
+	fi
+	local session_name
+	local path_name
+	local opts=$(gum spin --spinner moon --title "Finding projects..." --show-output -- projects $dir | awk -F "/" '{print $NF " " $0}')
+	res=$(echo "$opts" | fzf --reverse --header="Select project" --prompt="$(ensure_kill_prompt)" || exit 0)
 
-  if [ -z "$res" ]; then
-    echo "Nothing selected" 1>&2
-    exit 1
-  fi
-  log "attach-to-git: $res"
+	if [ -z "$res" ]; then
+		echo "Nothing selected" 1>&2
+		exit 1
+	fi
 
-  session_name=$(echo $res | awk '{print $1}')
-  path_name=$(echo $res | awk '{print $2}')/$session_name
+	log "attach-to-git: $res"
 
-  create_if_needed_and_attach $session_name $path_name
+	session_name=$(echo $res | awk '{print $1}')
+	path_name=$(echo $res | awk '{print $2}')
+
+	create_if_needed_and_attach $session_name $path_name
 }
 
 attach_to_proj() {
-  log "attach-to-proj"
-  attach_to_git $MAIN_DIR
+	log "attach-to-proj"
+	attach_to_git $MAIN_DIR
 }
 
 attach_to_first_session() {
-  local session_name=
-  if [ $(num_sessions) -gt 1 ]; then
-    local sessions=$(tmux list-sessions -F "#{session_name}")
-    local prompt="Select session"
-    if ! not_in_tmux; then
-      sessions=$(echo "$sessions" | grep -v "$CUR_SESSION")
-    fi
-    # if only one session left, just use that
-    # else prompt for selection
-    if [ $(echo "$sessions" | wc -l) -eq 1 ]; then
-      session_name=$(echo "$sessions" | head -n 1)
-    else
-      session_name=$(echo "$sessions" | fzf --reverse --header="$prompt$(not_in_tmux && echo "(not in tmux):" || echo "(in $CUR_SESSION):")" --prompt="$(ensure_kill_prompt)")
-    fi
-  fi
+	local session_name=
+	if [ $(num_sessions) -gt 1 ]; then
+		local sessions=$(tmux list-sessions -F "#{session_name}")
+		local prompt="Select session"
+		if ! not_in_tmux; then
+			sessions=$(echo "$sessions" | grep -v "$CUR_SESSION")
+		fi
+		# if only one session left, just use that
+		# else prompt for selection
+		if [ $(echo "$sessions" | wc -l) -eq 1 ]; then
+			session_name=$(echo "$sessions" | head -n 1)
+		else
+			session_name=$(echo "$sessions" | fzf --reverse --header="$prompt$(not_in_tmux && echo "(not in tmux):" || echo "(in $CUR_SESSION):")" --prompt="$(ensure_kill_prompt)")
+		fi
+	fi
 
-  if [ -z "$session_name" ]; then
-    session_name=$(tmux list-sessions -F "#{session_name}" | head -n 1)
-  fi
+	if [ -z "$session_name" ]; then
+		session_name=$(tmux list-sessions -F "#{session_name}" | head -n 1)
+	fi
 
-  if [ -z "$session_name" ]; then
-    session_name="dev"
-  fi
+	if [ -z "$session_name" ]; then
+		session_name="dev"
+	fi
 
-  log "attach-to-first: session_name: $session_name"
-  create_if_needed_and_attach $session_name $PWD
+	log "attach-to-first: session_name: $session_name"
+	create_if_needed_and_attach $session_name $PWD
 }
 
 ensure_kill_session() {
-  if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
-    tmux kill-session -t $CUR_SESSION
-  fi
+	if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
+		tmux kill-session -t $CUR_SESSION
+	fi
 }
 
 ensure_kill_prompt() {
-  if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
-    echo "(killing $CUR_SESSION)>"
-  else
-    echo ">"
-  fi
+	if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
+		echo "(killing $CUR_SESSION)>"
+	else
+		echo ">"
+	fi
 }
 
 list_sessions() {
-  tmux list-sessions | awk '{print $1}' | tr ':' ' '
+	tmux list-sessions | awk '{print $1}' | tr ':' ' '
 }
 
 log "arg: $ARG"
 
 main() {
-  if [ $(num_sessions) -gt 1 ]; then
-    CUR_SESSION=$(tmux display-message -p "#S")
-  fi
+	if [ $(num_sessions) -gt 1 ]; then
+		CUR_SESSION=$(tmux display-message -p "#S")
+	fi
 
-  # rename the current session
-  if [ $LIST ]; then
-    list_sessions
-    exit 0
-  elif [ $RENAME ]; then
-    tmux rename-session -t $(tmux display-message -p "#S") $ARG
-    exit 0
-  elif [ $DEV ]; then
-    attach_to_proj
-  elif [ $GIT ]; then
-    # ask the user which git project to start in
-    attach_to_git $(test $ARG && echo $ARG || echo $CWD)
-  elif [ $CONF ]; then
-    attach_to_dir_session $CONF_DIR $(test $ARG && echo $ARG)
-  elif [ $BIN ]; then
-    create_if_needed_and_attach "bin" $BIN_DIR
-  elif [ $WS ]; then
-    create_if_needed_and_attach "wrkst" $WS_DIR
-  elif [ $DIR ]; then
-    # ask the user which directory to start in
-    attach_to_dir_session $(test $ARG && echo $ARG || echo $CWD)
-  elif [ $ARG ] && does_session_exists $ARG; then
-    log "named-session: $ARG"
-    create_if_needed_and_attach $ARG $PWD
-    ensure_kill_session
-  else
-    log "no args"
-    if is_tmux_running; then
-      attach_to_first_session
-    else
-      log "no tmux running"
-      create_if_needed_and_attach "dev" $PWD
-    fi
+	# rename the current session
+	if [ $LIST ]; then
+		list_sessions
+		exit 0
+	elif [ $RENAME ]; then
+		tmux rename-session -t $(tmux display-message -p "#S") $ARG
+		exit 0
+	elif [ $DEV ]; then
+		attach_to_proj
+	elif [ $GIT ]; then
+		# ask the user which git project to start in
+		attach_to_git $(test $ARG && echo $ARG || echo $CWD)
+	elif [ $CONF ]; then
+		attach_to_dir_session $CONF_DIR $(test $ARG && echo $ARG)
+	elif [ $BIN ]; then
+		create_if_needed_and_attach "bin" $BIN_DIR
+	elif [ $WS ]; then
+		create_if_needed_and_attach "wrkst" $WS_DIR
+	elif [ $DIR ]; then
+		# ask the user which directory to start in
+		attach_to_dir_session $(test $ARG && echo $ARG || echo $CWD)
+	elif [ $ARG ] && does_session_exists $ARG; then
+		log "named-session: $ARG"
+		create_if_needed_and_attach $ARG $PWD
+		ensure_kill_session
+	else
+		log "no args"
+		if is_tmux_running; then
+			attach_to_first_session
+		else
+			log "no tmux running"
+			create_if_needed_and_attach "dev" $PWD
+		fi
 
-  fi
+	fi
 }
 
 main
