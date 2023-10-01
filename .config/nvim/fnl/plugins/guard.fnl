@@ -50,4 +50,10 @@
       (->
         (ft :haskell)
         (: :fmt :lsp))
-      (guard.setup {:fmt_on_save false}))))
+      (guard.setup {:fmt_on_save false}))
+   (augroup
+     :MarkdownGuard
+     ; add zf to format markdown
+     {:event [:BufReadPre]
+      :pattern :*.md
+      :cmd "nnoremap <buffer> <silent> zf <CMD>GuardFmt<CR>"})))
