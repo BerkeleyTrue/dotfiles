@@ -1,0 +1,5 @@
+# Add nix bin to path
+PATH=$PATH:$NIX_PROFILE/bin
+
+# Source shell config
+source $XDG_CONFIG_HOME/shell/index.sh
