@@ -1,0 +1,59 @@
+#!/bin/bash
+
+header() {
+  echo -e "===< $0 >==="
+}
+
+_syncdir() {
+	cd $1
+  echo -e "\e[34m$(header "Syncing $(pwd)")\e[0m"
+	git pull
+	git push
+  echo "\e[34m$(header "done")\e[0m"
+}
+
+notessync() {
+	set +m
+	declare -A outputs=()
+	local msg="$(header "output")\n"
+	local dirs=(
+		$HOME/docs/corpus
+		$HOME/docs/notes/corpus
+		$HOME/docs/notes/captainslog
+		$HOME/dvlpmnt/node/mr/notes
+	)
+
+	keybase ctl start
+
+	echo -e "\e[32m$(header "starting")\e[0m\n"
+	for dir in ${dirs[@]}; do
+
+		if [[ ! -d $dir ]]; then
+			# echo foo in red text
+			echo -e "\e[33m$(header "does not exist: $dir")\e[0m"
+			continue
+		fi
+
+		outputs[$dir]=$(mktemp /tmp/notessync.XXX)
+
+		{ _syncdir $dir &>${outputs[$dir]} & } 2>/dev/null
+	done
+
+	wait
+
+  echo
+
+	for dir in ${dirs[@]}; do
+		# check if output exists
+		if [[ ! -f ${outputs[$dir]} ]]; then
+			continue
+		fi
+
+		echo -e "$(cat ${outputs[$dir]})\n"
+	done
+
+  echo -e "\e[1;32m$(header "done")\e[0m\n"
+	set -m
+}
+
+notessync
