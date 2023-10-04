@@ -4,6 +4,7 @@
     ./dunst.nix
     ./flameshot.nix
     ./network-manager-applet.nix
+    ./notessync.nix
     ./pasystray.nix
     ./picom.nix
     ./sleep.nix

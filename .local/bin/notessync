@@ -1,7 +1,8 @@
 #!/bin/bash
 
 header() {
-  echo -e "===< $0 >==="
+  local header="$1"
+  echo -e "===< $1 >==="
 }
 
 _syncdir() {
