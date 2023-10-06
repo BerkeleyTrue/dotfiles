@@ -1,3 +1,4 @@
+; based on https://github.com/matze/vim-move
 (module plugins.move
   {require
    {a aniseed.core
@@ -34,33 +35,33 @@
   number, we move the cursor with `j` and `k`. This ensures that the
   destination line is in bounds and it also goes past closed folds."
   (let [down? (> distance 0)
-        key (if up? "k" "j")]
+        travel (if down? (.. distance "j") (.. (- distance) "k"))]
+    ; move the cursor to first column on the destination line
+    (print "execute-move-vert" line distance down? travel)
     (vf cursor line 1)
-    (cmd
-      normal!
-      {:args
-       [(if down?
-          (.. distance "j")
-          (.. (- distance) "k"))]})
+    (command normal! travel) ; move n lines down or up
     (if
-      (not down?) (- (vf line ".") 1)
+      (not down?) (- (vf line ".") 1) ; return the line number
       (let [fold-closed-end (vf foldclosedend ".")]
         (if (= fold-closed-end -1)
-          (vf line ".")
-          fold-closed-end)))))
+          (vf line ".") ;  return the line number
+          fold-closed-end))))) ; return the end of the closed fold
 
-(defn- move-vertically [first last distance]
+(defn- move-vertically [firstmark lastmark distance]
   "Move and reindent given lines down (distance > 0) or up (distance < 0)"
   (when
     (and
       (o :modifiable)
       (not= distance 0))
+    (print "move-vertically" firstmark lastmark distance)
     (let [down? (> distance 0)
-          first (vf line first)
-          last (vf line last)
+          first (vf line firstmark)
+          last (vf line lastmark)
           old-pos (vf getcurpos)
+          _ (a.pr "old-pos" old-pos first last)
           after (execute-move-vert (if down? first last) distance)]
 
+      (print "after" after)
       ; Restoring the cursor position might seem redundant because of the
       ; upcoming :move. However, it prevents a weird issue where undoing a move
       ; across a folded section causes it to unfold.
@@ -97,11 +98,12 @@
       (move-vertically "." "." distance)
       (command normal! "^")
       (let [new-indent (vf col ".")]
-        (vf cursor (vf line ".") (vf max [1 (-old-col (+ old-indent new-indent))]))))))
+        (vf cursor (vf line ".") (vf max [1 (- old-col (+ old-indent new-indent))]))))))
 
 (defn- move-block-vertically [distance]
+  (command normal! "<Esc>") ; exit visual mode
   (move-vertically "'<" "'>" distance)
-  (command normal! "gv"))
+  (command normal! "gv")) ; reselect the previous visual selection
 
 (defn- move-horizontally [corner-start corner-end distance]
   "If in normal mode, moves the character under the cursor.
@@ -141,31 +143,40 @@
 
 (defn- move-char-horizontally [distance]
   (move-horizontally "." "." distance))
+
 (defn- move-block-horizontally [distance]
+  ; normal! - start a series of actions in normal mode with no mappings
+  ; g`< - go to the start of the last visual selection
+  ; \<C-v> - start visual block mode
+  ; g`> - go to the end of the last visual selection
   (command normal! "g`<\\<C-v>g`>")
   (when (move-horizontally "'<" "'>" distance)
+    ; g`[ - the first char of the previously changed text
+    ; \<C-v> - start visual block mode
+    ; g`] - go to the last char of the previously changed text
     (command norma! "g`[\\<C-v>g`]")))
 
 (defn move-block-down [] (move-block-vertically (v count1)))
 (defn move-block-up [] (move-block-vertically (- (v count1))))
-(defn move-block-right [] (move-block-horizontally (v count1)))
+
 (defn move-block-left [] (move-block-horizontally (- (v count1))))
+(defn move-block-right [] (move-block-horizontally (v count1)))
 
 (defn move-line-down [] (move-line-vertically (v count1)))
 (defn move-line-up [] (move-line-vertically (- (v count1))))
-(defn moveLineRight [] (move-block-horizontally (v count1)))
-(defn moveLineLeft [] (move-block-horizontally (- (v count1))))
 
+(defn move-char-left [] (move-char-horizontally (- (v count1))))
 (defn move-char-right [] (move-char-horizontally (v count1)))
-(defn move-char-left [] (move-char-horizontally (v count1)))
 
 (defn main []
-  (vnoremap (create-move-key :j) (cviml->lua* move-block-down) {:silent true})
-  (vnoremap (create-move-key :k) (cviml->lua* move-block-up) {:silent true})
-  (vnoremap (create-move-key :h) (cviml->lua* move-block-left) {:silent true})
-  (vnoremap (create-move-key :l) (cviml->lua* move-block-right) {:silent true})
+  (vnoremap (create-move-key :j) move-block-down {:silent true})
+  (vnoremap (create-move-key :k) move-block-up {:silent true})
 
-  (nnoremap (create-move-key :j) (cviml->lua* move-line-down) {:silent true})
-  (nnoremap (create-move-key :k) (cviml->lua* move-line-up) {:silent true})
-  (nnoremap (create-move-key :h) (cviml->lua* move-char-left) {:silent true})
-  (nnoremap (create-move-key :l) (cviml->lua* move-char-right) {:silent true}))
+  (vnoremap (create-move-key :h) move-block-left {:silent true})
+  (vnoremap (create-move-key :l) move-block-right {:silent true})
+
+  (nnoremap (create-move-key :j) move-line-down {:silent true})
+  (nnoremap (create-move-key :k) move-line-up {:silent true})
+
+  (nnoremap (create-move-key :h) move-char-left {:silent true})
+  (nnoremap (create-move-key :l) move-char-right {:silent true}))
