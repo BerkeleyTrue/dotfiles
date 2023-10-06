@@ -12,10 +12,15 @@
     ];
   };
 
-  aspell = pkgs.aspellWithDicts (dicts: with dicts; [en en-computers en-science]);
+  myAspell = pkgs.aspellWithDicts (dicts: with dicts; [en en-computers en-science]);
+
+  enDict = pkgs.runCommand "aspell-english-dict" {} ''
+    mkdir -p $out/share/aspell
+    ${myAspell}/bin/aspell -d en dump master | ${myAspell}/bin/aspell -l en expand > $out/share/aspell/english
+  '';
 
   rofi-spell = pkgs.writeShellScriptBin "rofi-spell" ''
-    word=$(${aspell}/bin/aspell -d en dump master | ${aspell}/bin/aspell -l en expand | rofi -p 'spell' -dmenu)
+    word=$(cat ${enDict}/share/aspell/english | rofi -p 'spell' -dmenu)
     definition=$(${pkgs.wordnet}/bin/wn $word -over)
 
     if [[ ! -z "$definition" ]]; then
@@ -30,7 +35,9 @@ in {
     (nixGLWrap alacritty) # GPU-accelerated terminal emulator
     (nixGLWrap kitty) # GPU-accelerated terminal emulator
     (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
-    aspell # spell checker
+    myAspell # spell checker
+    wordnet # lexical database for the English language
+    enDict # My dictionary
     gparted # graphical partition manager
     keybase # encrypted chat
     keybase-gui # encrypted chat
@@ -42,6 +49,8 @@ in {
     vlc # Cross-platform media player and streaming server
     zathura # pdf viewer
   ];
+
+  home.file.".local/share/aspell/english".source = "${enDict}/share/aspell/english";
 
   services.keybase = {
     enable = true;
@@ -195,6 +204,6 @@ in {
     icon = "bluetooth";
     exec = "rofi-bluetooth";
     terminal = false;
-    categories = [ "Network" ];
+    categories = ["Network"];
   };
 }
