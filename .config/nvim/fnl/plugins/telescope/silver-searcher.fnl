@@ -45,6 +45,7 @@
   {:entry_maker entry-maker
    :attach_mappings attach-mappings})
 
+
 (defn ag [...]
   (when-let [ag-not-found (not (= (vim.fn.executable "ag") 1))]
     (command echoe "'ag not found. Is silver searcher installed?'"))
@@ -54,7 +55,12 @@
 
     (if (r.empty? args)
       (command echoe "'Usage: \":Ag {pattern}\" (or just :Ag to search for the word under the cursor).'")
-      (let [args (r.concat [:ag (r.head args)] (r.tail args))]
+      (let [pattern (r.join "" (r.initial args))
+            last (r.last args)
+            dir (if (= last ".") (vim.fn.expand "%:h") last)
+            args [:ag pattern dir]]
+        (a.pr last)
+        (a.pr args)
         (: (pickers.new
             default-opts
             {:prompt_title :Ag
@@ -62,6 +68,7 @@
              :previewer (config.values.grep_previewer default-opts)
              :sorter (config.values.file_sorter default-opts)})
          :find)))))
+
 
 (defn main []
   (command!

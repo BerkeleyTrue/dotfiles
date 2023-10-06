@@ -112,6 +112,7 @@
 (def last a.last)
 (def some a.some)
 (def concat a.concat)
+(def initial a.butlast)
 
 (defn flatten [xs]
   (a.reduce
