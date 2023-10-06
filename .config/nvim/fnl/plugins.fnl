@@ -8,7 +8,6 @@
   [:accents
    :scroll-fix
    :mumber
-   :move
    :aniseed])
 
 (def- external-plugins
@@ -67,6 +66,7 @@
    ; motion
    {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
    {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement" :config (make-on-load hlslens)}
+   {:name :fedepujol/move.nvim :description "Move lines and blocks" :init (make-init move)}
 
    ; text obj manipulation
    {:name :tpope/vim-repeat :description "expands . to repeat plugin commands"}

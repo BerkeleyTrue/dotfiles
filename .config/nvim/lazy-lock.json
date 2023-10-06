@@ -31,6 +31,7 @@
   "lualine.nvim": { "branch": "master", "commit": "45e27ca739c7be6c49e5496d14fcf45a303c3a63" },
   "luasnip": { "branch": "master", "commit": "480b032f6708573334f4437d3f83307d143f1a72" },
   "mini.nvim": { "branch": "main", "commit": "1fdbb864e2015eb6f501394d593630f825154385" },
+  "move.nvim": { "branch": "main", "commit": "d663b74b4e38f257aae757541c9076b8047844d6" },
   "neo-tree.nvim": { "branch": "main", "commit": "a73b92c504ebfbbc3be522209ac60949942057c6" },
   "neogen": { "branch": "main", "commit": "70127baaff25611deaf1a29d801fc054ad9d2dc1" },
   "noice.nvim": { "branch": "main", "commit": "396f9146529130904e07c45e90ecdbfa607534f3" },
