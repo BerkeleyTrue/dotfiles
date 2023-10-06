@@ -299,8 +299,9 @@
     `(,(sym f) ,...)))
 
 (defn vf [name ...]
-  "run viml function 'name'"
-  `(vim.api.nvim_call_function ,(tostring name) ,...))
+  "run vim.fn.'name'"
+  (let [fnname (.. "vim.fn." (tostring name))]
+    `(,(sym fnname) ,...)))
 
 ; =<< augroup >=>
 (fn autocmd [id config]
