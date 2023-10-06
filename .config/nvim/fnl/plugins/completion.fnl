@@ -143,7 +143,10 @@
 
     (when-let [dic (md.prequire :cmp_dictionary)]
       (dic.setup
-        {:dic
-         {"*" ["~/.local/share/dict/english"]}
-         :debug false
-         :document true}))))
+        {:debug false ; Doesn't do anything?
+         :document true
+         :max_items 100})
+      (dic.switcher
+        {:spelllang
+         {:en "~/.local/share/aspell/english"
+          :en_us "~/.local/share/aspell/english"}}))))
