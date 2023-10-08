@@ -33,7 +33,6 @@ in {
     antigen # zsh plugin manager
     bind # dns client
     curl # transfer data from or to a server
-    direnv # A shell extension that manages your environment
     dogdns # A command-line DNS cliento
     du-dust # A more intuitive version of du in rust
     eza # A modern replacement for ls
@@ -137,6 +136,11 @@ in {
         with luaPkgs; [
           jsregexp # for luasnip
         ];
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
   };
 }
