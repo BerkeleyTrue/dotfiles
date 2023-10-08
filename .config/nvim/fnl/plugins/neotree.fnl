@@ -120,7 +120,7 @@
             :<esc> :noop
             :R :refresh
             :a :add
-            :d :delete
+            :d :buffer_delete
             :r :rename
             :c :copy_to_clipboard
             :x :cut_to_clipboard
