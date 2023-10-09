@@ -21,7 +21,7 @@ notessync() {
 		$HOME/docs/corpus
 		$HOME/docs/notes/corpus
 		$HOME/docs/notes/captainslog
-		$HOME/dvlpmnt/node/mr/notes
+		$HOME/dvlpmnt/madison-reed/notes
 	)
 
 	keybase ctl start
