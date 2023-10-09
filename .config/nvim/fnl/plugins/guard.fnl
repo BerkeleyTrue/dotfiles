@@ -20,6 +20,7 @@
      "jsonc"
      "yaml"
      "markdown"
+     "markdown.corpus"
      "solidity"
      "graphql"]
     (r.join ",")))
