@@ -8,7 +8,7 @@
 
 (defn main []
   (global CorpusDirectories
-    {"~/dvlpmnt/node/mr/notes"
+    {"~/dvlpmnt/madison-reed/notes"
      {:autocommit true
       :autoreference true
       :autotitle true
