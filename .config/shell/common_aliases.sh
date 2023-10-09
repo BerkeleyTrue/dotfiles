@@ -34,6 +34,3 @@ alias :wq='exit'
 
 # ufw
 alias ufw="sudo ufw"
-
-# nix
-alias nd="nix develop --show-trace"
