@@ -51,10 +51,16 @@
       (->
         (ft :haskell)
         (: :fmt :lsp))
+      (->
+        (ft :sql)
+        (: :fmt :sql-formatter))
       (guard.setup {:fmt_on_save false}))
    (augroup
      :MarkdownGuard
      ; add zf to format markdown
      {:event [:BufReadPre]
       :pattern :*.md
+      :cmd "nnoremap <buffer> <silent> zf <CMD>GuardFmt<CR>"}
+     {:event [:BufReadPre]
+      :pattern :*.sql
       :cmd "nnoremap <buffer> <silent> zf <CMD>GuardFmt<CR>"})))
