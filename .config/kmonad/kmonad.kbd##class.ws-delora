@@ -1,0 +1,52 @@
+;; vim:ft=scheme
+(defcfg
+  input  (device-file "/dev/input/by-id/usb-_RPI_Wired_Keyboard_4-event-kbd")
+  output (uinput-sink "My KMonad output for Delora")
+  cmp-seq ralt
+  fallthrough true
+  allow-cmd true
+  )
+
+(defalias
+  cesc     (tap-hold-next-release 100 esc lctl)
+  lparshft (tap-hold-next-release 100 \( lsft)
+  rparshft (tap-hold-next-release 100 \) rsft)
+  spacenav (tap-hold-next-release 250 space (layer-toggle nav))
+  numtg    (layer-toggle nums)
+  )
+
+(defsrc
+  grv        1     2     3     4     5     6     7     8     9     0     -     =     bspc
+  tab        q     w     e     r     t     y     u     i     o     p     [     ]     \
+  caps       a     s     d     f     g     h     j     k     l     ;     '     ret
+  lsft       z     x     c     v     b     n     m     ,     .     /     rsft         up
+
+  lctl lmet  lalt           spc                        ralt  rctl               left  down  right
+)
+
+(deflayer base
+  grv        1     2     3     4     5     6     7     8     9     0     -    =    bspc
+  tab        q     w     e     r     t     y     u     i     o     p     [    ]    \
+  @cesc      a     s     d     f     g     h     j     k     l     ;     '    ret
+  @lparshft  z     x     c     v     b     n     m     ,     .     /     @rparshft    up
+
+  lctl lmet  lalt           @spacenav                 @numtg rctl               left  down right
+)
+
+(deflayer nav
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          _     _     _     _     _     left  down  up    right _     _    _
+  _          _     _     _     _     _     _     _     _     _     _     _            _
+
+  _    _     _              _                          _     _                  _     _    _
+)
+
+(deflayer nums
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          1     2     3     4     5     6     7     8     9     0     _    _
+  _          _     _     _     _     _     _     _     _     _     _     _            _
+
+  _    _     _              _                          _     _                  _     _    _
+)
