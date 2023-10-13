@@ -90,10 +90,7 @@
 
          :playground {:enable true}
          :query_linter {:enable true}
-         :rainbow
-         {:enable true
-          :colors rainbow}
-         :matchup {:enable true}
+         :matchup {:enable true :disable [:c]}
          :context_commentstring {:enable true}})
 
 
