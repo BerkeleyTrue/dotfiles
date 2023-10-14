@@ -45,6 +45,10 @@
         (: :fmt {:cmd "purs-tidy" :args [:format] :stdin true})) ; requires purs-tidy for formatting
 
       (->
+        (ft :templ)
+        (: :fmt {:cmd "templ" :args [:fmt] :stdin true})) ; requires templ for formatting
+
+      (->
         (ft :go)
         (: :fmt :lsp)
         (: :append :golines))

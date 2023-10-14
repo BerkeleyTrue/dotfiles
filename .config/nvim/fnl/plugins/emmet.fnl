@@ -17,6 +17,7 @@
    :javascript
    :jsx
    :markdown
+   :templ
    :typescriptreact
    :xml])
 

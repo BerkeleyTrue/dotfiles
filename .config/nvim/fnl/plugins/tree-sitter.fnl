@@ -53,6 +53,14 @@
           :requires_generate_from_grammar true}
          :filetype :solidity})
 
+      (tset
+        parser-conf
+        :templ
+        {:install_info
+         {:url "https://github.com/vrischmann/tree-sitter-templ.git"
+          :files [:src/parser.c :src/scanner.c]}
+         :filetype :templ})
+
       (tsconfigs.setup
         {:ensure_installed
          [:bash
@@ -74,6 +82,7 @@
           :rust
           :solidity
           :swift
+          :templ
           :tsx
           :typescript
           :vim]

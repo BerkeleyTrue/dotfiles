@@ -86,6 +86,7 @@
    :emmet_ls (emmetls.get-config)
    :eslint {}
    :gopls {:on_attach general-on-attach-with-navic}
+   :templ {:on_attach general-on-attach-with-navic}
    :hls {:on_attach general-on-attach-with-navic}
    :html {:on_attach (create-disable-formatting general-on-attach)}
    :jsonls (jsonls-configs)
