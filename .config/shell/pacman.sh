@@ -10,6 +10,8 @@ alias punorphans='sudo pacman -Rs $(pacman -Qtdq)'
 alias pls='pacman -Qe'
 alias plsorphans='sudo pacman -Qtd'
 
+alias yayupdate='yay -Syu'
+
 function pacweb() {
   if [[ $# = 0 || "$1" =~ '--help|-h' ]]; then
     local underline_color="\e[${color[underline]}m"

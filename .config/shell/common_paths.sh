@@ -2,8 +2,6 @@
 # Make neovim the default editor
 export EDITOR=nvim
 export VISUAL=$EDITOR
-# add gems to path
-command -v ruby >/dev/null 2>&1 && export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 # Add lang settings for fonts to work properly
 export LANG=en_US.UTF-8
