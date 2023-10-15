@@ -110,7 +110,7 @@
   (vim.fn.expand "%:p:h:t"))
 
 (defn auto-add-go-package []
-  (when (and (is-file-type :go) (is-empty-file))
+  (when (and (or (is-file-type :go) (is-file-type :templ)) (is-empty-file))
     ; get the relative file path of the current file
     (let [name (vim.fn.expand "%:p:h:t")]
       ; insert the module at the top of the file
@@ -134,4 +134,8 @@
 
     {:event [:Filetype]
      :pattern "go"
+     :callback auto-add-go-package}
+
+    {:event [:Filetype]
+     :pattern "templ"
      :callback auto-add-go-package}))
