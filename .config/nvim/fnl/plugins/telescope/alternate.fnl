@@ -14,9 +14,9 @@
      [{:template "lua/[1].lua"
        :label "Output"}]}
 
-    {:pattern "lua/(.*).fnl"
+    {:pattern "lua/(.*).lua"
      :targets
-     [{:template "fnl/[1].lua"
+     [{:template "fnl/[1].fnl"
        :label "Input"}]}]})
 
 
