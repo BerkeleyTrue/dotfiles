@@ -17,7 +17,17 @@
     {:pattern "lua/(.*).lua"
      :targets
      [{:template "fnl/[1].fnl"
-       :label "Input"}]}]})
+       :label "Input"}]}
+
+    {:pattern "(.*).templ"
+     :targets
+     [{:template "[1]_templ.go"
+       :label "Output"}]}
+
+    {:pattern "(.*)_templ.go"
+     :targets
+     [{:template "[1].templ"
+       :label "Template"}]}]})
 
 
 (defn main [telescope]
