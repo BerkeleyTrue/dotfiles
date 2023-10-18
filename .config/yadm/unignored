@@ -2,6 +2,7 @@ $HOME/.config/nix
 $HOME/.config/home-manager
 $HOME/.config/nvim/after
 $HOME/.config/nvim/fnl
+$HOME/.config/nvim/queries
 $HOME/.config/nvim/ftdetect
 $HOME/.config/nvim/ftplugin
 $HOME/.config/nvim/indent
