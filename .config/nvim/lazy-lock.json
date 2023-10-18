@@ -26,6 +26,7 @@
   "guard-collection": { "branch": "main", "commit": "bf2dce4975a6fb6874524590ff002ae380e21011" },
   "guard.nvim": { "branch": "main", "commit": "9d3e6696a10e68dd6aa5964f7296c3ff34e2d2c9" },
   "hop.nvim": { "branch": "master", "commit": "1a1eceafe54b5081eae4cb91c723abd1d450f34b" },
+  "kmonad-vim": { "branch": "master", "commit": "37978445197ab00edeb5b731e9ca90c2b141723f" },
   "lspkind-nvim": { "branch": "master", "commit": "57610d5ab560c073c465d6faf0c19f200cb67e6e" },
   "lualine-lsp-progress": { "branch": "master", "commit": "56842d097245a08d77912edf5f2a69ba29f275d7" },
   "lualine.nvim": { "branch": "master", "commit": "1a3f6bba410aff5a51bf8c84287aaa3a8ba30d0d" },

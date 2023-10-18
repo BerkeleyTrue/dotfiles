@@ -116,6 +116,7 @@
    {:name :lervag/vimtex :ft :tex :config (make-on-load vimtex)}
    {:name :sirtaj/vim-openscad}
    {:name :purescript-contrib/purescript-vim :description "adds purescript syntax" :ft :purescript}
+   {:name :kmonad/kmonad-vim :description "adds kmonad config syntax"}
 
    ;  
    {:name :mattn/emmet-vim :description "DSL for html" :init (make-init emmet) :config (make-on-load emmet)}
