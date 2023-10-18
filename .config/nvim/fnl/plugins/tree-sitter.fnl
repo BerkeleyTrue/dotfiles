@@ -95,7 +95,9 @@
            :node_incremental "gni"    ; increment to the upper named parent
            :scope_incremental "gci"   ; increment to the upper scope (as defined in locals.scm)
            :node_decremental "gnd"}}  ; decrement to the previous node
-         :indent {:enable true}
+         :indent
+         {:enable true
+          :disable [:fennel]}
 
          :playground {:enable true}
          :query_linter {:enable true}

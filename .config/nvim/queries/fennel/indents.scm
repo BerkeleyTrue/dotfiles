@@ -2,8 +2,13 @@
   (list (symbol))
   (list (keyword))
 ] @indent
-(table) @auto
+
+
+([(array) (table)] @indent.begin
+ (#set! indent.start_at_same_line))
 
 [
   ")"
-] @dedent
+  "}"
+  "]"
+] @indent.dedent
