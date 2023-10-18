@@ -57,7 +57,14 @@
       (command echoe "'Usage: \":Ag {pattern}\" (or just :Ag to search for the word under the cursor).'")
       (let [pattern (r.join "" (r.initial args))
             last (r.last args)
-            dir (if (= last ".") (vim.fn.expand "%:h") last)
+            dir (if
+                  (= last ".")
+                  ; if current buffer is a file, use its directory
+                  ; otherwise use current working directory
+                  (if (vim.fn.filereadable (vim.fn.expand "%"))
+                    (vim.fn.expand "%:p:h")
+                    (vim.fn.getcwd))
+                  last)
             args [:ag pattern dir]]
         (a.pr last)
         (a.pr args)
