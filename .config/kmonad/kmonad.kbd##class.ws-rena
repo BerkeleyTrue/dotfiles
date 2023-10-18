@@ -30,7 +30,7 @@
   @cesc      a     s     d     f     g     h     j     k     l     ;     '    ret
   @lparshft  z     x     c     v     b     n     m     ,     .     /     @rparshft    up
 
-  lctl lmet  lalt           @spacenav                 @numtg rctl               left  down right
+  lctl lalt  lmet           @spacenav                 @numtg rctl               left  down right
 )
 
 (deflayer nav
