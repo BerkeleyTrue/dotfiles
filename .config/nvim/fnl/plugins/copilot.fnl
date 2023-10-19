@@ -29,9 +29,7 @@
          :prev "[["
          :dismiss "<C-]>"}}
        :filetypes
-       {:yaml false
-        :markdown false
-        :help false
+       {:help false
         :gitcommit false
         :gitrebase false
         :hgcommit false
@@ -44,7 +42,7 @@
     (let [cpsuggestions (md.prequire :copilot.suggestion)]
       (imap
         :<Right>
-        (fn []
+        (fn copilot-accept []
           (if (cpsuggestions.is_visible)
             (cpsuggestions.accept)
             (keys.feed :<Right> true)))
