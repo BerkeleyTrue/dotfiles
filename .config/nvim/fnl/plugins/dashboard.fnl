@@ -16,6 +16,25 @@
    "                                          "
    ""])
 
+(def- header2
+  [
+   "       ,-'~~~~    ~~ ~ ~                  "
+   "     ,'             `~~~  ',              "
+   "   (                        Y             "
+   "   {                         I            "
+   " {      -                    `,           "
+   " |       ',                   )           "
+   " |        |   ,..__      __. Y            "
+   " |    .,_./  Y ' / ^Y   J   )|            "
+   " \\           |' /   |   |   ||            "
+   "  \\          L_/    . _ (_,.'(            "
+   "   \\,   ,      ^^""' / |      )           "
+   "     \\_  \\          /,L]     /            "
+   "       '-_~-,       ` `   ./`             "
+   "           `'{_            )              "
+   "               ^^\\..___,.--`              "])
+
+
 
 ; create a display unit from a text and command
 (defn create-button [txt sc on-press]
@@ -38,7 +57,7 @@
           section dbTheme.section
           button dbTheme.button
           _header {:type :text
-                   :val header
+                   :val header2
                    :opts {:position :center
                           :hl :BerksPurple}}
 
