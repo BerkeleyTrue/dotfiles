@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+
 #include "action_layer.h"
 
 extern keymap_config_t keymap_config;
@@ -54,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,    SFT_TAB,\
     CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,    KC_H,     KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-    KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,  \
+    SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,  \
     KC_LBRC, KYBRBRC, KC_LALT, KC_LGUI, LOWER,  NAV_SPC, NAV_SPC,  RAISE,   KC_RGUI, KC_RALT, KC_LBRC, KC_RBRC    \
   ),
 
@@ -134,21 +135,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keyboard settings layer
    *                ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-   *    Firmware -- │     │Reset│     │     │     │     │   │     │     │     │     │Vers │     │
+   *    Firmware -- │     │Reset│     │     │     │     │   │     │     │     │     │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
    *                │     │     │     │     │     │     │   │     │     │     │     │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-   *       Audio -- │     │Voic-│Voic+│Mus +│Mus -│MIDI+│   │MIDI-│     │     │Aud +│Aud -│     │
+   *       Audio -- │     │     │     │     │     │     │   │     │     │     │     │     │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-   *                │     │     │     │     │     │Toggl│   │Toggl│     │Toggl│ BL- │ BL+ │     │
+   *                │     │     │     │     │     │     │   │     │     │     │     │     │     │
    *                └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
-   *                                                  \_________\__________\_ Backlight _/
+   *
    */
   [_KEYBOARD] = LAYOUT( \
-    ___x___, RESET,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, \
-    ___x___, QWERTY,  ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___,  \
-    ___x___, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  ___x___, ___x___,  ___x___, ___x___, AU_ON,   AU_OFF,  ___x___,   \
-    ___x___, ___x___, ___x___, ___x___, LOWER,   BL_TOGG, BL_TOGG, RAISE,   BL_TOGG, BL_DEC,  BL_INC,  ___x___     \
+    ___x___, QK_RBT ,  ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, \
+    ___x___, QWERTY ,  ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___,  \
+    ___x___, ___x___,  ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___,   \
+    ___x___, ___x___,  ___x___, ___x___, LOWER,   ___x___, ___x___, RAISE,   ___x___, ___x___, ___x___, ___x___     \
   )
 };
 
