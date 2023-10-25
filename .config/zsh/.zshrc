@@ -82,54 +82,12 @@ antigen bundle taskwarrior
 antigen bundle systemd
 antigen apply
 
-###
-# zsh use primary clipboard for vi-keys
-####
-function x11-clip-wrap-widgets() {
-  local copy_or_paste=$1
-  shift
-  local copy_command='xclip -in -selection clipboard'
-  local paste_command='xclip -out -selection clipboard'
-
-  [[ $(uname) == 'Darwin' ]] && copy_command='pbcopy'
-  [[ $(uname) == 'Darwin' ]] && paste_command='pbpaste'
-
-  for widget in $@; do
-    if [[ $copy_or_paste == "copy" ]]; then
-      eval "
-      function _x11-clip-wrapped-$widget() {
-        zle .$widget
-        $copy_command <<<\$CUTBUFFER
-      }
-      "
-    else
-      eval "
-      function _x11-clip-wrapped-$widget() {
-        CUTBUFFER=\$($paste_command)
-        zle .$widget
-      }
-      "
-    fi
-    zle -N $widget _x11-clip-wrapped-$widget
-  done
-}
-local copy_widgets=(
-  vi-yank vi-yank-eol vi-delete vi-backward-kill-word vi-change-whole-line
-)
-local paste_widgets=(
-  vi-put-{before,after}
-)
-x11-clip-wrap-widgets copy $copy_widgets
-x11-clip-wrap-widgets paste  $paste_widgets
-### end-clipboard paste ###
-
-# zle -N zle-line-init ghanima::hooks::line-init
 zle -N zle-line-finish ghanima::hooks::line-finish
-# zle -N zle-keymap-select ghanima::hooks::zle-keymap-select
-#
+
 zvm_after_select_vi_mode_commands+=(ghanima::hooks::zle-keymap-select)
 ZVM_VI_HIGHLIGHT_FOREGROUND=black
 ZVM_VI_HIGHLIGHT_BACKGROUND=yellow
+ZVM_LINE_INIT_MODE='i'
 
 # source all the profiles in ~/.nix-profile/etc/profile.d/
 if [ -d "$HOME/.nix-profile/etc/profile.d" ]
@@ -165,6 +123,7 @@ function my_init() {
 }
 zvm_after_init_commands+=(my_init)
 
+source "$ZSH/zsh-copy-paste.zsh"
 source "$ZSH/nix-packages.zsh"
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
