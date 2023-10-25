@@ -7,7 +7,8 @@
 
     alt plugins.telescope.alternate
     ag plugins.telescope.silver-searcher
-    tabs plugins.telescope.tabs}
+    tabs plugins.telescope.tabs
+    todos plugins.telescope.todos}
    require-macros [macros]})
 
 (defn- setup [{: telescope : previewers : sorters : actions}]
@@ -71,4 +72,5 @@
       (setup-commands)
       (ag.main)
       (alt.main telescope)
-      (tabs.main telescope))))
+      (tabs.main telescope)
+      (todos.main telescope))))
