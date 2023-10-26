@@ -18,7 +18,7 @@
 (defn entry-maker [entry]
   (let [split (vim.split entry ":")
         rel-path (r.head split)
-        abs-path (.. (vim.fn.getcwd) "/" rel-path)
+        abs-path (vim.loop.fs_realpath rel-path)
         line-num (tonumber (r.head (r.tail split)))]
     {:value entry
      :ordinal rel-path
@@ -28,10 +28,26 @@
      :display
      (fn [display-entry]
        (let [display (tutils.transform_path {} (. display-entry :value))
+             split (r.split display ":")
+             fn-length (-> split (r.head) (length))
+             ln-length (-> split (r.tail) (r.head) (length))
+             col-length (-> split (r.tail) (r.tail) (r.head) (length))
              (display hl-group) (tutils.transform_devicons (. display-entry :path) display false)]
          (if hl-group
-           (values display [[[1 3] hl-group]])
-           display)))}))
+           (values display [[[1 3]
+                             hl-group]
+                            [[5 (+ 5 fn-length)]
+                             :BerksCyan]
+                            [[(+ 6 fn-length) (+ 6 fn-length ln-length)]
+                             :BerksPurple]
+                            [[(+ 7 fn-length ln-length) (+ 7 fn-length ln-length col-length)]
+                             :BerksYellow]])
+           (values display [[[1 fn-length]
+                             :BerksCyan]
+                            [[fn-length (+ 6 fn-length ln-length)]
+                             :BerksPurple]
+                            [[(+ 7 fn-length ln-length) (+ 7 fn-length ln-length col-length)]
+                             :BerksYellow]]))))}))
 
 (defn attach-mappings [prompt-bufnr]
   (actions.select_default:replace
@@ -45,7 +61,6 @@
   {:entry_maker entry-maker
    :attach_mappings attach-mappings})
 
-
 (defn ag [...]
   (when-let [ag-not-found (not (= (vim.fn.executable "ag") 1))]
     (command echoe "'ag not found. Is silver searcher installed?'"))
@@ -55,8 +70,8 @@
 
     (if (r.empty? args)
       (command echoe "'Usage: \":Ag {pattern}\" (or just :Ag to search for the word under the cursor).'")
-      (let [pattern (r.join "" (r.initial args))
-            last (r.last args)
+      (let [pattern (if (> (length args) 1) (r.join "" (r.initial args)) (r.head args))
+            last (if (> (length args) 2) (r.last args) ".")
             dir (if
                   (= last ".")
                   ; if current buffer is a file, use its directory
@@ -65,16 +80,15 @@
                     (vim.fn.expand "%:p:h")
                     (vim.fn.getcwd))
                   last)
-            args [:ag pattern dir]]
-        (a.pr last)
-        (a.pr args)
-        (: (pickers.new
+            args [:ag :--vimgrep :--nocolor :--noheading pattern dir]]
+        (doto
+          (pickers.new
             default-opts
             {:prompt_title :Ag
              :finder (finders.new_oneshot_job args default-opts)
              :previewer (config.values.grep_previewer default-opts)
              :sorter (config.values.file_sorter default-opts)})
-         :find)))))
+          (: :find))))))
 
 
 (defn main []
