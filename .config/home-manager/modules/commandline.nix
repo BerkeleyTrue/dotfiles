@@ -47,6 +47,7 @@ in {
     iputils # Network monitoring tools including ping
     lazygit # simple terminal UI for git commands
     lsof # lists open files
+    ngrok # Introspected tunnels to localhost
     p7zip # 7-Zip is a file archiver with a high compression ratio
     playerctl # pause/play music players ci
     procs # A modern replacement for ps written in Rust
@@ -54,8 +55,8 @@ in {
     ripgrep # recursively searches directories for a regex pattern
     rsync # Fast incremental file transfer utility
     rustscan # The Modern Port Scanner
-    silver-searcher # A code-searching tool similar to ack, but faster
     shfmt # A shell parser, formatter, and interpreter (POSIX/Bash/mksh)
+    silver-searcher # A code-searching tool similar to ack, but faster
     taskwarrior # A command-line todo list manager
     tealdeer # A very fast implementation of tldr in Rust
     timewarrior # A command-line time tracker
