@@ -31,7 +31,6 @@
    {:name :nvim-telescope/telescope.nvim :description "Highly extendable fuzzy finder" :dependencies [[:nvim-lua/plenary.nvim]] :config (make-on-load telescope) :lazy false}
    {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :dependencies [[:nvim-telescope/telescope.nvim]]}
    {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :dependencies [[:nvim-telescope/telescope.nvim]]}
-   {:name :folke/todo-comments.nvim :description "list todo, fix, and hack comments in a project" :dependencies [[:nvim-telescope/telescope.nvim]]}
 
    ; lsp/completion
    {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion)}

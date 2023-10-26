@@ -64,7 +64,6 @@
   "telescope-alternate": { "branch": "master", "commit": "bdf3efe80b2901efc6a17cb2c161eaf2aa8af0b1" },
   "telescope-tabs": { "branch": "master", "commit": "801425bd19d3fb511ef477bf44a1f99b82419a9c" },
   "telescope.nvim": { "branch": "master", "commit": "74ce793a60759e3db0d265174f137fb627430355" },
-  "todo-comments.nvim": { "branch": "main", "commit": "3094ead8edfa9040de2421deddec55d3762f64d1" },
   "tree-sitter-templ": { "branch": "master", "commit": "ea56ac0655243490a4929a988f4eaa91dfccc995" },
   "treesj": { "branch": "main", "commit": "070e6761d0b11a55446d988a69908f7a0928dbab" },
   "vim-bbye": { "branch": "master", "commit": "25ef93ac5a87526111f43e5110675032dbcacf56" },

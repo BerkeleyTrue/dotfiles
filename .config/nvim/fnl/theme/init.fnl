@@ -67,7 +67,10 @@
   (add-group :BerksYellowItalic c.yellow c.none s.italic)
 
   (add-group :BerksError c.red c.none)
+  (add-group :BerksErrorInverse c.none c.red)
+
   (add-group :BerksWarn c.orange c.none)
+  (add-group :BerksWarnInverse c.none c.orange)
 
   (add-group :BerksErrorLine c.red c.none s.undercurl)
   (add-group :BerksWarnLine c.orange c.none s.undercurl)
@@ -168,4 +171,17 @@
   (hl.link! :TSNamespace :Namespace)
 
   (run-main :theme.ft {: add-group : c : s})
-  (run-main :theme.editor {: add-group : c : s}))
+  (run-main :theme.editor {: add-group : c : s})
+
+  ; Telescope Todos
+  (add-group :BerksTLTodo c.cyan c.none)
+  (add-group :BerksTLTodoInverse c.bg c.cyan s.bold)
+
+  (add-group :BerksTLNote c.green c.none)
+  (add-group :BerksTLNoteInverse c.bg c.green s.bold)
+
+  (add-group :BerksTLHack c.orange c.none)
+  (add-group :BerksTLHackInverse c.bg c.orange s.bold)
+
+  (add-group :BerksTLPerf c.purple c.none)
+  (add-group :BerksTLPerfInverse c.bg c.purple s.bold))

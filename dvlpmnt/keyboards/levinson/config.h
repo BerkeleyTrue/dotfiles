@@ -2,6 +2,7 @@
 
 #define USE_SERIAL
 #define MASTER_LEFT
+// #define MASTER_RIGHT
 
 #define PREVENT_STUCK_MODIFIERS
 #define MOUSEKEY_DELAY             200
