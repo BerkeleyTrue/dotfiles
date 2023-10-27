@@ -61,8 +61,8 @@ in {
     tealdeer # A very fast implementation of tldr in Rust
     timewarrior # A command-line time tracker
     traceroute # print the route packets trace to network host
-    udisks # access and manipulate disks and media devices
-    udiskie # Removable disk automounter using udisks
+    # udisks # access and manipulate disks and media devices
+    # udiskie # Removable disk automounter using udisks
     vimv # batch rename files w/ vim
     wakatime # Command line interface for Wakatime
     wget # The non-interactive network downloader # required by jdownloader
