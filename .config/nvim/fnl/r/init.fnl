@@ -320,3 +320,41 @@
     (string? col) (not (nil? (: col :find val)))
     (table? col) (not (nil? (find #(= $1 val) col)))
     false))
+
+(defn slice [...]
+  "Create a slice of an seq table, from start up to and including end
+  (slice 2 4 [1 2 3 4 5]) => [3 4]
+  (slice 2 [1 2 3 4 5]) => [3 4 5]
+  (slice [1 2 3 4 5]) => [1 2 3 4 5]"
+  (let [args [...]
+        nargs (length args)
+        arr (last args)
+        end (if (> nargs 2)
+              (. args 2)
+              (size arr))
+        start (if (> nargs 1)
+                (. args 1)
+                1)]
+    (var out [])
+    (for [i start end 1]
+      (table.insert out (. arr i)))
+    out))
+
+(comment
+  (slice 2 4 [1 2 3 4 5])
+  (slice 2 [1 2 3 4 5])
+  (slice [1 2 3 4 5]))
+
+(defn drop [_n seq]
+  "Drop n number of elements from a sequential table"
+  (let [_n (or _n 1)]
+    (slice (+ _n 1) seq)))
+
+(comment (drop 2 [1 2 3 4 5]))
+
+(defn take [_n seq]
+  "Take n number of elements from a sequential table"
+  (let [_n (or _n 1)]
+    (slice 1 (+ _n 1) seq)))
+
+(comment (take 2 [1 2 3 4 5]))
