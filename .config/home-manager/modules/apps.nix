@@ -30,6 +30,20 @@
     echo -n $word | ${pkgs.nodePackages.clipboard-cli}/bin/clipboard
     echo $word
   '';
+
+  rofi-usb = pkgs.writeShellScriptBin "rofi-usb" ''
+    device=$(udiskie-info --all --output "{ui_label}" | rofi -p 'usb' -dmenu | cut -d':' -f1)
+
+    if [ -n "$device" ] ; then
+      if mount | grep "$device" ; then
+        echo "unmounting"
+        udisksctl unmount -b $device
+      else
+        echo "mounting"
+        udisksctl mount -b $device
+      fi
+    fi
+  '';
 in {
   home.packages = with pkgs; [
     (nixGLWrap alacritty) # GPU-accelerated terminal emulator
@@ -45,6 +59,7 @@ in {
     rofi # launcher
     rofi-spell # spell checker
     rofi-bluetooth # rofi bluetooth manager
+    rofi-usb # rofi usb manager
     viewnior # fast image preview
     vlc # Cross-platform media player and streaming server
     zathura # pdf viewer
@@ -59,6 +74,13 @@ in {
   services.kbfs = {
     enable = true;
     mountPoint = "docs/keybase";
+  };
+
+  services.udiskie = {
+    enable = true;
+    automount = false;
+    notify = true;
+    tray = "always";
   };
 
   programs.rofi-network-manager = {
@@ -205,5 +227,25 @@ in {
     exec = "rofi-bluetooth";
     terminal = false;
     categories = ["Network"];
+  };
+
+  xdg.desktopEntries.rofi-spell = {
+    name = "Rofi Spell";
+    genericName = "Dictionary";
+    comment = "Dictionary";
+    icon = "rofi";
+    exec = "${rofi-spell}/bin/rofi-spell";
+    terminal = false;
+    categories = ["Utility"];
+  };
+
+  xdg.desktopEntries.rofi-usb = {
+    name = "Rofi Usb";
+    genericName = "Usb";
+    comment = "Usb";
+    icon = "rofi";
+    exec = "${rofi-usb}/bin/rofi-usb";
+    terminal = false;
+    categories = ["Utility"];
   };
 }
