@@ -233,7 +233,7 @@ in {
     name = "Rofi Spell";
     genericName = "Dictionary";
     comment = "Dictionary";
-    icon = "rofi";
+    icon = "accessories-dictionary";
     exec = "${rofi-spell}/bin/rofi-spell";
     terminal = false;
     categories = ["Utility"];
@@ -243,7 +243,7 @@ in {
     name = "Rofi Usb";
     genericName = "Usb";
     comment = "Usb";
-    icon = "rofi";
+    icon = "drive-harddisk-usb";
     exec = "${rofi-usb}/bin/rofi-usb";
     terminal = false;
     categories = ["Utility"];
@@ -253,7 +253,7 @@ in {
     name = "Redis Insight";
     genericName = "Redis Insight";
     comment = "Redis Insight";
-    icon = "redis";
+    icon = "sqlitebrowser";
     exec = "redis-insight";
     terminal = false;
     categories = ["Utility"];
