@@ -248,4 +248,14 @@ in {
     terminal = false;
     categories = ["Utility"];
   };
+
+  xdg.desktopEntries.redis-insight = {
+    name = "Redis Insight";
+    genericName = "Redis Insight";
+    comment = "Redis Insight";
+    icon = "redis";
+    exec = "redis-insight";
+    terminal = false;
+    categories = ["Utility"];
+  };
 }
