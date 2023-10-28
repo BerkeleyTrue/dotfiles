@@ -10,5 +10,9 @@
   (noremap :<leader>m :<CMD>TSJToggle<CR> {:silent true}))
 
 (defn main []
-  (let [treesj (md.prequire :treesj)]
-    (treesj.setup {:use_default_keymaps false})))
+  (let [treesj (md.prequire :treesj)
+        go (md.prequire :treesj.langs.go)]
+    (treesj.setup
+      {:use_default_keymaps false
+       :langs
+       {:templ go}})))
