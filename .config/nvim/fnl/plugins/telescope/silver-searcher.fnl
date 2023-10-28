@@ -15,7 +15,7 @@
    require-macros [macros]})
 
 
-(defn entry-maker [entry]
+(defn- entry-maker [entry]
   "take each raw line input from Ag and transform it for telescope"
   (let [split (r.split entry ":")
         rel-path (r.head split)
@@ -76,7 +76,7 @@
          (set display (.. display "|" content-display))
          (values display hl-groups)))})) ; use 'values' to return multiple values
 
-(defn attach-mappings [prompt-bufnr]
+(defn- attach-mappings [prompt-bufnr]
   "attach mappings to the prompt buffer"
   (actions.select_default:replace
     (fn []
@@ -94,41 +94,50 @@
   {:entry_maker entry-maker
    :attach_mappings attach-mappings})
 
+(defn- ag-args [...]
+  (let [args [...]
+        args (if (r.empty? args) [(vim.fn.expand "<cword>")] args)
+        pattern (if (> (length args) 1) (r.join " " (r.initial args)) (r.head args))
+        last (if (> (length args) 1) (r.last args) ".")
+        dir (if
+              (= last ".")
+              ; if current buffer is a file, use its directory
+              ; otherwise use current working directory
+              (if (vim.fn.filereadable (vim.fn.expand "%"))
+                (vim.fn.expand "%:p:h")
+                (vim.fn.getcwd))
+              last)]
+    (values dir pattern)))
+
+(comment (ag-args "foo" "bar" "internal/")
+         (ag-args "foo" "bar" "fnl")
+         (ag-args "foo" "bar/")
+         (ag-args "foo" ".")
+         (ag-args "foo")
+         (ag-args))
+
 (defn ag [...]
   "Run ag with the given args, and return the results as a telescope picker
   The last arg is taken as the directory to search in, or '.' if not provided
   The rest of the args are taken as the pattern to search for.
   If no args are provided, the word under the cursor is used as the pattern
   If the last arg is '.', the current buffers directory is used as the search directory
-   unless the current buffer is not readable, i.e. a utility buffer, the current working
-   directory is used.
+    unless the current buffer is not readable, i.e. a utility buffer, the current working
+    directory is used.
   "
   (when-let [ag-not-found (not (= (vim.fn.executable "ag") 1))]
     (command echoe "'ag not found. Is silver searcher installed?'"))
 
-  (let [args [...]
-        args (if (r.empty? args) [(vim.fn.expand "<cword>")] args)]
-
-    (let [pattern (if (> (length args) 1) (r.join "" (r.initial args)) (r.head args))
-          last (if (> (length args) 2) (r.last args) ".")
-          dir (if
-                (= last ".")
-                ; if current buffer is a file, use its directory
-                ; otherwise use current working directory
-                (if (vim.fn.filereadable (vim.fn.expand "%"))
-                  (vim.fn.expand "%:p:h")
-                  (vim.fn.getcwd))
-                last)
-          args [:ag :--vimgrep :--nocolor :--noheading pattern dir]]
-      (doto
-        (pickers.new
-          default-opts
-          {:prompt_title :Ag
-           :finder (finders.new_oneshot_job args default-opts) ; this runs the ag command in a subshell
-           :previewer (config.values.grep_previewer default-opts) ; this is the previewer for the results in telescope
-           :sorter (config.values.file_sorter default-opts)})
-        (: :find)))))
-
+  (let [(dir pattern) (ag-args ...)
+        args [:ag :--vimgrep :--nocolor :--noheading pattern dir]]
+    (doto
+      (pickers.new
+        default-opts
+        {:prompt_title :Ag
+         :finder (finders.new_oneshot_job args default-opts) ; this runs the ag command in a subshell
+         :previewer (config.values.grep_previewer default-opts) ; this is the previewer for the results in telescope
+         :sorter (config.values.file_sorter default-opts)})
+      (: :find))))
 
 (defn main []
   (command!
