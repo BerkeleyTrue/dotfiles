@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - dvlpmnt/keyboards/corne-zmk/**
+  pull_request:
+    branches:
+      - master
+    paths:
+      - dvlpmnt/keyboards/corne-zmk/**
+  # schedule:
+  #   - cron: '0 0 * * SAT'
+  workflow_dispatch:
+
+name: Corne_ZMK_build
+
+jobs:
+  build:
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      config_path: dvlpmnt/keyboards/corne-zmk/config
+      build_matrix_path: dvlpmnt/keyboards/corne-zmk/build.yml
