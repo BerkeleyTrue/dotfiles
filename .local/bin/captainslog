@@ -1,6 +1,24 @@
-#!/bin/sh
+#!/bin/bash
 
-nvim + "$(date +"%y-%m-%d %H:%M" | while read d t; do
+# Open nvim
+# +"ZenMode" tells vim to run the ZenMode command after
+#   opening the file and loading configs
+# +"autocmd WinLeave <buffer> wqall" tells vim to add an autocmd, that runs when you leave a window.
+#   this will be the zenmode window. It will run the wqall command, which will write and quit all
+# + "file" tells vim to start at end of file
+# we run a subshell in $(...)
+#   create a date with `year-month-day hour:minute` format
+#   `while` will place the date into the variables d and t
+#   d being the date and t being the time
+#   f is the file path, which will be the captains log directory plus the current date
+#   we create another subshell to get the content we will append to the current dates file
+#   echo a header with the time
+#   `>>` after the subshell will append the output of that subshell to the current dates file
+#   echo "$f" will print the file path
+#   this will be the output of the outer subshell
+#   which will tell vim which file to open
+#   this ends the while loop (really more like a do loop with variable assignment)
+nvim +"ZenMode" +"autocmd WinLeave <buffer> wqall" + "$(date +"%y-%m-%d %H:%M" | while read d t; do
 
   f=$HOME/docs/notes/captainslog/$d.md
   (
@@ -10,4 +28,5 @@ nvim + "$(date +"%y-%m-%d %H:%M" | while read d t; do
     echo
   ) >>"$f"
   echo "$f"
+
 done)"
