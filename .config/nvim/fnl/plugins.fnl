@@ -88,6 +88,8 @@
    {:name :nvim-lualine/lualine.nvim :description "lua status line" :dependencies [[:nvim-tree/nvim-web-devicons]] :config (make-on-load lualine)}
    {:name :arkav/lualine-lsp-progress :description "add lsp progress to lualine"}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
+   {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}
+   {:name :folke/zen-mode.nvim :description "minimal distraction version of a buffer"}
 
    ; parenthesis
    {:name :kylechui/nvim-surround :description "Add surround movements, written in lua." :config (make-on-load surround)}
