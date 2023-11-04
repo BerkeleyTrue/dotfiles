@@ -137,21 +137,26 @@ in {
     # Vim text editor fork focused on extensibility and agility
     neovim = {
       enable = true;
-      extraPackages = with pkgs; [
-        parinfer-rust
-        tree-sitter # to build grammars from source
+      extraPackages = with pkgs;
+        [
+          parinfer-rust
+          tree-sitter # to build grammars from source
 
-        lua-language-server # A language server for Lua
-        nodePackages.bash-language-server # A language server for Bash
-        nil #nix language server
-        nixd # nix language server
+          lua-language-server # A language server for Lua
+          nil #nix language server
+          nixd # nix language server
 
-        nodePackages.prettier # for formatting js, ts, css, html, json, yaml, markdown
-        alejandra # formatting nix
-        shfmt # formatting shell scripts
-        nodePackages.purs-tidy # formatting purescript
-        golines # formatting long lines in go
-      ];
+          alejandra # formatting nix
+          shfmt # formatting shell scripts
+          golines # formatting long lines in go
+        ]
+        ++ (with nodePackages; [
+          yaml-language-server # A language server for YAML
+          bash-language-server # A language server for Bash
+
+          prettier # for formatting js, ts, css, html, json, yaml, markdown
+          purs-tidy # formatting purescript
+        ]);
 
       plugins = with pkgs.vimPlugins; [
         parinfer-rust
