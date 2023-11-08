@@ -1,4 +1,3 @@
-;; vim:ft=scheme
 (defcfg
   input  (device-file "/dev/input/by-id/usb-Keychron_Keychron_C1_Pro-event-kbd")
   output (uinput-sink "my-keychron")
