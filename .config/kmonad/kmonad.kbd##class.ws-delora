@@ -1,3 +1,4 @@
+;; vim:ft=kbd
 (defcfg
   input  (device-file "/dev/input/by-id/usb-Keychron_Keychron_C1_Pro-event-kbd")
   output (uinput-sink "my-keychron")
@@ -11,7 +12,17 @@
   lparshft (tap-hold-next-release 100 \( lsft)
   rparshft (tap-hold-next-release 100 \) rsft)
   spacenav (tap-hold-next-release 250 space (layer-toggle nav))
-  numtg    (layer-toggle nums))
+  numtg    (layer-toggle nums)
+
+  sfta (tap-hold-next-release 200 a lsft)
+  ctls (tap-hold-next-release 200 s lctl)
+  altd (tap-hold-next-release 200 d lalt)
+  metf (tap-hold-next-release 200 f lmet)
+
+  metj (tap-hold-next-release 200 j rmet)
+  altk (tap-hold-next-release 200 k ralt)
+  ctll (tap-hold-next-release 200 l lctl)
+  sft; (tap-hold-next-release 201 ; rsft))
 
 
 (defsrc
@@ -22,11 +33,12 @@
   lsft       z     x     c     v     b     n     m     ,     .     /     rsft                           up
 
   lctl lalt  lmet           spc                        rmet   ralt  rctl                           left down  right)
+
 (deflayer base
   esc              f1    f2    f3    f4     f5    f6    f7    f8         f9    f10   f11   f12     ssrq slck pause
   grv        1     2     3     4     5     6     7     8     9     0     -     =     bspc          ins  home pgup
   tab        q     w     e     r     t     y     u     i     o     p     [     ]      \            del  end  pgdn
-  @cesc      a     s     d     f     g     h     j     k     l     ;     '     ret
+  @cesc      @sfta @ctls @altd @metf g     h     @metj @altk @ctll @sft; '     ret
   @lparshft  z     x     c     v     b     n     m     ,     .     /     @rparshft                      up
 
   lctl lalt  lmet           @spacenav                  @numtg ralt  rctl                           left down right)
