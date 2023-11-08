@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# check if not already in nix-shell
+if [ -z "$IN_NIX_SHELL" ]; then
+  nix develop --show-trace
+else
+  echo "Already in nix-shell"
+fi
