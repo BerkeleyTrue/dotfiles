@@ -180,32 +180,33 @@ in {
       commands = {
         dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
         editor-open = ''$$EDITOR $f'';
-        mkdir = ''
-          ''${{
-            printf "Directory Name: "
-            read DIR
-            mkdir -p $DIR
-          }}
-        '';
+        mkdir = ''$mkdir -p "$(echo $* | tr ' ' '\ ')"'';
       };
 
       keybindings = {
         "\\\"" = "";
         o = "";
-        c = "mkdir";
         "." = "set hidden!";
         "`" = "mark-load";
         "\\'" = "mark-load";
-        "<enter>" = "open";
 
         do = "dragon-out";
+        D = "delete";
 
-        "g~" = "cd";
-        gh = "cd";
-        "g/" = "/";
+        g = "top";
+        G = "bottom";
 
-        ee = "editor-open";
-        V = ''$${pkgs.bat}/bin/bat --paging=always "$f"'';
+        "g~" = "cd"; # go to home directory
+        gh = "cd"; # go to home directory
+        "g/" = "/"; # go to root directory
+
+        A = ":rename; cmd-end"; # at the very end
+        c = "push A<c-u>"; # new rename
+        I = ":rename; cmd-home"; # at the very beginning
+        i = ":rename"; # before extension
+        a = ":rename; cmd-right"; # after extension
+
+        V = ''push :!nvim<space>'';
 
         # ...
       };
