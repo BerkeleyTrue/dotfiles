@@ -12,6 +12,7 @@
 
 (run-main :plugins)
 (run-main :lib.scroll-fix)
+(run-main :lib.folds)
 (let [cb (md.prequire :plugins.colorbuddy)
       palette (. (md.prequire :theme.palette) :palette)
       (ok theme-fns) (pcall cb.main palette)]

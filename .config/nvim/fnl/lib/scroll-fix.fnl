@@ -37,15 +37,17 @@
 
 
 (defn scroll-fix []
-  ;; Scroll fix - pull the current state of the window, buffer, and cursor
-  ;; and calculate whether to adjust the window position in order to keep the cursor
-  ;; at the center of the screen
+  "Scroll fix - pull the current state of the window, buffer, and cursor
+   and calculate whether to adjust the window position in order to keep the cursor
+   at the center of the screen.
+   TODO: figure out how to get fold info
+  "
   (let [
         ;; configs
-        fix-percent (a.get vim.g :scroll_fix_percent 60)
-        is-enabled? (a.get vim.g :scroll_fix_enabled true)
-        fix-at-eof (a.get vim.g :scroll_fix_at_eof true)
-        is-debug? (a.get vim.g :scroll_fix_debug false)
+        fix-percent (a.get vim.g :scroll_fix_percent 60) ; how far down the window should the cursor be fixed at
+        is-enabled? (a.get vim.g :scroll_fix_enabled true) ; whether to enable the plugin
+        fix-at-eof (a.get vim.g :scroll_fix_at_eof true) ; whether to fix the cursor at the end of the file
+        is-debug? (a.get vim.g :scroll_fix_debug false) ; whether to print debug info
 
         ;; world facts
         winheight (vim.fn.winheight 0)
@@ -54,7 +56,7 @@
         top-visible-line (. wintable :topline)
         buf-last-line (vim.fn.line "$")
         fold-close-line (vim.fn.foldclosedend ".")
-        is-on-fold (not= fold-close-line -1)
+        is-on-fold (not= fold-close-line -1) ; whether the cursor is on a fold, currently we do nothing with this
         ;; derived
 
         ;; get the window height
