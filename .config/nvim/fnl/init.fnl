@@ -11,6 +11,7 @@
 (require :functions)
 
 (run-main :plugins)
+(run-main :lib.scroll-fix)
 (let [cb (md.prequire :plugins.colorbuddy)
       palette (. (md.prequire :theme.palette) :palette)
       (ok theme-fns) (pcall cb.main palette)]

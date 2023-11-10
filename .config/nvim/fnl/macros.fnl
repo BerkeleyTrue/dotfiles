@@ -286,7 +286,9 @@
     `(vim.api.nvim_cmd ,(merge {:cmd cmd :bang bang?} def) {})))
 
 (defn command [name ...]
-  "execute command 'name' and concat with arguments"
+  "execute command 'name' and concat with arguments
+   approximately `:,name {...}.join(" ")`
+  "
   `(vim.api.nvim_command (table.concat (vim.tbl_flatten [,(tostring name) ,...]) " ")))
 
 (defn echoerr [errstring]

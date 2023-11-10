@@ -1,39 +1,39 @@
-(module plugins.scroll-fix
+(module lib.scroll-fix
   {require
    {a aniseed.core
-    nvim aniseed.nvim
+    r r
+    md utils.module
     utils utils}
    require-macros [macros]})
 
-
 (defn- set-top-of-window [line wintable]
   ;; set the top line of the window to be `line`
-  ;; this effectively scrolls the winodw
+  ;; this effectively scrolls the window
   (-> wintable
     (a.assoc :topline line)
-    (nvim.fn.winrestview)))
+    (vim.fn.winrestview)))
 
 (defn- print-info [desired-win-line fix-percent winheight]
   ;; prints info when the window height changes
-  (when (or (not (nvim.fn.exists "b:desired_win_line"))
-            (not= (. nvim.b :desired_win_line) desired-win-line))
+  (when (or (not (vim.fn.exists "b:desired_win_line"))
+            (not= (. vim.b :desired_win_line) desired-win-line))
 
-    (set nvim.b.desired_win_line desired-win-line)
+    (set vim.b.desired_win_line desired-win-line)
 
-    (let [saved-lzy-redraw-option (. nvim.o :lazyredraw)]
+    (let [saved-lzy-redraw-option (. vim.o :lazyredraw)]
       ;; for redraw
-      (set nvim.o.lazyredraw false)
+      (set vim.o.lazyredraw false)
       ; sometimes this will cause `no buffer for <n> errors to happen silently`
-      (pcall nvim.ex.redraw)
+      (command redraw)
 
       ;; echo info
-      (comment (nvim.echo (..)
-                          "Scroll fixed at line " (a.pr-str (. nvim.b :desired_win_line))
-                          "/" winheight
-                          " (" fix-percent "%)"))
+      (comment (vim.echo (..
+                           "Scroll fixed at line " (a.pr-str (. vim.b :desired_win_line))
+                           "/" winheight
+                           " (" fix-percent "%)")))
 
       ;; revert lazyredraw settings
-      (set nvim.o.lazyredraw saved-lzy-redraw-option))))
+      (set vim.o.lazyredraw saved-lzy-redraw-option))))
 
 
 (defn scroll-fix []
@@ -42,18 +42,18 @@
   ;; at the center of the screen
   (let [
         ;; configs
-        fix-percent (a.get nvim.g :scroll_fix_percent 60)
-        is-enabled? (a.get nvim.g :scroll_fix_enabled true)
-        fix-at-eof (a.get nvim.g :scroll_fix_at_eof true)
-        is-debug? (a.get nvim.g :scroll_fix_debug false)
+        fix-percent (a.get vim.g :scroll_fix_percent 60)
+        is-enabled? (a.get vim.g :scroll_fix_enabled true)
+        fix-at-eof (a.get vim.g :scroll_fix_at_eof true)
+        is-debug? (a.get vim.g :scroll_fix_debug false)
 
         ;; world facts
-        winheight (nvim.fn.winheight 0)
-        wintable (nvim.fn.winsaveview)
+        winheight (vim.fn.winheight 0)
+        wintable (vim.fn.winsaveview)
         current-buf-line (. wintable :lnum)
         top-visible-line (. wintable :topline)
-        buf-last-line (nvim.fn.line "$")
-        fold-close-line (nvim.fn.foldclosedend ".")
+        buf-last-line (vim.fn.line "$")
+        fold-close-line (vim.fn.foldclosedend ".")
         is-on-fold (not= fold-close-line -1)
         ;; derived
 
@@ -81,19 +81,20 @@
                    buf-last-line)]
 
     (when is-debug?
-      (print "current-buf-line: " current-buf-line)
-      (print "desired-buf-line: " desired-buf-line)
-      (print "is-above-buf-margin?: " is-above-buf-margin?)
-      (print "is-on-desired?: " is-on-desired?)
-      (print "is-below-desired?: " is-below-desired?)
-      (print "is-eof?: " is-eof?))
+      (print (..
+               "current-buf-line: " current-buf-line
+               "\ndesired-buf-line: " desired-buf-line
+               "\nis-above-buf-margin?: " is-above-buf-margin?
+               "\nis-on-desired?: " is-on-desired?
+               "\nis-below-desired?: " is-below-desired?
+               "\nis-eof?: " is-eof?)))
 
     (when is-enabled?
 
       ;; make sure softtabstop is off
       ;; not sure why this is needed
-      (when (not= (a.get nvim.o :softtabstop) 0)
-        (set nvim.o.softtabstop 0))
+      (when (not= (a.get vim.o :softtabstop) 0)
+        (set vim.o.softtabstop 0))
 
       (when (not (or
                    is-above-buf-margin?
@@ -113,4 +114,5 @@
     :ScrollFixGroup
     {:event [:CursorMoved :CursorMovedI :BufEnter :BufFilePre]
      :pattern :*
-     :callback scroll-fix}))
+     :callback scroll-fix})
+  (nnoremap :zz scroll-fix))
