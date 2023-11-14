@@ -14,6 +14,7 @@
     ./tray.nix
     ./unclutter.nix
     ./xcape.nix
+    ./xdg.nix
     ./xkbmap.nix
     ./xplugd.nix
   ];
