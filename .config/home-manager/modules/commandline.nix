@@ -245,4 +245,6 @@ in {
       '';
     };
   };
+
+  xdg.configFile."lf/icons".text = builtins.readFile ./lf-icons.conf;
 }
