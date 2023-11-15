@@ -63,6 +63,7 @@ in {
     viewnior # fast image preview
     vlc # Cross-platform media player and streaming server
     zathura # pdf viewer
+    networkmanagerapplet
   ];
 
   home.file.".local/share/aspell/english".source = "${enDict}/share/aspell/english";
@@ -84,6 +85,10 @@ in {
     automount = false;
     notify = true;
     tray = "always";
+  };
+
+  services.network-manager-applet = {
+    enable = true;
   };
 
   programs.rofi-network-manager = {
