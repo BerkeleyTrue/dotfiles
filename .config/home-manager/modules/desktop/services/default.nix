@@ -7,6 +7,7 @@
     ./notessync.nix
     ./pasystray.nix
     ./picom.nix
+    ./security.nix
     ./sleep.nix
     ./status-notifier-watcher.nix
     ./task.nix
