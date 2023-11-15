@@ -76,12 +76,12 @@ in {
     mountPoint = "docs/keybase";
   };
 
-  # services.udiskie = {
-  #   enable = true;
-  #   automount = false;
-  #   notify = true;
-  #   tray = "always";
-  # };
+  services.udiskie = {
+    enable = true;
+    automount = false;
+    notify = true;
+    tray = "always";
+  };
 
   programs.rofi-network-manager = {
     enable = true;
