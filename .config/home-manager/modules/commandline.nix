@@ -182,6 +182,8 @@ in {
         dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
         editor-open = ''$$EDITOR $f'';
         mkdir = ''$mkdir -p "$(echo $* | tr ' ' '\ ')"'';
+        unzip = ''$7z -x "$f"'';
+        unzip-to = ''$7z -x -o"$(echo $* | tr ' ' '\ ')" "$f"'';
       };
 
       keybindings = {
@@ -220,31 +222,24 @@ in {
         ignorecase = true;
       };
 
-      extraConfig = let
-        previewer = pkgs.writeShellScriptBin "pv.sh" ''
-          file=$1
-          w=$2
-          h=$3
-          x=$4
-          y=$5
+      previewer = {
+        keybinding = "i";
+        source = "${pkgs.ctpv}/bin/ctpv";
+      };
 
-          if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
-              ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
-              exit 1
-          fi
+      extraConfig = ''
+        &${pkgs.ctpv}/bin/ctpv -s $id
 
-          ${pkgs.pistol}/bin/pistol "$file"
-        '';
-
-        cleaner = pkgs.writeShellScriptBin "clean.sh" ''
-          ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
-        '';
-      in ''
-        set cleaner ${cleaner}/bin/clean.sh
-        set previewer ${previewer}/bin/pv.sh
+        cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id
+        set cleaner ${pkgs.ctpv}/bin/ctpvclear
       '';
     };
   };
 
   xdg.configFile."lf/icons".text = builtins.readFile ./lf-icons.conf;
+  xdg.configFile."ctpv/config".text = ''
+    set forcekitty
+    set forcekittyanim
+    set shell "/usr/bin/bash"
+  '';
 }
