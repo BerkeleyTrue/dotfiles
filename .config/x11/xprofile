@@ -3,13 +3,4 @@
 #
 # NOTE: Run by display manager
 
-# If there are any running services from a previous session.
-# Need to run this in xprofile because the Xmonad
-# starts up graphical-session.target.
-echo "xprofile: stoping left over services"
-systemctl --user stop graphical-session.target graphical-session-pre.target
-
-echo "xprofile: starting xprofile apps"
-
-# used for controlling system wide privileges
-/usr/lib/polkit-kde-authentication-agent-1 | sed 's/^/polkit: /' &
+# echo "xprofile: starting xprofile apps"

@@ -102,7 +102,10 @@ myManageHook =
       className =? "Zenity" --> doRectFloat CheatSh.size,
       className =? "Yad" --> doRectFloat CheatSh.size,
       className =? "Xdg-desktop-portal-gtk" --> doRectFloat centerWindow,
-      className =? "Blueman-manager" --> doRectFloat centerWindow
+      className =? "Blueman-manager" --> doRectFloat centerWindow,
+      className =? ".blueman-manager-wrapped" --> doRectFloat centerWindow, -- nix wrapped blueman
+      className =? "nm-connection-editor" --> doRectFloat centerWindow,
+      className =? "Nm-connection-editor" --> doRectFloat centerWindow
     ]
     <+> scratchpadManageHook
 
@@ -138,12 +141,7 @@ myStartupHook :: X ()
 myStartupHook =
   setWMName "LG3D"
     -- we use systemd to manage most things since a lot of sni stuff has delicate timing
-    -- the first command imports PATH and DBUS_SESSION_BUS_ADDRESS into the current user session of systemd
-    <> spawnOnce "systemctl --user import-environment PATH DBUS_SESSION_BUS_ADDRESS && systemctl --no-block --user start xmonad.target"
-    -- TODO: move into systemd
-    -- sets wallpapers and xrandr config
-    -- yadm takes care of switching between different hosts
-    <> spawn "sleep 1 && source $HOME/.config/screenlayout/default.sh"
+    <> spawnOnce "systemctl --no-block --user start xmonad.target"
     -- TODO: Need to the move the mouse out of the corner after before locking
     -- otherwise the mouse will re-lock immediately after unlocking
     <> addScreenCorners [(SCLowerRight, spawn "xsecurelock")]
