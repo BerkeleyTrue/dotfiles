@@ -67,6 +67,9 @@ in {
 
   home.file.".local/share/aspell/english".source = "${enDict}/share/aspell/english";
 
+  # enable app icons in the system tray for udiskie and nm-applet hm services
+  xsession.preferStatusNotifierItems = true;
+
   services.keybase = {
     enable = true;
   };
