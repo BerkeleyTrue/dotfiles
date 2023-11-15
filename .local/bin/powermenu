@@ -38,6 +38,7 @@ $suspend)
   (sleep .250 && /usr/bin/systemctl suspend)
   ;;
 $logout)
-  kill $(pgrep X)
+  systemctl --user stop xmonad
+  # kill $(pgrep X)
   ;;
 esac

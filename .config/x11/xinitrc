@@ -66,16 +66,16 @@ kde)
   exec startplasma-x11
   ;;
 *)
-  exec $XMONAD_EXEC | sed 's/^/xmonad: /'
+  # exec $XMONAD_EXEC | sed 's/^/Xmonad: /'
+  systemd-run --wait --unit=xmonad --user --collect $XMONAD_EXEC
 
   # cleanup after xmonad exits
-  echo "Xinit: xmonad exited. Cleaning up..."
-  sysctemctl --user stop graphical-session.target
-  systemctl --user stop graphical-session-pre.target
+  # echo "Xinit: xmonad exited. Cleaning up..."
+  # systemctl --user stop graphical-session.target
   # Wait until the units actually stop.
-  while [ -n "$(systemctl --user --no-legend --state=deactivating list-units)" ]; do
-    sleep 0.5
-  done
+  # while [ -n "$(systemctl --user --no-legend --state=deactivating list-units)" ]; do
+  #   sleep 0.5
+  # done
   echo "Xinit: Good bye, Beautiful"
   ;;
 esac
