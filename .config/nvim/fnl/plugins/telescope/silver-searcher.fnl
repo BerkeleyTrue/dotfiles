@@ -96,25 +96,28 @@
 
 (defn- ag-args [...]
   (let [args [...]
-        args (if (r.empty? args) [(vim.fn.expand "<cword>")] args)
+        args (if (r.empty? args) [(vim.fn.expand  "<cword>")] args)
         pattern (if (> (length args) 1) (r.join " " (r.initial args)) (r.head args))
-        last (if (> (length args) 1) (r.last args) ".")
+        last (if (> (length args) 1) (r.last args) "~")
         dir (if
-              (= last ".")
               ; if current buffer is a file, use its directory
               ; otherwise use current working directory
-              (if (vim.fn.filereadable (vim.fn.expand "%"))
-                (vim.fn.expand "%:p:h")
-                (vim.fn.getcwd))
+              (= last ".") (if (vim.fn.filereadable (vim.fn.expand "%"))
+                             (vim.fn.expand "%:p:h")
+                             (vim.fn.getcwd))
+              ; if last arg is ~, use the current working directory
+              (= last "~") (vim.fn.getcwd)
+              ; otherwise use the last arg as the directory
               last)]
     (values dir pattern)))
 
 (comment (ag-args "foo" "bar" "internal/")
          (ag-args "foo" "bar" "fnl")
          (ag-args "foo" "bar/")
-         (ag-args "foo" ".")
-         (ag-args "foo")
-         (ag-args))
+         (ag-args "foo" ".") ; current buffers directory
+         (ag-args "foo" "~") ; current working directory
+         (ag-args "foo") ; default to current working directory
+         (ag-args)) ; default to current word under cursor, current working directory
 
 (defn ag [...]
   "Run ag with the given args, and return the results as a telescope picker
