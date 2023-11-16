@@ -1,0 +1,78 @@
+#!/bin/bash
+
+set -eu
+
+LOG=$HOME/.local/share/x11/x11.log
+
+# redirect stdout/stderr to a log file clearing it first
+exec &>$LOG
+
+export DESKTOP_SESSION=xmonad
+export XDG_CURRENT_DESKTOP=XMonad # xdg-desktop-portal
+export XDG_SESSION_DESKTOP=XMonad # systemd
+export XDG_SESSION_TYPE=x11       # xdg/systemd
+
+__clear_graphical_session() {
+	systemctl --user stop graphical-session.target graphical-session-pre.target
+}
+
+__teardown() {
+	__clear_graphical_session
+
+  # Wait until the units actually stop.
+  while [ -n "$(systemctl --user --no-legend --state=deactivating list-units)" ]; do
+    sleep 0.5
+  done
+
+  # clear the environment variables
+	systemctl --user unset-environment \
+		DBUS_SESSION_BUS_ADDRESS \
+		DISPLAY \
+		SSH_AUTH_SOCK \
+		XAUTHORITY \
+		XDG_DATA_DIRS \
+		XDG_RUNTIME_DIR \
+		XDG_SESSION_ID \
+		XDG_SESSION_DESKTOP \
+		XDG_SESSION_TYPE \
+		XDG_CURRENT_DESKTOP \
+		GDK_PIXBUF_ICON_LOADER
+}
+
+__startxmonad() {
+	__clear_graphical_session
+
+	if command -v dbus-update-activation-environment >/dev/null; then
+		dbus-update-activation-environment \
+			XDG_CURRENT_DESKTOP \
+			XDG_SESSION_DESKTOP \
+			XDG_SESSION_TYPE
+	fi
+
+	# without this, systemd starts xdg-desktop-portal without these environment variables,
+	# and the xdg-desktop-portal does not start xdg-desktop-portal-wrl as expected
+	# https://github.com/emersion/xdg-desktop-portal-wlr/issues/39#issuecomment-638752975
+	systemctl --user import-environment \
+		PATH \
+		DBUS_SESSION_BUS_ADDRESS \
+		DISPLAY \
+		SSH_AUTH_SOCK \
+		XAUTHORITY \
+		XDG_DATA_DIRS \
+		XDG_RUNTIME_DIR \
+		XDG_SESSION_ID \
+		XDG_SESSION_DESKTOP \
+		XDG_SESSION_TYPE \
+		XDG_CURRENT_DESKTOP \
+		GDK_PIXBUF_ICON_LOADER # for gtk apps, they need this env var
+
+  # only start in tty1
+	if [[ "$(tty)" = "/dev/tty1" ]]; then
+	  # make sure xorg is not already running
+		pgrep -x Xorg || startx $HOME/.config/x11/xinitrc
+	fi
+
+	__teardown
+}
+
+__startxmonad
