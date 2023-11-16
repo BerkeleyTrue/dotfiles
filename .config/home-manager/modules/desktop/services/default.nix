@@ -3,6 +3,7 @@
     ./blueman.nix
     ./dunst.nix
     ./flameshot.nix
+    ./nitrogen.nix
     ./notessync.nix
     ./pasystray.nix
     ./picom.nix
