@@ -1,6 +1,7 @@
 # these are redundant, but useful for clarity
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
 export XDG_CURRENT_DESKTOP=Unity
 export NIX_PROFILE="$HOME/.nix-profile"
 
