@@ -6,35 +6,33 @@
     utils utils}
    require-macros [macros]})
 
+(def- configs
+  {:margin 60
+   :is_enabled? true
+   :fix_at_eof true
+   :debug false})
+
 (defn- set-top-of-window [line wintable]
-  ;; set the top line of the window to be `line`
-  ;; this effectively scrolls the window
+  "set the top line of the window to be `line`
+   this effectively scrolls the window"
   (-> wintable
     (a.assoc :topline line)
     (vim.fn.winrestview)))
 
-(defn- print-info [desired-win-line fix-percent winheight]
-  ;; prints info when the window height changes
-  (when (or (not (vim.fn.exists "b:desired_win_line"))
-            (not= (. vim.b :desired_win_line) desired-win-line))
+(defn- get-world-facts []
+  "get facts about the current buffer, window, and cursor"
+  (let [winheight (vim.fn.winheight 0) ; current window viewport height
+        wintable (vim.fn.winsaveview) ;
+        current-cursor-win-line (. wintable :lnum)
+        top-visible-line (. wintable :topline)
+        buf-last-line (vim.fn.line "$")]
+    {:winheight winheight
+     :wintable wintable
+     :current-cursor-win-line current-cursor-win-line
+     :top-visible-line top-visible-line
+     :buf-last-line buf-last-line}))
 
-    (set vim.b.desired_win_line desired-win-line)
-
-    (let [saved-lzy-redraw-option (. vim.o :lazyredraw)]
-      ;; for redraw
-      (set vim.o.lazyredraw false)
-      ; sometimes this will cause `no buffer for <n> errors to happen silently`
-      (command redraw)
-
-      ;; echo info
-      (comment (vim.echo (..
-                           "Scroll fixed at line " (a.pr-str (. vim.b :desired_win_line))
-                           "/" winheight
-                           " (" fix-percent "%)")))
-
-      ;; revert lazyredraw settings
-      (set vim.o.lazyredraw saved-lzy-redraw-option))))
-
+(comment (get-world-facts))
 
 (defn scroll-fix []
   "Scroll fix - pull the current state of the window, buffer, and cursor
@@ -44,52 +42,47 @@
   "
   (let [
         ;; configs
-        fix-percent (a.get vim.g :scroll_fix_percent 60) ; how far down the window should the cursor be fixed at
-        is-enabled? (a.get vim.g :scroll_fix_enabled true) ; whether to enable the plugin
-        fix-at-eof (a.get vim.g :scroll_fix_at_eof true) ; whether to fix the cursor at the end of the file
-        is-debug? (a.get vim.g :scroll_fix_debug false) ; whether to print debug info
+        fix-percent (a.get configs :margin 60) ; how far down the window should the cursor be fixed at
+        is-enabled? (a.get configs :is_enabled? true) ; whether to enable the plugin
+        fix-at-eof (a.get configs :fix_at_eof true) ; whether to fix the cursor at the end of the file
+        is-debug? (a.get configs :debug false) ; whether to print debug info
 
         ;; world facts
-        winheight (vim.fn.winheight 0)
-        wintable (vim.fn.winsaveview)
-        current-buf-line (. wintable :lnum)
-        top-visible-line (. wintable :topline)
-        buf-last-line (vim.fn.line "$")
-        fold-close-line (vim.fn.foldclosedend ".")
-        is-on-fold (not= fold-close-line -1) ; whether the cursor is on a fold, currently we do nothing with this
+        {: winheight : wintable : current-cursor-win-line : top-visible-line : buf-last-line} (get-world-facts)
         ;; derived
 
-        ;; get the window height
+        ;; get the number of lines (margin) above the cursor
+        ;; use the window height
         ;; multiply by fix-percent (defaults to 60 percent of window)
         ;; get percent (div 100)
         ;; round to int
-        desired-win-line (-> winheight
+        desired-win-margin (-> winheight
                              (* fix-percent)
                              (/ 100)
                              (math.floor))
 
-        desired-buf-line (+ top-visible-line desired-win-line)
+        ;; get the line number of the cursor in the buffer that we want to fix at
+        desired-buf-line (+ top-visible-line desired-win-margin)
 
-        ;; when the current buffer line
-        ;; is less than the desired window line
-        ;; it is at the beginning of the buffer
-        is-above-buf-margin? (<= current-buf-line (- desired-win-line 1))
+        ;; are we at the beginning of the buffer and the top of the window?
+        is-at-beg-of-buff? (and
+                             (= top-visible-line 1)
+                             (<= current-cursor-win-line (- desired-buf-line 1)))
         is-on-desired? (=
-                        (+ (- current-buf-line top-visible-line) 1)
-                        desired-win-line)
+                         (+ (- current-cursor-win-line top-visible-line) 1)
+                         desired-win-margin)
 
-        is-below-desired? (>= current-buf-line desired-win-line)
+        is-below-desired? (>= current-cursor-win-line desired-win-margin)
         is-eof? (> (+ winheight top-visible-line)
                    buf-last-line)]
 
     (when is-debug?
-      (print (..
-               "current-buf-line: " current-buf-line
-               "\ndesired-buf-line: " desired-buf-line
-               "\nis-above-buf-margin?: " is-above-buf-margin?
-               "\nis-on-desired?: " is-on-desired?
-               "\nis-below-desired?: " is-below-desired?
-               "\nis-eof?: " is-eof?)))
+      (a.pr "current-buf-line: " current-cursor-win-line
+            "desired-buf-line: " desired-buf-line
+            "is-above-buf-margin?: " is-at-beg-of-buff?
+            "is-on-desired?: " is-on-desired?
+            "is-below-desired?: " is-below-desired?
+            "is-eof?: " is-eof?))
 
     (when is-enabled?
 
@@ -98,18 +91,21 @@
       (when (not= (a.get vim.o :softtabstop) 0)
         (set vim.o.softtabstop 0))
 
-      (when (not (or
-                   is-above-buf-margin?
-                   is-on-desired?
-                   (and (not fix-at-eof)
-                        is-eof?
-                        is-below-desired?)))
+      (when-not
+        (or
+          is-at-beg-of-buff?
+          is-on-desired?
+          (and
+            (not fix-at-eof)
+            is-below-desired?
+            is-eof?))
 
-
-        (print-info desired-win-line fix-percent winheight)
-        (set-top-of-window (+
-                            (- current-buf-line desired-win-line)
-                            1))))))
+        (set-top-of-window
+          (->
+            current-cursor-win-line
+            (- desired-win-margin)
+            (+ 1))
+          wintable)))))
 
 (defn main []
   (augroup
@@ -117,4 +113,12 @@
     {:event [:CursorMoved :CursorMovedI :BufEnter :BufFilePre]
      :pattern :*
      :callback scroll-fix})
-  (nnoremap :zz scroll-fix))
+
+  (nnoremap :zz scroll-fix)
+
+  (command!
+    :ScrollFixToggle
+    (fn scroll-fix-toggle []
+      (let [to-enable (not (a.get configs :is_enabled? true))]
+        (a.assoc configs :is_enabled? to-enable)
+        (when to-enable (scroll-fix))))))
