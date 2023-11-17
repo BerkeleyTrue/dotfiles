@@ -31,19 +31,26 @@
     echo $word
   '';
 
-  rofi-usb = pkgs.writeShellScriptBin "rofi-usb" ''
-    device=$(udiskie-info --all --output "{ui_label}" | rofi -p 'usb' -dmenu | cut -d':' -f1)
+  rofi-usb = pkgs.writeShellApplication {
+    name = "rofi-usb";
+    runtimeInputs = [
+      pkgs.rofi
+      pkgs.udiskie
+    ];
+    text = ''
+      device=$(udiskie-info --all --output "{ui_label}" | rofi -p 'usb' -dmenu | cut -d':' -f1)
 
-    if [ -n "$device" ] ; then
-      if mount | grep "$device" ; then
-        echo "unmounting"
-        udisksctl unmount -b $device
-      else
-        echo "mounting"
-        udisksctl mount -b $device
+      if [ -n "$device" ] ; then
+        if mount | grep "$device" ; then
+          echo "unmounting"
+          udisksctl unmount -b "$device"
+        else
+          echo "mounting"
+          udisksctl mount -b "$device"
+        fi
       fi
-    fi
-  '';
+    '';
+  };
 in {
   home.packages = with pkgs; [
     (nixGLWrap alacritty) # GPU-accelerated terminal emulator
