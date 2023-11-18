@@ -1,0 +1,11 @@
+#!/bin/bash
+
+{
+	playerctl pause
+	dunstctl set-paused true
+} &
+
+/usr/lib/xsecurelock/until_nonidle /usr/lib/xsecurelock/dimmer ||
+	(/usr/bin/xsecurelock && dunstify -a "Hephaestus" "Welcome Back!" -u low -i dialog-information)
+
+dunstctl set-paused false

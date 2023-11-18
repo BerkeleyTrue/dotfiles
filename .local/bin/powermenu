@@ -30,7 +30,6 @@ $lock)
   $HOME/.local/bin/lock
   ;;
 $suspend)
-  $HOME/.local/bin/sleep
   # pause music
   /usr/bin/playerctl pause
   # enable xsecurelock
@@ -39,6 +38,5 @@ $suspend)
   ;;
 $logout)
   systemctl --user stop xmonad
-  # kill $(pgrep X)
   ;;
 esac
