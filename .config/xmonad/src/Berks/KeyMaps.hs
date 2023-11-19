@@ -8,7 +8,6 @@ where
 import Berks.GridSelect
 import Berks.MultiToggleState (ToggleData (..))
 import Berks.Scratchpads
-import Berks.Taffybar
 import Control.Monad (when)
 import Data.IORef
 import Data.Ratio as Ratio
@@ -104,12 +103,10 @@ createKeyMaps term werkspaces toggleDataRef XConfig {modMask = modm, layoutHook 
           )
     ),
     -- restart taffybar
-    ((modm .|. shiftMask, xK_t), addName "Restart Taffybar" startTaffybar),
-    -- rebuild taffybar
-    ( (modm .|. controlMask .|. shiftMask, xK_t),
-      addName "Recompile and restart Taffybar" rebuildTaffybar
+    ( (modm .|. shiftMask, xK_t),
+      addName "Restart Taffybar" $
+        spawn "systemctl --user restart taffybar"
     ),
-    ---
     ---
     ---
     subtitle "Launchers",
