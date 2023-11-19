@@ -52,7 +52,10 @@
           stack install :xmonad --local-bin-path bin/
           stack install
           cp bin/xmonad $HOME/.local/share/xmonad/xmonad-x86_64-linux
-          cp bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux &> /dev/null # errors when xmonad is already running
+          # create a symbolic link, force it to overwrite if it already exists (-f),
+          # and force it to be a real file (-T)
+          # this will allow xmonad to be restarted without having to recompile
+          ln -f -T bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux
         '';
 
         buildInputs = with pkgs; [

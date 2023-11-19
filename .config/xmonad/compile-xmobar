@@ -1,7 +1,0 @@
-#!/bin/sh
-
-set -e
-
-cd xmobar-git
-stack build
-stack install --flag xmobar:all_extensions
