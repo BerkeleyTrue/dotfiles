@@ -151,6 +151,7 @@ main = do
   toggleDataRef <- toggleRefIO
   let logHook' = createToggleStateLogHook toggleDataRef >> myLogHook
       keyBindings = createKeyMaps term werkspaces toggleDataRef
+
   xmonad
     $ addDescrKeys'
       ((myModMask .|. shiftMask, xK_slash), CheatSh.cheatSheetView)
