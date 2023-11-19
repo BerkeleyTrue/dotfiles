@@ -3,23 +3,33 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    boulder.url = "github:berkeleytrue/nix-boulder-banner";
   };
 
-  outputs = inputs@{ self, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit self inputs; } {
-
-      systems = [ "x86_64-linux" "x86_64-darwin" ];
+  outputs = inputs @ {
+    self,
+    flake-parts,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit self inputs;} {
+      systems = ["x86_64-linux" "x86_64-darwin"];
       imports = [
-        inputs.flake-parts.flakeModules.easyOverlay
+        inputs.boulder.flakeModule
       ];
 
-      perSystem = { self', config, system, pkgs, lib, ... }:
-       let
+      perSystem = {
+        self',
+        config,
+        system,
+        pkgs,
+        lib,
+        ...
+      }: let
         hPkgs = pkgs.haskell.packages."ghc945";
         stack-wrapped = pkgs.symlinkJoin {
           name = "stack-wrapped";
-          paths = [ pkgs.stack ];
-          buildInputs = [ pkgs.makeWrapper ];
+          paths = [pkgs.stack];
+          buildInputs = [pkgs.makeWrapper];
           postBuild = ''
             wrapProgram $out/bin/stack \
               --add-flags "\
@@ -45,7 +55,7 @@
           cp bin/xmonad $HOME/.local/bin/xmonad-x86_64-linux &> /dev/null # errors when xmonad is already running
         '';
 
-        devTools = with pkgs; [
+        buildInputs = with pkgs; [
           stack-wrapped
           watch-compile
           compile-xmonad
@@ -63,21 +73,37 @@
           xorg.libXrandr
         ];
       in {
+        boulder.commands = [
+          {
+            exec = watch-compile;
+            description = "Watch and compile";
+            category = "development";
+          }
+          {
+            exec = compile-xmonad;
+            description = "Compile xmonad, copy to ~/.local/bin/xmonad-x86_64-linux, and restart xmonad";
+            category = "development";
+          }
+        ];
+
         devShells.default = pkgs.mkShell {
           name = "xmonad";
-          buildInputs = devTools;
+          inputsFrom = [
+            config.boulder.devShell
+          ];
+
+          buildInputs = buildInputs;
 
           # Make external Nix c libraries like zlib known to GHC, like
           # pkgs.haskell.lib.buildStackProject does
           # https://github.com/NixOS/nixpkgs/blob/d64780ea0e22b5f61cd6012a456869c702a72f20/pkgs/development/haskell-modules/generic-stack-builder.nix#L38
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath devTools;
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
 
           shellHook = ''
             zsh
             exit 0
           '';
         };
-
       };
-  };
+    };
 }
