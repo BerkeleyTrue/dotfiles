@@ -8,7 +8,6 @@
 ; side-effecty
 (require :options)
 (require :maps)
-(require :functions)
 
 (run-main :plugins)
 (run-main :lib.scroll-fix)

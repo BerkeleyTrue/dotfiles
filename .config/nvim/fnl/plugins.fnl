@@ -53,14 +53,10 @@
    {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and popupmenu" :dependencies [[:MunifTanjim/nui.nvim] [:rcarriga/nvim-notify] [:hrsh7th/nvim-cmp]] :config (make-on-load noice)}
    {:name :SmiteshP/nvim-navic :description "A simple statusline/winbar component that uses LSP to show your current code context." :dependencies [[:neovim/nvim-lspconfig]] :config (make-on-load navic)}
 
-
    ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
    {:name :lewis6991/gitsigns.nvim :description "git signs (supports yadm)" :config (make-on-load gitsigns)}
    {:name :sindrets/diffview.nvim :description "git diff view" :dependencies [[:nvim-lua/plenary.nvim]]}
-
-   ; buffers
-   {:name :moll/vim-bbye :description "used in Bufdeletehidden"}
 
    ; motion
    {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
