@@ -7,7 +7,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    mission-control.url = "github:Platonic-Systems/mission-control";
+    boulder.url = "github:berkeleytrue/nix-boulder-banner";
     flake-root.url = "https://flakehub.com/f/srid/flake-root/0.1.0.tar.gz";
   };
 
@@ -21,7 +21,7 @@
       imports = [
         inputs.flake-parts.flakeModules.easyOverlay
         inputs.flake-root.flakeModule
-        inputs.mission-control.flakeModule
+        inputs.boulder.flakeModule
       ];
 
       perSystem = {
@@ -85,25 +85,25 @@
           xorg.libxcb
         ];
       in {
-        mission-control.scripts = {
-          watch-compile = {
+        boulder.commands = [
+          {
             exec = watch-compile;
             description = "Watch and compile taffybar to local-bin-path";
             category = "dev tools";
-          };
+          }
 
-          compile-taffybar = {
+          {
             exec = compile-taffybar;
             description = "Compile taffybar, install, and restart user service";
             category = "dev tools";
-          };
-        };
+          }
+        ];
 
         devShells.default = pkgs.mkShell {
           name = "taffybar";
           inputsFrom = [
             config.flake-root.devShell
-            config.mission-control.devShell
+            config.boulder.devShell
           ];
           buildInputs = devTools;
 
