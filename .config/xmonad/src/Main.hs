@@ -142,9 +142,7 @@ myStartupHook =
   setWMName "LG3D"
     -- we use systemd to manage most things since a lot of sni stuff has delicate timing
     <> spawnOnce "systemctl --no-block --user start xmonad.target"
-    -- TODO: Need to the move the mouse out of the corner after before locking
-    -- otherwise the mouse will re-lock immediately after unlocking
-    <> addScreenCorners [(SCLowerRight, spawn "xsecurelock")]
+    <> addScreenCorners [(SCLowerRight, spawn "$HOME/.local/bin/lock")]
 
 ------------------------------------------------------------------------
 main :: IO ()
