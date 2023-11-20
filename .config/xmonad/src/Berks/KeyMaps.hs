@@ -32,10 +32,11 @@ xmonadCmd = "xmonad-x86_64-linux"
 setStrutState :: IORef ToggleData -> X ()
 setStrutState ref = do
   state' <- io $ readIORef ref
-  io $ putStrLn $ "setStrutState: " ++ show state'
+  -- io $ putStrLn $ "setStrutState: " ++ show state'
   case (isFull state', isNoBorders state') of
     (False, False) ->
-      sendMessage (Toggle FULL) >> io (putStrLn "setStrutState: FULL")
+      sendMessage (Toggle FULL)
+      -- >> io (putStrLn "setStrutState: FULL")
     (True, False) ->
       sendMessage (Toggle NOBORDERS) >> sendMessage (SetStruts [] [U, D, L, R]) -- hides docks
       -- >> io (putStrLn "setStrutState: NOBORDERS and NoStruts")
@@ -52,7 +53,7 @@ setStrutState ref = do
 resetStrutToDefault :: IORef ToggleData -> X ()
 resetStrutToDefault ref = do
   state' <- io $ readIORef ref
-  io $ putStrLn $ "resetStrutToDefault: " ++ show state'
+  -- io $ putStrLn $ "resetStrutToDefault: " ++ show state'
 
   sendMessage (SetStruts [U, D, L, R] [U, D, L, R]) -- works?????
   -- >> io
