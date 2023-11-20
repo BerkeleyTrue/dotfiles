@@ -98,8 +98,6 @@ then
   done
 fi
 
-[[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
-
 # init zsh hooks
 command -v direnv > /dev/null \
   && eval "$(direnv hook zsh)" \

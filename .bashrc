@@ -1,1 +1,1 @@
-source $XDG_CONFIG_HOME/bash/bashrc
+[[ -s "$HOME/.config/shell/index.sh" ]] && source "$HOME/.config/shell/index.sh"

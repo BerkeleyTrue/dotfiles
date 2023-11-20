@@ -1,6 +1,4 @@
 #!/bin/bash
-# put important envs here
-export PROFILE_ALREADY_SOURCED=0
 
 export NIX_PROFILE="$HOME/.nix-profile"
 
@@ -14,12 +12,16 @@ export TIMEWARRIORDB="$XDG_CONFIG_HOME/timewarrior"
 export GOPATH=$HOME/dvlpmnt/go
 export XSECURELOCK_NO_COMPOSITE=1 # xsecurelock doesn't work w/ picom
 
-if [[ $ALREADY_SOURCED -eq 0 ]]; then
+# check if already in path
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
 	export PATH=$HOME/.local/bin:$NIX_PROFILE/bin:$PATH
-	export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:$XDG_DATA_DIRS
 fi
-
-export PROFILE_ALREADY_SOURCED=1
+if [[ ":$XDG_DATA_DIRS:" != *":$HOME/.local/share:"* ]]; then
+	export XDG_DATA_DIRS=$HOME/.local/share:$XDG_DATA_DIRS
+fi
+if [[ ":$XDG_DATA_DIRS:" != *":$NIX_PROFILE/.share:"* ]]; then
+	export XDG_DATA_DIRS=$NIX_PROFILE/share:$XDG_DATA_DIRS
+fi
 
 ISOSX="$(uname | grep -q Darwin)"
 SHELL_CONF="$XDG_CONFIG_HOME/shell"
@@ -53,6 +55,6 @@ unset files
 unset file
 unset fname
 
-[[ -s "$SHELL_CONF/.mr.sh" ]] && source $SHELL_CONF/.mr.sh
+[[ -s "$SHELL_CONF/.mr.sh" ]] && source $SHELL_CONF/.mr.sh || true
 
-[[ ISOSX ]] && [[ -s "./osx.sh" ]] && source $SHELL_CONF/osx.sh
+[[ ISOSX ]] && [[ -s "./osx.sh" ]] && source $SHELL_CONF/osx.sh || true
