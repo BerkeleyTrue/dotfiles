@@ -75,6 +75,7 @@ in {
     wget # The non-interactive network downloader # required by jdownloader
     wordnet # Lexical database for the English language
     xdragon # simple drag and drop source/sink for x11
+    xdotool # Command-line X11 automation tool
     yadm # Yet Another Dotfiles Manager
     yt-dlp # A youtube-dl fork with additional features and fixes
     zoxide # A fast alternative to cd that learns your habits

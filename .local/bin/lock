@@ -1,11 +1,25 @@
 #!/bin/bash
 
 {
-	playerctl pause
+	# exits non-zero if nothing is playing..
+	playerctl pause &>/dev/null
 	dunstctl set-paused true
 } &
 
+# xmonad screencorner: move mouse out of corner to prevent retrigger on unlock
+xdotool mousemove_relative -- -10 -10
+# wait for mouse to move or until_nonidle won't work
+sleep 0.1
+
+echo "Locking..."
+
+# uses xset timeout to lock after x seconds of inactivity
+# and dims the screen in the mean time
+# after which xsecurelock is called
+# when xsecurelock exits dunst is used to notify the user
 /usr/lib/xsecurelock/until_nonidle /usr/lib/xsecurelock/dimmer ||
 	(/usr/bin/xsecurelock && dunstify -a "Hephaestus" "Welcome Back!" -u low -i dialog-information)
+
+echo "Unlocking..."
 
 dunstctl set-paused false
