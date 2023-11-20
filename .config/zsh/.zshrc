@@ -1,12 +1,10 @@
 # Zsh configuration
 # runs on every new shell
+[[ -s "$HOME/.config/shell/index.sh"  ]] && source "$HOME/.config/shell/index.sh" || echo "shell config not found"
 
 # clear right prompt on execute
 setopt TRANSIENT_RPROMPT
-
-path+=($HOME/.local/bin) # local binaries and scripts
-path+=($NIX_PROFILE/bin) # nix binaries
-path+=($GOPATH/bin) # go binaries
+bindkey -a -r ':' # remove execute widget command
 
 TERMINAL="kitty"
 DEFAULT_USER=`whoami`
@@ -99,8 +97,6 @@ then
     fi
   done
 fi
-
-[[ -s "$XDG_CONFIG_HOME/shell/index.sh"  ]] && source "$XDG_CONFIG_HOME/shell/index.sh"
 
 [[ -s  "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]] && source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
 

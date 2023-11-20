@@ -13,12 +13,6 @@
 # NOTE: anything that takes long to run here will make it take longer to start WM
 # NOTE: not run by lightdm
 
-export DESKTOP_SESSION=plasma
-export XSECURELOCK_NO_COMPOSITE=1 # xsecurelock doesn't work w/ picom
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
-
 X11_HOME=$XDG_CONFIG_HOME/x11
 userresources=$X11_HOME/xresources
 usermodmap=$X11_HOME/xmodmap
@@ -31,23 +25,23 @@ SESSION=${1:-xmonad}
 
 # merge in defaults and keymaps
 if [ -f $sysresources ]; then
-  xrdb -merge $sysresources
+	xrdb -merge $sysresources
 fi
 
 if [ -f $sysmodmap ]; then
-  xmodmap $sysmodmap
+	xmodmap $sysmodmap
 fi
 
 if [ -f "$userresources" ]; then
-  xrdb -merge "$userresources"
+	xrdb -merge "$userresources"
 fi
 
 if [ -f "$usermodmap" ]; then
-  xmodmap "$usermodmap"
+	xmodmap "$usermodmap"
 fi
 
 if [ -f "$xbindrc" ]; then
-  xbindkeys
+	xbindkeys
 fi
 
 # source xprofile. This is done natively with some WM's but not xmonad
@@ -55,18 +49,18 @@ fi
 
 # NOTE: programs in /etc/X11/xinit/xinitrc.d are sourced by /etc/lightdm/xsession in lightdm
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
+	for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+		[ -x "$f" ] && . "$f"
+	done
+	unset f
 fi
 
 case "$SESSION" in
 kde)
-  exec startplasma-x11
-  ;;
+	exec startplasma-x11
+	;;
 *)
-  systemd-run --wait --unit=xmonad --user --collect $XMONAD_EXEC
-  echo "Xinit: Good bye, Beautiful"
-  ;;
+	systemd-run --wait --unit=xmonad --user --collect $XMONAD_EXEC
+	echo "Xinit: Good bye, Beautiful"
+	;;
 esac

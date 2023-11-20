@@ -1,15 +1,29 @@
-#!/bin/sh
+#!/bin/bash
 # Bash helper alias
-LSARG='aFl'
-LISTC=$(command -v eza >/dev/null 2>&1 && echo 'eza' || echo 'ls --color=tty')
-LISTC_N_ARGS=$(command -v eza >/dev/null 2>&1 && echo 'eza -ag'$LSARG || echo 'ls -'$LSARG)
+
+if [[ -n $(command -v eza) ]]; then
+	alias ls='eza'
+	alias ll='eza -agFl'
+else
+  echo "eza not found"
+	alias ls='ls --color=tty'
+	alias ll='ls -aFl'
+fi
 
 alias ..='cd ..'
 alias ...='cd ../.. && pwd'
-alias ls=$LISTC
-alias ll=$LISTC_N_ARGS
-alias man=$(command -v batman >/dev/null 2>&1 && echo 'batman' || echo 'man')
-alias cat=$(command -v bat >/dev/null 2>&1 && echo 'bat  --theme Dracule' || echo 'cat')
+
+if [[ -n $(command -v batman) ]]; then
+	alias cat='batman --theme Dracula'
+else
+	alias cat='cat'
+fi
+
+if [[ -n $(command -v bat) ]]; then
+	alias cat='bat --theme Dracula'
+else
+	alias cat='cat'
+fi
 
 alias v='nvim'
 alias vi='nvim'
