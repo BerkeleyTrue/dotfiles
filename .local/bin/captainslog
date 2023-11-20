@@ -3,8 +3,6 @@
 # Open nvim
 # +"ZenMode" tells vim to run the ZenMode command after
 #   opening the file and loading configs
-# +"autocmd WinLeave <buffer> wqall" tells vim to add an autocmd, that runs when you leave a window.
-#   this will be the zenmode window. It will run the wqall command, which will write and quit all
 # + "file" tells vim to start at end of file
 # we run a subshell in $(...)
 #   create a date with `year-month-day hour:minute` format
@@ -18,7 +16,7 @@
 #   this will be the output of the outer subshell
 #   which will tell vim which file to open
 #   this ends the while loop (really more like a do loop with variable assignment)
-nvim +"ZenMode" +"autocmd WinLeave <buffer> wqall" + "$(date +"%y-%m-%d %H:%M" | while read d t; do
+nvim +"ZenMode" + "$(date +"%y-%m-%d %H:%M" | while read d t; do
 
   f=$HOME/docs/notes/captainslog/$d.md
   (
