@@ -60,10 +60,6 @@ in {
       ExecStart = "${pkgs.tmux}/bin/tmux start-server";
       ExecStop = "${pkgs.tmux}/bin/tmux kill-server";
     };
-
-    Install = {
-      WantedBy = ["default.target"];
-    };
   };
 
   systemd.user.services.tmux = {
@@ -78,10 +74,6 @@ in {
       RemainAfterExit = true;
       ExecStart = "${pkgs.tmux}/bin/tmux new-session -s dev -d";
       ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t dev";
-    };
-
-    Install = {
-      WantedBy = ["default.target"];
     };
   };
 }
