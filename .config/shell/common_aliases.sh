@@ -1,6 +1,9 @@
 #!/bin/bash
 # Bash helper alias
 
+alias c='clear'
+alias _='sudo'
+
 if [[ -n $(command -v eza) ]]; then
 	alias ls='eza'
 	alias ll='eza -agFl'
