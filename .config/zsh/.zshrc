@@ -70,7 +70,6 @@ fi
 # source theme
 source $ZSH/ghanima.zsh
 
-antigen use oh-my-zsh
 antigen bundle djui/alias-tips
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
