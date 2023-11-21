@@ -2,9 +2,13 @@
 # runs on every new shell
 [[ -s "$HOME/.config/shell/index.sh"  ]] && source "$HOME/.config/shell/index.sh" || echo "shell config not found"
 
+mkdir -p "$XDG_DATA_HOME/zsh"
+
 # clear right prompt on execute
 setopt TRANSIENT_RPROMPT
+
 bindkey -a -r ':' # remove execute widget command
+
 
 TERMINAL="kitty"
 DEFAULT_USER=`whoami`
@@ -12,9 +16,37 @@ DEFAULT_USER=`whoami`
 # Zsh config
 ZSH="$XDG_CONFIG_HOME/zsh"
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
-HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
 
-mkdir -p "$XDG_DATA_HOME/zsh"
+# history config
+HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
+HISTFILESIZE=1000000000
+HISTSIZE=1000000000
+SAVEHIST=1000000000
+
+
+setopt MULTIOS              # enable redirect to multiple streams: echo >file1 >file2
+setopt LONG_LIST_JOBS       # show long list format job notifications
+setopt INTERACTIVECOMMENTS  # recognize comments
+
+setopt EXTENDED_HISTORY       # record unix timestamp of command in HISTFILE | <timestamp>:<elapsed seconds>;command
+setopt HIST_EXPIRE_DUPS_FIRST # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt HIST_IGNORE_ALL_DUPS   # delete old recorded command if new command is a duplicate
+setopt HIST_IGNORE_SPACE      # ignore commands that start with space
+setopt HIST_VERIFY            # show command with history expansion to user before running it
+setopt SHARE_HISTORY          # share command history data
+
+unsetopt MENU_COMPLETE   # do not autoselect the first completion entry
+unsetopt FLOWCONTROL
+
+setopt AUTO_MENU         # show completion menu on successive tab press
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
+
+# completion config
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
 
 # Antigen configs
 ADOTDIR="$XDG_CONFIG_HOME/antigen"
@@ -22,10 +54,6 @@ ANTIGEN_LOG="$HOME/.cache/antigen/antigen.log"
 # uncomment to debug antigen
 # export ANTIGEN_LOG=$ANTIGEN_LOG
 ZSH_THEME="agnoster"
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS=true
 
 fpath+="$ZSH/.zfunc"
 
