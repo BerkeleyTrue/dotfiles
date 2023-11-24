@@ -5,6 +5,7 @@
     ./dunst.nix
     ./flameshot.nix
     ./nitrogen.nix
+    ./nix-collect-garbage.nix
     ./notessync.nix
     ./pasystray.nix
     ./picom.nix
@@ -20,7 +21,6 @@
     ./xkbmap.nix
     ./xplugd.nix
   ];
-
 
   # needed to load env vars for systemd user services
   xdg.configFile."systemd/user.conf".text = ''
