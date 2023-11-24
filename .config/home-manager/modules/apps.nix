@@ -62,7 +62,6 @@ in {
     gparted # graphical partition manager
     keybase # encrypted chat
     keybase-gui # encrypted chat
-    postman # API Development Environment
     rofi # launcher
     rofi-spell # spell checker
     rofi-bluetooth # rofi bluetooth manager

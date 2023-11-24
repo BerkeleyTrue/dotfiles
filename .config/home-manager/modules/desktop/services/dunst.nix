@@ -92,7 +92,7 @@ with lib; let
       # user bus is not guaranteed to have this set up correctly.
       # see xdg.configFile."systemd/user.conf"
       enable_recursive_icon_lookup = true;
-      icon_theme = "Dracula,hicolor";
+      icon_theme = "Dracula,Papirus-Dark,hicolor";
     };
 
     urgency_low = {

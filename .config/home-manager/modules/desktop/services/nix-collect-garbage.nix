@@ -15,7 +15,7 @@
           text = ''
             #!/usr/bin/env bash
             /usr/bin/nix-collect-garbage --delete-older-than 10d
-            dunstify -a "Hephaestus" "Nix Garbage Collected" -i nixos
+            dunstify -a "Hephaestus" "Nix Garbage Collected" -i distributor-logo-nixos
           '';
         };
       in "${script}/bin/collect-garbage";
