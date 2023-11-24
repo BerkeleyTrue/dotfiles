@@ -56,23 +56,24 @@ in {
     (nixGLWrap alacritty) # GPU-accelerated terminal emulator
     (nixGLWrap kitty) # GPU-accelerated terminal emulator
     (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
-    myAspell # spell checker
-    wordnet # lexical database for the English language
     enDict # My dictionary
     gparted # graphical partition manager
     keybase # encrypted chat
     keybase-gui # encrypted chat
+    myAspell # spell checker
+    networkmanagerapplet # network manager applet
     rofi # launcher
-    rofi-spell # spell checker
     rofi-bluetooth # rofi bluetooth manager
+    rofi-spell # spell checker
     rofi-usb # rofi usb manager
+    spacenavd # 3Dconnexion device driver
     viewnior # fast image preview
     vlc # Cross-platform media player and streaming server
+    wordnet # lexical database for the English language
     zathura # pdf viewer
-    networkmanagerapplet
   ];
 
-  home.file.".local/share/aspell/english".source = "${enDict}/share/aspell/english";
+  xdg.dataFile."/aspell/english".source = "${enDict}/share/aspell/english";
 
   # enable app icons in the system tray for udiskie and nm-applet hm services
   xsession.preferStatusNotifierItems = true;

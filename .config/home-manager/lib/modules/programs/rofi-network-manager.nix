@@ -302,19 +302,19 @@ in {
         rofi-network-manager
       ];
 
-      home.file."${config.xdg.configHome}/rofi/rofi-network-manager.conf".text = toKeyValue cfg.settings;
+      xdg.configFile."rofi/rofi-network-manager.conf".text = toKeyValue cfg.settings;
 
       xdg.desktopEntries.rofi-network-manager = {
         name = "Rofi Network Manager";
         genericName = "Network Manager";
         exec = "rofi-network-manager";
         terminal = false;
-        categories = [ "Network" ];
+        categories = ["Network"];
         icon = "network-wireless";
       };
     }
     (mkIf (cfg.theme != false) {
-      home.file."${config.xdg.configHome}/rofi/rofi-network-manager.rasi" =
+      xdg.configFile."rofi/rofi-network-manager.rasi" =
         if (cfg.theme == null || !isAttrs cfg.theme)
         then {
           source = "${pkgs.rofi-network-manager}/rofi-network-manager.rasi";

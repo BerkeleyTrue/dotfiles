@@ -43,7 +43,7 @@ in {
     ]
     ++ tmuxPlugins;
 
-  home.file.".config/tmux/tmux-plugins.tmux".source = tmuxPluginsConf;
+  xdg.configFile."tmux/tmux-plugins.tmux".source = tmuxPluginsConf;
 
   # master session will be started empty so it will always fork
   # if a session already exists before this, the command will exit

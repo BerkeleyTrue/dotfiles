@@ -6,8 +6,6 @@
   getOptions = pkgs.getoptions.overrideAttrs (old: {
     doCheck = false; # Will break on yash otherwise
   });
-  dotDir = ".config/";
-  relToDotDir = file: dotDir + file;
 
   projects = pkgs.writeShellScriptBin "projects" ''
     # This script is used to find all the top level git folders in a directory
@@ -82,7 +80,7 @@ in {
     zsh # A shell designed for interactive use, although it is also a powerful scripting language
   ];
 
-  home.file."${relToDotDir "taskell/config.ini"}".text = lib.generators.toINI {} {
+  xdg.configFile."taskell/config.ini".text = lib.generators.toINI {} {
     general = {
       filename = "kanban.md";
     };
@@ -105,7 +103,7 @@ in {
     };
   };
 
-  home.file."${relToDotDir "zsh/nix-packages.zsh"}".source = pkgs.writeText "nix-packages" ''
+  xdg.configFile."zsh/nix-packages.zsh".source = pkgs.writeText "nix-packages" ''
     source "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
   '';
 
