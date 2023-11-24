@@ -5,6 +5,7 @@
 
   home.packages = with pkgs; [
     dracula-icon-theme # Dracula icon theme
+    papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon)
     nitrogen # wallpaper manager
     nodePackages.clipboard-cli # Access the system clipboard (copy/paste) from the command-line
     xclip # x11 clipboard cli
