@@ -69,6 +69,20 @@ in
               default = defaults.enable;
             };
 
+            username = mkOption {
+              type = types.str;
+              description = mdDoc "The username passed to home-manager, or `home.username`. Defaults to the profile name";
+              default = name;
+            };
+
+            hostname = mkOption {
+              type = types.str;
+              default =
+                if profile.username != name
+                then name
+                else "";
+            };
+
             home-manager = mkOption {
               type = types.unspecified;
               description = mdDoc "home-manager input to use for building the homeManagerConfiguration. Required to be set per-profile or using `defaults.home-manager`";
@@ -93,10 +107,10 @@ in
               default = defaults.system;
             };
 
-            username = mkOption {
-              type = types.str;
-              description = mdDoc "The username passed to home-manager, or `home.username`. Defaults to the profile name";
-              default = name;
+            stateVersion = mkOption {
+              type = types.int;
+              description = mdDoc "The stateVersion passed to home-manager, or `home.stateVersion`";
+              default = defaults.stateVersion;
             };
 
             directory = mkOption {
@@ -132,7 +146,7 @@ in
               if lib.isFunction globals
               then
                 globals {
-                  inherit name pkgs;
+                  inherit pkgs;
                   profile = name;
                 }
               else throw "home-manager-parts.global must be a function";
@@ -143,6 +157,7 @@ in
                 ++ profile.modules
                 ++ [
                   {
+                    home.stateVersion = lib.mkDefault profile.stateVersion;
                     home.homeDirectory = lib.mkDefault profile.directory;
                     home.username = lib.mkDefault profile.username;
                   }
@@ -167,14 +182,22 @@ in
     };
 
     config = let
-      # homes.<name> = <homeManagerConfiguration>
-      homes = builtins.mapAttrs (_: profile: profile.homeConfigOutput) config.home-manager-parts.profiles;
+      # homeConfigurations.<profile> = <homeManagerConfiguration>
+      homesByProfile = builtins.mapAttrs (_: profile: profile.homeConfigOutput) config.home-manager-parts.profiles;
+      # homeConfigurations.<username>@<hostname> = <homeManagerConfiguration>
+      homesByUsernameAtHostname =
+        builtins.foldl'
+        (acc: profile:
+          if profile.enable && profile.hostname != ""
+          then acc // {"${profile.username}@${profile.hostname}" = profile.homeConfigOutput;}
+          else acc) {}
+        (builtins.attrValues config.home-manager-parts.profiles);
 
       # group checks into system-based sortings
       # packages.<system>."home/<name>" = homeConfigurationOutput.activationPackage
       packages = lib.zipAttrs (builtins.attrValues (lib.mapAttrs (_: i: i.activationPackage) config.home-manager-parts.profiles));
     in {
-      flake.homeConfigurations = homes;
+      flake.homeConfigurations = homesByProfile // homesByUsernameAtHostname;
 
       perSystem = {system, ...}: {
         packages = lib.mkIf (defaults.exposePackages && (builtins.hasAttr system packages)) (lib.mkMerge packages.${system});

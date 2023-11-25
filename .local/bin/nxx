@@ -4,9 +4,10 @@ set -e
 
 commandName=$(basename $0)
 flake_uri=$HOME/.config/home-manager
-profile=$(yadm config local.class | awk -F'-' '{print $NF}')
-flake_arg=$flake_uri\#$profile
-home_uri=$flake_uri\#homeConfigurations.$profile
+hostname=$(uname -n)
+username=$(whoami)
+profile=$username@$hostname
+home_uri=$flake_uri\#homeConfigurations."$profile"
 
 __path_info() {
 	echo "$(nix path-info $1)"
@@ -36,7 +37,7 @@ build() {
 }
 
 switch() {
-	eval "$(__get_home_manager) --flake $flake_arg switch"
+	eval "$(__get_home_manager) switch"
 }
 
 update() {
