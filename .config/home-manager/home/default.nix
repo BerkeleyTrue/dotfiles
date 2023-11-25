@@ -5,7 +5,7 @@
 }: {
   home-manager-parts = {
     defaults = {
-      inherit (inputs) home-manager nixpkgs;
+      inherit (inputs) home-manager;
 
       exposePackages = true;
     };
@@ -21,17 +21,21 @@
         inherit lib pkgs;
       };
     in {
-      specialArgs = {inherit inputs theme nixGLWrap;};
+      specialArgs = {inherit inputs theme nixGLWrap profile;};
     };
 
     profiles = {
-      berkeleytrue = {
+      # main workstation
+      delora = {
+        username = "berkeleytrue";
         modules = [
           ../base.nix
         ];
       };
 
-      bt = {
+      # framework laptop
+      rena = {
+        username = "bt";
         modules = [
           ../base.nix
         ];

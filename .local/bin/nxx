@@ -4,16 +4,21 @@ set -e
 
 commandName=$(basename $0)
 flake_uri=$HOME/.config/home-manager
-username=$(whoami)
-home_uri=$flake_uri\#homeConfigurations.$username
+profile=$(yadm config local.class | awk -F'-' '{print $NF}')
+flake_arg=$flake_uri\#$profile
+home_uri=$flake_uri\#homeConfigurations.$profile
 
-get-home-manager() {
-	echo "$(nix path-info $home_uri.activationPackage)/home-path/bin/home-manager"
+__path_info() {
+	echo "$(nix path-info $1)"
+}
+
+__get_home_manager() {
+	echo "$(__path_info $home_uri.activationPackage)/home-path/bin/home-manager"
 }
 
 # get path to a package
 path() {
-	nix path-info $home_uri.pkgs.$1
+	echo "$(nix path-info $home_uri.pkgs.$1)"
 }
 
 build() {
@@ -21,12 +26,17 @@ build() {
 	# --no-link don't link the result to the directory
 	# --print-build-logs print build logs
 	# then output the flake structure
-	nix build --show-trace --no-link --print-build-logs $home_uri.activationPackage\
-	  && nix flake show $flake_uri
+	nix build \
+		--show-trace \
+		--no-link \
+		--print-build-logs \
+		$home_uri.activationPackage &&
+		nix flake show $flake_uri &&
+		__path_info $home_uri.activationPackage
 }
 
 switch() {
-	"$(get-home-manager)" switch
+	eval "$(__get_home_manager) --flake $flake_arg switch"
 }
 
 update() {
@@ -34,25 +44,31 @@ update() {
 }
 
 rollback() {
-	local res=$("$(get-home-manager)" generations |
-		fzf --prompt "Select a generation to rollback to: " |
-		awk '{print $5 "|" $NF}')
+	local sel=$("$(__get_home_manager)" generations |
+		fzf --prompt "Select a generation to rollback to: ")
+
+	if [[ -z $sel ]]; then
+		echo "No generation selected"
+		exit 1
+	fi
+
+	local res=$(echo $sel | awk '{print $5 "|" $NF}')
 
 	local generationId=$(echo $res | cut -d '|' -f 1)
 	local path=$(echo $res | cut -d '|' -f 2)
 
-  echo "Rolling back to generation $generationId ($path)"
-  # ask for confirmation
-  read -p "Are you sure? " -n 1 -r
-  echo
+	echo "Rolling back to generation $generationId ($path)"
+	# ask for confirmation
+	read -p "Are you sure? " -n 1 -r
+	echo
 
-  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    exit 1
-  fi
+	if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+		exit 1
+	fi
 
-  # echo "Path: $path"
+	# echo "Path: $path"
 
-  $path/activate
+	$path/activate
 }
 
 case $1 in

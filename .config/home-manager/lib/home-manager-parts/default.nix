@@ -16,11 +16,6 @@ in
           description = mdDoc "home-manager input to use for building all homeManagerConfigurations. Required";
         };
 
-        nixpkgs = mkOption {
-          type = types.unspecified;
-          description = mdDoc "The default nixpkgs input to use for building homeManagerConfigurations. Required";
-        };
-
         enable = lib.mkOption {
           type = types.bool;
           description = mdDoc "Whether all homeManagerConfigurations should be enabled by default";
@@ -64,21 +59,14 @@ in
           name, # Key of the profile?
           config,
           ...
-        }: {
+        }: let
+          profile = config;
+        in {
           options = {
             enable = mkOption {
               type = types.bool;
               description = mdDoc "Whether to expose the homeManagerConfiguration to the flake";
               default = defaults.enable;
-            };
-
-            directory = mkOption {
-              type = types.str;
-              description = mdDoc "The home directory passed to home-manager, or `home.homeDirectory`";
-              default =
-                if config.nixpkgs.legacyPackages.${config.system}.stdenv.isDarwin
-                then "/Users/${name}"
-                else "/home/${name}";
             };
 
             home-manager = mkOption {
@@ -91,12 +79,6 @@ in
               type = types.listOf types.unspecified;
               description = mdDoc "List of modules to include in the homeManagerConfiguration";
               default = [];
-            };
-
-            nixpkgs = mkOption {
-              type = types.unspecified;
-              description = mdDoc "nixpkgs input to use for building the homeManagerConfiguration. Required to be set per-profile or using `defaults.nixpkgs";
-              default = defaults.nixpkgs;
             };
 
             specialArgs = mkOption {
@@ -115,6 +97,12 @@ in
               type = types.str;
               description = mdDoc "The username passed to home-manager, or `home.username`. Defaults to the profile name";
               default = name;
+            };
+
+            directory = mkOption {
+              type = types.str;
+              description = mdDoc "The home directory passed to home-manager, or `home.homeDirectory`";
+              default = "/home/${profile.username}";
             };
 
             # readOnly
@@ -139,23 +127,26 @@ in
           };
 
           config = let
-            profile = config;
             pkgs = withSystem profile.system ({pkgs, ...}: pkgs);
             globalConfig =
               if lib.isFunction globals
-              then globals {inherit name profile pkgs;}
+              then
+                globals {
+                  inherit name pkgs;
+                  profile = name;
+                }
               else throw "home-manager-parts.global must be a function";
           in
             lib.mkIf profile.enable {
               finalModules =
                 globalConfig.modules
+                ++ profile.modules
                 ++ [
                   {
                     home.homeDirectory = lib.mkDefault profile.directory;
                     home.username = lib.mkDefault profile.username;
                   }
-                ]
-                ++ profile.modules;
+                ];
 
               homeConfigOutput = profile.home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
@@ -166,7 +157,7 @@ in
               };
 
               activationPackage = {
-                ${profile.system}."home/${name}" = profile.homeConfigOutput.activationPackage;
+                ${profile.system}."activate-${name}" = profile.homeConfigOutput.activationPackage;
               };
             };
         }));
