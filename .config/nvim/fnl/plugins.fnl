@@ -21,6 +21,7 @@
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :numToStr/comment.nvim :description "Comment engineer written in lua." :config (make-on-load comments)}
+   {:name :JoosepAlviste/nvim-ts-context-commentstring :description "Updates commentstring option using TS" :init (make-init comments) :dependencies [[:numToStr/comment.nvim]]}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
    {:name :vimsence/vimsence :description "Post activity to Discord \"currently playing\" " :config (make-on-load vimsence)}
    {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun!"}
@@ -103,7 +104,6 @@
    {:name :romgrk/nvim-treesitter-context :dependencies [[:nvim-treesitter/nvim-treesitter]]}
    {:name :andymass/vim-matchup :description "Extends % with treesitter powers." :dependencies [[:nvim-treesitter/nvim-treesitter]]}
    {:name :danymat/neogen :description "Auto doc functions" :dependencies [[:nvim-treesitter/nvim-treesitter]] :config (make-on-load neogen)}
-   {:name :JoosepAlviste/nvim-ts-context-commentstring :description "Updates comentstring option using TS"}
    {:name :echasnovski/mini.nvim :description "Lots of mini modules. Mainly used for mini.indent" :config (make-on-load mini)}
    {:name :vrischmann/tree-sitter-templ :description "templ tree sitter queries"}
 

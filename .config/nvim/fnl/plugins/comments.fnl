@@ -57,7 +57,13 @@
    :pre_hook pre-hook
    :post_hook nil})
 
+(defn init []
+  (g :skip_ts_context_commentstring_module true))
+
 (defn main []
+  (when-let [context-comment (md.prequire :ts_context_commentstring)]
+    (context-comment.setup))
+
   (when-let [cmmnt (md.prequire :Comment)]
     (cmmnt.setup configs)
     (let [api (md.prequire :Comment.api)]
@@ -65,7 +71,7 @@
         ; for some reason, vim doesn't recognize C-/ as a valid mapping
         ; but it does recognize C-_ so we use that instead
         :<C-_>
-        (fn []
+        (fn comment-section []
           (if (= vim.v.count 0)
             (api.toggle.linewise.current)
             (api.toggle.linewise.count vim.v.count))))
