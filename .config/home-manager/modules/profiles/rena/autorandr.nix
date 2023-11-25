@@ -3,14 +3,14 @@
 in {
   main = {
     fingerprint = {
-      eDP = framework;
+      eDP-1 = framework;
     };
 
     config = {
-      EDP = {
+      eDP-1 = {
         primary = true;
         crtc = 0;
-        mode = "1920x1080";
+        mode = "2256x1504";
         position = "0x0";
         rate = "60.00";
       };
