@@ -18,7 +18,7 @@ echo "Locking..."
 # after which xsecurelock is called
 # when xsecurelock exits dunst is used to notify the user
 /usr/lib/xsecurelock/until_nonidle /usr/lib/xsecurelock/dimmer ||
-	(/usr/bin/xsecurelock && dunstify -a "Hephaestus" "Welcome Back!" -u low -i dialog-information)
+	(/usr/bin/xsecurelock && dunstify -a "Hephaestus" -u low -i distributor-logo-nixos  "Welcome Back!" )
 
 echo "Unlocking..."
 

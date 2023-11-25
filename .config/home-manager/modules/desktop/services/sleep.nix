@@ -1,18 +1,27 @@
 {pkgs, ...}: let
-  watch-sleep = pkgs.writeScriptBin "watch-sleep" ''
-    #!/bin/bash
-    dbus-monitor --system "type='signal',interface='org.freedesktop.login1.Manager',member=PrepareForSleep" | while read x; do
+  watch-sleep = pkgs.writeShellScriptBin "watch-sleep" ''
+    dbus-monitor --system "type='signal', interface='org.freedesktop.login1.Manager', member=PrepareForSleep" | while read x; do
         case "$x" in
             *"boolean false"*) systemctl --user --no-block stop sleep.target;;
             *"boolean true"*) systemctl --user --no-block start sleep.target;;
         esac
     done
   '';
+
+  pre-sleep = pkgs.writeShellScriptBin "pre-sleep" ''
+    ${pkgs.playerctl}/bin/playerctl pause &> /dev/null # exits non-zero if nothing is playing
+    ${pkgs.dunst}/bin/dunstctl set-paused true
+  '';
+
+  post-sleep = pkgs.writeShellScriptBin "post-sleep" ''
+    echo "unlocking screen"
+    ${pkgs.dunst}/bin/dunstify -a "Hephaestus" -u low -i distributor-logo-nix "Welcome Back!"
+    ${pkgs.dunst}/bin/dunstctl set-paused false
+  '';
 in {
   home.packages = with pkgs; [
     playerctl
     dunst
-    watch-sleep
   ];
 
   systemd.user.targets.sleep = {
@@ -42,19 +51,19 @@ in {
   systemd.user.services.sleep = {
     Unit = {
       Description = "User suspend actions";
-      Before = [ "sleep.target" ];
+      Before = ["sleep.target"];
     };
 
     Service = {
       Type = "forking";
       Environment = "DISPLAY=:0";
-      ExecStartPre = "${pkgs.playerctl}/bin/playerctl pause & ${pkgs.dunst}/bin/dunstctl set-paused true";
+      ExecStartPre = "${pre-sleep}/bin/pre-sleep";
       ExecStart = "/usr/bin/xsecurelock";
-      ExecStop = "${pkgs.dunst}/bin/dunstctl set-paused false";
+      ExecStop = "${post-sleep}/bin/post-sleep";
     };
 
     Install = {
-      WantedBy = [ "sleep.target" ];
+      WantedBy = ["sleep.target"];
     };
   };
 }
