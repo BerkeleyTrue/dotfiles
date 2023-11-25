@@ -1,4 +1,11 @@
 {pkgs, ...}: let
+  watch-lid = pkgs.writeShellScriptBin "watch-lid" ''
+    dbus-monitor --system "type=signal, interface=org.freedesktop.LaptopInterface" | while read x; do
+      # move mouse to trigger unlock screen
+      ${pkgs.xdotool}/bin/xdotool mousemove_relative 1 1
+    done
+  '';
+
   watch-sleep = pkgs.writeShellScriptBin "watch-sleep" ''
     dbus-monitor --system "type='signal', interface='org.freedesktop.login1.Manager', member=PrepareForSleep" | while read x; do
         case "$x" in
@@ -66,4 +73,49 @@ in {
       WantedBy = ["sleep.target"];
     };
   };
+
+  systemd.user.services.watch-lid = {
+    Unit = {
+      Description = "Watch for lid open events and move mouse to trigger unlock screen";
+      After = ["graphical-session.target"];
+    };
+
+    Service = {
+      ExecStart = "${watch-lid}/bin/watch-lid";
+      Restart = "on-failure";
+    };
+
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
+
+  # these are added here for posterity, but have to be set in /etc/acpi/ following https://wiki.archlinux.org/title/acpid
+  # this would be useful for the switch to nixos
+  xdg.configFile."acpi/events/lidconf".text = ''
+    event=button/lid
+    action=/etc/acpi/actions/lid.sh "%e"
+  '';
+
+  xdg.configFile."acpi/actions/lid.sh".text = ''
+    #!/bin/bash
+    state=$(echo "$1" | cut -d " " -f 3)
+    case "$state" in
+    open)
+      # send dbus systemd signal
+      dbus-send \
+        --system \
+        --type=signal \
+        /org/freedesktop/Laptop \
+        org.freedesktop.LaptopInterface.LidIsOpen
+      ;;
+    close)
+      # do nothing
+      ;;
+    *)
+      # panic: not a state I know about!
+      echo "PANIC STATE" >>/var/logs/lidaction.log
+      ;;
+    esac
+  '';
 }
