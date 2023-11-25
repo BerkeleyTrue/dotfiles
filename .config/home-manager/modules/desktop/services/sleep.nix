@@ -22,7 +22,7 @@
 
   post-sleep = pkgs.writeShellScriptBin "post-sleep" ''
     echo "unlocking screen"
-    ${pkgs.dunst}/bin/dunstify -a "Hephaestus" -u low -i distributor-logo-nix "Welcome Back!"
+    ${pkgs.dunst}/bin/dunstify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
     ${pkgs.dunst}/bin/dunstctl set-paused false
   '';
 in {
