@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./lib/modules/programs/rofi-network-manager.nix
+    ./lib/modules/nix-wallpaper
     ./modules/commandline.nix
     ./modules/dev.nix
     ./modules/apps.nix
