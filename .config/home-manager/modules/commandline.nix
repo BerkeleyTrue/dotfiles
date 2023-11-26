@@ -37,6 +37,7 @@ in {
   home.packages = with pkgs; [
     antigen # zsh plugin manager
     bind # dns client
+    bluetuith # bluetooth manager tui
     curl # transfer data from or to a server
     dogdns # A command-line DNS cliento
     du-dust # A more intuitive version of du in rust
