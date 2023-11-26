@@ -21,6 +21,11 @@ in
             default = 0;
           };
 
+          swirl = mkOption {
+            type = types.number;
+            default = 180;
+          };
+
           gradient = mkOption {
             type = types.submodule {
               options = {
@@ -83,7 +88,7 @@ in
         config = {
           output =
             pkgs.runCommandLocal "nix-wallpapers" {
-              inherit (wallpaperCfg) width height angle;
+              inherit (wallpaperCfg) width height angle swirl;
               inherit (wallpaperCfg.colors) color0 color1 color2 color3 color4 color5;
               inherit (wallpaperCfg.gradient) beginColor endColor;
               buildInputs = [pkgs.imagemagick];
@@ -98,7 +103,7 @@ in
                 $out/share/backgrounds/gradient.png
 
               convert \
-                -swirl 180 \
+                -swirl ''${swirl} \
                 $out/share/backgrounds/gradient.png \
                 -background transparent \
                 -gravity center \

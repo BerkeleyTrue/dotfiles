@@ -17,33 +17,39 @@
     yad # A fork of Zenity with many improvements
   ];
 
-  home.nix-wallpapers = let
-    colors = {
-      color0 = theme.colors.mauve;
-      color1 = theme.colors.sapphire;
-      color2 = theme.colors.pink;
-      color3 = theme.colors.teal;
-      color4 = theme.colors.lavender;
-      color5 = theme.colors.blue;
-    };
-  in {
+  home.nix-wallpapers = {
     g5 = {
       angle = 30;
       gradient = {
         beginColor = theme.colors.mauve;
         endColor = theme.colors.sapphire;
       };
-      colors = colors;
+      colors = {
+        color0 = theme.colors.overlay0;
+        color1 = theme.colors.overlay0;
+        color2 = theme.colors.overlay0;
+        color3 = theme.colors.overlay0;
+        color4 = theme.colors.overlay0;
+        color5 = theme.colors.overlay0;
+      };
       height = 1440;
       width = 3440;
     };
+
     dell = {
       angle = 30;
       gradient = {
-        beginColor = theme.colors.pink;
-        endColor = theme.colors.blue;
+        beginColor = theme.colors.lavender;
+        endColor = theme.colors.sapphire;
       };
-      colors = colors;
+      colors = {
+        color0 = theme.colors.subtext1;
+        color1 = theme.colors.subtext1;
+        color2 = theme.colors.subtext1;
+        color3 = theme.colors.subtext1;
+        color4 = theme.colors.subtext1;
+        color5 = theme.colors.subtext1;
+      };
       height = 1080;
       width = 2560;
     };
