@@ -3,8 +3,8 @@
     autorandr = let
       profiles =
         if profile == "delora"
-        then import ../../profiles/delora/autorandr.nix {}
-        else import ../../profiles/rena/autorandr.nix {};
+        then import ./delora.nix {}
+        else import ./rena.nix {};
     in {
       enable = true;
       hooks = {

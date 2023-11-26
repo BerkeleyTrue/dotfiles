@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ./autorandr.nix
+    ./autorandr
     ./blueman.nix
     ./dunst.nix
     ./flameshot.nix
