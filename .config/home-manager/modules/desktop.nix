@@ -53,5 +53,24 @@
       height = 1080;
       width = 2560;
     };
+
+    framework = {
+      angle = 60;
+      swirl = 360;
+      gradient = {
+        beginColor = theme.colors.sapphire;
+        endColor = theme.colors.lavender;
+      };
+      colors = {
+        color0 = theme.colors.text;
+        color1 = theme.colors.text;
+        color2 = theme.colors.text;
+        color3 = theme.colors.text;
+        color4 = theme.colors.text;
+        color5 = theme.colors.text;
+      };
+      height = 1504;
+      width = 2256;
+    };
   };
 }
