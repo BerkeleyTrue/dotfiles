@@ -4,13 +4,24 @@
   ...
 }: {
   home-manager-parts = {
-    defaults = {
-      inherit (inputs) home-manager;
+    inherit (inputs) home-manager;
+    enable = true;
+    exposePackages = true;
 
-      exposePackages = true;
+    defaults = {
+      # This value determines the Home Manager release that your
+      # configuration is compatible with. This helps avoid breakage
+      # when a new Home Manager release introduces backwards
+      # incompatible changes.
+      #
+      # You can update Home Manager without changing this value. See
+      # the Home Manager release notes for a list of state version
+      # changes in each release.
+      stateVersion = "22.11";
+      system = "x86_64-linux";
     };
 
-    global = {
+    shared = {
       pkgs,
       profile,
       ...
@@ -21,7 +32,7 @@
         inherit lib pkgs;
       };
     in {
-      specialArgs = {inherit inputs theme nixGLWrap profile;};
+      extraSpecialArgs = {inherit theme nixGLWrap profile;};
     };
 
     profiles = {

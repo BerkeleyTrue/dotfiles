@@ -7,11 +7,14 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixgl.url = "github:guibou/nixGL";
-    nixgl.inputs.nixpkgs.follows = "nixpkgs";
-
+    # utils
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
+    home-manager-parts.url = "github:berkeleytrue/home-manager-parts";
+
+    nixgl.url = "github:guibou/nixGL";
+    nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
     parinfer-rust.url = "github:PhilTaken/parinfer-rust";
     parinfer-rust.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +24,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       imports = [
-        ./lib/home-manager-parts
+        inputs.home-manager-parts.flakeModule
         ./home
       ];
       perSystem = {

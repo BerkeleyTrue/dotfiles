@@ -70,6 +70,21 @@
         "type": "github"
       }
     },
+    "home-manager-parts": {
+      "locked": {
+        "lastModified": 1700956564,
+        "narHash": "sha256-N9X4ltkogpmj9B9HpAlH7cjo8+nZ9LmpqDCSgrfMiUQ=",
+        "owner": "berkeleytrue",
+        "repo": "home-manager-parts",
+        "rev": "3609229162f76208aacba469b7fe7bc35664941c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "berkeleytrue",
+        "repo": "home-manager-parts",
+        "type": "github"
+      }
+    },
     "nixgl": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -132,6 +147,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "home-manager-parts": "home-manager-parts",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs",
         "parinfer-rust": "parinfer-rust"
