@@ -293,6 +293,77 @@ gclone() {
 	echo "changing directory to $wd/${2:-$(basename $1 .git)}"
 	cd ${2:-$(basename $1 .git)}
 }
+gclonewt() {
+	# clone a bare repo for working tree workflow
+	# glonewt <repo> [dir]
+	repo=$1
+	shift
+
+	if [ -z "$repo" ]; then
+		echo "Usage: git-clone-bare repo [dir]"
+		exit 1
+	fi
+
+	dir=${1:-$(basename "$repo" .git)}
+
+	echo "bare cloning $repo into ./$dir"
+
+	git clone --bare $repo "./$dir/.bare"
+	echo "changing working directory to $(pwd)/$dir"
+	cd "./$dir"
+	pushd "./.bare" >/dev/null
+	echo "adjusting origin fetch url"
+	git config remote.origin.fetch "+refs/heads/*:refs/heads/origin/*"
+	popd >/dev/null
+	echo "settings .git config to bare"
+	echo "gitdir: ./.bare" >.git
+}
+alias gwtls='git worktree list'
+alias gwtmv='git worktree move'
+gwta() {
+	# gwta path [branch=$(basename path)] [remote=origin]
+	_path=$1
+	_branch=${2:-$(basename $_path)}
+	_remote=${3:-origin}
+	git worktree add $_path $_branch
+	cd $_path
+	git fetch
+	git branch --set-upstream-to=origin/$_branch $_branch
+	git worktree list
+}
+gwtbranch() {
+	# gwtbranch path [branch=$(basename path)] [branch_from=master] [remote=origin]
+	_path=$1
+	shift
+	_branch=$(basename $_path)
+	_branch_from=$(ggetcurrentbranch || echo "master")
+	_remote=origin
+
+	if [ $# -ge 1 ]; then
+		_branch=$1
+	fi
+
+	if [ $# -ge 2 ]; then
+		_branch_from=$2
+	fi
+
+	if [ $# -ge 3 ]; then
+		_remote=$3
+	fi
+	echo "adding worktree $_path from $_branch_from to $_branch from $_remote"
+
+	git worktree add -b $_branch $_path $_branch_from &&
+		echo "worktree added" &&
+		cd $_path &&
+		git push -u origin $_branch &&
+		git worktree list
+}
+gwtrm() {
+	# gwtrm path
+	_path=$1
+	git worktree remove $_path
+	git worktree list
+}
 gpull() {
 	# if no arguments, pull from the repository this branch is tracking by rebase
 	if [[ $# -eq 0 ]]; then
