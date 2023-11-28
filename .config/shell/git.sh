@@ -321,41 +321,48 @@ gclonewt() {
 alias gwtls='git worktree list'
 alias gwtmv='git worktree move'
 gwta() {
-	# gwta path [branch=$(basename path)] [remote=origin]
-	_path=$1
-	_branch=${2:-$(basename $_path)}
-	_remote=${3:-origin}
-	git worktree add $_path $_branch
-	cd $_path
-	git fetch
-	git branch --set-upstream-to=origin/$_branch $_branch
-	git worktree list
-}
-gwtbranch() {
-	# gwtbranch path [branch=$(basename path)] [branch_from=master] [remote=origin]
+	# gwta path
+	# gwta path branch_from
+	# gwta path branch branch_from
+	# gwta path branch branch_from remote
 	_path=$1
 	shift
-	_branch=$(basename $_path)
-	_branch_from=$(ggetcurrentbranch || echo "master")
-	_remote=origin
+	branch=$(basename $_path)
+	branch_from=$(ggetcurrentbranch || echo "master")
+	remote=origin
+	wtc="git worktree add"
+	tracking_command="git branch --set-upstream-to="
 
-	if [ $# -ge 1 ]; then
-		_branch=$1
+	if [[ $# -ge 3 ]]; then
+		branch=$1
+		branch_from=$2
+		remote=$3
 	fi
 
-	if [ $# -ge 2 ]; then
-		_branch_from=$2
+	if [[ $# -eq 2 ]]; then
+		branch=$1
+		branch_from=$2
 	fi
 
-	if [ $# -ge 3 ]; then
-		_remote=$3
+	if [[ $# -eq 1 ]]; then
+		branch=$1
 	fi
-	echo "adding worktree $_path from $_branch_from to $_branch from $_remote"
 
-	git worktree add -b $_branch $_path $_branch_from &&
-		echo "worktree added" &&
+	is_new_branch=$(git ls-remote --heads $remote $branch | wc -l)
+
+	if [[ $is_new_branch -eq 0 ]]; then
+		wtc="$wtc -b $branch $_path $branch_from"
+		tracking_command="git push -u $remote $branch"
+		echo "creating worktree for new '$branch' from existing '$branch_from' and creating new '$remote/$branch' at '$_path'"
+	else
+		wtc="$wtc $_path $branch"
+		tracking_command="git fetch && $tracking_command$remote/$branch $branch && git pull"
+		echo "creating worktree for existing '$branch' from '$remote/$branch' at '$_path'"
+	fi
+
+	eval $wtc &&
 		cd $_path &&
-		git push -u origin $_branch &&
+		eval $tracking_command &&
 		git worktree list
 }
 gwtrm() {
