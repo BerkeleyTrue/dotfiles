@@ -11,7 +11,7 @@ in {
       eDP-1 = {
         primary = true;
         crtc = 0;
-        mode = "${screen.width}x${screen.height}";
+        mode = "${builtins.toString screen.width}x${builtins.toString screen.height}";
         position = "0x0";
         rate = "60.00";
       };

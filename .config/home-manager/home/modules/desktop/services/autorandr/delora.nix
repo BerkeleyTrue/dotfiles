@@ -14,14 +14,14 @@ in {
       DP-3 = {
         primary = true;
         crtc = 0;
-        mode = "${g5Monitor.width}x${g5Monitor.height}";
+        mode = "${builtins.toString g5Monitor.width}x${builtins.toString g5Monitor.height}";
         position = "0x1080";
         rate = "165.00";
       };
       HDMI-1 = {
         primary = false;
         crtc = 1;
-        mode = "${dellMonitor.width}x${dellMonitor.height}";
+        mode = "${builtins.toString dellMonitor.width}x${builtins.toString dellMonitor.height}";
         position = "440x0";
         rate = "60.00";
       };
@@ -36,7 +36,7 @@ in {
       HDMI-1 = {
         primary = true;
         crtc = 1;
-        mode = "${dellMonitor.width}x${dellMonitor.height}";
+        mode = "${builtins.toString dellMonitor.width}x${builtins.toString dellMonitor.height}";
         position = "0x0";
         rate = "60.00";
       };

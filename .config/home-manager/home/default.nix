@@ -40,7 +40,7 @@
       delora = {
         username = "berkeleytrue";
         modules = [
-          ../base.nix
+          ./modules
         ];
 
         specialArgs = {
@@ -61,7 +61,7 @@
       rena = {
         username = "bt";
         modules = [
-          ../base.nix
+          ./modules
         ];
 
         specialArgs = {
