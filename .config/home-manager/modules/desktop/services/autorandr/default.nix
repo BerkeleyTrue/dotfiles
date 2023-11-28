@@ -1,10 +1,14 @@
-{profile, ...}: {
+{
+  profile,
+  hardware,
+  ...
+}: {
   programs = {
     autorandr = let
       profiles =
         if profile == "delora"
-        then import ./delora.nix {}
-        else import ./rena.nix {};
+        then import ./delora.nix {inherit hardware;}
+        else import ./rena.nix {inherit hardware;};
     in {
       enable = true;
       hooks = {

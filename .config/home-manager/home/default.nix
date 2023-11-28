@@ -42,6 +42,19 @@
         modules = [
           ../base.nix
         ];
+
+        specialArgs = {
+          hardware.monitors = {
+            g5 = {
+              height = 1440;
+              width = 3440;
+            };
+            dell = {
+              height = 1440;
+              width = 2560;
+            };
+          };
+        };
       };
 
       # framework laptop
@@ -50,6 +63,15 @@
         modules = [
           ../base.nix
         ];
+
+        specialArgs = {
+          hardware.monitors = {
+            framework = {
+              height = 1504;
+              width = 2560;
+            };
+          };
+        };
       };
     };
   };
