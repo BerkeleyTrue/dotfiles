@@ -28,9 +28,9 @@
     };
 
     Timer = {
-      OnBootSec = 80;
       # run every Saturday at 8pm
-      OnCalendar = "Sat *-*-* 20:00:00";
+      OnCalendar = "Sat 20:00:00";
+      Persistent = true;
     };
 
     Install = {
