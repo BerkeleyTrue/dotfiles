@@ -1,7 +1,7 @@
 #!/bin/sh
 # add alias for MR on command
 mrenv() {
-  export NODE_PATH=$HOME/dvlpmnt/madison-reed/mr/mr_modules
+  export NODE_PATH=$(pwd)/mr_modules
   export NODE_ENV=local
 }
 
