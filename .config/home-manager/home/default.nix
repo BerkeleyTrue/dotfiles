@@ -50,7 +50,7 @@
               width = 3440;
             };
             dell = {
-              height = 1440;
+              height = 1080;
               width = 2560;
             };
           };
