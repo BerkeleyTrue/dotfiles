@@ -321,10 +321,10 @@ gclonewt() {
 alias gwtls='git worktree list'
 alias gwtmv='git worktree move'
 gwta() {
-	# gwta path
-	# gwta path branch_from
-	# gwta path branch branch_from
-	# gwta path branch branch_from remote
+  if [[ $# -eq 0 ]]; then
+    echo "Usage: gwta <path> [branch] [branch_from] [remote]"
+    return 1
+  fi
 	_path=$1
 	shift
 	branch=$(basename $_path)

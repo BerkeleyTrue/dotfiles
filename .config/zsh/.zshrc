@@ -141,6 +141,9 @@ function my_init() {
     source $NIX_PROFILE/share/fzf/completion.zsh
     source $NIX_PROFILE/share/fzf/key-bindings.zsh
   fi
+
+  # custom zsh completions
+  source $XDG_CONFIG_HOME/shell/comp.zsh
 }
 zvm_after_init_commands+=(my_init)
 
