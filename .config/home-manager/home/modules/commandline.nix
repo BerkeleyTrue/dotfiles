@@ -49,6 +49,7 @@ in {
     glow # Render markdown on the CLI, with pizzazz!
     handlr # Alternative to xdg-open to manage default applications with ease
     htop # An interactive process viewer
+    bottom # A cross-platform graphical process/system monitor with a customizable interface and a multitude of features
     iputils # Network monitoring tools including ping
     lazygit # simple terminal UI for git commands
     lsof # lists open files
