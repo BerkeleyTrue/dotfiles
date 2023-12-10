@@ -5,9 +5,9 @@
 
 (defalias
   cesc     (tap-hold-release 100 100 esc lctl)
-  lparshft (tap-hold-release 100 100 S-[ lsft)
-  rparshft (tap-hold-release 100 100 S-] rsft)
-  spacenav (tap-hold-release 100 250 spc (layer-toggle nav))
+  lparshft (tap-hold-release 100 100 S-9 lsft)
+  rparshft (tap-hold-release 100 100 S-0 rsft)
+  spacenav (tap-hold-release 100 100 spc (layer-toggle nav))
   numtg    (layer-toggle nums)
 
   sfta (tap-hold-release 200 200 a lsft)
@@ -18,7 +18,9 @@
   metj (tap-hold-release 200 200 j rmet)
   altk (tap-hold-release 200 200 k ralt)
   ctll (tap-hold-release 200 200 l lctl)
-  sft; (tap-hold-release 200 200 ; rsft))
+  sft; (tap-hold-release 200 200 ; rsft)
+  cmsmi (fork , ;   (lsft rsft)) ;; needs 'unshift' in 1.5 to work properly
+  dtcol (fork . S-; (lsft rsft)))
 
 (defsrc
   grv        1     2     3     4     5     6     7     8     9     0     -     =     bspc
