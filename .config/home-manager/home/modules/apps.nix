@@ -60,7 +60,6 @@ in {
     gparted # graphical partition manager
     keybase # encrypted chat
     keybase-gui # encrypted chat
-    kanata # intercept and tranform keyboard inputs
     myAspell # spell checker
     networkmanagerapplet # network manager applet
     rofi # launcher

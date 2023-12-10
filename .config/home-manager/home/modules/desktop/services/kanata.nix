@@ -1,8 +1,14 @@
 {
   pkgs,
+  lib,
+  profile,
   ...
 }: {
-  systemd.user.services.kanata = {
+  home.packages = with pkgs; [
+    kanata # intercept and tranform keyboard inputs
+  ];
+
+  systemd.user.services.kanata = lib.mkIf (profile == "rena") {
     Unit = {
       Description = "Run kanata";
     };
@@ -21,7 +27,7 @@
     };
 
     Install = {
-      WantedBy = [ "default.target" ];
+      WantedBy = ["default.target"];
     };
   };
 }
