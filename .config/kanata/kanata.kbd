@@ -1,0 +1,57 @@
+;; vim:ft=kbd
+(defcfg
+  linux-dev "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+  )
+
+(defalias
+  cesc     (tap-hold-release 100 100 esc lctl)
+  lparshft (tap-hold-release 100 100 S-[ lsft)
+  rparshft (tap-hold-release 100 100 S-] rsft)
+  spacenav (tap-hold-release 100 250 spc (layer-toggle nav))
+  numtg    (layer-toggle nums)
+
+  sfta (tap-hold-release 200 200 a lsft)
+  ctls (tap-hold-release 200 200 s lctl)
+  altd (tap-hold-release 200 200 d lalt)
+  metf (tap-hold-release 200 200 f lmet)
+
+  metj (tap-hold-release 200 200 j rmet)
+  altk (tap-hold-release 200 200 k ralt)
+  ctll (tap-hold-release 200 200 l lctl)
+  sft; (tap-hold-release 200 200 ; rsft))
+
+(defsrc
+  grv        1     2     3     4     5     6     7     8     9     0     -     =     bspc
+  tab        q     w     e     r     t     y     u     i     o     p     [     ]     \
+  caps       a     s     d     f     g     h     j     k     l     ;     '     ret
+  lsft       z     x     c     v     b     n     m     ,     .     /     rsft         up
+
+  lctl lmet  lalt           spc                        ralt  rctl               left  down  rght
+)
+
+(deflayer base
+  grv        1     2     3     4     5     6     7     8     9     0     -    =    bspc
+  tab        q     w     e     r     t     y     u     i     o     p     [    ]    \
+  @cesc      @sfta @ctls @altd @metf g     h     @metj @altk @ctll @sft; '    ret
+  @lparshft  z     x     c     v     b     n     m     ,     .     /     @rparshft    up
+
+  lctl lalt  lmet           @spacenav                 @numtg rctl               left  down rght
+)
+
+(deflayer nav
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          _     _     _     _     _     left  down  up    rght _     _    _
+  _          _     _     _     _     _     _     _     _     _     _     _            _
+
+  _    _     _              _                          _     _                  _     _    _
+)
+
+(deflayer nums
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          _     _     _     _     _     _     _     _     _     _     _    _    _
+  _          1     2     3     4     5     6     7     8     9     0     _    _
+  _          _     _     _     _     _     _     _     _     _     _     _            _
+
+  _    _     _              _                          _     _                  _     _    _
+)
