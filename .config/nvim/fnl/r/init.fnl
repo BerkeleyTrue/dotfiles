@@ -229,6 +229,10 @@
           (table.insert result i))
         result))))
 
+(comment
+  (range 4)
+  (range 1 5))
+
 ;; Strings
 (def split (curry str.split))
 (defn upperFirst [s]

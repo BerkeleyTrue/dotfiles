@@ -33,6 +33,7 @@
     :GeneralAu
 
     ; Resize splits when the window is resized
+    ; TODO: turn this into a function that respects side panels (help, neotree, etc)
     {:event :VimResized
      :pattern :*
      :cmd "exe \"normal! \\<c-w>=\""}
@@ -41,6 +42,11 @@
     {:event [:BufReadPost]
      :pattern :*
      :callback go-to-last-edit}
+
+    ; Make vim open help buffers in a vertical split
+    {:event [:FileType]
+     :pattern :help
+     :cmd "wincmd L"}
 
     ; make sure cursor always starts on the first line for gitcommit files
     {:event [:FileType]

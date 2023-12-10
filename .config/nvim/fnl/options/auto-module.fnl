@@ -87,7 +87,6 @@
                     (vim.fn.finddir :.stack-work/.. (.. (vim.fn.expand "%:p:h") ";")))]
 
       ; get the path of the file relative to the rootdir directory
-      (print (.. "rootdir: " rootdir))
       (if (not= rootdir "")
         (let [mname (->
                       file-path
