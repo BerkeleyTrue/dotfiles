@@ -1,4 +1,6 @@
+;; extends
 (kwd_lit) @constant
+(kwd_name) @constant
 
 ;; def-like things
 (list_lit
