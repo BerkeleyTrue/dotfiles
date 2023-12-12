@@ -55,6 +55,7 @@ in {
     lsof # lists open files
     ngrok # Introspected tunnels to localhost
     p7zip # 7-Zip is a file archiver with a high compression ratio
+    babashka # A Clojure babushka for the grey areas of bash
     playerctl # pause/play music players ci
     procs # A modern replacement for ps written in Rust
     projects # A script to find all the top level git folders in a directory
