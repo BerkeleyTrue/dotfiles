@@ -82,6 +82,7 @@
   {:ansiblels (ansible-configs)
    :bashls {:on_attach general-on-attach-with-navic}
    :cssls {}
+   :clojure_lsp {:on_attach general-on-attach-with-navic}
    :dockerls {}
    :emmet_ls (emmetls.get-config)
    :eslint {}
