@@ -163,7 +163,7 @@ attach_to_git() {
 	fi
 	local session_name
 	local path_name
-	local opts=$(gum spin --spinner moon --title "Finding projects..." --show-output -- projects $dir | awk -F "/" '{print $NF " " $0}')
+	local opts=$(projects $dir | awk -F "/" '{print $NF " " $0}')
 	res=$(echo "$opts" | fzf --reverse --header="Select project" --prompt="$(ensure_kill_prompt)" || exit 0)
 
 	if [ -z "$res" ]; then
