@@ -134,6 +134,7 @@ command -v zoxide > /dev/null \
   && eval "$(zoxide init zsh)" \
   || echo "zoxide not installed"
 
+
 # Define an init function and append to zvm_after_init_commands
 # this is required to work around zsh-vi-mode plugin
 function my_init() {
