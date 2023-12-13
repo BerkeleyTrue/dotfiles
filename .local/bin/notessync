@@ -1,22 +1,33 @@
 #!/bin/bash
 
-header() {
-  local header="$1"
-  echo -e "===< $1 >==="
+_header() {
+	local header="$1"
+	echo -e "===< $1 >==="
+}
+
+_is_dirty() {
+	[[ -n $(git status --porcelain --ignore-submodules 2>/dev/null) ]]
+}
+
+_notify() {
+	dunstify -a "notessync" -i git "$1"
 }
 
 _syncdir() {
 	cd $1
-  echo -e "\e[34m$(header "Syncing $(pwd)")\e[0m"
-	git pull
-	git push
-  echo "\e[34m$(header "done")\e[0m"
+	name=$(basename $1)
+	echo -e "\e[34m$(_header "Syncing $(pwd)")\e[0m"
+	git pull || _notify "Error pulling $name"
+	git push || _notify "Error pushing $name"
+	git status
+	_is_dirty && _notify "$name is dirty"
+	echo "\e[34m$(_header "done")\e[0m"
 }
 
 notessync() {
 	set +m
 	declare -A outputs=()
-	local msg="$(header "output")\n"
+	local msg="$(_header "output")\n"
 	local dirs=(
 		$HOME/docs/corpus
 		$HOME/docs/notes/corpus
@@ -26,12 +37,12 @@ notessync() {
 
 	keybase ctl start
 
-	echo -e "\e[32m$(header "starting")\e[0m\n"
+	echo -e "\e[32m$(_header "starting")\e[0m\n"
 	for dir in ${dirs[@]}; do
 
 		if [[ ! -d $dir ]]; then
 			# echo foo in red text
-			echo -e "\e[33m$(header "does not exist: $dir")\e[0m"
+			echo -e "\e[33m$(_header "does not exist: $dir")\e[0m"
 			continue
 		fi
 
@@ -42,7 +53,7 @@ notessync() {
 
 	wait
 
-  echo
+	echo
 
 	for dir in ${dirs[@]}; do
 		# check if output exists
@@ -53,7 +64,7 @@ notessync() {
 		echo -e "$(cat ${outputs[$dir]})\n"
 	done
 
-  echo -e "\e[1;32m$(header "done")\e[0m\n"
+	echo -e "\e[1;32m$(_header "done")\e[0m\n"
 	set -m
 }
 
