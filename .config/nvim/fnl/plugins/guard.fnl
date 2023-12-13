@@ -58,7 +58,11 @@
       (->
         (ft :sql)
         (: :fmt :sql-formatter))
+      (->
+        (ft "clojure,clojurescript")
+        (: :fmt :lsp))
       (guard.setup {:fmt_on_save false}))
+
    (augroup
      :MarkdownGuard
      ; add zf to format markdown
