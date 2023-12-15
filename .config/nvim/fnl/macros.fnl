@@ -242,8 +242,8 @@
   "sets global variable 'name' to 'val'."
   `(tset vim.g ,(parse-sym name) ,val))
 
-(defn b [name val]
-  "sets buffer scoped variable 'name'."
+(defn b [name]
+  "gets buffer scoped variable 'name'."
   `(. vim.b ,(parse-sym name)))
 
 (defn b! [name val]
