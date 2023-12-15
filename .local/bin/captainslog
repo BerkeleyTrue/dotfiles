@@ -1,14 +1,18 @@
 #!/bin/bash
 
 # Open nvim
-# +"ZenMode" tells vim to run the ZenMode command after
+# +"ZenModeOnly" tells vim to run the ZenMode command after
 #   opening the file and loading configs
+#   this will add autocmds to close vim when closing the ZenMode buffer
 # + "file" tells vim to start at end of file
 # we run a subshell in $(...)
 #   create a date with `year-month-day hour:minute` format
 #   `while` will place the date into the variables d and t
 #   d being the date and t being the time
 #   f is the file path, which will be the captains log directory plus the current date
+#   we check if the file is empty
+#     if it is we create a frogs header
+#     this is a list of checkboxes for the top 3 things I want to do today
 #   we create another subshell to get the content we will append to the current dates file
 #   echo a header with the time
 #   `>>` after the subshell will append the output of that subshell to the current dates file
@@ -16,9 +20,19 @@
 #   this will be the output of the outer subshell
 #   which will tell vim which file to open
 #   this ends the while loop (really more like a do loop with variable assignment)
-nvim +"ZenMode" + "$(date +"%y-%m-%d %H:%M" | while read d t; do
+nvim +"ZenModeOnly" + "$(date +"%y-%m-%d %H:%M" | while read d t; do
 
   f=$HOME/docs/notes/captainslog/$d.md
+  # if empty add a header
+  if [ ! -f "$f" ]; then
+    (
+      echo \#\# Frogs
+      echo
+      echo - [ ]
+      echo - [ ]
+      echo - [ ]
+    ) > "$f"
+  fi
   (
     echo
     echo \#\# $t
