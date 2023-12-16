@@ -93,7 +93,7 @@
 
    ; (lisp)
    ; aniseed provided by nix home-manager
-   {:name :olical/conjure :config (make-on-load conjure)}
+   {:name :olical/conjure :init (make-init conjure)}
    {:name :olical/nvim-local-fennel}
    {:name :bakpakin/fennel.vim}
 
