@@ -30,6 +30,11 @@ log() {
 	fi
 }
 
+list_sessions() {
+	tmux list-sessions -F "#{session_name}" |\
+	  grep -v "^__" || echo -n ""
+}
+
 parser_definition() {
 	setup REST help:usage -- \
 		"Usage: $SCRIPT_NAME [options...] [arguments...] [dir-or-session]
@@ -88,7 +93,7 @@ is_tmux_running() {
 
 num_sessions() {
 	if is_tmux_running; then
-		tmux list-sessions | wc -l
+		list_sessions | wc -l
 	else
 		echo "0"
 	fi
@@ -187,7 +192,7 @@ attach_to_proj() {
 attach_to_first_session() {
 	local session_name=
 	if [ $(num_sessions) -gt 1 ]; then
-		local sessions=$(tmux list-sessions -F "#{session_name}")
+		local sessions=$(list_sessions)
 		local prompt="Select session"
 		if ! not_in_tmux; then
 			sessions=$(echo "$sessions" | grep -v "$CUR_SESSION")
@@ -202,14 +207,14 @@ attach_to_first_session() {
 	fi
 
 	if [ -z "$session_name" ]; then
-		session_name=$(tmux list-sessions -F "#{session_name}" | head -n 1)
+		session_name=$(list_sessions | head -n 1)
 	fi
 
 	if [ -z "$session_name" ]; then
 		session_name="dev"
 	fi
 
-	log "attach-to-first: session_name: $session_name"
+	log "bar attach-to-first: session_name: $session_name"
 	create_if_needed_and_attach $session_name $PWD
 }
 
@@ -225,10 +230,6 @@ ensure_kill_prompt() {
 	else
 		echo ">"
 	fi
-}
-
-list_sessions() {
-	tmux list-sessions | awk '{print $1}' | tr ':' ' '
 }
 
 log "arg: $ARG"
