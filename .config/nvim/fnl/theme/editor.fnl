@@ -38,8 +38,8 @@
   (add-group :Normal            c.text c.base) ; normal text
   (add-group :NormalNC          c.text c.base) ; normal text in non-current windows
   (add-group :NormalSB          c.text c.crust) ; normal text in non-current windows
-  (add-group :NormalFloat       c.text c.mantle) ; normal text in floating windows
-  (add-group :FloatBorder       c.blue)
+  (add-group :NormalFloat       c.text) ; normal text in floating windows
+  (add-group :FloatBorder       c.rosewater c.none)
   (add-group :FloatTitle        c.subtext0) ; float window title
   (add-group :Pmenu             c.overlay2 (c.surface0:dark)) ; Popup menu: normal item.
   (add-group :PmenuSel          c.none c.surface1 s.bold) ; Popup menu: selected item.

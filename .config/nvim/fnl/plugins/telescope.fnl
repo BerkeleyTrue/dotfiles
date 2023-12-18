@@ -4,6 +4,7 @@
     r r
     md utils.module
     utils utils
+    hl utils.highlights
 
     alt plugins.telescope.alternate
     ag plugins.telescope.silver-searcher
@@ -61,6 +62,7 @@
 
 
 (defn main []
+  (hl.link! :TelescopeBorder :FloatBorder)
   (when-let [telescope (md.prequire :telescope)]
     (let [sorters (md.prequire :telescope.sorters)
           previewers (md.prequire :telescope.previewers)
