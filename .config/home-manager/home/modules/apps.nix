@@ -60,6 +60,7 @@ in {
     gparted # graphical partition manager
     keybase # encrypted chat
     keybase-gui # encrypted chat
+    libation # an audible player/drm remover
     myAspell # spell checker
     networkmanagerapplet # network manager applet
     rofi # launcher
