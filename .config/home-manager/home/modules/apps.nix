@@ -53,9 +53,8 @@
   };
 in {
   home.packages = with pkgs; [
-    (nixGLWrap alacritty) # GPU-accelerated terminal emulator
-    (nixGLWrap kitty) # GPU-accelerated terminal emulator
-    (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
+    # (nixGLWrap kitty) # GPU-accelerated terminal emulator
+    # (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
     enDict # My dictionary
     gparted # graphical partition manager
     keybase # encrypted chat
@@ -233,6 +232,13 @@ in {
           placeholder = "";
         };
       };
+  };
+
+  programs.terminator = {
+    enable = true;
+    config = {
+      profiles.default.font = "FiraCode Nerd Font 18";
+    };
   };
 
   xdg.desktopEntries.rofi-bluetooth = {
