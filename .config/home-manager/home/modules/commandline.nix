@@ -7,7 +7,12 @@
     doCheck = false; # Will break on yash otherwise
   });
 
-  projects = pkgs.writeShellScriptBin "projects" ''
+  projects = pkgs.writeShellApplication {
+    name = "projects";
+    runtimeInputs = [
+      pkgs.fd
+    ];
+    text = ''
     # This script is used to find all the top level git folders in a directory
     _get_git_folders() {
       local dir="$1"
@@ -26,6 +31,7 @@
 
     _get_git_folders "$@"
   '';
+  };
 
   bat-catppucchin = pkgs.fetchFromGitHub {
     owner = "catppuccin";
