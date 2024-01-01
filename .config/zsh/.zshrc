@@ -152,3 +152,6 @@ source "$ZSH/zsh-copy-paste.zsh"
 source "$ZSH/nix-packages.zsh"
 
 autoload -U compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
+
+# run random-command on shell start if it exists
+command -v random-clj-doc > /dev/null && random-clj-doc
