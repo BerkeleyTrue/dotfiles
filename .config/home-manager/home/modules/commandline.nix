@@ -153,6 +153,7 @@ in {
           lua-language-server # A language server for Lua
           nil #nix language server
           nixd # nix language server
+          clojure-lsp
 
           alejandra # formatting nix
           shfmt # formatting shell scripts
