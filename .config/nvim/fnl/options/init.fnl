@@ -80,7 +80,7 @@
      :foldtext     format-fold-text-viml}
     (utils.set-nvim-o!)))
 
-(g! loaded_matchit true)
+(g! zip_unzipcmd "7z x -so") ; use 7z to unzip files
 (command filetype :plugin :on)
 (command filetype :indent :on)
 (command syntax :on)

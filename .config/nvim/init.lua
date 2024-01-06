@@ -21,8 +21,6 @@ local disabled_built_ins = {
   "tarPlugin",
   "vimball",
   "vimballPlugin",
-  "zip",
-  "zipPlugin",
 }
 
 for _, plugin in pairs(disabled_built_ins) do
