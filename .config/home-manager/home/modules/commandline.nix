@@ -13,24 +13,24 @@
       pkgs.fd
     ];
     text = ''
-    # This script is used to find all the top level git folders in a directory
-    _get_git_folders() {
-      local dir="$1"
-      local git_folder
+      # This script is used to find all the top level git folders in a directory
+      _get_git_folders() {
+        local dir="$1"
+        local git_folder
 
-      # throw error if no directory is passed
-      if [ -z "$dir" ]; then
-        echo "No directory passed"
-        exit 1
-      fi
+        # throw error if no directory is passed
+        if [ -z "$dir" ]; then
+          echo "No directory passed"
+          exit 1
+        fi
 
-      while read -r git_folder; do
-        echo "$git_folder"
-      done < <(fd ".git$" "$dir" -t d --hidden | xargs dirname | xargs realpath | sort)
-    }
+        while read -r git_folder; do
+          echo "$git_folder"
+        done < <(fd ".git$" "$dir" -t d --hidden | xargs dirname | xargs realpath | sort)
+      }
 
-    _get_git_folders "$@"
-  '';
+      _get_git_folders "$@"
+    '';
   };
 
   bat-catppucchin = pkgs.fetchFromGitHub {
@@ -162,6 +162,9 @@ in {
         ++ (with nodePackages; [
           yaml-language-server # A language server for YAML
           bash-language-server # A language server for Bash
+          typescript-language-server # TypeScript & JavaScript Language Server
+          vscode-langservers-extracted # Language servers extracted from VSCode, css mainly
+          tailwindcss-language-server # Language server for Tailwind CSS
 
           prettier # for formatting js, ts, css, html, json, yaml, markdown
           purs-tidy # formatting purescript
