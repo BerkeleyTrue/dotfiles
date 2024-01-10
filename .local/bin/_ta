@@ -1,0 +1,98 @@
+#!/bin/env bb
+(ns local.bin.tax
+  (:require
+   [clojure.string :as str]
+   [babashka.cli :as cli]
+   [babashka.process :refer [shell process]]))
+
+(defn env [s]
+  (System/getenv s))
+
+(def home (env "HOME"))
+(def script-name "tax")
+(def main-dir (str home "/dvlpmnt"))
+(def conf-dir (str home "/.config"))
+(def bin-dir (str home "/.local/bin"))
+
+(def spec
+  {:dir {:desc "select from list of directories, defaults to searching current directory"
+         :alias :d}
+
+   :git {:desc "Select from list of projects, searches directory recursively using gfold"
+         :alias :g}
+
+   :kill {:desc "Switches to next session or searches for session-name, killing the current session on success"
+          :alias :k}
+
+   :dev {:desc "Select projects from $MAIN_DIR"}
+
+   :conf {:desc "Select conf dir in $CONF_DIR"
+          :alias :c}
+
+   :bin {:desc "Create a bin session"
+         :alias :b}
+
+   :list {:desc "list all sessions"
+          :alias :l}
+
+   :rename {:desc "Rename current session"
+            :alias :r}
+   :help {:alias :h
+          :desc "This menu"}})
+
+(defn in-tmux? []
+  (if (env "TMUX") true false))
+
+(defn dir? [s]
+  (if (.isDirectory (java.io.File. s)) true false))
+
+(comment
+  (dir? "/home/berkeleytrue")
+  (dir? "pupusa revuelta"))
+
+(defn is-tmux-running? []
+  (= 0 (:exit (shell {:continue true} "pgrep tmux"))))
+
+(defn list-sessions []
+  (->
+    (process "tmux" "list-sessions" "-F" "#{session_name}")
+    (process {:out :string} "grep" "-v" "^__")
+    deref
+    :out
+    (str/split-lines)))
+
+(defn num-of-sessions []
+  (if (is-tmux-running?)
+    (-> (list-sessions) (count))
+    0))
+
+(defn does-session-exist? [session-name]
+  (= 0 (:exit (shell {:continue true} "tmux" "has-session" "-t" (str "=" session-name)))))
+
+(comment
+  (does-session-exist? "dev")
+  (does-session-exist? "dev2"))
+
+(defn help []
+  (println "")
+  (println (str " " script-name " -- will attach to first session or create dev session if none available"))
+  (println "")
+  (println (str " Usage: " script-name " [options...]"))
+  (println "")
+  (println " Options: ")
+  (println (cli/format-opts {:spec spec})))
+
+(defn -main [opts]
+  (cond
+    (:help opts) (help)
+    (:dir opts) (println (str "dir: " (:dir opts)))
+    (:git opts) (println "git")
+    (:kill opts) (println "kill")
+    (:dev opts) (println "dev")
+    (:conf opts) (println "conf")
+    (:bin opts) (println "bin")
+    (:list opts) (println "list")
+    (:rename opts) (println "rename")
+    :else (help)))
+
+(-main (cli/parse-opts *command-line-args* {:spec spec}))
