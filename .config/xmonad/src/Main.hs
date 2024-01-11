@@ -105,7 +105,8 @@ myManageHook =
       className =? "Blueman-manager" --> doRectFloat centerWindow,
       className =? ".blueman-manager-wrapped" --> doRectFloat centerWindow, -- nix wrapped blueman
       className =? "nm-connection-editor" --> doRectFloat centerWindow,
-      className =? "Nm-connection-editor" --> doRectFloat centerWindow
+      className =? "Nm-connection-editor" --> doRectFloat centerWindow,
+      className =? "Peek" --> doRectFloat centerWindow
     ]
     <+> scratchpadManageHook
 
