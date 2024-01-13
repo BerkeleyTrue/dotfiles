@@ -66,6 +66,7 @@ in {
     rofi-bluetooth # rofi bluetooth manager
     rofi-spell # spell checker
     rofi-usb # rofi usb manager
+    printrun # 3D printing host software
     spacenavd # 3Dconnexion device driver
     viewnior # fast image preview
     vlc # Cross-platform media player and streaming server
