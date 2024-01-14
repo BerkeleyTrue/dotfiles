@@ -65,7 +65,6 @@ in {
     playerctl # pause/play music players ci
     procs # A modern replacement for ps written in Rust
     projects # A script to find all the top level git folders in a directory
-    picocom # minimal dumb-terminal emulation program
     ripgrep # recursively searches directories for a regex pattern
     rsync # Fast incremental file transfer utility
     rustscan # The Modern Port Scanner

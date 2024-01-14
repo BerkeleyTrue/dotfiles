@@ -55,6 +55,7 @@ in {
   home.packages = with pkgs; [
     # (nixGLWrap kitty) # GPU-accelerated terminal emulator
     # (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
+    cutecom # serial terminal
     enDict # My dictionary
     gparted # graphical partition manager
     keybase # encrypted chat
@@ -62,11 +63,11 @@ in {
     libation # an audible player/drm remover
     myAspell # spell checker
     networkmanagerapplet # network manager applet
+    printrun # 3D printing host software
     rofi # launcher
     rofi-bluetooth # rofi bluetooth manager
     rofi-spell # spell checker
     rofi-usb # rofi usb manager
-    printrun # 3D printing host software
     spacenavd # 3Dconnexion device driver
     viewnior # fast image preview
     vlc # Cross-platform media player and streaming server
