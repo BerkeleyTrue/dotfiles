@@ -3,6 +3,7 @@
     dbus-monitor --system "type=signal, interface=org.freedesktop.LaptopInterface" | while read x; do
       # move mouse to trigger unlock screen
       ${pkgs.xdotool}/bin/xdotool mousemove_relative 1 1
+      echo "lid opened"
     done
   '';
 
