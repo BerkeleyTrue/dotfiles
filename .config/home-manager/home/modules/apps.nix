@@ -75,7 +75,9 @@ in {
     zathura # pdf viewer
   ];
 
-  xdg.dataFile."/aspell/english".source = "${enDict}/share/aspell/english";
+  # don't know why this stopped working
+  # xdg.dataFile."/aspell/english".source = "${enDict}/share/aspell/english";
+  home.file.".local/share/aspell/english".source = "${enDict}/share/aspell/english";
 
   # enable app icons in the system tray for udiskie and nm-applet hm services
   xsession.preferStatusNotifierItems = true;
