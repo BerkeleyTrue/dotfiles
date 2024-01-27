@@ -127,7 +127,10 @@
 
          :experimental
          {:native_menu false
-          :ghost_text false}}))
+          :ghost_text false}
+         :window
+         {:completion (cmp.config.window.bordered)
+          :documentation (cmp.config.window.bordered)}}))
 
     ; Adds completion popup to command line!!!!
     (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
@@ -143,10 +146,7 @@
 
     (when-let [dic (md.prequire :cmp_dictionary)]
       (dic.setup
-        {:debug false ; Doesn't do anything?
-         :document true
-         :max_items 100})
-      (dic.switcher
-        {:spelllang
-         {:en "~/.local/share/aspell/english"
-          :en_us "~/.local/share/aspell/english"}}))))
+        {:document {:enable true
+                    :command ["wn" "${label}" "-over"]}
+         :max_number_items 100
+         :paths [(vim.fn.expand "~/.local/share/aspell/english")]}))))
