@@ -15,7 +15,7 @@
     (->>
       (vim.fn.glob (.. (vim.fn.expand "~/docs/corpus") "/*") 0 1)
       (r.filter (fn [x] (= 1 (vim.fn.isdirectory x))))
-      (r.map (fn [x] [x {:autocommit true
+      (r.map (fn [x] [x {:autocommit false ; creates a new git repo instead of using root repo
                          :autoreference true
                          :autotitle true
                          :base ""
