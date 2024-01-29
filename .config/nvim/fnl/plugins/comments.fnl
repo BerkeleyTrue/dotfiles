@@ -51,8 +51,8 @@
     :eol :gcA}
 
    :mappings
-   {:basic true
-    :extra true
+   {:basic false
+    :extra false
     :extended false}
    :pre_hook pre-hook
    :post_hook nil})

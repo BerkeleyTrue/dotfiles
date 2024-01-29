@@ -112,7 +112,8 @@
     ; restore last paste from z
     "<ESC>:let @\"=@z<CR>"))
 
-(defn- preserve-cursor-loc [seq mark]
+(defn- preserve-cursor-loc [seq mark post]
+  "Preserve the cursor location while running a seq, then return to location and delete mark"
   (assert (r.string? mark) (.. "preserve-cursor-loc expects a mark but received: " mark))
   (..
     ; make sure mark isn't already set
@@ -121,16 +122,19 @@
     "m" mark
     ; do seq
     seq
+    ; go back to mark
+    "`q"
     ; delete mark
-    "<ESC>:delmarks " mark "<CR>"))
+    "<ESC>:delmarks " mark "<CR>"
+    (or post "")))
 
-(nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>`q" :q)) {:silent true})
+(nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>" :q)) {:silent true})
 ; Throw a comma on the end of the line
-(nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>`q" :q)) {:silent true})
+(nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>" :q)) {:silent true})
 ; Delete last character on the line
-(nnoremap :zdl (preserve-paste (preserve-cursor-loc "A<esc>x`q" :q)) {:silent true})
+(nnoremap :zdl (preserve-paste (preserve-cursor-loc "A<esc>x" :q)) {:silent true})
 ; Move the current char to the end of the line
-(nnoremap :zl (preserve-paste (preserve-cursor-loc "x$p`q" :q)) {:silent true})
+(nnoremap :zl (preserve-paste (preserve-cursor-loc "x$p" :q)) {:silent true})
 ; Move line to the end of the next line
 ; useful for move a comment above a line behind it
 (nnoremap :zJ (preserve-paste :ddpkJ) {:silent true})
@@ -147,3 +151,8 @@
 (nmap :<S-ScrollWheelUp> :k)
 (nmap :<ScrollWheelDown> :j)
 (nmap :<S-ScrollWheelDown> :j)
+
+; captilize word under cursor
+(nmap :gcw (preserve-cursor-loc "eb~" :q) {:silent true})
+; TODO: preserve highlight
+(vmap :gcw (preserve-cursor-loc "<esc>eb~`qv" :q "v") {:silent true})
