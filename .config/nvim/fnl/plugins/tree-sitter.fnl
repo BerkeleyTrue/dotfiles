@@ -87,7 +87,9 @@
           :typescript
           :vim]
 
-         :highlight {:enable true}
+         :highlight
+         {:enable true
+          :disable [:vimdoc]}
          :incremental_selection
          {:enable true
           :keymaps                    ; mappings for incremental selection (visual mappings)
