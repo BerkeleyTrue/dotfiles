@@ -48,7 +48,7 @@
    {:name :b0o/schemastore.nvim :description "adds schemastore to jsonls through lspconfig" :dependencies [[:neovim/nvim-lspconfig]] :lazy false}
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
    {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
-   {:name :berkeleytrue/cmp-dictionary :description "Adds dictionary completions." :branch :fix-documenation-table-to-string}
+   {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
    {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
    {:name :rcarriga/nvim-notify :description "used by noice, need to set config" :config (make-on-load notify)}
    {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and popupmenu" :dependencies [[:MunifTanjim/nui.nvim] [:rcarriga/nvim-notify] [:hrsh7th/nvim-cmp]] :config (make-on-load noice)}
