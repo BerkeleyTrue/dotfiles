@@ -4,7 +4,6 @@
     str aniseed.string}
    require-macros [macros]})
 
-
 ;utils
 (def _ :placeholder)
 (defn curry [func arity]
@@ -69,7 +68,13 @@
 
 ;; tables - data first
 (def get a.get)
+; Returns the value at the 'key in the 'table, or 'default if the key is not present."
+; ["table" "key" "default"]
+
 (def get-in a.get)
+; "Returns the value in the path 'keys in the 'table, or 'default if the key is not present."
+; ["table" "keys" "default"])
+
 (def assoc a.assoc)
 (def assoc-in a.assoc-in)
 (defn to-pairs [tabl]
@@ -113,6 +118,9 @@
 (def some a.some)
 (def concat a.concat)
 (def initial a.butlast)
+(defn conj [coll & items]
+  "Conj adds items to the end of a collection"
+  (a.concat coll items))
 
 (defn flatten [xs]
   (a.reduce
@@ -324,6 +332,10 @@
     (string? col) (not (nil? (: col :find val)))
     (table? col) (not (nil? (find #(= $1 val) col)))
     false))
+
+(defn re-includes? [val pattern]
+  "Will perform a regex search for pattern in val, returning true if found"
+  (not= (vim.fn.match val pattern) -1))
 
 (defn slice [...]
   "Create a slice of an seq table, from start up to and including end
