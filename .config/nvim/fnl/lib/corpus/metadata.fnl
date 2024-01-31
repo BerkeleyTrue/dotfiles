@@ -74,9 +74,3 @@
         title (get-title file)
         metadata (get)]
     (update (r.assoc metadata "title" title))))
-
-(comment
-  (get-raw)
-  (delete)
-  (get)
-  (update {"title" "a world of hate" "tags" "foo bar"}))

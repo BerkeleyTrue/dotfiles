@@ -9,8 +9,25 @@
             git lib.corpus.git}
    require-macros [macros]})
 
+(defn init-corpus [])
+
 (defn main []
   (augroup :LibCorpus
+    {:event :VimEnter
+     :pattern :*
+     :callback
+     (fn []
+      (when (ftdetect.ftdetect)
+        (command!
+          :Corpus (fn [{: args : bang}]
+                    (a.pr :args args)
+                    (corpus.choose args bang))
+          {:force true
+           :desc "Choose a corpus file"
+           :bang true
+           :nargs "*"
+           :complete "customlist,corpus#complete"})))}
+
     {:event [:BufNewFile]
      :pattern :*.md
      :callback
@@ -42,13 +59,6 @@
        (when (ftdetect.ftdetect)
          (noremap "<C-]>" ":call corpus#goto('n'))<CR>")
          (xnoremap "<C-]>" ":call corpus#goto('v'))<CR>")
-         (command!
-           :Corpus (fn [{: args : bang}] (corpus.choose args bang))
-           {:force true
-            :desc "Choose a corpus file"
-            :bang true
-            :nargs "*"
-            :complete "customlist,corpus#complete"})
          (augroup :LibCorpusEnv
            {:event [:BufWritePre]
             :buffer 0
