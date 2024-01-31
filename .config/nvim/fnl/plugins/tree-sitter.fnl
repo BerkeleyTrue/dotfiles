@@ -87,13 +87,11 @@
           :tsx
           :typescript
           :vim
-          :vimdoc ; required by nvim-treesitter or help docs are broken
-          ]
+          :vimdoc] ; required by nvim-treesitter or help docs are broken
 
 
          :highlight
-         {:enable true
-          :disable [:vimdoc]}
+         {:enable true}
          :incremental_selection
          {:enable true
           :keymaps                    ; mappings for incremental selection (visual mappings)
