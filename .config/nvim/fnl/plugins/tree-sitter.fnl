@@ -75,6 +75,7 @@
           :jsdoc
           :json
           :lua
+          :markdown
           :prisma
           :pug
           :query
@@ -85,7 +86,10 @@
           :templ
           :tsx
           :typescript
-          :vim]
+          :vim
+          :vimdoc ; required by nvim-treesitter or help docs are broken
+          ]
+
 
          :highlight
          {:enable true
