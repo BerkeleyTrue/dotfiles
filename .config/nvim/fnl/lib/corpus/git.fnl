@@ -15,13 +15,15 @@
         res (j:result)
         err (j:stderr_result)]
     (if (not= code 0)
-      (values nil (r.join "\n" err))
+      (values nil (or (r.join "\n" err) ""))
       (r.join "\n" res))))
 
 (defn commit [file op]
   (let [subject (.. "docs: " op " " (vim.fn.fnamemodify file ":r"))]
-    ; in case of new file
-    (case-try (git "add" "--" file)
-      _ (git "commit" "-m" subject "--" file)
-      (catch
-        (nil err) (a.println "Error commiting file: " err)))))
+    (case (git "diff" "--quiet" file)
+      (nil err) (case-try (git "add" "--" file)
+                  _ (git "commit" "-m" subject "--" file)
+                  _ (print "Corpus: file committed")
+                  (catch
+                    (nil err) (a.println "Error committing file: " err)))
+      _ nil)))
