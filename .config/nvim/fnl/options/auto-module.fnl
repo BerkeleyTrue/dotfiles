@@ -47,11 +47,12 @@
           ; insert the module at the top of the file
           (vim.fn.append 0
             [(.. "(module " mname)
-             "  {require"
+             "  {autoload"
              "   {a aniseed.core"
              "    r r"
              "    md utils.module"
              "    utils utils}"
+             "   require {}"
              "   require-macros [macros]})"]))))))
 
 (defn auto-add-purescript-module []

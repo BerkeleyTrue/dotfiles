@@ -19,7 +19,7 @@
 (list . (symbol) @function)
 (list . (keyword) @function)
 
-((symbol) @include (#match? @include "^(require|require-macros|import\\-macros|include)$"))
+((symbol) @include (#match? @include "^(autoload|require|require-macros|import\\-macros|include)$"))
 
 ((symbol) @repeat (#match? @repeat "^(each|for|while)$"))
 
@@ -31,7 +31,8 @@
 ; Aniseed queries
 ; (module
 ;    namespace
-;    {require {identifier namespace}}
+;    {autoload {identifier namespace}}
+;     require {identifier namespace}}
 ;     include {identifier namespace}
 ;     require-macros [namespace]}
 ;    base-export-table)
