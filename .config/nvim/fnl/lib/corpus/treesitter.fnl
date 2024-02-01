@@ -9,21 +9,11 @@
    require {query nvim-treesitter.query}
    require-macros [macros]})
 
-(def toml-query "(plus_metadata) @frontmatter")
-(def yaml-query "(minus_metadata) @frontmatter")
-(def link-shortcut-query "(shortcut_link (link_text) @shortcut_link)")
-
 (defn parse-query [query lang]
   (let [(ok? parsed) (pcall (fn [] (vim.treesitter.query.parse (or lang "markdown") query)))]
     (if ok?
       parsed
       (values nil parsed))))
-
-(defn parse-yaml []
-  (parse-query yaml-query))
-
-(defn parse-toml []
-  (parse-query toml-query))
 
 (defn get-root [bufnr]
   (let [bufnr (or bufnr (n get_current_buf))
@@ -35,6 +25,9 @@
         (start-row _ end-row _) (root:range)]
     (query.iter_prepared_matches parsed-query root bufnr start-row end-row)))
 
+(def toml-query "(plus_metadata) @frontmatter")
+(def yaml-query "(minus_metadata) @frontmatter")
+
 (defn extract-frontmatter []
   "Grabs the frontmatter from the current buffer and returns it as a string.
   If there is an error parsing the frontmatter, it prints the error to the console and returns nil.
@@ -42,12 +35,12 @@
   (let [bufnr (n get_current_buf)
         get-first-match (fn [parsed] ((get-matches parsed bufnr)))
         get-text (fn [mtch] (-> (. mtch :frontmatter :node) (vim.treesitter.get_node_text bufnr)))]
-    (case-try (parse-toml)
+    (case-try (parse-query toml-query)
       parsed (get-first-match parsed)
       mtch (get-text mtch)
       text {:text text :toml true}
       (catch
-        _ (case-try (parse-yaml)
+        _ (case-try (parse-query yaml-query)
             parsed (get-first-match parsed)
             mtch (get-text mtch)
             text {:text text :yaml true}
@@ -98,7 +91,7 @@
 
 (command! :CorpusExtractLinkRefDef (fn [] (a.println (extract-link-reference-definitions))))
 
-(defn for-each-tree [parsed-query bufnr])
+(def link-shortcut-query "(shortcut_link (link_text) @shortcut_link)")
 
 (defn extract-link-shortcuts []
   "Grabs all the link shortcut labels from the current buffer and returns them as a list of strings."
