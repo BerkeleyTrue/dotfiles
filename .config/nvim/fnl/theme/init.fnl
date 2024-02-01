@@ -20,6 +20,7 @@
   (add-group :BerksBgDarker c.none c.bgdarker)
 
   (add-group :BerksFg c.text)
+  (add-group :BerksFgStrikethrough c.text)
   (add-group :BerksFgUnderline c.fg c.none s.underline)
   (add-group :BerksFgBold c.fg c.none s.bold)
 
@@ -84,6 +85,10 @@
   (add-group :BerksDiffChange c.orange c.none)
   (add-group :BerksDiffText c.bg c.orange)
   (add-group :BerksDiffDelete c.red c.bgdark)
+
+  (add-group :BerksRosewater c.rosewater)
+  (add-group :BerksTeal c.teal)
+  (add-group :BerksOverlay1 c.overlay1)
 
 
   ; Diagnostic

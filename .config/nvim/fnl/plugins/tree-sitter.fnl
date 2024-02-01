@@ -76,6 +76,7 @@
           :json
           :lua
           :markdown
+          :markdown_inline
           :prisma
           :pug
           :query
