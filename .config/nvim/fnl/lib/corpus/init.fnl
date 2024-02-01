@@ -14,7 +14,9 @@
 
 (defn init-corpus [])
 
+
 (defn main []
+  (vim.treesitter.language.register :markdown :markdown.corpus)
   (augroup :LibCorpus
     {:event :VimEnter
      :pattern :*
