@@ -11,7 +11,6 @@
 
 (def toml-query "(plus_metadata) @frontmatter")
 (def yaml-query "(minus_metadata) @frontmatter")
-(def link-ref-def-query "(link_reference_definition) @link_reference_definition") ; TODO: capture label/text directly
 (def link-shortcut-query "(shortcut_link (link_text) @shortcut_link)")
 
 (defn parse-query [query lang]
@@ -63,20 +62,36 @@
 
 (command! :CorpusExtractFrontmatter (fn [] (a.println (extract-frontmatter))))
 
+(def link-ref-def-query "(link_reference_definition
+                          (link_label) @link_label
+                          (link_destination) @link_destination)")
+
+(comment
+  (vf substitute "[label]" "\\v\\[|\\]" "" "g") ; => "label"
+  (vf substitute "<./destination>" "\\v\\<|\\>" "" "g")) ; => "./destination"
+
 (defn extract-link-reference-definitions []
+  "Extract link reference definitions from the current buffer and return them as a list of maps.
+  Each map has a :label and a :destination key. If there is an error parsing the link reference definitions,
+  an empty list is returned"
   (let [bufnr (n get_current_buf)
-        get-text (fn get-text [mtch] (-> (. mtch :link_reference_definition :node) (vim.treesitter.get_node_text bufnr)))]
+        get-text (fn get-text [mtch]
+                   {:label
+                    (or (-?>
+                          (. mtch :link_label :node)
+                          (vim.treesitter.get_node_text bufnr)
+                          (vim.fn.substitute "\\v\\[|\\]" "" "g"))
+                        "")
+                    :destination
+                    (or (-?>
+                          (. mtch :link_destination :node)
+                          (vim.treesitter.get_node_text bufnr)
+                          (vim.fn.substitute "\\v\\<|\\>" "" "g"))
+                        "")})]
 
     (case-try (parse-query link-ref-def-query)
-      parsed (icollect [mtc (get-matches parsed bufnr)]
-                       (do
-                         (a.println :match mtc)
-                         mtc))
-      matches (do
-                (a.println :matches matches)
-                (->>
-                  matches
-                  (r.map get-text)))
+      parsed (icollect [mtc (get-matches parsed bufnr)] mtc)
+      matches (->> matches (r.map get-text))
       (nil err) (do
                   (a.print "Error parsing link reference definitions:" err)
                   []))))
