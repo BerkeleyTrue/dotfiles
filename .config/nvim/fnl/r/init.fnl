@@ -44,7 +44,7 @@
                  indexes)]
       (func (unpack newargs)))))
 
-;; funcs
+;; ### funcs
 (def const a.constantly)
 (def noop (const nil))
 (defn call [f]
@@ -66,7 +66,11 @@
           (fn [f] (apply f args))
           fs)))))
 
-;; tables - data first
+(defn negate [f]
+  "Creates a function that negates the result of the predicate func."
+  (fn negator [...] (not (f ...))))
+
+;; ## tables - data first
 (def get a.get)
 ; Returns the value at the 'key in the 'table, or 'default if the key is not present."
 ; ["table" "key" "default"]
@@ -95,7 +99,7 @@
 (def keys a.keys)
 (def vals a.vals)
 
-;; array - data last
+;; ## array - data last
 (def forEach a.run!)
 (def for-each a.run!)
 (def map a.map)
@@ -140,12 +144,14 @@
     (flatten)))
 
 (def reduce a.reduce)
-(def join
-  (curry
-    (fn [separater xs]
-      (if
-        (= (length xs) 1) (a.first xs)
-        (a.reduce (fn [acc item] (.. acc separater item)) (head xs) (tail xs))))))
+(defn join [separater xs]
+  "Join a list of strings with a separater"
+  (if
+    (= (length xs) 1) (a.first xs)
+    (a.reduce
+      (fn [acc item] (.. acc separater item))
+      (head xs)
+      (tail xs))))
 
 (comment (join ", " ["a" "list"]))
 
@@ -242,7 +248,10 @@
   (range 1 5))
 
 ;; Strings
-(def split (curry str.split))
+(defn split [sep strng]
+  "split strings by separator"
+  (str.split strng sep))
+
 (defn upperFirst [s]
   (let [first (-> s (: :sub 1 1) (: :upper))
         rest (s:sub 2)]

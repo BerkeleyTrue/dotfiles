@@ -22,7 +22,7 @@
   (let [bg (or bg [none none])
         fg (or fg [none none])
 
-        attrs (str.join
+        attrs (r.join
                 ", "
                 (a.filter
                   #(= (type $1) "string")

@@ -17,7 +17,7 @@
 
 (defn- entry-maker [entry]
   "take each raw line input from Ag and transform it for telescope"
-  (let [split (r.split entry ":")
+  (let [split (r.split ":" entry)
         rel-path (r.head split)
         content (->> split (r.drop 3) (r.join ":"))
         abs-path (vim.loop.fs_realpath rel-path) ; ask vim to resolve the path for us
