@@ -301,7 +301,7 @@
     `(,(sym f) ,...)))
 
 (defn vf [name ...]
-  "run vim.fn.'name'"
+  "run vim.fn.[name]"
   (let [fnname (.. "vim.fn." (tostring name))]
     `(,(sym fnname) ,...)))
 

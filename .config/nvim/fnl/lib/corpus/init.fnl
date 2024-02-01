@@ -1,12 +1,15 @@
 (module lib.corpus
-  {autoload {r r
-             a aniseed.core
-             corpus corpus}
-   require {md utils.module
-            utils utils
-            ftdetect lib.corpus.ftdetect
-            metadata lib.corpus.metadata
-            git lib.corpus.git}
+  {autoload
+   {r r
+    a aniseed.core
+    utils utils
+    md utils.module
+    corpus corpus
+    cts lib.corpus.treesitter
+    ftdetect lib.corpus.ftdetect
+    metadata lib.corpus.metadata
+    git lib.corpus.git}
+   require {}
    require-macros [macros]})
 
 (defn init-corpus [])
