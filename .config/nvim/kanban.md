@@ -4,7 +4,10 @@
 
 ## Doing
 
-- integrate personal corpus
+- [ ] integrate personal corpus
+  - feat: parsing frontmatter into datastructure
+  - feat: update frontmatter on save to toml
+  - feat: update ref defs on save
 
 ## Done
 

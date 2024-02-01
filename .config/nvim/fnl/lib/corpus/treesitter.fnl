@@ -25,33 +25,48 @@
         (start-row _ end-row _) (root:range)]
     (query.iter_prepared_matches parsed-query root bufnr start-row end-row)))
 
-(def toml-query "(plus_metadata) @frontmatter")
-(def yaml-query "(minus_metadata) @frontmatter")
+; ## Extractions
+(def front-matter-query "(plus_metadata) @toml (minus_metadata) @yaml")
+
+(defn- format-frontmatter [s]
+  (->> s
+       (r.split "\n") ; split the string into lines
+       (r.map vim.trim) ; trim each line
+       (r.filter (r.negate r.empty?)) ; remove empty lines
+       (r.join "\n"))) ; join the lines back together
 
 (defn extract-frontmatter []
   "Grabs the frontmatter from the current buffer and returns it as a string.
   If there is an error parsing the frontmatter, it prints the error to the console and returns nil.
   If the frontmatter is successfully parsed, it returns the frontmatter as a string."
   (let [bufnr (n get_current_buf)
-        get-first-match (fn [parsed] ((get-matches parsed bufnr)))
-        get-text (fn [mtch] (-> (. mtch :frontmatter :node) (vim.treesitter.get_node_text bufnr)))]
-    (case-try (parse-query toml-query)
-      parsed (get-first-match parsed)
-      mtch (get-text mtch)
-      text {:text text :toml true}
+        get-text (fn [mtch]
+                   {:yaml
+                    (or
+                      (-?>
+                        (?. mtch :yaml :node)
+                        (vim.treesitter.get_node_text bufnr)
+                        (vim.fn.substitute "\\v\\-\\-\\-\\n?" "" "g")
+                        (format-frontmatter))
+                      "")
+                    :toml
+                    (or
+                      (-?>
+                        (?. mtch :toml :node)
+                        (vim.treesitter.get_node_text bufnr)
+                        (vim.fn.substitute "\\v\\+\\+\\+\\s*\\n?" "" "g")
+                        (format-frontmatter))
+                      "")})]
+    (case-try (parse-query front-matter-query)
+      parsed (icollect [mtch (get-matches parsed bufnr)] mtch)
+      matches (r.map get-text matches)
       (catch
-        _ (case-try (parse-query yaml-query)
-            parsed (get-first-match parsed)
-            mtch (get-text mtch)
-            text {:text text :yaml true}
-            (catch
-              _ (do (a.println "Nothing found") {})
-              (nil err) (do
-                          (a.print "Error parsing frontmatter:" err)
-                          {})))
         (nil err) (do
-                    (a.print "Error parsing frontmatter:" err)
-                    {})))))
+                    (a.println "Error parsing frontmatter:" err)
+                    {})
+        _ (do
+            (a.println "Error parsing frontmatter:")
+            {})))))
 
 (command! :CorpusExtractFrontmatter (fn [] (a.println (extract-frontmatter))))
 
