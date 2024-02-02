@@ -12,7 +12,7 @@
 (def- external-plugins
   ; main utils
   [{:name :berkeleytrue/colorbuddy.nvim}
-   {:name :brenoprata10/nvim-highlight-colors :config (make-on-load colorizer)}
+   {:name :brenoprata10/nvim-highlight-colors :config (make-on-load colorizer) :enabled false}
    {:name :junegunn/vim-easy-align :init (make-init easy-align)}
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
