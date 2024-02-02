@@ -22,7 +22,7 @@
    :messages {:enabled true
               :view :mini
               :view_error :mini
-              :view_warning :mini
+              :view_warn :mini
               :view_history :popup}
    :lsp {:hover {:enabled true}
          :progress {:enabled false}
