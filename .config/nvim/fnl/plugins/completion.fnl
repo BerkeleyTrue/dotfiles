@@ -66,7 +66,7 @@
 
 (defn main []
   (when-let [cmp (md.prequire :cmp)]
-    (inoremap :<C-s> "<Cmd>lua require('cmp').complete()<CR>" {:silent true})
+    (inoremap :<C-s> "<Cmd>lua require('cmp').complete()<CR>" {:silent true}) ; Manually trigger completion
     (augroup
       :AutoPopup
       {:event [:TextChangedI :TextChangedP]
@@ -75,7 +75,11 @@
 
     (let [luasnip (md.prequire :luasnip)]
       (cmp.setup
-        {:sources (get-sources)
+        {:enabled (fn cmp-enabled? []
+                    (let [buftype (n buf_get_option 0 :buftype)]
+                      (not= buftype :prompt)))
+
+         :sources (get-sources)
          :snippet
          {:expand
           (fn [args]
@@ -98,11 +102,6 @@
                  {:behavior cmp.ConfirmBehavior.Insert
                   :select false}))}
             [:i :s :c])
-
-          ; :<C-s>
-          ; (cmp.complete
-          ;   {:reason cmp.ContextReason.Manual
-          ;    :config {:sources (get-sources)}})
 
           :<C-n>
           (cmp.mapping
