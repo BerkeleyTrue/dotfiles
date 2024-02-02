@@ -52,15 +52,7 @@
 
   ; always go through guard.nvim for formatting
   ; will need to add them to plugins.guard if you want to use them
-  (nnoremap :zf "<CMD>GuardFmt<CR>" {:buffer buffnr :silent true})
-  (tset
-    vim.lsp.handlers
-    :textDocument/hover
-    (vim.lsp.with vim.lsp.handlers.hover
-      {:border :rounded
-       :title "Definition"
-       :scope "cursor"
-       :zindex 2000})))
+  (nnoremap :zf "<CMD>GuardFmt<CR>" {:buffer buffnr :silent true}))
 
 (def general-on-attach-with-navic
   (r.over

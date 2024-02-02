@@ -2,7 +2,7 @@ local vim = _G.vim
 local confpath = vim.fn.stdpath("config")
 -- force aniseed to compile while in nvim dir (in dev mode)
 local isInConf = confpath == vim.fn.getcwd()
-local log = function(output) print("[init.lua]: " .. output) end
+local log = function(output) vim.notify("[init.lua]: " .. output, vim.log.levels.INFO) end
 
 local disabled_built_ins = {
   "2html_plugin",

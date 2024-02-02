@@ -16,13 +16,30 @@
      ":" {:icon " "
           :hl_group :DiagnosticInfo
           :firstc false}}}
-   :notify {:enabled false}
-   :history {:enabled false}
-   :messages {:enabled false}
-   :lsp {:hover {:enabled false}}
+   :notify {:enabled true
+            :view :mini}
+   :history {:enabled true}
+   :messages {:enabled true
+              :view :mini
+              :view_error :mini
+              :view_warning :mini
+              :view_history :popup}
+   :lsp {:hover {:enabled true}
+         :progress {:enabled false}
+         :override {:vim.lsp.util.convert_input_to_markdown_lines true
+                    :vim.lsp.util.stylize_markdown true
+                    :cmp.entry.get_documentation true}}
    :throttle (/ 1000 30)
-   :views {}
-   :routes {}})
+   :views {:mini {:win_options {:winblend 0
+                                :winhighlight {:FloatBoarder :NoicePopupBorder}}
+                  :border {:style :rounded}
+                  :timeout 3000
+                  :position {:col "50%"
+                             :row "95%"}}}
+
+
+   :routes {}
+   :presets {:lsp_doc_border true}})
 
 (defn main []
   (when-let [noice (md.prequire :noice)]
