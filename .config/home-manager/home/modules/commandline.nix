@@ -165,6 +165,7 @@ in {
           typescript-language-server # TypeScript & JavaScript Language Server
           vscode-langservers-extracted # Language servers extracted from VSCode, css mainly
           tailwindcss-language-server # Language server for Tailwind CSS
+          vim-language-server # Language server for Vim script
 
           prettier # for formatting js, ts, css, html, json, yaml, markdown
           purs-tidy # formatting purescript
@@ -179,6 +180,8 @@ in {
       extraLuaPackages = luaPkgs:
         with luaPkgs; [
           jsregexp # for luasnip
+          toml # toml parser
+          lyaml # yaml parser
         ];
     };
 
