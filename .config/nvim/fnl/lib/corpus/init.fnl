@@ -68,9 +68,7 @@
            {:event [:BufWritePre]
             :buffer 0
             :callback
-            (fn before-write []
-              ; TODO: update references
-              (metadata.update-file))}
+            (fn before-write [] (metadata.update-file))}
 
            {:event [:BufWritePost]
             :buffer 0

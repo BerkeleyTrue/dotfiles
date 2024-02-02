@@ -6,8 +6,13 @@
     utils utils
     ts nvim-treesitter.compat
     parsers nvim-treesitter.parsers}
-   require {query nvim-treesitter.query}
+   require
+   {query nvim-treesitter.query
+    ts-utils nvim-treesitter.ts_utils}
    require-macros [macros]})
+
+(comment
+  (a.println "Hello from corpus.treesitter" ts-utils))
 
 (defn parse-query [query lang]
   (let [(ok? parsed) (pcall (fn [] (vim.treesitter.query.parse (or lang "markdown") query)))]
@@ -21,9 +26,18 @@
     (: (. (parser:trees) 1) :root)))
 
 (defn get-matches [parsed-query bufnr]
+  "get matches for parsed query as an iterator."
   (let [root (get-root bufnr)
         (start-row _ end-row _) (root:range)]
     (query.iter_prepared_matches parsed-query root bufnr start-row end-row)))
+
+(defn replace-node [bufnr node new-text]
+  (a.println :replace-node new-text)
+  (let [lsp-range (ts-utils.node_to_lsp_range node)]
+     (vim.lsp.util.apply_text_edits
+       [{:range lsp-range :newText new-text}]
+       bufnr
+       :utf-8)))
 
 ; ## Extractions
 (def front-matter-query "(plus_metadata) @toml (minus_metadata) @yaml")
@@ -58,8 +72,8 @@
                         (format-frontmatter))
                       "")})]
     (case-try (parse-query front-matter-query)
-      parsed (icollect [mtch (get-matches parsed bufnr)] mtch)
-      matches (r.map get-text matches)
+      parsed ((get-matches parsed bufnr))
+      mtchs (get-text mtchs)
       (catch
         (nil err) (do
                     (a.println "Error parsing frontmatter:" err)
@@ -68,7 +82,23 @@
             (a.println "Error parsing frontmatter:")
             {})))))
 
-(command! :CorpusExtractFrontmatter (fn [] (a.println (extract-frontmatter))))
+(comment
+  (command! :CorpusExtractFrontmatter (fn [] (a.println (extract-frontmatter)))))
+
+(defn replace-frontmatter [new-text]
+  "Replaces the frontmatter in the current buffer with the given new-text."
+  (let [bufnr (n get_current_buf)
+        parsed (parse-query front-matter-query)
+        matches (get-matches parsed bufnr)]
+    (if (r.empty? matches)
+      (vf append "0" new-text)
+      (let [mtch (matches)
+            node (or (?. mtch :yaml :node) (?. mtch :toml :node))]
+        (replace-node bufnr node new-text)))))
+
+(comment
+  (command! :CorpusReplaceFrontmatter
+            (fn [{: args}] (a.println :foo (replace-frontmatter args)))))
 
 (def link-ref-def-query "(link_reference_definition
                           (link_label) @link_label
@@ -101,10 +131,10 @@
       parsed (icollect [mtc (get-matches parsed bufnr)] mtc)
       matches (->> matches (r.map get-text))
       (nil err) (do
-                  (a.print "Error parsing link reference definitions:" err)
+                  (a.println "Error parsing link reference definitions:" err)
                   []))))
 
-(command! :CorpusExtractLinkRefDef (fn [] (a.println (extract-link-reference-definitions))))
+(comment (command! :CorpusExtractLinkRefDef (fn [] (a.println (extract-link-reference-definitions)))))
 
 (def link-shortcut-query "(shortcut_link (link_text) @shortcut_link)")
 
@@ -117,7 +147,7 @@
 
     (var out [])
     (case (parse-query link-shortcut-query :markdown_inline)
-      (nil err) (do (a.print "Error parsing link shortcuts:" err) [])
+      (nil err) (do (a.println "Error parsing link shortcuts:" err) [])
       parsed-query
       (do
         (inlines:for_each_tree
@@ -127,4 +157,6 @@
                 (table.insert out (vim.treesitter.get_node_text node bufnr))))))
         out))))
 
-(command! :CorpusExtractLinkShortcuts (fn [] (a.println (extract-link-shortcuts))))
+(comment
+  (command! :CorpusExtractLinkShortcuts
+            (fn [] (a.println (extract-link-shortcuts)))))
