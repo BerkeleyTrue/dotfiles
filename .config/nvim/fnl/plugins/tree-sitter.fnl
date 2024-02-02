@@ -121,7 +121,23 @@
         (vim-ts-queries.set
           :fennel
           :locals
-          (get-ft-query :fennel :locals)))
+          (get-ft-query :fennel :locals))
+
+        (vim-ts-queries.set
+          :fennel
+          :folds
+          (get-ft-query :fennel :folds))
+
+        (vim-ts-queries.set
+          :fennel
+          :injections
+          (get-ft-query :fennel :injections))
+
+        ; for nvim-treesitter-context
+        (vim-ts-queries.set
+          :fennel
+          :context
+          (get-ft-query :fennel :context)))
 
       (-?> _G
         (a.get-in [:vim :treesitter :highlighter :hl_map])
