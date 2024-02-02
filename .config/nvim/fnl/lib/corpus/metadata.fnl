@@ -53,4 +53,5 @@
   (let [file (or file (vim.fn.expand "%"))
         title (get-title file)
         metadata (get-frontmatter)]
-    (update-frontmatter (r.assoc metadata "title" title))))
+    (when (not= title (r.get metadata "title"))
+      (update-frontmatter (r.assoc metadata "title" title)))))
