@@ -8,6 +8,9 @@
   - [x] feat: parsing frontmatter into datastructure
   - [x] feat: update frontmatter on save to toml
   - [x] feat: update ref defs on save
+  - [ ] feat: implement go to and shortcut create
+  - [ ] transpile lua code to fennel and commit
+  - [ ] rewrite
 
 ## Done
 

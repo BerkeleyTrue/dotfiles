@@ -23,13 +23,12 @@
     (: (. (parser:trees) 1) :root)))
 
 (defn get-matches [parsed-query bufnr]
-  "get matches for parsed query as an iterator."
+  "get matches for parsed query as an iterator. If not matches found, iterator returns nil."
   (let [root (get-root bufnr)
         (start-row _ end-row _) (root:range)]
     (query.iter_prepared_matches parsed-query root bufnr start-row end-row)))
 
 (defn replace-node [bufnr node new-text]
-  (a.println :replace-node new-text)
   (let [lsp-range (ts-utils.node_to_lsp_range node)]
      (vim.lsp.util.apply_text_edits
        [{:range lsp-range :newText new-text}]
@@ -70,13 +69,14 @@
                       "")})]
     (case-try (parse-query front-matter-query)
       parsed ((get-matches parsed bufnr))
-      mtchs (get-text mtchs)
+      mtchs (if (r.empty? mtchs) {} (get-text mtchs))
       (catch
         (nil err) (do
                     (a.println "Error parsing frontmatter:" err)
                     {})
+        nil {} ; no matches
         _ (do
-            (a.println "Error parsing frontmatter:")
+            (a.println "Unknown error parsing frontmatter.")
             {})))))
 
 (comment
@@ -88,7 +88,7 @@
         parsed (parse-query front-matter-query)
         matches ((get-matches parsed bufnr))]
     (if (r.empty? matches)
-      (vf append "0" new-text)
+      (vf append "0" (r.split "\n" new-text))
       (let [node (or (?. matches :yaml :node) (?. matches :toml :node))]
         (replace-node bufnr node new-text)))))
 
