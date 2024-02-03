@@ -86,11 +86,10 @@
   "Replaces the frontmatter in the current buffer with the given new-text."
   (let [bufnr (n get_current_buf)
         parsed (parse-query front-matter-query)
-        matches (get-matches parsed bufnr)]
+        matches ((get-matches parsed bufnr))]
     (if (r.empty? matches)
       (vf append "0" new-text)
-      (let [mtch (matches)
-            node (or (?. mtch :yaml :node) (?. mtch :toml :node))]
+      (let [node (or (?. matches :yaml :node) (?. matches :toml :node))]
         (replace-node bufnr node new-text)))))
 
 (comment
