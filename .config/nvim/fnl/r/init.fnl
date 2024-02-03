@@ -253,15 +253,23 @@
   (str.split strng sep))
 
 (defn upperFirst [s]
+  "Converts the first character of string to upper case."
   (let [first (-> s (: :sub 1 1) (: :upper))
         rest (s:sub 2)]
     (.. first rest)))
+
+(defn to-lower-case [str]
+  "Converts string, as a whole, to lower case."
+  (string.lower str))
+
 (defn deburr [str]
+  "Deburrs a string"
   (->
     str
     (: :gsub "-" " ")))
 
 (defn words [str]
+  "Split a string into words."
   (let [str (deburr (tostring str))
         words []]
     (each [word (str:gmatch "%S+")]
@@ -269,21 +277,26 @@
     words))
 
 (defn- create-compounder [cb]
+  "Creates a compounder function for a given callback
+  A compounder function is a function that takes a string, split it into words, then
+  applies a callback to each word, and finally joins the words back together."
   (fn [str]
     (->>
       str
       (words)
       (a.reduce cb ""))))
 
-(def pascal-case
-  (create-compounder
-    (fn [acc word]
-      (->>
-        word
-        (string.lower)
-        (upperFirst)
-        (.. acc)))))
+(defn pascal-case [str]
+  "converts a string to PascalCase"
+  ((create-compounder (fn [acc word] (->> word (string.lower) (upperFirst) (.. acc))))
+   str))
 
+(defn kebab-case [str]
+  "converts a string to kebab-case"
+  (vf substitute str "\\s\\+" "-" "g"))
+
+(comment
+  (kebab-case "foo  bar"))
 
 ;; lang
 (defn number? [val] (= (type val) :number))
@@ -332,11 +345,11 @@
     (string? collection) (length collection)
     0))
 
-(defn includes [col val]
-  "(includes [:foo :bar] :foo) ;=> true
-   (includes [:foo :bar] :baz) ;=> false
-   (includes \"foo\" :foo) ;=> true
-   (includes \"foo\" :bar) ;=> false"
+(defn includes? [col val]
+  "(includes? [:foo :bar] :foo) ;=> true
+   (includes? [:foo :bar] :baz) ;=> false
+   (includes? \"foo\" :foo) ;=> true
+   (includes? \"foo\" :bar) ;=> false"
   (if
     (string? col) (not (nil? (: col :find val)))
     (table? col) (not (nil? (find #(= $1 val) col)))

@@ -7,7 +7,7 @@
 - [ ] integrate personal corpus
   - [x] feat: parsing frontmatter into datastructure
   - [x] feat: update frontmatter on save to toml
-  - [ ] feat: update ref defs on save
+  - [x] feat: update ref defs on save
 
 ## Done
 

@@ -8,6 +8,7 @@
     cts lib.corpus.treesitter
     ftdetect lib.corpus.ftdetect
     metadata lib.corpus.metadata
+    reflinks lib.corpus.reference-links
     git lib.corpus.git}
    require {}
    require-macros [macros]})
@@ -68,7 +69,9 @@
            {:event [:BufWritePre]
             :buffer 0
             :callback
-            (fn before-write [] (metadata.update-file))}
+            (fn before-write []
+              (reflinks.update-file)
+              (metadata.update-file))}
 
            {:event [:BufWritePost]
             :buffer 0

@@ -13,7 +13,7 @@
 
 (defn- pre-hook [ctx]
   "Calculates commentstring using ts_context_commentstring for jsx filetypes."
-  (when (r.includes jsxtypes vim.bo.filetype)
+  (when (r.includes? jsxtypes vim.bo.filetype)
     (let [cutils (md.prequire :Comment.utils)
           csinternal (md.prequire :ts_context_commentstring.internal)
           csutils (md.prequire :ts_context_commentstring.utils)

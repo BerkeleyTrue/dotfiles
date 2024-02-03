@@ -11,9 +11,6 @@
     ts-utils nvim-treesitter.ts_utils}
    require-macros [macros]})
 
-(comment
-  (a.println "Hello from corpus.treesitter" ts-utils))
-
 (defn parse-query [query lang]
   (let [(ok? parsed) (pcall (fn [] (vim.treesitter.query.parse (or lang "markdown") query)))]
     (if ok?
