@@ -156,3 +156,23 @@
 (comment
   (command! :CorpusExtractLinkShortcuts
             (fn [] (a.println (extract-link-shortcuts)))))
+
+(defn get-node-under-cursor []
+  "Get the node under the cursor. Nil, if nothing is found"
+  (let [[bufnr lnum col _] (vf getpos ".")
+        lnum (- lnum 1)
+        lang-parsers (parsers.get_parser bufnr)
+        lang-tree (lang-parsers:language_for_range [lnum col lnum col])]
+    (when-let [node (accumulate [node nil
+                                 _ tree (ipairs (lang-tree:trees))
+                                 &until (not (r.nil? node))]
+                      (when-let [root (tree:root)]
+                         (if (vim.treesitter.is_in_node_range root lnum col)
+                           (root:named_descendant_for_range lnum col lnum col))))]
+      {:text (vim.treesitter.get_node_text node bufnr)
+       :node node
+       :type (node:type)})))
+
+
+(comment
+  (command! :CorpusGetNodeUnderCursor (fn [] (a.println (get-node-under-cursor)))))

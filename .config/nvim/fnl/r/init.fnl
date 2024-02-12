@@ -115,11 +115,40 @@
     (fn [func arr]
       (filter #(not (func $...)) arr))))
 
-(def head a.first)
-(def merge a.merge)
-(def tail a.rest)
-(def last a.last)
+; TODO: should return k/v for table
+(defn head [val]
+  "get the first element of a collection"
+  (if
+    (= (type val) :string) (: val :sub 1 1)
+    (a.first val)))
+
+(comment
+  (head "foo" )
+  (head [1 2 3])
+  (head {:a 1 :b 2}))
+
+(defn tail [val]
+  "get the rest of a collection"
+  (if (= (type val) :string) (: val :sub 2)
+    (a.rest val)))
+
+(comment
+  (tail "foo")
+  (tail [1 2 3])
+  (tail {:a 1 :b 2}))
+
+(defn last [val]
+  "Get the last element of a collection"
+  (if (= (type val) :string) (: val :sub -1)
+    (a.last val)))
+
+(comment
+  (last "foo")
+  (last [1 2 3])
+  (last {:a 1 :b 2}))
+
 (def some a.some)
+(def merge a.merge)
 (def concat a.concat)
 (def initial a.butlast)
 (defn conj [coll & items]

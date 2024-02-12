@@ -3,7 +3,8 @@
    {a aniseed.core
     r r
     md utils.module
-    utils utils}
+    utils utils
+    ts lib.corpus.treesitter}
    require {}
    require-macros [macros]})
 
@@ -42,3 +43,36 @@
 
 (comment
   (vnoremap "<C-]>" create-shortcut-on-selection {:buffer true :silent true}))
+
+(defn shortcut? []
+  "Checks if the node under the cursor is a shortcut"
+  (let [{: type} (ts.get-node-under-cursor)]
+    (= type "link_text")))
+
+(comment
+  (command! :CorpusIsShortcut (fn [] (a.println (go-to-shortcut)))))
+
+(defn go-to-shortcut []
+  "Go to the shortcut under the cursor"
+  (let [{: text} (ts.get-node-under-cursor)
+        first-letter (r.head text)
+        rest (r.tail text)
+        target (.. "./" (vf substitute text " " "-" "g") ".md")
+        glob (.. "./[" (string.lower first-letter) (string.upper first-letter) "]" rest ".md")
+        mtch (r.head (vf glob glob 0 1))
+        target (or mtch target)]
+    (vf execute (.. ":edit " target))))
+
+(comment
+  (command! :CorpusGoToShortcut (fn [] (a.println (go-to-shortcut)))))
+
+(defn go-to-or-create-shortcut []
+  "Go to the shortcut under the cursor or create one if it doesn't exist"
+  (if (shortcut?)
+    (go-to-shortcut)
+    (create-shortcut-on-word)))
+
+(comment
+  (command! :CorpusGoToOrCreateShortcut (fn [] (a.println (go-to-or-create-shortcut false))))
+  (vnoremap "<C-]>" (fn [] (create-shortcut-on-selection)) {:buffer true :silent true})
+  (nnoremap "<C-]>" (fn [] (go-to-or-create-shortcut) {:buffer true :silent true})))

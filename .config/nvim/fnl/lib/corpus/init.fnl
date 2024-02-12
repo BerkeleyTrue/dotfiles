@@ -9,6 +9,7 @@
     ftdetect lib.corpus.ftdetect
     metadata lib.corpus.metadata
     reflinks lib.corpus.reference-links
+    shortcuts lib.corpus.shortcuts
     git lib.corpus.git}
    require {}
    require-macros [macros]})
@@ -63,8 +64,8 @@
      :callback
      (fn []
        (when (ftdetect.ftdetect)
-         (noremap "<C-]>" ":call corpus#goto('n'))<CR>")
-         (xnoremap "<C-]>" ":call corpus#goto('v'))<CR>")
+         (noremap "<C-]>" (fn [] (shortcuts.go-to-or-create-shortcut)) {:silent true :buffer true})
+         (xnoremap "<C-]>" (fn [] (shortcuts.create-shortcut-on-selection)) {:silent true :buffer true})
          (augroup :LibCorpusEnv
            {:event [:BufWritePre]
             :buffer 0
