@@ -5,6 +5,7 @@
     utils utils
     md utils.module
     corpus corpus
+    complete lib.corpus.complete
     cts lib.corpus.treesitter
     ftdetect lib.corpus.ftdetect
     metadata lib.corpus.metadata
@@ -15,7 +16,6 @@
    require-macros [macros]})
 
 (defn init-corpus [])
-
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
@@ -33,7 +33,7 @@
            :desc "Choose a corpus file"
            :bang true
            :nargs "*"
-           :complete "customlist,corpus#complete"})))}
+           :complete complete.complete})))}
 
     {:event [:BufNewFile]
      :pattern :*.md
