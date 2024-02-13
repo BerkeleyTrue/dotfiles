@@ -45,6 +45,4 @@
           :autoreference true
           :autotitle true
           :base ""
-          :transform "web"}})))
-  (when-let [corpus (md.prequire "corpus")]
-    (corpus.setup)))
+          :transform "web"}}))))

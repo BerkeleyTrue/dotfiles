@@ -343,6 +343,7 @@
    :i :i
    :x :x
    :s :s
+   :c :c
    :a ""})
 
 (fn base-map [mtype lhs rhs options]
@@ -370,6 +371,7 @@
 (defn smap [lhs rhs options] (base-map :s lhs rhs options))
 (defn vmap [lhs rhs options] (base-map :v lhs rhs options))
 (defn xmap [lhs rhs options] (base-map :x lhs rhs options))
+(defn cmap [lhs rhs options] (base-map :c lhs rhs options))
 
 (defn noremap [lhs rhs options?]
   "norecur map for all modes"
@@ -397,5 +399,9 @@
 (defn snoremap [lhs rhs options?]
   (let [options (assoc (or options? {}) :noremap true)]
     (base-map :s lhs rhs options)))
+
+(defn cnoremap [lhs rhs options?]
+  (let [options (assoc (or options? {}) :noremap true)]
+    (base-map :c lhs rhs options)))
 
 :return M

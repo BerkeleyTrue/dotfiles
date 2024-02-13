@@ -6,6 +6,7 @@
     md utils.module
     corpus corpus
     chooser corpus.private.chooser
+    preview corpus.private.preview
     cts lib.corpus.treesitter
     ftdetect lib.corpus.ftdetect
     metadata lib.corpus.metadata
@@ -14,6 +15,12 @@
     git lib.corpus.git}
    require {}
    require-macros [macros]})
+
+(defn preview-mappings []
+  (cnoremap "<C-j>" chooser.next {:silent true :buffer true})
+  (cnoremap "<C-k>" chooser.previous {:silent true :buffer true})
+  (cnoremap "<Down>" chooser.next {:silent true :buffer true})
+  (cnoremap "<Up>" chooser.previous {:silent true :buffer true}))
 
 (defn complete [arglead cmdline _]
   (when-let [file (chooser.get_selected_file)]
@@ -24,8 +31,37 @@
         ;;                   ^
         ;; Must return "bazzzz", not "zzz".
         [(title:sub
-           (+ (- (prefix:len) (arglead:len)) 1)
+           (+ (- (prefix:len)
+                 (arglead:len))
+              1)
            -1)]))))
+
+(defn choose [selection bang]
+  (let [selection (vim.trim selection)
+        create (or (= bang "!") (vim.endswith selection "!"))
+        selection (if (vim.endswith selection "!") (selection:sub 0 -2) selection)
+        file (if create
+               selection ; if create, use selection as is
+               (chooser.get_selected_file)) ; else, get selected file TODO: how does this work?
+        file (if (and
+                   (not= file "") ; if file is not empty
+                   (not= file nil) ; and not nil
+                   (not (vim.endswith file :.md))) ; and not .md
+               (.. file :.md) ; add .md
+               file)]
+    (vim.cmd (.. "edit " (vim.fn.fnameescape file)))))
+
+(defn cmdline-changed [char]
+  (when (= char ":")
+    (let [line (vim.fn.getcmdline)
+          (_ _ term) (string.find line "^%s*Corpus%f[%A]%s*(.-)%s*$")]
+      (when (and (not= term nil)
+                 (ftdetect.ftdetect))
+        (preview-mappings)
+        (chooser.open)
+        (if (> (term:len) 0)
+          (chooser.search term chooser.update)
+          (chooser.list chooser.update))))))
 
 (defn init []
   (when (ftdetect.ftdetect)
@@ -49,18 +85,19 @@
              (git.commit file "create"))
            (git.commit file "update")))})))
 
+
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
   (augroup :LibCorpus
     {:event :VimEnter
      :pattern :*
      :callback
-     (fn []
+     (fn vim-enter []
       (when (ftdetect.ftdetect)
         (command!
           :Corpus
           (fn on-corpus-command [{: args : bang}]
-            (corpus.choose args bang))
+            (choose args bang))
           {:force true
            :desc "Choose a corpus file"
            :bang true
@@ -79,19 +116,20 @@
      :pattern :*
      :callback
      (fn on-command-line-enter []
-       (corpus.cmdline_enter))}
+       (chooser.reset))}
 
     {:event [:CmdlineChanged]
      :pattern :*
      :callback
      (fn on-command-line-changed [{: file}]
-       (corpus.cmdline_changed file))}
+       (cmdline-changed file))}
 
     {:event [:CmdlineLeave]
      :pattern :*
      :callback
      (fn on-command-line-leave []
-       (corpus.cmdline_leave))}
+       (chooser.close)
+       (preview.close))}
 
     {:event [:BufNewFile :BufRead]
      :pattern :*.md
