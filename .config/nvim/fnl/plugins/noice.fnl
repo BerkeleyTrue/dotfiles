@@ -32,7 +32,8 @@
    :throttle (/ 1000 30)
    :views {:mini {:win_options {:winblend 0
                                 :winhighlight {:FloatBoarder :NoicePopupBorder}}
-                  :border {:style :rounded}
+                  :border {:style :rounded
+                           :padding [0 1]}
                   :timeout 3000
                   :position {:col "50%"
                              :row "95%"}}}
@@ -43,4 +44,6 @@
 
 (defn main []
   (when-let [noice (md.prequire :noice)]
-    (noice.setup config)))
+    (noice.setup config)
+    (when-let [telescope (md.prequire :telescope)]
+      (telescope.load_extension :noice))))

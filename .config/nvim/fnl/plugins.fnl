@@ -51,7 +51,6 @@
    {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
    {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
    {:name :rcarriga/nvim-notify :description "used by noice, need to set config" :config (make-on-load notify)}
-   {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and popupmenu" :dependencies [[:MunifTanjim/nui.nvim] [:rcarriga/nvim-notify] [:hrsh7th/nvim-cmp]] :config (make-on-load noice)}
    {:name :SmiteshP/nvim-navic :description "A simple statusline/winbar component that uses LSP to show your current code context." :dependencies [[:neovim/nvim-lspconfig]] :config (make-on-load navic)}
 
    ; git
@@ -86,6 +85,7 @@
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}
    {:name :folke/zen-mode.nvim :description "minimal distraction version of a buffer" :config (make-on-load zenmode)}
+   {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and history" :dependencies [[:MunifTanjim/nui.nvim] [:hrsh7th/nvim-cmp] [:nvim-telescope/telescope.nvim]] :config (make-on-load noice)}
 
    ; parenthesis
    {:name :kylechui/nvim-surround :description "Add surround movements, written in lua." :config (make-on-load surround)}
