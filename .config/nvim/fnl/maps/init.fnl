@@ -90,7 +90,9 @@
 
 ; in normal mode, run quick macro
 ; use gQ to enter Exmode instead
-(nnoremap :Q "@q")
+(nnoremap :Q "@qj")
+; run a macro over a selection of lines
+(xnoremap :Q ":normal @q")
 
 
 ; yank to end of line
