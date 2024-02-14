@@ -123,8 +123,7 @@
 (defn list [cb]
   "Get a list of markdown files in the git repository and return them to the callback"
   (when (not= current-job nil)
-    (current-job:shutdown)
-    (set current-job nil))
+    (current-job:shutdown))
 
   (set current-job
        (Job:new
@@ -135,8 +134,26 @@
             (let [results (job:results)]
               (cb results)))})))
 
-(defn search []
-  "Get a list of files in the directory using grep and return them to the callback")
+(defn search [input cb]
+  "Get a list of files in the directory using grep and return them to the callback"
+  (when (not= current-job nil)
+    (current-job:shutdown))
+  (let [args [:--no-heading
+              :--smart-case
+              :--fixed
+              :--silent
+              :--files-with-matches
+              :--untracked
+              (.. "\"" input "\"")
+              :*.md]]
+    (set current-job
+         (Job:new
+           {:command :ag
+            :args args
+            :on_exit
+            (fn [job]
+              (let [results (job:results)]
+                (cb results)))}))))
 
 (defn update []
   "Update the list of files in the buffer")
