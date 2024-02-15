@@ -1,9 +1,12 @@
 (module plugins.hlslens
-  {require
+  {autoload
    {a aniseed.core
     r r
     md utils.module
-    utils utils}
+    utils utils
+    hl utils.highlights
+    cl lib.color
+    p theme.palette}
    require-macros [macros]})
 
 
@@ -12,38 +15,26 @@
 (defn start []
   (. (require :hlslens) :start))
 
+; TODO: add specific visual multi override-lens
 (defn override-lens [render pos-list nearest idx]
-  (let [_ rel-idx
-        (lnum col) (unpack (. pos-list idx))]
-    (var (text chunks) nil)
-    (if nearest
-      (do
-        (set text (: "[%d/%d]" :format idx (length pos-list)))
-        (set chunks {1 {1 " " 2 :Ignore} 2 {1 text 2 :VM_Extend}}))
-      (do
-        (set text (: "[%d]" :format idx))
-        (set chunks {1 {1 " " 2 :Ignore} 2 {1 text 2 :HlSearchLens}})))
+  (let [(lnum col) (unpack (. pos-list idx))
+        text (if nearest "" (: "[%d]" :format idx))
+        chunks [[" " :Ignore] [text :HlSearchVirtualText]]]
 
     (render.setVirt 0 (- lnum 1) (- col 1) chunks nearest)))
 
 (defn start-vm []
-  (let [lens (require :hlslens)
-        config (require :hlslens.config)]
-
-    (set lens-bak config.override_lens)
-    (set config.override_lens override-lens)
+  (when-let [lens (require :hlslens)]
     (lens.start true)))
 
 (defn exit-vm []
-  (let [lens (require :hlslens)
-        config (require :hlslens.config)]
-
-    (set config.override_lens lens-bak)
+  (when-let [lens (require :hlslens)]
     (lens.start true)))
 
 (defn main []
+  (n set_hl 0 :HlSearchVirtualText {:fg (cl.hsl->hex 95 43.9 90)}) ; dark green
   (when-let [lens (md.prequire :hlslens)]
-    (lens.setup {})
+    (lens.setup {:override_lens override-lens})
     (nnoremap :n (.. "<CMD>execute('normal! '.v:count1.'n')<CR>" (cviml->lua* start)) {:silent true})
     (nnoremap :N (.. "<CMD>execute('normal! '.v:count1.'N')<CR>" (cviml->lua* start)) {:silent true})
     (nnoremap :* (.. "*" (cviml->lua* start)) {:silent true})

@@ -404,4 +404,7 @@
   (let [options (assoc (or options? {}) :noremap true)]
     (base-map :c lhs rhs options)))
 
+(defn set-hl [name opts]
+  `(vim.api.nvim_set_hl 0 ,name ,opts))
+
 :return M

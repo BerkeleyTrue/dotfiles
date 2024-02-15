@@ -74,14 +74,15 @@
             hue (/ hue 6)
             hue (if (< hue 0) (+ hue 1) hue)
             hue (if (> hue 1) (- hue 1) hue)]
-        (values (* hue 360) sat lit)))))
+        (values (r.round (* hue 360) 0) (r.round (* sat 100) 2) (r.round (* lit 100) 2))))))
 
 (comment
   (rgb->hsl 1 0 0)
   (rgb->hsl 0 1 0)
   (rgb->hsl 0 0 1)
   (rgb->hsl (/ 72 255) 1 0)
-  (rgb->hsl (/ 102 255) (/ 235 255) 0))
+  (rgb->hsl (/ 102 255) (/ 235 255) 0)
+  (rgb->hsl (/ 240 255) (/ 105 255) 0))
 
 (defn hex->hsl [hex]
   (let [red (string.sub hex 2 3)

@@ -225,6 +225,12 @@
   clamps val to between min and max values"
   (math.min (math.max min val) max))
 
+(defn round [num decimals]
+  "(round 1.234 2) => 1.23
+  rounds a number to a specified number of decimal places"
+  (let [mult (math.pow 10 decimals)]
+    (/ (math.floor (* num mult)) mult)))
+
 ;; array
 (defn slice [start end array]
   "(slice 0 3 [1 2 3 4])

@@ -1,18 +1,20 @@
 (module theme
-  {require
-   {: r
-    : utils
+  {autoload
+   {cb colorbuddy
+    p theme.palette}
+   require
+   {r r
+    utils utils
     a aniseed.core
     hl utils.highlights
     str aniseed.string}
    require-macros [macros]})
 
-(comment (set log.level "debug"))
+(comment (def c cb.colors))
+
+(n set_hl 0 :BerksNone {:fg :none :bg :none})
 
 (defn main [{: add-group : c : s}]
-
-  (add-group :BerksNone c.none c.none)
-
   (add-group :BerksBg c.none c.bg)
   (add-group :BerksBgLight c.none c.bglight)
   (add-group :BerksBgLighter c.none c.bglighter)

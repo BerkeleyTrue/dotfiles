@@ -1,10 +1,23 @@
 (module theme.editor
-  {require
+  {autoload
+   {cb colorbuddy
+    p theme.palette
+    cl lib.color}
+   require
    {a aniseed.core
     r r
     hl utils.highlights
     utils utils}
    require-macros [macros]})
+
+(comment
+  (def c cb.colors))
+
+(n set_hl 0 :Normal    {:fg p.text   :bg p.base})
+(n set_hl 0 :Search    {:fg p.text   :bg (cl.hsl->hex 189 47.83 30)}) ; Last search pattern highlighting (see 'hl-Search').  Also used for similar items that need to stand out.
+(n set_hl 0 :CurSearch {:fg p.mantle :bg p.red}) ; 'cursearch' highlighting: highlights the current search you're on differently
+(n set_hl 0 :IncSearch {:fg p.mantle :bg (cl.hsl->hex 189 47.83 90)}) ; Last search pattern highlighting (see 'hl-IncSearch').  Also used for similar items that need to stand out.
+(n set_hl 0 :WildMenu  {:fg :fg :bg p.overlay0})
 
 (defn main [{: c : s : add-group}]
   (add-group :ColorColumn       c.none c.surface0) ; used for the columns set with 'colorcolumn'
@@ -47,9 +60,6 @@
   (add-group :PmenuThumb        c.none c.overlay2) ; Popup menu: Thumb of the scrollbar.
   (add-group :Question          c.blue)
   (add-group :QuickFixLine      c.none c.surface1 s.bold) ; Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-  (add-group :Search            c.text (c.sky:dark)) ; Last search pattern highlighting (see 'hl-IncSearch').  Also used for similar items that need to stand out.
-  (add-group :IncSearch         c.mantle (c.sky:dark)) ; 'incsearch' highlighting; also used for the text replaced with ":s///c"
-  (add-group :CurSearch         c.mantle c.red) ; 'cursearch' highlighting: highlights the current search you're on differently
   (hl.link!  :SpecialKey        :NonText) ; Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
   (add-group :SpellBad          c.none c.none s.undercurl) ; Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
   (add-group :SpellCap          c.none c.none s.undercurl) ; Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
@@ -68,7 +78,6 @@
   (add-group :VisualNOS         c.none c.surface1 s.bold) ; Visual mode selection when vim is "Not Owning the Selection".
   (add-group :WarningMsg        c.yellow) ; warning messages
   (add-group :Whitespace        c.surface1) ; "nbsp", "space", "tab" and "trail" in 'listchars'
-  (add-group :WildMenu          c.none c.overlay0) ; current match in 'wildmenu' completion
   (add-group :WinBar            c.none c.base s.bold)
 
   ; status line helpers for separators
