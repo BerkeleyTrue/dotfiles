@@ -13,11 +13,11 @@
 (comment
   (def c cb.colors))
 
-(n set_hl 0 :Normal    {:fg (cl.hsl->hex p.text) :bg (cl.hsl->hex p.base)})
-(n set_hl 0 :Search    {:fg (cl.hsl->hex p.text) :bg (cl.hsl->hex (cl.lit p.sky 80))}) ; Last search pattern highlighting (see 'hl-Search').  Also used for similar items that need to stand out.
-(n set_hl 0 :CurSearch {:fg (cl.hsl->hex p.mantle) :bg (cl.hsl->hex p.red)}) ; 'cursearch' highlighting: highlights the current search you're on differently
-(n set_hl 0 :IncSearch {:fg (cl.hsl->hex p.mantle) :bg (cl.hsl->hex (cl.lit p.sky 90))}) ; Last search pattern highlighting (see 'hl-IncSearch').  Also used for similar items that need to stand out.
-(n set_hl 0 :WildMenu  {:fg :fg :bg (cl.hsl->hex p.overlay0)})
+(n set_hl 0 :Normal    {:fg (cl.->hex p.text) :bg (cl.->hex p.base)})
+(n set_hl 0 :Search    {:fg (cl.->hex p.text) :bg (cl.->hex (cl.lit p.sky 30))}) ; Last search pattern highlighting (see 'hl-Search').  Also used for similar items that need to stand out.
+(n set_hl 0 :CurSearch {:fg (cl.->hex p.mantle) :bg (cl.->hex p.red)}) ; 'cursearch' highlighting: highlights the current search you're on differently
+(n set_hl 0 :IncSearch {:fg (cl.->hex p.mantle) :bg (cl.->hex (cl.lit p.sky 40))}) ; Last search pattern highlighting (see 'hl-IncSearch').  Also used for similar items that need to stand out.
+(n set_hl 0 :WildMenu  {:fg :fg :bg (cl.->hex p.overlay0)})
 
 (defn main [{: c : s : add-group}]
   (add-group :ColorColumn       c.none c.surface0) ; used for the columns set with 'colorcolumn'

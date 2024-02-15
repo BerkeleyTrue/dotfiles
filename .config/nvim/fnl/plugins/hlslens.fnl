@@ -30,7 +30,7 @@
     (render.setVirt 0 (- lnum 1) (- col 1) chunks nearest)))
 
 (defn main []
-  (n set_hl 0 :HlSearchVirtualText {:fg (cl.hsl->hex 95 43.9 90)}) ; dark green
+  (n set_hl 0 :HlSearchVirtualText {:fg (cl.->hex 95 43.9 90)}) ; dark green
   (when-let [lens (md.prequire :hlslens)]
     (lens.setup {:override_lens override-lens})
     (nnoremap :n (.. "<CMD>execute('normal! '.v:count1.'n')<CR><CMD>lua require('hlslens').start()<CR>") {:silent true})

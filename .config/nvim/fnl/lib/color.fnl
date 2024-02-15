@@ -45,19 +45,19 @@
   (hsl->rgb (/ 120 360) 1 0.5) ; green
   (hsl->rgb (/ 240 360) 1 0.5)) ; blue
 
-(defn hsl->hex [...]
+(defn ->hex [...]
   (let [args [...]
         [hue sat lit] (if (= (type (. args 1)) :table) (. args 1) args)
         (red grn bl) (hsl->rgb (/ hue 360) (/ sat 100) (/ lit 100))]
     (string.format "#%02x%02x%02x" red grn bl)))
 
 (comment
-  (hsl->hex 0 100 50) ; red
-  (hsl->hex [0 100 50]) ; red
-  (hsl->hex 120 100 50) ; green
-  (hsl->hex [120 100 50]) ; green
-  (hsl->hex 240 100 50) ; blue
-  (hsl->hex [240 100 50])) ; blue
+  (->hex 0 100 50) ; red
+  (->hex [0 100 50]) ; red
+  (->hex 120 100 50) ; green
+  (->hex [120 100 50]) ; green
+  (->hex 240 100 50) ; blue
+  (->hex [240 100 50])) ; blue
 
 (defn rgb->hsl [red grn bl]
   "Converts a set of r g b values from 0 to 1 to a set of Hue Saturation Lightness values."
@@ -89,18 +89,18 @@
   (rgb->hsl (/ 102 255) (/ 235 255) 0)
   (rgb->hsl (/ 240 255) (/ 105 255) 0))
 
-(defn hex->hsl [hex]
+(defn ->hsl [hex]
   (let [red (string.sub hex 2 3)
         grn (string.sub hex 4 5)
         bl (string.sub hex 6 7)]
     (rgb->hsl (/ (tonumber red 16) 255) (/ (tonumber grn 16) 255) (/ (tonumber bl 16) 255))))
 
 (comment
-  (hex->hsl "#ff0000")
-  (hex->hsl "#00ff00")
-  (hex->hsl "#0000ff")
-  (hex->hsl "#48eb00")
-  (hex->hsl "#66eb00"))
+  (->hsl "#ff0000")
+  (->hsl "#00ff00")
+  (->hsl "#0000ff")
+  (->hsl "#48eb00")
+  (->hsl "#66eb00"))
 
 (defn lit [[hue sat] lit]
   [hue sat lit])
