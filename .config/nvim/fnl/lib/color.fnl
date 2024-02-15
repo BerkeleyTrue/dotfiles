@@ -7,19 +7,16 @@
    require {}
    require-macros [macros]})
 
-(def f1/6 (/ 1 6))
-(def f1/2 (/ 1 2))
-(def f1/3 (/ 1 3))
-(def f2/3 (/ 2 3))
-
 ; see https://homepages.cwi.nl/~steven/css/hsl.html
 (defn- hue->rgb [m1 m2 hue]
-  (let [hue (if (< hue 0) (+ hue 1) hue)
-        hue (if (> hue 1) (- hue 1) hue)]
+  (let [hue (if
+              (< hue 0) (+ hue 1)
+              (> hue 1) (- hue 1)
+              hue)]
     (if
-      (< hue f1/6) (* (+ m1 (- m2 m1)) hue 6)
-      (< hue f1/2) m2
-      (< hue f2/3) (* (+ m1 (- m2 m1)) (- f2/3 hue) 6)
+      (< hue (/ 1 6)) (+ m1 (* (- m2 m1) hue 6))
+      (< hue (/ 1 2)) m2
+      (< hue (/ 2 3)) (+ m1 (* (- m2 m1) (- (/ 2 3) hue) 6))
       m1)))
 
 (defn- hsl->rgb [hue sat lit]
@@ -27,16 +24,15 @@
   Assume h, s, l are numbers from 0 to 1
   returns a set of r g b values from 0 to 255"
   (if (= sat 0)
-    (let [lit (* lit 255)]
+    (let [lit (r.round (* lit 255) 0)]
       (values lit lit lit))
-    (let [m2 (if (<= lit 0.5)
+    (let [m2 (if (< lit 0.5)
                (* lit (+ sat 1))
-               (- (+ lit sat) (* lit sat)))
+               (+ lit (- sat (* lit sat))))
           m1 (- (* lit 2) m2)
-          t [(- hue f1/3) hue (+ hue f1/3)]
-          _r (hue->rgb m1 m2 (+ hue f1/3))
+          _r (hue->rgb m1 m2 (+ hue (/ 1 3)))
           _g (hue->rgb m1 m2 hue)
-          _b (hue->rgb m1 m2 (- hue f1/3))]
+          _b (hue->rgb m1 m2 (- hue (/ 1 3)))]
       (values (* _r 255) (* _g 255) (* _b 255)))))
 
 
@@ -45,18 +41,13 @@
   (hsl->rgb (/ 120 360) 1 0.5) ; green
   (hsl->rgb (/ 240 360) 1 0.5)) ; blue
 
-(defn ->hex [...]
-  (let [args [...]
-        [hue sat lit] (if (= (type (. args 1)) :table) (. args 1) args)
-        (red grn bl) (hsl->rgb (/ hue 360) (/ sat 100) (/ lit 100))]
+(defn ->hex [[hue sat lit]]
+  (let [(red grn bl) (hsl->rgb (/ hue 360) (/ sat 100) (/ lit 100))]
     (string.format "#%02x%02x%02x" red grn bl)))
 
 (comment
-  (->hex 0 100 50) ; red
   (->hex [0 100 50]) ; red
-  (->hex 120 100 50) ; green
   (->hex [120 100 50]) ; green
-  (->hex 240 100 50) ; blue
   (->hex [240 100 50])) ; blue
 
 (defn rgb->hsl [red grn bl]
