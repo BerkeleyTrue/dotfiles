@@ -1,7 +1,8 @@
 (module theme.palette
   {autoload
    {a aniseed.core
-    r r}
+    r r
+    cl lib.color}
    require-macros [macros]})
 
 ; Based on Dracula
@@ -52,32 +53,32 @@
    :mantle    "#292c3c"
    :crust     "#232634"})
 
-(def rosewater "#f2d5cf")
-(def flamingo  "#eebebe")
-(def pink      "#f4b8e4")
-(def mauve     "#ca9ee6")
-(def red       "#e78284")
-(def maroon    "#ea999c")
-(def peach     "#ef9f76")
-(def yellow    "#e5c890")
-(def green     "#a6d189")
-(def teal      "#81c8be")
-(def sky       "#99d1db")
-(def sapphire  "#85c1dc")
-(def blue      "#8caaee")
-(def lavender  "#babbf1")
-(def text      "#c6d0f5")
-(def subtext1  "#b5bfe2")
-(def subtext0  "#a5adce")
-(def overlay2  "#949cbb")
-(def overlay1  "#838ba7")
-(def overlay0  "#737994")
-(def surface2  "#626880")
-(def surface1  "#51576d")
-(def surface0  "#414559")
-(def base      "#303446")
-(def mantle    "#292c3c")
-(def crust     "#232634")
+(def rosewater [10 57 88])
+(def flamingo  [0 59 84])
+(def pink      [316 73 84])
+(def mauve     [276 59 76])
+(def red       [359 68 71])
+(def maroon    [358 66 76])
+(def peach     [20 79 70])
+(def yellow    [40 62 73])
+(def green     [96 44 68])
+(def teal      [172 39 65])
+(def sky       [189 48 73])
+(def sapphire  [199 55 69])
+(def blue      [222 74 74])
+(def lavender  [239 66 84])
+(def text      [227 70 87])
+(def subtext1  [227 44 80])
+(def subtext0  [228 29 73])
+(def overlay2  [228 22 66])
+(def overlay1  [227 17 58])
+(def overlay0  [229 13 52])
+(def surface2  [228 13 44])
+(def surface1  [227 15 37])
+(def surface0  [230 16 30])
+(def base      [229 19 23])
+(def mantle    [231 19 20])
+(def crust     [229 20 17])
 
 
 (defn get-color-by-name [name]
