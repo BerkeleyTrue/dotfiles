@@ -12,7 +12,7 @@
 
 (comment (def c cb.colors))
 
-(n set_hl 0 :BerksNone {:fg :none :bg :none})
+(set-hl :BerksNone {:fg :none :bg :none})
 
 (defn main [{: add-group : c : s}]
   (add-group :BerksBg c.none c.bg)
