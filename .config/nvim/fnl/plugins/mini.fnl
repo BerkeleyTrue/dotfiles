@@ -1,13 +1,18 @@
 (module plugins.mini
-  {require
+  {autoload
    {a aniseed.core
     r r
     md utils.module
     hl utils.highlights
-    utils utils}
+    utils utils
+    indent mini.indentscope
+    hipatterns mini.hipatterns}
    require-macros [macros]})
 
 (defn main []
-  (when-let [indent (md.prequire :mini.indentscope)]
-    (indent.setup)
-    (hl.link! :MiniIndentscopeSymbol :BerksSubtle)))
+  (hl.link! :MiniIndentscopeSymbol :BerksSubtle)
+  (indent.setup)
+  (hipatterns.setup
+    {:highlighters
+     {:todo {:pattern "%f[%w]()TODO()%f[%w]" :group :MiniHipatternsTodo}
+      :hex_color (hipatterns.gen_highlighter.hex_color)}}))
