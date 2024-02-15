@@ -22,15 +22,16 @@
         (lnum col) (unpack (. pos-list idx))
         text (if nearest
                (if (= indicator "")
-                 ""
+                 (: "<> %d/%d" :format idx cnt)
                  (: "<> %s %d/%d" :format indicator idx cnt))
                (: "<> %s %d" :format indicator idx))
-        chunks [[" " :Ignore] [text :HlSearchVirtualText]]]
+        chunks [[" " :Ignore] [text (if nearest :HlSearchVirtualTextNear :HlSearchVirtualText)]]]
 
     (render.setVirt 0 (- lnum 1) (- col 1) chunks nearest)))
 
 (defn main []
-  (n set_hl 0 :HlSearchVirtualText {:fg (cl.->hex [95 43 50])}) ; dark green
+  (n set_hl 0 :HlSearchVirtualText {:fg (cl.->hex [95 30 50])}) ; p.green
+  (n set_hl 0 :HlSearchVirtualTextNear {:fg (cl.->hex [276 20 76])}) ;  p.mauve
   (when-let [lens (md.prequire :hlslens)]
     (lens.setup {:override_lens override-lens})
     (nnoremap :n (.. "<CMD>execute('normal! '.v:count1.'n')<CR><CMD>lua require('hlslens').start()<CR>") {:silent true})

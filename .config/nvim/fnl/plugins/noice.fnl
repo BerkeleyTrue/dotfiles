@@ -23,7 +23,8 @@
               :view :mini
               :view_error :mini
               :view_warn :mini
-              :view_history :popup}
+              :view_history :popup
+              :view_search false}
    :lsp {:hover {:enabled true}
          :progress {:enabled false}
          :signature {:enabled true}
