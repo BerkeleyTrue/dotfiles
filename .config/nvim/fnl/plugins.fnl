@@ -21,7 +21,6 @@
    {:name :numToStr/comment.nvim :description "Comment engineer written in lua." :config (make-on-load comments)}
    {:name :JoosepAlviste/nvim-ts-context-commentstring :description "Updates commentstring option using TS" :init (make-init comments) :dependencies [[:numToStr/comment.nvim]]}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
-   {:name :vimsence/vimsence :description "Post activity to Discord \"currently playing\" " :config (make-on-load vimsence)}
    {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun!"}
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}
 
@@ -79,7 +78,7 @@
    {:name :goolord/alpha-nvim :description "show a dashboard on startup" :config (make-on-load dashboard)}
    {:name :romgrk/barbar.nvim :description "tab bar built in lua" :init (make-init barbar) :config (make-on-load barbar)}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :dependencies [[:nvim-lua/plenary.nvim] [:nvim-tree/nvim-web-devicons] [:MunifTanjim/nui.nvim]] :config (make-on-load neotree) :cmd [:Neotree] :init (make-init neotree)}
-   {:name :nvim-lualine/lualine.nvim :description "lua status line" :dependencies [[:nvim-tree/nvim-web-devicons]] :config (make-on-load lualine)}
+   {:name :nvim-lualine/lualine.nvim :description "lua status line" :dependencies [[:nvim-tree/nvim-web-devicons] [:SmiteshP/nvim-navic]] :config (make-on-load lualine)}
    {:name :arkav/lualine-lsp-progress :description "add lsp progress to lualine"}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}
