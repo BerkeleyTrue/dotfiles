@@ -27,5 +27,5 @@
                            hue (tonumber hue)
                            sat (tonumber sat)
                            lit (tonumber lit)
-                           hex (cl.hsl->hex hue sat lit)]
+                           hex (cl.->hex [hue sat lit])]
                        (hipatterns.compute_hex_color_group hex "bg")))}}}))
