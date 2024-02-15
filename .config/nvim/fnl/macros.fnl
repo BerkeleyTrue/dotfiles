@@ -348,21 +348,8 @@
 
 (fn base-map [mtype lhs rhs options]
   "(base-map :n :<CR> ':echo foo' {:expr true :buffer false :nowait false})"
-  (let [mode (. map-types mtype)
-        {:expr expr
-         :silent silent
-         :buffer buffer
-         :nowait nowait
-         :script script
-         :unique unique} (or options {})]
-
-
-    `(vim.keymap.set ,mode ,lhs ,rhs ,{:expr expr
-                                       :silent silent
-                                       :nowait nowait
-                                       :script script
-                                       :unique unique
-                                       :buffer buffer})))
+  (let [mode (. map-types mtype)]
+    `(vim.keymap.set ,mode ,lhs ,rhs ,(or options {}))))
 
 (defn nmap [lhs rhs options] (base-map :n lhs rhs options))
 (defn amap [lhs rhs options] (base-map :n lhs rhs options))
