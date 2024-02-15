@@ -1,7 +1,8 @@
 (module maps
-  {require
-   {: r
-    : utils}
+  {autoload
+   {a aniseed.core
+    r r
+    utils utils}
    require-macros [macros]})
 
 ; common command aliases
