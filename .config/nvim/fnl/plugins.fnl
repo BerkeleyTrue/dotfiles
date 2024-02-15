@@ -16,7 +16,6 @@
    {:name :junegunn/vim-easy-align :init (make-init easy-align)}
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
-   {:name :mg979/vim-visual-multi :config (make-on-load multi-cursor)}
    {:dir "~/dvlpmnt/lua/corpus" :description "vim wiki written in lua" :config (make-on-load corpus) :init (make-init corpus) :dependencies [[:nvim-lua/plenary.nvim]]}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
@@ -61,6 +60,7 @@
    ; motion
    {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
    {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement" :config (make-on-load hlslens)}
+   {:name :mg979/vim-visual-multi :config (make-on-load multi-cursor) :dependencies [[:kevinhwang91/nvim-hlslens]]}
    {:name :fedepujol/move.nvim :description "Move lines and blocks" :init (make-init move)}
    {:name :wansmer/treesj :description "Plugin for splitting and joining arrays, hashes, and more" :init (make-init treesj) :config (make-on-load treesj) :cmd [:TSJToggle :TSJSplit :TSJJoin]}
 
