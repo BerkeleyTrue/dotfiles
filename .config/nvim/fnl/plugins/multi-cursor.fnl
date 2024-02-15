@@ -30,8 +30,8 @@
     (hlslens.start)))
 
 (defn main []
-  (g! multi_cursor_exit_from_insert_mode 0)
-  (g! multi_cursor_exit_from_visual_mode 0)
+  (g! VM_quit_after_leaving_insert_mode 0)
+  (g! VM_set_statusline 0)
   (augroup
     :VMLens
     {:event :User

@@ -1,11 +1,25 @@
 (module plugins.lualine
-  {require
+  {autoload
    {a aniseed.core
     r r
     md utils.module
     utils utils
-    p theme.palette}
+    p theme.palette
+    cl lib.color
+    navic nvim-navic}
    require-macros [macros]})
+
+(def- hx p.hex)
+
+(defn init []
+  (set-hl :BerksStatusLineMod          {:fg hx.yellow   :bg hx.base})
+  (set-hl :BerksStatusLineModInverse   {:fg hx.base     :bg hx.yellow})
+  (set-hl :BerksStatusLineInfo         {:fg hx.blue     :bg hx.base})
+  (set-hl :BerksStatusLineInfoInverse  {:fg hx.base     :bg hx.blue})
+  (set-hl :BerksStatusLineErr          {:fg hx.red      :bg hx.base})
+  (set-hl :BerksStatusLineErrInverse   {:fg hx.base     :bg hx.red})
+  (set-hl :BerksStatusLineMulti        {:fg hx.base     :bg hx.green :bold true})
+  (set-hl :BerksStatusLineMultiInverse {:fg hx.green    :bg hx.base  :bold true}))
 
 (defn file-status []
   (->
@@ -17,10 +31,14 @@
         (.. $ "%#BerksStatusLineMod# %#BerksStatusLineModInverse#  %#BerksStatusLineMod#")
         $))))
 
-(defn navic-location []
-  (if-let [navic (md.prequire :nvim-navic)]
-    (navic.get_location)
-    ""))
+(defn navic-location [] (navic.get_location))
+
+(defn format-mode [mode]
+  (if (b visual_multi)
+    (let [{: patterns} (vf VMInfos)]
+      (.. "%#BerksStatusLineMulti#  " mode " "
+          "%#BerksStatusLineMultiInverse# 󱩾 \"" (. patterns 1) "\""))
+    mode))
 
 (def- config
   {:options
@@ -40,7 +58,8 @@
 
    :sections
    {:lualine_a
-    [:mode]
+    [{1 :mode
+      :fmt format-mode}]
     :lualine_b
     [:branch
      :diff

@@ -1,35 +1,35 @@
 (module theme.lualine
-  {require
+  {autoload
    {a aniseed.core
     r r
     md utils.module
     p theme.palette
-    utils utils}
+    utils utils
+    cl lib.color}
    require-macros [macros]})
 
-(def- c (. p :palette))
+(def- hx p.hex)
 
 (def theme
  {:normal
-  {:a {:bg c.blue :fg c.base :gui :bold}
-   :b {:bg c.surface1 :fg c.blue}
-   :c {:bg c.base :fg c.text}}
+  {:a {:fg hx.base :bg hx.blue :gui :bold}
+   :b {:fg hx.blue :bg hx.surface1}
+   :c {:fg hx.text :bg hx.base}}
   :insert
-  {:a {:bg c.green :fg c.base :gui :bold}
-   :b {:bg c.surface1 :fg c.teal}}
-  :terminal
-  {:a {:bg c.green :fg c.base :gui :bold}
-   :b {:bg c.surface1 :fg c.teal}}
+  {:a {:bg hx.green :fg hx.base :gui :bold}
+   :b {:bg hx.surface1 :fg hx.teal}} :terminal
+  {:a {:bg hx.green :fg hx.base :gui :bold}
+   :b {:bg hx.surface1 :fg hx.teal}}
   :command
-  {:a {:bg c.peach :fg c.base :gui :bold}
-   :b {:bg c.surface1 :fg c.peach}}
+  {:a {:bg hx.peach :fg hx.base :gui :bold}
+   :b {:bg hx.surface1 :fg hx.peach}}
   :visual
-  {:a {:bg c.mauve :fg c.base :gui :bold}
-   :b {:bg c.surface1 :fg c.mauve}}
+  {:a {:bg hx.mauve :fg hx.base :gui :bold}
+   :b {:bg hx.surface1 :fg hx.mauve}}
   :replace
-  {:a {:bg c.red :fg c.base :gui :bold}
-   :b {:bg c.surface1 :fg c.red}}
+  {:a {:bg hx.red :fg hx.base :gui :bold}
+   :b {:bg hx.surface1 :fg hx.red}}
   :inactive
-  {:a {:bg c.base :fg c.blue}
-   :b {:bg c.base :fg c.surface1 :gui :bold}
-   :c {:bg c.base :fg c.overlay0}}})
+  {:a {:bg hx.base :fg hx.blue}
+   :b {:bg hx.base :fg hx.surface1 :gui :bold}
+   :c {:bg hx.base :fg hx.overlay0}}})

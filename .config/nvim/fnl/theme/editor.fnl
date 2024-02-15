@@ -78,12 +78,4 @@
   (add-group :VisualNOS         c.none c.surface1 s.bold) ; Visual mode selection when vim is "Not Owning the Selection".
   (add-group :WarningMsg        c.yellow) ; warning messages
   (add-group :Whitespace        c.surface1) ; "nbsp", "space", "tab" and "trail" in 'listchars'
-  (add-group :WinBar            c.none c.base s.bold)
-
-  ; status line helpers for separators
-  (add-group :BerksStatusLineMod          c.yellow c.base)
-  (add-group :BerksStatusLineModInverse   c.base c.yellow)
-  (add-group :BerksStatusLineInfo         c.blue c.base)
-  (add-group :BerksStatusLineInfoInverse  c.base c.blue)
-  (add-group :BerksStatusLineErr          c.red c.base)
-  (add-group :BerksStatusLineErrInverse   c.base c.red))
+  (add-group :WinBar            c.none c.base s.bold))
