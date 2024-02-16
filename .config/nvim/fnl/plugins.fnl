@@ -18,8 +18,6 @@
    {:dir "~/dvlpmnt/lua/corpus" :description "vim wiki written in lua" :config (make-on-load corpus) :init (make-init corpus) :dependencies [[:nvim-lua/plenary.nvim]]}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
-   {:name :numToStr/comment.nvim :description "Comment engineer written in lua." :config (make-on-load comments)}
-   {:name :JoosepAlviste/nvim-ts-context-commentstring :description "Updates commentstring option using TS" :init (make-init comments) :dependencies [[:numToStr/comment.nvim]]}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
    {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun!"}
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}

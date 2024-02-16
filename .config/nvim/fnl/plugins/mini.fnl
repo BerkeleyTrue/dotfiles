@@ -10,7 +10,8 @@
     indent mini.indentscope
     hipatterns mini.hipatterns
     pairs* mini.pairs
-    move mini.move}
+    move mini.move
+    cmmnt mini.comment}
    require-macros [macros]})
 
 (comment
@@ -59,4 +60,8 @@
                     (when (= (. (bo buf) :filetype) :fennel)
                       mtch))}}})
   (pairs*.setup)
-  (move.setup))
+  (move.setup)
+  (cmmnt.setup
+    {:mappings
+     {:comment_line "<C-_>"
+      :comment_visual "<C-_>"}}))
