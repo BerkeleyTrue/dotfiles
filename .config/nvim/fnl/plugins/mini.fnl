@@ -9,7 +9,8 @@
     p theme.palette
     indent mini.indentscope
     hipatterns mini.hipatterns
-    pairs* mini.pairs}
+    pairs* mini.pairs
+    move mini.move}
    require-macros [macros]})
 
 (comment
@@ -57,4 +58,5 @@
                   (fn [buf mtch]
                     (when (= (. (bo buf) :filetype) :fennel)
                       mtch))}}})
-  (pairs*.setup))
+  (pairs*.setup)
+  (move.setup))

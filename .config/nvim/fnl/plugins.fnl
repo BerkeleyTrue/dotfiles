@@ -58,7 +58,6 @@
    ; motion
    {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
    {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement" :config (make-on-load hlslens)}
-   {:name :fedepujol/move.nvim :description "Move lines and blocks" :init (make-init move)}
    {:name :wansmer/treesj :description "Plugin for splitting and joining arrays, hashes, and more" :init (make-init treesj) :config (make-on-load treesj) :cmd [:TSJToggle :TSJSplit :TSJJoin]}
    {:name :brenton-leighton/multiple-cursors.nvim
     :description "a better multi cursor written in lua"
