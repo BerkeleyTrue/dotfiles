@@ -8,7 +8,8 @@
     cl lib.color
     p theme.palette
     indent mini.indentscope
-    hipatterns mini.hipatterns}
+    hipatterns mini.hipatterns
+    pairs* mini.pairs}
    require-macros [macros]})
 
 (comment
@@ -55,4 +56,5 @@
                   :group
                   (fn [buf mtch]
                     (when (= (. (bo buf) :filetype) :fennel)
-                      mtch))}}}))
+                      mtch))}}})
+  (pairs*.setup))
