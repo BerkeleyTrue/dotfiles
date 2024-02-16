@@ -11,7 +11,8 @@
     hipatterns mini.hipatterns
     pairs* mini.pairs
     move mini.move
-    cmmnt mini.comment}
+    cmmnt mini.comment
+    align mini.align}
    require-macros [macros]})
 
 (comment
@@ -64,4 +65,5 @@
   (cmmnt.setup
     {:mappings
      {:comment_line "<C-_>"
-      :comment_visual "<C-_>"}}))
+      :comment_visual "<C-_>"}})
+  (align.setup))

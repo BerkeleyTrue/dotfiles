@@ -12,7 +12,6 @@
 (def- external-plugins
   ; main utils
   [{:name :berkeleytrue/colorbuddy.nvim}
-   {:name :junegunn/vim-easy-align :init (make-init easy-align)}
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
    {:dir "~/dvlpmnt/lua/corpus" :description "vim wiki written in lua" :config (make-on-load corpus) :init (make-init corpus) :dependencies [[:nvim-lua/plenary.nvim]]}
