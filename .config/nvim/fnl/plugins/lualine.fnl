@@ -18,8 +18,7 @@
   (set-hl :BerksStatusLineInfoInverse  {:fg hx.base     :bg hx.blue})
   (set-hl :BerksStatusLineErr          {:fg hx.red      :bg hx.base})
   (set-hl :BerksStatusLineErrInverse   {:fg hx.base     :bg hx.red})
-  (set-hl :BerksStatusLineMulti        {:fg hx.base     :bg hx.green :bold true})
-  (set-hl :BerksStatusLineMultiInverse {:fg hx.green    :bg hx.base  :bold true}))
+  (set-hl :BerksStatusLineMulti        {:fg hx.base     :bg (cl.->hex [40 80 73]) :bold true}))
 
 (defn file-status []
   (->
@@ -35,10 +34,8 @@
 
 (defn format-mode [mode]
   (if (b visual_multi)
-    (let [{: patterns} (vf VMInfos)
-          pattern (or (. (or patterns []) 1) "")]
-      (.. "%#BerksStatusLineMulti#  " mode " "
-          "%#BerksStatusLineMultiInverse# 󱩾 \"" pattern "\""))
+    (let [m (r.head mode)]
+      (.. "%#BerksStatusLineMulti# Multi(" m ")"))
     mode))
 
 (def- config

@@ -58,9 +58,12 @@
    ; motion
    {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
    {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement" :config (make-on-load hlslens)}
-   {:name :mg979/vim-visual-multi :dependencies [[:kevinhwang91/nvim-hlslens]] :lazy false :config (make-on-load multi-cursor)} ; must not be lazy, or <C-n> mapping will insert <CR> (default behavior)
    {:name :fedepujol/move.nvim :description "Move lines and blocks" :init (make-init move)}
    {:name :wansmer/treesj :description "Plugin for splitting and joining arrays, hashes, and more" :init (make-init treesj) :config (make-on-load treesj) :cmd [:TSJToggle :TSJSplit :TSJJoin]}
+   {:name :brenton-leighton/multiple-cursors.nvim
+    :description "a better multi cursor written in lua"
+    :init (make-init multi-cursor)
+    :config (make-on-load multi-cursor)}
 
    ; text obj manipulation
    {:name :tpope/vim-repeat :description "expands . to repeat plugin commands"}
