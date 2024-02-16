@@ -42,7 +42,9 @@
         lines (o lines)
         contents (if (r.nil? file) {} (vf readfile file "" lines))
         padding (- lines (length contents) 2)
-        contents (r.concat contents (r.repeat padding ""))]
+        contents (r.concat contents
+                           (->> (r.range 1 padding)
+                                (r.map #"")))]
     (n buf_set_lines
        buf
        0 ; start

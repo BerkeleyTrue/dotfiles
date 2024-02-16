@@ -1,29 +1,28 @@
 (module lib.corpus
   {autoload
-   {r r
-    a aniseed.core
-    utils utils
-    md utils.module
-    corpus corpus
-    chooser corpus.private.chooser
-    preview corpus.private.preview
-    cts lib.corpus.treesitter
-    ftdetect lib.corpus.ftdetect
-    metadata lib.corpus.metadata
-    reflinks lib.corpus.reference-links
-    shortcuts lib.corpus.shortcuts
-    git lib.corpus.git}
+   {r          r
+    a          aniseed.core
+    utils      utils
+    md         utils.module
+    cts        lib.corpus.treesitter
+    ftdetect   lib.corpus.ftdetect
+    metadata   lib.corpus.metadata
+    reflinks   lib.corpus.reference-links
+    shortcuts  lib.corpus.shortcuts
+    git        lib.corpus.git
+    chooser    lib.corpus.chooser
+    previewer  lib.corpus.previewer}
    require {}
    require-macros [macros]})
 
 (defn preview-mappings []
-  (cnoremap "<C-j>" chooser.next {:silent true :buffer true})
-  (cnoremap "<C-k>" chooser.previous {:silent true :buffer true})
-  (cnoremap "<Down>" chooser.next {:silent true :buffer true})
-  (cnoremap "<Up>" chooser.previous {:silent true :buffer true}))
+  (cnoremap "<C-j>"    #(chooser.next)     {:silent true :buffer true})
+  (cnoremap "<C-k>"    #(chooser.prev)     {:silent true :buffer true})
+  (cnoremap "<Down>"   #(chooser.next)     {:silent true :buffer true})
+  (cnoremap "<Up>"     #(chooser.prev)     {:silent true :buffer true}))
 
 (defn complete [arglead cmdline _]
-  (when-let [file (chooser.get_selected_file)]
+  (when-let [file (chooser.get-selected-file)]
     (let [title (file:sub 1 -4) ; remove .md
           (prefix _) (cmdline:gsub "^%s*Corpus!?%s+" "")] ; remove prefix
       (when (vim.startswith title prefix) ; if title starts with prefix
@@ -42,7 +41,7 @@
         selection (if (vim.endswith selection "!") (selection:sub 0 -2) selection)
         file (if create
                selection ; if create, use selection as is
-               (chooser.get_selected_file)) ; else, get selected file TODO: how does this work?
+               (chooser.get-selected-file)) ; else, get selected file TODO: how does this work?
         file (if (and
                    (not= file "") ; if file is not empty
                    (not= file nil) ; and not nil
@@ -129,7 +128,7 @@
      :callback
      (fn on-command-line-leave []
        (chooser.close)
-       (preview.close))}
+       (previewer.close))}
 
     {:event [:BufNewFile :BufRead]
      :pattern :*.md

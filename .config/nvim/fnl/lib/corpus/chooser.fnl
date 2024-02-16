@@ -4,9 +4,9 @@
     r r
     md utils.module
     utils utils
-    previewer lib.corpus.previewer
-    Job plenary.job}
-   require {}
+    previewer lib.corpus.previewer}
+   require
+   {Job plenary.job}
    require-macros [macros]})
 
 (var buffer nil)
@@ -18,7 +18,7 @@
 (defn- get-buffer []
   "Get the buffer for the chooser. If it doesn't exist, create it."
   (when (r.nil? buffer)
-    (set buffer (n vim_create_buffer false true)))
+    (set buffer (n create_buf false true)))
   buffer)
 
 (defn open []
@@ -42,8 +42,8 @@
 
 (defn close []
   "Close the chooser window. If it exists, destroy it."
-  (when (not (r.nil? window))
-    (n vim_close window true)
+  (when (not= window nil)
+    (n win_close window true)
     (set window nil)))
 
 (defn get-selected-file []
@@ -76,7 +76,7 @@
        (- currently-selected 1)
        0
        -1))
-  (previewer.show (get-selected-file)))
+  (previewer.open (get-selected-file)))
 
 (defn next []
   "Move to the next item in the list"
@@ -88,8 +88,9 @@
                    (- currently-selected 1)
                    (+ currently-selected 1)
                    false)
-          lines [(: (. lines 1) :gsub "^.." "  ")
-                 (: (. lines 2) :gsub "^.." "> ")]]
+          line1 (string.gsub (. lines 1) "^.." "  ") ; returns two values, we only care about the first one
+          line2 (string.gsub (. lines 2) "^.." "> ")
+          lines [line1 line2]]
       (n buf_set_lines
          buffer
          (- currently-selected 1)
@@ -109,8 +110,9 @@
                    (- currently-selected 2)
                    currently-selected
                    false)
-          lines [(: (. lines 1) :gsub "^.." "> ")
-                 (: (. lines 2) :gsub "^.." "  ")]]
+          line1 (string.gsub (. lines 1) "^.." "> ") ; returns two values, we only care about the first one
+          line2 (string.gsub (. lines 2) "^.." "  ")
+          lines [line1 line2]]
       (n buf_set_lines
          buffer
          (- currently-selected 2)
@@ -130,30 +132,69 @@
          {:command :git
           :args [:ls-files :--cached :--others :-- :*.md]
           :on_exit
-          (fn [job]
-            (let [results (job:results)]
-              (cb results)))})))
+          (vim.schedule_wrap
+            (fn list-on-exit [job]
+              (let [results (job:result)]
+                (cb results))))}))
+  (current-job:start))
 
+(comment
+  (icollect [i (string.gmatch "hello world bar" "%w+")] i))
 (defn search [input cb]
   "Get a list of files in the directory using grep and return them to the callback"
   (when (not= current-job nil)
     (current-job:shutdown))
-  (let [args [:--no-heading
-              :--smart-case
-              :--fixed
-              :--silent
+  (let [terms (->>
+                (string.gmatch input "%S+")
+                (r.iter->list)
+                (r.join "|"))
+        args [:--silent
               :--files-with-matches
-              :--untracked
-              (.. "\"" input "\"")
-              :*.md]]
+              terms
+              :.]] ; can't make it match only mardown files
     (set current-job
          (Job:new
            {:command :ag
             :args args
+            :cwd "."
             :on_exit
-            (fn [job]
-              (let [results (job:results)]
-                (cb results)))}))))
+            (vim.schedule_wrap
+              (fn search-on-exit [job err data]
+                (let [results (job:result)]
+                  (cb results))))}))
+    (current-job:start)))
 
-(defn update []
-  "Update the list of files in the buffer")
+
+(defn update [results]
+  "Update the list of files in the buffer"
+  (let [buffer (get-buffer)
+        window (open)
+        width (o columns)
+        selected-idx (if (r.empty? results) nil 1)
+        _ (table.sort results)
+        lines (->>
+                results
+                (r.to-pairs)
+                (r.map
+                  (fn [[idx val]]
+                    (let [name (vf fnamemodify val ":r")
+                          prefix (if (= selected-idx idx) "> " "  ")]
+
+                      (if (< width 102)
+                        (.. prefix (string.format (.. "%-" (- width 2) "s") name))
+                        (let [padded (.. prefix (string.format "%-99s" name))
+                              diff (- width (length padded))]
+                          (if (> diff 0)
+                            (.. padded (string.rep " " diff))
+                            padded)))))))]
+    (set currently-selected selected-idx)
+    (n buf_set_lines
+       buffer
+       0
+       -1
+       false
+       lines)
+    (n win_set_height
+       window
+       (- vim.o.lines 2))
+    (highlight-selected)))

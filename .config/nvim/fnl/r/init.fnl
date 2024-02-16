@@ -99,10 +99,20 @@
 (def keys a.keys)
 (def vals a.vals)
 
+(defn iter->list [iter]
+  "Convert an iterator into a table"
+  (icollect [val iter] val))
+
 ;; ## array - data last
 (def forEach a.run!)
 (def for-each a.run!)
-(def map a.map)
+
+(defn map [f xs]
+  (a.map f xs))
+
+(defn map-indexed [f xs]
+  (a.map-indexed f xs))
+
 (def filter
   (curry
     (fn [predicate arr]
@@ -310,6 +320,16 @@
     (each [word (str:gmatch "%S+")]
       (table.insert words word))
     words))
+
+(defn padd-right [char len str]
+  "Pads str on the right side if it's shorter than length."
+  (let [str-len (length str)
+        pad-len (math.max 0 (- len str-len))
+        padding (string.rep char pad-len)]
+    (.. str padding)))
+
+(comment
+  (padd-right "--" 10 "foo"))
 
 (defn- create-compounder [cb]
   "Creates a compounder function for a given callback
