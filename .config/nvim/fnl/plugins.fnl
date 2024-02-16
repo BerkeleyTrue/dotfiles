@@ -77,12 +77,19 @@
    {:name :goolord/alpha-nvim :description "show a dashboard on startup" :config (make-on-load dashboard)}
    {:name :romgrk/barbar.nvim :description "tab bar built in lua" :init (make-init barbar) :config (make-on-load barbar)}
    {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :dependencies [[:nvim-lua/plenary.nvim] [:nvim-tree/nvim-web-devicons] [:MunifTanjim/nui.nvim]] :config (make-on-load neotree) :cmd [:Neotree] :init (make-init neotree)}
-   {:name :arkav/lualine-lsp-progress :description "add lsp progress to lualine"}
-   {:name :nvim-lualine/lualine.nvim :description "lua status line" :dependencies [[:nvim-tree/nvim-web-devicons] [:SmiteshP/nvim-navic] [:arkav/lualine-lsp-progress]] :init (make-init lualine) :config (make-on-load lualine)}
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}
    {:name :folke/zen-mode.nvim :description "minimal distraction version of a buffer" :config (make-on-load zenmode)}
    {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and history" :dependencies [[:MunifTanjim/nui.nvim] [:hrsh7th/nvim-cmp] [:nvim-telescope/telescope.nvim]] :config (make-on-load noice)}
+   {:name :arkav/lualine-lsp-progress :description "add lsp progress to lualine"}
+   {:name :nvim-lualine/lualine.nvim
+    :description "lua status line"
+    :init (make-init lualine)
+    :config (make-on-load lualine)
+    :dependencies [[:nvim-tree/nvim-web-devicons]
+                   [:SmiteshP/nvim-navic]
+                   [:arkav/lualine-lsp-progress]
+                   [:folke/noice.nvim]]}
 
    ; parenthesis
    {:name :kylechui/nvim-surround :description "Add surround movements, written in lua." :config (make-on-load surround)}

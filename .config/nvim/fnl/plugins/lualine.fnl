@@ -6,7 +6,8 @@
     utils utils
     p theme.palette
     cl lib.color
-    navic nvim-navic}
+    navic nvim-navic
+    noice noice.api.status}
    require-macros [macros]})
 
 (def- hx p.hex)
@@ -38,6 +39,19 @@
       (.. "%#BerksStatusLineMulti# Multi(" m ")"))
     mode))
 
+(comment
+  (string.match "-- visual --recording @q" "recording @(%a)")
+  (string.match "-- visual --" "recording @(%a)"))
+
+(defn get-recording-status []
+  "get macro recording status normally swallowed by noice."
+  (when-let [mode (noice.mode.get)]
+    (when-let [reg (string.match mode "recording @(%a)")]
+      (.. "macro(" reg ")"))))
+
+(defn has-recording-status []
+  (not= nil (get-recording-status)))
+
 (def- config
   {:options
    {:icons_enabled true
@@ -61,7 +75,9 @@
     :lualine_b
     [:branch
      :diff
-     :diagnostics]
+     :diagnostics
+     {1 get-recording-status
+      :cond has-recording-status}]
     :lualine_c
     [navic-location]
     :lualine_x
