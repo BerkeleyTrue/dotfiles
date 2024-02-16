@@ -35,9 +35,10 @@
 
 (defn format-mode [mode]
   (if (b visual_multi)
-    (let [{: patterns} (vf VMInfos)]
+    (let [{: patterns} (vf VMInfos)
+          pattern (or (. (or patterns []) 1) "")]
       (.. "%#BerksStatusLineMulti#  " mode " "
-          "%#BerksStatusLineMultiInverse# 󱩾 \"" (. patterns 1) "\""))
+          "%#BerksStatusLineMultiInverse# 󱩾 \"" pattern "\""))
     mode))
 
 (def- config
