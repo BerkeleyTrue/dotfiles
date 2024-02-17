@@ -14,7 +14,6 @@
   [{:name :berkeleytrue/colorbuddy.nvim}
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :ntpeters/vim-better-whitespace :config (make-on-load better-whitespace)}
-   {:dir "~/dvlpmnt/lua/corpus" :description "vim wiki written in lua" :config (make-on-load corpus) :init (make-init corpus) :dependencies [[:nvim-lua/plenary.nvim]]}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
