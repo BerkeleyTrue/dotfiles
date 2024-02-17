@@ -12,9 +12,8 @@
 
 (defn- get-buffer []
   (when (= buffer nil)
-    (set buffer (n create_buf
-                  false ; listed
-                  true))) ; scratch
+    (set buffer (n create_buf false true)) ; scratch
+    (n buf_set_option buffer :filetype :markdown))
   buffer)
 
 (defn- get-window []
@@ -36,7 +35,15 @@
       (n win_set_option window :foldenable false)))
   window)
 
-(defn open [file]
+(defn search-contents [input]
+  (when (r.not-empty? input)
+    (let [term (->>
+                 input
+                 (r.lmatch "%S+")
+                 (r.join "\\|"))]
+      (n buf_call (get-buffer) #(vim.api.nvim_command (.. "silent! /" term))))))
+
+(defn open [file input]
   (let [buf (get-buffer)
         win (get-window)
         lines (o lines)
@@ -51,6 +58,7 @@
        -1 ; end
        false ; strict_indexing
        contents)
+    (search-contents input)
     (vim.cmd :redraw)))
 
 (defn close []

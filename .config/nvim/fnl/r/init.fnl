@@ -313,6 +313,10 @@
     str
     (: :gsub "-" " ")))
 
+(defn lmatch [pattern str]
+  "Match a string against a lua-pattern, returning a table of matches"
+  (icollect [mtch (string.gmatch str pattern)] mtch))
+
 (defn words [str]
   "Split a string into words."
   (let [str (deburr (tostring str))
@@ -359,9 +363,10 @@
 (defn boolean? [val] (= (type val) :boolean))
 (defn true? [val] (= val true))
 (defn false? [val] (= val false))
-(defn function? [f] (= (type f) :function))
+(defn fn? [f] (= (type f) :function))
 (defn string? [val] (= (type val) :string))
 (defn nil? [val] (= (type val) :nil))
+(defn exists? [val] (not= val nil))
 (defn table? [val] (= (type val) :table))
 ; array|string|table
 (defn empty? [val]
@@ -373,6 +378,17 @@
     (string? val) (= (length val) 0)
     (nil? val) true
     false))
+
+(comment
+  (empty? {})
+  (empty? [])
+  (empty? "")
+  (empty? {:foo :bar})
+  (empty? [:foo])
+  (empty? "foo")
+  (empty? nil))
+
+(defn not-empty? [val] (not (empty? val)))
 
 (defn key-map [keys]
   "create a key-map from a list of keys."

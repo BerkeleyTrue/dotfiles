@@ -10,8 +10,7 @@
     reflinks   lib.corpus.reference-links
     shortcuts  lib.corpus.shortcuts
     git        lib.corpus.git
-    chooser    lib.corpus.chooser
-    previewer  lib.corpus.previewer}
+    chooser    lib.corpus.chooser}
    require {}
    require-macros [macros]})
 
@@ -54,13 +53,10 @@
   (when (= char ":")
     (let [line (vim.fn.getcmdline)
           (_ _ term) (string.find line "^%s*Corpus%f[%A]%s*(.-)%s*$")]
-      (when (and (not= term nil)
+      (when (and (not= term nil) ; can be empty string, just not nil
                  (ftdetect.ftdetect))
         (preview-mappings)
-        (chooser.open)
-        (if (> (term:len) 0)
-          (chooser.search term chooser.update)
-          (chooser.list chooser.update))))))
+        (chooser.open term)))))
 
 (defn init []
   (when (ftdetect.ftdetect)
@@ -78,11 +74,7 @@
        :buffer 0
        :callback
        (fn after-write [{: file}]
-         (if (b corpus_new_file)
-           (do
-             (b! corpus_new_file false)
-             (git.commit file "create"))
-           (git.commit file "update")))})))
+         (git.commit file))})))
 
 
 (defn main []
@@ -103,14 +95,13 @@
            :nargs "*"
            :complete complete})))}
 
-    {:event [:BufNewFile]
-     :pattern :*.md
-     :callback
-     (fn buf-new-file [{: file}]
-       (when (ftdetect.ftdetect)
-         (metadata.update-file file)
-         (b! corpus_new_file true)))}
-
+    ; {:event [:BufNewFile]
+    ;  :pattern :*.md
+    ;  :callback
+    ;  (fn buf-new-file [{: file}]
+    ;    (when (ftdetect.ftdetect)
+    ;      (metadata.update-file file)))}
+    ;
     {:event [:CmdlineEnter]
      :pattern :*
      :callback
@@ -127,8 +118,7 @@
      :pattern :*
      :callback
      (fn on-command-line-leave []
-       (chooser.close)
-       (previewer.close))}
+       (chooser.close))}
 
     {:event [:BufNewFile :BufRead]
      :pattern :*.md

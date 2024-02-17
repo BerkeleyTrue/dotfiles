@@ -21,8 +21,8 @@
     (set buffer (n create_buf false true)))
   buffer)
 
-(defn open []
-  "Open the chooser window. If it doesn't exist, create it."
+(defn get-window []
+  "Get the window for chooser. If it doesn't exist, create it."
   (when (r.nil? window)
     (let [buffer (get-buffer)
           width (/ (o columns) 2)]
@@ -40,12 +40,6 @@
       (n win_set_option window :winhl "Normal:Normal")))
   window)
 
-(defn close []
-  "Close the chooser window. If it exists, destroy it."
-  (when (not= window nil)
-    (n win_close window true)
-    (set window nil)))
-
 (defn get-selected-file []
   "Get the currently selected file name in the buffer."
   (when (not= currently-selected nil)
@@ -60,15 +54,11 @@
 (defn reset []
   (set currently-selected nil))
 
-(defn highlight-selected []
+(defn highlight-selected [input]
   "Highlight the currently selected line in the buffer"
   (when (not= currently-selected nil)
     (n win_set_cursor window [currently-selected 0])
-    (n buf_clear_namespace
-       buffer
-       namespace
-       0
-       -1)
+    (n buf_clear_namespace buffer namespace 0 -1)
     (n buf_add_highlight
        buffer
        namespace
@@ -76,7 +66,7 @@
        (- currently-selected 1)
        0
        -1))
-  (previewer.open (get-selected-file)))
+  (previewer.open (get-selected-file) input))
 
 (defn next []
   "Move to the next item in the list"
@@ -122,53 +112,10 @@
       (set currently-selected (- currently-selected 1))
       (highlight-selected))))
 
-(defn list [cb]
-  "Get a list of markdown files in the git repository and return them to the callback"
-  (when (not= current-job nil)
-    (current-job:shutdown))
-
-  (set current-job
-       (Job:new
-         {:command :git
-          :args [:ls-files :--cached :--others :-- :*.md]
-          :on_exit
-          (vim.schedule_wrap
-            (fn list-on-exit [job]
-              (let [results (job:result)]
-                (cb results))))}))
-  (current-job:start))
-
-(comment
-  (icollect [i (string.gmatch "hello world bar" "%w+")] i))
-(defn search [input cb]
-  "Get a list of files in the directory using grep and return them to the callback"
-  (when (not= current-job nil)
-    (current-job:shutdown))
-  (let [terms (->>
-                (string.gmatch input "%S+")
-                (r.iter->list)
-                (r.join "|"))
-        args [:--silent
-              :--files-with-matches
-              terms
-              :.]] ; can't make it match only mardown files
-    (set current-job
-         (Job:new
-           {:command :ag
-            :args args
-            :cwd "."
-            :on_exit
-            (vim.schedule_wrap
-              (fn search-on-exit [job err data]
-                (let [results (job:result)]
-                  (cb results))))}))
-    (current-job:start)))
-
-
-(defn update [results]
+(defn update [results input]
   "Update the list of files in the buffer"
   (let [buffer (get-buffer)
-        window (open)
+        window (get-window)
         width (o columns)
         selected-idx (if (r.empty? results) nil 1)
         _ (table.sort results)
@@ -197,4 +144,58 @@
     (n win_set_height
        window
        (- vim.o.lines 2))
-    (highlight-selected)))
+    (highlight-selected input)))
+
+(defn ls []
+  "Get a list of markdown files in the git repository and return them to the callback"
+  (when (not= current-job nil)
+    (current-job:shutdown))
+
+  (set current-job
+       (Job:new
+         {:command :git
+          :args [:ls-files :--cached :--others :-- :*.md]
+          :on_exit
+          (vim.schedule_wrap
+            (fn list-on-exit [job]
+              (let [results (job:result)]
+                (update results))))}))
+  (current-job:start))
+
+(defn search [input cb]
+  "Get a list of files in the directory using grep and return them to the callback"
+  (when (not= current-job nil)
+    (current-job:shutdown))
+  (let [terms (->>
+                input
+                (r.lmatch "%S+")
+                (r.join "|"))
+        args [:--silent
+              :--files-with-matches
+              terms
+              :.]] ; can't make it match only mardown files
+    (set current-job
+         (Job:new
+           {:command :ag
+            :args args
+            :cwd "."
+            :on_exit
+            (vim.schedule_wrap
+              (fn search-on-exit [job err data]
+                (let [results (job:result)]
+                  (update results input))))}))
+    (current-job:start)))
+
+
+(defn open [input]
+  (get-window)
+  (if (r.not-empty? input)
+    (search input)
+    (ls)))
+
+(defn close []
+  "Close the chooser window. If it exists, destroy it."
+  (when (not= window nil)
+    (n win_close window true)
+    (set window nil))
+  (previewer.close))
