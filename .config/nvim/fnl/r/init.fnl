@@ -70,7 +70,13 @@
   "Creates a function that negates the result of the predicate func."
   (fn negator [...] (not (f ...))))
 
-;; ## tables - data first
+(defn void [f]
+  "Creates a function invokes f with the provided arguments and returns nil."
+  (fn voider [...]
+    (f ...)
+    nil))
+
+;; ### tables - data first
 (def get a.get)
 ; Returns the value at the 'key in the 'table, or 'default if the key is not present."
 ; ["table" "key" "default"]
@@ -103,7 +109,7 @@
   "Convert an iterator into a table"
   (icollect [val iter] val))
 
-;; ## array - data last
+;; ### array - data last
 (def forEach a.run!)
 (def for-each a.run!)
 
@@ -194,13 +200,12 @@
 
 (comment (join ", " ["a" "list"]))
 
-;; array
+;; ### array
 (defn find [predicate collection]
   "(find predicate collection)"
   "Iterates over elements of collection, returning the first element predicate returns truthy for."
   (a.some #(if (predicate $1) $1 false) collection))
 
-;; array
 (defn find-index [predicate collection]
   "(find-index predicate collection)"
   "Iterates over elements of collection, returning the index element predicate returns truthy for."
@@ -215,13 +220,13 @@
           (set idx (a.inc idx)))))
     (if found idx -1)))
 
-;; utils
+;; ### utils
 (defn default-to [val x]
   "(default-to val any)"
   "returns the first value if the second value is nil"
   (if (a.nil? x) val x))
 
-;; seq
+;; ### seq
 (defn tap [interceptor val]
   "(tap #(print $1) val)"
   "calls interceptor with val, then returns val"
@@ -229,7 +234,7 @@
   val)
 
 
-;; numbers
+;; ### numbers
 (defn clamp [min max val]
   "(clamp 0 1 5) => 1
   clamps val to between min and max values"
@@ -241,7 +246,7 @@
   (let [mult (math.pow 10 decimals)]
     (/ (math.floor (* num mult)) mult)))
 
-;; array
+;; ### array
 (defn slice [start end array]
   "(slice 0 3 [1 2 3 4])
   Creates a slice of `array` from `start` up to, but not including, `end`."
@@ -264,7 +269,7 @@
       (table.insert result (. array i)))
     result))
 
-;; array
+;; ### array
 (defn chunk [size collection]
   "(chunk 2 [1 2 3 4]) => [[1 2] [3 4]]
   Creates an array of elements split into groups the length of size.
@@ -279,7 +284,7 @@
         (set idx (+ idx size))))
     result))
 
-;; utils
+;; ### utils
 (def range
   (curry
     (fn [start end]
@@ -292,7 +297,7 @@
   (range 4)
   (range 1 5))
 
-;; Strings
+;; ### Strings
 (defn split [sep strng]
   "split strings by separator"
   (str.split strng sep))
@@ -357,7 +362,7 @@
 (comment
   (kebab-case "foo  bar"))
 
-;; lang
+;; ### lang
 (defn number? [val] (= (type val) :number))
 (comment (number? 0) (number? :foo))
 (defn boolean? [val] (= (type val) :boolean))

@@ -7,6 +7,9 @@
    require {}
    require-macros [macros]})
 
+(comment
+  (let [thread (coroutine.create (fn [] (assert false "Should not be seen.")))]
+    (coroutine.resume thread)))
 
 (defn unroll [func cb]
   "Unroll a coroutine until it's exhausted."
@@ -14,36 +17,81 @@
         cb (or cb #nil)]
     "Iterate recursively over thread. (NOTE: self started)"
     ((fn iter [...]
-      (let [(stat ret) (coroutine.resume thread ...)]
-        (assert stat ret) ; programmer error
+      (let [(ok res) (coroutine.resume thread ...)]
+        (assert ok (when (r.string? res) (.. "unroll: " res)))
         (if (= (coroutine.status thread) :dead)
-          (cb ret)
+          (cb res)
           (do
-            (assert (r.fn? ret) "Expected coroutine to yield a function.")
-            (ret iter))))))))
+            (assert (r.fn? res) "Expected coroutine to yield a function.")
+            (res iter))))))))
 
-(defn thunkify [func]
+(comment
+  (let [th1 (fn [] (fn [cb] (cb 1)))
+        th2 (fn [] (fn [cb] (cb 2 3)))]
+    (unroll (fn []
+              (a.println :start)
+              (let [x (coroutine.yield (th1))]
+                (a.println :x x)
+                (let [(y z) (coroutine.yield (th2))]
+                  (a.println :y y :z z)
+                  :done)))))
+  (unroll (fn [] (assert false "Should not be seen."))))
+
+(defn- thunkify* [func]
   "Wraps a function into a thunk factory function"
   (fn factory [& fact-args]
     (fn thunk [& thunk-args]
       (r.apply func (r.concat fact-args thunk-args)))))
 
-(def- async* (thunkify unroll))
+(comment
+  (let [afn (fn [x y cb]
+              (cb x y)
+              ; this is generally not desired in userland
+              ; but internal lib need to return for coroutines to work correctly
+              :bad)
+        thunk-factory (thunkify* afn)
+        thunk (thunk-factory 1 2)]
+    (thunk #(a.println :args $...))))
+
+(defn thunkify [func & args]
+  "Wraps a function into a thunk to be consumed by await in an async context"
+  (r.apply (thunkify* (r.void func)) args))
+
+(comment
+  (let [afn (fn [x y cb] (cb x y)
+              :should-not-be-seen)
+        thunk (thunkify afn 1 2)]
+    (thunk #(a.println :args $...))))
 
 (defn async [func]
-  "Unwrap an async function"
-  (async* func))
+  "Runs a function in an async context."
+  ((thunkify* unroll) func))
 
 (defn await [afunc]
   "Await a async function within an async function. Sugar over coroutine.yield."
   (coroutine.yield afunc))
 
 (comment
-  (((thunkify (fn [x y cb] (cb x y))) 1 2 ) #(a.println :args $...))
-  (unroll
-    (fn [...]
-      (a.println :args ...)
-      (let [x (coroutine.yield ((thunkify (fn [cb] (cb 1)))))]
-        (a.println :x x)
-        (let [(y z) (coroutine.yield ((thunkify (fn [cb] (cb 2 3)))))]
-          (a.println :y y :z z))))))
+  (let [x (fn [y cb] (vim.wait 1000) (cb :foo y) :foo)
+        thunk-x (thunkify x :bar)
+        async-fn (async
+                   (fn []
+                     (let [(x y) (await thunk-x)]
+                       (a.println :x x :y y)
+                       :done)))]
+    (async-fn)))
+
+(defn schedule []
+  "Schedule an async function to be executed in vim context.
+  Useful for async functions that need to interact with vim."
+  (thunkify vim.schedule))
+
+(comment
+  (let [x (fn [cb] (cb true :foo))
+        thunk (thunkify x)
+        async-fn (async
+                   (fn []
+                     (await (schedule))
+                     (let [x (await thunk)]
+                       (a.println :x x))))]
+    (async-fn)))
