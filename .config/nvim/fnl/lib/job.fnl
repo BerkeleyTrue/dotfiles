@@ -15,8 +15,8 @@
    Returns a unsubscribe function.
    Callback is called with values ok res,
    when ok res is stdout, otherwise stderr."
+  (assert (r.fn? cb) (.. "job.run: Expected callback to be a function but found " (type cb)))
   (var shutdown? false)
-  (assert (r.fn? cb) "callback must be a function")
   (let [j (doto (Job:new (r.merge opts
                                   {:on_exit
                                    (fn [j status]
@@ -56,8 +56,15 @@
 
 (comment
   (let [afn (as.async
-             (fn []
-               (let [(ok res) (as.await (run {:command "echo" :args ["hello"]}))]
-                 (a.println :ok ok :res res))))]
-    (afn))
-  :)
+               (fn []
+                 (a.println :start)
+                 (let [(ok res) (as.await (run {:command "echo" :args ["hello"]}))] ; coroutine throws
+                   (a.println :should-never-get-here :ok ok :res res))))]
+    (afn (fn [...] (a.println :should-be-called-with-error ...))))
+
+  (let [afn (as.async
+               (fn []
+                 (a.println :start)
+                 (let [(ok res) (as.await (run* {:command "echo" :args ["hello"]}))]
+                   (a.println :ok ok :res res))))]
+    (afn (fn [...] (a.println :should-not-be-called ...)))))

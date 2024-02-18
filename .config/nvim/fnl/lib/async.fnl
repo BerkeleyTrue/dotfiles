@@ -12,18 +12,18 @@
     (coroutine.resume thread)))
 
 (defn unroll [func cb]
-  "Unroll a coroutine until it's exhausted."
+  "Unroll a coroutine until it's exhausted.
+  If no callback is provided, we throw an error if the coroutine returns an error."
   (let [thread (coroutine.create func)
-        cb (or cb #nil)]
+        cb (or cb (fn [ok res] (assert ok res)))] ; in the case of a call to unroll() without a callback, errors are swallowed, so we rethrow here with assert
     "Iterate recursively over thread. (NOTE: self started)"
     ((fn iter [...]
       (let [(ok res) (coroutine.resume thread ...)]
-        (assert ok (when (r.string? res) (.. "unroll: " res)))
-        (if (= (coroutine.status thread) :dead)
-          (cb res)
-          (do
-            (assert (r.fn? res) "Expected coroutine to yield a function.")
-            (res iter))))))))
+        (if
+          (not ok) (cb ok (if (r.string? res) (.. "async.unroll: " res) res))
+          (= (coroutine.status thread) :dead) (cb true res)
+          (not (r.fn? res)) (cb false (.. "Expected Coroutine to yield a function but found " (type res)))
+          (res iter)))))))
 
 (comment
   (let [th1 (fn [] (fn [cb] (cb 1)))
@@ -34,8 +34,10 @@
                 (a.println :x x)
                 (let [(y z) (coroutine.yield (th2))]
                   (a.println :y y :z z)
-                  :done)))))
-  (unroll (fn [] (assert false "Should not be seen."))))
+                  :done)))
+            (fn [...] (a.println :res ...))))
+  (unroll (fn [] (assert false "Should be seen by callback")) (fn [...] (a.println :cb ...)))
+  (unroll (fn [] (assert false "Should be thrown"))))
 
 (defn- thunkify* [func]
   "Wraps a function into a thunk factory function"
@@ -54,22 +56,37 @@
     (thunk #(a.println :args $...))))
 
 (defn thunkify [func & args]
-  "Wraps a function into a thunk to be consumed by await in an async context"
-  (r.apply (thunkify* (r.void func)) args))
+  "Wraps a function into a thunk to be consumed by await in an async context
+  Meant to be used with a callback last function.
+  Function is wrapped to prevent return leakage.
+  Also protected calls function to catch errors."
+  (let [wrapped (fn [& args]
+                  (let [cb (r.last args)
+                        (ok res) (pcall func ...)]
+                    (when (not ok) (cb ok res))))]
+    (r.apply (thunkify* wrapped) args)))
 
 (comment
   (let [afn (fn [x y cb] (cb x y)
               :should-not-be-seen)
         thunk (thunkify afn 1 2)]
+    (thunk #(a.println :args $...)))
+
+  (let [afn (fn [] (assert false "Should be consumed by callback"))
+        thunk (thunkify afn 1 2)]
     (thunk #(a.println :args $...))))
 
-(defn async [func]
-  "Runs a function in an async context."
-  ((thunkify* unroll) func))
+(defn async [afunc]
+  "(async afunc) => (fn [cb?])
+   Runs a function in an async context.
+   Returns a function that starts the async function process.
+   If async function throws and no callback is provided the error is rethrown."
+  (r.void ((thunkify* unroll) afunc)))
 
-(defn await [afunc]
-  "Await a async function within an async function. Sugar over coroutine.yield."
-  (coroutine.yield afunc))
+(defn await [thunk]
+  "(await thunk)
+  Await an async function within an async function. Sugar over coroutine.yield."
+  (coroutine.yield thunk))
 
 (comment
   (let [x (fn [y cb] (vim.wait 1000) (cb :foo y) :foo)
@@ -79,6 +96,33 @@
                      (let [(x y) (await thunk-x)]
                        (a.println :x x :y y)
                        :done)))]
+    (async-fn))
+
+  (let [x (fn [] (assert false "Should be consumed in async func"))
+        async-fn (async
+                   (fn []
+                     (await (thunkify vim.schedule))
+                     (let [(x y) (await (thunkify x :bar))]
+                       (a.println :x x :y y)
+                       :done)))]
+    (async-fn))
+
+
+  (let [x (fn [] (assert false "Should be rethrown"))
+        async-fn (async
+                   (fn []
+                     (let [(x y) (await (x))]
+                       (a.println :should-never-be-seen)
+                       :should-not-be-seen)))]
+    (async-fn))
+
+  (let [x (fn [])
+        async-fn (async
+                   (fn []
+                     (assert false "Should be rethrown")
+                     (let [(x y) (await (x))]
+                       (a.println :should-never-be-seen)
+                       :should-not-be-seen)))]
     (async-fn)))
 
 (defn schedule []
@@ -94,4 +138,13 @@
                      (await (schedule))
                      (let [x (await thunk)]
                        (a.println :x x))))]
+    (async-fn))
+  (let [x (fn [])
+        async-fn (async
+                   (fn []
+                     (await (schedule))
+                     (assert false "Should be rethrown")
+                     (let [(x y) (await (x))]
+                       (a.println :should-never-be-seen)
+                       :should-not-be-seen)))]
     (async-fn)))
