@@ -4,7 +4,7 @@
 (number) @number
 (keyword) @constant
 (comment) @comment @spell
-(symbol) @identifier
+(symbol) @variable
 
 [
   "("
@@ -26,7 +26,15 @@
 ((symbol) @conditional (#match? @conditional "^(if|when)$"))
 ((symbol) @function (#match? @function "^#$"))
 
-((symbol) @keyword (#match? @keyword "^(fn|lambda|hashfn|set|tset|λ|global|var|local|let|do|not|not=|_ENV|_G|_VERSION|arg|assert|collectgarbage|comment|coroutine|debug|dofile|doto|error|eval\\-compiler|gensym|getmetatable|in\\-scope?|ipairs|list|list?|load|loadfile|loadstring|match|macro|macrodebug|macroexpand|macros|multi\\-sym?|next|pairs|package|pcall|print|rawequal|rawget|rawlen|rawset|select|sequence?|setmetatable|string|sym|sym?|table|table?|tonumber|tostring|type|unpack|varg?|xpcall)$"))
+((symbol) @keyword (#match? @keyword "^(fn|lambda|hashfn|set|tset|λ|global|var|local|do|not|not=|_ENV|_G|_VERSION|arg|assert|collectgarbage|comment|coroutine|debug|dofile|doto|error|eval\\-compiler|gensym|getmetatable|in\\-scope?|ipairs|list|list?|load|loadfile|loadstring|match|macro|macrodebug|macroexpand|macros|multi\\-sym?|next|pairs|package|pcall|print|rawequal|rawget|rawlen|rawset|select|sequence?|setmetatable|string|sym|sym?|table|table?|tonumber|tostring|type|unpack|varg?|xpcall)$"))
+
+; (let [(ident ident) (func arg)]
+;   (body))
+((symbol) @keyword (#match? @keyword "^(let)$")
+ (array
+   (list (symbol) @variable)
+   .
+   (list)))
 
 ; Aniseed queries
 ; (module
