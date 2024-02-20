@@ -22,7 +22,8 @@
   (: "hex.red" :match "he?x%.%w+")
   (: "p.green" :match "p%.%w+")
   (: "%#BerksStatusLineMod#" :match "Berks%w+")
-  (: ":BerksStatusLine" :match "Berks%w+"))
+  (: ":BerksStatusLine" :match "Berks%w+")
+  (: "#FFF" :match "#(%x)(%x)(%x)"))
 
 (defn main []
   (hl.link! :MiniIndentscopeSymbol :BerksSubtle)
@@ -30,6 +31,11 @@
   (hipatterns.setup
     {:highlighters
      {:hex_color (hipatterns.gen_highlighter.hex_color)
+      :hex_three_val {:pattern "#%x%x%x%f[%X]"
+                      :group
+                      (fn [_ mtch]
+                        (let [(red grn blu) (mtch:match "#(%x)(%x)(%x)")]
+                          (hipatterns.compute_hex_color_group (string.format "#%s%s%s%s%s%s" red red grn grn blu blu) "fg")))}
 
       :hsl_vector {:pattern "%[()%d+ %d+ %d+()%]"
                    :group
