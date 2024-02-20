@@ -1,11 +1,10 @@
-(module plugins.accents
-  {require
+(module lib.accents
+  {autoload
    {a aniseed.core
-    str aniseed.string
-    nvim aniseed.nvim
-    nutils aniseed.nvim.util
-    utils utils
-    r r}
+    r r
+    md utils.module
+    utils utils}
+   require {}
    require-macros [macros]})
 
 (defonce accents
@@ -40,9 +39,9 @@
                   ; get next char in list
                   (. $1)))
           ; prep command
-          (.. "r")
+          (.. "normal! r")
           ; execute replace
-          (nvim.ex.normal_))))
+          (vim.api.nvim_command))))
 
 (defn completion [findstart base]
   "completion for accents: get a list of the corresponding accents for a char"
@@ -51,7 +50,7 @@
       (->> accents
            (r.find-index #(r.some (r.is-equal "Ü") $1))
            (#(if
-               (not= $ -1) (- (nvim.fn.col ".") 2)
+               (not= $ -1) (- (vf col ".") 2)
                -3))))
 
     (->> accents
@@ -60,11 +59,8 @@
 
 (defn setup []
   "set up for accents"
-  (nvim.buf_set_option 0 :completefunc (viml->lua* completion))
-  (nnoremap
-    "gax"
-    (cviml->lua* cycle)
-    {:silent true :buffer true}))
+  (bo! :completefunc (viml->lua* completion))
+  (nnoremap :gax cycle {:silent true :buffer true}))
 
 (defn main []
   (augroup

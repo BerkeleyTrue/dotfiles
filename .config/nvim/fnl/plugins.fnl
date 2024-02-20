@@ -5,8 +5,7 @@
    require-macros [macros]})
 
 (def- internal-plugins
-  [:accents
-   :mumber
+  [:mumber
    :aniseed])
 
 (def- external-plugins
