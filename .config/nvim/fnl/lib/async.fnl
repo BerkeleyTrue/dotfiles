@@ -5,6 +5,7 @@
     md utils.module
     utils utils}
    require {}
+   import-macros [[{: acase} :lib.async-macros]]
    require-macros [macros]})
 
 (comment
@@ -148,3 +149,25 @@
                        (a.println :should-never-be-seen)
                        :should-not-be-seen)))]
     (async-fn)))
+
+(defn pure [val]
+  "Yield a value in an async context"
+  (await #($ val)))
+
+(comment
+  (let [async-fn
+        (async
+          (fn []
+            (let [x (pure :foo)]
+              (a.println :x x))))]
+    (async-fn)))
+
+(comment
+  ((async
+     (fn []
+       (let [x (acase (pure :foo)
+                (<- val (schedule))
+                (pure nil :val)
+                (catch
+                  x (a.println :err x)))]
+         (a.println :x x))))))

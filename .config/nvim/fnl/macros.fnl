@@ -394,22 +394,4 @@
 (defn set-hl [name opts]
   `(vim.api.nvim_set_hl 0 ,name ,opts))
 
-
-; =<< monads >=>
-(local bind (gensym :bind))
-(local pure (gensym :pure))
-
-(fn unroll-do* [bindings body]
-  (match bindings
-    [name value & rest] `(,bind ,value (fn [,name] ,(unroll-do* rest body)))
-    [] (do
-          (when (= (. body 1) (sym :pure))
-            (tset body 1 pure))
-          body)))
-
-(defn do* [monad bindings body]
-  `(let [,bind (. ,monad :bind)
-         ,pure (. ,monad :pure)]
-     ,(unroll-do* bindings body)))
-
 :return M
