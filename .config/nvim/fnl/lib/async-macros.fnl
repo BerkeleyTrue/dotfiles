@@ -81,5 +81,12 @@
      (case-try ,new-expr
        ,(unpack new-body))))
 
+(defn defasync [name args doc? & body]
+  "define an async function"
+  (let [body (if (= (type doc?) :string) body `(,doc? ,(unpack body)))]
+    `(defn ,name ,args
+       ,(if (= (type doc?) :string) doc? "")
+       (let [asm# (require :lib.async)]
+         ((asm#.async (fn [] ,(unpack body))))))))
 
 :return M

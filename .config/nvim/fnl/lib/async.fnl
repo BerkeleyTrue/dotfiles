@@ -5,7 +5,7 @@
     md utils.module
     utils utils}
    require {}
-   import-macros [[{: acase} :lib.async-macros]]
+   import-macros [[{: acase : defasync} :lib.async-macros]]
    require-macros [macros]})
 
 (comment
@@ -171,3 +171,14 @@
                 (catch
                   x (a.println :err x)))]
          (a.println :x x))))))
+
+(comment
+  (macrodebug
+    (defasync foo []
+      "foo bar"
+      (let [x (acase (pure :foo)
+                (<- val (schedule))
+                (pure nil :val)
+                (catch
+                  x (a.println :err x)))]
+        (a.println :x x)))))
