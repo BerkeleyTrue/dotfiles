@@ -74,8 +74,7 @@
        :buffer 0
        :callback
        (fn after-write [{: file}]
-         (git.commit file))})))
-
+         ((git.commit file)))})))
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
@@ -95,13 +94,6 @@
            :nargs "*"
            :complete complete})))}
 
-    ; {:event [:BufNewFile]
-    ;  :pattern :*.md
-    ;  :callback
-    ;  (fn buf-new-file [{: file}]
-    ;    (when (ftdetect.ftdetect)
-    ;      (metadata.update-file file)))}
-    ;
     {:event [:CmdlineEnter]
      :pattern :*
      :callback
