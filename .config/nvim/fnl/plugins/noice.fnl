@@ -41,7 +41,13 @@
                              :row "95%"}}}
 
 
-   :routes {}
+   :routes [{:filter {:event :msg_show ; redirect Inspect to popup
+                      :any [{:find "Treesitter"}
+                            {:find "Extmarks"}
+                            {:find "Syntax"}
+                            {:find "Semantic Tokens"}]}
+             :view :popup}]
+
    :presets {:lsp_doc_border true}})
 
 (defn main []
