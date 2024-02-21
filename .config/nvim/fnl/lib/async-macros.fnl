@@ -87,6 +87,6 @@
     `(defn ,name ,args
        ,(if (= (type doc?) :string) doc? "")
        (let [asm# (require :lib.async)]
-         ((asm#.async (fn [] ,(unpack body))))))))
+         (asm#.async (fn [] ,(unpack body)))))))
 
 :return M
