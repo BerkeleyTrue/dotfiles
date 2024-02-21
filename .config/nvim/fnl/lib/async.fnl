@@ -8,22 +8,35 @@
    import-macros [[{: acase : defasync} :lib.async-macros]]
    require-macros [macros]})
 
+; based largely on https://github.com/ms-jpq/lua-async-await
+; where we use thunks and callbacks to wrap coroutines and callback style async lua functions (i.e. (some-fn [arg1 arg2 cb] ... (cb ok some-result?)))
+; functions are should always be assumed to be yield results (beware unleashing Zalgo)
+; TODO: add a wrap for regular coroutines that don't yield functions
+
 (comment
   (let [thread (coroutine.create (fn [] (assert false "Should not be seen.")))]
     (coroutine.resume thread)))
 
 (defn unroll [func cb]
   "Unroll a coroutine until it's exhausted.
-  If no callback is provided, we throw an error if the coroutine returns an error."
+  If no callback is provided, we throw an error if the coroutine returns an error.
+  func here is a coroutine, which yields functions that takes a callbacks as the last arg."
   (let [thread (coroutine.create func)
         cb (or cb (fn [ok res] (assert ok res)))] ; in the case of a call to unroll() without a callback, errors are swallowed, so we rethrow here with assert
     "Iterate recursively over thread. (NOTE: self started)"
-    ((fn iter [...]
+    ((fn iter [...] ; initially empty
+      ; corountine should yield a function here if not dead
       (let [(ok res) (coroutine.resume thread ...)]
         (if
+          ; if coroutine is still active we assume a programmer error has occurred
+          ; else, the func is has exhausted and returned not ok
           (not ok) (cb ok (if (r.string? res) (.. "async.unroll: " res) res))
+          ; if coroutine is dead we call the callback with the result and assume everything is fine
           (= (coroutine.status thread) :dead) (cb true res)
+          ; if coroutine is still active we assume a programmer error has occurred
           (not (r.fn? res)) (cb false (.. "Expected Coroutine to yield a function but found " (type res)))
+          ; coroutine is still active, we call the yielded function with the callback
+          ; we call function with iter function as the callback
           (res iter)))))))
 
 (comment
@@ -59,8 +72,8 @@
 (defn thunkify [func & args]
   "Wraps a function into a thunk to be consumed by await in an async context
   Meant to be used with a callback last function.
-  Function is wrapped to prevent return leakage.
-  Also protected calls function to catch errors."
+  Function is wrapped to prevent return leakage (beware unleashing zalgo).
+  Also protected-calls func to catch errors in coroutine start and bubbles them back out."
   (let [wrapped (fn [& args]
                   (let [cb (r.last args)
                         (ok res) (pcall func ...)]
@@ -81,12 +94,13 @@
   "(async afunc) => (fn [cb?])
    Runs a function in an async context.
    Returns a function that starts the async function process.
-   If async function throws and no callback is provided the error is rethrown."
+   If async function throws and no callback is provided the error is rethrown (see unroll)."
   (r.void ((thunkify* unroll) afunc)))
 
 (defn await [thunk]
   "(await thunk)
-  Await an async function within an async function. Sugar over coroutine.yield."
+  Await an async function within an async function. Sugar over coroutine.yield.
+  Thunk should be a function that expects a callback argument."
   (coroutine.yield thunk))
 
 (comment
@@ -128,7 +142,8 @@
 
 (defn schedule []
   "Schedule an async function to be executed in vim context.
-  Useful for async functions that need to interact with vim."
+  Useful for async functions that need to interact with vim.
+  (await (schedule)) will yield until the next tick."
   (thunkify vim.schedule))
 
 (comment
@@ -151,7 +166,8 @@
     (async-fn)))
 
 (defn pure [val]
-  "Yield a value in an async context"
+  "Yield a value in an async context
+  (async (fn [] (let [x (pure :foo)] (print x)))) will print :foo"
   (await #($ val)))
 
 (comment

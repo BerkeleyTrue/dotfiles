@@ -15,9 +15,23 @@
 (defn acase [expr & body]
   "Perform chained async function calls, any of which may fail.
 (acase (<- expr)
-  (<- a (test))
+  (<- a body)
+  (pure a body)
   (catch
-    e (print e)))
+    apattern body
+    pattern body
+    pattern body))
+
+; example
+(acase (<- (afunc1) ; async function call, returning a boolean and optionally a result
+  (<- a (test1)) ; the first return of afunc1 is true, the result is set to the value a
+  (pure x 'foobar') ; use pure to return a value
+  (catch
+    failure (print failure) ; if afunc or test1 return false, the results will be set to apattern, here as failure
+    ; normal pattern matching from here
+    _ (print e)))
+
+<- maps to await in the async module, pure maps to pure, which wraps a value in a callback
   "
   (local syms {:<- (gensym :<-)
                :pure (gensym :pure)})
