@@ -16,7 +16,7 @@
 @punctuation.bracket
 
 ; functions
-(list . (symbol) @function (#match-offset! @function "%.?([%w-_?!*=/]+)$"))
+(list . (symbol) @function (#match-offset! @function "%.?([%w-_?!*=/<>]+)$"))
 ((symbol) @function
           (#match? @function "^#.*$")
           (#match-offset! @function "^(#).*$" true))
