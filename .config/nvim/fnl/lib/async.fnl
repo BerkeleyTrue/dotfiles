@@ -174,6 +174,13 @@
 
 (comment
   (macrodebug
+    (acase (pure :foo)
+      (<- val (schedule))
+      (<- val (schedule))
+      (pure nil :val)
+      (catch
+        x (a.println :err x))))
+  (macrodebug
     (defasync foo []
       "foo bar"
       (let [x (acase (pure :foo)

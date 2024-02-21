@@ -46,10 +46,10 @@
                         (table? pattern)
                         `(true ,(unpack pattern))
 
-                        (= (type pattern) :nil)
-                        :true
+                        (= (tostring pattern) :nil)
+                        true
 
-                        pattern)]
+                        `(true ,pattern))]
 
           (table.insert new-body pattern))
 
