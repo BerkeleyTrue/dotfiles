@@ -179,7 +179,8 @@
       (<- val (schedule))
       (pure nil :val)
       (catch
-        x (a.println :err x))))
+        x (a.println :err x)
+        _ (a.println :err x))))
   (macrodebug
     (defasync foo []
       "foo bar"

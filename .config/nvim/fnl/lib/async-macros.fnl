@@ -38,7 +38,7 @@
     _ (assert-compile false (.. "Invalid async expression: " (view expr))))
 
   (var new-body (list))
-  (each [_ [f pattern body] (ipairs body)]
+  (each [_ [f pattern body & rest] (ipairs body)]
     (when (not= (tostring f) :catch) ; should always be last
       (case last-body
         :<-
@@ -71,7 +71,16 @@
 
       ; should always be last
       :catch
-      (table.insert new-body `(catch ,pattern ,body))
+      (let [pattern (if
+                      (table? pattern)
+                      `(false ,(unpack pattern))
+
+                      (= (tostring pattern) :nil)
+                      false
+
+                      `(false ,pattern))]
+
+        (table.insert new-body `(catch ,pattern ,body ,(unpack rest))))
 
       _ (assert-compile false (.. "Invalid async body: " (view f)))))
 
