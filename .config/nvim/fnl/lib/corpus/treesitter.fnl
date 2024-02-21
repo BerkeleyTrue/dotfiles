@@ -142,16 +142,17 @@
         get-text (fn get-gt [mtch] (-> (. mtch :shortcut_link :node) (vim.treesitter.get_node_text bufnr)))]
 
     (var out [])
-    (case (parse-query link-shortcut-query :markdown_inline)
-      (nil err) (do (a.println "Error parsing link shortcuts:" err) [])
-      parsed-query
-      (do
-        (inlines:for_each_tree
-          (fn [tree]
-            (let [root (tree:root)]
-              (icollect [_ node (parsed-query:iter_captures root 0)]
-                (table.insert out (vim.treesitter.get_node_text node bufnr))))))
-        out))))
+    (when (r.not-empty? inlines)
+      (case (parse-query link-shortcut-query :markdown_inline)
+        (nil err) (do (a.println "Error parsing link shortcuts:" err) [])
+        parsed-query
+        (do
+          (inlines:for_each_tree
+            (fn [tree]
+              (let [root (tree:root)]
+                (icollect [_ node (parsed-query:iter_captures root 0)]
+                  (table.insert out (vim.treesitter.get_node_text node bufnr))))))
+          out)))))
 
 (comment
   (command! :CorpusExtractLinkShortcuts
