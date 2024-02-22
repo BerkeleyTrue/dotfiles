@@ -17,6 +17,7 @@
 (defn git [& args]
   "Run git command with args. If job runs successfully,
   return (true results: string[]), else return [false error:string]."
+  (a.pr-str {}) ; don't know why this is needed but without it we get a nvim_list_runtime_paths err
   (job.run* {:command cmd* :args args}))
 
 (comment
@@ -42,21 +43,27 @@
   ((as.async (fn [] (let [(ok val) (as.await (dirty? (vf expand "%:r")))]
                       (a.println :ok ok :dirty? val)))))
   ((as.async (fn [] (let [(ok val) (as.await (new? "lazy-lock.json"))]
-                      (a.println :dirty? val)))))
-  ((as.async (fn [] (let [(ok val) (as.await (dirty? (vf expand "%")))]
-                      (a.println :ok ok :dirty? val (vf expand "%"))))))
-  ((as.async (fn [] (let [(ok val) (as.await (dirty? (vf expand "%")))]
-                      (as.await (as.schedule))
-                      (a.println :ok ok :dirty? val (vf expand "%")))))))
+                      (a.println :dirty? val))))))
 
-(defasync commit [file]
+(defasync add [file]
+  "Add file to the index."
+  (let [(ok _new?) (as.await (new? file))]
+    (when _new?
+      (let [(ok res) (as.await (git :add file))]
+        (a.println "Corpus: file added: " file res))
+      (a.println "Corpus: file already in index: " file))
+    _new?))
+
+
+(defasync commit [file path]
   "commit file, check if file is already in the index, if not add it and commit it."
-  (let [path (vf fnamemodify file ":r")]
-    (acase (<- (new? file))
-      (pure new? (.. "docs: " (if new? :create :update) " " path " (corpus)"))
-      (<- subject (git :commit :-m subject :-- file))
-      (pure commit (a.println "Corpus: file committed: " file commit))
-      (catch err (a.println "Corpus: error committing: " err))))) ; nil
+  (acase (<- (add file))
+    (pure new? (do
+                 (a.println :new? new?)
+                 (.. "docs: " (if new? :create :update) " " path " (corpus)")))
+    (<- subject (git :commit :-m subject :-- file))
+    (pure commit (a.println "Corpus: file committed: " file commit))
+    (catch err (a.println "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err))))) ; nil
 
 (comment
   ((as.async (fn [] (let [(ok val) (as.await (commit (vf expand "%")))]

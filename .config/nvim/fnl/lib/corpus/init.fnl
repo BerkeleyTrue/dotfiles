@@ -74,7 +74,8 @@
        :buffer 0
        :callback
        (fn after-write [{: file}]
-         ((git.commit file)))})))
+         (let [path (vf fnamemodify file ":r")]
+           ((git.commit file path))))})))
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
