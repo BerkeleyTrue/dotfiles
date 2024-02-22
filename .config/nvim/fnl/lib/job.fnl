@@ -49,7 +49,6 @@
   (run! {:command "sleep" :args ["4s"]}) ; blocks
   :)
 
-
 (defn run* [opts]
   "Run a job with the given options in an async context."
   (as.thunkify run opts))
@@ -58,13 +57,15 @@
   (let [afn (as.async
                (fn []
                  (a.println :start)
-                 (let [(ok res) (as.await (run {:command "echo" :args ["hello"]}))] ; coroutine throws
-                   (a.println :should-never-get-here :ok ok :res res))))]
-    (afn (fn [...] (a.println :should-be-called-with-error ...))))
+                 (as.await (as.schedule))
+                 (a.println :start2)
+                 (let [(ok res) (as.await (run* {:command "echo" :args ["hello"]}))]
+                   (a.println :ok ok :res res))))]
+    (afn (fn [...] (a.println :cb ...))))
 
   (let [afn (as.async
                (fn []
                  (a.println :start)
                  (let [(ok res) (as.await (run* {:command "echo" :args ["hello"]}))]
                    (a.println :ok ok :res res))))]
-    (afn (fn [...] (a.println :should-not-be-called ...)))))
+    (afn)))

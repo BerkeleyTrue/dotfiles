@@ -25,7 +25,6 @@
 
 (defasync new? [file]
   (let [(ok file) (as.await (git :ls-files file))]
-    (a.println "ok: " ok " file: " file)
     (and ok (r.empty? file))))
 
 (comment
@@ -39,16 +38,26 @@
     (r.not-empty? res)))
 
 (comment
-  ((as.async (fn [] (let [(ok val) (as.await (dirty? (vf expand "%")))]
+  (vf fnamemodify (vf expand "%") ":r")
+  ((as.async (fn [] (let [(ok val) (as.await (dirty? (vf expand "%:r")))]
                       (a.println :ok ok :dirty? val)))))
   ((as.async (fn [] (let [(ok val) (as.await (new? "lazy-lock.json"))]
-                      (a.println :dirty? val))))))
+                      (a.println :dirty? val)))))
+  ((as.async (fn [] (let [(ok val) (as.await (dirty? (vf expand "%")))]
+                      (a.println :ok ok :dirty? val (vf expand "%"))))))
+  ((as.async (fn [] (let [(ok val) (as.await (dirty? (vf expand "%")))]
+                      (as.await (as.schedule))
+                      (a.println :ok ok :dirty? val (vf expand "%")))))))
 
 (defasync commit [file]
   "commit file, check if file is already in the index, if not add it and commit it."
-  (a.println :commiting file)
-  (acase (<- (new? file))
-    (pure new? (.. "docs: " (if new? :create :update) " " (vim.fn.fnamemodify file ":r") " (corpus)"))
-    (<- subject (git :commit :-m subject :-- file))
-    (pure commit (a.println "Corpus: file committed: " file commit))
-    (catch err (a.println (.. "Corpus: error committing: " err))))) ; nil
+  (let [path (vf fnamemodify file ":r")]
+    (acase (<- (new? file))
+      (pure new? (.. "docs: " (if new? :create :update) " " path " (corpus)"))
+      (<- subject (git :commit :-m subject :-- file))
+      (pure commit (a.println "Corpus: file committed: " file commit))
+      (catch err (a.println "Corpus: error committing: " err))))) ; nil
+
+(comment
+  ((as.async (fn [] (let [(ok val) (as.await (commit (vf expand "%")))]
+                      (a.println :ok ok :dirty? val))))))
