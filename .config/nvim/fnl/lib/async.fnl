@@ -40,28 +40,31 @@
           (res iter)))))))
 
 (defn thunkify* [func]
-  "Wraps a function into a thunk factory function"
+  "Wraps a function into a thunk factory function
+  (thunify* func) => (factory ...args) => (thunk ...args) => res of func"
   (fn factory [& fact-args]
     (fn thunk [& thunk-args]
       (r.apply func (r.concat fact-args thunk-args)))))
 
 (defn thunkify [func & args]
   "Wraps a function into a thunk to be consumed by await in an async context
-  Meant to be used with a callback last function.
-  Function is wrapped to prevent return leakage (beware unleashing zalgo).
-  Also protected-calls func to catch errors in coroutine start and bubbles them back out."
+  Meant to be used with a callback last func.
+  Meant to be used in a function definition
+  Func is wrapped to prevent return leakage (beware unleashing zalgo).
+  Also protected-calls func to catch errors in coroutine start and
+  bubbles them back out through cb.
+  (thunkify func ...args) => (thunk ...args cb)"
   (let [wrapped (fn [& args]
                   (let [cb (r.last args)
                         (ok res) (pcall func ...)]
                     (when (not ok) (cb ok res))))]
     (r.apply (thunkify* wrapped) args)))
 
-(defn async [afunc]
-  "(async afunc) => (fn [cb?])
-   Runs a function in an async context.
-   Returns a function that starts the async function process.
-   If async function throws and no callback is provided the error is rethrown (see unroll)."
-  (r.void ((thunkify* unroll) afunc)))
+(defn schedule []
+  "Schedule an async function to be executed in vim context.
+  Useful for async functions that need to interact with vim.
+  (await (schedule)) will yield until the next tick."
+  (thunkify vim.schedule))
 
 (defn await [thunk]
   "(await thunk)
@@ -69,11 +72,17 @@
   Thunk should be a function that expects a callback argument."
   (coroutine.yield thunk))
 
-(defn schedule []
-  "Schedule an async function to be executed in vim context.
-  Useful for async functions that need to interact with vim.
-  (await (schedule)) will yield until the next tick."
-  (thunkify vim.schedule))
+(defn async [afunc]
+  "(async afunc) => (fn [cb?])
+   Runs a afunc in an async context.
+   Returns a function that starts the async function process.
+   Returned function accepts an optional callback which will bubble up errors thrown.
+   If async function throws and no callback is provided the error is rethrown (see unroll).
+   afunc is wrapped to be scheduled by vim.schedule to avoid Zalgo."
+  (let [wrapped (fn [...]
+                  (await (schedule))
+                  (afunc ...))]
+    (r.void ((thunkify* unroll) wrapped))))
 
 (comment
   (let [x (fn [cb] (cb true :foo))

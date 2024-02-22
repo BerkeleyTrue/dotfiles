@@ -121,6 +121,10 @@
         res (async-fn)]
     (t.= nil res))
 
+  ; these next two tests are going to throw errors
+  ; since we force async to allways run yield internally
+  ; we can't catch this error w/o a callback
+  ; but test will still pass
   (let [x (fn [] (assert false "Should be rethrown"))
         async-fn (async
                    (fn []
@@ -128,9 +132,8 @@
                        (print :should-never-be-seen)
                        :should-not-be-seen)))
         (ok res) (pcall async-fn)]
-    (t.ok? (not ok))
-    (t.= :string (type res))
-    (t.ok? (string.find res "Should be rethrown")))
+    (t.ok? ok "zalgo! async function should not be pcall-able")
+    (t.= nil res))
 
   (let [x (fn [])
         async-fn (async
@@ -140,9 +143,8 @@
                        (print :should-never-be-seen)
                        :should-not-be-seen)))
         (ok res) (pcall async-fn)]
-    (t.ok? (not ok))
-    (t.= :string (type res))
-    (t.ok? (string.find res "Should be rethrown")))
+    (t.ok? ok "zalgo! async function should not be pcall-able")
+    (t.= nil res))
 
   (let [x (fn [])
         async-fn (async
@@ -169,8 +171,8 @@
                          (t.ok? x "timer failed")
                          (t.= nil y))))]
       (async-fn)
-      (vim.defer_fn (fn []
-                      (t.= true called "x was not called")) 200)))
+      (vim.wait 200)
+      (t.= true called "x was not called")))
 
   (do
     (var called false)
@@ -188,3 +190,38 @@
       (async-fn (fn [ok res]
                   (t.ok? ok "async function failed")
                   (t.= true called "x was not called"))))))
+
+(deftest schedule
+  (do
+    (var called 0)
+    (let [call #(set called (+ called 1))
+          afn (async
+                (fn []
+                  (call)
+                  ; (print :called0)
+                  (await (schedule))
+                  (assert false "Should be rethrown")
+                  (call)))]
+      (afn (fn [ok err]
+             (t.= 1 called)
+             (call)
+             ; (print :called1)
+             (t.= false ok)
+             (t.= :string (type err))
+             (t.ok? (string.find err "Should be rethrown"))))
+      (vim.wait 200)
+      (t.= 2 called "schedule was not called"))))
+
+  ; (do
+  ;   (var called 0)
+  ;   (let [call #(set called (+ called 1))
+  ;         afn (async
+  ;               (fn []
+  ;                 (call)
+  ;                 (await (schedule))
+  ;                 (print :called2)
+  ;                 (assert false "Should be rethrown")
+  ;                 (call)))]
+  ;     (afn)
+  ;     (vim.wait 200)
+  ;     (t.= 1 called "async method was not called"))))
