@@ -32,14 +32,17 @@
     ; get the relative file path of the current file
     (let [file-path (vim.fn.expand "%:p")
           fnldir (.. (vim.fn.stdpath :config) "/fnl/")
+          fnltestdir (.. (vim.fn.stdpath :config) "/test/fnl/")
+          in-test-dir (not= (vf stridx file-path fnltestdir) -1)
           ; is file path in fnl directory
-          in-fnl-dir (not= (vim.fn.stridx file-path fnldir) -1)]
+          in-fnl-dir (not= (vf stridx file-path fnldir) -1)]
 
-      (when in-fnl-dir
+      (when (or in-test-dir in-fnl-dir)
         ; get the path of the file relative to the fnl directory
         (let [mname (->
                       file-path
                       (vim.fn.substitute fnldir "" "")
+                      (vim.fn.substitute fnltestdir "" "")
                       (vim.fn.substitute "\\init.fnl$" "" "")
                       (vim.fn.substitute "\\.fnl$" "" "")
                       (vim.fn.split "/")
