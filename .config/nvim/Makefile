@@ -7,4 +7,4 @@ deps:
 	scripts/embed.sh lua-reactivex reactivex
 
 test:
-	SUFFIX="test/fnl/foo.fnl" scripts/test.sh
+	scripts/test.sh

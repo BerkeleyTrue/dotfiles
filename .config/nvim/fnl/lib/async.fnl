@@ -30,44 +30,20 @@
         (if
           ; if coroutine is still active we assume a programmer error has occurred
           ; else, the func is has exhausted and returned not ok
-          (not ok) (cb ok (if (r.string? res) (.. "async.unroll: " res) res))
+          (not ok) (cb false (if (r.string? res) (.. "async.unroll: " res) res))
           ; if coroutine is dead we call the callback with the result and assume everything is fine
           (= (coroutine.status thread) :dead) (cb true res)
           ; if coroutine is still active we assume a programmer error has occurred
-          (not (r.fn? res)) (cb false (.. "Expected Coroutine to yield a function but found " (type res)))
+          (not (r.fn? res)) (cb false (.. "unroll: Expected Coroutine to yield a function but found " (type res)))
           ; coroutine is still active, we call the yielded function with the callback
           ; we call function with iter function as the callback
           (res iter)))))))
 
-(comment
-  (let [th1 (fn [] (fn [cb] (cb 1)))
-        th2 (fn [] (fn [cb] (cb 2 3)))]
-    (unroll (fn []
-              (a.println :start)
-              (let [x (coroutine.yield (th1))]
-                (a.println :x x)
-                (let [(y z) (coroutine.yield (th2))]
-                  (a.println :y y :z z)
-                  :done)))
-            (fn [...] (a.println :res ...))))
-  (unroll (fn [] (assert false "Should be seen by callback")) (fn [...] (a.println :cb ...)))
-  (unroll (fn [] (assert false "Should be thrown"))))
-
-(defn- thunkify* [func]
+(defn thunkify* [func]
   "Wraps a function into a thunk factory function"
   (fn factory [& fact-args]
     (fn thunk [& thunk-args]
       (r.apply func (r.concat fact-args thunk-args)))))
-
-(comment
-  (let [afn (fn [x y cb]
-              (cb x y)
-              ; this is generally not desired in userland
-              ; but internal lib need to return for coroutines to work correctly
-              :bad)
-        thunk-factory (thunkify* afn)
-        thunk (thunk-factory 1 2)]
-    (thunk #(a.println :args $...))))
 
 (defn thunkify [func & args]
   "Wraps a function into a thunk to be consumed by await in an async context
@@ -79,16 +55,6 @@
                         (ok res) (pcall func ...)]
                     (when (not ok) (cb ok res))))]
     (r.apply (thunkify* wrapped) args)))
-
-(comment
-  (let [afn (fn [x y cb] (cb x y)
-              :should-not-be-seen)
-        thunk (thunkify afn 1 2)]
-    (thunk #(a.println :args $...)))
-
-  (let [afn (fn [] (assert false "Should be consumed by callback"))
-        thunk (thunkify afn 1 2)]
-    (thunk #(a.println :args $...))))
 
 (defn async [afunc]
   "(async afunc) => (fn [cb?])
@@ -102,43 +68,6 @@
   Await an async function within an async function. Sugar over coroutine.yield.
   Thunk should be a function that expects a callback argument."
   (coroutine.yield thunk))
-
-(comment
-  (let [x (fn [y cb] (vim.wait 1000) (cb :foo y) :foo)
-        thunk-x (thunkify x :bar)
-        async-fn (async
-                   (fn []
-                     (let [(x y) (await thunk-x)]
-                       (a.println :x x :y y)
-                       :done)))]
-    (async-fn))
-
-  (let [x (fn [] (assert false "Should be consumed in async func"))
-        async-fn (async
-                   (fn []
-                     (await (thunkify vim.schedule))
-                     (let [(x y) (await (thunkify x :bar))]
-                       (a.println :x x :y y)
-                       :done)))]
-    (async-fn))
-
-
-  (let [x (fn [] (assert false "Should be rethrown"))
-        async-fn (async
-                   (fn []
-                     (let [(x y) (await (x))]
-                       (a.println :should-never-be-seen)
-                       :should-not-be-seen)))]
-    (async-fn))
-
-  (let [x (fn [])
-        async-fn (async
-                   (fn []
-                     (assert false "Should be rethrown")
-                     (let [(x y) (await (x))]
-                       (a.println :should-never-be-seen)
-                       :should-not-be-seen)))]
-    (async-fn)))
 
 (defn schedule []
   "Schedule an async function to be executed in vim context.

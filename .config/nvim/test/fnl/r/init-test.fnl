@@ -1,7 +1,8 @@
 (module r.init-test
-  {:require {a aniseed.core
-             r r}
-   :require-macros [macros]})
+  {require
+   {a aniseed.core
+    r r}
+   require-macros [macros]})
 
 (deftest curry
   (t.ok? r.curry "is curry exported")
