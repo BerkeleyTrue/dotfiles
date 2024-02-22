@@ -9,16 +9,33 @@
 (def config
   {:presets [:nestjs]
    :mappings
-   [{:pattern "fnl/(.*).fnl"
+   ;; Fennel/Lua
+   [{:pattern "^fnl/(.*).fnl"
      :targets
      [{:template "lua/[1].lua"
-       :label "Output"}]}
+       :label "Output"}
+      {:template "test/fnl/[1]-test.fnl"
+       :label "Test"}]}
 
-    {:pattern "lua/(.*).lua"
+    {:pattern "^lua/(.*).lua"
      :targets
      [{:template "fnl/[1].fnl"
-       :label "Input"}]}
+       :label "Source"}]}
 
+    ; Fennel/Lua Tests
+    {:pattern "^test/fnl/(.*)-test.fnl"
+     :targets
+     [{:template "test/lua/[1]-test.lua"
+       :label "Output"}
+      {:template "fnl/[1].fnl"
+       :label "Source"}]}
+
+    {:pattern "^test/lua/(.*).lua"
+     :targets
+     [{:template "test/fnl/[1].fnl"
+       :label "Source"}]}
+
+    ;; Golang
     {:pattern "(.*).templ"
      :targets
      [{:template "[1]_templ.go"
