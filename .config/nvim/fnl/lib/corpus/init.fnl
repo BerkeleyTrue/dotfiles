@@ -35,6 +35,10 @@
            -1)]))))
 
 (defn choose [selection bang]
+  "Open the selected file in a new buffer. If the file does not exist, create it.
+  If the selection ends with a bang, create the file.
+  If the selection does not end with a bang, use the selected file.
+  If no file is selected, use the selection as the file name."
   (let [selection (vim.trim selection)
         create (or (= bang "!") (vim.endswith selection "!"))
         selection (if (vim.endswith selection "!") (selection:sub 0 -2) selection)
@@ -50,13 +54,19 @@
     (vim.cmd (.. "edit " (vim.fn.fnameescape file)))))
 
 (defn cmdline-changed [char]
+  "When the command line changes, check if it's a corpus command
+  and if so, show the chooser and previewer."
   (when (= char ":")
     (let [line (vim.fn.getcmdline)
-          (_ _ term) (string.find line "^%s*Corpus%f[%A]%s*(.-)%s*$")]
-      (when (and (not= term nil) ; can be empty string, just not nil
-                 (ftdetect.ftdetect))
-        (preview-mappings)
-        (chooser.open term)))))
+          (_ _ preterm term) (string.find line "^Corpus%f[%A](%s*)(.-)%s*$")]
+      (if (and (r.not-empty? preterm) ; space after corpus, intent to search
+               (ftdetect.ftdetect))
+        (do
+          (preview-mappings)
+          (chooser.open term))
+        (chooser.close)))))
+
+(comment (string.find "Corpus bar" "^Corpus%f[%A](%s*)(.-)%s*$"))
 
 (defn init []
   (when (ftdetect.ftdetect)
