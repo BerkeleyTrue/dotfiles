@@ -47,8 +47,10 @@
   "generate a title from filename"
   (vim.fn.fnamemodify file ":t:r"))
 
-(defn update-file [{: force? : temp?}]
-  (let [file (vim.fn.expand "%")
+(defn update-file [opts]
+  (let [{: force?
+         : temp?} (or opts {})
+        file (vim.fn.expand "%")
         title (if temp? "" (get-title file))
         day (date)
         (ok? metadata?) (get-frontmatter)
