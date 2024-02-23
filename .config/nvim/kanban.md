@@ -23,10 +23,13 @@
   - [x] implement auto updated-at date
   - [x] add translate yaml to toml if found
   - [x] ensure space before ref links
-  - [ ] add zettel command
-    - [ ] creates a temp file in 00-zettle
+  - [x] add zettel command
+    - [x] creates a temp file in 00-zettle
     - [ ] on save, prompts for title
     - [ ] kebab-cases file name and inserts metadata
+  - [ ] add ref command
+    - [ ] prompts user for title
+    - [ ] creates a new file under 03-refs
 
 ## Done
 

@@ -10,7 +10,8 @@
     reflinks   lib.corpus.reference-links
     shortcuts  lib.corpus.shortcuts
     git        lib.corpus.git
-    chooser    lib.corpus.chooser}
+    chooser    lib.corpus.chooser
+    zet        lib.corpus.zettel}
    require {}
    require-macros [macros]})
 
@@ -102,7 +103,22 @@
            :desc "Choose a corpus file"
            :bang true
            :nargs "*"
-           :complete complete})))}
+           :complete complete})
+
+        (command! :CorpusMetaData #(metadata.update-file {:force? true}))
+
+        (command!
+          :Zet
+          #(zet.create)
+          {:force true
+           :desc "Create a new temp zettel note"})))}
+
+
+        ; (command!
+        ;   :Ref
+        ;   (ref.create)
+        ;   {:force true
+        ;    :desc "Create a new reference note"})))}
 
     {:event [:CmdlineEnter]
      :pattern :*
