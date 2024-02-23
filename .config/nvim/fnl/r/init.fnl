@@ -1,8 +1,12 @@
 (module r
   {require
    {a aniseed.core
-    str aniseed.string}
+    str aniseed.string
+    datetime r.datetime}
    require-macros [macros]})
+
+; hack to re-export imports
+(a.merge! *module* datetime)
 
 ;utils
 (def _ :placeholder)
