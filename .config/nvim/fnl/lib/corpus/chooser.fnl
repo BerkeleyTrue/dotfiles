@@ -15,6 +15,14 @@
 (var currently-selected nil)
 (def namespace (n create_namespace "corpus-chooser"))
 
+(defn get-width []
+  "Get the width of the chooser window."
+  (->
+    (o columns)
+    (/ 2)
+    (math.floor)
+    (math.max 0)))
+
 (defn- get-buffer []
   "Get the buffer for the chooser. If it doesn't exist, create it."
   (when (r.nil? buffer)
@@ -25,7 +33,7 @@
   "Get the window for chooser. If it doesn't exist, create it."
   (when (r.nil? window)
     (let [buffer (get-buffer)
-          width (/ (o columns) 2)]
+          width (get-width)]
       (set window (n open_win
                      buffer
                      false
@@ -116,9 +124,9 @@
   "Update the list of files in the buffer"
   (let [buffer (get-buffer)
         window (get-window)
-        width (o columns)
+        width (get-width)
         selected-idx (if (r.empty? results) nil 1)
-        _ (table.sort results)
+        _ (table.sort results) ; in place sort 🤮
         lines (->>
                 results
                 (r.to-pairs)
