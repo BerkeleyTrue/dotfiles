@@ -1,6 +1,7 @@
 ## To Do
 
 - tonksy fnl format
+- figure out why n/N (hlslens) adds newline if no match
 
 ## Doing
 
@@ -17,9 +18,11 @@
       - [x] figure out filename
       - [x] glob for file
         - [x] edit to open/create file
+  - [x] transpile lua code to fennel and commit
+  - [x] rewrite
   - [ ] implement auto updated-at date
-  - [ ] transpile lua code to fennel and commit
-  - [ ] rewrite
+  - [ ] add translate yaml to toml if found
+  - [ ] add zettel command
 
 ## Done
 
