@@ -42,16 +42,16 @@
 
 
    :routes [{:filter {:event :msg_show ; redirect Inspect to popup
-                      :any [{:find "Treesitter"}
-                            {:find "Extmarks"}
-                            {:find "Syntax"}
-                            {:find "Semantic Tokens"}]}
+                      :any [{:find "^Treesitter"}
+                            {:find "^Extmarks"}
+                            {:find "^Syntax"}
+                            {:find "^Semantic Tokens"}]}
              :view :popup}
 
             ; nvim treesitter TSInstallInfo
             {:filter {:event :msg_show
-                      :any [{:find "not installed"
-                             :find "installed"}]}
+                      :any [{:find "%[.*%] not installed$"}
+                            {:find "%[.*%] installed$"}]}
              :view :popup}]
 
    :presets {:lsp_doc_border true}})
