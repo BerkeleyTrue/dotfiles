@@ -64,6 +64,7 @@
       (tsconfigs.setup
         {:ensure_installed
          [:bash
+          :c ; required by nvim-treesitter or help docs are broken??
           :clojure
           :css
           :dockerfile
