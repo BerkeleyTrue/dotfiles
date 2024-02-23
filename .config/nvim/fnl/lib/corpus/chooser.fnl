@@ -4,9 +4,8 @@
     r r
     md utils.module
     utils utils
-    previewer lib.corpus.previewer}
-   require
-   {Job plenary.job}
+    previewer lib.corpus.previewer
+    {: run} lib.spawn}
    require-macros [macros]})
 
 (var buffer nil)
@@ -141,7 +140,8 @@
                               diff (- width (length padded))]
                           (if (> diff 0)
                             (.. padded (string.rep " " diff))
-                            padded)))))))]
+                            padded))))))
+                (r.map (fn [s] (string.gsub s "\n" ""))))]
     (set currently-selected selected-idx)
     (n buf_set_lines
        buffer
@@ -157,23 +157,20 @@
 (defn ls []
   "Get a list of markdown files in the git repository and return them to the callback"
   (when (not= current-job nil)
-    (current-job:shutdown))
+    (current-job))
 
   (set current-job
-       (Job:new
+       (run
          {:command :git
-          :args [:ls-files :--cached :--others :-- :*.md]
-          :on_exit
-          (vim.schedule_wrap
-            (fn list-on-exit [job]
-              (let [results (job:result)]
-                (update results))))}))
-  (current-job:start))
+          :args [:ls-files :--cached :--others :-- :*.md]}
+         (fn list-on-exit [ok results]
+           (when ok
+             (update results))))))
 
 (defn search [input cb]
   "Get a list of files in the directory using grep and return them to the callback"
   (when (not= current-job nil)
-    (current-job:shutdown))
+    (current-job))
   (let [terms (->>
                 input
                 (r.lmatch "%S+")
@@ -183,16 +180,13 @@
               terms
               :.]] ; can't make it match only mardown files
     (set current-job
-         (Job:new
+         (run
            {:command :ag
             :args args
-            :cwd "."
-            :on_exit
-            (vim.schedule_wrap
-              (fn search-on-exit [job err data]
-                (let [results (job:result)]
-                  (update results input))))}))
-    (current-job:start)))
+            :cwd "."}
+           (fn search-on-exit [ok results]
+             (when ok
+               (update results input)))))))
 
 
 (defn open [input]
