@@ -2,6 +2,8 @@
 
 - tonksy fnl format
 - builtin taskell in markdown files
+- build and create fennel help docs from fennel reference
+  > ala luaref helpdocs
 
 ## Doing
 
