@@ -20,9 +20,13 @@
         - [x] edit to open/create file
   - [x] transpile lua code to fennel and commit
   - [x] rewrite
-  - [ ] implement auto updated-at date
-  - [ ] add translate yaml to toml if found
+  - [x] implement auto updated-at date
+  - [x] add translate yaml to toml if found
+  - [ ] ensure space before ref links
   - [ ] add zettel command
+    - [ ] creates a temp file in 00-zettle
+    - [ ] on save, prompts for title
+    - [ ] kebab-cases file name and inserts metadata
 
 ## Done
 
