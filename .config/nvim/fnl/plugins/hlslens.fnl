@@ -34,8 +34,10 @@
   (n set_hl 0 :HlSearchVirtualTextNear {:fg (cl.->hex [276 20 76])}) ;  p.mauve
   (when-let [lens (md.prequire :hlslens)]
     (lens.setup {:override_lens override-lens})
-    (nnoremap :n (.. "<CMD>execute('normal! '.v:count1.'n')<CR><CMD>lua require('hlslens').start()<CR>") {:silent true})
-    (nnoremap :N (.. "<CMD>execute('normal! '.v:count1.'N')<CR><CMD>lua require('hlslens').start()<CR>") {:silent true})
+    ; currently there is a bug with noice that inserts <CR> after the command, so we use pipe instead
+    ; see: https://github.com/kevinhwang91/nvim-hlslens/issues/65
+    (nnoremap :n (.. "<CMD>execute('normal! '.v:count1.'n') | lua require('hlslens').start()<CR>") {:silent true})
+    (nnoremap :N (.. "<CMD>execute('normal! '.v:count1.'N') | lua require('hlslens').start()<CR>") {:silent true})
     (nnoremap :* (.. "*<CMD>lua require('hlslens').start()<CR>") {:silent true})
     (nnoremap :# (.. "#<CMD>lua require('hlslens').start()<CR>") {:silent true})
     (nmap :<ESC><ESC> ":noh<CR>" {:silent true})))

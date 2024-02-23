@@ -1,7 +1,7 @@
 ## To Do
 
 - tonksy fnl format
-- figure out why n/N (hlslens) adds newline if no match
+- builtin taskell in markdown files
 
 ## Doing
 
@@ -26,6 +26,7 @@
 
 ## Done
 
-- figure out nvim-cmp whitespace trigger
-- update packers to use make setup
-- move lazy/aniseed to nix
+- [x] figure out nvim-cmp whitespace trigger
+- [x] update packers to use make setup
+- [x] move lazy/aniseed to nix
+- [x] figure out why n/N (hlslens) adds newline if no match
