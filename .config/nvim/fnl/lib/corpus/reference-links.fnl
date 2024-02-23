@@ -7,9 +7,14 @@
     ts lib.corpus.treesitter}
    require-macros [macros]})
 
+(defn has-ref-defs? []
+  "Return true if the buffer contains reference definitions for links."
+  (r.not-empty? (ts.extract-link-reference-definitions)))
+
 (defn get-links-to-add []
+  "Return a list of link shortcuts that are not already defined in the reference definitions."
   (let [shortcuts (ts.extract-link-shortcuts)]
-    (when (not (r.empty? shortcuts))
+    (when (r.not-empty? shortcuts)
       (let [refdefs (->>
                       (ts.extract-link-reference-definitions)
                       (r.map (fn [{: label}] [(r.to-lower-case label) true]))
@@ -23,9 +28,16 @@
   (let [refdefs (->>
                   to-add
                   (r.map (fn [label] (.. "[" label "]: ./" (r.kebab-case label) ".md"))))]
+    ; while last line is not empty, delete line
+    (while (r.empty? (vf getline "$"))
+      (vf execute (.. (vf line "$") "d")))
+    ; when the last line of the buffer is not a ref-def, add an empty line
+    (when (not (has-ref-defs?))
+      (vf append "$" ""))
     (vf append "$" refdefs)))
 
 (defn update-file []
+  "Add new reference definitions to the current buffer."
   (case (get-links-to-add)
     [& refs] (add-new-ref-defs refs)
     _ (a.println "No new links to add.")))

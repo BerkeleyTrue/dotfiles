@@ -22,7 +22,7 @@
   - [x] rewrite
   - [x] implement auto updated-at date
   - [x] add translate yaml to toml if found
-  - [ ] ensure space before ref links
+  - [x] ensure space before ref links
   - [ ] add zettel command
     - [ ] creates a temp file in 00-zettle
     - [ ] on save, prompts for title
