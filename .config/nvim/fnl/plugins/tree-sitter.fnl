@@ -85,6 +85,7 @@
           :solidity
           :swift
           :templ
+          :toml
           :tsx
           :typescript
           :vim
