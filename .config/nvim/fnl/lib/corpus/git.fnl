@@ -55,13 +55,17 @@
     _new?))
 
 
-(defasync commit [file path]
+(defasync commit [file]
   "commit file, check if file is already in the index, if not add it and commit it."
-  (acase (<- (add file))
-    (pure new? (.. "docs: " (if new? :create :update) " " path " (corpus)"))
-    (<- subject (git :commit :-m subject :-- file))
-    (pure commit (a.println "Corpus: file committed: " file " " (r.join "\\n" commit)))
-    (catch err (a.println "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err))))) ; nil
+  (let [cwd (.. (vf getcwd) "/")
+        path (->
+               (vf fnamemodify file ":r")
+               (string.gsub cwd ""))]
+    (acase (<- (add file))
+      (pure new? (.. "docs: " (if new? :create :update) " " path " (corpus)"))
+      (<- subject (git :commit :-m subject :-- file))
+      (pure commit (a.println "Corpus: file committed: " file " " (r.join "\\n" commit)))
+      (catch err (a.println "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err)))))) ; nil
 
 (comment
   ((async (fn [] (let [(ok val) (await (commit (vf expand "%")))]
