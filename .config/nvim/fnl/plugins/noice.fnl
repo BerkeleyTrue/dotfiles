@@ -46,6 +46,12 @@
                             {:find "Extmarks"}
                             {:find "Syntax"}
                             {:find "Semantic Tokens"}]}
+             :view :popup}
+
+            ; nvim treesitter TSInstallInfo
+            {:filter {:event :msg_show
+                      :any [{:find "not installed"
+                             :find "installed"}]}
              :view :popup}]
 
    :presets {:lsp_doc_border true}})
