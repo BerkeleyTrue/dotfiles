@@ -7,7 +7,6 @@
    require {}
    require-macros [macros]})
 
-
 (defn timestamp []
   "Get an ISO 8601 timestamp."
   (os.date "%Y-%m-%dT%H:%M:%S%z"))

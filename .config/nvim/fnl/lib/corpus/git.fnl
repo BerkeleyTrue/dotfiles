@@ -40,18 +40,21 @@
 
 (comment
   (vf fnamemodify (vf expand "%") ":r")
-  ((async (fn [] (let [(ok val) (await (dirty? (vf expand "%:r")))]
+  ((async (fn [] (let [(ok val) (await (dirty? (vf expand "%")))]
                       (a.println :ok ok :dirty? val)))))
-  ((async (fn [] (let [(ok val) (await (new? "lazy-lock.json"))]
+  ((async (fn [] (let [(ok val) (await (dirty? "lazy-lock.json"))]
+                      (a.println :dirty? val)))))
+  ((async (fn [] (let [(ok val) (await (dirty? "foo.md"))]
                       (a.println :dirty? val))))))
 
 (defasync add [file]
   "Add file to the index."
   (let [(ok _new?) (await (new? file))]
-    (if _new?
+    (when _new?
       (let [(ok res) (await (git :add file))]
-        (a.println "Corpus: file added: " file res))
-      (a.println "Corpus: file already in index: " file))
+        (assert ok res)))
+        ; (a.println "Corpus: file added: " file res))
+      ; (a.println "Corpus: file already in index: " file))
     _new?))
 
 
@@ -60,13 +63,16 @@
   (let [cwd (.. (vf getcwd) "/")
         path (->
                (vf fnamemodify file ":r")
-               (string.gsub cwd ""))]
-    (acase (<- (add file))
-      (pure new? (.. "docs: " (if new? :create :update) " " path " (corpus)"))
-      (<- subject (git :commit :-m subject :-- file))
-      (pure commit (a.println "Corpus: file committed: " file " " (r.join "\\n" commit)))
-      (catch err (a.println "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err)))))) ; nil
+               (string.gsub cwd ""))
+        (ok dirty) (await (dirty? file))]
+    (when (and ok dirty)
+      (acase (<- (add file))
+        (pure new? (.. "docs: " (if new? :create :update) " " path " (corpus)"))
+        (<- subject (git :commit :-m subject :-- file))
+        (pure commit (print "Corpus: " file " committed. \n\n" (r.join "\n\t\t" commit)))
+        (catch err (a.println "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err))))))) ; nil
 
 (comment
+  (r.join "\n" ["foo" "bar"])
   ((async (fn [] (let [(ok val) (await (commit (vf expand "%")))]
                    (a.println :ok ok :dirty? val))))))
