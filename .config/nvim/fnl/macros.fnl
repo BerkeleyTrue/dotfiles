@@ -156,40 +156,110 @@
        (table.insert tbl# v#))
      tbl#))
 
-(defn when-let
-  [bindings ...]
+;; =<< conditional-let >=>
+
+(fn conditional-let-out [{: bind-expr
+                          : bind-expr-cond
+                          : value-expr
+                          : branch
+                          : body
+                          : rest-bindings}]
+
+  `(let [,bind-expr ,value-expr]
+     (,branch ,(or bind-expr-cond bind-expr)
+        ,(if (> (table.maxn (or rest-bindings [])) 0)
+           `(let ,rest-bindings
+              ,(unpack body))
+           (unpack body)))))
+
+; based on aniseed.macros.conditional-let
+; extended to allow extra non-conditional bindings in one table
+(fn conditional-let [branch bindings body]
   (assert
-     (= (type bindings) "table")
-     (.. "expects a table for its binding but found : " (tostring bindings)))
+    (table? bindings)
+    (.. "expects a table for its binding but found : " (tostring bindings)))
   (assert
-    (= 2 (table.maxn bindings)) "exactly 2 forms in binding vector")
-  (let [form (. bindings 1)
-        tst (. bindings 2)]
-    `(let [temp# ,tst]
-       (when temp#
-         (let [,form temp#]
-           ,...)))))
+    (= 0 (math.fmod (table.maxn bindings) 2))
+    (.. "expected even number of bindings but found " (table.maxn bindings)) " bindings")
+
+  (let [[bind-expr value-expr & rest-bindings] bindings
+        extra-bindings? (> (table.maxn rest-bindings) 0)]
+    (if
+      ;; Simple symbols
+      ;; [foo bar]
+      (sym? bind-expr)
+      (conditional-let-out {: bind-expr
+                            : value-expr
+                            : branch
+                            : rest-bindings
+                            : body})
+
+      ;; List / values destructure
+      ;; [(a b) c]
+      (list? bind-expr)
+      (do
+        ;; Even if the user isn't using the first slot, we will.
+        ;; [(_ val) (pcall #:foo)]
+        ;;  => [(bindGENSYM12345 val) (pcall #:foo)]
+        (when (= :_ (tostring (. bind-expr 1)))
+          (tset bind-expr 1 (gensym "bind")))
+        (conditional-let-out {: bind-expr
+                              : value-expr
+                              : branch
+                              : rest-bindings
+                              :bind-expr-cond (. bind-expr 1)
+                              : body}))
+
+
+      ;; Sequential and associative table destructure
+      ;; [[a b] c]
+      ;; [{: a : b} c]
+      (table? bind-expr)
+      `(let [value# ,value-expr
+             ,bind-expr (or value# {})]
+         (,branch value# ,(unpack body)))
+
+      ;; We should never get here, but just in case.
+      (assert (.. "unknown bind-expr type: " (type bind-expr))))))
+
+(defn when-let [bindings & body]
+  "when let macro. It is a combination of when and let.
+  It is used to bind a value to a name and then execute a block of code if the value is not nil.
+  (when-let [x (get-value)] (print x))
+  (when-let [x (get-value)
+             ; only the first is used for the condition
+             ; the rest around bound after the condition passes
+             y (get-value)]
+    (print x y))
+  (when-let [(ok? x) (get-value)]
+            ; a (boolean, any) tuple is used for the condition,
+            ; ok? must be true
+    (print ok? x))"
+  (conditional-let (sym :when) bindings body))
+
+(defn if-let [bindings & body]
+  "if-let macro. It is a combination of if and let.
+  It is used to bind a value to a name and then execute a block of code if the value is not nil.
+  (if-let [x (get-value)]
+    (print x)
+    (print 'x is nil')
+  (if-let [x (get-value)
+             ; only the first is used for the condition
+             ; the rest around bound after the condition passes
+             y (get-value)]
+    (print x y)
+    (print 'x is nil')
+  (if-let [(ok? x) (get-value)]
+            ; a (boolean, any) tuple is used for the condition,
+            ; ok? must be true, and x must exits (non-nil)
+    (print ok? x))"
+  (assert (= (length body) 2) "if-let expects exactly 2 branches")
+  (conditional-let (sym :if) bindings body))
 
 (defn when-not
   [test ...]
-  (list (sym :if)
-        (list (sym :not) test)
-        (list (sym :do) ...)))
-
-(defn if-let
-  [bindings then else]
-  (assert
-     (= (type bindings) "table")
-     (.. "expects a table for its binding but found : " (tostring bindings)))
-  (assert
-    (= 2 (table.maxn bindings)) "exactly 2 forms in binding vector")
-  (let [form (. bindings 1)
-        tst (. bindings 2)]
-    `(let [temp# ,tst]
-       (if temp#
-         (let [,form temp#]
-           ,then)
-         ,else))))
+  `(when (not ,test)
+     ,...))
 
 (defn logx [x]
   "(logx foo) ;=> (print \"foo: \" foo)"
