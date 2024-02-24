@@ -29,6 +29,7 @@
     - [x] creates a temp file in 00-zettle
     - [ ] on save, prompts for title
     - [ ] kebab-cases file name and inserts metadata
+  - [ ] ensure whitespace between metadata and content
   - [ ] add ref command
     - [ ] prompts user for title
     - [ ] creates a new file under 03-refs

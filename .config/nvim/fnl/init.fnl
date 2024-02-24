@@ -15,6 +15,7 @@
 (run-main :lib.corpus)
 (run-main :lib.accents)
 (run-main :lib.treesitter.queries)
+(run-main :lib.sexps)
 (let [cb (md.prequire :plugins.colorbuddy)
       palette (. (md.prequire :theme.palette) :palette)
       (ok theme-fns) (pcall cb.main palette)]
