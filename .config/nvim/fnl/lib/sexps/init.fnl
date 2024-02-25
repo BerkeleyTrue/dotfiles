@@ -23,12 +23,12 @@
   (xmap :if #(operation.in-form) {:desc "Select in a form"})
   (xmap :ir #(operation.in-root-form) {:desc "Select in the root form"})
 
-  (nmap :<i #(insertion.head) {:desc "Insert into head of form"})
-  (nmap :>i #(insertion.tail {:desc "Insert into tail of form"}))
+  (nmap :<leader>sh #(insertion.head) {:desc "Insert into head of form"})
+  (nmap :<leader>st #(insertion.tail) {:desc "Insert into tail of form"})
 
-  (nmap :<leader>w #(transformation.wrap-form) {:desc "Wrap form in a new form"})
-  (nmap :<leader>o #(transformation.unwrap-form) {:desc "Unwrap form"})
-  (nmap :<leader>O #(transformation.unwrap-element) {:desc "Unwrap element"})
+  (nmap :<leader>sw #(transformation.wrap-form) {:desc "Wrap form in a new form"})
+  (nmap :<leader>suf #(transformation.unwrap-form) {:desc "Unwrap form"})
+  (nmap :<leader>sue #(transformation.unwrap-element) {:desc "Unwrap element"})
 
   (nmap ">)" #(transformation.slurp-forward) {:desc "Slurp element forward"})
   (nmap "<)" #(transformation.barf-forward) {:desc "Barf element forward"})

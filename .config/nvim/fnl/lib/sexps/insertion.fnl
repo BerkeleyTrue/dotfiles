@@ -22,11 +22,11 @@
 
 (defn tail []
   (let [form (forms.find)
-        {: row : col} (forms.end form)
+        {: row : col} (tsnode.end form)
         end-col (- col 1)]
     (n buf-set-text 0 row end-col row end-col [" "])
     (n win-set-cursor 0 [(+ row 1) (+ col 1)])
     (n feedkeys :i :n true)))
 
 (comment
-  (nmap :<leader>it tail))
+  (nmap :<leader>st tail))
