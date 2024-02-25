@@ -1,12 +1,12 @@
 (module plugins.telescope
-  {require
+  {autoload
    {a aniseed.core
     r r
     md utils.module
     utils utils
-    hl utils.highlights
-
-    alt plugins.telescope.alternate
+    hl utils.highlights}
+   require
+   {alt plugins.telescope.alternate
     ag plugins.telescope.silver-searcher
     tabs plugins.telescope.tabs
     todos plugins.telescope.todos}
@@ -41,8 +41,8 @@
       :generic_sorter (. sorters :get_generic_fuzzy_sorter)
       :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]
       :mappings
-      {:n
-       {:qq (. actions :close)}}}}))
+      {:n {:qq (. actions :close)}
+       :i {:qq (. actions :close)}}}}))
 
 (defn setup-keymaps []
   (nnoremap :<leader>fg (utils.cviml->lua :telescope.builtin :git_files) {:silent true :desc "Open git files search"})
