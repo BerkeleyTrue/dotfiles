@@ -77,15 +77,20 @@
       {:event [:BufWritePre]
        :buffer 0
        :callback
-       (fn before-write []
-         (reflinks.update-file)
-         (metadata.update-file))}
+       (fn before-write [{: file}]
+         (if (zet.is-temp-zet? file)
+          (zet.on-pre-write)
+          (do
+            (a.println "Updating file" file)
+            (reflinks.update-file)
+            (metadata.update-file))))}
 
       {:event [:BufWritePost]
        :buffer 0
        :callback
        (fn after-write [{: file}]
-         ((git.commit file)))})))
+         (when-not (zet.is-temp-zet? file)
+          ((git.commit file))))})))
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
