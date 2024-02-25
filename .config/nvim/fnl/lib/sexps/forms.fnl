@@ -53,7 +53,6 @@
   "Get the root form under the cursor."
   (find-root-form (ts.get-node-under-cursor)))
 
-
 (defn elem? [node]
   (not= (node:type) :comment))
 
@@ -72,3 +71,6 @@
     (if (elem? node)
       node
       (next-elem node))))
+
+(defn parent [node]
+  (when node (node:parent)))

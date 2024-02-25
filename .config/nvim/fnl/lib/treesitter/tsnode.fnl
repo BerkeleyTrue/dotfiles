@@ -56,7 +56,6 @@
   (let [{: start : end} (range node)]
     (n buf-set-text 0 start.row start.col end.row end.col [])))
 
-
 (defn text [node]
   "Get the text of a node."
   (let [bufnr (n get-current-buf)]

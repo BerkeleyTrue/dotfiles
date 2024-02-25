@@ -18,7 +18,7 @@
   (nmap :<leader>h #(insertion.head) {:desc "Insert into head of form"})
   (nmap :<leader>H #(insertion.tail {:desc "Insert into tail of form"}))
 
-  (nmap :<localleader>i #(transformation.wrap) {:desc "Wrap form in a new form"})
+  (nmap :<localleader>i #(transformation.wrap-form) {:desc "Wrap form in a new form"})
   (nmap :<localleader>o #(transformation.unwrap-form) {:desc "Unwrap form"})
   (nmap :<localleader>O #(transformation.unwrap-element) {:desc "Unwrap element"})
 
