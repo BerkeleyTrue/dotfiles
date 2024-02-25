@@ -45,11 +45,13 @@
        {:qq (. actions :close)}}}}))
 
 (defn setup-keymaps []
-  (noremap :<leader>gf (utils.cviml->lua :telescope.builtin :git_files))
-  (noremap :<leader>ff (utils.cviml->lua :telescope.builtin :find_files))
-  (noremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps))
-  (noremap :<leader>fo (utils.cviml->lua :telescope.builtin :oldfiles {:args "{cwd_only = true}"}))
-  (noremap :z= (utils.cviml->lua :telescope.builtin :spell_suggest)))
+  (nnoremap :<leader>fg (utils.cviml->lua :telescope.builtin :git_files) {:silent true :desc "Open git files search"})
+  (nnoremap :<leader>ff (utils.cviml->lua :telescope.builtin :find_files) {:silent true :desc "Open files search"})
+  (nnoremap :<leader>fk (utils.cviml->lua :telescope.builtin :keymaps) {:silent true :desc "Open keymaps search"})
+  (nnoremap :<leader>fo (utils.cviml->lua :telescope.builtin :oldfiles {:args "{cwd_only = true}"}) {:silent true :desc "Open old files search"})
+  (nnoremap :<leader>fh (utils.cviml->lua :telescope.builtin :help_tags) {:silent true :desc "Open help tags search"})
+  (nnoremap :<leader>fl (utils.cviml->lua :telescope.builtin :highlights) {:silent true :desc "Open highlights search"})
+  (nnoremap :z= (utils.cviml->lua :telescope.builtin :spell_suggest) {:silent true :desc "Open spell suggest search"}))
 
 (defn setup-commands []
   (command! :HLights (utils.viml->lua :telescope.builtin :highlights))
