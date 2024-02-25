@@ -63,7 +63,6 @@
   "tree-sitter-templ": { "branch": "master", "commit": "592faa3186ef857c92e4bd1c31d73c07a4a334db" },
   "treesj": { "branch": "main", "commit": "60e27280030f9cd8dfb6ceb335922c6ff76682cc" },
   "twilight.nvim": { "branch": "main", "commit": "8b7b50c0cb2dc781b2f4262a5ddd57571556d1e4" },
-  "vim-better-whitespace": { "branch": "master", "commit": "029f35c783f1b504f9be086b9ea757a36059c846" },
   "vim-markdown": { "branch": "master", "commit": "772de97c97d37e5e22d7bd6884b17b858a687bc2" },
   "vim-matchup": { "branch": "master", "commit": "7f81ae12542b2a35819f0324895df9bd8626c8ba" },
   "vim-openscad": { "branch": "master", "commit": "11ed125209e2277d439cf6d0340c6fca263cb09b" },
