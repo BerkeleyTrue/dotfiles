@@ -1,6 +1,7 @@
 (module r.strings
   {autoload
    {a aniseed.core
+    astr aniseed.string
     r r
     md utils.module
     utils utils}
@@ -9,9 +10,9 @@
 
 (defn split [sep strng]
   "split strings by separator"
-  (str.split strng sep))
+  (astr.split strng sep))
 
-(defn upperFirst [s]
+(defn upper-first [s]
   "Converts the first character of string to upper case."
   (let [first (-> s (: :sub 1 1) (: :upper))
         rest (s:sub 2)]
@@ -59,9 +60,11 @@
       (words)
       (a.reduce cb ""))))
 
+; ==<Converters>==
+
 (defn pascal-case [str]
   "converts a string to PascalCase"
-  ((create-compounder (fn [acc word] (->> word (string.lower) (upperFirst) (.. acc))))
+  ((create-compounder (fn [acc word] (->> word (string.lower) (upper-first) (.. acc))))
    str))
 
 (defn kebab-case [str]
@@ -70,3 +73,7 @@
 
 (comment
   (kebab-case "foo  bar"))
+
+(defn starts-with? [str prefix]
+  "Checks if string starts with the given prefix."
+  (string.find str prefix 1 true))

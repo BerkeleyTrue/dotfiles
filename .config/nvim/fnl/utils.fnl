@@ -1,7 +1,6 @@
 (module utils
   {require
-   {
-    a aniseed.core
+   {a aniseed.core
     nvim aniseed.nvim
     nutils aniseed.nvim.util
     r r
@@ -19,7 +18,7 @@
   Creates a global Vim function that will call a lua/fnl module function
   Given a module foo.bar-baz and a function do-thing, the global vim function name will be formated
   Foo_bar_baz_do_thing"
-  (let [Mod (r.upperFirst mod)
+  (let [Mod (r.upper-first mod)
         func-name (viml-name-format (.. Mod "_" name "_viml"))]
     (nutils.fn-bridge func-name mod name opts)
     func-name))
