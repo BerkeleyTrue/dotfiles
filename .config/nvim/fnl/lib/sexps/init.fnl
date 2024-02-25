@@ -11,10 +11,17 @@
    require-macros [macros]})
 
 (defn setup []
+  ; operator pending
   (omap :af #(operation.around-form) {:desc "Select around a form"})
   (omap :ar #(operation.around-root-form) {:desc "Select around the root form"})
   (omap :if #(operation.in-form) {:desc "Select in a form"})
-  (omap :ir #(operation.in-root) {:desc "Select in the root form"})
+  (omap :ir #(operation.in-root-form) {:desc "Select in the root form"})
+
+  ; selection
+  (xmap :af #(operation.around-form) {:desc "Select around a form"})
+  (xmap :ar #(operation.around-root-form) {:desc "Select around the root form"})
+  (xmap :if #(operation.in-form) {:desc "Select in a form"})
+  (xmap :ir #(operation.in-root-form) {:desc "Select in the root form"})
 
   (nmap :<i #(insertion.head) {:desc "Insert into head of form"})
   (nmap :>i #(insertion.tail {:desc "Insert into tail of form"}))

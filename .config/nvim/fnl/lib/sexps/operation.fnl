@@ -26,17 +26,25 @@
 
 (defn- in-this-form [form]
   (let [{: start : end} (tsnode.range form)
-        offset (forms.->offset form)]
+        offset (forms.->offset form)
+        mode (vf mode)
+        selecting? (r.includes? [:v :vs :V :Vs :s :S] mode)]
     (n win-set-cursor 0 [(+ start.row 1) (+ start.col offset)])
-    (n command "normal! v")
+    (when-not selecting?
+      (n command "normal! v"))
     (n win-set-cursor 0 [(+ end.row 1) (- end.col 2)])))
+
+(comment
+  (in-this-form (forms.find))
+  (in-this-form (forms.find-root)))
 
 (defn in-form []
   (when-let [form (forms.find)]
     (in-this-form form)))
 
 (comment
-  (omap :if in-form {:desc "Select in a form"}))
+  (omap :if in-form {:desc "Select in a form"})
+  (xmap :if in-form {:desc "Select in a form"}))
 
 (defn in-root-form []
   (when-let [form (forms.find-root)]
