@@ -23,12 +23,12 @@
 
 ; easy insert escape
 (->>
-  {:jj :<ESC>
-   :kk :<ESC>}
+  {:jj :<ESC>jj
+   :kk :<ESC>kk}
   (r.to-pairs)
   (r.for-each (fn [[from to]] (inoremap from to))))
 
-; window nav
+; ==<window navigati
 (->>
   {:<C-h> :<C-w>h
    :<C-j> :<C-w>j
@@ -38,6 +38,14 @@
    :<C-w>hv :<C-w>t<C-w>H}
   (r.to-pairs)
   (r.for-each (fn [[from to]] (nnoremap from to))))
+
+; ==<buffer navigation>==
+(nnoremap :<leader>bn ":bnext<CR>" {:desc "go to next buffer" :silent true})
+(nnoremap :<leader>bp ":bprevious<CR>" {:desc "go to previous buffer" :silent true})
+
+; ==<tab navigation>==
+(nnoremap :<leader>tn ":tabnext<CR>" {:desc "go to next tab" :silent true})
+(nnoremap :<leader>tp ":tabprevious<CR>" {:desc "go to previous tab" :silent true})
 
 ; |-move to the end of the line in visual mode
 (vnoremap :L :g_)
@@ -68,13 +76,8 @@
   (r.to-pairs)
   (r.for-each (fn [[from to]] (imap from to))))
 
-; I keep hitting this on failed :q's
-; Open commandline instead and wait for further commands
-; use <C-f> while in command mode to access this instead
-(nnoremap :q: ":")
-
 ; sort lines in visual mode
-(vnoremap :<leader>s ::sort<cr>)
+(vnoremap :<leader>s ":sort<cr>")
 
 ; insert new line on enter
 (nnoremap :<cr> :o<esc>)
