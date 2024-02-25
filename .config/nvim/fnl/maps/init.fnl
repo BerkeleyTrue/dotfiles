@@ -28,7 +28,7 @@
   (r.to-pairs)
   (r.for-each (fn [[from to]] (inoremap from to))))
 
-; ==<window navigati
+; ==<window navigation>==
 (->>
   {:<C-h> :<C-w>h
    :<C-j> :<C-w>j
@@ -160,3 +160,5 @@
 (nmap :gcw (preserve-cursor-loc "eb~" :q) {:silent true})
 ; TODO: preserve highlight
 (vmap :gcw (preserve-cursor-loc "<esc>eb~`qv" :q "v") {:silent true})
+
+(nnoremap :<leader>m ":messages<CR>" {:desc "show messages" :silent true})
