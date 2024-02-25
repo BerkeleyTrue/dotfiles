@@ -107,7 +107,7 @@
     (n feedkeys :i :n true)))
 
 (comment
-  (nmap :<localleader>i wrap-form))
+  (nmap :<localleader>w wrap-form))
 
 (defn unwrap-form []
   (when-let [form (forms.find)]
@@ -120,15 +120,16 @@
       (n win-set-cursor 0 [(+ start.row 1) start.col]))))
 
 (comment
-  (nmap :<localleader>o unwrap-form))
+  (nmap :<localleader>u unwrap-form))
 
 (defn unwrap-element []
   (let [element (ts.get-node-under-cursor)
         parent (forms.parent element)
+        offset (forms.->offset parent)
         text (tsnode.text element)
         {: start : end} (tsnode.range parent)]
     (n buf-set-text 0 start.row start.col end.row end.col [text])
     (n win-set-cursor 0 [(+ start.row 1) start.col])))
 
 (comment
-  (nmap :<localleader>O unwrap-element))
+  (nmap :<localleader>U unwrap-element))
