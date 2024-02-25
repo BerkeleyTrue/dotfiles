@@ -5,12 +5,13 @@
     md utils.module
     utils utils
     forms lib.sexps.forms
-    ts lib.treesitter}
+    ts lib.treesitter
+    tsnode lib.treesitter.node}
    require {}
    require-macros [macros]})
 
 (defn- in-this-form [form]
-  (let [{: start : end} (ts.get-node-range (form:range))
+  (let [{: start : end} (tsnode.range form)
         offset (forms.->offset form)]
     (n win-set-cursor 0 [(+ start.row 1) (+ start.col offset)])
     (n command "normal! v")

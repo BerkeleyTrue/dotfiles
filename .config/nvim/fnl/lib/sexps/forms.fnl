@@ -4,7 +4,8 @@
     r r
     md utils.module
     utils utils
-    ts lib.treesitter}
+    ts lib.treesitter
+    tsnode lib.treesitter.tsnode}
    require {}
    require-macros [macros]})
 
@@ -41,7 +42,7 @@
 (defn- find-root-form [node]
   "Find the root form of the current form.
   Returns nil if no root form is found"
-  (let [{: col} (ts.start node)]
+  (let [{: col} (tsnode.start node)]
     (if (and (form? node)
              (= col 0))
       node
@@ -51,3 +52,23 @@
 (defn find-root []
   "Get the root form under the cursor."
   (find-root-form (ts.get-node-under-cursor)))
+
+
+(defn elem? [node]
+  (not= (node:type) :comment))
+
+(defn next-elem [node]
+  "Get the next element in a form.
+  Returns nil if no next element is found."
+  (when-let [node (node:next_sibling)]
+    (if (elem? node)
+      node
+      (next-elem node))))
+
+(defn prev-elem [node]
+  "Get the prev element in a form.
+  Returns nil if no next element is found."
+  (when-let [node (node:prev_sibling)]
+    (if (elem? node)
+      node
+      (next-elem node))))

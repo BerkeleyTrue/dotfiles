@@ -23,9 +23,10 @@
   (nmap :<localleader>O #(transformation.unwrap-element) {:desc "Unwrap element"})
 
   (nmap ">)" #(transformation.slurp-forward) {:desc "Slurp element forward"})
+  (nmap "<)" #(transformation.barf-forward) {:desc "Barf element forward"})
+
   (nmap "<(" #(transformation.slurp-backward) {:desc "Slurp element backward"})
-  (nmap ">(" #(transformation.barf-backward) {:desc "Barf element backward"})
-  (nmap "<)" #(transformation.barf-forward) {:desc "Barf element forward"}))
+  (nmap ">(" #(transformation.barf-backward) {:desc "Barf element backward"}))
 
 (defn main []
   (augroup :LibSexps
