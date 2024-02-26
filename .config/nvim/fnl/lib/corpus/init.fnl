@@ -78,12 +78,8 @@
        :buffer 0
        :callback
        (fn before-write [{: file}]
-         (if (zet.is-temp-zet? file)
-          (zet.on-pre-write)
-          (do
-            (a.println "Updating file" file)
-            (reflinks.update-file)
-            (metadata.update-file))))}
+         (reflinks.update-file)
+         (metadata.update-file))}
 
       {:event [:BufWritePost]
        :buffer 0
