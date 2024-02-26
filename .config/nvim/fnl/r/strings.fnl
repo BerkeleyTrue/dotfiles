@@ -69,10 +69,10 @@
 
 (defn kebab-case [str]
   "converts a string to kebab-case"
-  (vf substitute str "\\s\\+" "-" "g"))
+  (vf substitute (vim.trim str) "\\s\\+" "-" "g"))
 
 (comment
-  (kebab-case "foo  bar"))
+  (kebab-case " foo  bar"))
 
 (defn starts-with? [str prefix]
   "Checks if string starts with the given prefix."
