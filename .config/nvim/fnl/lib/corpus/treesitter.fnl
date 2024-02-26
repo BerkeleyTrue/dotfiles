@@ -132,14 +132,16 @@
 
 (comment (command! :CorpusExtractLinkRefDef (fn [] (a.println (extract-link-reference-definitions)))))
 
-(def link-shortcut-query "(shortcut_link (link_text) @shortcut_link)")
+(def link-shortcut-query
+  "(shortcut_link
+     (link_text) @shortcut_link (#match? @shortcut_link \"\\v^\\S{3}\"))")
 
 (defn extract-link-shortcuts []
   "Grabs all the link shortcut labels from the current buffer and returns them as a list of strings."
   (let [bufnr (n get_current_buf)
         parser (parsers.get_parser bufnr)
         inlines (. (parser:children) :markdown_inline)
-        get-text (fn get-gt [mtch] (-> (. mtch :shortcut_link :node) (vim.treesitter.get_node_text bufnr)))]
+        get-text (fn get-gt [mtch] (-> (. mtch :shortcut_link :node) (tsnode.text)))]
 
     (var out [])
     (when (r.not-empty? inlines)
@@ -151,7 +153,7 @@
             (fn [tree]
               (let [root (tree:root)]
                 (icollect [_ node (parsed-query:iter_captures root 0)]
-                  (table.insert out (vim.treesitter.get_node_text node bufnr))))))
+                  (table.insert out (tsnode.text node))))))
           out)))))
 
 (comment

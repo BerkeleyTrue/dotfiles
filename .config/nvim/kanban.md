@@ -32,6 +32,7 @@
     - [x] creates a temp file in 00-zettle
     - [x] on save, prompts for title
     - [x] kebab-cases file name and inserts metadata
+  - [ ] insert mode <C-[> should create a completion list with corpus search
   - [ ] ensure whitespace between metadata and content
   - [ ] add ref command
     - [ ] prompts user for title
