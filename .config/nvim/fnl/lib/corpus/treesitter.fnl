@@ -5,7 +5,8 @@
     md utils.module
     utils utils
     parsers nvim-treesitter.parsers
-    ts lib.treesitter}
+    ts lib.treesitter
+    tsnode lib.treesitter.tsnode}
    require
    {query nvim-treesitter.query}
    require-macros [macros]})
@@ -28,7 +29,7 @@
     (query.iter_prepared_matches parsed-query root bufnr start-row end-row)))
 
 (defn replace-node [bufnr node new-text]
-  (let [lsp-range (ts.get-node-range node)]
+  (let [lsp-range (tsnode.range node)]
      (vim.lsp.util.apply_text_edits
        [{:range lsp-range :newText new-text}]
        bufnr
