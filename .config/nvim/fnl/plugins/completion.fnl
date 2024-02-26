@@ -6,6 +6,7 @@
     utils utils
     keys utils.keys
     hl utils.highlights
+    cmp cmp
     lspkind lspkind}
    require {}
    require-macros [macros]})
@@ -44,108 +45,105 @@
   "Close popup if we are on ./,/ or space.
    Open popup if we are on a word. "
   ; (print "open-on-insert")
-  (when-let [cmp (md.prequire :cmp)]
-    (let [line (vim.api.nvim_get_current_line)
-          cursor (. (vim.api.nvim_win_get_cursor 0) 2)
-          current (string.sub line cursor (+ cursor 1))]
-      (when (or (= current ".")
-                (= current ",")
-                (= current " "))
-        ; (print "close")
-        (cmp.close))
-      (let [before-line (string.sub line 1 (+ cursor 1))
-            after-line (string.sub line (+ cursor 1) (- 1))]
-        (when (not (string.match before-line "^%s+$"))
-          (when (or (= after-line "")
-                    (string.match before-line " $")
-                    (string.match before-line "%.$"))
-            ; (print "open")
-            (cmp.complete)))))))
+  (let [line (n get-current-line)
+        [_ cursor] (n win-get-cursor 0)
+        current (string.sub line cursor (+ cursor 1))]
+    (when (or (= current ".")
+              (= current ",")
+              (= current " "))
+      ; (print "close")
+      (cmp.close))
+    (let [before-line (string.sub line 1 (+ cursor 1))
+          after-line (string.sub line (+ cursor 1) (- 1))]
+      (when (not (string.match before-line "^%s+$"))
+        (when (or (= after-line "")
+                  (string.match before-line " $")
+                  (string.match before-line "%.$"))
+          ; (print "open")
+          (cmp.complete))))))
 
-(comment (open-on-insert))
+(defn init []
+  (inoremap :<C-s> #(cmp.complete) {:silent true}) ; Manually trigger completion
+  (augroup
+    :AutoPopup
+    {:event [:TextChangedI :TextChangedP]
+     :pattern :*
+     :callback open-on-insert}))
 
 (defn main []
-  (when-let [cmp (md.prequire :cmp)]
-    (inoremap :<C-s> "<Cmd>lua require('cmp').complete()<CR>" {:silent true}) ; Manually trigger completion
-    (augroup
-      :AutoPopup
-      {:event [:TextChangedI :TextChangedP]
-       :pattern :*
-       :callback open-on-insert})
+  (let [luasnip (md.prequire :luasnip)]
+    (cmp.setup
+      {:enabled (fn cmp-enabled? []
+                  (let [buftype (n buf_get_option 0 :buftype)]
+                    (not= buftype :prompt)))
 
-    (let [luasnip (md.prequire :luasnip)]
-      (cmp.setup
-        {:enabled (fn cmp-enabled? []
-                    (let [buftype (n buf_get_option 0 :buftype)]
-                      (not= buftype :prompt)))
+       :sources (get-sources)
+       :snippet
+       {:expand (fn [args]
+                  (when luasnip
+                    (luasnip.lsp_expand args.body)))}
 
-         :sources (get-sources)
-         :snippet
-         {:expand
-          (fn [args]
-            (when luasnip
-              (luasnip.lsp_expand args.body)))}
+       :mapping
+       {:<C-y>
+        (cmp.mapping
+          {:c
+            (cmp.mapping.confirm
+              {:behavior cmp.ConfirmBehavior.Insert}
+              :select true)
+            :i
+            (fn []
+              (comment (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry))))
+              (if (and luasnip (not (cmp.get_active_entry)))
+                (luasnip.expand_auto))
+              (cmp.confirm
+                {:behavior cmp.ConfirmBehavior.Insert}
+                :select false))}
+          [:i :s :c])
 
-         :mapping
-         {:<C-y>
-          (cmp.mapping
-            {:c
-             (cmp.mapping.confirm
-               {:behavior cmp.ConfirmBehavior.Insert
-                :select true})
-             :i
-             (fn []
-               (comment (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry))))
-               (if (and luasnip (not (cmp.get_active_entry)))
-                 (luasnip.expand_auto))
-               (cmp.confirm
-                 {:behavior cmp.ConfirmBehavior.Insert
-                  :select false}))}
-            [:i :s :c])
+        :<C-n>
+        (cmp.mapping
+          (fn [fallback]
+            (if (cmp.visible) (cmp.select_next_item)
+              (fallback)))
+          [:i :c])
 
-          :<C-n>
-          (cmp.mapping
-            (fn [fallback]
-              (if (cmp.visible) (cmp.select_next_item)
-                (fallback)))
-            [:i :c])
+        :<C-p>
+        (cmp.mapping
+          (fn [fallback]
+            (if (cmp.visible) (cmp.select_prev_item)
+              (fallback)))
+          [:i :c])
 
-          :<C-p>
-          (cmp.mapping
-            (fn [fallback]
-              (if (cmp.visible) (cmp.select_prev_item)
-                (fallback)))
-            [:i :c])
+        :<C-d> (cmp.mapping.scroll_docs -4)
+        :<C-f> (cmp.mapping.scroll_docs 4)
+        :<C-e> (cmp.mapping.close)}
 
-          :<C-d> (cmp.mapping.scroll_docs -4)
-          :<C-f> (cmp.mapping.scroll_docs 4)
-          :<C-e> (cmp.mapping.close)}
+       :formatting
+       {:format (create-formatter)}
 
-         :formatting
-         {:format (create-formatter)}
+       :experimental
+       {:native_menu false}
 
-         :experimental
-         {:native_menu false
-          :ghost_text false}
-         :window
-         {:completion (cmp.config.window.bordered)
-          :documentation (cmp.config.window.bordered)}}))
+       :ghost_text false
+       :window
+       {:completion (cmp.config.window.bordered)
+        :documentation (cmp.config.window.bordered)}}))
 
-    ; Adds completion popup to command line!!!!
-    (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
+  ; Adds completion popup to command line!!!!
+  (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
 
-    (hl.link! :CmpItemAbbr :Comment)
-    (hl.link! :CmpItemAbbrDeprecated :Error)
-    (hl.link! :CmpItemAbbrMatchFuzz :BerksSubtle)
-    (hl.link! :CmpItemKind :Special)
-    (hl.link! :CmpItemMenu :NonText)
+  (hl.link! :CmpItemAbbr :Comment)
+  (hl.link! :CmpItemAbbrDeprecated :Error)
+  (hl.link! :CmpItemAbbrMatchFuzz :BerksSubtle)
+  (hl.link! :CmpItemKind :Special)
+  (hl.link! :CmpItemMenu :NonText)
 
-    (when-let [apcmp (md.prequire :nvim-autopairs.completion.cmp)]
-      (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}})))
+  (when-let [apcmp (md.prequire :nvim-autopairs.completion.cmp)]
+    (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}})))
 
-    (when-let [dic (md.prequire :cmp_dictionary)]
-      (dic.setup
-        {:document {:enable true
-                    :command ["wn" "${label}" "-over"]}
-         :max_number_items 100
-         :paths [(vim.fn.expand "~/.local/share/aspell/english")]}))))
+  (when-let [dic (md.prequire :cmp_dictionary)]
+    (dic.setup
+      {:document {:enable true
+                  :command ["wn" "${label}" "-over"]}
+        :max_number_items 100
+        :paths [(vim.fn.expand "~/.local/share/aspell/english")]})))
