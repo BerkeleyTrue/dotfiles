@@ -35,8 +35,9 @@
         (let [filename (vf fnameescape (.. zettel-dir "/" (r.kebab-case title) ".md"))]
           (n del-augroup-by-name lib-augroup)
           (n buf-set-name 0 filename)
-          (metadata.update-file {:force? true}))
-        (vim.print "Title too short."))))
+          (metadata.update-file {:force? true})
+          (command "write")
+        (vim.print "Title too short.")))))
 
   (doto
     (Input popup-opts
