@@ -36,8 +36,8 @@
           (n del-augroup-by-name lib-augroup)
           (n buf-set-name 0 filename)
           (metadata.update-file {:force? true})
-          (command "write")
-        (vim.print "Title too short.")))))
+          (command "write"))
+        (vim.print "Title too short."))))
 
   (doto
     (Input popup-opts
