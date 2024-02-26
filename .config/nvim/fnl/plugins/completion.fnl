@@ -1,32 +1,31 @@
 (module plugins.completion
-  {require
+  {autoload
    {a aniseed.core
     r r
     md utils.module
     utils utils
     keys utils.keys
     hl utils.highlights
-    lspkind plugins.lspkind}
-
+    lspkind lspkind}
+   require {}
    require-macros [macros]})
 
 (defn- create-formatter []
-  (when-let [lspkind (lspkind.main)]
-    (lspkind.cmp_format
-      {:mode :text_symbol
-       :menu
-       {:nvim_lsp "[LSP]"
-        :conjure "[conj]"
-        :luasnip "[snip]"
-        :buffer "[buf]"
-        :nvim_lua "[lua]"
-        :path "[path]"
-        :emoji "[😏]"
-        :cmdline "[cmd]"
-        :buffer "[buff]"
-        :tmux "[tmux]"
-        :dictionary "[dic]"
-        :treesitter "[tree]"}})))
+  (lspkind.cmp_format
+    {:mode :text_symbol
+     :menu
+     {:nvim_lsp "[LSP]"
+      :conjure "[conj]"
+      :luasnip "[snip]"
+      :buffer "[buf]"
+      :nvim_lua "[lua]"
+      :path "[path]"
+      :emoji "[😏]"
+      :cmdline "[cmd]"
+      :buffer "[buff]"
+      :tmux "[tmux]"
+      :dictionary "[dic]"
+      :treesitter "[tree]"}}))
 
 (defn get-sources []
   [{:name :luasnip}
@@ -38,7 +37,8 @@
    {:name :nvim_lua}
    {:name :dictionary :keyword_length 2 :max_item_count 5}
    {:name :buffer :keyword_length 5}
-   {:name :emoji :insert true :max_item_count 5}])
+   {:name :emoji :insert true :max_item_count 5}
+   {:name :corpus}])
 
 (defn open-on-insert []
   "Close popup if we are on ./,/ or space.

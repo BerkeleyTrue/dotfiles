@@ -24,7 +24,8 @@
    {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :dependencies [[:nvim-telescope/telescope.nvim]]}
 
    ; lsp/completion
-   {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion)}
+   {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
+   {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion) :dependencies [[:onsails/lspkind-nvim]]}
    {:name :hrsh7th/cmp-nvim-lsp :description "cmp lsp"}
    {:name :hrsh7th/cmp-buffer :description "cmp buffer"}
    {:name :hrsh7th/cmp-path :description "adds path completion."}
@@ -33,7 +34,6 @@
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
    {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)}
-   {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
    {:name :nvimdev/guard.nvim :description "Async formatting and linting utility for neovim." :config (make-on-load guard) :dependencies [[:nvimdev/guard-collection]]}
    {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
    {:name :b0o/schemastore.nvim :description "adds schemastore to jsonls through lspconfig" :dependencies [[:neovim/nvim-lspconfig]] :lazy false}
