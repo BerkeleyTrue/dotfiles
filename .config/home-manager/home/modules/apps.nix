@@ -53,8 +53,8 @@
   };
 in {
   home.packages = with pkgs; [
-    # (nixGLWrap kitty) # GPU-accelerated terminal emulator
-    # (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
+    (nixGLWrap kitty) # GPU-accelerated terminal emulator
+    (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
     cutecom # serial terminal
     enDict # My dictionary
     gparted # graphical partition manager
