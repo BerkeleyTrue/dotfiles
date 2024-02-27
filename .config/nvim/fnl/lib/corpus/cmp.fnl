@@ -4,11 +4,13 @@
     r r
     md utils.module
     utils utils
-    ftdetect lib.corpus.ftdetect}
+    ftdetect lib.corpus.ftdetect
+    {: run} lib.spawn}
    require {}
    require-macros [macros]})
 
 (def- the-regx "\\[\\zs[^\\]]*\\ze\\]\\?")
+(var current-job nil)
 
 (defn create-source []
   {:is_available #(ftdetect.ftdetect)
@@ -23,10 +25,26 @@
            search (input:sub params.offset)]
        (a.println "search" search (r.not-empty? search))
        (if (r.not-empty? search)
-         (callback
-           {:items
-            [{:label "Some reference" :kind 18 :documentation "Some documentation of the ref"}]
-            :isIncomplete true})
+         (let [terms (->>
+                       search
+                       (r.lmatch "%S+")
+                       (r.join "|"))]
+           (when current-job
+             (current-job))
+           (fn handle-results [ok? results]
+             (when ok?
+               (let [items (->>
+                             results
+                             (r.map #(vim.fn.fnamemodify $ ":r"))
+                             (r.map #{:label $ :kind 18}))]
+                 (callback {:items items :isIncomplete false}))))
+           (set current-job
+             (run {:command :ag
+                   :args [:--silent
+                          :--files-with-matches
+                          terms
+                          :.]}
+                  handle-results)))
          (callback {:items [{:label :foo}]
                     :isIncomplete true}))))
 
