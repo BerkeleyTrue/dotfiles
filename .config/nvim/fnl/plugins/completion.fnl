@@ -32,14 +32,15 @@
 (defn get-sources []
   [{:name :luasnip}
    {:name :nvim_lsp}
-   {:name :conjure :max_item_count 50}
+   {:name :conjure :max_item_count 100}
    {:name :path}
    {:name :tmux}
    {:name :treesitter} ; Not sure if this is working yet
    {:name :nvim_lua}
-   {:name :dictionary :keyword_length 2 :max_item_count 50}
+   {:name :dictionary :max_item_count 200}
    {:name :buffer :keyword_length 5}
-   {:name :emoji :insert true :max_item_count 50}])
+   {:name :emoji :insert true :max_item_count 50}
+   {:name :corpus}])
 
 (defn open-on-insert []
   "Manually open the completion pom when we are in empty space.
@@ -125,6 +126,7 @@
 
      :experimental {:native_menu false
                     :ghost_text false}
+     :performance {:max_view_entries 20}
      :window
      {:completion (cmp.config.window.bordered)
       :documentation (cmp.config.window.bordered)}})
