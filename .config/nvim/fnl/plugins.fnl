@@ -14,8 +14,7 @@
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
-   {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
-   {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun!"}
+   {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun! hit double double quote to see a popup of the contents of registers"}
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}
 
    ; search
@@ -24,13 +23,20 @@
    {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :dependencies [[:nvim-telescope/telescope.nvim]]}
 
    ; lsp/completion
+   {:name :hrsh7th/nvim-cmp
+    :description "completion popup engine"
+    :init (make-init completion)
+    :config (make-on-load completion)
+    :dependencies [[:onsails/lspkind-nvim]
+                   [:saadparwaiz1/cmp_luasnip]
+                   [:L3MON4D3/luasnip]]}
+   {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
    {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
-   {:name :hrsh7th/nvim-cmp :description "completion engine" :config (make-on-load completion) :dependencies [[:onsails/lspkind-nvim]]}
+   {:name :saadparwaiz1/cmp_luasnip :description "adds luasnip source"}
    {:name :hrsh7th/cmp-nvim-lsp :description "cmp lsp"}
    {:name :hrsh7th/cmp-buffer :description "cmp buffer"}
    {:name :hrsh7th/cmp-path :description "adds path completion."}
    {:name :hrsh7th/cmp-cmdline :description "Adds command line completion."}
-   {:name :saadparwaiz1/cmp_luasnip :description "adds luasnip source"}
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
    {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)}
