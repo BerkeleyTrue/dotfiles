@@ -32,7 +32,11 @@
     - [x] creates a temp file in 00-zettle
     - [x] on save, prompts for title
     - [x] kebab-cases file name and inserts metadata
-  - [ ] insert mode <C-[> should create a completion list with corpus search
+  - [ ] fix issue with opening files outside of corpus directory
+    - use buffer directory instead of cwd
+  - [ ] insert mode '[' should create a completion list with corpus search
+    - [x] list items from corpus
+    - [ ] add document view
   - [ ] ensure whitespace between metadata and content
   - [ ] add ref command
     - [ ] prompts user for title
