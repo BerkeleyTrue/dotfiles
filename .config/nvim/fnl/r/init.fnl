@@ -4,84 +4,15 @@
     str aniseed.string}
    require
    {datetime r.datetime
-    _strings r.strings}
+    _strings r.strings
+    fns r.functions}
    require-macros [macros]})
 
 ; hack to re-export imports
 (a.merge! *module* datetime)
+(a.merge! *module* fns)
 (a.merge! *module* _strings)
 
-;utils
-(def _ :placeholder)
-(defn curry [func arity]
-  "Creates a function that accepts arguments of func and either invokes func returning its result,
-  if at least arity number of arguments have been provided, or returns a function that
-  accepts the remaining func arguments, and so on. The arity of func may be specified."
-  (assert
-    (= (type func) "function")
-    (.. "curry expected a function but received: " (tostring func)))
-  (assert
-    (if arity (= (type arity) "number") true)
-    (.. "curry expected an optional arity of type number but received: " (tostring arity)))
-  (let [arity (or arity (. (debug.getinfo func "u") :nparams))]
-    (if
-      (< arity 1) func
-      (do
-        (defn wrapper [args needed]
-          (if
-            (< needed 1) (func (unpack args))
-            (fn [...]
-              (let [args (a.concat args [...])
-                    needed (- needed (select :# ...))]
-                (wrapper args needed)))))
-        (wrapper [] arity)))))
-
-(def is-equal (curry #(= $1 $2)))
-
-(defn rearg [func indexes]
-  (assert (not (a.some (is-equal 0) indexes)) "Lua/fennel is 1 indexed")
-  (fn [...]
-    (let
-      [args [...]
-       newargs (a.reduce
-                 (fn [newargs idx]
-                   (table.insert newargs (a.get args idx))
-                   newargs)
-                 []
-                 indexes)]
-      (func (unpack newargs)))))
-
-;; ### funcs
-(def const a.constantly)
-(def noop (const nil))
-(defn call [f]
-  (assert (= (type f) :function) (.. "expected f to be a function but found: " (tostring f)))
-  (f))
-
-(def apply
-  (curry
-    (fn [f args] (f (unpack args)))))
-
-(defn over [...]
-  "Creates a function that invokes each provided function with the
-  arguments the resulting function receives and returns the results.
-  ((over max min) [1 2 3 4 5]) => [5 1]"
-  (let [fs [...]]
-    (fn [...]
-      (let [args [...]]
-        (a.map
-          (fn [f] (apply f args))
-          fs)))))
-
-(defn negate [f]
-  "Creates a function that negates the result of the predicate func."
-  (fn negator [...] (not (f ...))))
-
-(defn void [f]
-  "Creates a function invokes f with the provided arguments and returns nil."
-  (fn voider [...]
-    (f ...)
-    nil))
 
 ;; ### tables - data first
 (def get a.get)
@@ -127,14 +58,14 @@
   (a.map-indexed f xs))
 
 (def filter
-  (curry
+  (fns.curry
     (fn [predicate arr]
       (assert (= (type predicate) :function) (.. "Expected a function as the first argument but found " (tostring predicate)))
       (assert (= (type arr) :table) (.. "Expected a seq as the second argument but found " (tostring arr)))
       (a.filter predicate arr))))
 
 (def reject
-  (curry
+  (fns.curry
     (fn [func arr]
       (filter #(not (func $...)) arr))))
 
@@ -293,7 +224,7 @@
 
 ;; ### utils
 (def range
-  (curry
+  (fns.curry
     (fn [start end]
       (let [result []]
         (for [i start end 1]
@@ -305,6 +236,7 @@
   (range 1 5))
 
 ;; ### lang
+(def is-equal (fns.curry #(= $0 $2)))
 (defn number? [val] (= (type val) :number))
 (comment (number? 0) (number? :foo))
 (defn boolean? [val] (= (type val) :boolean))
