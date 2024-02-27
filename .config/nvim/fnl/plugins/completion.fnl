@@ -49,16 +49,18 @@
   This allows us to open the pom with a virtual keyword length of zero.
   We do this at the end of the line or after some whitespace.
   We still allow cmp to autocomplete for us in most cases."
-  (when (not= (n buf_get_option 0 :buftype) :prompt) ; don't open in a prompt (telescope)
-    (let [line (n get-current-line)
-          [_ col] (n win-get-cursor 0)
-          current (string.sub line col (+ col 1))]
-      (let [before-cursor (string.sub line 1 (+ col 1)) ; get the content before the cursor
-            after-cursor (string.sub line (+ col 1) -1)] ; get the content after the cursor
-        (when-not (string.match before-cursor "^%s+$") ; make sure we are not on an empty line (might get remove this? condition)
-          (when (or (= after-cursor "") ; If we are at the end of the line
-                    (string.match before-cursor "%s+$")) ; or if we are about to start a new word
-            (cmp.complete)))))))
+  (when-not (or
+              (cmp.visible) ; already open
+              (= (n buf_get_option 0 :buftype) :prompt)) ; don't open in a prompt (telescope)
+      (let [line (n get-current-line)
+            [_ col] (n win-get-cursor 0)
+            current (string.sub line col (+ col 1))]
+        (let [before-cursor (string.sub line 1 (+ col 1)) ; get the content before the cursor
+              after-cursor (string.sub line (+ col 1) -1)] ; get the content after the cursor
+          (when-not (string.match before-cursor "^%s+$") ; make sure we are not on an empty line (might get remove this? condition)
+            (when (or (= after-cursor "") ; If we are at the end of the line
+                      (string.match before-cursor "%s+$")) ; or if we are about to start a new word
+              (cmp.complete)))))))
 
 (defn init []
   ; Manually trigger completion in insert mode

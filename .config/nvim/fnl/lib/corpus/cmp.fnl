@@ -9,13 +9,13 @@
    require {}
    require-macros [macros]})
 
-(def- the-regx "\\[\\zs[^\\]]*\\ze\\]\\?")
+(def- keyword-pattern "\\[\\zs[^\\]]*\\ze\\]\\?")
 (var current-job nil)
 
 (defn create-source []
   {:is_available #(ftdetect.ftdetect)
    :get_debug_name #:corpus
-   :get_keyword_pattern #the-regx
+   :get_keyword_pattern #keyword-pattern
    :get_trigger_characters #["["]
 
    :complete
@@ -23,7 +23,6 @@
      (print :called)
      (let [input params.context.cursor_before_line
            search (input:sub params.offset)]
-       (a.println "search" search (r.not-empty? search))
        (if (r.not-empty? search)
          (let [terms (->>
                        search
@@ -45,7 +44,7 @@
                           terms
                           :.]}
                   handle-results)))
-         (callback {:items [{:label :foo}]
+         (callback {:items []
                     :isIncomplete true}))))
 
    :resolve
