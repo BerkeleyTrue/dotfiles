@@ -32,6 +32,20 @@
   "Match a string against a lua-pattern, returning a table of matches"
   (icollect [mtch (string.gmatch str pattern)] mtch))
 
+(defn vmatch [regexp str]
+  "Match a string against a vim regex instance, returning a table of matches"
+  (let [(beg end) (regexp:match_str str)]
+    (if beg
+      (values true (str:sub (+ beg 1) end))
+      (values false))))
+
+(comment
+  (let [r (vim.regex "\\(\\w\\+\\)")]
+    (r:match_str "foo"))
+  (vmatch (vim.regex "\\(\\w\\+\\)") "     baz  ")
+  (vmatch (vim.regex "\\(\\w\\+\\)") ""))
+
+
 (defn words [str]
   "Split a string into words."
   (let [str (deburr (tostring str))
@@ -76,4 +90,8 @@
 
 (defn starts-with? [str prefix]
   "Checks if string starts with the given prefix."
-  (string.find str prefix 1 true))
+  (vim.startswith str prefix))
+
+(defn ends-with? [str suffix]
+  "Checks if string ends with the given suffix."
+  (vim.endswith str suffix))

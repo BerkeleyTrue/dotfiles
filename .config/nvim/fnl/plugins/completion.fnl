@@ -8,7 +8,8 @@
     hl utils.highlights
     cmp cmp
     lspkind lspkind
-    luasnip luasnip}
+    luasnip luasnip
+    corpus lib.corpus.cmp}
    require {}
    require-macros [macros]})
 
@@ -27,7 +28,8 @@
       :buffer "[buff]"
       :tmux "[tmux]"
       :dictionary "[dic]"
-      :treesitter "[tree]"}}))
+      :treesitter "[tree]"
+      :corpus "[corp]"}}))
 
 (defn get-sources []
   [{:name :luasnip}
@@ -35,7 +37,7 @@
    {:name :conjure :max_item_count 100}
    {:name :path}
    {:name :tmux}
-   {:name :treesitter} ; Not sure if this is working yet
+   {:name :treesitter}
    {:name :nvim_lua}
    {:name :dictionary :max_item_count 200}
    {:name :buffer :keyword_length 5}
@@ -78,6 +80,7 @@
   (hl.link! :CmpItemMenu :NonText))
 
 (defn main []
+  (corpus.main cmp)
   (cmp.setup
     {:enabled (fn cmp-enabled? []
                 (let [buftype (n buf_get_option 0 :buftype)]
