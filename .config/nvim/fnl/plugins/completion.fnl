@@ -7,7 +7,8 @@
     keys utils.keys
     hl utils.highlights
     cmp cmp
-    lspkind lspkind}
+    lspkind lspkind
+    luasnip luasnip}
    require {}
    require-macros [macros]})
 
@@ -31,112 +32,105 @@
 (defn get-sources []
   [{:name :luasnip}
    {:name :nvim_lsp}
-   {:name :conjure :max_item_count 10}
+   {:name :conjure :max_item_count 50}
    {:name :path}
    {:name :tmux}
    {:name :treesitter} ; Not sure if this is working yet
    {:name :nvim_lua}
-   {:name :dictionary :keyword_length 2 :max_item_count 5}
+   {:name :dictionary :keyword_length 2 :max_item_count 50}
    {:name :buffer :keyword_length 5}
-   {:name :emoji :insert true :max_item_count 5}
-   {:name :corpus}])
+   {:name :emoji :insert true :max_item_count 50}])
 
 (defn open-on-insert []
-  "Close popup if we are on ./,/ or space.
-   Open popup if we are on a word. "
-  ; (print "open-on-insert")
-  (let [line (n get-current-line)
-        [_ cursor] (n win-get-cursor 0)
-        current (string.sub line cursor (+ cursor 1))]
-    (when (or (= current ".")
-              (= current ",")
-              (= current " "))
-      ; (print "close")
-      (cmp.close))
-    (let [before-line (string.sub line 1 (+ cursor 1))
-          after-line (string.sub line (+ cursor 1) (- 1))]
-      (when (not (string.match before-line "^%s+$"))
-        (when (or (= after-line "")
-                  (string.match before-line " $")
-                  (string.match before-line "%.$"))
-          ; (print "open")
-          (cmp.complete))))))
+  "Manually open the completion pom when we are in empty space.
+  This allows us to open the pom with a virtual keyword length of zero.
+  We do this at the end of the line or after some whitespace.
+  We still allow cmp to autocomplete for us in most cases."
+  (when (not= (n buf_get_option 0 :buftype) :prompt) ; don't open in a prompt (telescope)
+    (let [line (n get-current-line)
+          [_ col] (n win-get-cursor 0)
+          current (string.sub line col (+ col 1))]
+      (let [before-cursor (string.sub line 1 (+ col 1)) ; get the content before the cursor
+            after-cursor (string.sub line (+ col 1) -1)] ; get the content after the cursor
+        (when-not (string.match before-cursor "^%s+$") ; make sure we are not on an empty line (might get remove this? condition)
+          (when (or (= after-cursor "") ; If we are at the end of the line
+                    (string.match before-cursor "%s+$")) ; or if we are about to start a new word
+            (cmp.complete)))))))
 
 (defn init []
-  (inoremap :<C-s> #(cmp.complete) {:silent true}) ; Manually trigger completion
+  ; Manually trigger completion in insert mode
+  (inoremap :<C-s> #(cmp.complete) {:silent true})
+  ; not sure what I was thinking here??
   (augroup
     :AutoPopup
-    {:event [:TextChangedI :TextChangedP]
+    ; after the text was changed in insert mode
+    {:event [:TextChangedI
+             :TextChangedP]
      :pattern :*
-     :callback open-on-insert}))
-
-(defn main []
-  (let [luasnip (md.prequire :luasnip)]
-    (cmp.setup
-      {:enabled (fn cmp-enabled? []
-                  (let [buftype (n buf_get_option 0 :buftype)]
-                    (not= buftype :prompt)))
-
-       :sources (get-sources)
-       :snippet
-       {:expand (fn [args]
-                  (when luasnip
-                    (luasnip.lsp_expand args.body)))}
-
-       :mapping
-       {:<C-y>
-        (cmp.mapping
-          {:c
-            (cmp.mapping.confirm
-              {:behavior cmp.ConfirmBehavior.Insert}
-              :select true)
-            :i
-            (fn []
-              (comment (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry))))
-              (if (and luasnip (not (cmp.get_active_entry)))
-                (luasnip.expand_auto))
-              (cmp.confirm
-                {:behavior cmp.ConfirmBehavior.Insert}
-                :select false))}
-          [:i :s :c])
-
-        :<C-n>
-        (cmp.mapping
-          (fn [fallback]
-            (if (cmp.visible) (cmp.select_next_item)
-              (fallback)))
-          [:i :c])
-
-        :<C-p>
-        (cmp.mapping
-          (fn [fallback]
-            (if (cmp.visible) (cmp.select_prev_item)
-              (fallback)))
-          [:i :c])
-
-        :<C-d> (cmp.mapping.scroll_docs -4)
-        :<C-f> (cmp.mapping.scroll_docs 4)
-        :<C-e> (cmp.mapping.close)}
-
-       :formatting
-       {:format (create-formatter)}
-
-       :experimental
-       {:native_menu false}
-
-       :ghost_text false
-       :window
-       {:completion (cmp.config.window.bordered)
-        :documentation (cmp.config.window.bordered)}}))
-
-  ; Adds completion popup to command line!!!!
-  (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
+     ; we throttle and defer the callback
+     :callback (r.defer-throttle open-on-insert)})
 
   (hl.link! :CmpItemAbbr :Comment)
   (hl.link! :CmpItemAbbrDeprecated :Error)
   (hl.link! :CmpItemAbbrMatchFuzz :BerksSubtle)
   (hl.link! :CmpItemKind :Special)
-  (hl.link! :CmpItemMenu :NonText)
+  (hl.link! :CmpItemMenu :NonText))
+
+(defn main []
+  (cmp.setup
+    {:enabled (fn cmp-enabled? []
+                (let [buftype (n buf_get_option 0 :buftype)]
+                  (not= buftype :prompt)))
+
+     :sources (get-sources)
+     :snippet {:expand (fn [args] (luasnip.lsp_expand args.body))}
+
+     :mapping
+     {:<C-y>
+      (cmp.mapping
+        {:c (cmp.mapping.confirm
+              {:behavior cmp.ConfirmBehavior.Insert
+               :select true})
+
+         :i (fn []
+              (comment (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry))))
+              (if (cmp.get_selected_entry)
+                (cmp.confirm
+                  {:behavior cmp.ConfirmBehavior.Insert
+                   :select false})
+                (luasnip.expand_auto)))}
+        [:i :s :c])
+
+      :<C-n>
+      (cmp.mapping
+        (fn [fallback]
+          (if (cmp.visible)
+            (cmp.select_next_item)
+            (fallback)))
+        [:i :c])
+
+      :<C-p>
+      (cmp.mapping
+        (fn [fallback]
+          (if (cmp.visible)
+            (cmp.select_prev_item)
+            (fallback)))
+        [:i :c])
+
+      :<C-d> (cmp.mapping.scroll_docs -4)
+      :<C-f> (cmp.mapping.scroll_docs 4)
+      :<C-e> (cmp.mapping.close)}
+
+     :formatting {:format (create-formatter)}
+
+     :experimental {:native_menu false
+                    :ghost_text false}
+     :window
+     {:completion (cmp.config.window.bordered)
+      :documentation (cmp.config.window.bordered)}})
+
+  ; Adds completion popup to command line!!!!
+  (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
 
   (when-let [apcmp (md.prequire :nvim-autopairs.completion.cmp)]
     (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}})))
