@@ -42,6 +42,7 @@
 in {
   home.packages = with pkgs; [
     antigen # zsh plugin manager
+    atuin # Replace for shell history which records additional commands context with optional encrypted sync
     bind # dns client
     bluetuith # bluetooth manager tui
     curl # transfer data from or to a server

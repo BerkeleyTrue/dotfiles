@@ -134,13 +134,17 @@ command -v zoxide > /dev/null \
   && eval "$(zoxide init zsh)" \
   || echo "zoxide not installed"
 
+command -v atuin > /dev/null \
+  && eval "$(atuin init zsh)" \
+  || echo "atuin not installed"
+
 
 # Define an init function and append to zvm_after_init_commands
 # this is required to work around zsh-vi-mode plugin
 function my_init() {
   if [[ $(uname) != 'Darwin' ]]; then
     source $NIX_PROFILE/share/fzf/completion.zsh
-    source $NIX_PROFILE/share/fzf/key-bindings.zsh
+    # source $NIX_PROFILE/share/fzf/key-bindings.zsh
   fi
 
   # custom zsh completions
