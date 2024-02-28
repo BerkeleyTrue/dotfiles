@@ -2,8 +2,6 @@
   {autoload
    {a aniseed.core
     r r
-    md utils.module
-    utils utils
     {: async
      : await} lib.async
     spawn lib.spawn}
