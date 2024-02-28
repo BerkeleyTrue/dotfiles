@@ -1,28 +1,40 @@
 (module lib.corpus.ftdetect
-  {require
+  {autoload
    {a aniseed.core
-    r r
-    Path plenary.path}
+    r r}
+   require {}
+   import-macros []
    require-macros [macros]})
 
 (defn search [path filename]
   (var count 0)
   (var p nil)
-  (var folder (: Path :new path))
+  (var folder (vf fnamemodify path ":p:h"))
   (while (and
             (not p)
-            (not= (: folder :absolute) "/")
+            (not= folder "/")
             (< count 20))
     (set count (+ count 1))
-    (let [p_ (: folder :joinpath filename)]
-      (if (: p_ :exists)
-        (set p p_)
-        (set folder (: folder :parent)))))
+    (let [_p (.. folder "/" filename)]
+      (if (= (vf filereadable _p) 1)
+        (set p _p)
+        (set folder (vf fnamemodify folder ":h")))))
   p)
 
 (defn ftdetect []
-  (if-let [p (search (Path:new ".") ".corpus")]
+  (if-let [p (search (vf expand "%") ".corpus")]
     (do
       (bo! filetype "markdown.corpus")
       true)
     false))
+
+(comment
+  (search (vf expand "%") ".corpus")
+  (search (vf expand "%") "accents.fnl")
+
+  (vf filereadable (..
+                     (vf fnamemodify
+                         (vf expand "%:p:h")
+                         ":h")
+                     "/accents.fnl")))
+
