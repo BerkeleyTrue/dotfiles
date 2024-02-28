@@ -76,10 +76,11 @@
       timer
       ms
       0
-      (fn []
-        (timer:stop)
-        (timer:close)
-        (cb)))
+      (vim.schedule_wrap
+        (fn []
+          (timer:stop)
+          (timer:close)
+          (cb))))
     timer))
 
 ; see: https://github.com/lodash/lodash/blob/master/debounce.js
@@ -127,10 +128,10 @@
       (let [now (os.time)]
         (if (should-invoke? now)
           (trailing-edge)
-          (set timer (set-timeout timer-expired (remaining-wait now))))))
+          (set timer (set-timeout (remaining-wait now) timer-expired)))))
 
     (fn leading-edge [tme]
-      (set timer (set-timeout timer-expired wait))
+      (set timer (set-timeout wait timer-expired))
       (if leading?
         (invoke)
         results))
@@ -156,13 +157,14 @@
         (if (and invoking? (= timer nil))
           (leading-edge tme)
           (do
-            (set timer (set-timeout timer-expired wait))
+            (set timer (set-timeout wait timer-expired))
             results))))
 
 
     (setmetatable
-      {}
-      {:__call debounced
-       :cancel cancel})))
+      {:cancel cancel
+       :flush flush
+       :f debounced}
+      {:__call debounced})))
 
 

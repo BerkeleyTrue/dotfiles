@@ -65,15 +65,16 @@
 (defn init []
   ; Manually trigger completion in insert mode
   (inoremap :<C-s> #(cmp.complete) {:silent true})
-  ; not sure what I was thinking here??
-  (augroup
-    :AutoPopup
-    ; after the text was changed in insert mode
-    {:event [:TextChangedI
-             :TextChangedP]
-     :pattern :*
-     ; we throttle and defer the callback
-     :callback (r.defer-throttle open-on-insert)})
+  (let [debounced (r.debounce 250 open-on-insert)]
+    ; not sure what I was thinking here??
+    (augroup
+      :AutoPopup
+      ; after the text was changed in insert mode
+      {:event [:TextChangedI
+               :TextChangedP]
+       :pattern :*
+       ; we throttle and defer the callback
+       :callback debounced.f}))
 
   (hl.link! :CmpItemAbbr :Comment)
   (hl.link! :CmpItemAbbrDeprecated :Error)
