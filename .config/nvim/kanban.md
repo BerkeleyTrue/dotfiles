@@ -1,14 +1,22 @@
-## To Do
+# To Do
 
-- tonksy fnl format
-- builtin taskell in markdown files
+- add yadm-open-file-url and yadm-open-commit-url
+  - see gitblame for inspiration
+- scroll-fix should account for folds
 - create fennel help docs from fennel reference
-  > ala luaref helpdocs
+  - ala luaref helpdocs
+- defasync macro should fold through symbols and replace binds with await
+  - modify acase to account for the above
+  - add async monad do for await syntax
+- builtin kanban in markdown files
+  - use nvim ui to provide kanban boards
+  - move tasks using vim motion
+  - find kanbans within file
 - build vim-signature replacement
   > see: sign_place, sign_define
   > see: chentoast/marks.nvim
 
-## Doing
+# Doing
 
 - [ ] integrate personal corpus
   - [x] feat: parsing frontmatter into datastructure
@@ -42,7 +50,7 @@
     - [ ] prompts user for title
     - [ ] creates a new file under 03-refs
 
-## Done
+# Done
 
 - [x] figure out nvim-cmp whitespace trigger
 - [x] update packers to use make setup
