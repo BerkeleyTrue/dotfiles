@@ -256,9 +256,12 @@
   (assert (= (length body) 2) "if-let expects exactly 2 branches")
   (conditional-let (sym :if) bindings body))
 
-(defn when-not
-  [test ...]
+(defn when-not [test ...]
   `(when (not ,test)
+     ,...))
+
+(defn if-not [test ...]
+  `(if (not ,test)
      ,...))
 
 (defn logx [x]
