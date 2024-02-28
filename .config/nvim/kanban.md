@@ -2,7 +2,7 @@
 
 - tonksy fnl format
 - builtin taskell in markdown files
-- build and create fennel help docs from fennel reference
+- create fennel help docs from fennel reference
   > ala luaref helpdocs
 - build vim-signature replacement
   > see: sign_place, sign_define
