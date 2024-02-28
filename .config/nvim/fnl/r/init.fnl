@@ -5,14 +5,17 @@
    require
    {datetime r.datetime
     _strings r.strings
-    fns r.functions}
+    fns r.functions
+    hask r.curry
+    lang r.lang}
    require-macros [macros]})
 
 ; hack to re-export imports
 (a.merge! *module* datetime)
 (a.merge! *module* fns)
 (a.merge! *module* _strings)
-
+(a.merge! *module* hask)
+(a.merge! *module* lang)
 
 ;; ### tables - data first
 (def get a.get)
@@ -58,14 +61,14 @@
   (a.map-indexed f xs))
 
 (def filter
-  (fns.curry
+  (hask.curry
     (fn [predicate arr]
       (assert (= (type predicate) :function) (.. "Expected a function as the first argument but found " (tostring predicate)))
       (assert (= (type arr) :table) (.. "Expected a seq as the second argument but found " (tostring arr)))
       (a.filter predicate arr))))
 
 (def reject
-  (fns.curry
+  (hask.curry
     (fn [func arr]
       (filter #(not (func $...)) arr))))
 
@@ -224,7 +227,7 @@
 
 ;; ### utils
 (def range
-  (fns.curry
+  (hask.curry
     (fn [start end]
       (let [result []]
         (for [i start end 1]
@@ -234,40 +237,6 @@
 (comment
   (range 4)
   (range 1 5))
-
-;; ### lang
-(def is-equal (fns.curry #(= $0 $2)))
-(defn number? [val] (= (type val) :number))
-(comment (number? 0) (number? :foo))
-(defn boolean? [val] (= (type val) :boolean))
-(defn true? [val] (= val true))
-(defn false? [val] (= val false))
-(defn fn? [f] (= (type f) :function))
-(defn string? [val] (= (type val) :string))
-(defn nil? [val] (= (type val) :nil))
-(defn exists? [val] (not= val nil))
-(defn table? [val] (= (type val) :table))
-; array|string|table
-(defn empty? [val]
-  "(empty? {}) ;=> true
-   (empty? []) ;=> true
-   (empty? \"\") ;=> true"
-  (if
-    (table? val) (nil? (next val))
-    (string? val) (= (length val) 0)
-    (nil? val) true
-    false))
-
-(comment
-  (empty? {})
-  (empty? [])
-  (empty? "")
-  (empty? {:foo :bar})
-  (empty? [:foo])
-  (empty? "foo")
-  (empty? nil))
-
-(defn not-empty? [val] (not (empty? val)))
 
 (defn key-map [keys]
   "create a key-map from a list of keys."
