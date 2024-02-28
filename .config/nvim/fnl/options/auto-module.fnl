@@ -1,20 +1,8 @@
 (module options.auto-module
-  {require
+  {autoload
    {a aniseed.core
-    r r
-    md utils.module
-    utils utils}
+    r r}
    require-macros [macros]})
-
-(defn capitalize-word [word]
-  (vim.fn.substitute word "\\<." "\\u&" ""))
-
-(defn captialize-words [words]
-  (r.map capitalize-word words))
-
-(comment
-  (capitalize-word "hello")
-  (captialize-words ["hello" "world"]))
 
 (defn- is-empty-file []
   "Check if the current file is empty."
@@ -53,9 +41,8 @@
              "  {autoload"
              "   {a aniseed.core"
              "    r r"
-             "    md utils.module"
-             "    utils utils}"
              "   require {}"
+             "   import-macros []"
              "   require-macros [macros]})"]))))))
 
 (defn auto-add-purescript-module []
@@ -70,11 +57,13 @@
                       file-path
                       (vim.fn.substitute rootdir "" "")
                       (vim.fn.substitute "src" "" "") ;; how to make general to all projects?
-                      (vim.fn.substitute "\\.purs" "" "")
-                      (vim.fn.split "/")
+                      (vim.fn.substitute "\\.purs" "" ""))
+              mname (->>
+                      mname
+                      (r.split "/")
                       ; uppercase the first letter of each word
-                      (captialize-words)
-                      (vim.fn.join "."))]
+                      (r.map r.capitalize)
+                      (r.join "."))]
           ; insert the module at the top of the file
           (vim.fn.append 0
             [(.. "module " mname " where")
@@ -96,11 +85,12 @@
                       file-path
                       (vim.fn.substitute rootdir "" "")
                       (vim.fn.substitute "src" "" "") ;; how to make general to all projects?
-                      (vim.fn.substitute "\\.hs" "" "")
-                      (vim.fn.split "/")
+                      (vim.fn.substitute "\\.hs" "" ""))
+              mname (->>
+                      (r.split "/")
                       ; uppercase the first letter of each word
-                      (captialize-words)
-                      (vim.fn.join "."))]
+                      (r.map r.captialize)
+                      (r.join "."))]
           ; insert the module at the top of the file
           (vim.fn.append 0
             [(.. "module " mname " where")

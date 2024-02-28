@@ -156,7 +156,7 @@
 (nmap :<ScrollWheelDown> :j)
 (nmap :<S-ScrollWheelDown> :j)
 
-; captilize word under cursor
+; capitlize word under cursor
 (nmap :gcw (preserve-cursor-loc "eb~" :q) {:silent true})
 ; TODO: preserve highlight
 (vmap :gcw (preserve-cursor-loc "<esc>eb~`qv" :q "v") {:silent true})

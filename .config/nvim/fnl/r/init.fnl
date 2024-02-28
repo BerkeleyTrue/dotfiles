@@ -165,7 +165,7 @@
 (defn default-to [val x]
   "(default-to val any)"
   "returns the first value if the second value is nil"
-  (if (a.nil? x) val x))
+  (if (lang.nil? x) val x))
 
 ;; ### seq
 (defn tap [interceptor val]
@@ -253,7 +253,7 @@
     (keys)))
 
 (defn size [collection]
-  (if (table? collection)
+  (if (lang.table? collection)
     ; first try maxn, which works on sequential tables
     (let [cursize (table.maxn collection)]
       (if (> cursize 0)
@@ -261,7 +261,7 @@
         cursize
         ; turn into key/val pairs, then grab size
         (table.maxn (to-pairs collection))))
-    (string? collection) (length collection)
+    (lang.string? collection) (length collection)
     0))
 
 (defn includes? [col val]
@@ -270,8 +270,8 @@
    (includes? \"foo\" :foo) ;=> true
    (includes? \"foo\" :bar) ;=> false"
   (if
-    (string? col) (not (nil? (: col :find val)))
-    (table? col) (not (nil? (find #(= $1 val) col)))
+    (lang.string? col) (not (lang.nil? (: col :find val)))
+    (lang.table? col) (not (lang.nil? (find #(= $1 val) col)))
     false))
 
 (defn re-includes? [val pattern]

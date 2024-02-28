@@ -2,8 +2,6 @@
   {require
    {a aniseed.core
     r r
-    md utils.module
-    utils utils
     Path plenary.path}
    require-macros [macros]})
 

@@ -18,9 +18,23 @@
         rest (s:sub 2)]
     (.. first rest)))
 
+(comment
+  (upper-first "foo") ; "Foo"
+  (upper-first "FOO")) ; "FOO"
+
 (defn to-lower-case [str]
   "Converts string, as a whole, to lower case."
   (string.lower str))
+
+(defn capitalize [word]
+  "Capitalize the first character of a string and lower case the rest."
+  (->> word
+    (string.lower)
+    (upper-first)))
+
+(comment
+  (capitalize "hello world") ; "Hello world"
+  (capitalize "HELLO WORLD")) ; "Hello world"
 
 (defn deburr [str]
   "Deburrs a string"
@@ -45,7 +59,6 @@
   (vmatch (vim.regex "\\(\\w\\+\\)") "     baz  ")
   (vmatch (vim.regex "\\(\\w\\+\\)") ""))
 
-
 (defn words [str]
   "Split a string into words."
   (let [str (deburr (tostring str))
@@ -53,6 +66,17 @@
     (each [word (str:gmatch "%S+")]
       (table.insert words word))
     words))
+
+(defn capitalize-words [str]
+  (->>
+    str
+    (words)
+    (r.map capitalize)
+    (r.join " ")))
+
+(comment
+  (capitalize-words "hello world") ; "Hello World"
+  (capitalize-words "HELLO WORLD")) ; "Hello World"
 
 (defn padd-right [char len str]
   "Pads str on the right side if it's shorter than length."
