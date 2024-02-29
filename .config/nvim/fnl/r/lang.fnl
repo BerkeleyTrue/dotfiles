@@ -2,8 +2,6 @@
   {autoload
    {a aniseed.core
     r r
-    md utils.module
-    utils utils
     hask r.curry}
    require {}
    require-macros [macros]})

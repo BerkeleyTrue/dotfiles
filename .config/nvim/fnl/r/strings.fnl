@@ -3,19 +3,38 @@
    {a aniseed.core
     astr aniseed.string
     r r
-    md utils.module
-    utils utils}
+    lang r.lang}
    require {}
    require-macros [macros]})
 
-(defn split [sep strng]
-  "split strings by separator"
-  (astr.split strng sep))
+(defn to-string [x]
+  "Converts a value to a string"
+  (->
+    x
+    (or "")
+    (tostring)))
 
-(defn upper-first [s]
+(comment
+  (to-string)
+  (to-string nil)
+  (to-string {})
+  (to-string "hello world"))
+
+(defn split [sep str]
+  "split strings by separator"
+  (->
+    str
+    (to-string)
+    (astr.split sep)))
+
+(defn upper-first [str]
   "Converts the first character of string to upper case."
-  (let [first (-> s (: :sub 1 1) (: :upper))
-        rest (s:sub 2)]
+  (let [str (to-string str)
+        first (->
+                str
+                (string.sub 1 1)
+                (string.upper))
+        rest (string.sub str 2)]
     (.. first rest)))
 
 (comment
@@ -24,11 +43,16 @@
 
 (defn to-lower-case [str]
   "Converts string, as a whole, to lower case."
-  (string.lower str))
+  (->
+    str
+    (to-string)
+    (string.lower)))
 
 (defn capitalize [word]
   "Capitalize the first character of a string and lower case the rest."
-  (->> word
+  (->>
+    word
+    (to-string)
     (string.lower)
     (upper-first)))
 
@@ -36,21 +60,28 @@
   (capitalize "hello world") ; "Hello world"
   (capitalize "HELLO WORLD")) ; "Hello world"
 
-(defn deburr [str]
-  "Deburrs a string"
+(defn trim [str]
+  "Removes leading and trailing whitespace from string."
   (->
     str
-    (: :gsub "-" " ")))
+    (to-string)
+    (vim.trim)))
+
+(comment (trim "  foo  "))
 
 (defn lmatch [pattern str]
-  "Match a string against a lua-pattern, returning a table of matches"
-  (icollect [mtch (string.gmatch str pattern)] mtch))
+  "Match a string against a lua-pattern using gmatch, returning a table of matches"
+  (icollect [mtch (string.gmatch (to-string str) pattern)] mtch))
+
+(comment
+  (lmatch "%S+" "foo bar baz"))
 
 (defn vmatch [regexp str]
   "Match a string against a vim regex instance, returning a table of matches"
-  (let [(beg end) (regexp:match_str str)]
+  (let [str (to-string str)
+        (beg end) (regexp:match_str str)]
     (if beg
-      (values true (str:sub (+ beg 1) end))
+      (values true (string.sub str (+ beg 1) end))
       (values false))))
 
 (comment
@@ -59,13 +90,28 @@
   (vmatch (vim.regex "\\(\\w\\+\\)") "     baz  ")
   (vmatch (vim.regex "\\(\\w\\+\\)") ""))
 
+(defn lsub [pattern repl str]
+  "Replace all occurrences of a pattern in a string with a replacement"
+  (pick-values 1
+    (->
+      str
+      (to-string)
+      (string.gsub pattern repl))))
+
+(comment
+  (lsub "%u" " %1" "fooBarBaz"))
+
 (defn words [str]
   "Split a string into words."
-  (let [str (deburr (tostring str))
-        words []]
-    (each [word (str:gmatch "%S+")]
-      (table.insert words word))
-    words))
+  (->>
+    str
+    (lsub "%u" " %1")
+    (trim)
+    (lmatch "%S+")))
+
+(comment
+  (words "foo Bar baz")
+  (words "fooBarBaz"))
 
 (defn capitalize-words [str]
   (->>
@@ -80,7 +126,8 @@
 
 (defn padd-right [char len str]
   "Pads str on the right side if it's shorter than length."
-  (let [str-len (length str)
+  (let [str (to-string str)
+        str-len (length str)
         pad-len (math.max 0 (- len str-len))
         padding (string.rep char pad-len)]
     (.. str padding)))
@@ -88,29 +135,32 @@
 (comment
   (padd-right "--" 10 "foo"))
 
-(defn- create-compounder [cb]
-  "Creates a compounder function for a given callback
-  A compounder function is a function that takes a string, split it into words, then
-  applies a callback to each word, and finally joins the words back together."
-  (fn [str]
-    (->>
-      str
-      (words)
-      (a.reduce cb ""))))
-
 ; ==<Converters>==
 
 (defn pascal-case [str]
   "converts a string to PascalCase"
-  ((create-compounder (fn [acc word] (->> word (string.lower) (upper-first) (.. acc))))
-   str))
+  (->>
+    str
+    (words)
+    (r.map capitalize)
+    (r.join "")))
+
+(comment
+  (string.gsub "fooBarBaz" "%u" " %1")
+  (pascal-case " foo  bar")
+  (pascal-case "fooBarBaz"))
 
 (defn kebab-case [str]
   "converts a string to kebab-case"
-  (vf substitute (vim.trim str) "\\s\\+" "-" "g"))
+  (->>
+    str
+    (words)
+    (r.map to-lower-case)
+    (r.join "-")))
 
 (comment
-  (kebab-case " foo  bar"))
+  (kebab-case " foo  bar") ; "foo-bar"
+  (kebab-case "fooBar")) ; "foo-bar"
 
 (defn starts-with? [str prefix]
   "Checks if string starts with the given prefix."
