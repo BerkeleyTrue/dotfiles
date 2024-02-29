@@ -3,7 +3,8 @@
    {a aniseed.core
     r r
     ftdetect lib.corpus.ftdetect
-    {: run} lib.spawn}
+    {: run} lib.spawn
+    {: search} lib.corpus.search}
    require {}
    require-macros [macros]})
 
@@ -21,33 +22,23 @@
      (when-let [cwd (ftdetect.search (vf expand "%:p") ".corpus")
                 cwd (vf fnamemodify cwd ":h")
                 input params.context.cursor_before_line
-                search (input:sub params.offset)]
-       (if (r.not-empty? search)
-         (let [terms (->>
-                       search
-                       (r.lmatch "%S+")
-                       (r.join "|"))]
-           (when current-job
-             (current-job))
+                input (input:sub params.offset)]
+       (if (r.not-empty? input)
+         (when current-job
+           (current-job))
 
-           (fn handle-results [ok? results]
-             (when ok?
-               (let [items (->>
-                             results
-                             (r.map #{:label (vf fnamemodify $ ":t:r")
-                                      :kind 18
-                                      :file $}))]
-                 (callback
-                   {:items items
-                    :isIncomplete false}))))
+         (fn handle-results [ok? results]
+           (when ok?
+             (let [items (->>
+                           results
+                           (r.map #{:label (vf fnamemodify $ ":t:r")
+                                    :kind 18
+                                    :file $}))]
+               (callback
+                 {:items items
+                  :isIncomplete false}))))
 
-           (set current-job
-             (run {:command :ag
-                   :args [:--silent
-                          :--files-with-matches
-                          terms
-                          cwd]}
-                  handle-results)))
+         (set current-job (search input cwd handle-results))
          (callback {:items []
                     :isIncomplete true}))))
 

@@ -46,9 +46,9 @@
     - [x] list items from corpus
     - [x] add document view
   - [ ] ensure whitespace between metadata and content
-  - [ ] add ref command
-    - [ ] prompts user for title
-    - [ ] creates a new file under 03-refs
+  - [ ] ref def's should account for subfolders
+    - shortcut should be file name
+    - search for file name, add full path as ref def
 
 # Done
 
