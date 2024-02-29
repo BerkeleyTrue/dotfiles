@@ -4,13 +4,49 @@
   linux-dev "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
 
 (defchords combos 500
+  (w    ) w
+  (  e  ) e
+  (    r) r
+  (w e  ) S-, ;; <
+  (  e r) S-[ ;; {
+
+  (u    ) u
+  (  i  ) i
+  (    o) o
+  (u i  ) S-] ;; }
+  (  i o) S-. ;; >
+
   (f  ) f
   (  j) j
   (f j) (caps-word 500)
+
+  (s  ) s
+  (  d) d
+  (s d) [
+
+  (k  ) k
+  (  l) l
+  (k l) ]
 )
 
 (defalias
   numtg    (layer-toggle nums)
+
+  wcmb    (chord combos w)
+  ecmb    (chord combos e)
+  rcmb    (chord combos r)
+
+  ucmb    (chord combos u)
+  icmb    (chord combos i)
+  ocmb    (chord combos o)
+
+  scmb    (chord combos s)
+  dcmb    (chord combos d)
+  fcmb    (chord combos f)
+
+  jcmb    (chord combos j)
+  kcmb    (chord combos k)
+  lcmb    (chord combos l)
 
   cesc     (tap-hold-release 100 100 esc lctl)
   lparshft (tap-hold-release 100 100 S-9 lsft)
@@ -18,13 +54,13 @@
   spacenav (tap-hold-release 100 100 spc (layer-toggle nav))
 
   sfta (tap-hold-release 200 200 a lsft)
-  ctls (tap-hold-release 200 200 s lctl)
-  altd (tap-hold-release 200 200 d lalt)
-  metf (tap-hold-release 200 200 (chord combos f) lmet)
+  ctls (tap-hold-release 200 200 @scmb lctl)
+  altd (tap-hold-release 200 200 @dcmb lalt)
+  metf (tap-hold-release 200 200 @fcmb lmet)
 
-  metj (tap-hold-release 200 200 (chord combos j) rmet)
-  altk (tap-hold-release 200 200 k ralt)
-  ctll (tap-hold-release 200 200 l lctl)
+  metj (tap-hold-release 200 200 @jcmb rmet)
+  altk (tap-hold-release 200 200 @kcmb ralt)
+  ctll (tap-hold-release 200 200 @lcmb lctl)
   sft; (tap-hold-release 200 200 ; rsft)
 
   cmsmi (fork , (unshift ;) (lsft rsft))
@@ -41,7 +77,7 @@
 
 (deflayer base
   grv        1     2     3     4     5     6     7     8      9      0     -    =    bspc
-  tab        q     w     e     r     t     y     u     i      o      p     [    ]    \
+  tab        q     @wcmb @ecmb @rcmb t     y     @ucmb @icmb  @ocmb  p     [    ]    \
   @cesc      @sfta @ctls @altd @metf g     h     @metj @altk  @ctll  @sft; '    ret
   @lparshft  z     x     c     v     b     n     m     @cmsmi @dtcol /     @rparshft    up
 
