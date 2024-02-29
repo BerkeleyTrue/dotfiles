@@ -41,18 +41,22 @@
   If the selection does not end with a bang, use the selected file.
   If no file is selected, use the selection as the file name."
   (let [selection (vim.trim selection)
-        create (or (= bang "!") (vim.endswith selection "!"))
-        selection (if (vim.endswith selection "!") (selection:sub 0 -2) selection)
-        file (if create
-               selection ; if create, use selection as is
-               (chooser.get-selected-file)) ; else, get selected file TODO: how does this work?
-        file (if (and
-                   (not= file "") ; if file is not empty
-                   (not= file nil) ; and not nil
-                   (not (vim.endswith file :.md))) ; and not .md
-               (.. file :.md) ; add .md
-               file)]
-    (vim.cmd (.. "edit " (vim.fn.fnameescape file)))))
+        create (or (= bang "!") (r.ends-with? selection "!"))
+        selection (if (r.ends-with? selection "!") (selection:sub 0 -2) selection)
+
+        filename (if create
+                   selection ; if create, use selection as is
+                   (chooser.get-selected-file)) ; else, get selected file in the chooser buffer
+
+        filename (if (and
+                        (r.not-empty? filename)
+                        (not (r.ends-with? filename :.md))) ; and not .md
+                   (.. filename :.md) ; add file ext
+                   filename)
+        filename (r.kebab-case filename)
+        filename (vf fnameescape filename)]
+
+    (command edit filename)))
 
 (defn cmdline-changed [char file]
   "When the command line changes, check if it's a corpus command

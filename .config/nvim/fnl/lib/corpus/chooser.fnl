@@ -48,8 +48,8 @@
   window)
 
 (defn get-selected-file []
-  "Get the currently selected file name in the buffer."
-  (when (not= currently-selected nil)
+  "Get the currently selected file name in the chooser buffer."
+  (when-not (r.nil? currently-selected)
     (let [lines (n buf_get_lines
                    buffer
                    (- currently-selected 1)
