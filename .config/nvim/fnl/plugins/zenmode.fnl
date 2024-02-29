@@ -6,7 +6,11 @@
     utils utils}
    require-macros [macros]})
 
-(def conf {:plugins {:kitty {:enable true}}})
+(def conf
+  {:plugins {:options {:laststatus 3
+                       :ruler true}
+             :gitsigns {:enabled true}
+             :twilight {:enabled false}}})
 
 (defn main []
   (let [zm (md.prequire :zen-mode)]
@@ -17,7 +21,10 @@
         (zm.setup
           (r.merge
             conf
-            {:on_open
+            {:plugins {:kitty {:enabled true
+                               :font "+4"}
+                       :twilight {:enabled true}}
+             :on_open
              (fn on-open []
                (vim.cmd "cabbrev <buffer> q let b:quitting = 1 <bar> q")
                (vim.cmd "cabbrev <buffer> wq let b:quitting = 1 <bar> wq"))
