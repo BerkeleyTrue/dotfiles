@@ -15,6 +15,7 @@
      [{:template "lua/[1].lua"
        :label "Output"}
       {:template "test/fnl/[1]-test.fnl"
+       :enable_new false
        :label "Test"}]}
 
     {:pattern "^lua/(.*).lua"
