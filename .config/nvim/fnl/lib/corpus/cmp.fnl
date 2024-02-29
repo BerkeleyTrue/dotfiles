@@ -2,8 +2,6 @@
   {autoload
    {a aniseed.core
     r r
-    md utils.module
-    utils utils
     ftdetect lib.corpus.ftdetect
     {: run} lib.spawn}
    require {}
@@ -55,13 +53,23 @@
 
    :resolve
    (fn [self item callback]
-     (print :resolve)
      "Resolve the completion item. This occurs write before displaying the item to the user."
+     (set item.document "# No documentation available")
+     (when-let [root (when-let [root (ftdetect.search item.file ".corpus")] (vf fnamemodify root ":h"))
+                file (r.get-relative-path root item.file)
+                content (vf readfile item.file "" 10)
+                document (..
+                           (r.join "\n" content) "\n"
+                           "---"
+                           "\n\n"
+                           "*Corpus*: " file)]
+
+       (set item.documentation document))
      (callback item))
 
    :execute
    (fn [self item callback]
-     "execute the completion item. This occurs after selection"
+     "Execute the completion item. This occurs after selection"
      (print "execute" item)
      (callback item))})
 
