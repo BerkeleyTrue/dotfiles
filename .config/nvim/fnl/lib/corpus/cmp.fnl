@@ -13,16 +13,17 @@
 (var current-job nil)
 
 (defn create-source []
-  {:is_available #(ftdetect.ftdetect)
+  {:is_available #(ftdetect.ftdetect (vf expand "%:p"))
    :get_debug_name #:corpus
    :get_keyword_pattern #keyword-pattern
    :get_trigger_characters #["["]
 
    :complete
    (fn [self params callback]
-     (print :called)
-     (let [input params.context.cursor_before_line
-           search (input:sub params.offset)]
+     (when-let [cwd (ftdetect.search (vf expand "%:p") ".corpus")
+                cwd (vf fnamemodify cwd ":h")
+                input params.context.cursor_before_line
+                search (input:sub params.offset)]
        (if (r.not-empty? search)
          (let [terms (->>
                        search
@@ -30,19 +31,24 @@
                        (r.join "|"))]
            (when current-job
              (current-job))
+
            (fn handle-results [ok? results]
              (when ok?
                (let [items (->>
                              results
-                             (r.map #(vim.fn.fnamemodify $ ":r"))
-                             (r.map #{:label $ :kind 18}))]
-                 (callback {:items items :isIncomplete false}))))
+                             (r.map #{:label (vf fnamemodify $ ":t:r")
+                                      :kind 18
+                                      :file $}))]
+                 (callback
+                   {:items items
+                    :isIncomplete false}))))
+
            (set current-job
              (run {:command :ag
                    :args [:--silent
                           :--files-with-matches
                           terms
-                          :.]}
+                          cwd]}
                   handle-results)))
          (callback {:items []
                     :isIncomplete true}))))

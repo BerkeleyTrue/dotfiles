@@ -6,35 +6,42 @@
    import-macros []
    require-macros [macros]})
 
+(defn exists? [path]
+  (or (= (vf filereadable path) 1)
+      (not= (vf glob path) "")))
+
+(comment
+  (exists? (.. (vf expand "%:p:h:h:h:h") "/fnl")))
+
 (defn search [path filename]
   (var count 0)
   (var p nil)
-  (var folder (vf fnamemodify path ":p:h"))
-  (while (and
-            (not p)
-            (not= folder "/")
-            (< count 20))
+  (var folder (vf fnamemodify path ":h"))
+  (while (and (not p)
+              (not= folder "/")
+              (not= folder "~")
+              (< count 20))
     (set count (+ count 1))
     (let [_p (.. folder "/" filename)]
-      (if (= (vf filereadable _p) 1)
+      (if (exists? _p)
         (set p _p)
         (set folder (vf fnamemodify folder ":h")))))
   p)
 
-(defn ftdetect []
-  (if-let [p (search (vf expand "%") ".corpus")]
+(comment
+  (vf glob (vf fnamemodify "fnl" ":p"))
+  (search (vf expand "%") ".corpus")
+  (search (vf expand "%:p") "fnl"))
+
+(defn get-root [path]
+  (let [path (vf fnamemodify ":p:h" path)]
+    (or (search path ".corpus")
+        (search path ".git"))))
+
+(defn ftdetect [file]
+  (if-let [p (search file ".corpus")]
     (do
       (bo! filetype "markdown.corpus")
       true)
     false))
-
-(comment
-  (search (vf expand "%") ".corpus")
-  (search (vf expand "%") "accents.fnl")
-
-  (vf filereadable (..
-                     (vf fnamemodify
-                         (vf expand "%:p:h")
-                         ":h")
-                     "/accents.fnl")))
 

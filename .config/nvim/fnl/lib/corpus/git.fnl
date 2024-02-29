@@ -61,10 +61,9 @@
         _ (assert ok2 dirty?)]
     (or _new? dirty?)))
 
-(defasync commit [file]
+(defasync commit [file cwd]
   "commit file, check if file is already in the index, if not add it and commit it."
-  (let [cwd (.. (vf getcwd) "/")
-        path (->
+  (let [path (->
                (vf fnamemodify file ":r")
                (string.gsub cwd ""))
         (ok should-add?) (await (should-add? file))]

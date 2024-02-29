@@ -54,14 +54,14 @@
                file)]
     (vim.cmd (.. "edit " (vim.fn.fnameescape file)))))
 
-(defn cmdline-changed [char]
+(defn cmdline-changed [char file]
   "When the command line changes, check if it's a corpus command
   and if so, show the chooser and previewer."
   (when (= char ":")
     (let [line (vim.fn.getcmdline)
           (_ _ preterm term) (string.find line "^Corpus%f[%A](%s*)(.-)%s*$")]
       (if (and (r.not-empty? preterm) ; space after corpus, intent to search
-               (ftdetect.ftdetect))
+               (ftdetect.ftdetect file))
         (do
           (preview-mappings)
           (chooser.open term))
@@ -69,10 +69,10 @@
 
 (comment (string.find "Corpus bar" "^Corpus%f[%A](%s*)(.-)%s*$"))
 
-(defn init []
-  (when (ftdetect.ftdetect)
-    (noremap "<C-]>" (fn [] (shortcuts.go-to-or-create-shortcut)) {:silent true :buffer true})
-    (xnoremap "<C-]>" (fn [] (shortcuts.create-shortcut-on-selection)) {:silent true :buffer true})
+(defn init [{: file}]
+  (when (ftdetect.ftdetect file)
+    (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true})
+    (xnoremap "<C-]>" #(shortcuts.create-shortcut-on-selection) {:silent true :buffer true})
     (augroup :LibCorpusEnv
       {:event [:BufWritePre]
        :buffer 0
@@ -86,7 +86,8 @@
        :callback
        (fn after-write [{: file}]
          (when-not (zet.is-temp-zet? file)
-          ((git.commit file))))})))
+           (let [path (ftdetect.search (vf fnamemodify file ":p:t"))]
+             ((git.commit file path)))))})))
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
@@ -94,25 +95,25 @@
     {:event :VimEnter
      :pattern :*
      :callback
-     (fn vim-enter []
-      (when (ftdetect.ftdetect)
-        (command!
-          :Corpus
-          (fn on-corpus-command [{: args : bang}]
-            (choose args bang))
-          {:force true
-           :desc "Choose a corpus file"
-           :bang true
-           :nargs "*"
-           :complete complete})
+     (fn vim-enter [{: file}]
+       (when (ftdetect.ftdetect (or file (vf expand "%")))
+         (command!
+           :Corpus
+           (fn on-corpus-command [{: args : bang}]
+             (choose args bang))
+           {:force true
+            :desc "Choose a corpus file"
+            :bang true
+            :nargs "*"
+            :complete complete})
 
-        (command! :CorpusMetaData #(metadata.update-file {:force? true}))
+         (command! :CorpusMetaData #(metadata.update-file {:force? true}))
 
-        (command!
-          :Zet
-          #(zet.create)
-          {:force true
-           :desc "Create a new temp zettel note"})))}
+         (command!
+           :Zet
+           #(zet.create)
+           {:force true
+            :desc "Create a new temp zettel note"})))}
 
 
         ; (command!
@@ -131,7 +132,9 @@
      :pattern :*
      :callback
      (fn on-command-line-changed [{: file}]
-       (cmdline-changed file))}
+       (let [char file
+             file (vf expand "%:p")]
+         (cmdline-changed char file)))}
 
     {:event [:CmdlineLeave]
      :pattern :*
