@@ -3,9 +3,12 @@
 (defcfg
   linux-dev "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
 
-;; (defchords combos 500
-;;   (f j) (capwords)
-;; )
+(defchords combos 500
+  (f  ) f
+  (  j) j
+  (f j) (caps-word 500)
+)
+
 (defalias
   numtg    (layer-toggle nums)
 
@@ -17,9 +20,9 @@
   sfta (tap-hold-release 200 200 a lsft)
   ctls (tap-hold-release 200 200 s lctl)
   altd (tap-hold-release 200 200 d lalt)
-  metf (tap-hold-release 200 200 f lmet)
+  metf (tap-hold-release 200 200 (chord combos f) lmet)
 
-  metj (tap-hold-release 200 200 j rmet)
+  metj (tap-hold-release 200 200 (chord combos j) rmet)
   altk (tap-hold-release 200 200 k ralt)
   ctll (tap-hold-release 200 200 l lctl)
   sft; (tap-hold-release 200 200 ; rsft)
