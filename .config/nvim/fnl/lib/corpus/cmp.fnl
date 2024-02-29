@@ -3,6 +3,7 @@
    {a aniseed.core
     r r
     ftdetect lib.corpus.ftdetect
+    refdefs lib.corpus.reference-links
     {: run} lib.spawn
     {: search} lib.corpus.search}
    require {}
@@ -18,7 +19,7 @@
    :get_trigger_characters #["["]
 
    :complete
-   (fn [self params callback]
+   (fn [_self params callback]
      (when-let [cwd (ftdetect.search (vf expand "%:p") ".corpus")
                 cwd (vf fnamemodify cwd ":h")
                 input params.context.cursor_before_line
@@ -43,10 +44,10 @@
                     :isIncomplete true}))))
 
    :resolve
-   (fn [self item callback]
+   (fn [_self item callback]
      "Resolve the completion item. This occurs write before displaying the item to the user."
-     (set item.document "# No documentation available")
-     (when-let [root (when-let [root (ftdetect.search item.file ".corpus")] (vf fnamemodify root ":h"))
+     (set item.documentation "# No documentation available")
+     (when-let [root (ftdetect.get-corpus-root item.file)
                 file (r.get-relative-path root item.file)
                 content (vf readfile item.file "" 10)
                 document (..
@@ -55,13 +56,19 @@
                            "\n\n"
                            "*Corpus*: " file)]
 
-       (set item.documentation document))
+       (set item.documentation document)
+       (set item.destination file))
      (callback item))
 
    :execute
-   (fn [self item callback]
+   (fn [_self item callback]
      "Execute the completion item. This occurs after selection"
-     (print "execute" item)
+     (when-let [dest item.destination
+                dest (->
+                       dest
+                       (string.gsub "/" "" 1)
+                       (string.gsub ".md" ""))]
+       (refdefs.add-ref-def item.label dest))
      (callback item))})
 
 (defn main [cmp]

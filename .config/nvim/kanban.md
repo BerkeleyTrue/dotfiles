@@ -45,10 +45,10 @@
   - [x] insert mode '[' should create a completion list with corpus search
     - [x] list items from corpus
     - [x] add document view
-  - [ ] ensure whitespace between metadata and content
-  - [ ] ref def's should account for subfolders
+  - [x] ref def's should account for subfolders
     - shortcut should be file name
     - search for file name, add full path as ref def
+  - [ ] ensure whitespace between metadata and content
 
 # Done
 

@@ -23,18 +23,33 @@
           shortcuts
           (r.reject #(->> (r.to-lower-case $) (. refdefs))))))))
 
+(defn ensure-blank-line-at-end-of-buffer []
+  "Ensure that the buffer ends with a blank line."
+  (when (not (has-ref-defs?))
+    (vf append "$" "")))
+
 (defn add-new-ref-defs [to-add]
   "Take a list of link shortcuts and add them to the reference definitions."
   (let [refdefs (->>
                   to-add
-                  (r.map (fn [label] (.. "[" label "]: ./" (r.kebab-case label) ".md"))))]
+                  (r.map (fn [label] (.. "[" label "]: /" (r.kebab-case label) ".md"))))]
     ; while last line is not empty, delete line
     (while (r.empty? (vf getline "$"))
       (vf execute (.. (vf line "$") "d")))
     ; when the last line of the buffer is not a ref-def, add an empty line
-    (when (not (has-ref-defs?))
-      (vf append "$" ""))
+    (ensure-blank-line-at-end-of-buffer)
     (vf append "$" refdefs)))
+
+(defn add-ref-def [label dest]
+  "Add a reference definition to the buffer, first checking that label doesn't currently exist."
+  (let [refdefs (->>
+                  (ts.extract-link-reference-definitions)
+                  (r.map (fn [{: label}] [label true]))
+                  (r.from-pairs))]
+
+    (when-not (r.includes? refdefs label)
+      (ensure-blank-line-at-end-of-buffer)
+      (vf append "$" (.. "[" label "]: /" dest ".md")))))
 
 (defn update-file []
   "Add new reference definitions to the current buffer."
