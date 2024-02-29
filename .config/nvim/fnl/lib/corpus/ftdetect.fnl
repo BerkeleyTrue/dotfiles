@@ -40,8 +40,6 @@
 
 (defn ftdetect [file]
   (if-let [p (search file ".corpus")]
-    (do
-      (bo! filetype "markdown.corpus")
-      true)
+    true
     false))
 

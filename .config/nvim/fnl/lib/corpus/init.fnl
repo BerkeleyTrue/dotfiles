@@ -71,6 +71,7 @@
 
 (defn init [{: file}]
   (when (ftdetect.ftdetect file)
+    (bo! filetype "markdown.corpus")
     (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true})
     (xnoremap "<C-]>" #(shortcuts.create-shortcut-on-selection) {:silent true :buffer true})
     (augroup :LibCorpusEnv
@@ -114,7 +115,6 @@
            #(zet.create)
            {:force true
             :desc "Create a new temp zettel note"})))}
-
 
         ; (command!
         ;   :Ref
