@@ -9,11 +9,12 @@
 
 (defn trim []
   (let [save-cursor (vf getpos ".")]
-    (command keeppatterns "%substitute/\\v\\s+$//eg")
+    (command keeppatterns "normal G")
+    (command keeppatterns "%substitute/\\s+$//eg")
+    (command keeppatterns "%substitute#\\v($\\n\\s*)+%$##e")
     (vf setpos "." save-cursor)))
 
 (comment (trim))
-
 (defn main []
   (augroup :LibWhiteSpace
     {:event :BufWritePre
