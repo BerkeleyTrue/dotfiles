@@ -51,14 +51,16 @@
   (nnoremap :<leader>fo (utils.cviml->lua :telescope.builtin :oldfiles {:args "{cwd_only = true}"}) {:silent true :desc "Open old files search"})
   (nnoremap :<leader>fh (utils.cviml->lua :telescope.builtin :help_tags) {:silent true :desc "Open help tags search"})
   (nnoremap :<leader>fl (utils.cviml->lua :telescope.builtin :highlights) {:silent true :desc "Open highlights search"})
-  (nnoremap :z= (utils.cviml->lua :telescope.builtin :spell_suggest) {:silent true :desc "Open spell suggest search"}))
+  (nnoremap :<leader>fr (utils.cviml->lua :telescope.builtin :resume) {:silent true :desc "Resume last search "})
+  (nnoremap :<leader>ft (utils.cviml->lua :telescope.builtin :live_grep) {:silent true :desc "Open live text search"})
+  (nnoremap :<leader>fm (utils.cviml->lua :telescope.builtin :marks) {:silent true :desc "Open marks search"})
+  (nnoremap :z=         (utils.cviml->lua :telescope.builtin :spell_suggest) {:silent true :desc "Open spell suggest search"}))
 
 (defn setup-commands []
   (command! :HLights (utils.viml->lua :telescope.builtin :highlights))
   (command! :MMaps (utils.viml->lua :telescope.builtin :keymaps))
   (command! :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions))
   (command! :HHelp (utils.viml->lua :telescope.builtin :help_tags))
-  (command! :RRegisters (utils.viml->lua :telescope.builtin :registers))
   (command! :OOldFiles (utils.viml->lua :telescope.builtin :oldfiles {:args "{cwd_only = true}"}))
   (command! :FFiles (utils.viml->lua :telescope.builtin :find_files {:args "{find_command = rg, hidden = true, files = true}"})))
 

@@ -52,4 +52,6 @@
   (when-let [alt (md.prequire :telescope-alternate)]
     (alt.setup config)
     (telescope.load_extension :telescope-alternate)
-    (command! :TAlt "Telescope telescope-alternate alternate_file")))
+    (command! :TAlt "Telescope telescope-alternate alternate_file" {:desc "Search for alt files"})
+    (nnoremap :<leader>fa "<CMD>Telescope telescope-alternate alternate_file<CR>" {:silent true 
+                                                                                   :desc "Open alt file"})))
