@@ -56,7 +56,8 @@
         filename (r.kebab-case filename)
         filename (vf fnameescape filename)]
 
-    (command edit filename)))
+    (command edit filename)
+    (metadata.update-file {:force? true})))
 
 (defn cmdline-changed [char file]
   "When the command line changes, check if it's a corpus command
@@ -91,8 +92,8 @@
        :callback
        (fn after-write [{: file}]
          (when-not (zet.is-temp-zet? file)
-           (let [path (ftdetect.search (vf fnamemodify file ":p:t"))]
-             ((git.commit file path)))))})))
+           (let [root (ftdetect.get-corpus-root file)]
+             ((git.commit file root)))))})))
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
