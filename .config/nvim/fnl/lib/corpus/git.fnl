@@ -54,7 +54,8 @@
   "commit file, check if file is already in the index, if not add it and commit it."
   (let [path (->>
                (vf fnamemodify file ":r")
-               (r.get-relative-path cwd))
+               (r.get-relative-path cwd)
+               (r.lsub "^/" ""))
         (ok? is-new?) (await (new? file cwd))
         _ (assert ok? is-new?)
         (ok2 is-dirty?) (await (dirty? file cwd))
