@@ -364,6 +364,10 @@
   "
   `(vim.api.nvim_command (table.concat (vim.tbl_flatten [,(tostring name) ,...]) " ")))
 
+(defn echo [msg history? opts?]
+  "macro to nvim_echo but with better defaults"
+  `(vim.api.nvim_echo ,msg ,(or history? true) ,(or opts? {})))
+
 (defn echoerr [errstring]
   "Echo error message"
   `(vim.api.nvim_command (.. "echoerr \"" ,errstring "\"")))

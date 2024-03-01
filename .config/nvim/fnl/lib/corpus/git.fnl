@@ -64,8 +64,8 @@
     (when (or is-new? is-dirty?)
       (acase (<- (git :-C cwd :add file))
         (<- nil (git :-C cwd :commit :-m subject :-- file))
-        (pure commit (print "Corpus: " file " committed. \n\n" (r.join "\n\t\t" commit)))
-        (catch err (a.println "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err))))))) ; nil
+        (pure commit (echo [["Corpus" :BerksPurple] [(.. ": " file " committed. \n\n" (r.join "\n\t\t" commit))]]))
+        (catch err (n err-writeln (.. "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err)))))))) ; nil
 
 (comment
   (r.join "\n" ["foo" "bar"])
