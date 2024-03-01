@@ -34,7 +34,8 @@
         (let [filename (vf fnameescape (.. (r.kebab-case title) ".md"))]
           (n del-augroup-by-name lib-augroup)
           (n buf-set-name 0 filename)
-          (metadata.update-file {:force? true})
+          (metadata.update-file {:force? true 
+                                 :tags [:zettel]})
           (command "write"))
         (vim.print "Title too short."))))
 
@@ -54,7 +55,7 @@
   The title is kebab-cased and used as the filename."
   (let [tempid (vf fnameescape (.. "temp-" (math.random) ".md"))]
     (vim.cmd (.. "edit " tempid))
-    (metadata.update-file {:force? true :temp? true})
+    (metadata.update-file {:force? true :temp? true :tags [:zettel]})
     (augroup lib-augroup
       {:event :BufWriteCmd
        :buffer 0

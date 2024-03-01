@@ -20,6 +20,9 @@
 (defn encode-toml [data]
   (pcall toml.encode data))
 
+(comment
+  (encode-toml {:title "hello" :tags []})) ; empty tables get nested as dict instead of array
+
 (defn get-frontmatter []
   "get metadata from buffer as a lua table"
   (let [raw (ts.extract-frontmatter)]
@@ -49,17 +52,24 @@
 
 (defn update-file [opts]
   (let [{: force?
-         : temp?} (or opts {})
+         : temp?
+         : tags} (or opts {})
         file (vim.fn.expand "%")
         title (if temp? "" (get-title file))
         day (date)
         (ok? metadata?) (get-frontmatter)
         metadata (if (and ok? (r.exists? metadata?)) metadata? {})
-        created-at (or (. metadata :created-at) day)]
+        old-tags (or metadata.tags [])
+        tags (->> 
+               (r.concat old-tags tags)
+               (r.uniq))
+        created-at (or metadata.created-at day)]
     (when (or force? ok?)
       (update-frontmatter
         (r.merge
           metadata
           {:title title
-           :created-at created-at
-           :updated-at day})))))
+           :updated-at day
+           : created-at}
+          (when (r.not-empty? tags) ; empty tables get nested as dict instead of array
+            {:  tags}))))))

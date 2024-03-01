@@ -247,12 +247,18 @@
     (a.map #[$1 $1])
     (from-pairs)))
 
+(comment
+  (key-map [:foo :bar :baz])) ; {:bar "bar" :baz "baz" :foo "foo"}
+
 (defn uniq [list]
   "create a dublicate-free version of a list."
   (->
     list
     (key-map)
     (keys)))
+
+(comment
+  (uniq [:foo :bar :foo :baz]))  ; ["bar" "baz" "foo"]
 
 (defn size [collection]
   (if (lang.table? collection)
