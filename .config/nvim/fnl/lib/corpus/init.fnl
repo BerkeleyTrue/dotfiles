@@ -79,6 +79,14 @@
     (bo! filetype "markdown.corpus")
     (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true})
     (xnoremap "<C-]>" #(shortcuts.create-shortcut-on-selection) {:silent true :buffer true})
+    (command! :CorpusAddTag (fn [{: fargs}]
+                              (metadata.update-file
+                                {:tags fargs 
+                                 :force? true})) 
+              {:nargs :*
+               :desc "Add tags to the current file"
+               :complete #[:reference :video :book :article :podcast :course :other]})
+
     (augroup :LibCorpusEnv
       {:event [:BufWritePre]
        :buffer 0
@@ -107,8 +115,7 @@
            :Corpus
            (fn on-corpus-command [{: args : bang}]
              (choose args bang))
-           {:force true
-            :desc "Choose a corpus file"
+           {:desc "Choose a corpus file"
             :bang true
             :nargs "*"
             :complete complete})
@@ -118,14 +125,7 @@
          (command!
            :Zet
            #(zet.create)
-           {:force true
-            :desc "Create a new temp zettel note"})))}
-
-        ; (command!
-        ;   :Ref
-        ;   (ref.create)
-        ;   {:force true
-        ;    :desc "Create a new reference note"})))}
+           {:desc "Create a new temp zettel note"})))}
 
     {:event [:CmdlineEnter]
      :pattern :*

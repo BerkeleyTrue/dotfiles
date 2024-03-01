@@ -68,7 +68,7 @@
       (update-frontmatter
         (r.merge
           metadata
-          {:title title
+          {:title (r.kebab-case title)
            :updated-at day
            : created-at}
           (when (r.not-empty? tags) ; empty tables get nested as dict instead of array
