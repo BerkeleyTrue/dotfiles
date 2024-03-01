@@ -7,6 +7,7 @@
    require-macros [macros]})
 
 (defn get-relative-path [sub-folder-path file]
+  "Get the relative path of a file from a sub-folder-path."
   (let [full-path (vf fnamemodify file ":p")]
     (pick-values 1 (string.gsub full-path (.. "^" sub-folder-path) ""))))
 

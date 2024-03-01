@@ -22,8 +22,8 @@
   ((async (fn [] (let [(ok val) (await (git "status"))]
                       (a.println "ok: " ok " val: " val))))))
 
-(defasync new? [file]
-  (let [(ok file) (await (git :ls-files file))]
+(defasync new? [file cwd]
+  (let [(ok file) (await (git :-C cwd :ls-files file))]
     (assert ok file)
     (r.empty? file)))
 
@@ -33,11 +33,11 @@
   ((async (fn [] (let [(ok val) (await (new? "foo.md"))]
                       (a.println :new? val))))))
 
-(defasync dirty? [file]
+(defasync dirty? [file cwd]
   "Check if file is dirty.
   If file is not in the index, return false.
   Otherwise, return true."
-  (let [(ok res) (await (git :diff file))]
+  (let [(ok res) (await (git :-C cwd :diff file))]
     ; ok will be false if file is not in the index
     ; which we don't care about
     (and ok (r.not-empty? res))))
@@ -50,28 +50,19 @@
                       (a.println :dirty? val)))))
   ((async (fn [] (let [(ok val) (await (dirty? "foo.md"))]
                       (a.println :ok ok :dirty? val))))))
-
-
-(defasync should-add? [file]
-  "Check if file should be added to the index.
-  If file is new or dirty, return true. Otherwise, return false."
-  (let [(ok _new?) (await (new? file))
-        _ (assert ok _new?)
-        (ok2 dirty?) (await (dirty? file))
-        _ (assert ok2 dirty?)]
-    (or _new? dirty?)))
-
 (defasync commit [file cwd]
   "commit file, check if file is already in the index, if not add it and commit it."
-  (let [path (->
+  (let [path (->>
                (vf fnamemodify file ":r")
-               (string.gsub cwd ""))
-        (ok should-add?) (await (should-add? file))]
-    (assert ok should-add?)
-    (when should-add?
-      (acase (<- (git :add file))
-        (pure new? (.. "docs: " (if new? :create :update) " " path " (corpus)"))
-        (<- subject (git :commit :-m subject :-- file))
+               (r.get-relative-path cwd))
+        (ok? is-new?) (await (new? file cwd))
+        _ (assert ok? is-new?)
+        (ok2 is-dirty?) (await (dirty? file cwd))
+        _ (assert ok2 is-dirty?)
+        subject (.. "docs: " (if is-new? :create :update) " " path " (corpus)")]
+    (when (or is-new? is-dirty?)
+      (acase (<- (git :-C cwd :add file))
+        (<- nil (git :-C cwd :commit :-m subject :-- file))
         (pure commit (print "Corpus: " file " committed. \n\n" (r.join "\n\t\t" commit)))
         (catch err (a.println "Corpus: error committing: " (if (r.table? err) (r.join "\\n" err) err))))))) ; nil
 
