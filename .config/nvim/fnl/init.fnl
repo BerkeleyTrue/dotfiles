@@ -17,6 +17,8 @@
 (run-main :lib.treesitter.queries)
 (run-main :lib.sexps)
 (run-main :lib.whitespace)
+(run-main :lib.git)
+(run-main :lib.yadm)
 (let [cb (md.prequire :plugins.colorbuddy)
       palette (. (md.prequire :theme.palette) :palette)
       (ok theme-fns) (pcall cb.main palette)]

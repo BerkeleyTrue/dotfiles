@@ -45,6 +45,7 @@
   - [x] insert mode '[' should create a completion list with corpus search
     - [x] list items from corpus
     - [x] add document view
+    - add debounce
   - [x] ref def's should account for subfolders
     - shortcut should be file name
     - search for file name, add full path as ref def

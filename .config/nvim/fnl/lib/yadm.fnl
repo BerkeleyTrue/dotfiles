@@ -1,4 +1,4 @@
-(module lib.corpus.yadm
+(module lib.yadm
   {autoload
    {a aniseed.core
     r r
@@ -42,3 +42,29 @@
    (fn [ok? results]
      (assert ok? results)
      (a.println results))))
+
+(defasync get-log []
+  (let [(ok? res) (await (yadm :log "--pretty=format:[%h] %cs %d **%s** [%cn]" :--decorate :-n :10))]
+    (assert ok? res)
+    res))
+
+(defasync print-log []
+  (when-let [(ok? lines) (await (get-log))
+              lines (->>
+                      lines
+                      (r.map #(.. "  - " $))
+                      (r.concat ["" ""]))]
+     (vim.lsp.util.open_floating_preview
+       lines
+       "markdown"
+       {:border :rounded
+        :pad_left 4
+        :pad_right 4
+        :relative :buf
+        :title "Yadm log"
+        :title_pos :left})))
+
+(comment ((print-log)))
+
+(defn main []
+  (command! :Ylog #((print-log)) {:desc "Show yadm log in a floating window"}))
