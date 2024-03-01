@@ -28,8 +28,22 @@
 ; "Returns the value in the path 'keys in the 'table, or 'default if the key is not present."
 ; ["table" "keys" "default"])
 
-(def assoc a.assoc)
-(def assoc-in a.assoc-in)
+(defn assoc [tbl key val & kvals]
+  "add key value pairs to a table"
+  (a.assoc tbl key val (unpack kvals)))
+
+(defn assoc-in [tbl ks val]
+  "add val at path ks in table tbl"
+  (a.assoc-in tbl ks val))
+
+(defn update [tbl key f]
+  "apply the val at key to f and update the table with the result"
+  (a.update tbl key f))
+
+(defn update-in [tbl ks f]
+  "apply the val at path ks to f and update the table with the result"
+  (a.update-in tbl ks f))
+
 (defn to-pairs [tabl]
   "(to-pairs {:a b}) => [[:a 'b']]"
   "Convert a table into an list of key,value pairs"

@@ -21,11 +21,14 @@
   (to-string "hello world"))
 
 (defn split [sep str]
-  "split strings by separator"
+  "split strings by separator, which can be a lua pattern"
   (->
     str
     (to-string)
     (astr.split sep)))
+
+(comment
+  (split "[%s,]+" "foo,bar baz"))
 
 (defn upper-first [str]
   "Converts the first character of string to upper case."
@@ -165,6 +168,9 @@
 (defn starts-with? [str prefix]
   "Checks if string starts with the given prefix."
   (vim.startswith str prefix))
+
+(comment
+  (starts-with? "foo" "f"))
 
 (defn ends-with? [str suffix]
   "Checks if string ends with the given suffix."

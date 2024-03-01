@@ -6,85 +6,69 @@
    import-macros []
    require-macros [macros]})
 
-(def- modes
-  [{:name :trace :hl :Comment}
-   {:name :debug :hl :Comment}
-   {:name :info  :hl :None}
-   {:name :warn  :hl :WarningMsg}
-   {:name :error :hl :ErrorMsg}])
+(def- settings
+  {:namespaces nil
+   :names []
+   :skips []})
 
-(def- default-config
-  {:level :info
-   :use_console true
-   :use_file true})
+(defn save [namespace])
 
-(defn create [config]
-  (assert (r.not-empty? config.name) "config.name is required")
-  (let [config (r.merge default-config config)
-        outfile (string.format
-                  "%s/%s.log"
-                  (vf stdpath :data)
-                  config.name)
-        obj {}
-        level->idx  (->>
-                      modes
-                      (r.to-pairs)
-                      (r.map (fn [i val] [val.name i]))
-                      (r.from-pairs))]
+(defn enable [namespaces]
+  (save namespaces)
+  (a.merge! 
+    settings
+    {:namespaces namespaces
+     :names []
+     :skips []})
+  (->>
+    (r.split "[%s,]+")
+    (r.for-each 
+      (fn [ns] 
+        (if (r.starts-with? ns "-")
+          (r.update settings :skips #(r.conj $ (string.sub ns 2)))
+          (r.update settings :names #(r.conj $ ns)))))))
 
-    (fn log-at-level [{: level : name : hl} msg]
-      (when (> level (. level->idx config.level))
-        (let [nameupper (string.upper name)
-              info (debug.getinfo 2 :Sl)
-              lineinfo (.. info.short_src ":" info.currentline)]
+(defn disable []
+  "Disables all namespaces, returning those old namespaces."
+  (let [namespaces (->>
+                     settings.names
+                     (r.concat (r.map #(.. "-" $) settings.skips))
+                     (r.join ","))]
+    namespaces))
+    
 
-          (when config.use_console
-            (command echohl hl)
+(defn enabled [name]
+  (if
+    (r.ends-with? name "*") true
+    (r.includes? settings.skips name) false
+    (r.includes? settings.names name) true
+    false))
 
-            (->
-              (string.format
-                "[%-6s%s] %s: %s"
-                nameupper (os.date "%H:%M:%S") lineinfo msg)
-              (r.split "\n")
-              (r.for-each
-                (fn [line]
-                  (command echom
-                    (string.format
-                      "\"[%s] %s\""
-                      config.name (vim.fn.escape line "\""))))))
 
-            (command echohl "NONE"))
+(defn create [namespace]
+  (var prev-ts nil)
+  (var nscache nil)
+  (var enabledCache nil)
 
-          (when config.use_file
-            (let [str (string.format
-                        "[%-6s%s] %s: %s\n"
-                        nameupper (os.date) lineinfo msg)]
-              (doto (io.open outfile :a)
-                (: :write str)
-                (: :close)))))))
+  (fn _enabled []
+    ; used to cache the enabled state of the namespace
+    ; and invalidate if settings.namespaces
+    (when (not= nscache settings.namespaces)
+      (set nscache settings.namespaces)
+      (set enabledCache (enabled namespace)))
 
-    (->>
-      modes
-      (r.to-pairs)
-      (r.reduce
-        (fn [acc [idx {: hl : name}]]
-          (tset acc name
-            (fn [...]
-              (log-at-level
-                {:level idx
-                 : name
-                 : hl}
-                (a.str ...))))
+    enabledCache)
 
-          (tset acc (.. name "-fmt")
-            (fn [fmt & args]
-              (let [inspected (->>
-                                args
-                                (r.map vim.inspect))
-                    msg (string.format fmt (unpack inspected))]
-                (log-at-level
-                  {:level idx
-                   : name
-                   : hl}
-                  msg)))))
-        {}))))
+  (fn log [& args]
+    (when (_enabled namespace)
+      (let [curr (os.time)
+            delta (- curr (or prev-ts curr))
+            output (r.apply a.pr-str args)
+            output (string.format
+                     "%s: %s +%s"
+                     namespace
+                     output
+                     delta)]
+                     
+        (set prev-ts curr)
+        (n echo [[output]] true {})))))
