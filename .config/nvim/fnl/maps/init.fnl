@@ -157,8 +157,10 @@
 (nmap :<S-ScrollWheelDown> :j)
 
 ; capitlize word under cursor
-(nmap :gcw (preserve-cursor-loc "eb~" :q) {:silent true})
+(nmap :gcw (preserve-cursor-loc "eb~" :q) {:silent true
+                                           :desc "Capitalize word under cursor"})
 ; TODO: preserve highlight
-(vmap :gcw (preserve-cursor-loc "<esc>eb~`qv" :q "v") {:silent true})
+(vmap :gcw (preserve-cursor-loc "<esc>eb~`qv" :q "v") {:silent true
+                                                       :desc "Capitalize word in selection"})
 
 (nnoremap :<leader>m ":messages<CR>" {:desc "show messages" :silent true})
