@@ -5,13 +5,26 @@
     utils utils
     {: async
      : await} lib.async
-    spawn lib.spawn}
+    spawn lib.spawn
+    path lib.path}
    require {}
    import-macros [[{: defasync : alet} :lib.async-macros]]
    require-macros [macros]})
 
 (def- cmd* :yadm)
-(def remote "https://github.com/berkeleytrue/dotfiles.git")
+(def remote "https://github.com/berkeleytrue/dotfiles")
+
+(defn get-file-url [branch filepath line1 line2]
+  (let [filepath (.. "/tree/" branch filepath)]
+    (if 
+      (r.nil? line1) 
+      (.. remote filepath)
+
+      (or (= line1 line2) 
+          (r.nil? line2)) 
+      (.. remote filepath "#L" line1)
+
+      (.. remote filepath "#L" line1 "-L" line2))))
 
 (defn yadm [& args]
   "Run yadm command with args. If job runs successfully,
@@ -21,11 +34,8 @@
 (comment
   ((async
      (fn []
-       (let [(ok? results) (await (yadm "status"))]
-         (assert ok? results)
-         results)))
-   (fn [ok? results]
-     (a.println ok? results))))
+       (alet [results (<- (yadm "status"))]
+         (a.println results))))))
 
 (defasync get-current-branch []
   (alet [res (<- (yadm :rev-parse :--abbrev-ref :HEAD))]
@@ -61,5 +71,18 @@
 
 (comment ((print-log)))
 
+(defasync open-file-url [args]
+  (alet [filepath (n buf-get-name 0)
+         filepath (path.get-relative-path (vf expand "~") filepath)
+         branch (<- (get-current-branch))
+         url (get-file-url branch filepath args.line1 args.line2)
+         res (<- (path.xdg-open* url))]
+    (a.println :res url)
+    res))
+
+(comment
+  (n buf-get-name 0))
+
 (defn main []
-  (command! :Ylog #((print-log)) {:desc "Show yadm log in a floating window"}))
+  (command! :YadmLog #((print-log)) {:desc "Show yadm log in a floating window"})
+  (command! :YadmOpenFile #((open-file-url $)) {:range true :desc "Open file in browser"}))
