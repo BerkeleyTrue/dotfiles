@@ -19,6 +19,7 @@
 (run-main :lib.whitespace)
 (run-main :lib.git)
 (run-main :lib.yadm)
+(run-main :lib.glow)
 (let [cb (md.prequire :plugins.colorbuddy)
       palette (. (md.prequire :theme.palette) :palette)
       (ok theme-fns) (pcall cb.main palette)]
