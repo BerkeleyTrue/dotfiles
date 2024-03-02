@@ -6,5 +6,5 @@
     utils utils
     as lib.async}
    require {}
-   import-macros [[{: acase} :lib.async-macros]]
+   import-macros [[{: acase : alet} :lib.async-macros]]
    require-macros [macros]})

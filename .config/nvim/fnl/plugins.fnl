@@ -16,6 +16,7 @@
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun! hit double double quote to see a popup of the contents of registers"}
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}
+   {:name :rmagatti/auto-session :description "auto-session saving for vim" :config (make-on-load auto-session)}
 
    ; search
    {:name :nvim-telescope/telescope.nvim :description "Highly extendable fuzzy finder" :dependencies [[:nvim-lua/plenary.nvim]] :config (make-on-load telescope) :lazy false}
@@ -79,7 +80,15 @@
    {:name :kshenoy/vim-signature :description "show marks in the gutter"}
    {:name :goolord/alpha-nvim :description "show a dashboard on startup" :config (make-on-load dashboard)}
    {:name :romgrk/barbar.nvim :description "tab bar built in lua" :init (make-init barbar) :config (make-on-load barbar)}
-   {:name :nvim-neo-tree/neo-tree.nvim :description "File tree in floats." :dependencies [[:nvim-lua/plenary.nvim] [:nvim-tree/nvim-web-devicons] [:MunifTanjim/nui.nvim]] :config (make-on-load neotree) :cmd [:Neotree] :init (make-init neotree)}
+   {:name :nvim-neo-tree/neo-tree.nvim 
+    :description "File tree in floats." 
+    :dependencies [[:nvim-lua/plenary.nvim] 
+                   [:nvim-tree/nvim-web-devicons] 
+                   [:MunifTanjim/nui.nvim]] 
+    :init (make-init neotree)
+    :config (make-on-load neotree) 
+    :cmd [:Neotree]} 
+
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}
    {:name :folke/zen-mode.nvim :description "minimal distraction version of a buffer" :config (make-on-load zenmode)}

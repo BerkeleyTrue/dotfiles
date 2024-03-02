@@ -1,11 +1,10 @@
 # To Do
 
+- [ ] defasync macro should fold through symbols and replace binds with await
+  - modify acase to account for the above
 - scroll-fix should account for folds
 - create fennel help docs from fennel reference
   - ala luaref helpdocs
-- defasync macro should fold through symbols and replace binds with await
-  - modify acase to account for the above
-  - add async monad do for await syntax
 - builtin kanban in markdown files
   - use nvim ui to provide kanban boards
   - move tasks using vim motion
@@ -57,3 +56,4 @@
     - shortcut should be file name
     - search for file name, add full path as ref def
   - [x] ensure whitespace between metadata and content
+- [x] add async let for await syntax
