@@ -300,11 +300,23 @@
 (defn parse-command-args [args]
   (local out {:force true})
   (each [key val (pairs (or args {}))]
-    (tset out key val))
+    (when (not (= (tostring key) :buffer))
+      (tset out key val)))
   out)
 
 (defn command! [lhs rhs args]
-  `(vim.api.nvim_create_user_command ,lhs ,rhs ,(parse-command-args args)))
+  (let [args (or args {})
+        buffer (if (nil? (. args :buffer)) 
+                 nil 
+                 (. args :buffer))
+        command (if buffer 
+                  `(vim.api.nvim_buf_create_user_command ,buffer)
+                  `(vim.api.nvim_create_user_command))
+        parsed-args (parse-command-args args)]
+    (table.insert command lhs)
+    (table.insert command rhs)
+    (table.insert command parsed-args)
+    command))
 
 ; =<< variables >=>
 (defn g [name]
