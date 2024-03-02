@@ -28,25 +28,20 @@
      (a.println ok? results))))
 
 (defasync get-current-branch []
-  (let [(ok? res) (await (yadm :rev-parse :--abbrev-ref :HEAD))]
-    (assert ok? res)
+  (alet [res (<- (yadm :rev-parse :--abbrev-ref :HEAD))]
     (r.join "\n" res)))
 
 (comment
   ((async
      (fn []
-       (let [(ok? results) (await (get-current-branch))]
-         (assert ok? results)
-         (a.println results))))))
-(comment
-  ((async
-     (fn []
-       (alet [results (await (get-current-branch))]
+       (alet [results (<- (get-current-branch))]
          (a.println results))))))
 
 (defasync get-log []
-  (let [(ok? res) (await (yadm :log "--pretty=format:[%h] %cs %d **%s** [%cn]" :--decorate :-n :10))]
-    (assert ok? res)
+  (alet [res (<- (yadm 
+                   :log "--pretty=format:[%h] %cs %d **%s** [%cn]" 
+                   :--decorate 
+                   :-n :10))]
     res))
 
 (defasync print-log []
@@ -55,8 +50,7 @@
                  lines
                  (r.map #(.. "  - " $))
                  (r.concat ["" ""]))]
-     (vim.lsp.util.open_floating_preview
-       lines
+     (vim.lsp.util.open_floating_preview lines
        "markdown"
        {:border :rounded
         :pad_left 4
