@@ -127,7 +127,6 @@
      (print res res2))"
 
   (assert-compile (table? bindings) "alet requires a table of bindings")
-  (print :length (length bindings))
   (assert-compile (= (math.fmod (length bindings) 2) 0) "alet expects an even number of bindings to expressions")
 
   (var new-bindings (list))
@@ -141,7 +140,6 @@
       (let [msg* (gensym :msg)
             ok?* (gensym :ok?)
             [f & body] form]
-        (print :f (tostring f) :body (view body))
         (case (tostring f)
           :<- ; async function call
           (let [[binding assert-msg] (if
