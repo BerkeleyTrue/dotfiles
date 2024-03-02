@@ -42,7 +42,6 @@
 in {
   home.packages = with pkgs; [
     antigen # zsh plugin manager
-    atuin # Replace for shell history which records additional commands context with optional encrypted sync
     bind # dns client
     bluetuith # bluetooth manager tui
     curl # transfer data from or to a server
@@ -248,6 +247,14 @@ in {
         cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id
         set cleaner ${pkgs.ctpv}/bin/ctpvclear
       '';
+    };
+
+    atuin = {
+      enable = true;
+      settings = {
+        enter_accept = false;
+        keymap_mode = "vim-normal";
+      };
     };
   };
 
