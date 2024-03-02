@@ -127,7 +127,8 @@
      (print res res2))"
 
   (assert-compile (table? bindings) "alet requires a table of bindings")
-  (assert-compile (= (math.modf (length bindings) 2) 0))
+  (print :length (length bindings))
+  (assert-compile (= (math.fmod (length bindings) 2) 0) "alet expects an even number of bindings to expressions")
 
   (var new-bindings (list))
   (var await-sym (gensym :await))
@@ -135,33 +136,42 @@
   ; iterate over the bindings and create a new table with the bindings
   (var binding-form nil)
   (each [idx form (ipairs bindings)]
-    (if (not= (math.modf idx 2) 0)
+    (if (not= (math.fmod idx 2) 0)
       (set binding-form form)
-      (let [[f & body] form]
+      (let [msg* (gensym :msg)
+            ok?* (gensym :ok?)
+            [f & body] form]
+        (print :f (tostring f) :body (view body))
         (case (tostring f)
           :<- ; async function call
-          (let [ok? (gensym :ok?)
-                binding (if
-                          (list? binding-form)
-                          `(,ok? ,(unpack body))
+          (let [[binding assert-msg] (if
+                                       (list? binding-form)
+                                       ; (ok? binding-form) (<- (body))
+                                       [`(,ok?* ,(unpack body)) (. binding-form 1)]
 
-                          (= (tostring binding-form) :nil)
-                          ok?
+                                       (or (= (tostring binding-form) :nil) 
+                                           (= (tostring binding-form) :_))
+                                       ; _ (<- (body))
+                                       ; nil (<- (body))
+                                       [`(,ok?* ,msg*) msg*]
 
-                          `(,ok? ,binding-form))]
+                                       ; bind (<- (body))
+                                       [`(,ok?* ,binding-form) binding-form])]
 
-            (table.insert new-bindings binding)
-            (table.insert new-bindings `(,await-sym ,(unpack body)))) 
+            ; [(ok? binding-form) (async (body))
+            ;   _                 (assert ok? binding-form)]
+            (table.insert new-bindings binding) (table.insert new-bindings `(,await-sym ,(unpack body)))
+            (table.insert new-bindings (sym :_)) (table.insert new-bindings `(assert ,ok?* ,assert-msg)))
 
           _ ; anything else is a pure value
           (do
-            (table.insert new-bindings binding-form)
-            (table.insert new-bindings `(,f ,(unpack body)))))
+            ; [binding-form (do body)]
+            (table.insert new-bindings binding-form) (table.insert new-bindings `(,f ,(unpack body)))))
 
         (set binding-form nil))))
 
   `(let [asm# (require :lib.async)
-         {:await await-sym} asm#
+         {:await ,await-sym} asm#
          ,(unpack new-bindings)]
      ,(unpack body)))
   
