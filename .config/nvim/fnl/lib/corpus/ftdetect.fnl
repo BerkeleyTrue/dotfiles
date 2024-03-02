@@ -43,4 +43,3 @@
   (if-let [p (search file ".corpus")]
     true
     false))
-

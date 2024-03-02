@@ -100,7 +100,9 @@
        :callback
        (fn after-write [{: file}]
          (when-not (zet.is-temp-zet? file)
-           (let [root (ftdetect.get-corpus-root file)]
+           (let [root (ftdetect.get-corpus-root file)
+                 file (r.get-relative-path root file)
+                 file (string.sub file 2)]
              ((git.commit file root)))))})))
 
 (defn main []

@@ -50,17 +50,15 @@
                       (a.println :dirty? val)))))
   ((async (fn [] (let [(ok val) (await (dirty? "foo.md"))]
                       (a.println :ok ok :dirty? val))))))
+
 (defasync commit [file cwd]
   "commit file, check if file is already in the index, if not add it and commit it."
-  (let [path (->>
-               (vf fnamemodify file ":r")
-               (r.get-relative-path cwd)
-               (r.lsub "^/" ""))
-        (ok? is-new?) (await (new? file cwd))
+  (let [(ok? is-new?) (await (new? file cwd))
         _ (assert ok? is-new?)
         (ok2 is-dirty?) (await (dirty? file cwd))
         _ (assert ok2 is-dirty?)
-        subject (.. "docs: " (if is-new? :create :update) " " path " (corpus)")]
+        subject (.. "docs: " (if is-new? :create :update) " " file " (corpus)")]
+
     (when (or is-new? is-dirty?)
       (acase (<- (git :-C cwd :add file))
         (<- nil (git :-C cwd :commit :-m subject :-- file))
