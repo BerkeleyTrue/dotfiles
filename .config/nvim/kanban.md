@@ -1,7 +1,5 @@
 # To Do
 
-- add yadm-open-file-url and yadm-open-commit-url
-  - see gitblame for inspiration
 - scroll-fix should account for folds
 - create fennel help docs from fennel reference
   - ala luaref helpdocs
@@ -18,7 +16,16 @@
 
 # Doing
 
-- [ ] integrate personal corpus
+- [ ] add yadm-open-file-url and yadm-open-commit-url
+  - see gitblame for inspiration
+
+# Done
+
+- [x] figure out nvim-cmp whitespace trigger
+- [x] update packers to use make setup
+- [x] move lazy/aniseed to nix
+- [x] figure out why n/N (hlslens) adds newline if no match
+- [x] integrate personal corpus
   - [x] feat: parsing frontmatter into datastructure
   - [x] feat: update frontmatter on save to toml
   - [x] feat: update ref defs on save
@@ -49,11 +56,4 @@
   - [x] ref def's should account for subfolders
     - shortcut should be file name
     - search for file name, add full path as ref def
-  - [ ] ensure whitespace between metadata and content
-
-# Done
-
-- [x] figure out nvim-cmp whitespace trigger
-- [x] update packers to use make setup
-- [x] move lazy/aniseed to nix
-- [x] figure out why n/N (hlslens) adds newline if no match
+  - [x] ensure whitespace between metadata and content
