@@ -135,7 +135,7 @@ command -v zoxide > /dev/null \
   || echo "zoxide not installed"
 
 command -v atuin > /dev/null \
-  && eval "$(atuin init zsh)" \
+  && eval "$(atuin init zsh --disable-up-arrow)" \
   || echo "atuin not installed"
 
 
