@@ -1,7 +1,5 @@
 # To Do
 
-- [ ] defasync macro should fold through symbols and replace binds with await
-  - modify acase to account for the above
 - scroll-fix should account for folds
 - create fennel help docs from fennel reference
   - ala luaref helpdocs
@@ -12,11 +10,12 @@
 - build vim-signature replacement
   > see: sign_place, sign_define
   > see: chentoast/marks.nvim
+- [ ] defasync macro should fold through symbols and replace binds with await
+  - modify acase to account for the above
 
 # Doing
 
-- [ ] add yadm-open-file-url and yadm-open-commit-url
-  - see gitblame for inspiration
+- update to supported fennel ts
 
 # Done
 
@@ -57,3 +56,6 @@
     - search for file name, add full path as ref def
   - [x] ensure whitespace between metadata and content
 - [x] add async let for await syntax
+- [x] add yadm-open-file-url and yadm-open-commit-url
+  > yadm open was good, but commit was more complicated then I cared too
+- [x] scroll-fix should run on window size change

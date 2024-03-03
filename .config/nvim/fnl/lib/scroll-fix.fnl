@@ -110,7 +110,12 @@
 (defn main []
   (augroup
     :ScrollFixGroup
-    {:event [:CursorMoved :CursorMovedI :BufEnter :BufFilePre]
+    {:event [:CursorMoved 
+             :CursorMovedI 
+             :BufEnter 
+             :BufFilePre 
+             :BufWritePost 
+             :VimResized]
      :pattern :*
      :callback scroll-fix})
 
