@@ -46,6 +46,7 @@
          :enable_git_status true
          :enable_diagnostics true
          :close_if_last_window true
+         :enable_cursor_hijack true
 
          :filesystem
          {:filtered_items
