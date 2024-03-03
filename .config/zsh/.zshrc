@@ -144,11 +144,13 @@ command -v atuin > /dev/null \
 function my_init() {
   if [[ $(uname) != 'Darwin' ]]; then
     source $NIX_PROFILE/share/fzf/completion.zsh
-    # source $NIX_PROFILE/share/fzf/key-bindings.zsh
+    # source $NIX_PROFILE/share/fzf/key-bindings.zsh # removed for atuin search
   fi
 
   # custom zsh completions
   source $XDG_CONFIG_HOME/shell/comp.zsh
+  bindkey -M vicmd '^R' atuin-search-vicmd
+  bindkey -M viins '^R' atuin-search-viins
 }
 zvm_after_init_commands+=(my_init)
 
