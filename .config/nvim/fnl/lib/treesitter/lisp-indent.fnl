@@ -233,3 +233,14 @@
 
 (defn detach [bufnr] 
   (set vim.bo.indentexpr (. indent-funcs bufnr)))
+
+(defn main []
+  (augroup LibLispIndent
+    {:event [:FileType]
+     :pattern "fennel,clojure"
+     :callback
+     (fn set-indent []
+       (attach)
+       (n buf-attach 0 false
+         {:on_detach detach
+          :on_reload #nil}))}))
