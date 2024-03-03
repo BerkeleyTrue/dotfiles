@@ -18,8 +18,8 @@
   (root:descendant_for_range (- lnum 1) col (- lnum 1) (+ col 1)))
 
 (fn get-last-node-at-line [root lnum col]
-  (set-forcibly! col (or col (- (length (getline lnum)) 1)))
-  (root:descendant_for_range (- lnum 1) col (- lnum 1) (+ col 1)))
+  (let [col (or col (- (length (getline lnum)) 1))]
+    (root:descendant_for_range (- lnum 1) col (- lnum 1) (+ col 1))))
 
 (fn node-length [node]
   (let [(_ _ start-byte) (node:start)
@@ -29,19 +29,12 @@
 (fn find-delimiter [bufnr node delimiter]
   (each [child _ (node:iter_children)]
     (when (= (child:type) delimiter)
-      (local linenr (child:start))
-      (local line (. (vim.api.nvim_buf_get_lines bufnr linenr (+ linenr 1)
-                                                 false) 1))
-      (local end-char [(child:end_)])
-      (local trimmed-after-delim nil)
-      (local escaped-delimiter
-             (delimiter:gsub "[%-%.%+%[%]%(%)%$%^%%%?%*]" "%%%1"))
-      (set-forcibly! (trimmed-after-delim _)
-                     (: (line:sub (+ (. end-char 2) 1)) :gsub
-                        (.. "[%s" escaped-delimiter "]*") ""))
-      (let [___antifnl_rtn_1___ child
-            ___antifnl_rtn_2___ (= (length trimmed-after-delim) 0)]
-        (lua "return ___antifnl_rtn_1___, ___antifnl_rtn_2___")))))
+      (let [linenr (child:start)
+            line (. (vim.api.nvim_buf_get_lines bufnr linenr (+ linenr 1) false) 1)
+            end-char [(child:end_)]
+            escaped-delimiter (delimiter:gsub "[%-%.%+%[%]%(%)%$%^%%%?%*]" "%%%1")
+            (trimmed-after-delim _) (: (line:sub (+ (. end-char 2) 1)) :gsub (.. "[%s" escaped-delimiter "]*") "")]
+        (values child (= (length trimmed-after-delim) 0))))))
 
 (fn memoize [___fn___ hash-fn]
   (let [cache (setmetatable {} {:__mode :kv})]
