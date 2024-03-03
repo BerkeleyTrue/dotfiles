@@ -7,8 +7,7 @@
     _strings r.strings
     fns r.functions
     hask r.curry
-    lang r.lang
-    pth r.path}
+    lang r.lang}
    require-macros [macros]})
 
 ; hack to re-export imports
@@ -17,7 +16,6 @@
 (a.merge! *module* _strings)
 (a.merge! *module* hask)
 (a.merge! *module* lang)
-(a.merge! *module* pth)
 
 ;; ### tables - data first
 (def get a.get)

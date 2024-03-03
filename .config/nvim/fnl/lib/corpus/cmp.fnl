@@ -4,6 +4,7 @@
     r r
     ftdetect lib.corpus.ftdetect
     refdefs lib.corpus.reference-links
+    path lib.path
     {: run} lib.spawn
     {: search} lib.corpus.search}
    require {}
@@ -48,7 +49,7 @@
      "Resolve the completion item. This occurs write before displaying the item to the user."
      (set item.documentation "# No documentation available")
      (when-let [root (ftdetect.get-corpus-root item.file)
-                file (r.get-relative-path root item.file)
+                file (path.get-relative-path root item.file)
                 content (vf readfile item.file "" 10)
                 document (..
                            (r.join "\n" content) "\n"

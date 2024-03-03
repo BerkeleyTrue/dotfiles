@@ -4,6 +4,7 @@
     a          aniseed.core
     utils      utils
     md         utils.module
+    path       lib.path
     cts        lib.corpus.treesitter
     ftdetect   lib.corpus.ftdetect
     metadata   lib.corpus.metadata
@@ -101,7 +102,7 @@
        (fn after-write [{: file}]
          (when-not (zet.is-temp-zet? file)
            (let [root (ftdetect.get-corpus-root file)
-                 file (r.get-relative-path root file)
+                 file (path.get-relative-path root file)
                  file (string.sub file 2)]
              ((git.commit file root)))))})))
 
