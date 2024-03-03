@@ -1,4 +1,4 @@
-([(list)
+[(list)
   (table)
-  (array)
-] @context)
+  (sequence)
+] @context

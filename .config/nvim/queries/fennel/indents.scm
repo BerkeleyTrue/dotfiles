@@ -1,14 +1,21 @@
 [
-  (list (symbol))
-  (list (keyword))
-] @indent
+ (list)
+ (table)
+ (sequence)
+] @indent.begin
 
+((table) @indent.align
+ (#set! indent.open_delimiter "{")
+ (#set! indent.close_delimiter "}"))
 
-([(array) (table)] @indent.begin
- (#set! indent.start_at_same_line))
+((sequence) @indent.align
+ (#set! indent.open_delimiter "[")
+ (#set! indent.close_delimiter "]"))
 
 [
   ")"
   "}"
   "]"
-] @indent.dedent
+] @indent.end
+
+(comment) @indent.ignore

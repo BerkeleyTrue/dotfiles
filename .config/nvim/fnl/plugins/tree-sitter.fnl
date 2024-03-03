@@ -35,32 +35,6 @@
           parser-conf (parsers.get_parser_configs)
           vim-ts-queries (md.prequire :vim.treesitter.query)]
 
-      (tset
-        parser-conf
-        :fennel
-        {:install_info
-         {:url "~/dvlpmnt/lisp/fennel/tree-sitter-fennel"
-          :files [:src/parser.c]
-          :requires_generate_from_grammar true}
-         :filetype :fennel})
-
-      (tset
-        parser-conf
-        :solidity
-        {:install_info
-         {:url "https://github.com/JoranHonig/tree-sitter-solidity"
-          :files [:src/parser.c]
-          :requires_generate_from_grammar true}
-         :filetype :solidity})
-
-      (tset
-        parser-conf
-        :templ
-        {:install_info
-         {:url "https://github.com/vrischmann/tree-sitter-templ.git"
-          :files [:src/parser.c :src/scanner.c]}
-         :filetype :templ})
-
       (tsconfigs.setup
         {:ensure_installed
          [:bash
@@ -109,37 +83,6 @@
          :playground {:enable true}
          :query_linter {:enable true}
          :matchup {:enable true :disable [:c]}})
-
-
-      ; don't set queries unless fennel parser is already present
-      ; otherwise nvim-ts will error out and prevent the setup
-      ; will not work on the same pass as fennel parser install so a restart is necessary
-      (when (parsers.has_parser :fennel)
-        (vim-ts-queries.set
-          :fennel
-          :highlights
-          (get-ft-query :fennel :highlights))
-
-        (vim-ts-queries.set
-          :fennel
-          :locals
-          (get-ft-query :fennel :locals))
-
-        (vim-ts-queries.set
-          :fennel
-          :folds
-          (get-ft-query :fennel :folds))
-
-        (vim-ts-queries.set
-          :fennel
-          :injections
-          (get-ft-query :fennel :injections))
-
-        ; for nvim-treesitter-context
-        (vim-ts-queries.set
-          :fennel
-          :context
-          (get-ft-query :fennel :context)))
 
       (-?> _G
         (a.get-in [:vim :treesitter :highlighter :hl_map])
