@@ -119,6 +119,7 @@
 
             :<bs> :navigate_up
             :<esc> :noop
+            :w :noop
             :R :refresh
             :a :add
             :d :buffer_delete
