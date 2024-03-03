@@ -410,6 +410,7 @@
 (defn augroup [name ...]
   "Create an autogroup 'name' of autocmds of args passed to augroup"
   (let [cmds [...]
+        name (sym->name name)
         id (gensym :augid)
         out (reduce
               (fn [out cmd]

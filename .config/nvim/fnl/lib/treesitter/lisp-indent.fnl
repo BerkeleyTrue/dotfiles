@@ -1,6 +1,7 @@
 (module lib.treesitter.fennel-indent
   {autoload
-   {parsers nvim-treesitter.parsers
+   {r r
+    parsers nvim-treesitter.parsers
     utils utils}
    require-macros [macros]})
 
@@ -52,26 +53,29 @@
         (local val (. cache key))
         (or (and (not= val vim.NIL) val) nil)))))
 
-(local get-indents
-       (memoize (fn [bufnr root lang]
-                  (let [map {:indent.align {}
-                             :indent.auto {}
-                             :indent.begin {}
-                             :indent.branch {}
-                             :indent.dedent {}
-                             :indent.end {}
-                             :indent.ignore {}
-                             :indent.zero {}}
-                        query ((or ts.query.get ts.get_query) lang :indents)]
-                    (when (not query) (lua "return map"))
-                    (each [id node metadata (query:iter_captures root bufnr)]
-                      (when (not= (: (. query.captures id) :sub 1 1) "_")
-                        (tset (. map (. query.captures id)) (node:id)
-                              (or metadata {}))))
-                    map))
-                (fn [bufnr root lang] (.. (tostring bufnr) (root:id) "_" lang))))
+(def- get-indents
+  (memoize 
+    (fn [bufnr root lang]
+      (let [map {:indent.align {}
+                 :indent.auto {}
+                 :indent.begin {}
+                 :indent.branch {}
+                 :indent.dedent {}
+                 :indent.end {}
+                 :indent.ignore {}
+                 :indent.zero {}}
+            query (ts.query.get lang :indents)]
+        (if (not query) 
+          map
+          (each [id node metadata (query:iter_captures root bufnr)]
+            (when (not= (: (. query.captures id) :sub 1 1) "_")
+              (tset (. map (. query.captures id)) (node:id)
+                    (or metadata {})))
+            map)))
+     (fn serializer [bufnr root lang] (.. (tostring bufnr) (root:id) "_" lang)))))
 
 (defn get-indent [lnum]
+  (print :get-indent lnum)
   (let [bufnr (vim.api.nvim_get_current_buf)
         parser (parsers.get_parser bufnr)]
     (when (or (not parser) (not lnum))
@@ -225,7 +229,7 @@
       (set node (node:parent)))
     indent))
 
-(local indent-funcs {})
+(var indent-funcs {})
 
 (defn attach [bufnr] 
   (tset indent-funcs bufnr vim.bo.indentexpr)
@@ -237,10 +241,15 @@
 (defn main []
   (augroup LibLispIndent
     {:event [:FileType]
-     :pattern "fennel,clojure"
+     :pattern :fennel
      :callback
-     (fn set-indent []
-       (attach)
-       (n buf-attach 0 false
-         {:on_detach detach
-          :on_reload #nil}))}))
+     (r.void
+       (fn set-indent []
+         (command! :LispIndentOn #(attach (n get-current-buf)))
+         (command! :LispIndentOff #(detach (n get-current-buf)))
+         (when false ; needs more testing
+           (let [bufnr (n get-current-buf)]
+             (attach bufnr)
+             (n buf-attach 0 false
+               {:on_detach #(detach bufnr)
+                :on_reload #nil})))))}))
