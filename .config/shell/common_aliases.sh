@@ -34,6 +34,11 @@ alias vim='nvim'
 # alias nvim='nvim'
 ## Use vimrc with sudo vim
 alias suvim='sudo -E nvim'
+# open vim without autosession
+v-() {
+ # pass all args to nvim
+ echo "" | nvim $@
+}
 ## Will make parent directories if they don't exist
 ## Also verbose
 alias mkdir="mkdir -pv"
