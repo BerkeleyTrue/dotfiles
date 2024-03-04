@@ -22,7 +22,7 @@
 ; defonce/defonce-
 (list . (symbol) @function.macro (#match? @function.macro "defonce\-?$"))
 
-((symbol) @keyword (#match? @keyword "^(let|alet)$")
+((symbol) @keyword (#match? @keyword "^(let|alet|when-let)$")
  (sequence
    (list (symbol) @variable)
    .
