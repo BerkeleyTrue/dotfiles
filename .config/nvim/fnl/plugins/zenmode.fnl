@@ -2,7 +2,8 @@
   {autoload
    {a aniseed.core
     r r
-    zm zen-mode}
+    zm zen-mode
+    tw twilight}
    require-macros [macros]})
 
 (def conf
@@ -14,6 +15,7 @@
 (defn main []
   (zm.setup conf)
   (nnoremap :<leader>uz #(zm.toggle)) ; u for ui
+  (nnoremap :<leader>ut #(tw.toggle))
   (command!
     :ZenModeOnly
     (fn zen-mode-only []
