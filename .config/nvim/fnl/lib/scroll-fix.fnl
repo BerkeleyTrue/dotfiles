@@ -115,7 +115,8 @@
              :BufEnter 
              :BufFilePre 
              :BufWritePost 
-             :VimResized]
+             :VimResized
+             :VimResume]
      :pattern :*
      :callback scroll-fix})
 

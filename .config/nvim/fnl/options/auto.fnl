@@ -28,15 +28,16 @@
       (echoerr res)
       (print res))))
 
-(defn main [])
+(defn main []
   (augroup
     :GeneralAu
 
     ; Resize splits when the window is resized
-    ; TODO: turn this into a function that respects side panels (help, neotree, etc)
+    ; TODO: find a way to resize help terminal after equalize
     {:event :VimResized
      :pattern :*
-     :cmd "exe \"normal! \\<c-w>=\""}
+     :callback
+     (fn [] (command wincmd :=))}
 
     ; Make vim open on the line you closed the buffer on
     {:event [:BufReadPost]
@@ -44,9 +45,22 @@
      :callback go-to-last-edit}
 
     ; Make vim open help buffers in a vertical split
-    {:event [:FileType]
+    {:event :FileType
      :pattern :help
-     :cmd "wincmd L"}
+     :cmd "wincmd L | vert resize 81"}
+
+    {:event :BufEnter
+     :pattern :*
+     :callback 
+     #(when (= (o filetype) :help)
+        (vim.fn.buflisted "help")
+        (command vertical "resize 81"))}
+
+    {:event :BufLeave
+     :pattern :*
+     :callback 
+     #(when (= (o filetype) :help)
+        (command vertical "resize 70"))}
 
     ; make sure cursor always starts on the first line for gitcommit files
     {:event [:FileType]
@@ -55,4 +69,4 @@
 
     {:event [:BufWritePost]
      :pattern :package.yaml
-     :callback hpack-auto-gen})
+     :callback hpack-auto-gen}))
