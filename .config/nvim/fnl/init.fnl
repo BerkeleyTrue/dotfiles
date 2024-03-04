@@ -1,31 +1,47 @@
 (module init
   {autoload
-   {lisp-indent lib.treesitter.lisp-indent
-    options options}
-   require
    {a aniseed.core
-    md utils.module}
+    options options
+    plugins plugins
+
+    lisp-indent lib.treesitter.lisp-indent
+    scroll-fix lib.scroll-fix
+    folds lib.folds
+    corpus lib.corpus
+    accents lib.accents
+    ts-queries lib.treesitter.queries
+    sexps lib.sexps
+    whitespace lib.whitespace
+    git lib.git
+    yadm lib.yadm
+    glow lib.glow
+
+    cb plugins.colorbuddy
+
+    pl theme.palette
+    theme theme}
+   
+   require {}
    require-macros [macros]})
 
-; vim options requires no plugins
-; side-effecty
-(require :maps)
+(defn main []
+  ; vim options requires no plugins
+  ; side-effecty
+  (options.main)
+  (plugins.main)
+  (scroll-fix.main)
+  (folds.main)
+  (corpus.main)
+  (accents.main)
+  (ts-queries.main)
+  (sexps.main)
+  (whitespace.main)
+  (git.main)
+  (yadm.main)
+  (glow.main)
+  (lisp-indent.main)
 
-(options.main)
-(run-main :plugins)
-(run-main :lib.scroll-fix)
-(run-main :lib.folds)
-(run-main :lib.corpus)
-(run-main :lib.accents)
-(run-main :lib.treesitter.queries)
-(run-main :lib.sexps)
-(run-main :lib.whitespace)
-(run-main :lib.git)
-(run-main :lib.yadm)
-(run-main :lib.glow)
-(lisp-indent.main)
-(let [cb (md.prequire :plugins.colorbuddy)
-      palette (. (md.prequire :theme.palette) :palette)
-      (ok theme-fns) (pcall cb.main palette)]
-  (when theme-fns
-    (run-main :theme theme-fns)))
+  (when-let [(ok theme-fns) (pcall cb.main (. pl :palette))]
+    (theme.main theme-fns)))
+
+(main)
