@@ -88,6 +88,24 @@
 
   (values root lang-tree))
 
+(defn indent-begin [q node]
+  (r.get-in q [:indent.begin (node:id)]))
+
+(defn indent-end [q node]
+  (r.get-in q [:indent.begin (node:id)]))
+
+(defn indent-align [q node]
+  (r.get-in q [:indent.align (node:id)]))
+
+(defn indent-auto [q node]
+  (r.get-in q [:indent.auto (node:id)]))
+
+(defn indent-dedent [q node]
+  (r.get-in q [:indent.dedent (node:id)]))
+
+(defn indent-ignore [q node]
+  (r.get-in q [:indent.ignore (node:id)]))
+
 (defn get-indent [lnum]
   (assert (r.number? lnum) "lnum must be a number")
   (print :get-indent lnum)
@@ -118,7 +136,7 @@
                       (set prevline (vim.trim (prevline:sub 1 (- scol indent))))
                       (local col (- (+ indent (length prevline)) 1))
                       (set node (get-last-node-at-line root prevlnum col))))
-                  (when (. (. q :indent.end) (node:id))
+                  (when (indent-end q node)
                     (set node (get-first-node-at-line root lnum))))
 
                 (set node (get-first-node-at-line root lnum)))
@@ -131,61 +149,64 @@
               (set indent (vim.fn.indent (+ (root:start) 1))))
 
             (local is-processed-by-row {})
-            (when (. (. q :indent.zero) (node:id)) (lua "return 0"))
+            (when (indent-zero q node) (lua "return 0"))
 
             (while node
-              (when (and (and (and (and (not (. (. q :indent.begin) (node:id)))
-                                        (not (. (. q :indent.align) (node:id))))
-                                  (. (. q :indent.auto) (node:id)))
+              (when (and (and (and (and (not (indent-begin q node))
+                                        (not (indent-align q node)))
+                                   (indent-auto q node))
                               (< (node:start) (- lnum 1)))
-                        (<= (- lnum 1) (node:end_)))
-                (let [___antifnl_rtn_1___ (- 1)] (lua "return ___antifnl_rtn_1___")))
+                         (<= (- lnum 1) (node:end_)))
+                (let [___antifnl_rtn_1___ -1] 
+                  (lua "return ___antifnl_rtn_1___")))
 
-              (when (and (and (and (not (. (. q :indent.begin) (node:id)))
-                                  (. (. q :indent.ignore) (node:id)))
+              (when (and (and (and (not (indent-begin q node))
+                                   (indent-ignore q node))
                               (< (node:start) (- lnum 1)))
-                        (<= (- lnum 1) (node:end_)))
+                         (<= (- lnum 1) (node:end_)))
                 (lua "return 0"))
 
               (var (srow _ erow) (node:range))
               (var is-processed false)
 
               (when (and (not (. is-processed-by-row srow))
-                        (or (and (. (. q :indent.branch) (node:id)
-                                  (= srow (- lnum 1))))
-                            (and (. (. q :indent.dedent) (node:id)
-                                  (not= srow (- lnum 1))))))
+                         (or (and (indent-branch q node)
+                                  (= srow (- lnum 1)))
+                             (and (indent-dedent q node)
+                                  (not= srow (- lnum 1)))))
+                (print :indent-branch-or-dedent)
                 (set indent (- indent indent-size))
                 (set is-processed true))
 
               (local should-process (not (. is-processed-by-row srow)))
-              (var is-in-err false)
-
-              (when should-process
-                (local parent (node:parent))
-                (set is-in-err (and parent (parent:has_error))))
+              (local is-in-err (if-not should-process 
+                                 false
+                                 (let [parent (node:parent)]
+                                   (and parent (parent:has_error)))))
 
               (when (and should-process
-                        (and (and (. (. q :indent.begin) (node:id))
+                        (and (and (indent-begin q node)
                                   (or (or (not= srow erow) is-in-err)
-                                      (. (. (. q :indent.begin) (node:id)
-                                          :indent.immediate)))
+                                      (. (indent-begin q node) :indent.immediate))
                               (or (not= srow (- lnum 1))
-                                  (. (. (. q :indent.begin) (node:id))
-                                    :indent.start_at_same_line)))))
+                                  (. (indent-begin q node) :indent.start_at_same_line)))))
+                (print :indent-begin)
                 (set indent (+ indent indent-size))
                 (set is-processed true))
 
-              (when (and is-in-err (not (. (. q :indent.align) (node:id))))
+              (when (and is-in-err (not (indent-align q node)))
                 (each [c (node:iter_children)]
-                  (when (. (. q :indent.align) (c:id))
-                    (tset (. q :indent.align) (node:id) (. (. q :indent.align) (c:id)))
+                  (when (indent-align q c)
+                    (tset (. q :indent.align) (node:id) (indent-align q c))
                     (lua :break))))
 
-              (when (and (and (and should-process (. (. q :indent.align) (node:id)))
-                              (or (not= srow erow) is-in-err))
-                        (not= srow (- lnum 1)))
-                (local metadata (. (. q :indent.align) (node:id)))
+              (when (and (and (and should-process 
+                                   (indent-align q node))
+                              (or (not= srow erow) 
+                                  is-in-err))
+                         (not= srow (- lnum 1)))
+
+                (local metadata (indent-align q node))
                 (var (o-delim-node o-is-last-in-line) nil)
                 (var (c-delim-node c-is-last-in-line) nil)
                 (var indent-is-absolute false)
@@ -204,6 +225,7 @@
                   (when c-delim-node (set (c-srow _) (c-delim-node:start)))
                   (if o-is-last-in-line
                       (when should-process
+                        (print :indent-align)
                         (set indent (+ indent (* indent-size 1)))
                         (when c-is-last-in-line
                           (when (and c-srow (< c-srow (- lnum 1)))
