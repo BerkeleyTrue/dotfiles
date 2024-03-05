@@ -17,6 +17,8 @@
   (o! cursorcolumn   true)                             ;  cursor column
   (o! cursorline     true)                             ;  cursorline
   (o! expandtab      true)                             ;  convert tabs to spaces
+  (o! foldlevelstart 99)                               ;  start with all folds open
+  (o! foldtext       ft.format-fold-text-viml)         ;  set fold text to custom format
   (o! ignorecase     true)                             ;  ignore case when searching
   (o! list           true)                             ;  set list mode for listchars
   (o! listchars      "tab:\\ ")                        ;  mark whitespace
@@ -47,7 +49,6 @@
   (o! wildignore     "*.swp,*.bak,*.pyc,*.class")      ;  ignore these files
   (o! winbar         ">=>%f")                          ;  default winbar, prevent FOUC
   (o! zip_unzipcmd   "7z x -so")                       ;  use 7z to unzip files
-  (o! foldtext       ft.format-fold-text-viml)         ;  set fold text to custom format
 
   ; nvim blinking cursor see :help 'guicursor'
   (o! guicursor "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175")

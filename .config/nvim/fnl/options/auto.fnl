@@ -69,4 +69,8 @@
 
     {:event [:BufWritePost]
      :pattern :package.yaml
-     :callback hpack-auto-gen}))
+     :callback hpack-auto-gen}
+    
+    {:event :TextYankPost
+     :pattern :*
+     :cmd "silent! lua vim.highlight.on_yank{timeout=300}"}))
