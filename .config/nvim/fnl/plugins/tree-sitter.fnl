@@ -2,20 +2,8 @@
   {autoload
    {a aniseed.core
     r r
-    ts nvim-treesitter
-    tsconfigs nvim-treesitter.configs
-    tshighlights nvim-treesitter.highlight
-    queries nvim-treesitter.query
-    parsers nvim-treesitter.parsers
-    nvim-ts-install nvim-treesitter.install
-    vim-ts-queries vim.treesitter.query}
+    tsconfigs nvim-treesitter.configs}
    require-macros [macros]})
-
-(def- ensure_modules
-  [:nvim-treesitter
-   :nvim-treesitter-refactor
-   :playground
-   :nvim-treesitter-context])
 
 (def- rainbow
   ["#8BE9FD"
@@ -71,10 +59,4 @@
 
      :playground {:enable true}
      :query_linter {:enable true}
-     :matchup {:enable true :disable [:c]}}
-
-    (-?> _G
-      (a.get-in [:vim :treesitter :highlighter :hl_map])
-      (r.assoc :error nil)
-      (r.assoc :punctuation.delimiter "Delimiter")
-      (r.assoc :punctuation.bracket nil))))
+     :matchup {:enable true :disable [:c]}}))
