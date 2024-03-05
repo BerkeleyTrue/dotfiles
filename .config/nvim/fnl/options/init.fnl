@@ -1,5 +1,5 @@
 (module options
-  {require
+  {autoload
    {r r
     utils utils
     auto options.auto
@@ -9,31 +9,31 @@
 
 ; parinfer does not like this file
 (defn format-fold-text []
-  (let [foldstart (v :foldstart)
-        foldend (v :foldend)
+  (let [foldstart (v foldstart)
+        foldend (v foldend)
         numcolwidth (+
-                      (tonumber (. utils.wo :foldcolumn))
-                      (* (if (. utils.wo :number) 1 0)
-                         (. utils.wo :numberwidth)))
-        windowwidth (- (utils.fn.winwidth 0) numcolwidth 3)
+                      (r.to-number (wo foldcolumn))
+                      (* (if (wo number) 1 0)
+                         (wo numberwidth)))
+        windowwidth (- (vf winwidth 0) numcolwidth 3)
         lines-to-fold (- foldend foldstart)
 
-        onetab (utils.fn.strpart "          " 0 (. utils.o :tabstop))]
+        onetab (vf strpart "          " 0 (o tabstop))]
     (->
       ; get start of fold
       foldstart
       ; get whole line of fold
-      (utils.fn.getline)
+      (vf getline)
       ; substitute tabs into spaces
-      (utils.fn.substitute :\t onetab :g)
+      (vf substitute :\t onetab :g)
       ; grab the first n chars of the line
       ; n is the windowwidth - the width of the num of lines - magic number
-      (utils.fn.strpart 0 (- windowwidth (utils.fn.len lines-to-fold) 5))
+      (vim.fn.strpart 0 (- windowwidth (vf len lines-to-fold) 5))
       (.. "..." lines-to-fold " lines folded...>>>"))))
 
 (def format-fold-text-viml (.. (utils.viml-fn-bridge *module-name* (sym->name format-fold-text)) "()"))
 
-(let [shortmess (.. (. utils.o :shortmess) "c")]
+(let [shortmess (.. (o shortmess) "c")]
   (->
     {
      :ambiwidth      :single                          ;  force East Asian Width Class chars into a single space
@@ -76,8 +76,8 @@
      :winbar         ">=>%f"                          ;  default winbar, prevent FOUC
 
      ; nvim blinking cursor see :help 'guicursor'
-     :guicursor  "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
-     :foldtext     format-fold-text-viml}
+     :guicursor "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
+     :foldtext       format-fold-text-viml}
     (utils.set-nvim-o!)))
 
 (g! zip_unzipcmd "7z x -so") ; use 7z to unzip files

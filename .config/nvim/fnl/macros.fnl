@@ -355,6 +355,18 @@
     `(tset vim.bo ,bufnr ,(parse-sym name) ,val)
     `(tset vim.bo ,(parse-sym name) ,val)))
 
+(defn wo [name winid]
+  "get the window option value"
+  (if winid
+    `(. vim.wo ,winid ,(parse-sym name))
+    `(. vim.wo ,(parse-sym name))))
+
+(defn wo! [name val winid]
+  "Sets window scoped option 'name' to 'val'."
+  (if winid
+    `(tset vim.wo ,winid ,(parse-sym name) ,val)
+    `(tset vim.wo ,(parse-sym name) ,val)))
+
 (defn v [name]
   "get the value of the variable 'name'"
   `(. vim.v ,(parse-sym name)))

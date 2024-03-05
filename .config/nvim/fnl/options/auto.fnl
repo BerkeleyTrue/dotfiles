@@ -54,13 +54,13 @@
      :callback 
      #(when (= (o filetype) :help)
         (vim.fn.buflisted "help")
-        (command vertical "resize 81"))}
+        (command vertical "resize 120"))}
 
     {:event :BufLeave
      :pattern :*
      :callback 
      #(when (= (o filetype) :help)
-        (command vertical "resize 70"))}
+        (command vertical "resize 81"))}
 
     ; make sure cursor always starts on the first line for gitcommit files
     {:event [:FileType]
