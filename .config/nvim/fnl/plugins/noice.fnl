@@ -1,9 +1,9 @@
 (module plugins.noice
-  {require
+  {autoload
    {a aniseed.core
-    anenv plugins.aniseed
-    md utils.module
-    utils utils}
+    r r
+    noice noice
+    ts telescope}
    require-macros [macros]})
 
 (def- config
@@ -57,7 +57,5 @@
    :presets {:lsp_doc_border true}})
 
 (defn main []
-  (when-let [noice (md.prequire :noice)]
-    (noice.setup config)
-    (when-let [telescope (md.prequire :telescope)]
-      (telescope.load_extension :noice))))
+  (noice.setup config)
+  (ts.load_extension :noice))

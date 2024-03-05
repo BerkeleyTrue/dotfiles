@@ -28,6 +28,7 @@
   ; vim options requires no plugins
   ; side-effecty
   (options.main)
+  (require :maps)
   (plugins.main)
   (scroll-fix.main)
   (folds.main)
