@@ -16,10 +16,10 @@
 # Doing
 
 - [ ] feat(fnl): add folds to fennel files
-- [ ] bug(corpus): <C-]> should create metadata
+- [ ] feat(corpus): <C-]> should create metadata
 - [ ] bug(corpus): cmp execute ref def adds duplicates
 
-# Done
+# Done (2024)
 
 - [x] figure out nvim-cmp whitespace trigger
 - [x] update packers to use make setup

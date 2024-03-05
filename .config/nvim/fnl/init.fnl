@@ -1,6 +1,7 @@
 (module init
   {autoload
-   {lisp-indent lib.treesitter.lisp-indent}
+   {lisp-indent lib.treesitter.lisp-indent
+    options options}
    require
    {a aniseed.core
     md utils.module}
@@ -8,9 +9,9 @@
 
 ; vim options requires no plugins
 ; side-effecty
-(require :options)
 (require :maps)
 
+(options.main)
 (run-main :plugins)
 (run-main :lib.scroll-fix)
 (run-main :lib.folds)
