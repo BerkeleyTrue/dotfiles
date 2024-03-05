@@ -29,6 +29,6 @@
       ; grab the first n chars of the line
       ; n is the windowwidth - the width of the num of lines - magic number
       (vim.fn.strpart 0 (- windowwidth (vf len lines-to-fold) 5))
-      (.. "..." lines-to-fold " lines folded...>>>"))))
+      (.. " 󰞘 " lines-to-fold " lines  "))))
 
 (def format-fold-text-viml (.. (utils.viml-fn-bridge *module-name* (sym->name format-fold-text)) "()"))
