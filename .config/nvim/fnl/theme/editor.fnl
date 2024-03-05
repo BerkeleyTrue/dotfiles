@@ -1,13 +1,13 @@
 (module theme.editor
   {autoload
-   {cb colorbuddy
-    p theme.palette
-    cl lib.color}
-   require
    {a aniseed.core
     r r
+    cb colorbuddy
+    p theme.palette
+    cl lib.color
     hl utils.highlights
     utils utils}
+   require {}
    require-macros [macros]})
 
 (comment
@@ -17,7 +17,8 @@
 (set-hl :Search    {:fg (cl.->hex p.text) :bg (cl.->hex [189 48 30])}) ; Last search pattern highlighting (see 'hl-Search').  Also used for similar items that need to stand out.
 (set-hl :CurSearch {:fg (cl.->hex p.mantle) :bg (cl.->hex [359 68 79])}) ; 'cursearch' highlighting: highlights the current search you're on differently
 (set-hl :IncSearch {:fg (cl.->hex p.mantle) :bg (cl.->hex [189 48 35])}) ; Last search pattern highlighting (see 'hl-IncSearch').  Also used for similar items that need to stand out.
-(set-hl :WildMenu  {:fg :fg :bg (cl.->hex p.overlay0)})
+(set-hl :WildMenu  {:fg :fg :bg (cl.->hex p.overlay0)}) ; current match in 'wildmenu' completion
+(set-hl :Folded    {:fg (cl.->hex p.blue)}) ; line used for closed folds
 
 (defn main [{: c : s : add-group}]
   (add-group :ColorColumn       c.none c.surface0) ; used for the columns set with 'colorcolumn'
@@ -36,7 +37,6 @@
   (add-group :Directory         c.blue) ; directory names (and other special names in listings)
   (add-group :EndOfBuffer       c.text c.base) ; filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
   (add-group :ErrorMsg          c.red c.none s.bold) ; error messages on the command line
-  (add-group :Folded            c.blue c.surface1) ; line used for closed folds
   (add-group :FoldColumn        c.overlay0); column used for 'foldcolumn'
   (add-group :SignColumn        c.surface1) ; column where signs are displayed
   (add-group :SignColumnSB      c.surface1 c.crust) ; column where signs are displayed

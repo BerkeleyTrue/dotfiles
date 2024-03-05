@@ -15,6 +15,8 @@
    "#F1FA8C"])
 
 (defn main []
+  (o! foldmethod :expr)
+  (o! foldexpr "nvim_treesitter#foldexpr()")
   (tsconfigs.setup
     {:ensure_installed
      [:bash

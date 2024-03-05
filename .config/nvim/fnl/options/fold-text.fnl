@@ -12,7 +12,7 @@
   (let [foldstart (v foldstart)
         foldend (v foldend)
         numcolwidth (+
-                      (r.to-number (wo foldcolumn))
+                      (tonumber (wo foldcolumn))
                       (* (if (wo number) 1 0)
                          (wo numberwidth)))
         windowwidth (- (vf winwidth 0) numcolwidth 3)
