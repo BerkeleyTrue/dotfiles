@@ -9,3 +9,4 @@ font_features           FiraCodeNFM-Reg +cv02 +cv05 +cv09 +cv14 +cv16 +cv24 +cv2
 confirm_os_window_close 0
 allow_remote_control    socket-only
 listen_on               unix:/tmp/kitty
+shell_integration       none
