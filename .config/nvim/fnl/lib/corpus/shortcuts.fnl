@@ -2,9 +2,9 @@
   {autoload
    {a aniseed.core
     r r
-    md utils.module
     utils utils
-    ts lib.corpus.treesitter}
+    ts lib.corpus.treesitter
+    rl lib.corpus.reference-links}
    require {}
    require-macros [macros]})
 
@@ -16,7 +16,9 @@
         link (.. "[" word "]")
         line (vf getline linenm)
         linkified (vf substitute line (.. "\\<" (vf escape word "\\") "\\>") link "g")]
-    (vf setline linenm linkified)))
+    (vf setline linenm linkified)
+    ; give tree sitter a chance to update the syntax tree
+    (vim.schedule rl.update-file)))
 
 (defn create-shortcut-on-selection []
   "Create a shortcut on the selected text"

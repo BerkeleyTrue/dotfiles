@@ -15,8 +15,6 @@
 
 # Doing
 
-- [ ] feat(fnl): add folds to fennel files
-- [ ] feat(corpus): <C-]> should create metadata
 - [ ] bug(corpus): cmp execute ref def adds duplicates
 
 # Done (2024)
@@ -62,3 +60,5 @@
   > yadm open was good, but commit was more complicated then I cared too
 - [x] scroll-fix should run on window size change
 - [x] update to supported fennel ts
+- [x] feat(fnl): add folds to fennel files
+- [x] feat(corpus): <C-]> should create ref links

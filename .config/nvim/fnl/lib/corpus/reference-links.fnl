@@ -53,7 +53,7 @@
 
 (defn update-file []
   "Add new reference definitions to the current buffer."
-  (case (get-links-to-add)
+  (case (get-links-to-add) 
     [& refs] (add-new-ref-defs refs)
     _ (a.println "No new links to add.")))
 

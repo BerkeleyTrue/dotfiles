@@ -80,13 +80,6 @@
     (bo! filetype "markdown.corpus")
     (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true})
     (xnoremap "<C-]>" #(shortcuts.create-shortcut-on-selection) {:silent true :buffer true})
-    (command! :CorpusAddTag (fn [{: fargs}]
-                              (metadata.update-file
-                                {:tags fargs 
-                                 :force? true})) 
-              {:nargs :*
-               :desc "Add tags to the current file"
-               :complete #[:reference :video :book :article :podcast :course :other]})
 
     (augroup :LibCorpusEnv
       {:event [:BufWritePre]
@@ -123,7 +116,15 @@
             :nargs "*"
             :complete complete})
 
+         (command! :CorpusRefLinks #(reflinks.update-file))
          (command! :CorpusMetaData #(metadata.update-file {:force? true}))
+         (command! :CorpusAddTag (fn [{: fargs}]
+                                   (metadata.update-file
+                                     {:tags fargs 
+                                      :force? true})) 
+                   {:nargs :*
+                    :desc "Add tags to the current file"
+                    :complete #[:reference :video :book :article :podcast :course :other]})
 
          (command!
            :Zet
