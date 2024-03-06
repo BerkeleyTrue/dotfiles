@@ -8,8 +8,7 @@
 
 (def- configs
   {:margin 60
-   :is_enabled? true
-   :fix_at_eof true
+   :enabled? true
    :debug false})
 
 (defn- set-top-of-window [line wintable]
@@ -21,11 +20,12 @@
 
 (defn- get-world-facts []
   "get facts about the current buffer, window, and cursor"
-  (let [winheight (vim.fn.winheight 0) ; current window viewport height
-        wintable (vim.fn.winsaveview) ;
-        current-cursor-win-line (. wintable :lnum)
-        top-visible-line (. wintable :topline)
-        buf-last-line (vim.fn.line "$")]
+  (let [winheight (vf winheight 0) ; current window viewport height
+        wintable (vf winsaveview) ;
+        buf-last-line (vf line "$")
+        current-cursor-win-line wintable.lnum
+        top-visible-line        wintable.topline]
+
     {:winheight winheight
      :wintable wintable
      :current-cursor-win-line current-cursor-win-line
@@ -42,13 +42,16 @@
   "
   (let [
         ;; configs
-        fix-percent (a.get configs :margin 60) ; how far down the window should the cursor be fixed at
-        is-enabled? (a.get configs :is_enabled? true) ; whether to enable the plugin
-        fix-at-eof (a.get configs :fix_at_eof true) ; whether to fix the cursor at the end of the file
-        is-debug? (a.get configs :debug false) ; whether to print debug info
+        fix-percent configs.margin ; how far down the window should the cursor be fixed at
+        is-enabled? (a.get configs :enabled? true) ; whether to enable the plugin
+        debug? configs.debug ; whether to print debug info
 
         ;; world facts
-        {: winheight : wintable : current-cursor-win-line : top-visible-line : buf-last-line} (get-world-facts)
+        {: winheight 
+         : wintable 
+         : current-cursor-win-line 
+         : top-visible-line 
+         : buf-last-line} (get-world-facts)
         ;; derived
 
         ;; get the number of lines (margin) above the cursor
@@ -76,7 +79,7 @@
         is-eof? (> (+ winheight top-visible-line)
                    buf-last-line)]
 
-    (when is-debug?
+    (when debug?
       (a.pr "current-buf-line: " current-cursor-win-line
             "desired-buf-line: " desired-buf-line
             "is-above-buf-margin?: " is-at-beg-of-buff?
@@ -84,28 +87,15 @@
             "is-below-desired?: " is-below-desired?
             "is-eof?: " is-eof?))
 
-    (when is-enabled?
-
-      ;; make sure softtabstop is off
-      ;; not sure why this is needed
-      (when (not= (a.get vim.o :softtabstop) 0)
-        (set vim.o.softtabstop 0))
-
-      (when-not
-        (or
-          is-at-beg-of-buff?
-          is-on-desired?
-          (and
-            (not fix-at-eof)
-            is-below-desired?
-            is-eof?))
-
-        (set-top-of-window
-          (->
-            current-cursor-win-line
-            (- desired-win-margin)
-            (+ 1))
-          wintable)))))
+    (when (and is-enabled?
+               (not (or is-at-beg-of-buff?
+                        is-on-desired?)))
+      (set-top-of-window
+        (->
+          current-cursor-win-line
+          (- desired-win-margin)
+          (+ 1))
+        wintable))))
 
 (defn main []
   (augroup
@@ -125,6 +115,6 @@
   (command!
     :ScrollFixToggle
     (fn scroll-fix-toggle []
-      (let [to-enable (not (a.get configs :is_enabled? true))]
-        (a.assoc configs :is_enabled? to-enable)
+      (let [to-enable (not (a.get configs :enabled? true))]
+        (a.assoc configs :enabled? to-enable)
         (when to-enable (scroll-fix))))))
