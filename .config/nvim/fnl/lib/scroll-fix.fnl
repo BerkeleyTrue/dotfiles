@@ -8,7 +8,7 @@
 (def- configs
   {:margin 60
    :enabled? true
-   :debug false})
+   :debug true})
 
 (defn- set-top-of-window [line wintable]
   "set the top line of the window to be `line`
@@ -22,14 +22,19 @@
   (let [winheight     (vf winheight 0) ; current window viewport height
         wintable      (vf winsaveview) ;
         buf-last-line (vf line "$")
-        hidden-lines  (fld.count-folded-lines wintable.lnum)
-        lnum wintable.lnum
-        top-visible-line        wintable.topline]
+        folds         (fld.do-fold-collection)
+        hidden-lines  (fld.count-folded-lines wintable.lnum folds)
+        lnum          wintable.lnum
+        top-visible-line   wintable.topline
+        top-visible-line*  (if-let [(in? fold) (fld.in-fold? top-visible-line folds)]
+                             (+ top-visible-line (- fold.end fold.start))
+                             top-visible-line)]
 
     {: winheight
      : wintable
      : lnum
      : top-visible-line
+     : top-visible-line*
      : buf-last-line
      : hidden-lines}))
 
@@ -52,6 +57,7 @@
          : wintable 
          : lnum 
          : top-visible-line 
+         : top-visible-line*
          : buf-last-line
          : hidden-lines} (get-world-facts)
         ;; derived
@@ -94,6 +100,7 @@
             "lnum*" lnum*
             "desired-buf-lac" desired-buf-lac
             "top-line" top-visible-line
+            "top-line*" top-visible-line*
             "desired-top-line" desired-top-line
             "is-above-buf-margin?" is-at-beg-of-buff?
             "is-on-desired?" is-on-desired?

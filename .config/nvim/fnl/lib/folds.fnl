@@ -28,9 +28,9 @@
     (let [_folds data.folds]
       _folds)))
 
-(defn in-fold? [linenr]
+(defn in-fold? [linenr folds]
   "Check if the given line number is in a fold, and return the fold range."
-  (let [folds (do-fold-collection)]
+  (let [folds (or folds (do-fold-collection))]
     (var in? false)
     (var _end nil)
     (var _start nil)
@@ -43,11 +43,11 @@
 
 (comment (in-fold? 14))
 
-(defn count-folded-lines [linenr]
+(defn count-folded-lines [linenr folds]
   "Count how many lines are folded upto the given line number, 
   or the whole file if no line number is given.
   TODO: count within range, not just upto the line number."
-  (let [folds (do-fold-collection)
+  (let [folds (or (do-fold-collection) folds)
         linenr (or linenr (vim.fn.line "$"))]
     (var count 0)
     (var found false)
