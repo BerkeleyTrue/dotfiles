@@ -3,10 +3,10 @@
    {a aniseed.core
     r r
     ftdetect lib.corpus.ftdetect
-    refdefs lib.corpus.reference-links
+    rl lib.corpus.reference-links
+    {: search} lib.corpus.search
     path lib.path
-    {: run} lib.spawn
-    {: search} lib.corpus.search}
+    {: run} lib.spawn}
    require {}
    require-macros [macros]})
 
@@ -64,12 +64,8 @@
    :execute
    (fn [_self item callback]
      "Execute the completion item. This occurs after selection"
-     (when-let [dest item.destination
-                dest (->
-                       dest
-                       (string.gsub "/" "" 1)
-                       (string.gsub ".md" ""))]
-       (refdefs.add-ref-def item.label dest))
+     ; give treesitter a chance to catch up with changes
+     (vim.schedule rl.update-file)
      (callback item))})
 
 (defn main [cmp]

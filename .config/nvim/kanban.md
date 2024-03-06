@@ -1,6 +1,5 @@
 # To Do
 
-- scroll-fix should account for folds
 - create fennel help docs from fennel reference
   - ala luaref helpdocs
 - builtin kanban in markdown files
@@ -15,7 +14,7 @@
 
 # Doing
 
-- [ ] bug(corpus): cmp execute ref def adds duplicates
+- [ ] scroll-fix should account for folds
 
 # Done (2024)
 
@@ -62,3 +61,4 @@
 - [x] update to supported fennel ts
 - [x] feat(fnl): add folds to fennel files
 - [x] feat(corpus): <C-]> should create ref links
+- [x] bug(corpus): cmp execute ref def adds duplicates
