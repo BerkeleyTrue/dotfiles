@@ -22,14 +22,16 @@
   (let [winheight     (vf winheight 0) ; current window viewport height
         wintable      (vf winsaveview) ;
         buf-last-line (vf line "$")
-        current-cursor-win-line wintable.lnum
+        hidden-lines  (fld.count-folded-lines wintable.lnum)
+        lnum wintable.lnum
         top-visible-line        wintable.topline]
 
-    {:winheight winheight
-     :wintable wintable
-     :current-cursor-win-line current-cursor-win-line
-     :top-visible-line top-visible-line
-     :buf-last-line buf-last-line}))
+    {: winheight
+     : wintable
+     : lnum
+     : top-visible-line
+     : buf-last-line
+     : hidden-lines}))
 
 (comment (get-world-facts))
 
@@ -37,7 +39,7 @@
   "Scroll fix - pull the current state of the window, buffer, and cursor
    and calculate whether to adjust the window position in order to keep the cursor
    at the center of the screen.
-   TODO: figure out how to get fold info
+   TODO: topline needs to be adjusted when in fold
   "
   (let [
         ;; configs
@@ -48,10 +50,13 @@
         ;; world facts
         {: winheight 
          : wintable 
-         : current-cursor-win-line 
+         : lnum 
          : top-visible-line 
-         : buf-last-line} (get-world-facts)
+         : buf-last-line
+         : hidden-lines} (get-world-facts)
         ;; derived
+        ;; get the bufer line number of the cursor taking hidden lines into account
+        lnum* (- lnum hidden-lines)
 
         ;; get the number of lines (margin) above the cursor
         ;; use the window height
@@ -63,47 +68,42 @@
                              (/ 100)
                              (math.floor))
 
-        ;; get the line number of the cursor in the buffer that we want to fix at
-        desired-buf-line (+ top-visible-line desired-win-margin)
-
-        ; desired-buf-line (if-let [(ok? data) (fld.in-fold? desired-buf-line)]
-        ;                    (do
-        ;                      (a.println :in-fold? data)
-        ;                      desired-buf-line) ; TODO: figure out calc
-        ;                    (do
-        ;                      (a.println :not-in-fold? desired-buf-line)
-        ;                      desired-buf-line))
+        ;; get the desired number of lines above the cursor in the view
+        desired-buf-lac (+ top-visible-line desired-win-margin)
 
         ;; are we at the beginning of the buffer and the top of the window?
         is-at-beg-of-buff? (and (= top-visible-line 1)
-                                (<= current-cursor-win-line (- desired-buf-line 1)))
+                                (<= lnum* (- desired-buf-lac 1)))
         is-on-desired? (= desired-win-margin
                           (->
-                            current-cursor-win-line 
+                            lnum* 
                             (- top-visible-line)
                             (+ 1)))
 
-        is-below-desired? (>= current-cursor-win-line desired-win-margin)
+        is-below-desired? (>= lnum* desired-win-margin)
         is-eof? (> (+ winheight top-visible-line)
-                   buf-last-line)]
+                   buf-last-line)
+        desired-top-line (->
+                           lnum*
+                           (- desired-win-margin)
+                           (+ 1))]
 
     (when debug?
-      (a.pr "current-buf-line: " current-cursor-win-line
-            "desired-buf-line: " desired-buf-line
-            "is-above-buf-margin?: " is-at-beg-of-buff?
-            "is-on-desired?: " is-on-desired?
-            "is-below-desired?: " is-below-desired?
-            "is-eof?: " is-eof?))
+      (a.pr "lnum" lnum
+            "hidden-lines" hidden-lines
+            "lnum*" lnum*
+            "desired-buf-lac" desired-buf-lac
+            "top-line" top-visible-line
+            "desired-top-line" desired-top-line
+            "is-above-buf-margin?" is-at-beg-of-buff?
+            "is-on-desired?" is-on-desired?
+            "is-below-desired?" is-below-desired?
+            "is-eof?" is-eof?))
 
     (when (and is-enabled?
                (not (or is-at-beg-of-buff?
                         is-on-desired?)))
-      (set-top-of-window
-        (->
-          current-cursor-win-line
-          (- desired-win-margin)
-          (+ 1))
-        wintable))))
+      (set-top-of-window desired-top-line wintable))))
 
 (defn main []
   (augroup

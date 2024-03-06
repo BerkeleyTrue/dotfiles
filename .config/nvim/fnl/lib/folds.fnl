@@ -19,13 +19,17 @@
       (set data.folds (r.conj data.folds {:start line :end end})))))
 
 (defn do-fold-collection []
-  (tset data :folds {})
+  (tset data :folds [])
   (tset data :prev-end nil)
-  (command folddoclosed (viml->lua* collect-folds))
-  (let [_folds data.folds]
-    _folds))
+  ; save cursor pos
+  (let [pos (n win-get-cursor 0)]
+    (command folddoclosed (viml->lua* collect-folds))
+    (n win-set-cursor 0 pos)
+    (let [_folds data.folds]
+      _folds)))
 
 (defn in-fold? [linenr]
+  "Check if the given line number is in a fold, and return the fold range."
   (let [folds (do-fold-collection)]
     (var in? false)
     (var _end nil)
@@ -38,6 +42,26 @@
     (values in? {:start _start :end _end})))
 
 (comment (in-fold? 14))
+
+(defn count-folded-lines [linenr]
+  "Count how many lines are folded upto the given line number, 
+  or the whole file if no line number is given.
+  TODO: count within range, not just upto the line number."
+  (let [folds (do-fold-collection)
+        linenr (or linenr (vim.fn.line "$"))]
+    (var count 0)
+    (var found false)
+    (each [_ {: start : end} (ipairs folds) &until found]
+      (when (<= start linenr)
+        (if (<= end linenr)
+          (set count (+ count (- end start))) ; don't count the fold line itself
+          (do
+            (set count (+ count (- linenr start)))
+            (set found true)))))
+    count))
+
+(comment 
+  (count-folded-lines 48))
 
 (defn main []
   (command! :CollectFolds (fn print-folds [] (a.pr (do-fold-collection)))))
