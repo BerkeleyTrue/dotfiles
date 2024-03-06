@@ -2,7 +2,8 @@
   {require
    {a aniseed.core
     r r
-    utils utils}
+    utils utils
+    buffs lib.buffers}
    require-macros [macros]})
 
 (defn go-to-last-edit []
@@ -32,12 +33,18 @@
   (augroup
     :GeneralAu
 
-    ; Resize splits when the window is resized
-    ; TODO: find a way to resize help terminal after equalize
+    ; Resize splits when the vim is resized
+    ; Also make sure the help window is always 81 columns wide
     {:event :VimResized
      :pattern :*
      :callback
-     (fn [] (command wincmd :=))}
+     (fn [] 
+       (let [buffers (buffs.list-visible)
+             help-winnr (buffs.get-help-window)]
+         (when (> (length buffers) 1)
+           (command wincmd :=))
+         (when help-winnr
+           (n win-set-width help-winnr 81))))}
 
     ; Make vim open on the line you closed the buffer on
     {:event [:BufReadPost]
@@ -49,12 +56,12 @@
      :pattern :help
      :cmd "wincmd L | vert resize 81"}
 
-    {:event :BufEnter
+    {:event [:BufEnter :BufReadPost] 
      :pattern :*
      :callback 
      #(when (= (o filetype) :help)
         (vim.fn.buflisted "help")
-        (command vertical "resize 120"))}
+        (command vertical "resize 100"))}
 
     {:event :BufLeave
      :pattern :*
