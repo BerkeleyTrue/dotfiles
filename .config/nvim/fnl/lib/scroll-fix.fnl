@@ -1,9 +1,8 @@
 (module lib.scroll-fix
-  {require
+  {autoload
    {a aniseed.core
     r r
-    md utils.module
-    utils utils}
+    fld lib.folds}
    require-macros [macros]})
 
 (def- configs
@@ -20,8 +19,8 @@
 
 (defn- get-world-facts []
   "get facts about the current buffer, window, and cursor"
-  (let [winheight (vf winheight 0) ; current window viewport height
-        wintable (vf winsaveview) ;
+  (let [winheight     (vf winheight 0) ; current window viewport height
+        wintable      (vf winsaveview) ;
         buf-last-line (vf line "$")
         current-cursor-win-line wintable.lnum
         top-visible-line        wintable.topline]
@@ -67,13 +66,22 @@
         ;; get the line number of the cursor in the buffer that we want to fix at
         desired-buf-line (+ top-visible-line desired-win-margin)
 
+        ; desired-buf-line (if-let [(ok? data) (fld.in-fold? desired-buf-line)]
+        ;                    (do
+        ;                      (a.println :in-fold? data)
+        ;                      desired-buf-line) ; TODO: figure out calc
+        ;                    (do
+        ;                      (a.println :not-in-fold? desired-buf-line)
+        ;                      desired-buf-line))
+
         ;; are we at the beginning of the buffer and the top of the window?
-        is-at-beg-of-buff? (and
-                             (= top-visible-line 1)
-                             (<= current-cursor-win-line (- desired-buf-line 1)))
-        is-on-desired? (=
-                         (+ (- current-cursor-win-line top-visible-line) 1)
-                         desired-win-margin)
+        is-at-beg-of-buff? (and (= top-visible-line 1)
+                                (<= current-cursor-win-line (- desired-buf-line 1)))
+        is-on-desired? (= desired-win-margin
+                          (->
+                            current-cursor-win-line 
+                            (- top-visible-line)
+                            (+ 1)))
 
         is-below-desired? (>= current-cursor-win-line desired-win-margin)
         is-eof? (> (+ winheight top-visible-line)
