@@ -134,14 +134,13 @@
 
 (def link-shortcut-query
   "(shortcut_link
-     (link_text) @shortcut_link (#match? @shortcut_link \"\\v^\\S{3}\"))")
+     (link_text) @shortcut_link (#lua-match? @shortcut_link \"%S+\"))")
 
 (defn extract-link-shortcuts []
   "Grabs all the link shortcut labels from the current buffer and returns them as a list of strings."
-  (let [bufnr (n get_current_buf)
+  (let [bufnr (n get-current-buf)
         parser (parsers.get_parser bufnr)
-        inlines (. (parser:children) :markdown_inline)
-        get-text (fn get-gt [mtch] (-> (. mtch :shortcut_link :node) (tsnode.text)))]
+        inlines (. (parser:children) :markdown_inline)]
 
     (var out [])
     (when (r.not-empty? inlines)
@@ -152,13 +151,13 @@
           (inlines:for_each_tree
             (fn [tree]
               (let [root (tree:root)]
-                (icollect [_ node (parsed-query:iter_captures root 0)]
+                (icollect [_ node (parsed-query:iter_captures root bufnr)]
                   (table.insert out (tsnode.text node))))))
           out)))))
 
 (comment
   (command! :CorpusExtractLinkShortcuts
-            (fn [] (a.println (extract-link-shortcuts)))))
+    (fn [] (a.println (extract-link-shortcuts)))))
 
 (defn get-node-under-cursor []
   "Get the node under the cursor. Nil, if nothing is found"
