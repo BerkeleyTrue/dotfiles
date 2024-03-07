@@ -28,40 +28,65 @@
     (let [_folds data.folds]
       _folds)))
 
-(defn in-fold? [linenr folds]
-  "Check if the given line number is in a fold, and return the fold range."
-  (let [folds (or folds (do-fold-collection))]
-    (var in? false)
-    (var _end nil)
-    (var _start nil)
-    (each [_ {: start : end} (ipairs folds) &until in?]
-      (when (and (>= linenr start) (<= linenr end))
-        (set in? true)
-        (set _end end)
-        (set _start start)))
-    (values in? {:start _start :end _end})))
-
-(comment (in-fold? 14))
-
-(defn count-folded-lines [linenr folds]
-  "Count how many lines are folded upto the given line number, 
-  or the whole file if no line number is given.
-  TODO: count within range, not just upto the line number."
-  (let [folds (or (do-fold-collection) folds)
-        linenr (or linenr (vim.fn.line "$"))]
-    (var count 0)
-    (var found false)
-    (each [_ {: start : end} (ipairs folds) &until found]
-      (when (<= start linenr)
-        (if (<= end linenr)
-          (set count (+ count (- end start))) ; don't count the fold line itself
-          (do
-            (set count (+ count (- linenr start)))
-            (set found true)))))
-    count))
+(defn overlap-range [start end folds]
+  "Return the range of folds that overlap with the given range."
+  (var out [])
+  (var end-found? nil)
+  (each [_ {:start fstart :end fend} (ipairs folds) &until end-found?]
+    (when (or (<= start fstart end) ; if start is in fold
+              (<= start fend   end)) ; if end is in fold
+      (table.insert out {:start fstart :end fend})
+      (when (<= end fend)
+        (set end-found? true))))
+  out)
 
 (comment 
-  (count-folded-lines 48))
+  (overlap-range 5 10 [{:start 1 :end 3} {:start 5 :end 7} {:start 9 :end 11}])
+  (overlap-range 1 69 [{:start 1 :end 5} {:start 9 :end 20} {:start 25 :end 30}]))
+
+(defn overlap-fold [start end folds]
+  "Return the range of folds that overlap with the given range."
+  (var out [])
+  (var end-found? nil)
+  (each [_ {:start fstart :end fend} (ipairs folds) &until end-found?]
+    (when (or (<= fstart start fend) ; if start is in range
+              (<= fstart end   fend)) ; if end is in range
+      (table.insert out {:start fstart :end fend})
+      (when (<= end fend)
+        (set end-found? true))))
+  out)
+
+(comment
+  (overlap-fold 11 11 [{:start 6 :end 12}]))
+
+(defn in-fold? [linenr folds]
+  "Check if the given line number is in a fold, and return the fold range."
+  (let [folds (->>
+                (or folds (do-fold-collection))
+                (overlap-fold linenr linenr))]
+    (when-not (r.empty? folds)
+      (r.head folds))))
+
+(comment (in-fold? 11 [{:start 6 :end 12}]))
+
+(defn count-folded-lines [{: start : end} folds]
+  "Count how many lines are folded from start upto the given line end line numbers, 
+  or the whole file if no start or end line number is given."
+  (let [start (or start 1)
+        end (or end (vf line "$"))]
+    (->>
+      (or folds (do-fold-collection))
+      (overlap-range start end) 
+      (r.reduce
+        (fn [acc {:start fstart :end fend}]
+          (let [end (if (<= start fend end) fend end)
+                start (if (<= start fstart end) fstart start)]
+            (+ acc (- end start))))
+        0))))
+
+(comment 
+  (count-folded-lines {:start 1 :end 69} [{:start 1 :end 5} {:start 9 :end 20} {:start 25 :end 30}])
+  (count-folded-lines {:start 14 :end 27} [{:start 1 :end 5} {:start 9 :end 20} {:start 25 :end 30}]))
 
 (defn main []
   (command! :CollectFolds (fn print-folds [] (a.pr (do-fold-collection)))))
