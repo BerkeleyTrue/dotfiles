@@ -111,7 +111,8 @@
    ; aniseed provided by nix home-manager
    {:name :olical/conjure :init (make-init conjure)}
    {:name :olical/nvim-local-fennel}
-   {:name :bakpakin/fennel.vim}
+   {:name :bakpakin/fennel.vim :description "A lua lisp inspired by clojure"}
+   {:name :berkeleytrue/fennel-vimdocs :description "Add fennel docs to vim!"}
 
    ; treesitter
    {:name :nvim-treesitter/nvim-treesitter :config (make-on-load tree-sitter) :lazy false}
