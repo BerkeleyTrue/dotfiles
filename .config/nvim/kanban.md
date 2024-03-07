@@ -1,19 +1,20 @@
 # To Do
 
+- rewrite scroll fix
+  - original still bug
+  - rethink algorithm 
 - builtin kanban in markdown files
   - use nvim ui to provide kanban boards
   - move tasks using vim motion
   - find kanbans within file
-- build vim-signature replacement
-  > see: sign_place, sign_define
-  > see: chentoast/marks.nvim
-- [ ] defasync macro should fold through symbols and replace binds with await
+- defasync macro should fold through symbols and replace binds with await
   - modify acase to account for the above
 
 # Doing
 
-- [ ] create fennel help docs from fennel reference
-  - ala luaref helpdocs
+- [ ] build vim-signature replacement
+  > see: sign_place, sign_define
+  > see: chentoast/marks.nvim
 
 # Done (2024)
 
@@ -62,3 +63,5 @@
 - [x] feat(corpus): <C-]> should create ref links
 - [x] bug(corpus): cmp execute ref def adds duplicates
 - [x] scroll-fix should account for folds
+- [x] create fennel help docs from fennel reference
+  - ala luaref helpdocs
