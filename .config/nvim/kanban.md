@@ -1,7 +1,5 @@
 # To Do
 
-- create fennel help docs from fennel reference
-  - ala luaref helpdocs
 - builtin kanban in markdown files
   - use nvim ui to provide kanban boards
   - move tasks using vim motion
@@ -14,7 +12,8 @@
 
 # Doing
 
-- [ ] scroll-fix should account for folds
+- [ ] create fennel help docs from fennel reference
+  - ala luaref helpdocs
 
 # Done (2024)
 
@@ -62,3 +61,4 @@
 - [x] feat(fnl): add folds to fennel files
 - [x] feat(corpus): <C-]> should create ref links
 - [x] bug(corpus): cmp execute ref def adds duplicates
+- [x] scroll-fix should account for folds
