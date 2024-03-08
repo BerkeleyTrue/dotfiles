@@ -66,8 +66,7 @@ in {
 
     Timer = {
       OnBootSec = 80;
-      OnCalendar = "10..20:00/2:00"; # run every other hour from 10 to 20
-      Persistent = true;
+      OnCalendar = "10..20:00:00"; # run every other hour from 10 to 20
     };
 
     Install = {
