@@ -41,7 +41,7 @@ switch() {
 }
 
 update() {
-	nix flake update $flake_uri
+	nix flake update --flake $flake_uri
 }
 
 rollback() {
