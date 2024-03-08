@@ -46,7 +46,7 @@ today() {
 }
 
 tomorrow() {
-  nvim +"ZenModeOnly" + "$(date -d "tomorrow" +"%y-%m-%d %H:%M" | while read d t; do
+  nvim +"ZenModeOnly" + "$(date -d "tomorrow" +"%y-%m-%d" | while read d; do
 
     f=$HOME/docs/notes/captainslog/$d.md
     # if empty add a header
@@ -61,7 +61,7 @@ tomorrow() {
     fi
     (
       echo
-      echo \#\# $t
+      echo \#\# yesterday
       echo
       echo
     ) >>"$f"
