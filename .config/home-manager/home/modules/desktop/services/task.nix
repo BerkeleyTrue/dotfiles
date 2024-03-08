@@ -44,4 +44,34 @@ in {
       WantedBy = ["timers.target"];
     };
   };
+
+  systemd.user.services.task-alert-overdue = {
+    Unit = {
+      Description = "Run taskwarrior alert";
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "taskwarrior-alert" ''
+        set -euo pipefail
+        ${pkgs.taskwarrior}/bin/task +OVERDUE count | xargs -I {} ${pkgs.dunst}/bin/dunstify -a 'Taskwarrior' 'You have {} overdue tasks'
+      '';
+    };
+  };
+
+  systemd.user.timers.task-alert-overdue = {
+    Unit = {
+      Description = "Taskwarrior Alert Sync Timer";
+    };
+
+    Timer = {
+      OnBootSec = 80;
+      OnCalendar = "10..20:00/2:00"; # run every other hour from 10 to 20
+      Persistent = true;
+    };
+
+    Install = {
+      WantedBy = ["timers.target"];
+    };
+  };
 }
