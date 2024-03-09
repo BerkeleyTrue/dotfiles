@@ -54,7 +54,13 @@ in {
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "taskwarrior-alert" ''
         set -euo pipefail
-        ${pkgs.taskwarrior}/bin/task +OVERDUE count | xargs -I {} ${pkgs.dunst}/bin/dunstify -a 'Taskwarrior' 'You have {} overdue tasks'
+        count=$(${pkgs.taskwarrior}/bin/task +OVERDUE count)
+        # if there are no overdue tasks, do nothing
+        if [ $count -eq 0 ]; then
+          echo "No overdue tasks, exiting..."
+          exit 0
+        fi
+        ${pkgs.dunst}/bin/dunstify -a 'Taskwarrior' "You have $count overdue tasks"
       '';
     };
   };
