@@ -34,3 +34,9 @@
 
 
 (":" @constant (string_content) @constant)
+
+; {: foo}
+(table_pair 
+  (symbol) @constant
+  . 
+  (symbol)) (#eq? @constant ":")
