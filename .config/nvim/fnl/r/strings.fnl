@@ -175,3 +175,15 @@
 (defn ends-with? [str suffix]
   "Checks if string ends with the given suffix."
   (vim.endswith str suffix))
+
+(defn lower? [char]
+  "Checks if a character is lower case"
+  (<= 97 (string.byte char) 122))
+
+(defn upper? [char]
+  "Checks if a character is upper case"
+  (<= 65 (string.byte char) 90))
+
+(defn letter? [char]
+  "Checks if a character is a letter"
+  (or (lower? char) (upper? char)))
