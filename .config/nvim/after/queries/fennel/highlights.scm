@@ -33,10 +33,11 @@
   (#any-of? @keyword.import "autoload"))
 
 
+; keyword :foo
 (":" @constant (string_content) @constant)
 
 ; {: foo}
-(table_pair 
-  (symbol) @constant
-  . 
-  (symbol)) (#eq? @constant ":")
+(table_pair
+  (symbol) @constant (#eq? @constant ":")
+  .
+  (symbol)) 
