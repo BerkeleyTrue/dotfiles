@@ -404,7 +404,7 @@
 
 (defn vf [name ...]
   "run vim.fn.[name]"
-  (let [fnname (.. "vim.fn." (tostring name))]
+  (let [fnname (.. "vim.fn." (string.gsub (tostring name) "-" "_"))]
     `(,(sym fnname) ,...)))
 
 ; =<< augroup >=>

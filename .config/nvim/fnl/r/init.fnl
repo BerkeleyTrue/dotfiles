@@ -22,7 +22,7 @@
 ; Returns the value at the 'key in the 'table, or 'default if the key is not present."
 ; ["table" "key" "default"]
 
-(def get-in a.get)
+(def get-in a.get-in)
 ; "Returns the value in the path 'keys in the 'table, or 'default if the key is not present."
 ; ["table" "keys" "default"])
 
@@ -30,17 +30,35 @@
   "add key value pairs to a table"
   (a.assoc tbl key val (unpack kvals)))
 
+(defn assoc! [tbl key val & kvals]
+  "add key value pairs to a table"
+  (r.merge! tbl (a.assoc tbl key val (unpack kvals))))
+
 (defn assoc-in [tbl ks val]
   "add val at path ks in table tbl"
   (a.assoc-in tbl ks val))
+
+(defn assoc-in! [tbl ks val]
+  "add val at path ks in table tbl"
+  (a.merge! tbl (a.assoc-in tbl ks val)))
 
 (defn update [tbl key f]
   "apply the val at key to f and update the table with the result"
   (a.update tbl key f))
 
+(defn update! [tbl key f]
+  "apply the val at key to f and update the table with the result"
+  (a.merge! tbl (a.update tbl key f)))
+
 (defn update-in [tbl ks f]
   "apply the val at path ks to f and update the table with the result"
   (a.update-in tbl ks f))
+
+(defn update-in! [tbl ks f]
+  "apply the val at path ks to f and mutate the table with the result"
+  (a.merge! tbl (a.update-in tbl ks f)))
+
+(comment (update-in! {:a {:b 1}} [:a :b] #(+ $ 1)))
 
 (defn to-pairs [tabl]
   "(to-pairs {:a b}) => [[:a 'b']]"
@@ -120,6 +138,7 @@
 
 (def some a.some)
 (def merge a.merge)
+(def merge! a.merge!)
 (def concat a.concat)
 (def initial a.butlast)
 (defn conj [coll & items]
