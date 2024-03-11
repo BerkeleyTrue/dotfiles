@@ -15,6 +15,9 @@
 - [ ] build vim-signature replacement
   > see: sign_place, sign_define
   > see: chentoast/marks.nvim
+  - bug: multiple marks do not show
+  - feat: refresh on a timer
+  - feat: add mappings
 
 # Done (2024)
 
