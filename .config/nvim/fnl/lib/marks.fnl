@@ -13,12 +13,15 @@
 
 (def- group "LibMarks")
 
-(def- sign-cache 
+(def- builtins 
   (r.reduce
     #(r.assoc $1 $2 true)
     {}
     [:. :^ "`" "'" "\"" :< :> "[" "]" 
      0 1 2 3 4 5 6 7 8 9]))
+
+(def- shown-builtins
+  [:< :>])
 
 ;; >==<buf cache>==<
 (def- buf-cache {})
@@ -42,8 +45,8 @@
 (defn create-sign [bufnr text lnum id priority]
   (let [priority (or priority 10)
         name (.. group "-" text)]
-    (when-not (. sign-cache name)
-      (tset sign-cache name true)
+    (when-not (. builtins name)
+      (tset builtins name true)
       (vf sign-define name
           {: text
            :texthl "MarksSignHL"
@@ -109,6 +112,48 @@
         (fn [{: mark : cached : pos}]
           (and (= (. pos 1) bufnr)
                (r.upper? mark)
+               (or force
+                   (not cached)
+                   (not= (. pos 2)
+                         (. cached :line))))))
+      (r.for-each
+        (fn [{: mark : pos}]
+          (register-mark mark (. pos 2) (. pos 3) bufnr))))
+
+    ; buffer local marks    
+    (->>
+      (vf getmarklist "%")
+      (r.map 
+        (fn [data] 
+          (let [mark (string.sub data.mark 2 3)] ; mark is 'x
+            {: mark 
+             :pos data.pos
+             :cached (r.get-in buf-cache [bufnr :placed mark])})))
+      
+      (r.filter 
+        (fn [{: mark : cached : pos}]
+          (and (r.lower? mark)
+               (or force
+                   (not cached)
+                   (not= (. pos 2)
+                         (. cached :line))))))
+      (r.for-each
+        (fn [{: mark : pos}]
+          (register-mark mark (. pos 2) (. pos 3) bufnr))))
+    
+    ; shown built in marks
+    (->>
+      shown-builtins
+      (r.map 
+        (fn [mark]
+          {: mark
+           :pos (vf getpos (.. "'" mark))
+           :cached (r.get-in buf-cache [bufnr :placed mark])}))
+      (r.filter
+        (fn [{: mark : cached : pos}]
+          (and (or (= (. pos 1) 0) ; 0-9 marks return abs bufnr 0
+                   (= (. pos 1) bufnr)) 
+               (not= (. pos 2) 0)
                (or force
                    (not cached)
                    (not= (. pos 2)
