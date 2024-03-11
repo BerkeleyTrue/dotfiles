@@ -32,7 +32,7 @@
 
 (defn assoc! [tbl key val & kvals]
   "add key value pairs to a table"
-  (r.merge! tbl (a.assoc tbl key val (unpack kvals))))
+  (a.merge! tbl (a.assoc tbl key val (unpack kvals))))
 
 (defn assoc-in [tbl ks val]
   "add val at path ks in table tbl"
