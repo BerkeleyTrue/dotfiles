@@ -24,7 +24,7 @@
   [:< :>])
 
 ;; >==<buf cache>==<
-(def- buf-cache {})
+(var buf-cache {})
 
 (defn- buf->cached [bufnr]
   (when-not (. buf-cache bufnr)
@@ -59,7 +59,10 @@
 (defn remove-all-signs [bufnr]
   (vf sign-unplace group {: bufnr}))
 
-(comment (remove-all-signs (n get-current-buf)))
+(comment 
+  (do
+    (remove-all-signs (n get-current-buf))
+    (buf->nil (n get-current-buf))))
 
 ;; >==<marks>==<
 (defn delete-mark [mark bufnr clear]
@@ -84,15 +87,22 @@
       (delete-mark mark))
 
     (if (r.get-in cached [:by-line line])
-      (r.update-in! cached [:by-line line] #(r.conj $ line))
+      (r.update-in! cached [:by-line line] #(->>
+                                              $
+                                              (r.concat [mark])
+                                              (r.uniq)))
       (r.assoc-in! cached [:by-line line] [mark]))
 
-    (let [id (* (string.byte mark) 100)]
+    (let [id (* (string.byte mark) 100)
+          text (->>
+                 (r.get-in cached [:by-line line])
+                 (r.take-last 2)
+                 (r.join ""))]
       (r.assoc-in! cached [:placed mark] {: id : line : col}) 
-      (create-sign bufnr mark line id))))
+      (create-sign bufnr text line id))))
 
 (comment
-  (register-mark "y" 70 4))
+  (register-mark "z" 70 4))
 
 (defn refresh-marks [bufnr force]
   (let [force (or force false)
@@ -167,7 +177,7 @@
 
 (defn handle-buf-delete [bufnr]
   (let [bufnr (or bufnr (r.to-number (vf expand "<abuf>")))]
-    (r.update! buf-cache :bufnr nil)))
+    (r.assoc! buf-cache :bufnr nil)))
 
 (defn main []
   (augroup LibMarks

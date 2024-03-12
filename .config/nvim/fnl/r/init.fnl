@@ -34,6 +34,12 @@
   "add key value pairs to a table"
   (a.merge! tbl (a.assoc tbl key val (unpack kvals))))
 
+(comment
+  (let [tbl {:foo {:bar [1 2] :faz :fux}}
+        bar (get-in tbl [:foo :bar])]
+    (assoc! bar :foo 3)
+    (a.println :tbl tbl)))
+
 (defn assoc-in [tbl ks val]
   "add val at path ks in table tbl"
   (a.assoc-in tbl ks val))
@@ -41,6 +47,12 @@
 (defn assoc-in! [tbl ks val]
   "add val at path ks in table tbl"
   (a.merge! tbl (a.assoc-in tbl ks val)))
+
+(comment
+  (let [tbl {:foo {:bar {:baz 1} :faz :fux}}
+        bar (get-in tbl [:foo])]
+    (assoc-in! bar [:bar :que] 3)
+    (a.println :tbl tbl)))
 
 (defn update [tbl key f]
   "apply the val at key to f and update the table with the result"
@@ -209,6 +221,20 @@
 
 
 ;; ### numbers
+(defn pos? [val]
+  "(pos? 1) => true
+  (pos? -1) => false
+  (pos? 0) => true
+  returns true if val is positive"
+  (>= val 0))
+
+(defn neg? [val]
+  "(neg? 1) => false
+  (neg? -1) => true
+  (neg? 0) => false
+  returns true if val is negative"
+  (< val 0))
+
 (defn clamp [min max val]
   "(clamp 0 1 5) => 1
   clamps val to between min and max values"
@@ -341,16 +367,24 @@
   (slice 2 [1 2 3 4 5])
   (slice [1 2 3 4 5]))
 
-(defn drop [_n seq]
+(defn drop [_n xs]
   "Drop n number of elements from a sequential table"
   (let [_n (or _n 1)]
-    (slice (+ _n 1) seq)))
+    (slice (+ _n 1) xs)))
 
 (comment (drop 2 [1 2 3 4 5]))
 
-(defn take [_n seq]
+(defn take [_n xs]
   "Take n number of elements from a sequential table"
   (let [_n (or _n 1)]
-    (slice 1 (+ _n 1) seq)))
+    (slice 1 (+ _n 1) xs)))
 
 (comment (take 2 [1 2 3 4 5]))
+
+(defn take-last [_n xs]
+  (if (or (neg? _n) (= _n 0)) 
+    []
+    (let [xslen (+ (length xs) 1)]
+      (slice (- xslen _n) xslen xs))))
+
+(comment (take-last 2 [1 2]))
