@@ -15,6 +15,7 @@
     git lib.git
     yadm lib.yadm
     glow lib.glow
+    marks lib.marks
 
     cb plugins.colorbuddy
 
@@ -41,6 +42,7 @@
   (yadm.main)
   (glow.main)
   (lisp-indent.main)
+  (marks.main)
 
   (when-let [(ok theme-fns) (pcall cb.main (. pl :palette))]
     (theme.main theme-fns)))

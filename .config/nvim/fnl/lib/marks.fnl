@@ -186,4 +186,6 @@
      :callback (fn [{: buf}] (refresh-marks buf))}
     {:event :BufDelete
      :pattern :*
-     :callback (fn [{: buf}] (handle-buf-delete buf))}))
+     :callback (fn [{: buf}] (handle-buf-delete buf))})
+  (let [timer (vim.loop.new_timer)]
+    (timer:start 0 150 (vim.schedule_wrap refresh-marks))))

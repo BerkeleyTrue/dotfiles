@@ -16,7 +16,8 @@
   > see: sign_place, sign_define
   > see: chentoast/marks.nvim
   - [x] bug: multiple marks do not show
-  - [ ] feat: refresh on a timer
+  - [x] feat: refresh on a timer
+  - [ ] bug: not clearing marks on move
   - [ ] feat: add mappings
 
 # Done (2024)

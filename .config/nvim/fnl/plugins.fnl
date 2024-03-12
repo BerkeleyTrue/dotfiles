@@ -77,7 +77,6 @@
 
    ; UI
    {:name :nvim-tree/nvim-web-devicons :description "require web devicons through lua" :config (make-on-load :devicons)}
-   {:name :kshenoy/vim-signature :description "show marks in the gutter"}
    {:name :goolord/alpha-nvim :description "show a dashboard on startup" :config (make-on-load dashboard)}
    {:name :romgrk/barbar.nvim :description "tab bar built in lua" :init (make-init barbar) :config (make-on-load barbar)}
    {:name :nvim-neo-tree/neo-tree.nvim 
