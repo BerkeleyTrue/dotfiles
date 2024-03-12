@@ -60,7 +60,7 @@
 (defn setup []
   "set up for accents"
   (bo! :completefunc (viml->lua* completion))
-  (nnoremap :gax cycle {:silent true :buffer true}))
+  (nnoremap :gax cycle {:silent true :buffer true :desc "cycle through accents"}))
 
 (defn main []
   (augroup
