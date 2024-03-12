@@ -7,7 +7,7 @@ alias tstat='tig status'
 alias gfetch='git fetch && git status'
 alias gpush='git push'
 alias gpushntrack='git push -u'
-alias gdiff='tdiff'
+alias gdiff='git diff'
 alias gcom='git commit'
 alias gamend='git commit --amend'
 alias glog='git log --pretty=format:"%C(yellow)%h %C(green)%cs %Cred%d %Creset%s%Cblue [%cn]" --decorate'
@@ -81,7 +81,7 @@ yadd() {
 	yunignored
 
 	# user selects files to add
-	toAdd=$(yadm ls-files -m --exclude-standard | fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always")
+	toAdd=$(yadm ls-files -m --exclude-standard | FZF_DEFAULT_OPTS="--bind='tab:toggle+up'" fzf -m --print0 --preview "yadm --no-pager diff {} | bat --color always")
 
 	# if toAdd is empty, exit
 	if [ -z "$toAdd" ]; then
