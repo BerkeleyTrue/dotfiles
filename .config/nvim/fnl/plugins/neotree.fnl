@@ -9,6 +9,7 @@
 
     neotree neo-tree
     cc neo-tree.sources.common.commands
+    fs neo-tree.sources.filesystem.commands
     renderer neo-tree.ui.renderer
     events neo-tree.events}
    require-macros [macros]})
@@ -40,25 +41,27 @@
             (command tabnew path))
           (events.fire_event events.FILE_OPENED path)))))
 
-(defn handle-right [state]
+(defn create-handle-right [toggle]
   "Open node and move into it if it's a directory"
-  (let [tree (. state :tree)
-        node (tree:get_node)]
-    (when (= :directory (. node :type))
-      (cc.toggle_node state)
-      (keys.feed :j))))
+  (fn handle-right [state]
+    (let [tree (. state :tree)
+          node (tree:get_node)]
+      (when (= :directory (. node :type))
+        (toggle state)
+        (keys.feed :j)))))
 
-(defn handle-space [state]
+(defn create-handle-space [toggle]
   "toggle directory or close node if file is selected"
-  (let [tree (. state :tree)
-        node (tree:get_node)
-        is-dir (= :directory (. node :type))
-        is-open (when is-dir (: node :is_expanded))]
-    (if is-dir
-      (do
-        (cc.toggle_node state)
-        (when-not is-open (keys.feed :j)))
-      (cc.close_node state))))
+  (fn handle-space [state]
+    (let [tree (. state :tree)
+          node (tree:get_node)
+          is-dir (= :directory (. node :type))
+          is-open (when is-dir (: node :is_expanded))]
+      (if is-dir
+        (do
+          (toggle state)
+          (when-not is-open (keys.feed :j)))
+        (cc.close_node state)))))
 
 (defn main []
   (neotree.setup
@@ -91,14 +94,14 @@
         :<esc> :noop
         :qq :close_window
 
-        :<Space> handle-space
+        :<Space> (create-handle-space fs.toggle_node)
 
         :<C-h> :open_split
         :<C-v> :open_vsplit
         :<C-t> handle-new-tab
 
         :H :close_node
-        :L handle-right
+        :L (create-handle-right fs.toggle_node)
 
         :R :refresh
         :a :add
@@ -118,14 +121,14 @@
        :mappings
        {:<cr> :open
         
-        :<Space> handle-space
+        :<Space> (create-handle-space cc.toggle_node)
 
         :<C-h> :open_split
         :<C-v> :open_vsplit
         :<C-t> handle-new-tab
 
         :H :close_node
-        :L handle-right
+        :L (create-handle-right cc.toggle_node)
 
         :<bs> :navigate_up
         :<esc> :noop
