@@ -4,7 +4,8 @@
     r r
     as auto-session
     md utils.module 
-    conjlog conjure.log}
+    conjlog conjure.log
+    neotree neo-tree.command}
    require {}
    import-macros []
    require-macros [macros]})
@@ -13,4 +14,6 @@
   (as.setup 
     {:pre_save_cmds 
      [(fn close-conjure []
-        (conjlog.close-visible))]})) 
+        (conjlog.close-visible))
+      (fn close-neotree []
+        (neotree.execute {:action :close}))]})) 
