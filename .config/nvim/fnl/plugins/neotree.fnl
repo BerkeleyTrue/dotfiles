@@ -8,7 +8,6 @@
     keys utils.keys
 
     neotree neo-tree
-    fs neo-tree.sources.filesystem
     cc neo-tree.sources.common.commands
     renderer neo-tree.ui.renderer
     events neo-tree.events}
@@ -42,24 +41,22 @@
           (events.fire_event events.FILE_OPENED path)))))
 
 (defn handle-right [state]
-  "Open node and move into it if it's a directory
-  TODO: handle directory on buffers"
+  "Open node and move into it if it's a directory"
   (let [tree (. state :tree)
         node (tree:get_node)]
     (when (= :directory (. node :type))
-      (fs.toggle_directory state node)
+      (cc.toggle_node state)
       (keys.feed :j))))
 
 (defn handle-space [state]
-  "toggle directory or close node if file is selected
-   TODO: handle directory on buffers"
+  "toggle directory or close node if file is selected"
   (let [tree (. state :tree)
         node (tree:get_node)
         is-dir (= :directory (. node :type))
         is-open (when is-dir (: node :is_expanded))]
     (if is-dir
       (do
-        (fs.toggle_directory state node)
+        (cc.toggle_node state)
         (when-not is-open (keys.feed :j)))
       (cc.close_node state))))
 
