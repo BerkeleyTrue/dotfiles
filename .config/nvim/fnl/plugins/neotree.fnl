@@ -1,11 +1,17 @@
 (module plugins.neotree
-  {require
+  {autoload
    {a aniseed.core
     r r
+
     utils utils
-    md utils.module
     hl utils.highlights
-    keys utils.keys}
+    keys utils.keys
+
+    neotree neo-tree
+    fs neo-tree.sources.filesystem
+    cc neo-tree.sources.common.commands
+    renderer neo-tree.ui.renderer
+    events neo-tree.events}
    require-macros [macros]})
 
 (defn init []
@@ -13,166 +19,176 @@
   (nnoremap :gef ":Neotree reveal float<cr>" {:silent true})
   (nnoremap :get ":Neotree reveal left<cr>" {:silent true})
   (nnoremap :geb ":Neotree reveal buffers float<cr>" {:silent true})
-  (command! :BBuffers "Neotree reveal buffers float"))
+  (command! :BBuffers "Neotree reveal buffers float")
+  (hl.link! :NeoTreeDirectoryName :Directory)
+  (hl.link! :NeoTreeDirectoryIcon :NeoTreeDirectoryName))
+
+(defn handle-new-tab [state]
+  "open file in new tab"
+  (let [tree (. state :tree)
+        node (tree:get_node)]
+
+      (when-not (= :directory (. node :type))
+        (let [path (node:get_id)
+              event-res (events.fire_event
+                          events.FILE_OPEN_REQUESTED
+                          {: state
+                           : path
+                           :open_cmd :tabnew})]
+
+          (when-not (r.get event-res :handled)
+            (renderer.close_all_floating_windows)
+            (command tabnew path))
+          (events.fire_event events.FILE_OPENED path)))))
+
+(defn handle-right [state]
+  "Open node and move into it if it's a directory
+  TODO: handle directory on buffers"
+  (let [tree (. state :tree)
+        node (tree:get_node)]
+    (when (= :directory (. node :type))
+      (fs.toggle_directory state node)
+      (keys.feed :j))))
+
+(defn handle-space [state]
+  "toggle directory or close node if file is selected
+   TODO: handle directory on buffers"
+  (let [tree (. state :tree)
+        node (tree:get_node)
+        is-dir (= :directory (. node :type))
+        is-open (when is-dir (: node :is_expanded))]
+    (if is-dir
+      (do
+        (fs.toggle_directory state node)
+        (when-not is-open (keys.feed :j)))
+      (cc.close_node state))))
 
 (defn main []
-  (hl.link! :NeoTreeDirectoryName :Directory)
-  (hl.link! :NeoTreeDirectoryIcon :NeoTreeDirectoryName)
+  (neotree.setup
+    {:popup_border_style :rounded
+     :enable_git_status true
+     :enable_diagnostics true
+     :close_if_last_window true
+     :enable_cursor_hijack true
 
-  (when-let [neotree (md.prequire :neo-tree)]
-    (let [fs (md.prequire :neo-tree.sources.filesystem)
-          cc (md.prequire :neo-tree.sources.common.commands)
-          renderer (md.prequire :neo-tree.ui.renderer)
-          newtab (fn open-tab [state]
-                   (let [tree (. state :tree)
-                         node (tree:get_node)]
+     :filesystem
+     {:filtered_items
+      {:hide_dotfiles false
+       :hide_gitignored false
+       :hide_by_name [:node_modules :.DS_Store]
+       :hide_by_pattern [:*.zwc]
+       :never_show [:node_modules :.DS_Store]}
 
-                        (when-not (= :directory (. node :type))
-                          (let [path (node:get_id)
-                                events (md.prequire :neo-tree.events)
-                                event-res (events.fire_event
-                                            events.FILE_OPEN_REQUESTED
-                                            {: state
-                                             : path
-                                             :open_cmd :tabnew})]
+      :follow_current_file {:enabled true}
+      :use_libuv_file_watcher true
 
-                            (when-not (r.get event-res :handled)
-                              (renderer.close_all_floating_windows)
-                              (vim.cmd (.. "tabnew " path)))
-                            (events.fire_event events.FILE_OPENED path)))))]
+      :window
+      {:position :left
+       :width 40
 
-      (neotree.setup
-        {:popup_border_style :rounded
-         :enable_git_status true
-         :enable_diagnostics true
-         :close_if_last_window true
-         :enable_cursor_hijack true
+       :mappings
+       {:<2-LeftMouse> :open
+        :<cr> :open
+        :<bs> :nop
+        :w :noop
+        :<esc> :noop
+        :qq :close_window
 
-         :filesystem
-         {:filtered_items
-          {:hide_dotfiles false
-           :hide_gitignored false
-           :hide_by_name [:node_modules :.DS_Store]
-           :hide_by_pattern [:*.zwc]
-           :never_show [:node_modules :.DS_Store]}
+        :<Space> handle-space
 
-          :follow_current_file {:enabled true}
-          :use_libuv_file_watcher true
+        :<C-h> :open_split
+        :<C-v> :open_vsplit
+        :<C-t> handle-new-tab
 
-          :window
-          {:position :left
-           :width 40
+        :H :close_node
+        :L handle-right
 
-           :mappings
-           {:<2-LeftMouse> :open
-            :<cr> :open
-            :<bs> :nop
-            :w :noop
-            :<esc> :noop
-            :qq :close_window
+        :R :refresh
+        :a :add
+        :D :delete
+        :r :rename
+        :/ :nop
+        :C :copy_to_clipboard
+        :X :cut_to_clipboard
+        :P :paste_from_clipboard}}}
 
-            :<Space>
-            (fn toggle-directory [state]
-              (let [tree (. state :tree)
-                    node (tree:get_node)
-                    is-dir (= :directory (. node :type))
-                    is-open (when is-dir (: node :is_expanded))]
-                (if is-dir
-                  (do
-                    (fs.toggle_directory state node)
-                    (when-not is-open (keys.feed :j)))
-                  (cc.close_node state))))
+     :buffers
+     {:show_unloaded true
 
-            :<C-h> :open_split
-            :<C-v> :open_vsplit
+      :window
+      {:position :left
 
-            :<C-t> newtab
+       :mappings
+       {:<cr> :open
+        
+        :<Space> handle-space
 
-            :H :close_node
-            :L (fn toggle-directory [state]
-                 (let [tree (. state :tree)
-                       node (tree:get_node)]
-                   (when (= :directory (. node :type))
-                     (fs.toggle_directory state node)
-                     (keys.feed :j))))
+        :<C-h> :open_split
+        :<C-v> :open_vsplit
+        :<C-t> handle-new-tab
 
-            :R :refresh
-            :a :add
-            :D :delete
-            :r :rename
-            :/ :nop
-            :C :copy_to_clipboard
-            :X :cut_to_clipboard
-            :P :paste_from_clipboard}}}
+        :H :close_node
+        :L handle-right
 
-         :buffers
-         {:show_unloaded true
+        :<bs> :navigate_up
+        :<esc> :noop
+        :w :noop
+        :R :refresh
+        :a :add
+        :d :buffer_delete
+        :r :rename
+        :c :copy_to_clipboard
+        :x :cut_to_clipboard
+        :p :paste_from_clipboard
+        :bd :buffer_delete}}}
 
-          :window
-          {:position :left
+     :git_status
+     {:window
+      {:position :float
+       :mappings
+       {:<2-LeftMouse> :open
+        :<cr> :open
+        :S :open_split
+        :s :open_vsplit
+        :C :close_node
+        :R :refresh
+        :d :delete
+        :r :rename
+        :c :copy_to_clipboard
+        :x :cut_to_clipboard
+        :p :paste_from_clipboard
+        :A :git_add_all
+        :gu :git_unstage_file
+        :ga :git_add_file
+        :gr :git_revert_file
+        :gc :git_commit
+        :gp :git_push
+        :gg :git_commit_and_push}}}
 
-           :mappings
-           {:<cr> :open
-            :<C-h> :open_split
-            :<C-v> :open_vsplit
-            :<C-t> newtab
+     :default_component_configs
+     {:icon
+      {:folder_empty "󱧋"
+       :folder_empty_open "󱧋"}
+      :git_status
+      {:symbols
+       {:renamed "󰁕"
+        :unstaged  " "}}}
 
-            :<bs> :navigate_up
-            :<esc> :noop
-            :w :noop
-            :R :refresh
-            :a :add
-            :d :buffer_delete
-            :r :rename
-            :c :copy_to_clipboard
-            :x :cut_to_clipboard
-            :p :paste_from_clipboard
-            :bd :buffer_delete}}}
-         :git_status
-         {:window
-          {:position :float
-           :mappings
-           {:<2-LeftMouse> :open
-            :<cr> :open
-            :S :open_split
-            :s :open_vsplit
-            :C :close_node
-            :R :refresh
-            :d :delete
-            :r :rename
-            :c :copy_to_clipboard
-            :x :cut_to_clipboard
-            :p :paste_from_clipboard
-            :A :git_add_all
-            :gu :git_unstage_file
-            :ga :git_add_file
-            :gr :git_revert_file
-            :gc :git_commit
-            :gp :git_push
-            :gg :git_commit_and_push}}}
-         :default_component_configs
-         {:icon
-          {:folder_empty "󱧋"
-           :folder_empty_open "󱧋"}
-          :git_status
-          {:symbols
-           {:renamed "󰁕"
-            :unstaged  " "}}}
-         :document_symbols
-         {:kinds
-          {:File {:icon "󰈙" :hl "Tag"}
-           :Namespace {:icon "󰌗" :hl "Include"}
-           :Package {:icon "󰏖" :hl "Label"}
-           :Class {:icon "󰌗" :hl "Include"}
-           :Property {:icon "󰆧" :hl "@property"}
-           :Enum {:icon "󰒻" :hl "@number"}
-           :Function {:icon "󰊕" :hl "Function"}
-           :String {:icon "󰀬" :hl "String"}
-           :Number {:icon "󰎠" :hl "Number"}
-           :Array {:icon "󰅪" :hl "Type"}
-           :Object {:icon "󰅩" :hl "Type"}
-           :Key {:icon "󰌋" :hl ""}
-           :Struct {:icon "󰌗" :hl "Type"}
-           :Operator {:icon "󰆕" :hl "Operator"}
-           :TypeParameter {:icon "󰊄" :hl "Type"}
-           :StaticMethod {:icon "󰠄 " :hl "Function"}}}}))))
+     :document_symbols
+     {:kinds
+      {:File {:icon "󰈙" :hl "Tag"}
+       :Namespace {:icon "󰌗" :hl "Include"}
+       :Package {:icon "󰏖" :hl "Label"}
+       :Class {:icon "󰌗" :hl "Include"}
+       :Property {:icon "󰆧" :hl "@property"}
+       :Enum {:icon "󰒻" :hl "@number"}
+       :Function {:icon "󰊕" :hl "Function"}
+       :String {:icon "󰀬" :hl "String"}
+       :Number {:icon "󰎠" :hl "Number"}
+       :Array {:icon "󰅪" :hl "Type"}
+       :Object {:icon "󰅩" :hl "Type"}
+       :Key {:icon "󰌋" :hl ""}
+       :Struct {:icon "󰌗" :hl "Type"}
+       :Operator {:icon "󰆕" :hl "Operator"}
+       :TypeParameter {:icon "󰊄" :hl "Type"}
+       :StaticMethod {:icon "󰠄 " :hl "Function"}}}}))
