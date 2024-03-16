@@ -21,7 +21,8 @@
                       (r.from-pairs))]
         (->>
           shortcuts
-          (r.reject #(->> (r.to-lower-case $) (. refdefs))))))))
+          (r.reject #(->> (r.to-lower-case $) (. refdefs)))
+          (r.uniq))))))
 
 (defn ensure-blank-line-at-end-of-buffer []
   "Ensure that the buffer ends with a blank line."
