@@ -4,7 +4,8 @@
     r r
     utils utils
     ts lib.corpus.treesitter
-    rl lib.corpus.reference-links}
+    rl lib.corpus.reference-links
+    md lib.corpus.metadata}
    require {}
    require-macros [macros]})
 
@@ -41,7 +42,8 @@
             postfix (vf strpart line (+ end 1) (- len end))
             linkified (.. prefix "[" words "]" postfix)]
         (vf setline linenm linkified)
-        (vf cursor 0 (+ end 3))))))
+        (vf cursor 0 (+ end 3))
+        (vim.schedule rl.update-file)))))
 
 (comment
   (vnoremap "<C-]>" create-shortcut-on-selection {:buffer true :silent true}))
@@ -59,11 +61,12 @@
   (let [{: text} (ts.get-node-under-cursor)
         first-letter (r.head text)
         rest (r.tail text)
-        target (.. "./" (vf substitute text " " "-" "g") ".md")
+        target (.. "./" (r.to-lower-case (vf substitute text " " "-" "g")) ".md")
         glob (.. "./[" (string.lower first-letter) (string.upper first-letter) "]" rest ".md")
         mtch (r.head (vf glob glob 0 1))
         target (or mtch target)]
-    (vf execute (.. ":edit " target))))
+    (vf execute (.. ":edit " target))
+    (vim.schedule md.update-file)))
 
 (comment
   (command! :CorpusGoToShortcut (fn [] (a.println (go-to-shortcut)))))
