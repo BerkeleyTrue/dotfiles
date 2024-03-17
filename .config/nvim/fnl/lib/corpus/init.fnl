@@ -17,10 +17,10 @@
    require-macros [macros]})
 
 (defn preview-mappings []
-  (cnoremap "<C-j>"    #(chooser.next)     {:silent true :buffer true})
-  (cnoremap "<C-k>"    #(chooser.prev)     {:silent true :buffer true})
-  (cnoremap "<Down>"   #(chooser.next)     {:silent true :buffer true})
-  (cnoremap "<Up>"     #(chooser.prev)     {:silent true :buffer true}))
+  (cnoremap "<C-j>"    #(chooser.next)     {:silent true :buffer true :desc "Corpus: Go to next item"})
+  (cnoremap "<C-k>"    #(chooser.prev)     {:silent true :buffer true :desc "Corpus: Go to previous item"})
+  (cnoremap "<Down>"   #(chooser.next)     {:silent true :buffer true :desc "Corpus: Go to next item"})
+  (cnoremap "<Up>"     #(chooser.prev)     {:silent true :buffer true :desc "Corpus: Go to previous item"}))
 
 (defn complete [arglead cmdline _]
   (when-let [file (chooser.get-selected-file)]
@@ -78,8 +78,8 @@
 (defn init [{: file}]
   (when (ftdetect.ftdetect file)
     (bo! filetype "markdown.corpus")
-    (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true})
-    (xnoremap "<C-]>" #(shortcuts.create-shortcut-on-selection) {:silent true :buffer true})
+    (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true :desc "Corpus: Go to or create shortcut"})
+    (xnoremap "<C-]>" #(shortcuts.create-shortcut-on-selection) {:silent true :buffer true :desc "Corpus: Create shortcut on selection"})
 
     (augroup :LibCorpusEnv
       {:event [:BufWritePre]
