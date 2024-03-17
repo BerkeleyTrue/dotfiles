@@ -37,7 +37,7 @@
             start (- (. start 3) 1)
             end (- (. end 3) 1)
             len (length line)
-            words (vf strpart line start (+ (- end start ) 1))
+            words (r.kebab-case (vf strpart line start (+ (- end start ) 1)))
             prefix (vf strpart line 0 start)
             postfix (vf strpart line (+ end 1) (- len end))
             linkified (.. prefix "[" words "]" postfix)]
