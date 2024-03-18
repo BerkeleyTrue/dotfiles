@@ -1,9 +1,8 @@
 # vim:ft=taskrc
 rule.precedence.color=deleted,completed,active,keyword.,tag.,project.,overdue,scheduled,due.today,due,blocked,blocking,recurring,tagged,uda.
 
-# Theme colors for catppuccin
 # General decoration
-color.label=magenta
+color.label=blue
 color.label.sort=magenta
 color.alternate=
 color.header=cyan
@@ -19,11 +18,11 @@ color.active=green
 color.recurring=blue
 color.scheduled=white on green
 color.until=yellow
-color.blocked=black on white
-color.blocking=black on bright white
+color.blocked=color8
+color.blocking=bold white on color8 # gray
 
 # Project
-color.project.none=red
+color.project.none=
 
 # Priority
 color.uda.priority.H=bold white
@@ -38,7 +37,7 @@ color.tagged=
 # Due
 color.due=red
 color.due.today=red
-color.overdue=bold red
+color.overdue=bold red on color8
 
 # UDA
 #color.uda.X=
