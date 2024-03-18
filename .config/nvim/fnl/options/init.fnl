@@ -8,6 +8,12 @@
    require-macros [macros]})
 
 (defn main []
+  (let [session-options (->>
+                          (o sessionoptions)
+                          (r.split ",")
+                          (r.reject #(r.includes? [:terminal :blank] $))
+                          (r.join ","))]
+    (o! sessionoptions session-options))
   (o! ambiwidth      :single)                          ;  force East Asian Width Class chars into a single space
   (o! autoread       true)                             ;  autoread the file into buffer on focus
   (o! clipboard      :unnamedplus)                     ;  default yank into + register, which is the default clipboard for linux may break in osx?
