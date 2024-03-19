@@ -1,8 +1,5 @@
 # To Do
 
-- rewrite scroll fix
-  - original still bug
-  - rethink algorithm 
 - builtin kanban in markdown files
   - use nvim ui to provide kanban boards
   - move tasks using vim motion
@@ -15,8 +12,14 @@
   - [x] bug: multiple marks do not show
   - [x] feat: refresh on a timer
   - [ ] bug: not clearing marks on move
+- Corpus
+  - bug: C-] in ref def rewraps ref
 
 # Doing
+
+- rewrite scroll fix
+  - original still buggy
+  - rethink algorithm 
 
 # Done (2024)
 
