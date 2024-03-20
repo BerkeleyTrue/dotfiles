@@ -8,7 +8,8 @@
     fns r.functions
     hask r.curry
     lang r.lang
-    _math r.math}
+    _math r.math
+    collections r.collections}
    require-macros [macros]})
 
 ; hack to re-export imports
@@ -18,6 +19,7 @@
 (a.merge! *module* hask)
 (a.merge! *module* lang)
 (a.merge! *module* _math)
+(a.merge! *module* collections)
 
 ;; ### tables - data first
 (def get a.get)
@@ -155,9 +157,6 @@
 (def merge! a.merge!)
 (def concat a.concat)
 (def initial a.butlast)
-(defn conj [coll & items]
-  "Conj adds items to the end of a collection"
-  (a.concat coll items))
 
 (defn flatten [xs]
   (a.reduce
