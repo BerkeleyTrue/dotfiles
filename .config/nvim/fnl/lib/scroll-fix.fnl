@@ -8,7 +8,7 @@
    require-macros [macros]})
 
 (def- margin-percent 60)
-(var enabled false)
+(var enabled? true)
 (var debug false)
 
 (defn- set-top-of-window [line wintable]
@@ -147,7 +147,9 @@
              :VimResized
              :VimResume]
      :pattern :*
-     :callback scroll-fix}) 
+     :callback (fn should-scroll-fix? []
+                 (when enabled?
+                   (scroll-fix)))}) 
 
   (nnoremap :zz scroll-fix)
 
