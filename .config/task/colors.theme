@@ -19,7 +19,7 @@ color.recurring=blue
 color.scheduled=white on green
 color.until=yellow
 color.blocked=color8
-color.blocking=bold white on color8 # gray
+color.blocking=blue
 
 # Project
 color.project.none=
@@ -37,7 +37,7 @@ color.tagged=
 # Due
 color.due=red
 color.due.today=red
-color.overdue=bold red on color8
+color.overdue=bold color13
 
 # UDA
 #color.uda.X=
