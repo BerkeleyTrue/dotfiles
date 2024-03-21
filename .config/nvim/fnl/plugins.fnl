@@ -87,6 +87,7 @@
     :init (make-init neotree)
     :config (make-on-load neotree) 
     :cmd [:Neotree]} 
+   {:name :kshenoy/vim-signature :description "show marks in vim gutter"}
 
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}

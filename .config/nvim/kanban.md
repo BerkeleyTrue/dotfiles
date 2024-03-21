@@ -17,10 +17,6 @@
 
 # Doing
 
-- rewrite scroll fix
-  - original still buggy
-  - rethink algorithm 
-
 # Done (2024)
 
 - [x] figure out nvim-cmp whitespace trigger
@@ -70,3 +66,6 @@
 - [x] scroll-fix should account for folds
 - [x] create fennel help docs from fennel reference
   - ala luaref helpdocs
+- [x] rewrite scroll fix
+  - [x] original still buggy
+  - [x] rethink algorithm 

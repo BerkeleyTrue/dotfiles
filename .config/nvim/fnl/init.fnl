@@ -42,7 +42,7 @@
   (yadm.main)
   (glow.main)
   (lisp-indent.main)
-  (marks.main)
+  ; (marks.main)
 
   (when-let [(ok theme-fns) (pcall cb.main (. pl :palette))]
     (theme.main theme-fns)))
