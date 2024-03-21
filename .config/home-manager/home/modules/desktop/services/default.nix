@@ -4,6 +4,7 @@
     ./blueman.nix
     ./dunst.nix
     ./flameshot.nix
+    ./flatpak.nix
     ./kanata.nix
     ./nitrogen.nix
     ./nix-collect-garbage.nix

@@ -32,7 +32,12 @@
         inherit lib pkgs;
       };
     in {
-      extraSpecialArgs = {inherit theme nixGLWrap profile;};
+      modules = [
+        inputs.flatpak.homeManagerModules.nix-flatpak
+      ];
+      extraSpecialArgs = {
+        inherit theme nixGLWrap profile;
+      };
     };
 
     profiles = {
