@@ -15,6 +15,8 @@ with lib; let
     copycat
     online-status
     prefix-highlight
+    resurrect
+    tmux-thumbs
     vim-tmux-navigator
     yank
   ];
