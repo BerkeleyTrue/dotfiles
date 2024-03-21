@@ -23,10 +23,14 @@
 (defn do-fold-collection []
   (tset data :folds [])
   (tset data :prev-end nil)
-  ; keepjumps is used to prevent the cursor from moving
-  (command keepjumps :folddoclosed fold-viml-command)
-  (let [_folds data.folds]
-    _folds))
+  ; save cursor position, as collect fold will move cursor
+  (let [pos (n win-get-cursor 0)]
+    ; keepjumps is used to prevent changes to jumplist
+    (command keepjumps :folddoclosed fold-viml-command)
+    ; restore cursor position
+    (n win-set-cursor 0 pos)
+    (let [_folds data.folds]
+      _folds)))
 
 (defn overlap-range [start end folds]
   "Return the range of folds that overlap with the given range."
