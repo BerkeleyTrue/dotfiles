@@ -3,134 +3,138 @@
    {a aniseed.core
     r r
     fld lib.folds}
+   require {}
+   import-macros []
    require-macros [macros]})
 
-(def- configs
-  {:margin 60
-   :enabled? true
-   :debug false})
+(def- margin-percent 60)
+(var enabled false)
+(var debug false)
 
 (defn- set-top-of-window [line wintable]
   "set the top line of the window to be `line`
    this effectively scrolls the window"
   (-> wintable
-    (a.assoc :topline line)
+    (r.assoc :topline line)
     (vim.fn.winrestview)))
 
-(defn- get-world-facts []
-  "get facts about the current buffer, window, and cursor"
-  (let [winheight          (vf winheight 0) ; current window viewport height
-        wintable           (vf winsaveview) 
-        lnum               wintable.lnum
-        top-visible-line   wintable.topline
-        buf-last-line      (vf line "$")
-        folds              (fld.do-fold-collection)]
+(defn calc-topline [{: folds 
+                     : top-margin 
+                     : cur-lnum}]
+  "Calculate the topline of the current window.
+  In essence, this function will scroll the window so that the
+  current line is always at the same level in the window.
+  "
+  ; topline is set to the current line
+  ; it is then iteratively reduced by the folds until folds are exhuasted
+  ; or the remaining margin is less than 0
+  (var topline cur-lnum)
+  (var remaining-margin (- top-margin 1))
 
-    {: winheight
-     : wintable
-     : lnum
-     : top-visible-line
-     : buf-last-line
-     : folds}))
+  ; iterate through each fold, if the end of the fold is within top-margin
+  (each [_ fold (ipairs (r.reverse folds)) &until (<= remaining-margin 0)]
+    ; folds below the current topline are not considered
+    ; folds above the current topline are considered
+    ; if the distance between the topline and the fold end is less than the remaining margin
+    ; then the topline is set to the start of the fold
+    ; the remaining margin is then reduced by the number of lines between the current topline and the end of the fold
+    ; else the remaining margin does not reach the fold and the topline is set to the difference with the remaining margin
+    (when (< fold.end topline)
+      (when debug (a.println :fold fold 
+                             :topline topline 
+                             :remaining-margin remaining-margin 
+                             :lines-to-fold (- topline fold.end)))
 
-(comment (get-world-facts))
+      (if (>= remaining-margin (- topline fold.end))
+        (do
+          (when debug (a.println "setting topline to fold start" fold.start))
+          (set remaining-margin (- remaining-margin (- topline fold.end))) 
+          (set topline fold.start))
+
+        (do
+          (when debug (a.println "setting topline to remaining margin" (- topline remaining-margin)))
+          (set topline (- topline remaining-margin))
+          (set remaining-margin 0)))))
+
+  (when debug (a.println :topline topline :remaining-margin remaining-margin))
+  (-> topline
+    (- (math.max remaining-margin 0))
+    (math.max 1)))
+           
+
+(comment
+  (calc-topline {:folds []
+                 :top-margin 10
+                 :cur-lnum 20}) ; 11
+  (calc-topline {:folds []
+                 :top-margin 40
+                 :cur-lnum 40}) ; 1
+  (calc-topline {:folds []
+                 :top-margin 40
+                 :cur-lnum 41}) ; 2
+  (calc-topline {:folds [{:start 10 :end 12}] ; two hidden lines
+                 :top-margin 40
+                 :cur-lnum 43}) ; 2
+
+  ; topline approaching fold
+  (calc-topline {:folds [{:start 21 :end 23}] 
+                 :top-margin 20
+                 :cur-lnum 39})  ; 18
+  (calc-topline {:folds [{:start 21 :end 23}] 
+                 :top-margin 20
+                 :cur-lnum 40})  ; 19
+  (calc-topline {:folds [{:start 21 :end 23}] 
+                 :top-margin 20
+                 :cur-lnum 41})  ; 20
+  (calc-topline {:folds [{:start 21 :end 23}] 
+                 :top-margin 20
+                 :cur-lnum 42})  ; 21
+  (calc-topline {:folds [{:start 21 :end 23}] 
+                 :top-margin 20
+                 :cur-lnum 43})  ; 24
+  (calc-topline {:folds [{:start 21 :end 23}] 
+                 :top-margin 20
+                 :cur-lnum 44})  ; 25
+
+  ; topline approaching fold and fold within range (4 hidden lines)
+  (calc-topline {:folds [{:start 21 :end 23} {:start 35 :end 37}] 
+                 :top-margin 20
+                 :cur-lnum 40})  ; 17
+  (calc-topline {:folds [{:start 21 :end 23} {:start 35 :end 37}] 
+                 :top-margin 20
+                 :cur-lnum 41})  ; 18
+  (calc-topline {:folds [{:start 21 :end 23} {:start 35 :end 37}] 
+                 :top-margin 20
+                 :cur-lnum 42})  ; 19
+  (calc-topline {:folds [{:start 21 :end 23} {:start 35 :end 37}] 
+                 :top-margin 20
+                 :cur-lnum 43})  ; 20
+  (calc-topline {:folds [{:start 21 :end 23} {:start 35 :end 37}] 
+                 :top-margin 20
+                 :cur-lnum 44})  ; 21
+  (calc-topline {:folds [{:start 21 :end 23} {:start 35 :end 37}] 
+                 :top-margin 20
+                 :cur-lnum 45})  ; 24
+  (calc-topline {:folds [{:start 21 :end 23} {:start 35 :end 37}] 
+                 :top-margin 20
+                 :cur-lnum 60}))  ; 
 
 (defn scroll-fix []
-  "Scroll fix - pull the current state of the window, buffer, and cursor
-   and calculate whether to adjust the window position in order to keep the cursor
-   at the center of the screen.
-  "
-  (let [
-        ;; configs
-        fix-percent configs.margin ; how far down the window should the cursor be fixed at
-        is-enabled? (a.get configs :enabled? true) ; whether to enable the plugin
-        debug? configs.debug ; whether to print debug info
+  (let [wintable (vf winsaveview)
+        winheight (vf winheight 0)
+        top-margin (-> winheight 
+                       (* margin-percent)
+                       (/ 100)
+                       (math.floor))
+        folds (fld.do-fold-collection)
+        topline (calc-topline {: folds 
+                               : top-margin 
+                               :cur-lnum (vim.fn.line ".")})]
 
-        ;; world facts
-        {: winheight 
-         : wintable 
-         : lnum 
-         : top-visible-line 
-         : buf-last-line
-         : folds} (get-world-facts)
-        ;; derived
-        top-visible-line*  (if-let [fold (fld.in-fold? top-visible-line folds)]
-                             (+ top-visible-line (- fold.end fold.start))
-                             top-visible-line)
+    (when debug (a.println :cur-topline wintable.topline :topline topline))
 
-        ;; get the number of hidden lines in the viewport
-        hidden-lines       (fld.count-folded-lines {:start top-visible-line* 
-                                                    :end (+ top-visible-line winheight)} 
-                                                   folds)
-
-        ;; get the bufer line number of the cursor taking hidden lines in viewport into account
-        lnum* (- lnum hidden-lines)
-
-        ;; get the number of lines (margin) above the cursor
-        desired-win-margin (-> winheight
-                             (* fix-percent)
-                             (/ 100)
-                             (math.floor))
-
-        ;; get the desired number of lines above the cursor in the view
-        desired-buf-lac (+ top-visible-line* desired-win-margin)
-
-        ;; what we want the top line of the window to be
-        desired-top-line (->
-                           lnum*
-                           (- desired-win-margin)
-                           (+ 1))
-
-        desired-top-line (let [fold (fld.in-fold? desired-top-line folds)
-                               mv (math.abs (- top-visible-line* desired-top-line))]
-                           (if fold
-                             (if 
-                               (< fold.end top-visible-line) ; fold is above the top line
-                               (if (>= mv 1) 
-                                 (. fold :end) 
-                                 (- fold.start mv))
-
-                               (< top-visible-line fold.start) ; fold is below the top line
-                               (if (>= mv 1) fold.start (+ fold.end mv))
-                             
-                               (if (< desired-top-line top-visible-line*) ; going up?
-                                 (- fold.start mv)
-                                 (+ fold.end mv)))  ; going down?
-                             desired-top-line))
-
-        ;; are we at the beginning of the buffer and the top of the window?
-        is-at-beg-of-buff? (and (= top-visible-line* 1)
-                                (<= lnum* (- desired-buf-lac 1)))
-
-
-        is-on-desired? (= desired-win-margin
-                          (->
-                            lnum* 
-                            (- top-visible-line*)
-                            (+ 1)))
-
-        is-below-desired? (>= lnum* desired-win-margin)
-        is-eof? (> (+ winheight top-visible-line*)
-                   buf-last-line)]
-
-    (when debug?
-      (a.pr "lnum" lnum
-            "lnum*" lnum*
-            "top-line" top-visible-line
-            "top-line*" top-visible-line*
-            "d-top-line" desired-top-line
-            "d-buf-lac" desired-buf-lac
-            "margin" desired-win-margin
-            "is-above-buf-margin?" is-at-beg-of-buff?
-            "is-on-desired?" is-on-desired?
-            "is-below-desired?" is-below-desired?
-            "hidden-lines" hidden-lines
-            "is-eof?" is-eof?))
-
-    (when (and is-enabled?
-               (not (or is-at-beg-of-buff?
-                        is-on-desired?)))
-      (set-top-of-window desired-top-line wintable))))
+    (when (not= topline wintable.topline)
+      (set-top-of-window topline wintable))))
 
 (defn main []
   (augroup
@@ -143,13 +147,13 @@
              :VimResized
              :VimResume]
      :pattern :*
-     :callback scroll-fix})
+     :callback scroll-fix}) 
 
   (nnoremap :zz scroll-fix)
 
   (command!
     :ScrollFixToggle
     (fn scroll-fix-toggle []
-      (let [to-enable (not (a.get configs :enabled? true))]
-        (a.assoc configs :enabled? to-enable)
+      (let [to-enable (not enabled?)]
+        (set enabled? to-enable)
         (when to-enable (scroll-fix))))))
