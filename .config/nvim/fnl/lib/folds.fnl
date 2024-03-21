@@ -18,15 +18,15 @@
       (tset data :prev-end end)
       (set data.folds (r.conj data.folds {:start line :end end})))))
 
+(def- fold-viml-command (viml->lua* collect-folds))
+
 (defn do-fold-collection []
   (tset data :folds [])
   (tset data :prev-end nil)
-  ; save cursor pos
-  (let [pos (n win-get-cursor 0)]
-    (command folddoclosed (viml->lua* collect-folds))
-    (n win-set-cursor 0 pos)
-    (let [_folds data.folds]
-      _folds)))
+  ; keepjumps is used to prevent the cursor from moving
+  (command keepjumps :folddoclosed fold-viml-command)
+  (let [_folds data.folds]
+    _folds))
 
 (defn overlap-range [start end folds]
   "Return the range of folds that overlap with the given range."
