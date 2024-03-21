@@ -12,6 +12,7 @@
   - [x] bug: multiple marks do not show
   - [x] feat: refresh on a timer
   - [ ] bug: not clearing marks on move
+  - [ ] bug: removes marks randomly?
 - Corpus
   - bug: C-] in ref def rewraps ref
 
