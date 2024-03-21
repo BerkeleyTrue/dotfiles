@@ -14,7 +14,6 @@
    {:name :danilamihailov/beacon.nvim :config (make-on-load beacon)}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
-   {:name :gennaro-tedesco/nvim-peekup :description "Finally vim registers made easy and fun! hit double double quote to see a popup of the contents of registers"}
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}
    {:name :rmagatti/auto-session :description "auto-session saving for vim" :config (make-on-load auto-session)}
 
