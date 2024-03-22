@@ -10,7 +10,7 @@
 (defn main [{: s : fmt : fmta : i  : c : t : sn : d}]
   [;:module
    (s
-     {:trig "(module)"
+     {:trig "module"
       :name "aniseed module"
       :dscr "create an aniseed module expression"
       :wordTrig false}
@@ -27,7 +27,7 @@
 
    ;:main
    (s
-     {:trig "(main)"
+     {:trig "main"
       :name "main func"
       :dscr "Create an main function."
       :wordTrig false}
@@ -39,7 +39,7 @@
 
    ;:let
    (s
-     {:trig "(let)"
+     {:trig "let"
       :name "binding expr"
       :dscr "Create a let binding expression."
       :wordTrig false}
@@ -56,7 +56,7 @@
         (i 0 "baz")]))
    ;:fn
    (s
-     {:trig "(fn)"
+     {:trig "fn"
       :name "fn expr"
       :dscr "Create a function expresssion."
       :wordTrig true}
@@ -93,13 +93,13 @@
    (s
      {:trig "tapx"
       :name "Tap a var to x"
-      :dscr "Create a packer package entry."
+      :dscr "Create a tap print."
       :wordTrig false}
      (fmta
-       "(tap #(<> <> $))"
+       "(r.tap #(<> <> $))"
        [(c 1
-           [(t "print")
-            (t "a.pr")])
+           [(t "a.println")
+            (t "print")])
         (c 2
            [(t ":x")
             (t ":y")
