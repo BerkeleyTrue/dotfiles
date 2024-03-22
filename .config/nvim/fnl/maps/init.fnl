@@ -9,16 +9,16 @@
 (->>
   {:W :w
    :qq :q!
-   :Wq :wq
-   :sudowrite "w !sudo tee %"}
+   :Wq :wq}
+   ; :sudowrite "w !sudo tee %" ; this doesn't work in neovim
+   ; see https://github.com/neovim/neovim/issues/12103 for alts
   (r.to-pairs)
   (r.for-each (fn [[from to]] (utils.safe-cnoreabbrev from to))))
 
-(utils.set-nvim-g!
-  {:mapleader ","
-   :maplocalleader ","
-   ; Turn of default <C-j> binding
-   :BASH_Ctrl_j "off"})
+(g! mapleader ",")
+(g! maplocalleader ",")
+; Turn of default <C-j> binding
+(g! :BASH_Ctrl_j "off")
 
 
 ; easy insert escape
@@ -29,15 +29,12 @@
   (r.for-each (fn [[from to]] (inoremap from to))))
 
 ; ==<window navigation>==
-(->>
-  {:<C-h> :<C-w>h
-   :<C-j> :<C-w>j
-   :<C-k> :<C-w>k
-   :<C-l> :<C-w>l
-   :<C-w>vh :<C-w>t<C-w>K
-   :<C-w>hv :<C-w>t<C-w>H}
-  (r.to-pairs)
-  (r.for-each (fn [[from to]] (nnoremap from to))))
+(nnoremap :<C-h> :<C-w>h {:desc "move to window on the left"})
+(nnoremap :<C-j> :<C-w>j {:desc "move to window below"})
+(nnoremap :<C-k> :<C-w>k {:desc "move to window above"})
+(nnoremap :<C-l> :<C-w>l {:desc "move to window on the right"})
+(nnoremap :<C-w>vh :<C-w>t<C-w>K {:desc "split window vertically and move to it"})
+(nnoremap :<C-w>hv :<C-w>t<C-w>H {:desc "split window horizontally and move to it"})
 
 ; ==<buffer navigation>==
 (nnoremap :<leader>bn ":bnext<CR>" {:desc "go to next buffer" :silent true})
@@ -77,37 +74,32 @@
   (r.for-each (fn [[from to]] (imap from to))))
 
 ; sort lines in visual mode
-(vnoremap :<leader>s ":sort<cr>")
+(vnoremap :<leader>s ":sort<cr>" {:desc "sort selection linewise"})
 
 ; insert new line on enter
 (nnoremap :<cr> :o<esc>)
 
 ; in visual mode use gu to change casing
 (vnoremap :u :<nop>)
-(vnoremap :gu :u)
+(vnoremap :gu :u {:desc "lowercase selection"})
 
 ; In normal mode remove ( text object motion. I keep hiting this accidentally
 ; and never use it intentially
-(nnoremap "(" :<nop>)
-(nnoremap ")" :<nop>)
+; (nnoremap "(" :<nop>)
+; (nnoremap ")" :<nop>)
 
 
 ; in normal mode, run quick macro
 ; use gQ to enter Exmode instead
-(nnoremap :Q "@qj")
-; run a macro over a selection of lines
-(xnoremap :Q ":normal @q")
+(nnoremap :Q "@qj" {:desc "run macro and move down one line"})
+(xnoremap :Q ":normal @q" {:desc "run macro over selection"})
 
+(nnoremap :Y :y$ {:desc "yank to end of line"})
 
-; yank to end of line
-(nnoremap :Y :y$)
+(vnoremap :< :<gv {:desc "reselect visual block after dedent"})
+(vnoremap :> :>gv {:desc "reselect visual block after indent"})
 
-; reselect visual block after indent
-(vnoremap :< :<gv)
-(vnoremap :> :>gv)
-
-; reselect last paste
-(nnoremap :gp "'`[' . strpart(getregtype(), 0, 1) . '`]'" {:expr true})
+(nnoremap :gp "'`[' . strpart(getregtype(), 0, 1) . '`]'" {:expr true :desc "reselect last paste"})
 
 (defn- preserve-paste [seq]
   (..
@@ -134,27 +126,33 @@
     "<ESC>:delmarks " mark "<CR>"
     (or post "")))
 
-(nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>" :q)) {:silent true})
+(nnoremap "z;" (preserve-paste (preserve-cursor-loc "A;<esc>" :q)) {:silent true
+                                                                    :desc "Add semicolon to end of line"})
 ; Throw a comma on the end of the line
-(nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>" :q)) {:silent true})
+(nnoremap "z," (preserve-paste (preserve-cursor-loc "A,<esc>" :q)) {:silent true
+                                                                    :desc "Add comma to end of line"})
 ; Delete last character on the line
-(nnoremap :zdl (preserve-paste (preserve-cursor-loc "A<esc>x" :q)) {:silent true})
+(nnoremap :zdl (preserve-paste (preserve-cursor-loc "A<esc>x" :q)) {:silent true
+                                                                    :desc "Delete last character on the line"})
 ; Move the current char to the end of the line
-(nnoremap :zl (preserve-paste (preserve-cursor-loc "x$p" :q)) {:silent true})
+(nnoremap :zl (preserve-paste (preserve-cursor-loc "x$p" :q)) {:silent true
+                                                               :desc "Move the current char to the end of the line"})
 ; Move line to the end of the next line
 ; useful for move a comment above a line behind it
-(nnoremap :zJ (preserve-paste :ddpkJ) {:silent true})
+(nnoremap :zJ (preserve-paste :ddpkJ) {:silent true
+                                       :desc "Move line to the end of the next line"})
 
-(nnoremap :<Space> :za)
-(vnoremap :<Space> :za)
+(nnoremap :<Space> :za {:desc "Toggle fold"})
+(vnoremap :<Space> :za {:desc "Toggle fold"})
 
 ; keeps freezing my vim??
+; don't think I need this anymore
 (inoremap :<F10> :<nop>)
 
-(nmap :<ScrollWheelUp> :k)
-(nmap :<S-ScrollWheelUp> :k)
-(nmap :<ScrollWheelDown> :j)
-(nmap :<S-ScrollWheelDown> :j)
+(nmap :<ScrollWheelUp> :k {:desc "Scroll up"})
+(nmap :<S-ScrollWheelUp> :k {:desc "Scroll up"})
+(nmap :<ScrollWheelDown> :j {:desc "Scroll down"})
+(nmap :<S-ScrollWheelDown> :j {:desc "Scroll down"})
 
 ; capitlize word under cursor
 (nmap :gcw (preserve-cursor-loc "eb~" :q) {:silent true
