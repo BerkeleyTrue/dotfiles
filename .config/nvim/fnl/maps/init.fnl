@@ -162,3 +162,6 @@
                                                        :desc "Capitalize word in selection"})
 
 (nnoremap :<leader>m ":messages<CR>" {:desc "show messages" :silent true})
+
+; I have my delete key mapped to ctrl-backspace when held.
+(inoremap :<C-backspace> :<C-w> {:desc "delete word before cursor"})
