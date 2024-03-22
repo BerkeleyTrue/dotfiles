@@ -15,10 +15,6 @@
   - [ ] bug: removes marks randomly?
 
 # Doing
-
-- Corpus
-  - [x] bug: C-] in ref def rewraps ref
-  - [ ] bug: glob doesn't account for kebab-case file names
   
 # Done (2024)
 
@@ -72,3 +68,6 @@
 - [x] rewrite scroll fix
   - [x] original still buggy
   - [x] rethink algorithm 
+- Corpus
+  - [x] bug: C-] in ref def rewraps ref
+  - [x] bug: glob doesn't account for kebab-case file names

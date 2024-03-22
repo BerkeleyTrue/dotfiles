@@ -64,8 +64,8 @@
         text (if (= _type :link_text) text (r.lsub "%[(.*)%]" "%1" text))
         first-letter (r.head text)
         rest (r.tail text)
-        target (.. "./" (r.to-lower-case (vf substitute text " " "-" "g")) ".md")
-        glob (.. "./[" (string.lower first-letter) (string.upper first-letter) "]" rest ".md")
+        target (.. "./" (r.kebab-case text) ".md")
+        glob (.. "./[" (string.lower first-letter) (string.upper first-letter) "]" (r.kebab-case rest) ".md")
         mtch (r.head (vf glob glob 0 1))
         target (or mtch target)]
     (vf execute (.. ":edit " target))
