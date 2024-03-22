@@ -13,11 +13,13 @@
   - [x] feat: refresh on a timer
   - [ ] bug: not clearing marks on move
   - [ ] bug: removes marks randomly?
-- Corpus
-  - bug: C-] in ref def rewraps ref
 
 # Doing
 
+- Corpus
+  - [x] bug: C-] in ref def rewraps ref
+  - [ ] bug: glob doesn't account for kebab-case file names
+  
 # Done (2024)
 
 - [x] figure out nvim-cmp whitespace trigger

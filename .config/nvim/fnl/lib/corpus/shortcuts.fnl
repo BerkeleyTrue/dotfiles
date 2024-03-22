@@ -48,17 +48,20 @@
 (comment
   (vnoremap "<C-]>" create-shortcut-on-selection {:buffer true :silent true}))
 
-(defn shortcut? []
-  "Checks if the node under the cursor is a shortcut"
-  (let [{: type} (ts.get-node-under-cursor)]
-    (= type "link_text")))
+(defn link? []
+  "Checks if the node under the cursor is a shortcut or a reference link"
+  (let [node (ts.get-node-under-cursor)
+        {:type _type : text} node]
+    (or (= _type :link_text)
+        (= _type :link_label))))
 
 (comment
-  (command! :CorpusIsShortcut (fn [] (a.println (go-to-shortcut)))))
+  (command! :CorpusIsShortcut (fn [] (a.println (link?)))))
 
 (defn go-to-shortcut []
   "Go to the shortcut under the cursor"
-  (let [{: text} (ts.get-node-under-cursor)
+  (let [{: text :type _type} (ts.get-node-under-cursor)
+        text (if (= _type :link_text) text (r.lsub "%[(.*)%]" "%1" text))
         first-letter (r.head text)
         rest (r.tail text)
         target (.. "./" (r.to-lower-case (vf substitute text " " "-" "g")) ".md")
@@ -74,7 +77,7 @@
 
 (defn go-to-or-create-shortcut []
   "Go to the shortcut under the cursor or create one if it doesn't exist"
-  (if (shortcut?)
+  (if (link?)
     (go-to-shortcut)
     (create-shortcut-on-word)))
 
