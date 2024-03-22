@@ -1,10 +1,16 @@
 (module plugins.luasnip
-  {require
+  {autoload
    {a aniseed.core
     r r
     md utils.module
     utils utils
-    anenv plugins.aniseed}
+    anenv plugins.aniseed
+
+    ls luasnip
+    xtras luasnip.extras
+    fmts luasnip.extras.fmt
+    ai luasnip.nodes.absolute_indexer
+    types luasnip.util.types}
    require-macros [macros]})
 
 (def- ft-snips
@@ -31,14 +37,14 @@
     (a.map
       (fn [ft]
         (r.merge {: ft} spec))
-      (. spec :fts))
+      spec.fts)
     spec))
 
 
 (defn- normalize-spec [spec]
   (let [ft (if (= (type spec) "string")
              spec
-             (. spec :ft))
+             spec.ft)
 
         namespace (if (= (type spec) "string")
                     (.. *module-name* "." ft)
@@ -47,37 +53,33 @@
      : namespace}))
 
 (defn source-ft-snips []
-  (when-let [luasnip (md.prequire :luasnip)]
-    (let [fmts (md.prequire :luasnip.extras.fmt)
-          xtras (md.prequire :luasnip.extras)
-          ai (md.prequire :luasnip.nodes.absolute_indexer)
-          methods {:fmt (. fmts :fmt)
-                   :fmta (. fmts :fmta)
-                   :rep (. xtras :rep)
-                   :s (. luasnip :snippet)
+   (let [methods {:fmt fmts.fmt
+                  :fmta fmts.fmta
+                  :rep xtras.rep
+                  :s ls.snippet
 
-                   :i (. luasnip :insert_node)
-                   :t (. luasnip :text_node)
-                   :sn (. luasnip :snippet_node)
-                   :c (. luasnip :choice_node)
-                   :f (. luasnip :function_node)
-                   :d (. luasnip :dynamice_node)
-                   : ai}]
-      (->>
-        ft-snips
-        (r.flatMap map-fts)
-        (r.map normalize-spec)
-        (r.map
-          (fn [{: ft : namespace}]
-            {: ft
-             :snips (md.prequire-main namespace methods)}))
-        (r.reduce
-          (fn [snippets {: ft : snips}]
-            ; pull already merged snippets
-            (let [pSnippets (or (. snippets ft) [])]
-              ; merge new and prev snips, then map to ft, then merge with old map
-              (r.merge snippets {ft (r.concat pSnippets snips)})))
-          {:all [(luasnip.parser.parse_snippet "test" "; tested")]})))))
+                  :i ls.insert_node
+                  :t ls.text_node
+                  :sn ls.snippet_node
+                  :c ls.choice_node
+                  :f ls.function_node
+                  :d ls.dynamice_node
+                  : ai}]
+     (->>
+       ft-snips
+       (r.flatMap map-fts)
+       (r.map normalize-spec)
+       (r.map
+         (fn [{: ft : namespace}]
+           {: ft
+            :snips (md.prequire-main namespace methods)}))
+       (r.reduce
+         (fn [snippets {: ft : snips}]
+           ; pull already merged snippets
+           (let [pSnippets (or snippets.ft [])]
+             ; merge new and prev snips, then map to ft, then merge with old map
+             (r.merge snippets {ft (r.concat pSnippets snips)})))
+         {:all [(ls.parser.parse_snippet "test" "; tested")]}))))
 
 (comment (source-ft-snips))
 
@@ -92,70 +94,53 @@
     (r.for-each utils.ex.source))
 
   (when-let [snippets (source-ft-snips)]
-    (let [luasnip (md.prequire :luasnip)]
-      (luasnip.add_snippets nil snippets))))
+    (ls.add_snippets nil snippets)))
 
 (defn expand-or-jump []
-  (when-let [ls (md.prequire :luasnip)]
-    (when (ls.expand_or_jumpable)
-      (ls.expand_or_jump)
-      nil)))
+  (when (ls.expand_or_jumpable)
+    (ls.expand_or_jump)
+    nil))
 
 (defn jump-back []
-  (when-let [ls (md.prequire :luasnip)]
-    (when (ls.jumpable -1)
-      (ls.jump -1)
-      nil)))
+  (when (ls.jumpable -1)
+    (ls.jump -1)
+    nil))
 
 (defn switch-choice []
-  (when-let [ls (md.prequire :luasnip)]
-    (when (ls.choice_active)
-      (ls.change_choice 1))))
+  (when (ls.choice_active)
+    (ls.change_choice 1)))
 
 (defn switch-choice-r []
-  (when-let [ls (md.prequire :luasnip)]
-    (when (ls.choice_active)
-      (ls.change_choice -1))))
+  (when (ls.choice_active)
+    (ls.change_choice -1)))
 
 (defn init []
-  (command!
-    :SourceSnips
-    (viml->lua* source-snips))
+  (command! :SourceSnips source-snips {:desc "Source snippets"})
 
-  (inoremap
-    :<C-j> (cviml->lua* expand-or-jump) {:silent true})
-  (snoremap
-    :<C-j> (cviml->lua* expand-or-jump) {:silent true})
+  (inoremap :<M-j> expand-or-jump {:silent true :desc "Luasnip: expand or jump to next section"})
+  (snoremap :<M-j> expand-or-jump {:silent true :desc "Luasnip: expand or jump to next section"})
 
-  (inoremap
-    :<C-k> (cviml->lua* jump-back) {:silent true})
-  (snoremap
-    :<C-k> (cviml->lua* jump-back) {:silent true})
+  (inoremap :<M-k> jump-back {:silent true :desc "Luasnip: jump to previous section"})
+  (snoremap :<M-k> jump-back {:silent true :desc "Luasnip: jump to previous section"})
 
-  (imap
-    :<C-l> (cviml->lua* switch-choice))
-
-  (imap
-    :<C-h> (cviml->lua* switch-choice-r)))
+  (imap :<M-l> switch-choice {:desc "Luasnip: switch to next choice"})
+  (imap :<M-h> switch-choice-r {:desc "Luasnip: switch to previous choice"}))
 
 (defn main []
-  (when-let [luasnip (md.prequire :luasnip)]
-    (let [types (md.prequire :luasnip.util.types)]
-      (luasnip.config.set_config
-        {:history true
-         :update_events [:TextChanged :TextChangedI]
-         :delete_check_events [:TextChanged :InsertLeave]
-         :region_check_events [:CursorMoved]
-         :enable_autosnippets true
+  (ls.config.set_config
+    {:history true
+     :update_events [:TextChanged :TextChangedI]
+     :delete_check_events [:TextChanged :InsertLeave]
+     :region_check_events [:CursorMoved]
+     :enable_autosnippets true
 
-         :ext_opts
-         {types.choiceNode
-          {:active
-            {:virt_text
-              [["🌔" :BerksCyan]]}}
-          types.insertNode
-          {:active
-            {:virt_text
-              [["🌖" :BerksGreen]]}}}}))
-    (when-let [snippets (source-ft-snips)]
-      (luasnip.add_snippets nil snippets))))
+     :ext_opts {types.choiceNode
+                {:active
+                  {:virt_text
+                    [["🌔" :BerksCyan]]}}
+                types.insertNode
+                {:active
+                  {:virt_text
+                    [["🌖" :BerksGreen]]}}}})
+  (when-let [snippets (source-ft-snips)]
+    (ls.add_snippets nil snippets)))
