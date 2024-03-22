@@ -66,7 +66,8 @@
         mtch (r.head (vf glob glob 0 1))
         target (or mtch target)]
     (vf execute (.. ":edit " target))
-    (vim.schedule md.update-file)))
+    (when (r.nil? mtch)
+      (vim.schedule md.update-file))))
 
 (comment
   (command! :CorpusGoToShortcut (fn [] (a.println (go-to-shortcut)))))
