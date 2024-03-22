@@ -79,7 +79,10 @@
   (when (ftdetect.ftdetect file)
     (bo! filetype "markdown.corpus")
     (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true :desc "Corpus: Go to or create shortcut"})
-    (xnoremap "<C-]>" #(shortcuts.create-shortcut-on-selection) {:silent true :buffer true :desc "Corpus: Create shortcut on selection"})
+    ; have to use a caommand here because of the bang
+    ; https://github.com/neovim/neovim/issues/18340
+    ; where keymap callbacks aren't given 
+    (xnoremap "<C-]>" ":lua require('lib.corpus.shortcuts')['create-shortcut-on-selection']()<CR>" {:silent true :buffer true :desc "Corpus: Create shortcut on selection"})
 
     (augroup :LibCorpusEnv
       {:event [:BufWritePre]

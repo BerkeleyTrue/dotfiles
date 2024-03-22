@@ -30,7 +30,7 @@
             ; must be single line selection
             (= (. start 2) (. end 2))
             ; must not be visual line selection
-            (not (= (. end 3)  2147483647))
+            (not (= (. end 3) 2147483647))
             ; must not be an empty selection
             (not (= (- (- (. start 3) 1) (- (. end 3) 1)) 0)))
       (let [line (vf getline linenm)
