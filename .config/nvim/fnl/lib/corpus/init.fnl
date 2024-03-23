@@ -154,6 +154,6 @@
      (fn on-command-line-leave []
        (chooser.close))}
 
-    {:event [:BufNewFile :BufRead]
+    {:event [:BufNewFile :BufRead :BufEnter]
      :pattern :*.md
      :callback init}))
