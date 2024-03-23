@@ -92,7 +92,7 @@
 ; in normal mode, run quick macro
 ; use gQ to enter Exmode instead
 (nnoremap :Q "@qj" {:desc "run macro and move down one line"})
-(xnoremap :Q ":normal @q" {:desc "run macro over selection"})
+(xnoremap :Q ":normal @q<CR>" {:desc "run macro over selection"})
 
 (nnoremap :Y :y$ {:desc "yank to end of line"})
 
