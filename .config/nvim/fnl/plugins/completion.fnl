@@ -65,7 +65,7 @@
 (defn init []
   ; Manually trigger completion in insert mode
   (inoremap :<C-s> #(cmp.complete) {:silent true})
-  (let [debounced (r.debounce 250 open-on-insert)]
+  (let [debounced (r.debounce 400 open-on-insert)]
     ; not sure what I was thinking here??
     (augroup
       :AutoPopup
