@@ -106,25 +106,21 @@
     (ls.jump -1)
     nil))
 
-(defn switch-choice []
+(defn switch-choice [dir]
   (when (ls.choice_active)
-    (ls.change_choice 1)))
-
-(defn switch-choice-r []
-  (when (ls.choice_active)
-    (ls.change_choice -1)))
+    (ls.change_choice (if dir -1 1))))
 
 (defn init []
   (command! :SourceSnips source-snips {:desc "Source snippets"})
 
-  (inoremap :<M-j> expand-or-jump {:silent true :desc "Luasnip: expand or jump to next section"})
-  (snoremap :<M-j> expand-or-jump {:silent true :desc "Luasnip: expand or jump to next section"})
+  (inoremap :<M-l> expand-or-jump {:silent true :desc "Luasnip: expand or jump to next section"})
+  (snoremap :<M-l> expand-or-jump {:silent true :desc "Luasnip: expand or jump to next section"})
 
-  (inoremap :<M-k> jump-back {:silent true :desc "Luasnip: jump to previous section"})
-  (snoremap :<M-k> jump-back {:silent true :desc "Luasnip: jump to previous section"})
+  (inoremap :<M-h> jump-back {:silent true :desc "Luasnip: jump to previous section"})
+  (snoremap :<M-h> jump-back {:silent true :desc "Luasnip: jump to previous section"})
 
-  (imap :<M-l> switch-choice {:desc "Luasnip: switch to next choice"})
-  (imap :<M-h> switch-choice-r {:desc "Luasnip: switch to previous choice"}))
+  (imap :<M-j> #(switch-choice false) {:desc "Luasnip: switch to next choice"})
+  (imap :<M-k> #(switch-choice true) {:desc "Luasnip: switch to previous choice"}))
 
 (defn main []
   (ls.config.set_config
