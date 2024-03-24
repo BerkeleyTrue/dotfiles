@@ -282,8 +282,8 @@ in {
           Fingerprinting = true;
         };
         DisablePocket = true;
-        DisableFirefoxAccounts = true;
-        DisableAccounts = true;
+        DisableFirefoxAccounts = false;
+        DisableAccounts = false;
         DisableFirefoxScreenshots = true;
         OverrideFirstRunPage = "";
         OverridePostUpdatePage = "";
@@ -305,6 +305,7 @@ in {
           "browser.search.suggest.enabled" = lock-false;
           "browser.search.suggest.enabled.private" = lock-false;
           "browser.urlbar.suggest.searches" = lock-false;
+          "browser.tabs.tabmanager.enabled" = lock-false;
           "browser.urlbar.showSearchSuggestionsFirst" = lock-false;
           "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
           "browser.newtabpage.activity-stream.feeds.snippets" = lock-false;
