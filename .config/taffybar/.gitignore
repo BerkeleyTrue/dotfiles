@@ -2,3 +2,4 @@
 *~
 taffybar-berks.cabal
 bin
+.direnv/
