@@ -6,7 +6,7 @@
   - find kanbans within file
 - defasync macro should fold through symbols and replace binds with await
   - modify acase to account for the above
-- [ ] build vim-signature replacement
+- build vim-signature replacement
   > see: sign_place, sign_define
   > see: chentoast/marks.nvim
   - [x] bug: multiple marks do not show
