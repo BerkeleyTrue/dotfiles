@@ -268,6 +268,22 @@ in {
         Value = true;
         Status = "locked";
       };
+
+      userChrome = ''
+        :root {
+          font: 14px "FiraCode Nerd Font", monospace !important;
+        }
+
+        /* hides the native tabs */
+        #TabsToolbar {
+          visibility: collapse;
+        }
+
+        /* hides the sidebar header */
+        #sidebar-header {
+          visibility: collapse !important;
+        }
+      '';
     in {
       enable = true;
 
@@ -291,6 +307,7 @@ in {
         DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
         DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
         SearchBar = "unified"; # alternative: "separate"
+        DefaultDownloadDirectory = "\${home}/dwns";
 
         # Check about:config for options.
         Preferences = {
@@ -317,6 +334,11 @@ in {
           "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = lock-true;
+        };
+      };
+      profiles = {
+        default = {
+          inherit userChrome;
         };
       };
     };
