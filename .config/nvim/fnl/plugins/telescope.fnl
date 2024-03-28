@@ -55,6 +55,7 @@
   (nnoremap :<leader>ft (utils.cviml->lua :telescope.builtin :live_grep) {:silent true :desc "Open live text search"})
   (nnoremap :<leader>fm (utils.cviml->lua :telescope.builtin :marks) {:silent true :desc "Open marks search"})
   (nnoremap :<leader>fj (utils.cviml->lua :telescope.builtin :jumplist) {:silent true :desc "Open jumplist search"})
+  (nnoremap :<leader>fb (utils.cviml->lua :telescope.builtin :buffers) {:silent true :desc "Open buffers search"})
   (nnoremap :z=         (utils.cviml->lua :telescope.builtin :spell_suggest) {:silent true :desc "Open spell suggest search"}))
 
 (defn setup-commands []
