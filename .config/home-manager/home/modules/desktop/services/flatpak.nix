@@ -20,9 +20,9 @@
       "org.inkscape.Inkscape"               
       "org.kde.krita"                       
       "org.libreoffice.LibreOffice"         
-      # "org.mozilla.firefox"
       "org.pipewire.Helvum"                 
-      "org.standardnotes.standardnotes"     
+      "org.standardnotes.standardnotes"
+      "com.librumreader.librum"
     ];
   };
 }
