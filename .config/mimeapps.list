@@ -12,6 +12,7 @@ application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
 application/sla=io.github.f3d_app.f3d.desktop;
 image/jpeg=viewnior.desktop;
 image/png=viewnior.desktop;
+image/webp=viewnior.desktop;
 inode/directory=pcmanfm.desktop;
 model/sla=io.github.f3d_app.f3d.desktop;
 model/stl=io.github.f3d_app.f3d.desktop;
