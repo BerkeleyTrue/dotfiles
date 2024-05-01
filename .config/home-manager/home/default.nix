@@ -46,6 +46,7 @@
         username = "berkeleytrue";
         modules = [
           ./modules
+          ./hardware/delora.nix
         ];
 
         specialArgs = {

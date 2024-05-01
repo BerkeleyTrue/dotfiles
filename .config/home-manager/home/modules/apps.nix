@@ -275,6 +275,9 @@ in {
     in {
       enable = true;
 
+      package = config.lib.nixgl.wrapPackage pkgs.firefox;
+      nativeMessagingHosts = [pkgs.fx_cast_bridge];
+
       # Check about:policies#documentation for options.
       policies = {
         DisableTelemetry = true;
