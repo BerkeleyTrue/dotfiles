@@ -20,7 +20,7 @@
          :refresh :gr
          :open :<M-CR>}}
        :suggestion
-       {:enabled true
+       {:enabled false
         :auto_trigger true
         :debounce 250
         :keymap
