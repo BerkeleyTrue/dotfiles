@@ -42,8 +42,10 @@
 in {
   home.packages = with pkgs; [
     antigen # zsh plugin manager
+    babashka # A Clojure babushka for the grey areas of bash
     bind # dns client
     bluetuith # bluetooth manager tui
+    bottom # A cross-platform graphical process/system monitor with a customizable interface and a multitude of features
     curl # transfer data from or to a server
     dogdns # A command-line DNS cliento
     du-dust # A more intuitive version of du in rust
@@ -55,13 +57,12 @@ in {
     glow # Render markdown on the CLI, with pizzazz!
     handlr # Alternative to xdg-open to manage default applications with ease
     htop # An interactive process viewer
-    bottom # A cross-platform graphical process/system monitor with a customizable interface and a multitude of features
     iputils # Network monitoring tools including ping
+    instaloader # Download public and private instagram accounts
     lazygit # simple terminal UI for git commands
     lsof # lists open files
     ngrok # Introspected tunnels to localhost
     p7zip # 7-Zip is a file archiver with a high compression ratio
-    babashka # A Clojure babushka for the grey areas of bash
     playerctl # pause/play music players ci
     procs # A modern replacement for ps written in Rust
     projects # A script to find all the top level git folders in a directory
@@ -74,14 +75,14 @@ in {
     tealdeer # A very fast implementation of tldr in Rust
     timewarrior # A command-line time tracker
     traceroute # print the route packets trace to network host
-    udisks # access and manipulate disks and media devices
     udiskie # Removable disk automounter using udisks
+    udisks # access and manipulate disks and media devices
     vimv # batch rename files w/ vim
     wakatime # Command line interface for Wakatime
     wget # The non-interactive network downloader # required by jdownloader
     wordnet # Lexical database for the English language
-    xdragon # simple drag and drop source/sink for x11
     xdotool # Command-line X11 automation tool
+    xdragon # simple drag and drop source/sink for x11
     yadm # Yet Another Dotfiles Manager
     yt-dlp # A youtube-dl fork with additional features and fixes
     zoxide # A fast alternative to cd that learns your habits
