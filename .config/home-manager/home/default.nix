@@ -68,6 +68,7 @@
         username = "bt";
         modules = [
           ./modules
+          ./hardware/rena.nix
         ];
 
         specialArgs = {
