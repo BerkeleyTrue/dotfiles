@@ -42,7 +42,6 @@
               nixgl.overlay
               parinfer-rust.overlays.default
               (import ./overlays/rofi-network-manager)
-              (import ./overlays/fd.nix)
             ];
 
             config = {
