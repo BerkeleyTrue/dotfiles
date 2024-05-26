@@ -41,7 +41,7 @@
   (o! spell          true)                             ;  enable spell checking
   (o! spelllang      :en_us)                           ;  set spell language to US english
   (o! spelloptions   :camel)                           ;  ignore camel case words
-  (o! nosmarttab     true)                             ;  don't use smart tabs
+  (o! smarttab       false)                            ;  don't use smart tabs
   (o! relativenumber false)                            ;  no relative numbers
   (o! synmaxcol      512)                              ;  prevent long lines from hanging vim
   (o! tabstop        2)                                ;  a tab is two spaces
@@ -54,7 +54,7 @@
   (o! visualbell     true)                             ;  flash screen on error
   (o! wildignore     "*.swp,*.bak,*.pyc,*.class")      ;  ignore these files
   (o! winbar         ">=>%f")                          ;  default winbar, prevent FOUC
-  (o! zip_unzipcmd   "7z x -so")                       ;  use 7z to unzip files
+  (g! zip_unzipcmd   "7z x -so")                       ;  use 7z to unzip files
 
   ; nvim blinking cursor see :help 'guicursor'
   (o! guicursor "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175")
