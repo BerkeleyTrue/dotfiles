@@ -52,28 +52,31 @@
     '';
   };
 in {
-  home.packages = with pkgs; [
-    (nixGLWrap kitty) # GPU-accelerated terminal emulator
-    (nixGLWrap mpv) # General-purpose media player, fork of MPlayer and mplayer2
-    cutecom # serial terminal
-    enDict # My dictionary
-    gparted # graphical partition manager
-    keybase # encrypted chat
-    keybase-gui # encrypted chat
-    libation # an audible player/drm remover
-    myAspell # spell checker
-    networkmanagerapplet # network manager applet
-    printrun # 3D printing host software
-    rofi # launcher
-    rofi-bluetooth # rofi bluetooth manager
-    rofi-spell # spell checker
-    rofi-usb # rofi usb manager
-    spacenavd # 3Dconnexion device driver
-    viewnior # fast image preview
-    vlc # Cross-platform media player and streaming server
-    wordnet # lexical database for the English language
-    zathura # pdf viewer
-  ];
+  home.packages =
+    (with pkgs; [
+      cutecom # serial terminal
+      gparted # graphical partition manager
+      keybase # encrypted chat
+      keybase-gui # encrypted chat
+      libation # an audible player/drm remover
+      networkmanagerapplet # network manager applet
+      printrun # 3D printing host software
+      rofi-bluetooth # rofi bluetooth manager
+      spacenavd # 3Dconnexion device driver
+      viewnior # fast image preview
+      vlc # Cross-platform media player and streaming server
+      wordnet # lexical database for the English language
+      zathura # pdf viewer
+    ])
+    ++ [
+      (nixGLWrap pkgs.kitty) # GPU-accelerated terminal emulator
+      (nixGLWrap pkgs.mpv) # General-purpose media player, fork of MPlayer and mplayer2
+      rofi # launcher
+      rofi-spell # spell checker
+      rofi-usb # rofi usb manager
+      enDict # My dictionary
+      myAspell # spell checker
+    ];
 
   # don't know why this stopped working
   # xdg.dataFile."/aspell/english".source = "${enDict}/share/aspell/english";
@@ -115,7 +118,7 @@ in {
       c = builtins.mapAttrs (name: value: mkLiteral value) theme.colors;
       cls = theme.colors;
     in
-      with cls; {
+      {
         configuration = {
           show-icons = false;
           sidebar-mode = false;
@@ -182,19 +185,19 @@ in {
         # table header is active
         "element.normal.active" = {
           background-color = mkLiteral "transparent";
-          background-image = mkLiteral "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})";
-          text-color = mkLiteral base;
+          background-image = mkLiteral (with cls; "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})");
+          text-color = mkLiteral cls.base;
         };
         # table header when selected
         "element.selected.active" = {
           background-color = mkLiteral "transparent";
-          background-image = mkLiteral "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})";
-          text-color = mkLiteral base;
+          background-image = mkLiteral (with cls; "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})");
+          text-color = mkLiteral cls.base;
         };
 
         "element.selected.normal" = {
           background-color = mkLiteral "transparent";
-          background-image = mkLiteral "linear-gradient(40, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${sky})";
+          background-image = mkLiteral (with cls; "linear-gradient(40, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${sky})");
           text-color = mkRef "background";
         };
         "element.selected.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");

@@ -3,10 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-with lib; {
+}: {
   options = {
     nixGLPackage = let
+      types = lib.types;
       mapping = with pkgs.nixgl; {
         auto = auto.nixGLDefault;
         intel = nixGLIntel;
@@ -16,12 +16,11 @@ with lib; {
       };
     in
       lib.mkOption {
-        type = with lib.types;
-          nullOr (
-            either
-            package
-            (enum (lib.attrsets.mapAttrsToList (name: value: name) mapping)) # Take keys from mapping
-          );
+        type = types.nullOr (
+          types.either
+          types.package
+          (types.enum (lib.attrsets.mapAttrsToList (name: value: name) mapping)) # Take keys from mapping
+        );
         default = null;
         visible = false;
         description = ''
@@ -30,7 +29,7 @@ with lib; {
           Needed on non-NixOS systems.
         '';
         apply = input: (
-          if (isString input)
+          if (lib.isString input)
           then (mapping.${input})
           else input # Package or null
         );
@@ -39,7 +38,7 @@ with lib; {
 
   config = {
     # Add appropriate nixGL package to user's environment
-    home.packages = mkIf (config.nixGLPackage != null) [config.nixGLPackage];
+    home.packages = lib.mkIf (config.nixGLPackage != null) [config.nixGLPackage];
 
     lib.nixgl = {
       # Wrap the package's binaries with nixGL, while preserving the rest of the outputs and derivation attributes.
