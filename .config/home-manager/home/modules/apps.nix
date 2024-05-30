@@ -71,6 +71,7 @@ in {
     ++ [
       (nixGLWrap pkgs.kitty) # GPU-accelerated terminal emulator
       (nixGLWrap pkgs.mpv) # General-purpose media player, fork of MPlayer and mplayer2
+      (config.lib.nixgl.wrapPackage pkgs.kicad)
       rofi # launcher
       rofi-spell # spell checker
       rofi-usb # rofi usb manager
@@ -117,128 +118,127 @@ in {
       inherit (config.lib.formats.rasi) mkSimpleEl;
       c = builtins.mapAttrs (name: value: mkLiteral value) theme.colors;
       cls = theme.colors;
-    in
-      {
-        configuration = {
-          show-icons = false;
-          sidebar-mode = false;
-          hover-select = true;
-          me-select-entry = "";
-          me-accept-entry = [(mkLiteral "MousePrimary")];
-        };
-
-        "*" = {
-          font = "FiraCode Nerd Font 18";
-          foreground = c.text;
-          background = c.base;
-
-          background-color = mkRef "background";
-          active-background = c.subtext1;
-
-          urgent-background = c.red;
-          urgent-foreground = mkRef "background";
-
-          selected-background = mkRef "active-background";
-          selected-urgent-background = mkRef "urgent-background";
-          selected-active-background = mkRef "active-background";
-
-          separatorcolor = mkRef "active-background";
-          bordercolor = c.rosewater;
-        };
-
-        window = {
-          text-color = mkRef "foreground";
-          border-color = mkRef "bordercolor";
-          border-radius = 6;
-          border = 3;
-          padding = 10;
-        };
-        mainbox = {
-          border = 0;
-          padding = 0;
-        };
-        textbox = {
-          text-color = mkRef "foreground";
-        };
-        listview = {
-          border = 0;
-          dynamic = true;
-          fixed-height = false;
-          scrollbar = false;
-          spacing = mkLiteral "4px";
-          text-color = mkRef "separatorcolor";
-          padding = mkLiteral "2px 0px 0px";
-        };
-        element = {
-          border = 0;
-          border-radius = mkLiteral "4px";
-          padding = mkLiteral "8px 10px";
-        };
-        element-text = {
-          background-color = mkLiteral "inherit";
-          text-color = mkLiteral "inherit";
-        };
-        # normal rows
-        "element.normal.normal" = mkSimpleEl (mkRef "background") (mkRef "foreground");
-        "element.normal.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
-
-        # table header is active
-        "element.normal.active" = {
-          background-color = mkLiteral "transparent";
-          background-image = mkLiteral (with cls; "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})");
-          text-color = mkLiteral cls.base;
-        };
-        # table header when selected
-        "element.selected.active" = {
-          background-color = mkLiteral "transparent";
-          background-image = mkLiteral (with cls; "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})");
-          text-color = mkLiteral cls.base;
-        };
-
-        "element.selected.normal" = {
-          background-color = mkLiteral "transparent";
-          background-image = mkLiteral (with cls; "linear-gradient(40, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${sky})");
-          text-color = mkRef "background";
-        };
-        "element.selected.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
-
-        "element.alternate.normal" = mkSimpleEl (mkRef "background-color") (mkRef "foreground");
-        "element.alternate.urgent" = mkSimpleEl (mkRef "background-color") (mkRef "urgent-foreground");
-        "element.alternate.active" = mkSimpleEl (mkRef "active-background") (mkRef "foreground");
-
-        mode-switcher = {
-          border = 0;
-        };
-
-        "button selected" = {
-          text-color = mkRef "foreground";
-          background-color = mkRef "selected-background";
-        };
-        "button normal" = {
-          text-color = mkRef "foreground";
-        };
-
-        inputbar = {
-          text-color = mkRef "foreground";
-          children = [
-            (mkLiteral "textbox-prompt-colon")
-
-            (mkLiteral "entry")
-          ];
-          padding = mkLiteral "1px";
-        };
-
-        textbox-prompt-colon = {
-          expand = false;
-          margin = 0;
-          text-color = mkRef "foreground";
-        };
-        entry = {
-          spacing = 0;
-          text-color = mkRef "foreground";
-          placeholder = "";
-        };
+    in {
+      configuration = {
+        show-icons = false;
+        sidebar-mode = false;
+        hover-select = true;
+        me-select-entry = "";
+        me-accept-entry = [(mkLiteral "MousePrimary")];
       };
+
+      "*" = {
+        font = "FiraCode Nerd Font 18";
+        foreground = c.text;
+        background = c.base;
+
+        background-color = mkRef "background";
+        active-background = c.subtext1;
+
+        urgent-background = c.red;
+        urgent-foreground = mkRef "background";
+
+        selected-background = mkRef "active-background";
+        selected-urgent-background = mkRef "urgent-background";
+        selected-active-background = mkRef "active-background";
+
+        separatorcolor = mkRef "active-background";
+        bordercolor = c.rosewater;
+      };
+
+      window = {
+        text-color = mkRef "foreground";
+        border-color = mkRef "bordercolor";
+        border-radius = 6;
+        border = 3;
+        padding = 10;
+      };
+      mainbox = {
+        border = 0;
+        padding = 0;
+      };
+      textbox = {
+        text-color = mkRef "foreground";
+      };
+      listview = {
+        border = 0;
+        dynamic = true;
+        fixed-height = false;
+        scrollbar = false;
+        spacing = mkLiteral "4px";
+        text-color = mkRef "separatorcolor";
+        padding = mkLiteral "2px 0px 0px";
+      };
+      element = {
+        border = 0;
+        border-radius = mkLiteral "4px";
+        padding = mkLiteral "8px 10px";
+      };
+      element-text = {
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+      };
+      # normal rows
+      "element.normal.normal" = mkSimpleEl (mkRef "background") (mkRef "foreground");
+      "element.normal.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
+
+      # table header is active
+      "element.normal.active" = {
+        background-color = mkLiteral "transparent";
+        background-image = mkLiteral (with cls; "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})");
+        text-color = mkLiteral cls.base;
+      };
+      # table header when selected
+      "element.selected.active" = {
+        background-color = mkLiteral "transparent";
+        background-image = mkLiteral (with cls; "linear-gradient(40, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${subtext1}, ${text}, ${lavender})");
+        text-color = mkLiteral cls.base;
+      };
+
+      "element.selected.normal" = {
+        background-color = mkLiteral "transparent";
+        background-image = mkLiteral (with cls; "linear-gradient(40, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${mauve}, ${sky})");
+        text-color = mkRef "background";
+      };
+      "element.selected.urgent" = mkSimpleEl (mkRef "urgent-background") (mkRef "urgent-foreground");
+
+      "element.alternate.normal" = mkSimpleEl (mkRef "background-color") (mkRef "foreground");
+      "element.alternate.urgent" = mkSimpleEl (mkRef "background-color") (mkRef "urgent-foreground");
+      "element.alternate.active" = mkSimpleEl (mkRef "active-background") (mkRef "foreground");
+
+      mode-switcher = {
+        border = 0;
+      };
+
+      "button selected" = {
+        text-color = mkRef "foreground";
+        background-color = mkRef "selected-background";
+      };
+      "button normal" = {
+        text-color = mkRef "foreground";
+      };
+
+      inputbar = {
+        text-color = mkRef "foreground";
+        children = [
+          (mkLiteral "textbox-prompt-colon")
+
+          (mkLiteral "entry")
+        ];
+        padding = mkLiteral "1px";
+      };
+
+      textbox-prompt-colon = {
+        expand = false;
+        margin = 0;
+        text-color = mkRef "foreground";
+      };
+      entry = {
+        spacing = 0;
+        text-color = mkRef "foreground";
+        placeholder = "";
+      };
+    };
   };
 
   programs = {
