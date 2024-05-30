@@ -30,17 +30,16 @@
         ./home
       ];
       perSystem = {
-        pkgs,
         system,
         ...
       }:
-        with inputs; let
-          pkgs = import nixpkgs {
+        let
+          pkgs = import inputs.nixpkgs {
             inherit system;
 
             overlays = [
-              nixgl.overlay
-              parinfer-rust.overlays.default
+              inputs.nixgl.overlay
+              inputs.parinfer-rust.overlays.default
               (import ./overlays/rofi-network-manager)
             ];
 

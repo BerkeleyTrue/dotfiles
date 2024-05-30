@@ -3,24 +3,25 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
   cfg = config.programs.rofi-network-manager;
+  types = lib.types;
+  mkOption = lib.mkOption;
 
   mkValueString = value:
-    if isBool value
+    if lib.isBool value
     then
       if value
       then "true"
       else "false"
-    else if isInt value
+    else if lib.isInt value
     then toString value
     else if (value._type or "") == "literal"
     then value.value
-    else if isString value
+    else if lib.isString value
     then ''"${value}"''
-    else if isList value
-    then "[ ${strings.concatStringsSep "," (map mkValueString value)} ]"
+    else if lib.isList value
+    then "[ ${lib.strings.concatStringsSep "," (map mkValueString value)} ]"
     else abort "Unhandled value type ${builtins.typeOf value}";
 
   mkKeyValue = {
@@ -28,16 +29,16 @@ with lib; let
     end ? ";",
   }: name: value: "  ${name}${sep}${mkValueString value}${end}";
 
-  toKeyValue = generators.toKeyValue {
+  toKeyValue = lib.generators.toKeyValue {
     listsAsDuplicateKeys = true;
   };
 
   mkRasiSection = name: value:
-    if isAttrs value
+    if lib.isAttrs value
     then let
-      toRasiKeyValue = generators.toKeyValue {mkKeyValue = mkKeyValue {};};
+      toRasiKeyValue = lib.generators.toKeyValue {mkKeyValue = mkKeyValue {};};
       # Remove null values so the resulting config does not have empty lines
-      configStr = toRasiKeyValue (filterAttrs (_: v: v != null) value);
+      configStr = toRasiKeyValue (lib.filterAttrs (_: v: v != null) value);
     in ''
       ${name} {
       ${configStr}}
@@ -53,16 +54,16 @@ with lib; let
       + "\n";
 
   rasiLiteral =
-    types.submodule
+    lib.types.submodule
     {
       options = {
         _type = mkOption {
-          type = types.enum ["literal"];
+          type = lib.types.enum ["literal"];
           internal = true;
         };
 
         value = mkOption {
-          type = types.str;
+          type = lib.types.str;
           internal = true;
         };
       };
@@ -71,21 +72,21 @@ with lib; let
       description = "Rasi literal string";
     };
 
-  primitive = with types; (oneOf [str int bool rasiLiteral]);
-  configType = with types; attrsOf (either primitive (listOf primitive));
-  themeType = with types; (either (attrsOf configType) bool);
+  primitive = types.oneOf [types.str types.int types.bool rasiLiteral];
+  configType = types.attrsOf (types.either primitive (types.listOf primitive));
+  themeType = types.either (types.attrsOf configType) types.bool;
 
   toRasi = attrs:
-    concatStringsSep "\n" (concatMap (mapAttrsToList mkRasiSection) [
-      (filterAttrs (n: _: n == "@theme") attrs)
-      (filterAttrs (n: _: n == "@import") attrs)
+    lib.concatStringsSep "\n" (lib.concatMap (lib.mapAttrsToList mkRasiSection) [
+      (lib.filterAttrs (n: _: n == "@theme") attrs)
+      (lib.filterAttrs (n: _: n == "@import") attrs)
       (removeAttrs attrs ["@theme" "@import"])
     ]);
 in {
   options.programs.rofi-network-manager = {
-    enable = mkEnableOption "rofi-network-manager: network manager in rofi";
+    enable = lib.mkEnableOption "rofi-network-manager: network manager in rofi";
     settings = mkOption {
-      description = mdDoc ''
+      description = lib.mdDoc ''
         The settings for rofi-network-manager.
       '';
       type = types.submodule {
@@ -225,7 +226,7 @@ in {
 
       default = {};
 
-      example = literalExpression ''
+      example = lib.literalExpression ''
         {
           LOCATION = 3;
           X_AXIS = 0;
@@ -248,8 +249,8 @@ in {
 
     theme = mkOption {
       default = null;
-      type = with types; nullOr themeType;
-      example = literalExpression ''
+      type = types.nullOr themeType;
+      example = lib.literalExpression ''
         let
           # Use `mkLiteral` for string-like values that should show without
           # quotes, e.g.:
@@ -281,7 +282,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       lib.formats.rasi.mkLiteral = value: {
         _type = "literal";
@@ -313,9 +314,9 @@ in {
         icon = "network-wireless";
       };
     }
-    (mkIf (cfg.theme != false) {
+    (lib.mkIf (cfg.theme != false) {
       xdg.configFile."rofi/rofi-network-manager.rasi" =
-        if (cfg.theme == null || !isAttrs cfg.theme)
+        if (cfg.theme == null || !lib.isAttrs cfg.theme)
         then {
           source = "${pkgs.rofi-network-manager}/rofi-network-manager.rasi";
         }
