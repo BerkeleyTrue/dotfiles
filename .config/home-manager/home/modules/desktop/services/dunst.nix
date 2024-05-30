@@ -4,23 +4,23 @@
   lib,
   config,
   ...
-}:
-with lib; let
-  toDunstIni = generators.toINI {
+}: let
+  toDunstIni = lib.generators.toINI {
     mkKeyValue = key: value: let
       value' =
-        if isBool value
+        if lib.isBool value
         then (lib.hm.booleans.yesNo value)
-        else if isString value
+        else if lib.isString value
         then ''"${value}"''
         else toString value;
     in "${key}=${value'}";
   };
+  c = theme.colors;
 
-  settings = with theme.colors; {
+  settings = {
     global = {
       frame_width = 1;
-      frame_color = rosewater;
+      frame_color = c.rosewater;
       font = "FiraCode Nerd Font 10";
       format = "<b>%a</b>: <i>%s</i> %p\\n%b";
       markup = "full";
@@ -71,7 +71,7 @@ with lib; let
       #  * foreground: use the same color as the foreground;
       #  * frame: use the same color as the frame;
       #  * anything else will be interpreted as a X color.
-      separator_color = lavender;
+      separator_color = c.lavender;
 
       # dmenu path.
       dmenu = "${pkgs.rofi} -dmenu -p dunst:";
@@ -96,21 +96,21 @@ with lib; let
     };
 
     urgency_low = {
-      background = surface1;
-      foreground = subtext1;
+      background = c.surface1;
+      foreground = c.subtext1;
       timeout = 10;
     };
 
     urgency_normal = {
-      background = base;
-      foreground = text;
+      background = c.base;
+      foreground = c.text;
       timeout = 10;
     };
 
     urgency_critical = {
-      background = red;
-      foreground = surface1;
-      frame_color = rosewater;
+      background = c.red;
+      foreground = c.surface1;
+      frame_color = c.rosewater;
       timeout = 0;
     };
   };

@@ -3,8 +3,8 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
+  types = lib.types;
   pluginName = p:
     if types.package.check p
     then p.pname
@@ -25,7 +25,7 @@ with lib; let
     # ============================================= #
     # Load plugins Managed by Home-Manager          #
     # --------------------------------------------- #
-    ${(concatMapStringsSep "\n" (p: ''
+    ${(lib.concatMapStringsSep "\n" (p: ''
         # ${pluginName p}
         # ---------------------
         run-shell ${

@@ -5,7 +5,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    kanata # intercept and tranform keyboard inputs
+    kanata # intercept and transform keyboard inputs
   ];
 
   systemd.user.services.kanata = lib.mkIf (profile == "rena") {
