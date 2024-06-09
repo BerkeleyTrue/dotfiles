@@ -26,7 +26,6 @@ import Berks.Widgets.Ping (connectivityWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
-import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.List (intersperse)
@@ -65,7 +64,7 @@ createSecondary barId' =
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [calendarWidget],
-      centerWidgets = [weatherWidget, plainDividerWidget, wakatimeWidget, plainDividerWidget, ethWidget, btcWidget],
+      centerWidgets = [wakatimeWidget, plainDividerWidget, ethWidget, btcWidget],
       endWidgets =
         reverse
           [ batteryWidget,
