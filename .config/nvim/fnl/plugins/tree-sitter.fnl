@@ -40,6 +40,7 @@
       :regex
       :rust
       :solidity
+      :slint
       :swift
       :templ
       :toml

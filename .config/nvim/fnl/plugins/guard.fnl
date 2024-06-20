@@ -61,6 +61,10 @@
       (->
         (ft "clojure,clojurescript")
         (: :fmt :lsp))
+      (->
+        (ft :slint)
+        (: :fmt :lsp))
+
       (guard.setup {:fmt_on_save false}))
 
    (augroup

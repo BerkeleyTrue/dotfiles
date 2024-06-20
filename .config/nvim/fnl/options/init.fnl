@@ -63,4 +63,5 @@
   (command filetype :indent :on)
   (command syntax :on)
   (auto.main)
-  (aam.main))
+  (aam.main)
+  (vim.filetype.add {:extension {:slint :slint}}))
