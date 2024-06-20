@@ -148,10 +148,9 @@
              :VimResume]
      :pattern :*
      :desc "Keep cursor line fixed from the top of the screen"
-     :callback (r.void 
-                 (fn should-scroll-fix? []
-                    (when enabled?
-                      (scroll-fix))))})
+     :cb (fn should-scroll-fix? []
+            (when enabled?
+              (scroll-fix)))})
 
   (nnoremap :zz scroll-fix)
 

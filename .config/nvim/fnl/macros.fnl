@@ -408,15 +408,23 @@
     `(,(sym fnname) ,...)))
 
 ; =<< augroup >=>
+(fn wrap-augroup-callback [f]
+  `(fn [...]
+     (let [unmount# (,f ...)]
+       (= true unmount#))))
+
 (fn autocmd [id config]
   (let [event config.event
         events (if (string? event) [event] event)]
     (tset config :event nil)
-    (when
-      config.cmd
+    (when config.cmd 
       (do
         (tset config :command config.cmd)
         (tset config :cmd nil)))
+    (when config.cb 
+      (do
+        (tset config :callback (wrap-augroup-callback config.cb))
+        (tset config :cb nil)))
     `(vim.api.nvim_create_autocmd ,events ,(merge config {:group id}))))
 
 (defn augroup [name ...]
