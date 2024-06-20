@@ -158,6 +158,8 @@ in {
           nil #nix language server
           nixd # nix language server
           clojure-lsp
+          slint-lsp 
+          rust-analyzer # rust language server
 
           alejandra # formatting nix
           shfmt # formatting shell scripts

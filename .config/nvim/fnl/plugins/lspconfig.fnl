@@ -73,22 +73,24 @@
 (def lsps
   {:ansiblels (ansible-configs)
    :bashls {:on_attach general-on-attach-with-navic}
-   :cssls {}
    :clojure_lsp {:on_attach general-on-attach-with-navic}
+   :cssls {}
    :dockerls {}
    :emmet_ls (emmetls.get-config)
    :eslint {}
    :gopls {:on_attach general-on-attach-with-navic}
-   :templ {:on_attach general-on-attach-with-navic}
    :hls {:on_attach general-on-attach-with-navic}
    :html {:on_attach (create-disable-formatting general-on-attach)}
    :jsonls (jsonls-configs)
-   :nixd {:on_attach (create-disable-formatting general-on-attach)}
+   :lua_ls {}
    :nil_ls {:on_attach (create-disable-formatting general-on-attach-with-navic)}
+   :nixd {:on_attach (create-disable-formatting general-on-attach)}
    :prismals {}
    :purescriptls {}
+   :rust_analyzer {}
+   :slint_lsp {}
    :solidity_ls {}
-   :lua_ls {}
+   :templ {:on_attach general-on-attach-with-navic}
    :tsserver (tsserver.get-config {:on_attach general-on-attach-with-navic})
    :tailwindcss (tailwindcss.get-config)
    :vimls {:on_attach general-on-attach-with-navic}
