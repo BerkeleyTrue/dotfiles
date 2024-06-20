@@ -14,9 +14,9 @@
 (defn- set-top-of-window [line wintable]
   "set the top line of the window to be `line`
    this effectively scrolls the window"
-  (-> wintable
-    (r.assoc :topline line)
-    (vim.fn.winrestview)))
+  (-> wintable 
+      (r.assoc :topline line) 
+      (vim.fn.winrestview)))
 
 (defn calc-topline [{: folds 
                      : top-margin 
@@ -148,10 +148,10 @@
              :VimResume]
      :pattern :*
      :desc "Keep cursor line fixed from the top of the screen"
-     :callback (fn should-scroll-fix? []
-                 (when enabled?
-                   (scroll-fix))
-                 nil)}) 
+     :callback (r.void 
+                 (fn should-scroll-fix? []
+                    (when enabled?
+                      (scroll-fix))))})
 
   (nnoremap :zz scroll-fix)
 
