@@ -65,6 +65,10 @@
         (ft :slint)
         (: :fmt :lsp))
 
+      (->
+        (ft :rust)
+        (: :fmt :lsp))
+
       (guard.setup {:fmt_on_save false}))
 
    (augroup
