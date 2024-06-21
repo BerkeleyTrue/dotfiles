@@ -1,5 +1,7 @@
 (module plugins.barbar
-  {require
+  {autoload
+   {barbar barbar}
+   require
    {a aniseed.core
     r r
     md utils.module
@@ -36,6 +38,7 @@
 
 (defn init []
   (hl.link! :BufferCurrent :Normal)
+  (hl.link! :BufferIconCurrent :Normal)
   (hl.link! :BufferVisible :BerksComment)
   (hl.link! :BufferInactive :BerksGray)
 
@@ -49,12 +52,13 @@
   (hl.link! :BufferInactiveSign :BerksPurple))
 
 (defn main []
-  (when-let [barbar (md.prequire :barbar)]
-    (barbar.setup
-     {:icons
-      {:button " "
-       :modified {:button " "}
-       :separator {:left "󱋱" :right " "}
-       :separator_at_end false
-       :inactive {:separator {:left "󱋱" :right " "}}}})
-    (command! :Bdh buff-delete-hidden)))
+  (barbar.setup
+   {:icons
+    {:filetype {:custom_colors true
+                :enabled true}
+     :button " "
+     :modified {:button " "}
+     :separator {:left "󱋱" :right " "}
+     :separator_at_end false
+     :inactive {:separator {:left "󱋱" :right " "}}}})
+  (command! :Bdh buff-delete-hidden))
