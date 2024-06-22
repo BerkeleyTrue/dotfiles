@@ -13,7 +13,6 @@
      :numhl false
      :linehl false
      :word_diff false
-     :yadm {:enable true}
      :signs {:add
              {:hl :GitSignsAdd
               :text "│"
