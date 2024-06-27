@@ -46,7 +46,7 @@ getWeather zipCode format =
     setRequestHeader req = req {requestHeaders = [("User-Agent", "curl")]}
 
 getLocalWeather :: IO Text
-getLocalWeather = getWeather "94565" ("%C " <> colorize (pink hexes) "" "%t" <> colorize (green hexes) "" " %w")
+getLocalWeather = getWeather "94565" (colorize (blue hexes) "" "%C " <> colorize (pink hexes) "" "%t" <> colorize (green hexes) "" " %w")
 
 weatherWidget :: (MonadIO m) => m Widget
 weatherWidget =
