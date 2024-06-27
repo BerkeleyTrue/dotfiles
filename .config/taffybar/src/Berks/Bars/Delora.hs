@@ -25,6 +25,7 @@ import Berks.Widgets.Ping (connectivityWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
+import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.Int (Int32)
@@ -68,11 +69,11 @@ createPrimary monitor barId' =
 createSecondary :: Int32 -> Unique -> BarConfig
 createSecondary monitor barId' =
   BarConfig
-    { strutConfig = createBarStrut monitor BottomPos Nothing,
+    { strutConfig = createBarStrut monitor (if monitor == 1 then TopPos else BottomPos) Nothing,
       barId = barId',
       widgetSpacing = 0,
       startWidgets = [workspacesWidget],
-      centerWidgets = intersperse plainDividerWidget [calendarWidget, clockWidget],
+      centerWidgets = intersperse plainDividerWidget [weatherWidget, calendarWidget, clockWidget],
       endWidgets =
         reverse
           [btcWidget]
