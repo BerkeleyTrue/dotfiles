@@ -26,6 +26,7 @@ import Berks.Widgets.Ping (connectivityWidget)
 import Berks.Widgets.PowerMenu (powerMenuButton)
 import Berks.Widgets.SniTray (sniTrayWidget)
 import Berks.Widgets.Wakatime (wakatimeWidget)
+import Berks.Widgets.Weather (weatherWidget)
 import Berks.Widgets.WindowsWidget (windowsWidget)
 import Berks.Widgets.Workspaces (workspacesWidget)
 import Data.List (intersperse)
@@ -43,7 +44,7 @@ createPrimary barId' =
       centerWidgets =
         intersperse
           plainDividerWidget
-          [clockWidget, layoutWidget, windowsWidget],
+          [weatherWidget, clockWidget, layoutWidget, windowsWidget],
       endWidgets =
         reverse
           [ powerMenuButton,
