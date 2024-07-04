@@ -1,7 +1,9 @@
 (module theme
   {autoload
    {cb colorbuddy
-    p theme.palette}
+    p theme.palette
+    editor theme.editor
+    ft theme.ft}
    require
    {r r
     utils utils
@@ -141,6 +143,7 @@
   (add-group :Namespace (c.purple:light))
   (hl.link! :Define :BerksPink)
   (hl.link! :Macro :BerksPink)
+  (hl.link! "@function.macro" :Macro)
   (hl.link! :PreCondit :BerksPink)
   (hl.link! :StorageClass :BerksPink)
   (hl.link! :Structure :BerksPink)
@@ -177,8 +180,6 @@
   (hl.link! "@constructor" :TSConstructor)
   (hl.link! :TSNamespace :Namespace)
 
-  (run-main :theme.ft {: add-group : c : s})
-  (run-main :theme.editor {: add-group : c : s})
 
   ; Telescope Todos
   (add-group :BerksTLTodo c.cyan c.none)
@@ -191,4 +192,7 @@
   (add-group :BerksTLHackInverse c.bg c.orange s.bold)
 
   (add-group :BerksTLPerf c.purple c.none)
-  (add-group :BerksTLPerfInverse c.bg c.purple s.bold))
+  (add-group :BerksTLPerfInverse c.bg c.purple s.bold)
+
+  (ft.main)
+  (editor.main {: add-group : c : s}))
