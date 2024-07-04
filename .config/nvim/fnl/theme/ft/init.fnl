@@ -1,6 +1,7 @@
 (module theme.ft
-  {require
-   {: r}
+  {autoload 
+   {r r}
+   require {}
    require-macros [macros]})
 
 (defn main []

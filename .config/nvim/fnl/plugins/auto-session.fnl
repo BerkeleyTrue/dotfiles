@@ -16,4 +16,4 @@
      [(fn close-conjure []
         (conjlog.close-visible))
       (fn close-neotree []
-        (neotree.execute {:action :close}))]})) 
+        (neotree.execute {:action :close}))]}))

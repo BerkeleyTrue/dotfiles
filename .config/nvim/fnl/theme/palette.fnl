@@ -108,6 +108,8 @@
 (def mantle    [231 19 20])
 (def crust     [229 20 17])
 
+(def none      :NONE)
+
 
 (defn get-color-by-name [name]
   (. palette name))
