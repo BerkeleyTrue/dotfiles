@@ -10,7 +10,7 @@
   (hl.link! :LspDiagnosticsUnderlineHint :BerksNone)
   (hl.link! :LspDiagnosticsUnderlineInformation :BerksNone)
 
-  (hl.link! :LspDiagnosticsInformation :BerksCyan)
+  (hl.link! :LspDiagnosticsInformation :BerksSapphire)
 
   (hl.link! :LspDiagnosticsHint :Comment)
   (hl.link! :LspDiagnosticsDefaultHint :Comment)

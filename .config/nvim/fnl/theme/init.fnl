@@ -2,8 +2,10 @@
   {autoload
    {cb colorbuddy
     p theme.palette
-    editor theme.editor
-    ft theme.ft}
+    ft theme.ft
+    cl lib.color
+    syntax theme.syntax
+    editor theme.editor}
    require
    {r r
     utils utils
@@ -12,187 +14,133 @@
     str aniseed.string}
    require-macros [macros]})
 
-(comment (def c cb.colors))
+(defn main []
+  (set-hl :BerksNone {:fg p.none :bg p.none})
 
-(set-hl :BerksNone {:fg :none :bg :none})
+  (set-hl :BerksBgLight {:fg p.none :bg p.hex.surface1})
+  (set-hl :BerksBgLighter {:fg p.none :bg p.hex.surface0})
+  (set-hl :BerksBg {:fg p.none :bg (cl.->hex p.base)})
+  (set-hl :BerksBgDark {:fg p.none :bg p.hex.mantle})
+  (set-hl :BerksBgDarker {:fg p.none :bg p.hex.crust})
 
-(defn main [{: add-group : c : s}]
-  (add-group :BerksBg c.none c.bg)
-  (add-group :BerksBgLight c.none c.bglight)
-  (add-group :BerksBgLighter c.none c.bglighter)
-  (add-group :BerksBgDark c.none c.bgdark)
-  (add-group :BerksBgDarker c.none c.bgdarker)
+  (set-hl :BerksFg {:fg p.hex.text})
+  (set-hl :BerksFgStrikethrough {:fg p.hex.text :strikethrough true})
+  (set-hl :BerksFgUnderline {:fg p.hex.text :bg p.none :underline true})
+  (set-hl :BerksFgBold {:fg p.hex.text :bg p.none :bold true})
 
-  (add-group :BerksFg c.text)
-  (add-group :BerksFgStrikethrough c.text)
-  (add-group :BerksFgUnderline c.fg c.none s.underline)
-  (add-group :BerksFgBold c.fg c.none s.bold)
+  (set-hl :BerksComment {:fg p.hex.subtext0})
+  (set-hl :BerksCommentInverse {:fg p.hex.base :bg p.hex.subtext0})
+  (set-hl :BerksCommentBold {:fg p.hex.subtext0 :bold true})
 
-  (add-group :BerksComment c.comment)
-  (add-group :BerksCommentInverse c.bg c.comment)
-  (add-group :BerksCommentBold c.comment c.none s.bold)
+  (set-hl :BerksSelection {:fg p.none :bg p.hex.surface0})
 
-  (add-group :BerksSelection c.none c.selection)
+  (set-hl :BerksSubtle {:fg p.hex.surface0})
+  (set-hl :BerksGray {:fg p.hex.overlay2})
 
-  (add-group :BerksSubtle c.subtle)
-  (add-group :BerksGray c.gray)
+  (set-hl :BerksGreen {:fg p.hex.green})
+  (set-hl :BerksGreenDarker {:fg (cl.->hex [96 44 60])})
+  (set-hl :BerksGreenBold {:fg p.hex.green :bold true})
+  (set-hl :BerksGreenItalic {:fg p.hex.green :italic true})
+  (set-hl :BerksGreenItalicUnderline {:fg p.hex.green :italic true :underline true})
 
-  (add-group :BerksCyan c.cyan)
-  (add-group :BerksCyanLight (c.cyan:light))
-  (add-group :BerksCyanBold c.cyan c.none s.bold)
-  (add-group :BerksCyanDark (c.cyan:dark))
-  (add-group :BerksCyanItalic c.cyan c.none s.italic)
+  (set-hl :BerksOrange {:fg p.hex.peach})
+  (set-hl :BerksOrangeDark {:fg (cl.->hex [20 79 65])})
+  (set-hl :BerksOrangeLight {:fg (cl.->hex [20 79 79])})
+  (set-hl :BerksOrangeBold {:fg p.hex.peach :bold true})
+  (set-hl :BerksOrangeItalic {:fg p.hex.peach :italic true})
+  (set-hl :BerksOrangeBoldItalic {:fg p.hex.peach :bold true :italic true})
+  (set-hl :BerksOrangeInverse {:fg p.hex.base :bg p.hex.peach})
 
-  (add-group :BerksGreen c.green)
-  (add-group :BerksGreenBold c.green c.none s.bold)
-  (add-group :BerksGreenItalic c.green c.none s.italic)
-  (add-group :BerksGreenItalicUnderline c.green c.none (+ s.italic s.underline))
+  (set-hl :BerksSapphire {:fg p.hex.sapphire})
+  (set-hl :BerksSapphireLight {:fg (cl.->hex [199 55 79])})
+  (set-hl :BerksSapphireBold {:fg p.hex.sapphire :bold true})
+  (set-hl :BerksSapphireDark {:fg (cl.->hex [199 55 60])})
+  (set-hl :BerksSapphireItalic {:fg p.hex.sapphire :italic true})
 
-  (add-group :BerksOrange c.orange)
-  (add-group :BerksOrangeDark (c.orange:dark))
-  (add-group :BerksOrangeLight (c.orange:light))
-  (add-group :BerksOrangeBold c.orange c.none s.bold)
-  (add-group :BerksOrangeItalic c.orange c.none s.italic)
-  (add-group :BerksOrangeBoldItalic c.orange c.none (+ s.bold s.italic))
-  (add-group :BerksOrangeInverse c.bg c.orange)
+  (set-hl :BerksPink {:fg p.hex.pink})
+  (set-hl :BerksPinkItalic {:fg p.hex.pink :italic true})
+  (set-hl :BerksPinkDark {:fg p.hex.pink :bg p.hex.mantle})
 
-  (add-group :BerksPink c.pink)
-  (add-group :BerksPinkItalic c.pink c.none s.italic)
-  (add-group :BerksPinkDark c.pink c.bgdark)
+  (set-hl :BerksPurple {:fg p.hex.mauve})
+  (set-hl :BerksPurpleLight {:fg (cl.->hex [276 59 82])})
+  (set-hl :BerksPurpleBold {:fg p.hex.mauve :bold true})
+  (set-hl :BerksPurpleItalic {:fg p.hex.mauve :italic true})
 
-  (add-group :BerksPurple c.purple)
-  (add-group :BerksPurpleLight (c.purple:light))
-  (add-group :BerksPurpleBold c.purple c.none s.bold)
-  (add-group :BerksPurpleItalic c.purple c.none s.italic)
+  (set-hl :BerksRed {:fg p.hex.red})
+  (set-hl :BerksRedInverse {:fg p.hex.text :bg p.hex.red})
 
-  (add-group :BerksRed c.red)
-  (add-group :BerksRedInverse c.fg c.red)
+  (set-hl :BerksYellow {:fg p.hex.yellow})
+  (set-hl :BerksYellowItalic {:fg p.hex.yellow :italic true})
 
-  (add-group :BerksYellow c.yellow)
-  (add-group :BerksYellowItalic c.yellow c.none s.italic)
+  (set-hl-link :BerksError :BerksRed)
+  (set-hl-link :BerksErrorInverse :BerksRedInverse)
 
-  (add-group :BerksError c.red c.none)
-  (add-group :BerksErrorInverse c.none c.red)
+  (set-hl-link :BerksWarn :BerksOrange) 
+  (set-hl-link :BerksWarnInverse :BerksOrangeInverse)
 
-  (add-group :BerksWarn c.orange c.none)
-  (add-group :BerksWarnInverse c.none c.orange)
+  (set-hl :BerksErrorLine {:fg p.hex.red :undercurl true})
+  (set-hl :BerksWarnLine {:fg p.hex.peach :undercurl true})
+  (set-hl :BerksInfoLine {:fg p.hex.sapphire :undercurl true})
 
-  (add-group :BerksErrorLine c.red c.none s.undercurl)
-  (add-group :BerksWarnLine c.orange c.none s.undercurl)
-  (add-group :BerksInfoLine c.cyan c.none s.undercurl)
-  (add-group :BerksTodo c.cyan c.none (+ s.bold s.inverse))
-  (add-group :BerksSearch c.green c.none s.inverse)
-  (add-group :BerksBoundary c.comment c.bgdark)
-  (add-group :BerksLink c.cyan c.none s.underline)
-  (add-group :BerksUnderline c.none c.none s.undercurl)
+  (set-hl :BerksTodo {:fg p.hex.overlay0 :bg p.hex.sapphire :bold true})
+  (set-hl :BerksSearch {:fg p.hex.overlay0 :bg p.hex.green :bold true})
+  (set-hl :BerksBoundary {:fg p.hex.subtext0 :bg p.hex.mantle})
+  (set-hl :BerksLink {:fg p.hex.sapphire :underline true})
+  (set-hl :BerksUnderline {:fg p.none :undercurl true})
 
-  (add-group :BerksDiffChange c.orange c.none)
-  (add-group :BerksDiffText c.bg c.orange)
-  (add-group :BerksDiffDelete c.red c.bgdark)
+  (set-hl :BerksDiffChange {:fg p.hex.peach})
+  (set-hl :BerksDiffText {:fg p.hex.mantle :bg p.hex.peach :bold true})
+  (set-hl :BerksDiffDelete {:fg p.hex.red :bg p.hex.mantle :bold true})
 
-  (add-group :BerksRosewater c.rosewater)
-  (add-group :BerksTeal c.teal)
-  (add-group :BerksOverlay1 c.overlay1)
+  (set-hl :BerksRosewater {:fg p.hex.rosewater})
+  (set-hl :BerksFlamingo {:fg p.hex.flamingo})
+  (set-hl :BerksMauve {:fg p.hex.mauve})
+  (set-hl :BerksMaroon {:fg p.hex.maroon})
+  (set-hl :BerksPeach {:fg p.hex.peach})
+  (set-hl :BerksTeal {:fg p.hex.teal})
+  (set-hl :BerksSky {:fg p.hex.sky})
+  (set-hl :BerksLavendar {:fg p.hex.lavender})
+  (set-hl :BerksText {:fg p.hex.text})
+  (set-hl :BerksOverlay2 {:fg p.hex.overlay2})
+  (set-hl :BerksOverlay1 {:fg p.hex.overlay1})
+  (set-hl :BerksOverlay0 {:fg p.hex.overlay0})
+  (set-hl :BerksSurface2 {:fg p.hex.surface2})
+  (set-hl :BerksSurface1 {:fg p.hex.surface1})
+  (set-hl :BerksSurface0 {:fg p.hex.surface0})
+  (set-hl :BerksBase {:fg p.hex.base})
+  (set-hl :BerksMantle {:fg p.hex.mantle})
+  (set-hl :BerksCrust {:fg p.hex.crust})
 
-
-  ; Diagnostic
-  (hl.link! :DiagnosticError :Error)
-
-  (hl.link! :DiagnosticWarn :BerksWarn)
-  (hl.link! :DiagnosticFloatingWarn :BerksCyan)
-  (hl.link! :DiagnosticVirtualTextWarn :Comment)
-  (hl.link! :DiagnosticVirtualTextInfo :Comment)
-
-  (hl.link! :DiagnosticInfo :BerksCyan)
-  (hl.link! :DiagnosticHint :Comment)
-
+  (editor.main)
+  (syntax.main)
 
   ; Syntax
+  (set-hl-link :Underlined :BerksFgUnderline)
+  (set-hl-link :Bold :BerksBold)
+
+  (set-hl-link :Todo :BerksTodo)
+
+  (set-hl-link :SpellBad :BerksErrorLine)
+  (set-hl-link :SpellLocal :BerksWarnLine)
+  (set-hl-link :SpellCap :BerksInfoLine)
+  (set-hl-link :SpellRare :BerksInfoLine)
 
 
-  (hl.link! :Comment :BerksComment)
-  (hl.link! :Underlined :BerksFgUnderline)
-  (hl.link! :Todo :BerksTodo)
+  (set-hl-link :helpHyperTextJump :BerksLink)
+  (set-hl-link :helpCommand :BerksPurple)
+  (set-hl-link :helpExample :BerksGreen)
+  (set-hl-link :helpBacktick :Special)
 
-  (hl.link! :Error :BerksError)
-  (hl.link! :SpellBad :BerksErrorLine)
-  (hl.link! :SpellLocal :BerksWarnLine)
-  (hl.link! :SpellCap :BerksInfoLine)
-  (hl.link! :SpellRare :BerksInfoLine)
+  ; Diagnostic
+  (set-hl-link :DiagnosticError :Error)
 
-  (hl.link! :Constant :BerksPurple)
-  (hl.link! :String :BerksYellow)
-  (hl.link! :Character :BerksPink)
-  (hl.link! :Number :Constant)
-  (hl.link! :Boolean :Constant)
-  (hl.link! :Float :Constant)
+  (set-hl-link :DiagnosticWarn :BerksWarn)
+  (set-hl-link :DiagnosticFloatingWarn :BerksSapphire)
+  (set-hl-link :DiagnosticVirtualTextWarn :Comment)
+  (set-hl-link :DiagnosticVirtualTextInfo :Comment)
 
-  (hl.link! :Identifier :BerksFg)
-  (hl.link! :Function :BerksGreen)
-
-  (hl.link! :Statement :BerksPink)
-  (hl.link! :Conditional :BerksPink)
-  (hl.link! :Repeat :BerksPink)
-  (hl.link! :Label :BerksPink)
-  (hl.link! :Operator :BerksPink)
-  (hl.link! :Keyword :BerksPink)
-  (hl.link! :Exception :BerksPink)
-
-  (hl.link! :PreProc :BerksPink)
-  (hl.link! :Include :BerksPink)
-  (add-group :Namespace (c.purple:light))
-  (hl.link! :Define :BerksPink)
-  (hl.link! :Macro :BerksPink)
-  (hl.link! "@function.macro" :Macro)
-  (hl.link! :PreCondit :BerksPink)
-  (hl.link! :StorageClass :BerksPink)
-  (hl.link! :Structure :BerksPink)
-  (hl.link! :Typedef :BerksPink)
-
-  (hl.link! :Type :BerksCyanItalic)
-
-  (hl.link! :Delimiter :BerksFg)
-
-  (hl.link! :Special :BerksPink)
-  (hl.link! :SpecialComment :BerksCyanItalic)
-  (hl.link! :Tag :BerksCyan)
-  (hl.link! :helpHyperTextJump :BerksLink)
-  (hl.link! :helpCommand :BerksPurple)
-  (hl.link! :helpExample :BerksGreen)
-  (hl.link! :helpBacktick :Special)
-
-  ; TS specific
-  ; TODO: these should link to already defined
-  (add-group :TSProperty c.cyan c.none)
-  (hl.link! "@property" :TSProperty)
-  (add-group :TSAttribute c.green c.none)
-  (add-group :TSParameter c.cyan c.none)
-  (hl.link! "@parameter" :TSParameter)
-  (add-group :TSVariableBuiltIn c.red c.none)
-
-  (hl.link! :TSTag :Tag)
-  (add-group :TSTagDelimiter c.pink c.none)
-  (add-group :TSKeyword c.purple c.none)
-  (hl.link! "@variable.builtin" :TSVariableBuiltIn)
-  (hl.link! "@keyword.operator" :Operator)
-
-  (add-group :TSConstructor c.orange c.none)
-  (hl.link! "@constructor" :TSConstructor)
-  (hl.link! :TSNamespace :Namespace)
+  (set-hl-link :DiagnosticInfo :BerksSapphire)
+  (set-hl-link :DiagnosticHint :Comment)
 
 
-  ; Telescope Todos
-  (add-group :BerksTLTodo c.cyan c.none)
-  (add-group :BerksTLTodoInverse c.bg c.cyan s.bold)
-
-  (add-group :BerksTLNote c.green c.none)
-  (add-group :BerksTLNoteInverse c.bg c.green s.bold)
-
-  (add-group :BerksTLHack c.orange c.none)
-  (add-group :BerksTLHackInverse c.bg c.orange s.bold)
-
-  (add-group :BerksTLPerf c.purple c.none)
-  (add-group :BerksTLPerfInverse c.bg c.purple s.bold)
-
-  (ft.main)
-  (editor.main {: add-group : c : s}))
+  (set-hl-link "@function.macro" :Macro))

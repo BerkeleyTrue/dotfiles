@@ -47,7 +47,7 @@
   (hl.link! :BufferInactiveMod :BerksOrangeLight)
 
   ; divider
-  (hl.link! :BufferCurrentSign :BerksCyan)
+  (hl.link! :BufferCurrentSign :BerksSapphire)
   (hl.link! :BufferVisibleSign :BerksPinkDark)
   (hl.link! :BufferInactiveSign :BerksPurple))
 

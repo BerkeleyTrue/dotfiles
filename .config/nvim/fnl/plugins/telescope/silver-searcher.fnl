@@ -51,7 +51,7 @@
                                      (r.size display)
                                      (r.size path-display)
                                      1)]
-                                  :BerksCyan])
+                                  :BerksSapphire])
          (set display (.. display " " path-display))
          (table.insert hl-groups [[(r.size display)
                                    (+

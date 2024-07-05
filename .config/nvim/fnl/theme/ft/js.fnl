@@ -13,7 +13,7 @@
   (hl.link! :jsTemplateVar :BerksYellow)
   (hl.link! :jsTemplateBraces :Comment)
 
-  (hl.link! :jsObjectKey :BerksCyan)
+  (hl.link! :jsObjectKey :BerksSapphire)
   (hl.link! :jsObject :jsObjectKey)
   (hl.link! :jsObjectProp :jsObjectKey)
   (hl.link! :jsSpreadExpression :jsObjectKey)

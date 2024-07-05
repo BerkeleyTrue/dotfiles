@@ -6,7 +6,7 @@
 (defn main []
   (hl.link! :yamlAlias           :BerksGreenItalicUnderline)
   (hl.link! :yamlAnchor          :BerksPinkItalic)
-  (hl.link! :yamlBlockMappingKey :BerksCyan)
+  (hl.link! :yamlBlockMappingKey :BerksSapphire)
   (hl.link! :yamlFlowCollection  :BerksPink)
   (hl.link! :yamlFlowIndicator   :Delimiter)
   (hl.link! :yamlNodeTag         :BerksPink)

@@ -133,7 +133,7 @@
      :ext_opts {types.choiceNode
                 {:active
                   {:virt_text
-                    [["🌔" :BerksCyan]]}}
+                    [["🌔" :BerksSapphire]]}}
                 types.insertNode
                 {:active
                   {:virt_text

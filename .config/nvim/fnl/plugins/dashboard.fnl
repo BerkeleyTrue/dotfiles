@@ -44,7 +44,7 @@
 
     :opts
     {:position :center
-     :hl :BerksCyanBold
+     :hl :BerksSapphireBold
      :hl_shortcut :BerksGreen
      :align_shortcut :right
      :shortcut sc

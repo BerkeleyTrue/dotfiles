@@ -4,84 +4,73 @@
     r r
     md utils.module
     utils utils
-    p theme.palette}
+    p theme.palette
+    cl lib.color}
    require {}
    require-macros [macros]})
 
 (defn main []
-  {:Array {:fg p.lavender}
-   :Bold {:style [:bold]}
-   :Boolean {:fg p.peach :style (or O.styles.booleans {})}
-   :Character {:fg p.teal}
-   :Comment {:fg p.overlay0 :style O.styles.comments}
-   :Conditional {:fg p.mauve :style (or O.styles.conditionals {})}
-   :Constant {:fg p.peach}
-   :Debug {:link :Special}
-   :Define {:link :PreProc}
-   :Delimiter {:fg p.overlay2}
-   :DiffAdd {:bg (U.darken p.green 0.18 p.base)}
-   :DiffChange {:bg (U.darken p.blue 0.07 p.base)}
-   :DiffDelete {:bg (U.darken p.red 0.18 p.base)}
-   :DiffText {:bg (U.darken p.blue 0.3 p.base)}
-   :Error {:fg p.red}
-   :Exception {:fg p.mauve :style (or O.styles.keywords {})}
-   :Float {:link :Number}
-   :Function {:fg p.blue :style (or O.styles.functions {})}
-   :GlyphPalette1 {:fg p.red}
-   :GlyphPalette2 {:fg p.teal}
-   :GlyphPalette3 {:fg p.yellow}
-   :GlyphPalette4 {:fg p.blue}
-   :GlyphPalette6 {:fg p.teal}
-   :GlyphPalette7 {:fg p.text}
-   :GlyphPalette9 {:fg p.red}
-   :Identifier {:fg p.flamingo :style (or O.styles.variables {})}
-   :Include {:fg p.mauve :style (or O.styles.keywords {})}
-   :Italic {:style [:italic]}
-   :Keyword {:fg p.mauve :style (or O.styles.keywords {})}
-   :Label {:fg p.sapphire}
-   :Macro {:fg p.mauve}
-   :Number {:fg p.peach :style (or O.styles.numbers {})}
-   :Operator {:fg p.sky :style (or O.styles.operators {})}
-   :PreCondit {:link :PreProc}
-   :PreProc {:fg p.pink}
-   :Repeat {:fg p.mauve :style (or O.styles.loops {})}
-   :Special {:fg p.pink}
-   :SpecialChar {:link :Special}
-   :SpecialComment {:link :Special}
-   :Statement {:fg p.mauve}
-   :StorageClass {:fg p.yellow}
-   :String {:fg p.green :style (or O.styles.strings {})}
-   :Structure {:fg p.yellow}
-   :Tag {:link :Special}
-   :Todo {:bg p.yellow :fg p.base :style [:bold]}
-   :Type {:fg p.yellow :style (or O.styles.types {})}
-   :Typedef {:link :Type}
-   :Underlined {:style [:underline]}
-   :debugBreakpoint {:bg p.base :fg p.overlay0}
-   :debugPC {:bg (or (and O.transparent_background p.none) p.crust)}
-   :diffAdded {:fg p.green}
-   :diffChanged {:fg p.blue}
-   :diffFile {:fg p.blue}
-   :diffIndexLine {:fg p.teal}
-   :diffLine {:fg p.overlay0}
-   :diffNewFile {:fg p.peach}
-   :diffOldFile {:fg p.yellow}
-   :diffRemoved {:fg p.red}
-   :healthError {:fg p.red}
-   :healthSuccess {:fg p.teal}
-   :healthWarning {:fg p.yellow}
-   :htmlH1 {:fg p.pink :style [:bold]}
-   :htmlH2 {:fg p.blue :style [:bold]}
-   :illuminatedCurWord {:bg p.surface1}
-   :illuminatedWord {:bg p.surface1}
-   :mkdCodeDelimiter {:bg p.base :fg p.text}
-   :mkdCodeEnd {:fg p.flamingo :style [:bold]}
-   :mkdCodeStart {:fg p.flamingo :style [:bold]}
-   :qfFileName {:fg p.blue}
-   :qfLineNr {:fg p.yellow}
-   :rainbow1 {:fg p.red}
-   :rainbow2 {:fg p.peach}
-   :rainbow3 {:fg p.yellow}
-   :rainbow4 {:fg p.green}
-   :rainbow5 {:fg p.sapphire}
-   :rainbow6 {:fg p.lavender}})
+  (set-hl-link :Array :BerksLavendar) 
+  (set-hl-link :Boolean :Constant)
+  (set-hl-link :Character :BerksTeal)
+  (set-hl-link :Comment :BerksOverlay0)
+  (set-hl-link :Conditional :BerksPink)
+  (set-hl-link :Constant :BerksPurple)
+  (set-hl-link :Debug :Special)
+  (set-hl-link :Define :PreProc)
+  (set-hl-link :Delimiter :BerksOverlay2)
+
+  (set-hl      :DiffAdd {:bg (cl.->hex [96 44 68])})
+  (set-hl-link :DiffChange :BerksDiffChange) 
+  (set-hl-link :DiffDelete :BerksDiffDelete)
+  (set-hl-link :DiffText :BerksDiffText)
+
+  (set-hl-link :diffAdded :BerksGreen)
+  (set-hl-link :diffChanged :BerksSapphire)
+  (set-hl-link :diffFile :BerksSapphire)
+  (set-hl-link :diffIndexLine :BerksTeal)
+  (set-hl-link :diffLine :BerksOverlay0)
+  (set-hl-link :diffNewFile :BerksPeach)
+  (set-hl-link :diffOldFile :BerksYellow)
+  (set-hl-link :diffRemoved :BerksRed)
+
+  (set-hl-link :Error :BerksRed)
+  (set-hl-link :Exception :BerksPink)
+  (set-hl-link :Float :Constant)
+  (set-hl-link :Function :BerksGreen)
+
+  (set-hl-link :Identifier :BerksFlamingo)
+  (set-hl-link :Include :BerksMauve)
+  (set-hl-link :Keyword :BerksMauve)
+  (set-hl-link :Label :BerksSapphire)
+  (set-hl-link :Macro :BerksMauve)
+  (set-hl-link :Namespace :BerksPurple)
+  (set-hl-link :Number :Constant)
+  (set-hl-link :Operator :BerksSky)
+  (set-hl-link :PreCondit :PreProc)
+  (set-hl-link :PreProc :BerksPink)
+  (set-hl-link :Repeat :BerksPink)
+  (set-hl-link :Special :BerksPink)
+  (set-hl-link :SpecialChar :Special)
+  (set-hl-link :SpecialComment :Special)
+  (set-hl-link :Statement :BerksMauve)
+  (set-hl-link :StorageClass :BerksYellow)
+  (set-hl-link :String :BerksYellow)
+  (set-hl-link :Structure :BerksYellow)
+  (set-hl-link :Tag :Special)
+  (set-hl-link :Type :BerksSapphire)
+  (set-hl-link :Typedef :Type)
+
+  (set-hl :debugBreakpoint {:fg p.hex.overlay0 :bg p.hex.base})
+  (set-hl :debugPC {:bg p.hex.crust})
+
+  (set-hl-link :healthError :BerksError)
+  (set-hl-link :healthSuccess :BerksTeal)
+  (set-hl-link :healthWarning :BerksYellow)
+
+  (set-hl-link :rainbow1 :BerksRed)
+  (set-hl-link :rainbow2 :BerksPeach)
+  (set-hl-link :rainbow3 :BerksYellow)
+  (set-hl-link :rainbow4 :BerksGreen)
+  (set-hl-link :rainbow5 :BerksSapphire)
+  (set-hl-link :rainbow6 :BerksLavender))

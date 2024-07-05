@@ -505,4 +505,7 @@
 (defn set-hl [name opts]
   `(vim.api.nvim_set_hl 0 ,name ,opts))
 
+(defn set-hl-link [name link]
+  `(vim.api.nvim_set_hl 0 ,name {:link ,link}))
+
 :return M

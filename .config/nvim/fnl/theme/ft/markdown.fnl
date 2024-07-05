@@ -4,14 +4,14 @@
     hl utils.highlights}})
 
 (defn main []
-  (hl.link! :markdownBlockquote        :BerksCyan)
-  (hl.link! :mkdBlockquote             :BerksCyanItalic)
+  (hl.link! :markdownBlockquote        :BerksSapphire)
+  (hl.link! :mkdBlockquote             :BerksSapphire)
   (hl.link! :markdownBold              :BerksOrangeBold)
   (hl.link! :markdownBoldItalic        :BerksOrangeBoldItalic)
   (hl.link! :markdownCodeBlock         :BerksGreen)
   (hl.link! :markdownCode              :BerksGreen)
   (hl.link! :markdownCodeDelimiter     :BerksOrange)
-  (hl.link! :markdownH1                :BerksCyanBold)
+  (hl.link! :markdownH1                :BerksSapphireBold)
   (hl.link! :markdownH2                :BerksGreen)
   (hl.link! :markdownH3                :BerksOrange)
   (hl.link! :markdownH4                :BerksPink)
@@ -21,8 +21,8 @@
   (hl.link! :markdownHeadingRule       :markdownH1)
   (hl.link! :markdownItalic            :BerksYellowItalic)
   (hl.link! :markdownLinkText          :BerksPink)
-  (hl.link! :markdownListMarker        :BerksCyan)
-  (hl.link! :markdownOrderedListMarker :BerksCyan)
+  (hl.link! :markdownListMarker        :BerksSapphire)
+  (hl.link! :markdownOrderedListMarker :BerksSapphire)
   (hl.link! :markdownRule              :BerksComment)
   (hl.link! :markdownUrl               :BerksLink)
 
@@ -34,21 +34,21 @@
 
   (hl.link "@markup.heading" :BerksBlue); headings, titles (including markers)
 
-  (hl.link! "@markup.heading.1.markdown" :BerksCyanBold)
+  (hl.link! "@markup.heading.1.markdown" :BerksSapphireBold)
   (hl.link! "@markup.heading.2.markdown" :BerksGreen)
   (hl.link! "@markup.heading.3.markdown" :BerksOrange)
   (hl.link! "@markup.heading.4.markdown" :BerksPink)
   (hl.link! "@markup.heading.5.markdown" :BerksPurple)
   (hl.link! "@markup.heading.6.markdown" :BerksYellow)
 
-  (hl.link! "@markup.heading.1.marker" :BerksCyanBold)
+  (hl.link! "@markup.heading.1.marker" :BerksSapphireBold)
   (hl.link! "@markup.heading.2.marker" :BerksGreen)
   (hl.link! "@markup.heading.3.marker" :BerksOrange)
   (hl.link! "@markup.heading.4.marker" :BerksPink)
   (hl.link! "@markup.heading.5.marker" :BerksPurple)
   (hl.link! "@markup.heading.6.marker" :BerksYellow)
 
-  (hl.link "@markup.quote" :BerksCyan); block quotes
+  (hl.link "@markup.quote" :BerksSapphire); block quotes
   (hl.link "@markup.math" :BerksBlue); math environments (e.g. `$ ... $` in LaTeX)
   (hl.link "@markup.environment" :BerksPink); environments (e.g. in LaTeX)
   (hl.link "@markup.environment.name" :BerksBlue); environments (e.g. in LaTeX)
