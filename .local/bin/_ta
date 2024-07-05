@@ -1,5 +1,5 @@
 #!/bin/env bb
-(ns local.bin.tax
+(ns local.bin.ta
   (:require
    [clojure.string :as str]
    [babashka.cli :as cli]
@@ -9,7 +9,7 @@
   (System/getenv s))
 
 (def home (env "HOME"))
-(def script-name "tax")
+(def script-name "ta")
 (def main-dir (str home "/dvlpmnt"))
 (def conf-dir (str home "/.config"))
 (def bin-dir (str home "/.local/bin"))
@@ -55,11 +55,11 @@
 
 (defn list-sessions []
   (->
-    (process "tmux" "list-sessions" "-F" "#{session_name}")
-    (process {:out :string} "grep" "-v" "^__")
-    deref
-    :out
-    (str/split-lines)))
+   (process "tmux" "list-sessions" "-F" "#{session_name}")
+   (process {:out :string} "grep" "-v" "^__")
+   deref
+   :out
+   (str/split-lines)))
 
 (defn num-of-sessions []
   (if (is-tmux-running?)
