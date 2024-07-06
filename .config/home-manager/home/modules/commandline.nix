@@ -186,7 +186,7 @@ in {
       extraLuaPackages = luaPkgs:
         with luaPkgs; [
           jsregexp # for luasnip
-          toml # toml parser
+          toml-edit # toml parser
           lyaml # yaml parser
         ];
     };
