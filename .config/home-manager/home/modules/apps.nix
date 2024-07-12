@@ -60,7 +60,7 @@ in {
       keybase-gui # encrypted chat
       libation # an audible player/drm remover
       networkmanagerapplet # network manager applet
-      printrun # 3D printing host software
+      # printrun # 3D printing host software - bad dependencies
       rofi-bluetooth # rofi bluetooth manager
       spacenavd # 3Dconnexion device driver
       viewnior # fast image preview
@@ -71,7 +71,7 @@ in {
     ++ [
       (nixGLWrap pkgs.kitty) # GPU-accelerated terminal emulator
       (nixGLWrap pkgs.mpv) # General-purpose media player, fork of MPlayer and mplayer2
-      (config.lib.nixgl.wrapPackage pkgs.kicad)
+      # (config.lib.nixgl.wrapPackage pkgs.kicad)
       rofi # launcher
       rofi-spell # spell checker
       rofi-usb # rofi usb manager
