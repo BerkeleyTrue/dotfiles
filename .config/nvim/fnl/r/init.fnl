@@ -389,3 +389,11 @@
       (slice (- xslen _n) xslen xs))))
 
 (comment (take-last 2 [1 2]))
+
+(defn split-at [_n xs]
+  "Retusn a vector of [(take n) (drop n)] from collection"
+  [(take _n xs) (drop _n xs)])
+
+(defn take-while [pred xs]
+  (when (pred (head xs))
+    (collections.cons (head xs) (take-while pred (tail xs)))))

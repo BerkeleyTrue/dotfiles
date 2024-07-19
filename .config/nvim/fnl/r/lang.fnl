@@ -42,3 +42,14 @@
   (empty? nil))
 
 (defn not-empty? [val] (not (empty? val)))
+
+(defn last [val]
+  "Get the last element of a collection"
+  (if (string? val) 
+    (: val :sub -1)
+    (a.last val)))
+
+(comment
+  (last "foo")
+  (last [1 2 3])
+  (last {:a 1 :b 2}))
