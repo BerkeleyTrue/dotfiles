@@ -120,12 +120,6 @@
 
   (set-hl-link :Todo :BerksTodo)
 
-  (set-hl-link :SpellBad :BerksErrorLine)
-  (set-hl-link :SpellLocal :BerksWarnLine)
-  (set-hl-link :SpellCap :BerksInfoLine)
-  (set-hl-link :SpellRare :BerksInfoLine)
-
-
   (set-hl-link :helpHyperTextJump :BerksLink)
   (set-hl-link :helpCommand :BerksPurple)
   (set-hl-link :helpExample :BerksGreen)
