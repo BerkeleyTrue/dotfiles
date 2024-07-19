@@ -11,16 +11,21 @@
    :names []
    :skips []})
 
-(defn save [namespace])
+(defn save [namespace]
+  "TODO: save to fs?")
 
 (defn enable [namespaces]
+  "Enable a set of comma seperated namespaces, 
+  leading '-' will disable that namespace"
   (save namespaces)
+  ; overwrite old settings
   (a.merge! 
     settings
     {:namespaces namespaces
      :names []
      :skips []})
   (->>
+    namespaces
     (r.split "[%s,]+")
     (r.for-each 
       (fn [ns] 
@@ -28,21 +33,27 @@
           (r.update settings :skips #(r.conj $ (string.sub ns 2)))
           (r.update settings :names #(r.conj $ ns)))))))
 
+(comment 
+  (a.println settings)
+  (enable "foo,bar,baz")
+  (a.println settings))
+
 (defn disable []
   "Disables all namespaces, returning those old namespaces."
-  (let [namespaces (->>
-                     settings.names
-                     (r.concat (r.map #(.. "-" $) settings.skips))
-                     (r.join ","))]
-    namespaces))
-    
+  (->> settings.names 
+       (r.concat (r.map #(.. "-" $) settings.skips)) 
+       (r.join ",")))
 
-(defn enabled [name]
+(defn enabled? [name]
   (if
     (r.ends-with? name "*") true
     (r.includes? settings.skips name) false
     (r.includes? settings.names name) true
     false))
+
+(comment
+  (enabled? "foo")
+  (enabled? "qux"))
 
 
 (defn create [namespace]
@@ -55,7 +66,7 @@
     ; and invalidate if settings.namespaces
     (when (not= nscache settings.namespaces)
       (set nscache settings.namespaces)
-      (set enabledCache (enabled namespace)))
+      (set enabledCache (enabled? namespace)))
 
     enabledCache)
 
@@ -72,3 +83,8 @@
                      
         (set prev-ts curr)
         (n echo [[output]] true {})))))
+
+(comment
+  (let [t (create :foo)]
+    (t :bar)
+    (t :baz)))
