@@ -114,7 +114,6 @@
           (set namespace (. namespace buffer)))))
 
   (fn parse-string []
-    (a.println :parse-string)
     (var out "")
     (var end? false)
     (let [multiline? (= (char) (char 1) (char 2))
@@ -123,42 +122,42 @@
       (while (and ok? 
                   (not end?)
                   (bounds))
-        (a.println :out out :char (char))
-        (when (is-char? quote*) ; check if closing string
-          (step
-            (if (and multiline?
-                     (= (char) (char 1) (char 2)))
-              3
-              1))
-          (set end? true))
-        (if 
-          (and multiline? 
-               (match-char? nl))
-          (err "Sinle line string cannot contain line breaks")
+        (if (is-char? quote*) ; check if closing string
+          (do
+            (step
+              (if (and multiline?
+                      (= (char) (char 1) (char 2)))
+                3
+                1))
+            (set end? true))
+          (if 
+            (and multiline? 
+                 (match-char? nl))
+            (err "Sinle line string cannot contain line breaks")
 
-          (if (= quote* (char))
-            (if (and multiline? (match-char? nl 1))
-              (do 
-                (step 1)
-                (var done? false)
-                (while (and (bounds)
-                            (not done?))
-                  (if (and (not (match-char? ws))
-                           (not (match-char? nl)))
-                    (set done? true)
-                    (step))))
-              (if 
-                (r.not-empty? (. escape (char 1)))
-                (do
-                  (set out (. out (char 1)))
-                  (step 2))
+            (if (= quote* (char))
+              (if (and multiline? (match-char? nl 1))
+                (do 
+                  (step 1)
+                  (var done? false)
+                  (while (and (bounds)
+                              (not done?))
+                    (if (and (not (match-char? ws))
+                             (not (match-char? nl)))
+                      (set done? true)
+                      (step))))
+                (if 
+                  (r.not-empty? (. escape (char 1)))
+                  (do
+                    (set out (.. out (char 1)))
+                    (step 2))
 
-                (or (= (char 1) "u")
-                    (= (char 1) "U"))
-                (err "Unicode escape not supported")))
-            (do
-              (set out (.. out (char)))
-              (step)))))
+                  (or (= (char 1) "u")
+                      (= (char 1) "U"))
+                  (err "Unicode escape not supported")))
+              (do
+                (set out (.. out (char)))
+                (step))))))
       {:value out 
        :type :string}))
 
@@ -206,29 +205,30 @@
          :value num})))
 
   (fn parse-boolean []
-    (a.println :parse-boolean)
-    (if 
-      (= (string.sub toml cursor (+ cursor 3)) "true")
-      {:value true
-       :type :boolean}
-      
-      (= (string.sub toml cursor (+ cursor 4)) "false")
-      {:value false
-       :type :boolean}
+    (a.println :parse-boolean (string.sub toml cursor (+ cursor 3)))
+    (if-let [val (if 
+                   (= (string.sub toml cursor (+ cursor 3)) "true")
+                   {:value true
+                    :type :boolean}
+                
+                   (= (string.sub toml cursor (+ cursor 4)) "false")
+                   {:value false
+                    :type :boolean})]
 
-      (err "Invalid boolean"))
     
-    (skip-whitespace)
-    (skip-line))
+      (do
+        (skip-whitespace)
+        (skip-line)
+        val)
+      (err "Invalid boolean")))
 
   (fn parse-val []
-    (a.println :parse-val (char) :.)
+    (a.println :parse-val (or (char) :nil))
 
     (fn parse-array []
       (a.println :parse-array)
       (step)
       (skip-whitespace)
-      (var array-type nil)
       (var out [])
       (var end-found? false)
 
@@ -237,7 +237,9 @@
                   (bounds))
         (if 
           (is-char? "]")
-          (set end-found? true)
+          (do
+            (step)
+            (set end-found? true))
 
           (match-char? nl)
           (do
@@ -247,15 +249,16 @@
           (is-char? "#")
           (skip-line)
 
+          (is-char? ",")
+          (do
+            (step)
+            (skip-whitespace))
+
           (if-let [val (parse-val)]
-            (if (r.nil? array-type)
-              (set array-type val.type)
-              (do
-                (table.insert out val.value)
-                (when (is-char? ",") (step))
-                (skip-whitespace)))
+            (do
+              (table.insert out val.value)
+              (skip-whitespace))
             (set end-found? true))))
-      (step)
       {:value out
        :type :array})
 
@@ -271,7 +274,10 @@
       (is-char? "[")
       (parse-array)
       
-      (parse-boolean)))
+      (match-char? "[tf]")
+      (parse-boolean)
+      
+      (err (.. "Unexpected char found " (char)))))
 
   (var loop 0)
 
@@ -339,4 +345,7 @@
 
 (comment
   (logger.enable "lib.toml")
-  (parse "foo = \"bar\""))
+  (parse "foo = \"bar\"")
+  (parse "foo = true")
+  (parse "foo = false")
+  (parse "foo = ['bar', 'baz']"))
