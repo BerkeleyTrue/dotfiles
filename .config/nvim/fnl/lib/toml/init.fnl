@@ -102,7 +102,7 @@
       (set message _message)))
 
   (fn parse-key []
-    (a.println :parse-key (char))
+    (a.println :parse-key buffer)
     (if 
       (r.empty? buffer)
       (err "Empty table namespace")
@@ -111,7 +111,8 @@
       (err "namespace" buffer " already occupied")
 
       (do (tset namespace buffer {})
-          (set namespace (. namespace buffer)))))
+          (set namespace (. namespace buffer))))
+    (a.println :parse-key2 namespace))
 
   (fn parse-string []
     (var out "")
@@ -165,7 +166,6 @@
     (a.println :parse-number)
     (var num "")
     (var date? false)
-    (var inner-done? false)
 
     (fn skip-char? []
       (or (match-char? ws)
@@ -175,11 +175,12 @@
           (is-char? "]")
           (is-char? "}")))
 
+    (var done? false)
     (while (and ok?
-                (not inner-done?)
+                (not done?)
                 (bounds))
       (if 
-        (match-char? "[%+%.eE_0-9]")
+        (match-char? "[%+%-%.eE_0-9]")
         (err "Exponents unsupported")
 
         (skip-char?)
@@ -292,16 +293,21 @@
 
       "[" ; table key namespace
       (do
+        (a.println :new-key)
         (set buffer "") ; buffer for namespace
         (set namespace out) ; set up new namespace
+        (var inner-done? false)
         (step)
-        (while (and (bounds)
-                    ok?)
+        (while (and ok?
+                    (not inner-done?)
+                    (bounds))
           (case (char)
             "]" ; end of namespace
             (do (step)
                 (parse-key true)
-                (set buffer ""))
+                (set buffer "")
+                (set inner-done? true)
+                (skip-whitespace))
 
             "." (err "implament namespaced keys")
 
@@ -320,21 +326,20 @@
         (step)
         (skip-whitespace)
         (let [key (r.trim buffer)] ; buffer should the key
-          (a.println :key key)
           (if (r.not-empty? key)
             (if-let [val (parse-val)]
               (if (r.not-empty? (. namespace key))
                 (err (.. "Expected namespace to be empty but found occupied for " key))
                 (do
-                  (a.println :val val :key key :ns namespace)
+                  ; (a.println :val val :key key :ns namespace)
                   (tset namespace key val.value)))
               (err (.. "Unable to parse value")))
             (err (.. "Expected key but found " key))))
         (set buffer "")
         (skip-whitespace)
         (when (is-char? "#") (skip-line))
-        (when (and (match-char? nl) ; this should be the end of the line
-                   (< cursor (r.size toml)))
+        (when (and (not (match-char? nl)) ; this should be the end of the line
+                   (bounds))
           (err (.. "Invalid char after val found: " (char))))))
     
     (set buffer (.. buffer (if (match-char? nl) "" (char))))
@@ -348,4 +353,5 @@
   (parse "foo = \"bar\"")
   (parse "foo = true")
   (parse "foo = false")
-  (parse "foo = ['bar', 'baz']"))
+  (parse "foo = ['bar', 'baz']")
+  (parse "foo = 'bar'\n[quz]\nx = 3\n"))
