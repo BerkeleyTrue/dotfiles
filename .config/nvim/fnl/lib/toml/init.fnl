@@ -163,47 +163,74 @@
        :type :string}))
 
   (fn parse-number []
+    ; ints can start with +/-
+    ; _ can be used as whitespace
+    ; leading zeros is not allowed
+    ; hex prefixed with 0x
+    ; oct prefixed with 0o
+    ; bin prefixed with 0b
+    ; floats have an int, fractional, and exp part
+    ; fractional part must precede exp
+    ; inf - infiniti
+    ; nan - not a number
     (a.println :parse-number)
-    (var num "")
+    (var buff "")
+    (var fract "")
+    (var fract? false)
+    (var exp "")
+    (var exp? false)
     (var date? false)
-
-    (fn skip-char? []
-      (or (match-char? ws)
-          (match-char? nl)
-          (is-char? :#)
-          (is-char? ",")
-          (is-char? "]")
-          (is-char? "}")))
-
     (var done? false)
+    (var neg? false)
+
     (while (and ok?
                 (not done?)
                 (bounds))
       (if 
-        (match-char? "[%+%-%.eE_0-9]")
-        (err "Exponents unsupported")
-
-        (skip-char?)
+        (is-char? "_") ; whitespace in number
         nil
         
-        (or (is-char? :T)
-            (is-char? :Z)
-            (is-char? "-"))
-        (do 
+        (or (match-char? nl)
+            (match-char? ws))
+        (set done? true)
+
+        (or (is-char? "Z")
+            (is-char? "-")
+            (is-char? ":"))
+        (do
           (set date? true)
-          (set inner-done? false)
-          (while (and ok? 
-                      (not inner-done?)
-                      (bounds))
-            (if (skip-char?)
-              (set inner-done? true)
-              (set num (.. num (char))))))))
+          (set buff (.. buff (char))))
+        
+        (and (is-char? ".")
+             (not date?))
+        (set fract true)
+        
+        (or (is-char? :e)
+            (is-char? :E))
+        (set exp? true)
+        
+        (if 
+          fract?
+          (set fract (.. fract (char)))
+
+          (and (not date?) exp?)
+          (set exp (.. exp (char)))
+          
+          (set buff (.. buff (char))))))
+
     (if date?
-      {:value num :type :date}
-      (let [float? (r.not-empty? (string.match num "%."))
-            num (tonumber num)]
-        {:type (if float? :float :int)
-         :value num})))
+      {:type :date 
+       :value buff}
+      
+      (let [num (tonumber buff)
+            exp (if exp? (tonumber exp) 0)
+            res (* num (^ 10 exp))]
+        (if fract?
+          {:type :float
+           :value res}
+          {:type :int
+           :value (math.floor res)}))))
+
 
   (fn parse-boolean []
     (a.println :parse-boolean (string.sub toml cursor (+ cursor 3)))
