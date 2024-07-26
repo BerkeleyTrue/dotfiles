@@ -163,13 +163,10 @@
     (var date? false)
     (var done? false)
     (var neg? false)
-    (var loop 0)
 
     (while (and ok?
-                (< loop 100)
                 (not done?)
                 (bounds))
-      (set loop (+ loop 1))
       (if 
         (is-char? "_") ; whitespace in number
         buff
@@ -231,6 +228,7 @@
       (err "Invalid boolean")))
 
   (fn parse-val []
+    ; (a.println :parse-val (char))
 
     (fn parse-array []
       (step)
@@ -285,12 +283,9 @@
       
       (err (.. "Unexpected char found " (char)))))
 
-  (var loop 0)
-
   (while (and ok?
-              (<= loop 10)
               (<= cursor (r.size toml)))
-    (set loop (+ loop 1))
+    ; (a.println :loop (char) :buff buffer)
     (case (char)
       "#" ; skip comments
       (skip-line)
@@ -329,6 +324,7 @@
         (step)
         (skip-whitespace)
         (let [key (r.trim buffer)] ; buffer should the key
+          ; (a.println :key key :val (char))
           (if (r.not-empty? key)
             (if-let [val (parse-val)]
               (if (r.not-empty? (. namespace key))
@@ -357,4 +353,5 @@
   (parse "foo = false")
   (parse "foo = ['bar', 'baz']")
   (parse "foo = 'bar'\n[quz]\nx = 3\n")
-  (parse "foo = 2024-02-04"))
+  (parse "foo = 2024-02-04")
+  (parse "created-at = 2024-05-23"))
