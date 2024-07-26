@@ -22,7 +22,7 @@
       "org.libreoffice.LibreOffice"         
       "org.pipewire.Helvum"                 
       "org.standardnotes.standardnotes"
-      "com.librumreader.librum"
+      "com.librumreader.librum" # pdf/ebub reader
     ];
   };
 }

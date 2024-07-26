@@ -158,7 +158,7 @@ in {
           nil #nix language server
           nixd # nix language server
           clojure-lsp
-          slint-lsp 
+          slint-lsp
           rust-analyzer # rust language server
 
           alejandra # formatting nix
@@ -261,6 +261,15 @@ in {
         enter_accept = false;
         keymap_mode = "vim-normal";
         inline_height = 20;
+      };
+    };
+
+    yazi = {
+      enable = true;
+      settings = {
+        manager = {
+          show_hidden = true;
+        };
       };
     };
   };
