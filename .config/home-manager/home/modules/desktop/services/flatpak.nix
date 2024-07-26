@@ -23,6 +23,7 @@
       "org.pipewire.Helvum"                 
       "org.standardnotes.standardnotes"
       "com.librumreader.librum" # pdf/ebub reader
+      "org.signal.Signal" # messaging
     ];
   };
 }
