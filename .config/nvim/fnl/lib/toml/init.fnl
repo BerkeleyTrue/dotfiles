@@ -26,7 +26,6 @@
 
 (defn ->bounds [cursor toml]
   "pred returns true if cursor is within bounds of toml"
-  (a.println :->bounds cursor (r.size toml))
   (<= cursor (r.size toml)))
 
 (defn ->err [cursor toml message]
@@ -45,7 +44,6 @@
 
 (defn find-next-line-cursor [cursor toml]
   (let [char (->char cursor toml)]    
-    (a.println :char char ":")
     (if (= char "\n")                   
       cursor                             
       (let [next-cursor (+ cursor 1)]
@@ -76,8 +74,7 @@
       (r.not-empty?))) 
 
   (fn step [steps]
-    (set cursor (+ cursor (or steps 1)))
-    (a.println :step (or steps 1) :buffer buffer :cursor cursor))
+    (set cursor (+ cursor (or steps 1))))
 
   (fn bounds []
     (->bounds cursor toml))
@@ -88,21 +85,17 @@
       (step)))
 
   (fn skip-line [] 
-    (a.println :skip-line)
     (skip-while #(not= (char) "\n")))
 
   (fn skip-whitespace [] 
-    (a.println :skip-whitespace)
     (skip-while #(match-char? ws)))
   
   (fn err [_message] 
     (let [_message (->err cursor toml _message)]
-      (a.println :err-message _message)
       (set ok? false)
       (set message _message)))
 
   (fn parse-key []
-    (a.println :parse-key buffer)
     (if 
       (r.empty? buffer)
       (err "Empty table namespace")
@@ -111,8 +104,7 @@
       (err "namespace" buffer " already occupied")
 
       (do (tset namespace buffer {})
-          (set namespace (. namespace buffer))))
-    (a.println :parse-key2 namespace))
+          (set namespace (. namespace buffer)))))
 
   (fn parse-string []
     (var out "")
@@ -163,17 +155,6 @@
        :type :string}))
 
   (fn parse-number []
-    ; ints can start with +/-
-    ; _ can be used as whitespace
-    ; leading zeros is not allowed
-    ; hex prefixed with 0x
-    ; oct prefixed with 0o
-    ; bin prefixed with 0b
-    ; floats have an int, fractional, and exp part
-    ; fractional part must precede exp
-    ; inf - infiniti
-    ; nan - not a number
-    (a.println :parse-number)
     (var buff "")
     (var fract "")
     (var fract? false)
@@ -182,41 +163,41 @@
     (var date? false)
     (var done? false)
     (var neg? false)
+    (var loop 0)
 
     (while (and ok?
+                (< loop 100)
                 (not done?)
                 (bounds))
+      (set loop (+ loop 1))
       (if 
         (is-char? "_") ; whitespace in number
-        nil
+        buff
         
         (or (match-char? nl)
             (match-char? ws))
         (set done? true)
 
-        (or (is-char? "Z")
-            (is-char? "-")
-            (is-char? ":"))
-        (do
-          (set date? true)
-          (set buff (.. buff (char))))
-        
         (and (is-char? ".")
              (not date?))
-        (set fract true)
+        (err "Fractions not implamented")
+
+        (is-char? "-")
+        (set date? true)
         
         (or (is-char? :e)
             (is-char? :E))
-        (set exp? true)
+        (err "Exponents not implamented"))
         
-        (if 
-          fract?
-          (set fract (.. fract (char)))
+      (if 
+        fract?
+        (set fract (.. fract (char)))
 
-          (and (not date?) exp?)
-          (set exp (.. exp (char)))
+        (and (not date?) exp?)
+        (set exp (.. exp (char)))
           
-          (set buff (.. buff (char))))))
+        (set buff (.. buff (char))))
+      (step))
 
     (if date?
       {:type :date 
@@ -233,7 +214,6 @@
 
 
   (fn parse-boolean []
-    (a.println :parse-boolean (string.sub toml cursor (+ cursor 3)))
     (if-let [val (if 
                    (= (string.sub toml cursor (+ cursor 3)) "true")
                    {:value true
@@ -251,10 +231,8 @@
       (err "Invalid boolean")))
 
   (fn parse-val []
-    (a.println :parse-val (or (char) :nil))
 
     (fn parse-array []
-      (a.println :parse-array)
       (step)
       (skip-whitespace)
       (var out [])
@@ -313,14 +291,12 @@
               (<= loop 10)
               (<= cursor (r.size toml)))
     (set loop (+ loop 1))
-    (a.println :loop :ok ok? :char (char) :cursor cursor)
     (case (char)
       "#" ; skip comments
       (skip-line)
 
       "[" ; table key namespace
       (do
-        (a.println :new-key)
         (set buffer "") ; buffer for namespace
         (set namespace out) ; set up new namespace
         (var inner-done? false)
@@ -358,7 +334,6 @@
               (if (r.not-empty? (. namespace key))
                 (err (.. "Expected namespace to be empty but found occupied for " key))
                 (do
-                  ; (a.println :val val :key key :ns namespace)
                   (tset namespace key val.value)))
               (err (.. "Unable to parse value")))
             (err (.. "Expected key but found " key))))
@@ -381,4 +356,5 @@
   (parse "foo = true")
   (parse "foo = false")
   (parse "foo = ['bar', 'baz']")
-  (parse "foo = 'bar'\n[quz]\nx = 3\n"))
+  (parse "foo = 'bar'\n[quz]\nx = 3\n")
+  (parse "foo = 2024-02-04"))
