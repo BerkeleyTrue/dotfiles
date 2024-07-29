@@ -6,22 +6,24 @@
     utils utils
     ts lib.corpus.treesitter}
    require
-   {toml toml
+   {toml lib.toml
     yaml lyaml}
    require-macros [macros]})
 
 (defn date []
   (let [{: year : month : day} (os.date "*t")]
-    (toml.Date.new year month day)))
+    (.. year "-" (if (< month 10) "0" "") month "-" (if (< day 10) "0" "") day)))
+
+(comment (date))
 
 (defn decode-toml [str]
-  (pcall toml.decode str))
+  (toml.parse str))
 
 (defn encode-toml [data]
-  (pcall toml.encode data))
+  (values true (toml.encode data)))
 
 (comment
-  (encode-toml {:title "hello" :tags []})) ; empty tables get nested as dict instead of array
+  (encode-toml {:title "hello" :tags [] :updated-at (date)})) ; empty tables get nested as dict instead of array
 
 (defn get-frontmatter []
   "get metadata from buffer as a lua table"
@@ -70,6 +72,5 @@
           metadata
           {:title (r.kebab-case title)
            :updated-at day
-           : created-at}
-          (when (r.not-empty? tags) ; empty tables get nested as dict instead of array
-            {:  tags}))))))
+           :created-at created-at
+           :tags  tags})))))

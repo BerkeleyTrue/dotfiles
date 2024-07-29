@@ -365,7 +365,7 @@
       :number (tostring val)
 
       :string 
-      (let [date? (string.match val "%d%d%d%d%-%d?%d%-%d?%d")
+      (let [date? (string.match val "%d%d%d%d%-%d%d%-%d%d")
             val (string.gsub val "\\" "\\\\")
             quote* (if (string.match val "\n") "\"\"\"" "\"")] ; TODO: add escape escapes
         (if date?
