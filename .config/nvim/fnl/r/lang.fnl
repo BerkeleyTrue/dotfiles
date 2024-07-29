@@ -53,3 +53,22 @@
   (last "foo")
   (last [1 2 3])
   (last {:a 1 :b 2}))
+
+(defn xnor [x y]
+  (and (or x (not y)) (or (not x) y)))
+
+(comment
+  (xnor true true)
+  (xnor false false)
+  (xnor true false)
+  (xnor false true))
+
+(defn xor [x y]
+  (not (xnor)))
+
+(comment
+  (xor true true)
+  (xor false false)
+  (xor true false)
+  (xor false true))
+

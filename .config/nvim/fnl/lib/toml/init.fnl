@@ -383,7 +383,22 @@
         (encode val))))
 
   (->> (r.to-pairs tbl)
-       (r.sort-by (fn [[k1] [k2]] (< k1 k2)))
+       (r.sort-by (fn [[k1 val1] [k2 val2]] 
+                    (match [(type val1) (type val2)]
+                      [:string :table] true
+                      [:table :string] false
+
+                      [:table :table]
+                      (match [(> (table.maxn val1) 0) (> (table.maxn val2) 0) (r.empty? val1) (r.empty? val2)]
+                        [_ _ true true] true ; both are empty and won't be encoded
+                        ; both are non-empty and either seq table or kv table
+                        ; use keys to sort
+                        (where [t1len? t2len? false false] (r.xnor t1len? t2len?)) (< k1 k2) 
+                        ; both are non-empty, but different types of tables
+                        ; seq tables go first
+                        [t1len? _ false false] t1len?) 
+
+                      _ (< k1 k2))))
        (r.reduce 
          (fn [out [key val]]
            (let [val* (encode-val val)]
@@ -391,7 +406,7 @@
                       (= (table.maxn val) 0))
                (if (r.empty? val) ; only encode kv tables if they are not empty
                  out
-                 (.. out "[" key "]\n" val*))
+                 (.. out "[" key "]\n" val* "\n"))
                (kv out key val*))))
          "")
        (r.trim)))
@@ -404,9 +419,9 @@
   (encode {:bar [:foo 3 "2024-04-04"]})
   (encode {:bar {:foo :baz}})
   (encode {:bar {}})
-  (encode {:a :a :b :b :title "hello" :tags []})
-  (let [test "created-at = 2024-06-26\ntitle = \"credit\"\nupdated-at = 2024-06-26"
-        (val out) (parse test)
-        str (encode out)]
-    (a.println :foo out str)
-    (= str test)))
+  (encode {:a :a 
+           :b {:z :y} 
+           :f {:z :y} 
+           :t "hello" 
+           :d [:foo :bar :baz]
+           :z [:foo :bar :baz]}))
