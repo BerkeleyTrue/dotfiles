@@ -7,7 +7,6 @@
    import-macros []
    require-macros [macros]})
 
-
 (def log (logger.create :lib.toml))
 (def ws "[\009\032]")
 (def nl "[\10\13\10]")
@@ -193,8 +192,11 @@
         (and (not date?) exp?)
         (set exp (.. exp (char)))
           
-        (set buff (.. buff (char))))
-      (step))
+        (when (not done?)
+          (set buff (.. buff (char)))))
+
+      (when (not done?) 
+        (step)))
 
     (if date?
       {:type :date 
@@ -228,7 +230,6 @@
       (err "Invalid boolean")))
 
   (fn parse-val []
-    ; (a.println :parse-val (char))
 
     (fn parse-array []
       (step)
@@ -285,7 +286,6 @@
 
   (while (and ok?
               (<= cursor (r.size toml)))
-    ; (a.println :loop (char) :buff buffer)
     (case (char)
       "#" ; skip comments
       (skip-line)
@@ -324,18 +324,17 @@
         (step)
         (skip-whitespace)
         (let [key (r.trim buffer)] ; buffer should the key
-          ; (a.println :key key :val (char))
           (if (r.not-empty? key)
             (if-let [val (parse-val)]
               (if (r.not-empty? (. namespace key))
                 (err (.. "Expected namespace to be empty but found occupied for " key))
-                (do
-                  (tset namespace key val.value)))
+                (tset namespace key val.value))
               (err (.. "Unable to parse value")))
             (err (.. "Expected key but found " key))))
         (set buffer "")
         (skip-whitespace)
-        (when (is-char? "#") (skip-line))
+        (when (is-char? "#") 
+          (skip-line))
         (when (and (not (match-char? nl)) ; this should be the end of the line
                    (bounds))
           (err (.. "Invalid char after val found: " (char))))))
@@ -348,10 +347,66 @@
 
 (comment
   (logger.enable "lib.toml")
-  (parse "foo = \"bar\"")
-  (parse "foo = true")
+  (parse "foo = \"bar\" ")
+  (parse "foo = true\n bar = \"baz\"")
   (parse "foo = false")
   (parse "foo = ['bar', 'baz']")
-  (parse "foo = 'bar'\n[quz]\nx = 3\n")
+  (parse "foo = 'bar'\n[quz]\nx = 3\ndog = \"cat\"")
   (parse "foo = 2024-02-04")
-  (parse "created-at = 2024-05-23"))
+  (parse "created-at = 2024-05-23\ntitle = \"credit\""))
+
+(defn encode [tbl]
+  (defn kv [out key val]
+    (.. out key " = " val "\n"))
+
+  (defn encode-val [val]
+    (match (type val)
+      :boolean (tostring val)
+      :number (tostring val)
+
+      :string 
+      (let [date? (string.match val "%d%d%d%d%-%d?%d%-%d?%d")
+            val (string.gsub val "\\" "\\\\")
+            quote* (if (string.match val "\n") "\"\"\"" "\"")] ; TODO: add escape escapes
+        (if date?
+          val
+          (.. quote* val quote*)))
+      
+      :table
+      (if (> (table.maxn val) 0)
+        (..
+          "[\n  "
+          (->>
+            (r.map encode-val val)
+            (r.join ",\n  "))
+          "\n]")
+        (encode val))))
+
+  (->> (r.to-pairs tbl)
+       (r.sort-by (fn [[k1] [k2]] (< k1 k2)))
+       (r.reduce 
+         (fn [out [key val]]
+           (let [val* (encode-val val)]
+             (if (and (r.table? val) ; try to identify kv tables, only works on non-empty seq-tables
+                      (= (table.maxn val) 0))
+               (if (r.empty? val) ; only encode kv tables if they are not empty
+                 out
+                 (.. out "[" key "]\n" val*))
+               (kv out key val*))))
+         "")
+       (r.trim)))
+
+(comment
+  (encode {:foo true})
+  (encode {:foo "bar"})
+  (encode {:foo "2024-04-04"})
+  (encode {:bar [:foo :bar]})
+  (encode {:bar [:foo 3 "2024-04-04"]})
+  (encode {:bar {:foo :baz}})
+  (encode {:bar {}})
+  (encode {:a :a :b :b :title "hello" :tags []})
+  (let [test "created-at = 2024-06-26\ntitle = \"credit\"\nupdated-at = 2024-06-26"
+        (val out) (parse test)
+        str (encode out)]
+    (a.println :foo out str)
+    (= str test)))
