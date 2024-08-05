@@ -50,10 +50,10 @@
 
 (defn link? []
   "Checks if the node under the cursor is a shortcut or a reference link"
-  (let [node (ts.get-node-under-cursor)
-        {:type _type : text} node]
+  (if-let [{:type _type : text} (ts.get-node-under-cursor)]
     (or (= _type :link_text)
-        (= _type :link_label))))
+        (= _type :link_label))
+    false))
 
 (comment
   (command! :CorpusIsShortcut (fn [] (a.println (link?)))))
