@@ -264,6 +264,7 @@ in {
       };
     };
 
+    # Blazingly fast terminal file manager
     yazi = {
       enable = true;
       settings = {
