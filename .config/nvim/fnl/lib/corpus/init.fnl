@@ -104,6 +104,10 @@
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
+  (command! :CorpusDetect (fn [] (let [file (vf expand "%")
+                                       corpus? (ftdetect.ftdetect file)]
+                                   (a.println (.. "found file: " file "to be " (if corpus? "" "not") "corpus"))
+                                   (when corpus? (init {:file file})))))
   (augroup :LibCorpus
     {:event :VimEnter
      :pattern :*
@@ -130,7 +134,7 @@
                     :complete #[:reference :video :book :article :podcast :course :other]})
 
          (command!
-           :Zet
+           :CorpusZet
            #(zet.create)
            {:desc "Create a new temp zettel note"})))}
 
