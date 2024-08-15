@@ -7,3 +7,9 @@
 	defaultBranch = master
 [pull]
 	rebase = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/berkeleytrue/.nix-profile/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/berkeleytrue/.nix-profile/bin/gh auth git-credential
