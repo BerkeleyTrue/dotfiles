@@ -52,6 +52,11 @@ ghanima::git_ref() {
   ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
   echo $ref
 }
+ghanima::gh_user() {
+  local ref
+  ref=$(gh auth status | grep -m 1 'Logged in to github.com' | awk '{print $7}')
+  echo $ref
+}
 # Check if command exists in $PATH
 # USAGE:
 #   ghanima::exists <command>
