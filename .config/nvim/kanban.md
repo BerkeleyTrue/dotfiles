@@ -15,6 +15,11 @@
   - [ ] bug: removes marks randomly?
 
 # Doing
+
+- Corpus: 
+  - show refs in preview
+  - show backlinks in preview
+  - command to see backlinks in file
   
 # Done (2024)
 
