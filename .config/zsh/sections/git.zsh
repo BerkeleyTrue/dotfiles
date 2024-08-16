@@ -5,7 +5,6 @@ ghanima::sections::git() {
     is_dirty=$(git status --porcelain --ignore-submodules 2> /dev/null | tail -n 1)
     repo_path=$(git rev-parse --git-dir 2> /dev/null)
     ref=$(ghanima::git_ref)
-    user=$(ghanima::gh_user | tr '[:upper:]' '[:lower:]')
 
     if [[ -n $is_dirty ]]; then
       color=yellow
@@ -29,6 +28,6 @@ ghanima::sections::git() {
       mode=" >R>"
     fi
 
-    ghanima::sections::pack -fg black -bg $color "$user@%{%B%}$ref%{%b%} $symbol ${mode}"
+    ghanima::sections::pack -fg black -bg $color "%{%B%}$ref%{%b%} $symbol ${mode}"
   fi
 }
