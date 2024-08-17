@@ -1,0 +1,15 @@
+[user]
+	email = berkeleytrue@users.noreply.github.com
+	name = Berkeley True
+[credential]
+	helper = store
+[init]
+	defaultBranch = master
+[pull]
+	rebase = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/bt/.nix-profile/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/bt/.nix-profile/bin/gh auth git-credential
