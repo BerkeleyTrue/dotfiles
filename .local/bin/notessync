@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
+
 _header() {
 	local header="$1"
 	echo -e "===< $1 >==="
@@ -23,11 +26,15 @@ _syncdir() {
 	_is_dirty && _notify "$name is dirty"
 	echo "\e[34m$(_header "done")\e[0m"
 }
+_gh_user() {
+  gh auth status | grep -m 1 'Logged in to github.com' | awk '{print tolower($7)}' 
+}
 
 notessync() {
 	set +m
 	declare -A outputs=()
 	local msg="$(_header "output")\n"
+	local switched=false
 	local dirs=(
 		$HOME/docs/corpus
 		$HOME/docs/notes/corpus
@@ -36,6 +43,12 @@ notessync() {
 	)
 
 	keybase ctl start
+
+	if [[ $(_gh_user) != 'berkeleytrue' ]]; then
+		echo -e "\e[32m$(_header "switching gh user")\e[0m\n"
+		switched=true
+		gh auth switch
+	fi
 
 	echo -e "\e[32m$(_header "starting")\e[0m\n"
 	for dir in ${dirs[@]}; do
@@ -63,6 +76,11 @@ notessync() {
 
 		echo -e "$(cat ${outputs[$dir]})\n"
 	done
+
+	if [[ switched ]]; then
+		echo -e "\e[32m$(_header "switching gh user back")\e[0m\n"
+		gh auth switch
+	fi
 
 	echo -e "\e[1;32m$(_header "done")\e[0m\n"
 	set -m
