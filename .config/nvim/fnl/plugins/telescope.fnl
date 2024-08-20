@@ -61,7 +61,6 @@
 (defn setup-commands []
   (command! :HLights (utils.viml->lua :telescope.builtin :highlights))
   (command! :MMaps (utils.viml->lua :telescope.builtin :keymaps))
-  (command! :CodeActions (utils.viml->lua :telescope.builtin :lsp_code_actions))
   (command! :HHelp (utils.viml->lua :telescope.builtin :help_tags))
   (command! :OOldFiles (utils.viml->lua :telescope.builtin :oldfiles {:args "{cwd_only = true}"}))
   (command! :FFiles (utils.viml->lua :telescope.builtin :find_files {:args "{find_command = rg, hidden = true, files = true}"})))
