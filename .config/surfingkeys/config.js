@@ -33,7 +33,9 @@ function convertPaletteToCSS(palette) {
     .join("\n")}\n}`;
 }
 
-settings.blacklistPattern = /.*mail.google.com.*|.*inbox.google.com.*|/i;
+settings.blocklist = {
+  "http://10.6.7.11": 1,
+};
 
 settings.theme = `
 ${convertPaletteToCSS(palette)}
@@ -464,3 +466,4 @@ api.Hints.style(`
 
 api.map("H", "S");
 api.map("L", "D");
+api.unmap(".");
