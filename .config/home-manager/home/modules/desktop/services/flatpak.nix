@@ -2,28 +2,44 @@
   services.flatpak = {
     enable = true;
     packages = [
-      "app.ytmdesktop.ytmdesktop"           
-      "com.discordapp.Discord"              
-      "com.github.geigi.cozy"               
-      "com.github.libresprite.LibreSprite"  
-      "com.github.tchx84.Flatseal"          
-      "com.github.wwmm.pulseeffects"        
-      "com.ultimaker.cura"                  
-      "com.uploadedlobster.peek"            
-      "com.vscodium.codium"                 
-      "io.dbeaver.DBeaverCommunity"         
-      "io.github.f3d_app.f3d"               
-      "org.chromium.Chromium"               
-      "org.duckstation.DuckStation"         
-      "org.freecadweb.FreeCAD"              
-      "org.gimp.GIMP"                       
-      "org.inkscape.Inkscape"               
-      "org.kde.krita"                       
-      "org.libreoffice.LibreOffice"         
-      "org.pipewire.Helvum"                 
-      "org.standardnotes.standardnotes"
+      "app.ytmdesktop.ytmdesktop" # youtube music download
+      "org.duckstation.DuckStation" # playstation emulator         
+
+      # office tools
+      "org.libreoffice.LibreOffice" 
+      "org.standardnotes.standardnotes" # synced notes
+
+      # devtools
+      "com.github.tchx84.Flatseal" # configure flatpaks          
+      "com.vscodium.codium" # open vscode                 
+      "io.dbeaver.DBeaverCommunity" # sql explorer       
+
+      # messaging
+      "com.discordapp.Discord" 
+      "org.signal.Signal"
+
       "com.librumreader.librum" # pdf/ebub reader
-      "org.signal.Signal" # messaging
+      "com.github.geigi.cozy" # listen to audiobooks               
+
+      # image manipulation tools
+      "org.gimp.GIMP" # raster image tool                       
+      "org.inkscape.Inkscape" # vector image tools               
+      "com.github.libresprite.LibreSprite" # pixel art tool 
+      "org.kde.krita" # image tool                       
+      "com.uploadedlobster.peek" # record desktop gifs  
+
+      # 3d modeling
+      "org.freecadweb.FreeCAD" # cad              
+      "com.ultimaker.cura" # 3d print slicer                  
+      "io.github.f3d_app.f3d" # stl viewer               
+
+      # audio tools
+      "org.pipewire.Helvum" # audio plumber                 
+      "com.github.wwmm.pulseeffects" # advanced audio effects
+
+      # browsers
+      "io.github.zen_browser.zen" # firefox based
+      "org.chromium.Chromium" # open chrome               
     ];
   };
 }
