@@ -37,7 +37,7 @@ ghstat() {
 }
 ghswitch() {
 	local out=$(gh auth switch)
-	gastat >/dev/null
+	ghstat >/dev/null
 	echo $out
 }
 # get the currently active github user from gh auth status command
