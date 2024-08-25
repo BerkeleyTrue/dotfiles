@@ -29,12 +29,6 @@ alias gstash='git stash'
 # github cli
 # +++++++++++++++++++++++++++++++++++++++++++++{{{
 alias ghcopr='gh pr checkout'
-ghstat() {
-	local out=$(gh auth status)
-	local ghuser=$(echo $out | grep -m 1 'Logged in to github.com' | awk '{print $7}')
-	echo $ghuser >~/.github/active-user
-	echo $out
-}
 ghswitch() {
 	local out=$(gh auth switch)
 	ghstat >/dev/null

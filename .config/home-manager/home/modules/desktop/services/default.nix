@@ -5,6 +5,7 @@
     ./dunst.nix
     ./flameshot.nix
     ./flatpak.nix
+    ./gh-user.nix
     ./kanata.nix
     ./nitrogen.nix
     ./nix-collect-garbage.nix
