@@ -53,9 +53,7 @@ ghanima::git_ref() {
   echo $ref
 }
 ghanima::gh_user() {
-  local ref
-  ref=$(gh auth status | grep -m 1 'Logged in to github.com' | awk '{print $7}')
-  echo $ref
+  ghuser
 }
 # Check if command exists in $PATH
 # USAGE:

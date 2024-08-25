@@ -29,9 +29,20 @@ alias gstash='git stash'
 # github cli
 # +++++++++++++++++++++++++++++++++++++++++++++{{{
 alias ghcopr='gh pr checkout'
+ghstat() {
+	local out=$(gh auth status)
+	local ghuser=$(echo $out | grep -m 1 'Logged in to github.com' | awk '{print $7}')
+	echo $ghuser >~/.github/active-user
+	echo $out
+}
+ghswitch() {
+	local out=$(gh auth switch)
+	gastat >/dev/null
+	echo $out
+}
 # get the currently active github user from gh auth status command
 ghuser() {
-  gh auth status | grep -m 1 'Logged in to github.com' | awk '{print $7}'
+	cat ~/.github/active-user
 }
 #}}}
 
@@ -325,10 +336,10 @@ gclonewt() {
 alias gwtls='git worktree list'
 alias gwtmv='git worktree move'
 gwta() {
-  if [[ $# -eq 0 ]]; then
-    echo "Usage: gwta <path> [branch] [branch_from] [remote]"
-    return 1
-  fi
+	if [[ $# -eq 0 ]]; then
+		echo "Usage: gwta <path> [branch] [branch_from] [remote]"
+		return 1
+	fi
 	_path=$1
 	shift
 	branch=$(basename $_path)
