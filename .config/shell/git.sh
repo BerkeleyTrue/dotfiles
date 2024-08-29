@@ -29,15 +29,6 @@ alias gstash='git stash'
 # github cli
 # +++++++++++++++++++++++++++++++++++++++++++++{{{
 alias ghcopr='gh pr checkout'
-ghswitch() {
-	local out=$(gh auth switch)
-	ghstat >/dev/null
-	echo $out
-}
-# get the currently active github user from gh auth status command
-ghuser() {
-	cat ~/.github/active-user
-}
 #}}}
 
 # yadm aliases

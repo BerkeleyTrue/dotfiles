@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+set -e
+set -o pipefail
+
+out="$(gh auth status)"
+ghuser=$(echo "$out" | grep -m 1 'Logged in to github.com' | awk '{print $7}')
+echo $ghuser >~/.github/active-user
+echo "$out"

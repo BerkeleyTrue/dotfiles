@@ -26,9 +26,6 @@ _syncdir() {
 	_is_dirty && _notify "$name is dirty"
 	echo "\e[34m$(_header "done")\e[0m"
 }
-_gh_user() {
-  gh auth status | grep -m 1 'Logged in to github.com' | awk '{print tolower($7)}' 
-}
 
 notessync() {
 	set +m
@@ -44,10 +41,12 @@ notessync() {
 
 	keybase ctl start
 
-	if [[ $(_gh_user) != 'berkeleytrue' ]]; then
+	echo "$(cat ~/.github/active-user)"
+
+	if [[ "$(cat ~/.github/active-user | awk '{print tolower($0)}')" != 'berkeleytrue' ]]; then
 		echo -e "\e[32m$(_header "switching gh user")\e[0m\n"
 		switched=true
-		gh auth switch
+		ghswitch
 	fi
 
 	echo -e "\e[32m$(_header "starting")\e[0m\n"
@@ -77,9 +76,10 @@ notessync() {
 		echo -e "$(cat ${outputs[$dir]})\n"
 	done
 
-	if [[ switched ]]; then
+	## switch back if switched
+	if [[ $switched == true ]]; then
 		echo -e "\e[32m$(_header "switching gh user back")\e[0m\n"
-		gh auth switch
+		ghswitch
 	fi
 
 	echo -e "\e[1;32m$(_header "done")\e[0m\n"

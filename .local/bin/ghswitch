@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+_ghswitch() {
+	local out="$(gh auth switch 2>&1)"
+	local ghuser=$(echo "$out" | awk '{print $8}')
+  echo "$ghuser" >~/.github/active-user
+	echo -n "$out"
+}
+
+_ghswitch
