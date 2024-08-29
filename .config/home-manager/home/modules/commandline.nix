@@ -64,6 +64,8 @@ in {
       ngrok # Introspected tunnels to localhost
       p7zip # 7-Zip is a file archiver with a high compression ratio
       playerctl # pause/play music players ci
+      podman # A program for managing pods, containers and container images
+      podman-tui # Podman Terminal UI
       procs # A modern replacement for ps written in Rust
       ripgrep # recursively searches directories for a regex pattern
       rsync # Fast incremental file transfer utility
@@ -159,7 +161,7 @@ in {
           nixd # nix language server
           clojure-lsp
           slint-lsp
-          rust-analyzer # rust language server
+          rust-analyzer # rust language server 
 
           alejandra # formatting nix
           shfmt # formatting shell scripts
