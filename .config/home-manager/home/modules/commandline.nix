@@ -161,7 +161,7 @@ in {
           nixd # nix language server
           clojure-lsp
           slint-lsp
-          rust-analyzer # rust language server 
+          rust-analyzer # rust language server
 
           alejandra # formatting nix
           shfmt # formatting shell scripts
@@ -273,6 +273,13 @@ in {
         manager = {
           show_hidden = true;
         };
+        opener.open = [
+          {
+            run = ''xdg-open "$1"'';
+            desc = "Open";
+            orphan = true;
+          }
+        ];
       };
     };
   };
