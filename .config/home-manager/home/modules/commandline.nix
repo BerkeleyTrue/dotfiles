@@ -121,6 +121,16 @@ in {
     source "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
   '';
 
+  xdg.configFile."containers/registries.conf".text = ''
+    unqualified-search-registries = ["docker.io"]
+
+    [[registry]]
+    prefix = "docker.io"
+    insecure = false
+    blocked = false
+    location = "docker.io"
+  '';
+
   programs = {
     # A cat(1) clone with wings
     bat = {
