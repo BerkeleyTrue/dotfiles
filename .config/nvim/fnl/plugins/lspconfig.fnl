@@ -91,7 +91,7 @@
    :slint_lsp {}
    :solidity_ls {}
    :templ {:on_attach general-on-attach-with-navic}
-   :tsserver (tsserver.get-config {:on_attach general-on-attach-with-navic})
+   :ts_ls (tsserver.get-config {:on_attach general-on-attach-with-navic})
    :tailwindcss (tailwindcss.get-config)
    :vimls {:on_attach general-on-attach-with-navic}
    :yamlls {}})
