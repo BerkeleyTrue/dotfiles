@@ -11,7 +11,7 @@
   (when-let [copilot (md.prequire :copilot)]
     (copilot.setup
       {:panel
-       {:enabled false
+       {:enabled true
         :auto_refresh false
         :keymap
         {:jump_prev "[["
@@ -20,7 +20,7 @@
          :refresh :gr
          :open :<M-CR>}}
        :suggestion
-       {:enabled false
+       {:enabled true
         :auto_trigger true
         :debounce 250
         :keymap
