@@ -178,6 +178,7 @@ in {
           clojure-lsp
           slint-lsp
           rust-analyzer # rust language server
+          dockerfile-language-server-nodejs # docker language server
 
           alejandra # formatting nix
           shfmt # formatting shell scripts
