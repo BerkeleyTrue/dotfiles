@@ -60,6 +60,7 @@ in {
       iputils # Network monitoring tools including ping
       instaloader # Download public and private instagram accounts
       lazygit # simple terminal UI for git commands
+      lazydocker # simple terminal ui for both docker and docker-compose
       lsof # lists open files
       ngrok # Introspected tunnels to localhost
       p7zip # 7-Zip is a file archiver with a high compression ratio
@@ -129,6 +130,11 @@ in {
     insecure = false
     blocked = false
     location = "docker.io"
+  '';
+
+  # required for copilot.lua to work. 
+  xdg.configFile."nvim/lua/copilot-nodejs.lua".source = pkgs.writeText "copilot-nodejs" ''
+    vim.g.copilot_node_command = "${pkgs.nodejs-18_x}/bin/node"
   '';
 
   programs = {

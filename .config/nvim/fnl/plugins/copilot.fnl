@@ -36,7 +36,7 @@
         :svn false
         :cvs false
         :. false}
-       :copilot_node_command :node
+       :copilot_node_command (. vim.g :copilot_node_command) ; provided through nix
        :server_opts_overrides {}})
 
     (let [cpsuggestions (md.prequire :copilot.suggestion)]
