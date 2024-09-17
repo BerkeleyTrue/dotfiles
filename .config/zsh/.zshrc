@@ -19,9 +19,8 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
 # history config
 HISTFILE="$XDG_DATA_HOME/zsh/.zsh_history"
-HISTFILESIZE=1000000000
-HISTSIZE=1000000000
-SAVEHIST=1000000000
+HISTSIZE=100000 # number of commands to keep in memory
+SAVEHIST=100 # number of commands to save to history file
 
 
 setopt MULTIOS              # enable redirect to multiple streams: echo >file1 >file2
