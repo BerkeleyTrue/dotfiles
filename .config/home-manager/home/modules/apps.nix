@@ -71,7 +71,6 @@ in {
     ++ [
       (nixGLWrap pkgs.kitty) # GPU-accelerated terminal emulator
       (nixGLWrap pkgs.mpv) # General-purpose media player, fork of MPlayer and mplayer2
-      (nixGLWrap pkgs.bino3d) # 3D video player
       # (config.lib.nixgl.wrapPackage pkgs.kicad)
       rofi # launcher
       rofi-spell # spell checker
