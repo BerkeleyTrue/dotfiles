@@ -2,7 +2,9 @@
   rc = pkgs.writeShellScript "xplugrc" ''
 
     if [ "$1" == "display" ]; then
-      systemd --user restart autorandr.service
+      # this is more annoying than useful
+      # I'll just use it manually
+      # systemd --user restart autorandr.service
       exit 0
     fi
 
