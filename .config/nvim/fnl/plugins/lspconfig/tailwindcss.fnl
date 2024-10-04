@@ -7,7 +7,7 @@
    require-macros [macros]})
 
 (defn get-config []
-  (let [base-conf (md.prequire :lspconfig.server_configurations.tailwindcss)]
+  (let [base-conf (md.prequire :lspconfig.configs.tailwindcss)]
     {:settings
      {:tailwindCSS
       (r.merge

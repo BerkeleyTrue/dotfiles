@@ -30,7 +30,7 @@
 (defn jsonls-configs []
   (if-let [schemastore (md.prequire :schemastore)]
     (let [schemas ((. schemastore :json :schemas))
-          base-conf (md.prequire :lspconfig.server_configurations.jsonls)]
+          base-conf (md.prequire :lspconfig.configs.jsonls)]
       {:settings
        {:json
         {: schemas}}})
