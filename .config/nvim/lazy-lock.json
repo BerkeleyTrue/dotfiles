@@ -23,7 +23,7 @@
   "git-blame.nvim": { "branch": "master", "commit": "2883a7460f611c2705b23f12d58d398d5ce6ec00" },
   "gitsigns.nvim": { "branch": "main", "commit": "863903631e676b33e8be2acb17512fdc1b80b4fb" },
   "guard-collection": { "branch": "main", "commit": "9df35c90144cfbec1421fedcc6d3ec63f213cd50" },
-  "guard.nvim": { "branch": "main", "commit": "cda3e0737ae7a328a4ce2d88628b959ef201d0b8" },
+  "guard.nvim": { "branch": "main", "commit": "43ad79798171b1e1e9d8975f3c73d9134a4f31b8" },
   "hop.nvim": { "branch": "master", "commit": "1a1eceafe54b5081eae4cb91c723abd1d450f34b" },
   "kmonad-vim": { "branch": "master", "commit": "37978445197ab00edeb5b731e9ca90c2b141723f" },
   "lspkind-nvim": { "branch": "master", "commit": "59c3f419af48a2ffb2320cea85e44e5a95f71664" },

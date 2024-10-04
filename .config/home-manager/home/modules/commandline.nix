@@ -132,7 +132,7 @@ in {
     location = "docker.io"
   '';
 
-  # required for copilot.lua to work. 
+  # required for copilot.lua to work.
   xdg.configFile."nvim/lua/copilot-nodejs.lua".source = pkgs.writeText "copilot-nodejs" ''
     vim.g.copilot_node_command = "${pkgs.nodejs-18_x}/bin/node"
   '';
@@ -183,6 +183,7 @@ in {
           alejandra # formatting nix
           shfmt # formatting shell scripts
           golines # formatting long lines in go
+          templ # formatting go templ files
         ]
         ++ (with nodePackages; [
           yaml-language-server # A language server for YAML
@@ -194,6 +195,7 @@ in {
 
           prettier # for formatting js, ts, css, html, json, yaml, markdown
           purs-tidy # formatting purescript
+          sql-formatter # formatting sql
         ]);
 
       plugins = with pkgs.vimPlugins; [

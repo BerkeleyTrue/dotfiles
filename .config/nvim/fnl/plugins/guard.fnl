@@ -30,7 +30,7 @@
     (let [ft (md.prequire :guard.filetype)]
       (->
         (ft prettier-fts)
-        (: :fmt :prettier)) ; requires prettier for formatting
+        (: :fmt {:cmd "prettier" :args [:--stdin-filepath]})) ; requires prettier for formatting
 
       (->
         (ft :nix)
