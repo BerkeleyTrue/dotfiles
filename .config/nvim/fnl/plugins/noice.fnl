@@ -52,9 +52,18 @@
             {:filter {:event :msg_show
                       :any [{:find "%[.*%] not installed$"}
                             {:find "%[.*%] installed$"}]}
-             :view :popup}]
+             :view :popup}
+            
+            ; doesn't seem to work, it may be that that noice 
+            ; doesn't hook into yet to catch them.
+            {:filter {:event :msg_show
+                      :find "^.+Guard.*not executable$"}
+             :opts {:skip true}}]
 
    :presets {:lsp_doc_border true}})
+
+(comment
+  (string.find "[Guard] npx not executable" "^.+Guard.*not executable$"))
 
 (defn main []
   (noice.setup config)
