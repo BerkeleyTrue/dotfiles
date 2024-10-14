@@ -52,7 +52,7 @@
 
   ; always go through guard.nvim for formatting
   ; will need to add them to plugins.guard if you want to use them
-  (nnoremap :zf "<CMD>GuardFmt<CR>" {:buffer buffnr :silent true}))
+  (nnoremap :zf "<CMD>Guard fmt<CR>" {:buffer buffnr :silent true}))
 
 (def general-on-attach-with-navic
   (r.over

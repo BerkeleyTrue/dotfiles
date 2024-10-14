@@ -76,7 +76,7 @@
     ; add zf to format markdown
     {:event [:BufReadPre]
      :pattern :*.md
-     :cmd "nnoremap <buffer> <silent> zf <CMD>GuardFmt<CR>"}
+     :cmd "nnoremap <buffer> <silent> zf <CMD>Guard fmt<CR>"}
     {:event [:BufReadPre]
      :pattern :*.sql
-     :cmd "nnoremap <buffer> <silent> zf <CMD>GuardFmt<CR>"}))
+     :cmd "nnoremap <buffer> <silent> zf <CMD>Guard fmt<CR>"}))
