@@ -26,7 +26,7 @@
       "org.gimp.GIMP" # raster image tool
       "org.inkscape.Inkscape" # vector image tools
       "com.github.libresprite.LibreSprite" # pixel art tool
-      "org.kde.krita" # image tool
+      # "org.kde.krita" # image tool saving crashes?
       "com.uploadedlobster.peek" # record desktop gifs
 
       # 3d modeling
