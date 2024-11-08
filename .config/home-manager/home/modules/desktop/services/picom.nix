@@ -1,6 +1,6 @@
 {
   pkgs,
-  nixGLWrap,
+  config,
   ...
 }: {
   systemd.user.services.picom = {
@@ -11,7 +11,7 @@
     };
 
     Service = {
-      ExecStart = "${nixGLWrap pkgs.picom}/bin/picom ";
+      ExecStart = "${config.lib.nixGL.wrap pkgs.picom}/bin/picom ";
       # ExecStart = "/usr/bin/picom ";
       Restart = "on-failure";
       RestartSec = 3;

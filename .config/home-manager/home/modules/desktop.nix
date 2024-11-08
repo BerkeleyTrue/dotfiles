@@ -1,8 +1,11 @@
 {
   pkgs,
   theme,
+  nixgl,
   ...
 }: {
+  nixGL.packages = nixgl.packages;
+
   imports = [
     ./desktop
   ];

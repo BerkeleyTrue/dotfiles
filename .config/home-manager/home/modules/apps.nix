@@ -1,6 +1,5 @@
 {
   pkgs,
-  nixGLWrap,
   theme,
   config,
   ...
@@ -70,8 +69,8 @@ in {
       zathura # pdf viewer
     ])
     ++ [
-      (nixGLWrap pkgs.kitty) # GPU-accelerated terminal emulator
-      (nixGLWrap pkgs.mpv) # General-purpose media player, fork of MPlayer and mplayer2
+      (config.lib.nixGL.wrap pkgs.kitty) # GPU-accelerated terminal emulator
+      (config.lib.nixGL.wrap pkgs.mpv) # General-purpose media player, fork of MPlayer and mplayer2
       # (config.lib.nixgl.wrapPackage pkgs.kicad)
       rofi # launcher
       rofi-spell # spell checker

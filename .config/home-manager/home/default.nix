@@ -1,8 +1,4 @@
-{
-  inputs,
-  lib,
-  ...
-}: {
+{inputs, ...}: {
   home-manager-parts = {
     inherit (inputs) home-manager;
     enable = true;
@@ -21,22 +17,18 @@
       system = "x86_64-linux";
     };
 
-    shared = {
-      pkgs,
-      profile,
-      ...
-    }: let
+    shared = {profile, ...}: let
+      nixgl = inputs.nixgl;
       theme = import ../theme {};
-
-      nixGLWrap = import ../lib/nixGL.nix {
-        inherit lib pkgs;
-      };
+      # nixGLWrap = import ../lib/nixGL.nix {
+      #   inherit lib pkgs;
+      # };
     in {
       modules = [
         inputs.flatpak.homeManagerModules.nix-flatpak
       ];
       extraSpecialArgs = {
-        inherit theme nixGLWrap profile;
+        inherit theme profile nixgl;
       };
     };
 
