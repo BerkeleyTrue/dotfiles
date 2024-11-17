@@ -1,6 +1,6 @@
 # framework laptop
 {pkgs, ...}: {
-  nixGL.defaultWrapper = "intel";
+  nixGL.defaultWrapper = "mesaPrime";
 
   home.packages = with pkgs; [
     nvtopPackages.intel
