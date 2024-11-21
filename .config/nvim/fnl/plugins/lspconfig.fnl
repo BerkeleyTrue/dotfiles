@@ -85,6 +85,7 @@
    :lua_ls {}
    :nil_ls {:on_attach (create-disable-formatting general-on-attach-with-navic)}
    :nixd {:on_attach (create-disable-formatting general-on-attach)}
+   :basedpyright {}
    :prismals {}
    :purescriptls {}
    :rust_analyzer {}
