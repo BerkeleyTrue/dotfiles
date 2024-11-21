@@ -70,7 +70,6 @@ in {
     ])
     ++ [
       (config.lib.nixGL.wrap pkgs.kitty) # GPU-accelerated terminal emulator
-      (config.lib.nixGL.wrap pkgs.mpv) # General-purpose media player, fork of MPlayer and mplayer2
       # (config.lib.nixgl.wrapPackage pkgs.kicad)
       rofi # launcher
       rofi-spell # spell checker
@@ -241,100 +240,120 @@ in {
     };
   };
 
-  programs = {
-    terminator = {
-      enable = true;
-      config = {
-        profiles.default.font = "FiraCode Nerd Font 18";
-      };
+  programs.terminator = {
+    enable = true;
+    config = {
+      profiles.default.font = "FiraCode Nerd Font 18";
+    };
+  };
+
+  programs.firefox = let
+    lock-false = {
+      Value = false;
+      Status = "locked";
     };
 
-    firefox = let
-      lock-false = {
-        Value = false;
-        Status = "locked";
-      };
+    lock-true = {
+      Value = true;
+      Status = "locked";
+    };
 
-      lock-true = {
+    userChrome = ''
+      :root {
+        font: 14px "FiraCode Nerd Font", monospace !important;
+      }
+
+      /* hides the native tabs */
+      #TabsToolbar {
+        visibility: collapse;
+      }
+
+      /* hides the sidebar header */
+      #sidebar-header {
+        visibility: collapse !important;
+      }
+    '';
+  in {
+    enable = true;
+
+    package = config.lib.nixgl.wrapPackage pkgs.firefox;
+    nativeMessagingHosts = [pkgs.fx_cast_bridge];
+
+    # Check about:policies#documentation for options.
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+      EnableTrackingProtection = {
         Value = true;
-        Status = "locked";
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
       };
+      DisablePocket = true;
+      DisableFirefoxAccounts = false;
+      DisableAccounts = false;
+      DisableFirefoxScreenshots = true;
+      OverrideFirstRunPage = "";
+      OverridePostUpdatePage = "";
+      DontCheckDefaultBrowser = true;
+      DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
+      DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
+      SearchBar = "unified"; # alternative: "separate"
+      DefaultDownloadDirectory = "\${home}/dwns";
 
-      userChrome = ''
-        :root {
-          font: 14px "FiraCode Nerd Font", monospace !important;
-        }
-
-        /* hides the native tabs */
-        #TabsToolbar {
-          visibility: collapse;
-        }
-
-        /* hides the sidebar header */
-        #sidebar-header {
-          visibility: collapse !important;
-        }
-      '';
-    in {
-      enable = true;
-
-      package = config.lib.nixgl.wrapPackage pkgs.firefox;
-      nativeMessagingHosts = [pkgs.fx_cast_bridge];
-
-      # Check about:policies#documentation for options.
-      policies = {
-        DisableTelemetry = true;
-        DisableFirefoxStudies = true;
-        EnableTrackingProtection = {
-          Value = true;
-          Locked = true;
-          Cryptomining = true;
-          Fingerprinting = true;
+      # Check about:config for options.
+      Preferences = {
+        "browser.contentblocking.category" = {
+          Value = "strict";
+          Status = "locked";
         };
-        DisablePocket = true;
-        DisableFirefoxAccounts = false;
-        DisableAccounts = false;
-        DisableFirefoxScreenshots = true;
-        OverrideFirstRunPage = "";
-        OverridePostUpdatePage = "";
-        DontCheckDefaultBrowser = true;
-        DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
-        DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
-        SearchBar = "unified"; # alternative: "separate"
-        DefaultDownloadDirectory = "\${home}/dwns";
-
-        # Check about:config for options.
-        Preferences = {
-          "browser.contentblocking.category" = {
-            Value = "strict";
-            Status = "locked";
-          };
-          "extensions.pocket.enabled" = lock-false;
-          "extensions.screenshots.disabled" = lock-true;
-          "browser.topsites.contile.enabled" = lock-false;
-          "browser.formfill.enable" = lock-false;
-          "browser.search.suggest.enabled" = lock-false;
-          "browser.search.suggest.enabled.private" = lock-false;
-          "browser.urlbar.suggest.searches" = lock-false;
-          "browser.tabs.tabmanager.enabled" = lock-false;
-          "browser.urlbar.showSearchSuggestionsFirst" = lock-false;
-          "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
-          "browser.newtabpage.activity-stream.feeds.snippets" = lock-false;
-          "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
-          "browser.newtabpage.activity-stream.section.highlights.includeBookmarks" = lock-false;
-          "browser.newtabpage.activity-stream.section.highlights.includeDownloads" = lock-false;
-          "browser.newtabpage.activity-stream.section.highlights.includeVisited" = lock-false;
-          "browser.newtabpage.activity-stream.showSponsored" = lock-false;
-          "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = lock-true;
-        };
+        "extensions.pocket.enabled" = lock-false;
+        "extensions.screenshots.disabled" = lock-true;
+        "browser.topsites.contile.enabled" = lock-false;
+        "browser.formfill.enable" = lock-false;
+        "browser.search.suggest.enabled" = lock-false;
+        "browser.search.suggest.enabled.private" = lock-false;
+        "browser.urlbar.suggest.searches" = lock-false;
+        "browser.tabs.tabmanager.enabled" = lock-false;
+        "browser.urlbar.showSearchSuggestionsFirst" = lock-false;
+        "browser.newtabpage.activity-stream.feeds.section.topstories" = lock-false;
+        "browser.newtabpage.activity-stream.feeds.snippets" = lock-false;
+        "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock-false;
+        "browser.newtabpage.activity-stream.section.highlights.includeBookmarks" = lock-false;
+        "browser.newtabpage.activity-stream.section.highlights.includeDownloads" = lock-false;
+        "browser.newtabpage.activity-stream.section.highlights.includeVisited" = lock-false;
+        "browser.newtabpage.activity-stream.showSponsored" = lock-false;
+        "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = lock-true;
       };
-      profiles = {
-        default = {
-          inherit userChrome;
-        };
+    };
+    profiles = {
+      default = {
+        inherit userChrome;
       };
+    };
+  };
+
+  # General-purpose media player, fork of MPlayer and mplayer2
+  programs.mpv = {
+    enable = true;
+    package = config.lib.nixGL.wrap pkgs.mpv;
+    bindings = {
+      "MBTN_LEFT" = "cycle pause";
+
+      "WHEEL_RIGHT" = "seek 10";
+      "WHEEL_LEFT" = "seek -10";
+      "WHEEL_DOWN" = "add volume -2";
+      "WHEEL_UP" = "add volume 2";
+
+      "UP" = "add volume  2";
+      "DOWN" = "add volume -2";
+
+      "h" = "seek -10";
+      "j" = "add volume -2";
+      "k" = "add volume 2";
+      "l" = "seek 10";
     };
   };
 
