@@ -347,6 +347,14 @@ in {
       "WHEEL_DOWN" = "add volume -2";
       "WHEEL_UP" = "add volume 2";
 
+      "Ctrl+WHEEL_UP" = "add video-zoom 0.25";
+      "Ctrl+WHEEL_DOWN" = "add video-zoom -0.25";
+
+      "Alt+h" = "add video-pan-x -0.05";
+      "Alt+j" = "add video-pan-y -0.05";
+      "Alt+k" = "add video-pan-y 0.05";
+      "Alt+l" = "add video-pan-x 0.05";
+
       "UP" = "add volume  2";
       "DOWN" = "add volume -2";
 
@@ -354,6 +362,9 @@ in {
       "j" = "add volume -2";
       "k" = "add volume 2";
       "l" = "seek 10";
+    };
+    config = {
+      loop-playlist = "inf";
     };
   };
 
