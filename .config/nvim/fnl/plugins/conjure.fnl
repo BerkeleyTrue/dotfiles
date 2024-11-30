@@ -36,6 +36,9 @@
 (defn init []
   (g! :conjure#client#fennel#aniseed#aniseed_module_prefix "aniseed.")
   (g! :conjure#client#fennel#aniseed#use_metadata true)
+  (g! :conjure#filetypes 
+      ["clojure" "fennel" "janet" "hy" "julia" "racket"
+        "scheme" "lua" "lisp"])
   (augroup :PluginConjure
     {:event :BufNewFile
      :pattern :conjure-log-*
