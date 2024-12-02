@@ -69,6 +69,10 @@
     (ft :rust)
     (: :fmt :lsp))
 
+  (->
+    (ft :python)
+    (: :fmt {:cmd "black" :args [:- :--quiet] :stdin true}))
+
   (g! guard_config {:fmt_on_save false})
 
   (augroup
