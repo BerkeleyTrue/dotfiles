@@ -179,6 +179,7 @@ in {
           slint-lsp
           rust-analyzer # rust language server
           dockerfile-language-server-nodejs # docker language server
+          basedpyright # python language server
 
           alejandra # formatting nix
           shfmt # formatting shell scripts
