@@ -71,7 +71,8 @@
 
   (->
     (ft :python)
-    (: :fmt {:cmd "black" :args [:- :--quiet] :stdin true}))
+    (: :fmt :black)
+    (: :append :isort))
 
   (g! guard_config {:fmt_on_save false})
 
