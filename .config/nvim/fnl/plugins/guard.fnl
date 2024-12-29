@@ -4,7 +4,6 @@
     r r
     md utils.module
     utils utils
-    guard guard
     ft guard.filetype}
    require-macros [macros]})
 
