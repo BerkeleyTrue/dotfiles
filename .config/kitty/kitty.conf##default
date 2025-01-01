@@ -1,5 +1,5 @@
 include                 frappe.conf
-font_family             FiraCode Nerd Font
+font_family             FiraCode Nerd Font, FiraCode
 symbol_map              U+EE00-U+EE08 FiraCode
 bold_font               auto
 italic_font             auto

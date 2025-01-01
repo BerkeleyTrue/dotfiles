@@ -15,7 +15,7 @@ window {
   x-offset: 0px;
   y-offset: 0px;
 
-  font: "FiraCode Nerd Font 14";
+  font: "FiraCode Nerd Font 14, FiraCode Font 14";
   padding: 0px;
   border: 4px solid;
   border-radius: 8px;
