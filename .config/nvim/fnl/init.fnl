@@ -16,6 +16,7 @@
     yadm lib.yadm
     glow lib.glow
     marks lib.marks
+    scp lib.scp
 
     cb plugins.colorbuddy
 
@@ -42,6 +43,7 @@
   (yadm.main)
   (glow.main)
   (lisp-indent.main)
+  (scp.main)
   ; (marks.main)
 
   (when-let [(ok theme-fns) (pcall cb.main (. pl :palette))]
