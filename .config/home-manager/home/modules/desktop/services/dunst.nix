@@ -21,7 +21,7 @@
     global = {
       frame_width = 1;
       frame_color = c.rosewater;
-      font = "FiraCode Nerd Font 10";
+      font = "FiraCode Nerd Font Mono 10";
       format = "<b>%a</b>: <i>%s</i> %p\\n%b";
       markup = "full";
       sort = "no";

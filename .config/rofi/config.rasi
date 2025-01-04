@@ -29,7 +29,7 @@ configuration {
   border-color: @bordercolor;
   border-radius: 6;
   border: 3;
-  font: "FiraCode Nerd Font 18, FiraCode Font 18";
+  font: "FiraCode Nerd Font Mono 18";
   padding: 15;
   width: calc(80% min 1200);
 }
