@@ -98,7 +98,7 @@
       {:error :BerksStatusLineErrInverse
        :warn :BerksStatusLineInfoInverse}
       :symbols {:error " " :warn " "}
-      :separator {:left " " :right " "}}
+      :separator {:left "" :right " "}}
      {1 :filetype
       :separator ""}]
     :lualine_y [:progress]
