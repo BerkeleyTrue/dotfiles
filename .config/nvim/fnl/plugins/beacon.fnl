@@ -1,5 +1,12 @@
 (module plugins.beacon
-  {require {nvim aniseed.nvim}})
+  {require
+   {a aniseed.core
+    r r
+    md utils.module
+    utils utils
+    beacon beacon}
+   require-macros [macros]})
 
-(defn main []
-  (tset nvim.g :beacon_ignore_buffers ["\\w*fugitive*\\w"]))
+; beacon doesn't work with auto-session yet
+(defn main [])
+  ; (beacon.setup {}))
