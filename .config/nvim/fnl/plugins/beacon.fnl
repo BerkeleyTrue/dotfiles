@@ -8,5 +8,5 @@
    require-macros [macros]})
 
 ; beacon doesn't work with auto-session yet
-(defn main [])
-  ; (beacon.setup {}))
+(defn main []
+  (beacon.setup {}))
