@@ -3,7 +3,7 @@ TMUX="$TMUX"
 DEBUG=false
 LOG_FILE=$HOME/.local/share/tmux/ta.log
 
-SCRIPT_NAME=$(basename $0)
+SCRIPT_NAME=$(basename "$0")
 MAIN_DIR=$HOME/dvlpmnt
 CONF_DIR=$HOME/.config
 BIN_DIR=$HOME/.local/bin
@@ -21,12 +21,12 @@ CUR_SESSION=
 CWD="$(basename "$PWD" | tr . -)" # default to current directory
 
 if $DEBUG; then
-	mkdir -p $HOME/.local/share/tmux >/dev/null 2>&1
+	mkdir -p "$HOME/.local/share/tmux" >/dev/null 2>&1
 fi
 
 log() {
 	if $DEBUG; then
-		echo "$@" >>$LOG_FILE
+		echo "$@" >>"$LOG_FILE"
 	fi
 }
 
@@ -108,17 +108,17 @@ create_detached_session() {
 	local session_name=$1
 	local path_name=$2
 	TMUX=''
-	tmux new-session -Ad -s "$session_name" -c $path_name
+	tmux new-session -Ad -s "$session_name" -c "$path_name"
 }
 
 create_session_from_dir() {
 	local dir=$1
-	local query=$(test ${2-} && echo $2 || echo "")
-	local sessions=$(cd $dir && ls -d */ | sed "s|/||g")
+	local query=$(test "${2-}" && echo "$2" || echo "")
+	local sessions=$(cd "$dir" && ls -d */ | sed "s|/||g")
 
 	# check if sessions is longer than 1 and if so, prompt for selection
 	# else just use the first session
-	if [ $(echo "$sessions" | wc -l) -gt 1 ]; then
+	if [ "$(echo "$sessions" | wc -l)" -gt 1 ]; then
 		local _session_name=$(echo "$sessions" | fzf --reverse --header="Select dir from $(basename $dir):" --prompt="$(ensure_kill_prompt)" --query="$query")
 	else
 		local _session_name=$(echo "$sessions" | head -n 1)

@@ -10,3 +10,6 @@ confirm_os_window_close 0
 allow_remote_control    socket-only
 listen_on               unix:/tmp/kitty
 shell_integration       none
+cursor_trail            3
+cursor_trail_decay      0.1 0.4
+cursor_trail_start_threshold 4
