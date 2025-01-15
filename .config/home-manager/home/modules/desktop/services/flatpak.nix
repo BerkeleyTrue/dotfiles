@@ -42,5 +42,10 @@
       "io.github.zen_browser.zen" # firefox based
       "org.chromium.Chromium" # open chrome
     ];
+
+    update = {
+      # will run update weekly
+      auto.enable = true;
+    };
   };
 }
