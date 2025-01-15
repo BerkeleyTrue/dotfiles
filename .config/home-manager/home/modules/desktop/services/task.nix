@@ -30,20 +30,20 @@ in {
     };
   };
 
-  systemd.user.timers.task-sync = {
-    Unit = {
-      Description = "Run Taskwarrior sync periodically";
-    };
-
-    Timer = {
-      OnBootSec = 80;
-      OnCalendar = "*:0/10"; # run every 10 minutes
-    };
-
-    Install = {
-      WantedBy = ["timers.target"];
-    };
-  };
+  # systemd.user.timers.task-sync = {
+  #   Unit = {
+  #     Description = "Run Taskwarrior sync periodically";
+  #   };
+  #
+  #   Timer = {
+  #     OnBootSec = 80;
+  #     OnCalendar = "*:0/10"; # run every 10 minutes
+  #   };
+  #
+  #   Install = {
+  #     WantedBy = ["timers.target"];
+  #   };
+  # };
 
   systemd.user.services.task-alert-overdue = {
     Unit = {
