@@ -2,7 +2,7 @@
 
 set -e
 
-commandName=$(basename $0)
+commandName=$(basename "$0")
 flake_uri=$HOME/.config/home-manager
 hostname=$(uname -n)
 username=$(whoami)
@@ -10,16 +10,16 @@ profile=$username@$hostname
 home_uri=$flake_uri\#homeConfigurations."$profile"
 
 __path_info() {
-	echo "$(nix path-info $1)"
+	nix path-info "$1"
 }
 
 __get_home_manager() {
-	echo "$(__path_info $home_uri.activationPackage)/home-path/bin/home-manager"
+	echo "$(__path_info "$home_uri.activationPackage")/home-path/bin/home-manager"
 }
 
 # get path to a package
 path() {
-	echo "$(nix path-info $home_uri.pkgs.$1)"
+	nix path-info "$home_uri.pkgs.$1"
 }
 
 build() {
@@ -31,9 +31,9 @@ build() {
 		--show-trace \
 		--no-link \
 		--print-build-logs \
-		$home_uri.activationPackage &&
-		nix flake show $flake_uri &&
-		__path_info $home_uri.activationPackage
+		"$home_uri.activationPackage" &&
+		nix flake show "$flake_uri" &&
+		__path_info "$home_uri.activationPackage"
 }
 
 switch() {
@@ -41,11 +41,12 @@ switch() {
 }
 
 update() {
-	nix flake update --flake $flake_uri
+	nix flake update --flake "$flake_uri"
 }
 
 rollback() {
-	local sel=$("$(__get_home_manager)" generations |
+	local sel, res, generationId, path
+	sel=$("$(__get_home_manager)" generations |
 		fzf --prompt "Select a generation to rollback to: ")
 
 	if [[ -z $sel ]]; then
@@ -53,10 +54,10 @@ rollback() {
 		exit 1
 	fi
 
-	local res=$(echo $sel | awk '{print $5 "|" $NF}')
+	res=$(echo "$sel" | awk '{print $5 "|" $NF}')
 
-	local generationId=$(echo $res | cut -d '|' -f 1)
-	local path=$(echo $res | cut -d '|' -f 2)
+	generationId=$(echo "$res" | cut -d '|' -f 1)
+	path=$(echo "$res" | cut -d '|' -f 2)
 
 	echo "Rolling back to generation $generationId ($path)"
 	# ask for confirmation
@@ -69,7 +70,7 @@ rollback() {
 
 	# echo "Path: $path"
 
-	$path/activate
+	eval "$path/activate"
 }
 
 case $1 in
@@ -83,7 +84,7 @@ update)
 	update
 	;;
 path)
-	path $2
+	path "$2"
 	;;
 rollback)
 	rollback
