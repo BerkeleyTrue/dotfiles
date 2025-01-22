@@ -16,6 +16,7 @@
     ./sleep.nix
     ./status-notifier-watcher.nix
     ./task.nix
+    ./taiscale-systray.nix
     ./tmux.nix
     ./tray.nix
     ./unclutter.nix
