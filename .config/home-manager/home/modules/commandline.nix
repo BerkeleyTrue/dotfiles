@@ -60,7 +60,6 @@ in {
       htop # An interactive process viewer
       iputils # Network monitoring tools including ping
       instaloader # Download public and private instagram accounts
-      lazygit # simple terminal UI for git commands
       lazydocker # simple terminal ui for both docker and docker-compose
       lsof # lists open files
       ngrok # Introspected tunnels to localhost
@@ -305,12 +304,20 @@ in {
         ];
       };
     };
-  };
 
-  xdg.configFile."lf/icons".text = builtins.readFile ./lf-icons.conf;
-  xdg.configFile."ctpv/config".text = ''
-    set forcekitty
-    set forcekittyanim
-    set shell "/usr/bin/bash"
-  '';
+    lazygit = {
+      enable = true;
+      settings = {
+        customCommands = [
+          {
+            key = "w";
+            context = "files";
+            command = "git commit --no-verify";
+            description = "Commit without verifying";
+            subprocess = true;
+          }
+        ];
+      };
+    };
+  };
 }
