@@ -16,6 +16,13 @@
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}
    {:name :rmagatti/auto-session :description "auto-session saving for vim" :config (make-on-load auto-session)}
+   {:name :HakonHarnes/img-clip.nvim :description "Effortlessly embed images into any markup language, like LaTeX, Markdown or Typst."
+    :event :VeryLazy
+    :opts 
+    {:default 
+     {:embed_image_as_base64 false
+      :prompt_for_file_name false
+      :drag_and_drop {:insert_mode true}}}}
 
    ; search
    {:name :nvim-telescope/telescope.nvim :description "Highly extendable fuzzy finder" :dependencies [[:nvim-lua/plenary.nvim]] :config (make-on-load telescope) :lazy false}
@@ -23,8 +30,7 @@
    {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :dependencies [[:nvim-telescope/telescope.nvim]]}
 
    ; lsp/completion
-   {:name :hrsh7th/nvim-cmp
-    :description "completion popup engine"
+   {:name :hrsh7th/nvim-cmp :description "completion popup engine"
     :init (make-init completion)
     :config (make-on-load completion)
     :dependencies [[:onsails/lspkind-nvim]
@@ -46,11 +52,26 @@
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
    {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
    {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
-   {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
    {:name :rcarriga/nvim-notify :description "used by noice, need to set config" :config (make-on-load notify)}
    {:name :SmiteshP/nvim-navic :description "A simple statusline/winbar component that uses LSP to show your current code context." :dependencies [[:neovim/nvim-lspconfig]] :config (make-on-load navic)}
 
-   ; git
+   ; ai
+   {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
+   {:name :yetone/avante.nvim :description "emulate cursor ai"
+    :event :VeryLazy
+    :lazy false
+    :version false
+    :opts {}
+    :build :make
+    :dependencies [[:stevearc/dressing.nvim]
+                   [:nvim-lua/plenary.nvim]
+                   [:MunifTanjim/nui.nvim]
+                   [:HakonHarnes/img-clip.nvim]
+                   [:nvim-telescope/telescope.nvim] ; for file_selector provider telescope
+                   [:hrsh7th/nvim-cmp] ; autocompletion for avante commands and mentions
+                   [:nvim-tree/nvim-web-devicons]]} ; or echasnovski/mini.icons
+
+      ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
    {:name :lewis6991/gitsigns.nvim :description "git signs (supports yadm)" :config (make-on-load gitsigns)}
    {:name :sindrets/diffview.nvim :description "git diff view" :dependencies [[:nvim-lua/plenary.nvim]]}
