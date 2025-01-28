@@ -1,0 +1,3 @@
+#!/usr/bin/env bb
+
+(println (str (java.util.UUID/randomUUID)))
