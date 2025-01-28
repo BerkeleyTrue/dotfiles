@@ -61,7 +61,7 @@
     :event :VeryLazy
     :lazy false
     :version false
-    :opts {}
+    :config (make-on-load avante)
     :build :make
     :dependencies [[:stevearc/dressing.nvim]
                    [:nvim-lua/plenary.nvim]
