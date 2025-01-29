@@ -1,26 +1,9 @@
 #!/bin/bash
-TASK_BACKLOG=~/.config/task/backlog.data
-TASK_SHARE=~/.local/share/task
-SYNC_LOG=$TASK_SHARE/on-exit-sync-hook.log
-TMUX_SESSION=task-sync
-DELAY=10
 
-# Only sync, if the backlog is not empty
-if (($(cat $TASK_BACKLOG | wc -l) > 1)); then
+COMMAND=$3
 
-  # check if session is currently running
-  if tmux has-session -t $TMUX_SESSION 2>/dev/null; then
-    echo "Stopping previous sync"
-  fi
-
-  # first kill previous tmux sync session
-  tmux kill-session -t $TMUX_SESSION 2>/dev/null
-
-  # create tmux session, and start sync
-  tmux new-session -d -s $TMUX_SESSION "sleep $DELAY && date \"+\%F \%T\" >> $SYNC_LOG && task sync >> $SYNC_LOG 2>&1\
-    || echo 'Sync failed' >> $SYNC_LOG"
-
-  echo "Sync in $DELAY seconds"
+if [ "$COMMAND" == "command:synchronize" ]; then
+	exit 0
 fi
 
-exit 0
+~/.local/bin/task-sync

@@ -1,25 +1,4 @@
-{pkgs, ...}: let
-  sync = pkgs.writeShellScriptBin "sync-tasks" ''
-    TMUX_SESSION=__task-sync__
-    DELAY=10
-    TASK_SHARE=~/.local/share/task
-    SYNC_LOG=$TASK_SHARE/systemd-update.log
-
-    if tmux has-session -t $TMUX_SESSION 2>/dev/null; then
-      echo "Stopping previous sync"
-    fi
-
-    # first kill previous tmux sync session
-    tmux kill-session -t $TMUX_SESSION 2>/dev/null
-
-    # create tmux session, and start sync
-    tmux new-session -d -s $TMUX_SESSION "sleep $DELAY && date \"+%F %T\" >> $SYNC_LOG && task sync >> $SYNC_LOG 2>&1 || echo 'Sync failed'" >> $SYNC_LOG
-    cat $SYNC_LOG
-    # clear sync log
-    echo "" > $SYNC_LOG
-    exit
-  '';
-in {
+{pkgs, ...}: {
   systemd.user.services.task-sync = {
     Unit = {
       Description = "Run Taskwarrior Sync";
@@ -27,7 +6,7 @@ in {
 
     Service = {
       Type = "simple";
-      ExecStart = "${sync}/bin/sync-tasks";
+      ExecStart = "%h/.local/bin/task-sync";
     };
   };
 
