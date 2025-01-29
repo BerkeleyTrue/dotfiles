@@ -195,7 +195,7 @@ attach_to_first_session() {
 		local sessions=$(list_sessions)
 		local prompt="Select session"
 		if ! not_in_tmux; then
-			sessions=$(echo "$sessions" | grep -v "$CUR_SESSION")
+			sessions=$(echo "$sessions" | grep -v "^$CUR_SESSION$")
 		fi
 		# if only one session left, just use that
 		# else prompt for selection
