@@ -46,6 +46,7 @@ in {
       antigen # zsh plugin manager
       babashka # A Clojure babushka for the grey areas of bash
       bind # dns client
+      bitwarden-cli # a secure and free password manager for all of your devices
       bluetuith # bluetooth manager tui
       bottom # A cross-platform graphical process/system monitor with a customizable interface and a multitude of features
       curl # transfer data from or to a server
