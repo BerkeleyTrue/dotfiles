@@ -31,8 +31,8 @@ log() {
 }
 
 list_sessions() {
-	tmux list-sessions -F "#{session_name}" |\
-	  grep -v "^__" || echo -n ""
+	tmux list-sessions -F "#{session_name}" |
+		grep -v "^__" || echo -n ""
 }
 
 parser_definition() {
@@ -197,9 +197,9 @@ attach_to_first_session() {
 		if ! not_in_tmux; then
 			sessions=$(echo "$sessions" | grep -v "^$CUR_SESSION$")
 		fi
-		# if only one session left, just use that
+		# if only one session left, just use that, unless we are going to kill cur session
 		# else prompt for selection
-		if [ $(echo "$sessions" | wc -l) -eq 1 ]; then
+		if [ $(echo "$sessions" | wc -l) -eq 1 ] && [ ! $KILL ]; then
 			session_name=$(echo "$sessions" | head -n 1)
 		else
 			session_name=$(echo "$sessions" | fzf --reverse --header="$prompt$(not_in_tmux && echo "(not in tmux):" || echo "(in $CUR_SESSION):")" --prompt="$(ensure_kill_prompt)")
