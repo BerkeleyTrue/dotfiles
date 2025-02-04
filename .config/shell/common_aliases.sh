@@ -37,7 +37,7 @@ alias suvim='sudo -E nvim'
 # open vim without autosession
 v-() {
  # pass all args to nvim
- echo "" | nvim $@
+ echo "" | nvim "$@"
 }
 ## Will make parent directories if they don't exist
 ## Also verbose
