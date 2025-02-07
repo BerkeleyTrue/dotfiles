@@ -12,6 +12,7 @@ tcon() {
 		return 0
 	fi
 	eval "task context $*"
+	task
 }
 # tmod 14 proj:foo
 tmod() {
