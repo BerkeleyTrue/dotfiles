@@ -8,7 +8,8 @@ tadd() {
 
 tcon() {
 	if [[ $# -eq 0 ]]; then
-		task context show
+		task context none
+		task
 		return 0
 	fi
 	eval "task context $*"
