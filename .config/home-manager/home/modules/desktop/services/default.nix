@@ -18,7 +18,7 @@
     ./task.nix
     ./taiscale-systray.nix
     ./tmux.nix
-    ./tray.nix
+    # ./tray.nix
     ./unclutter.nix
     ./xcape.nix
     ./xdg.nix
