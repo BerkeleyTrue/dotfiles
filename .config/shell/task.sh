@@ -47,3 +47,7 @@ tedit() {
 	eval "task $1 edit"
 	task
 }
+
+tsync() {
+  task sync
+}
