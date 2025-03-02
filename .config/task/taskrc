@@ -15,6 +15,7 @@ data.location=/home/berkeleytrue/.config/task
 verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,unwait,recur
 # Color theme (uncomment one to use)
 
+include $HOME/.config/task/taskclientrc
 include $HOME/.config/task/taskserverrc
 include $HOME/.config/task/colors.theme
 
