@@ -11,4 +11,6 @@
 (defn main []
   (avante.setup 
     {:claude 
-     {:api_key_name (.. "cmd:cat " (os.getenv "HOME") "/.anthropic_api_key")}}))
+     {:api_key_name (.. "cmd:cat " (os.getenv "HOME") "/.anthropic_api_key")}
+     :windows
+     {:position "left"}}))
