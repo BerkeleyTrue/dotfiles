@@ -1,0 +1,17 @@
+#!/bin/env bash
+
+# Script to show tasks completed in the last n hours
+# Usage: ./recent_completed.sh [hours]
+
+# Default to 18 hours if no argument provided
+HOURS=${1:-18}
+
+# Calculate the date n hours ago in the format Taskwarrior expects
+CUTOFF_DATE=$(date -d "$HOURS hours ago" +%Y-%m-%dT%H:%M:%S)
+
+# Run the command to show completed tasks since the cutoff date
+task status:completed end.after:"$CUTOFF_DATE" all \
+  rc.report.all.columns=id,end,project,description \
+  rc.report.all.labels=ID,Completed,Project,Description \
+  rc.report.all.sort=end- \
+  rc.dateformat=Y-M-D_H:N:S
