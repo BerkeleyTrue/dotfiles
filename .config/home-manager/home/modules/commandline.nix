@@ -137,7 +137,7 @@ in {
 
   # required for copilot.lua to work.
   xdg.configFile."nvim/lua/copilot-nodejs.lua".source = pkgs.writeText "copilot-nodejs" ''
-    vim.g.copilot_node_command = "${pkgs.nodejs-18_x}/bin/node"
+    vim.g.copilot_node_command = "${pkgs.nodejs_20}/bin/node"
   '';
 
   programs = {
