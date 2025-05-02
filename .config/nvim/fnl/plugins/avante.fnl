@@ -10,7 +10,8 @@
 
 (defn main []
   (avante.setup 
-    {:claude 
+    {:memory_summary_provider "claude"
+     :claude 
      {:api_key_name (.. "cmd:cat " (os.getenv "HOME") "/.anthropic_api_key")
       :model :claude-3-7-sonnet-20250219}
      :windows
