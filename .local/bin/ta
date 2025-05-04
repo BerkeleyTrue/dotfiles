@@ -129,16 +129,16 @@ create_session_from_dir() {
 }
 
 create_if_needed_and_attach() {
-	local session_name=$1
+	local session_name=${1//./_}
 	local path_name=$2
 
 	log "create-if-needed; session: $session_name path: $path_name"
 	if not_in_tmux; then
-		tmux new-session -A -s "$session_name" -c $path_name
+		tmux new-session -A -s "$session_name" -c "$path_name"
 	else
 		# already in tmux, let's switch
-		if ! does_session_exists $session_name; then
-			create_detached_session $session_name $path_name
+		if ! does_session_exists "$session_name"; then
+			create_detached_session "$session_name" "$path_name"
 		fi
 		log "switch to $session_name"
 		tmux switch-client -t "$session_name"
@@ -154,7 +154,7 @@ attach_to_dir_session() {
 		echo "No directory selected"
 		exit 1
 	fi
-	local path_name=$(path_resolve $dir/$session_name)
+	local path_name="$(path_resolve "$dir/$session_name")"
 	log "attach-to-directory; session: $session_name path: $path_name"
 	create_if_needed_and_attach $session_name $path_name
 }
