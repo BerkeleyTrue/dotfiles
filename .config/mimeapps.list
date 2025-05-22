@@ -4,7 +4,7 @@ image/png=viewnior.desktop;
 image/webp=viewnior.desktop;
 inode/directory=pcmanfm.desktop;
 model/stl=io.github.f3d_app.f3d.desktop;
-video/mp4=mpv.desktop;
+video/mp4=vlc.desktop;
 
 [Default Applications]
 application/epub+zip=org.pwmt.zathura-cb.desktop;
@@ -17,7 +17,7 @@ inode/directory=pcmanfm.desktop;
 model/sla=io.github.f3d_app.f3d.desktop;
 model/stl=io.github.f3d_app.f3d.desktop;
 text/html=org.mozilla.firefox.desktop;
-video/mp4=mpv.desktop;
+video/mp4=vlc.desktop;
 x-scheme-handler/http=org.mozilla.firefox.desktop;
 x-scheme-handler/https=org.mozilla.firefox.desktop;
 x-scheme-handler/keybase=keybase.desktop;
