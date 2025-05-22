@@ -50,6 +50,7 @@ in {
       bluetuith # bluetooth manager tui
       bottom # A cross-platform graphical process/system monitor with a customizable interface and a multitude of features
       curl # transfer data from or to a server
+      delta # A syntax-highlighter for git and diff output
       dogdns # A command-line DNS cliento
       du-dust # A more intuitive version of du in rust
       eza # A modern replacement for ls
@@ -59,8 +60,8 @@ in {
       glow # Render markdown on the CLI, with pizzazz!
       handlr # Alternative to xdg-open to manage default applications with ease
       htop # An interactive process viewer
-      iputils # Network monitoring tools including ping
       instaloader # Download public and private instagram accounts
+      iputils # Network monitoring tools including ping
       lazydocker # simple terminal ui for both docker and docker-compose
       lsof # lists open files
       ngrok # Introspected tunnels to localhost
@@ -68,7 +69,9 @@ in {
       playerctl # pause/play music players ci
       podman # A program for managing pods, containers and container images
       podman-tui # Podman Terminal UI
+      presenterm # A terminal presentation tool
       procs # A modern replacement for ps written in Rust
+      ripgrep-all # ripgrep but also search in Pdfs, zip, and more
       ripgrep # recursively searches directories for a regex pattern
       rsync # Fast incremental file transfer utility
       rustscan # The Modern Port Scanner
@@ -85,11 +88,14 @@ in {
       vimv # batch rename files w/ vim
       wakatime # Command line interface for Wakatime
       wget # The non-interactive network downloader # required by jdownloader
+      wiki-tui # A terminal based wikipedia viewer
       wordnet # Lexical database for the English language
       xdotool # Command-line X11 automation tool
       xdragon # simple drag and drop source/sink for x11
+      xh # Friendly and fast tool for sending HTTP requests,  curl/wget
       yadm # Yet Another Dotfiles Manager
       yt-dlp # A youtube-dl fork with additional features and fixes
+      zellij # A terminal workspace and multiplexer
       zoxide # A fast alternative to cd that learns your habits
       zsh # A shell designed for interactive use, although it is also a powerful scripting language
     ])
