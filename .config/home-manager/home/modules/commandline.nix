@@ -322,7 +322,7 @@ in {
             context = "files";
             command = "git commit --no-verify";
             description = "Commit without verifying";
-            subprocess = true;
+            output = "terminal";
           }
         ];
       };
