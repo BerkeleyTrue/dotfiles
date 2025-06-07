@@ -23,14 +23,12 @@
       "com.github.geigi.cozy" # listen to audiobooks
 
       # image manipulation tools
-      "org.gimp.GIMP" # raster image tool
-      "org.inkscape.Inkscape" # vector image tools
       "com.github.libresprite.LibreSprite" # pixel art tool
       # "org.kde.krita" # image tool saving crashes?
       "com.uploadedlobster.peek" # record desktop gifs
 
       # 3d modeling
-      "org.freecadweb.FreeCAD" # cad
+      # "org.freecadweb.FreeCAD" # cad
       "com.ultimaker.cura" # 3d print slicer
       "io.github.f3d_app.f3d" # stl viewer
 

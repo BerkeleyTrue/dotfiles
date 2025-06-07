@@ -54,7 +54,11 @@ in {
   home.packages =
     (with pkgs; [
       cutecom # serial terminal
+      freecad # 3D CAD modeler
       gparted # graphical partition manager
+      gimp3 # GNU Image Manipulation Program
+      inkscape # vector graphics editor
+      krita # digital painting software
       keybase # encrypted chat
       keybase-gui # encrypted chat
       libation # an audible player/drm remover
