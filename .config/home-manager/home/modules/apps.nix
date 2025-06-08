@@ -58,7 +58,7 @@ in {
       gparted # graphical partition manager
       gimp3 # GNU Image Manipulation Program
       inkscape # vector graphics editor
-      krita # digital painting software
+      # krita # digital painting software # doesn't run
       keybase # encrypted chat
       keybase-gui # encrypted chat
       libation # an audible player/drm remover
