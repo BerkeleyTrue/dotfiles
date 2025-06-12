@@ -226,9 +226,9 @@ ensure_kill_session() {
 
 ensure_kill_prompt() {
 	if [ $KILL ] && [ ! -z "$CUR_SESSION" ]; then
-		echo "(killing $CUR_SESSION)>"
+		echo "(killing $CUR_SESSION)> "
 	else
-		echo ">"
+		echo "> "
 	fi
 }
 
