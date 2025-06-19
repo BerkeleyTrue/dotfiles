@@ -1,0 +1,13 @@
+#!/bin/env bash
+
+EXIT_CODE_BAD_DEVICE=82
+
+PEN='Wacom Intuos S Pen stylus'
+TABLET='Wacom Intuos S Pad pad'
+SCREEN="DP-3"
+
+mapwacom -d "$PEN" -s "$SCREEN" || exit $EXIT_CODE_BAD_DEVICE
+xsetwacom set "$TABLET" Button 1 "key shift"
+xsetwacom set "$TABLET" Button 2 "key ctrl"
+xsetwacom set "$TABLET" Button 3 "key ctrl z"
+xsetwacom set "$TABLET" Button 8 "key backspace"
