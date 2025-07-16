@@ -193,8 +193,10 @@ in {
 
           alejandra # formatting nix
           shfmt # formatting shell scripts
+
           golines # formatting long lines in go
           templ # formatting go templ files
+          gopls # Go language server
         ]
         ++ (with nodePackages; [
           yaml-language-server # A language server for YAML
