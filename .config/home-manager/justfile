@@ -1,0 +1,49 @@
+hostname := `uname -n`
+username := `whoami`
+profile := `echo "$(whoami)@$(uname -n)"`
+
+# List all the just commands
+default:
+  @just --list
+
+[group('desktop')]
+build: 
+  nix build .\#homeConfigurations."{{profile}}".activationPackage
+
+[group('desktop')]
+build-debug: 
+  nix build .#homeConfigurations.{{profile}}.activationPackage --show-trace --verbose
+
+[group('desktop')]
+switch:
+  ./result/home-path/bin/home-manager switch
+
+[group('desktop')]
+switch-debug: 
+  ./result/sw/bin/darwin-rebuild switch --show-trace --verbose
+
+# Update all the flake inputs
+[group('nix')]
+up:
+  nix flake update
+
+# Update specific input
+# Usage: just upp nixpkgs
+[group('nix')]
+upd input:
+  nix flake update {{input}}
+
+# List all generations of the system profile
+[group('nix')]
+history:
+  nix profile history --profile /nix/var/nix/profiles/system
+
+# Open a nix shell with the flake
+[group('nix')]
+repl:
+  nix repl -f flake:nixpkgs
+
+[group('nix')]
+fmt:
+  # format the nix files in this repo
+  nix fmt

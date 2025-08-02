@@ -63,6 +63,7 @@ in {
       htop # An interactive process viewer
       instaloader # Download public and private instagram accounts
       iputils # Network monitoring tools including ping
+      just # A command runner with a makefile-like syntax
       lazydocker # simple terminal ui for both docker and docker-compose
       lsof # lists open files
       ngrok # Introspected tunnels to localhost
@@ -193,6 +194,7 @@ in {
 
           alejandra # formatting nix
           shfmt # formatting shell scripts
+          rustfmt # formatting rust
 
           golines # formatting long lines in go
           templ # formatting go templ files
