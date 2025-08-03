@@ -45,9 +45,8 @@
    {:name :hrsh7th/cmp-cmdline :description "Adds command line completion."}
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
    {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
-   {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)}
+   {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)} 
    {:name :nvimdev/guard.nvim :description "Async formatting and linting utility for neovim." :config (make-on-load guard) :dependencies [[:nvimdev/guard-collection] [:folke/noice.nvim]]}
-   {:name :jose-elias-alvarez/nvim-lsp-ts-utils :description "add a bunch of TS utils"}
    {:name :b0o/schemastore.nvim :description "adds schemastore to jsonls through lspconfig" :dependencies [[:neovim/nvim-lspconfig]] :lazy false}
    {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
    {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
