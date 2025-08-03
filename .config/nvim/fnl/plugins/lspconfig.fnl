@@ -32,7 +32,8 @@
 (defn tailwind-config []
   {:settings
    {:tailwindCSS
-    {:includeLanguages {:rust :html}}}
+    {:emmetCompletions true
+     :includeLanguages {:rust :html}}}
    :filetypes (r.conj (. vim.lsp.config :tailwindcss :filetypes) :rust)})
 
 (defn jsonls-configs []
