@@ -21,8 +21,10 @@
     (when (client:supports_method :textDocument/documentSymbol)
       (navic.attach client (. args :buf)))
 
-    (nnoremap :gld "<CMD>Telescope lsp_definitions<CR>" {:buffer buffnr :silent true})
-    (nnoremap :glr "<CMD>Telescope lsp_references<CR>" {:buffer buffnr :silent true})
+    ; remove dfeault reference keymap
+    (vim.keymap.del :n :grr)
+    (nnoremap :grd "<CMD>Telescope lsp_definitions<CR>" {:buffer buffnr :silent true})
+    (nnoremap :grr "<CMD>Telescope lsp_references<CR>" {:buffer buffnr :silent true})
     (nnoremap :K open-hover-float {:buffer buffnr :silent true})
 
     ; always go through guard.nvim for formatting
