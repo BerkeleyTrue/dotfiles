@@ -29,7 +29,15 @@
 (defn main []
   (->
     (ft prettier-fts)
-    (: :fmt :prettier)) ; requires prettier for formatting
+    (: :fmt {:cmd "prettier" 
+             :args [:--config-precedence :prefer-file
+                    :--single-quote :double
+                    :--trailing-comma :es5
+                    :--print-width :80
+                    :--tab-width :2
+                    :--stdin-filepath] 
+             :stdin true
+             :fname true})) ; requires prettier for formatting
 
   (->
     (ft :nix)
