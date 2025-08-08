@@ -29,31 +29,45 @@
         inputs.home-manager-parts.flakeModule
         ./home
       ];
-      perSystem = {
-        system,
-        ...
-      }:
-        let
-          pkgs = import inputs.nixpkgs {
-            inherit system;
+      perSystem = {system, ...}: let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
 
-            overlays = [
-              inputs.nixgl.overlay
-              inputs.parinfer-rust.overlays.default
-              (import ./overlays/rofi-network-manager)
-              (import ./overlays/crush)
+          overlays = [
+            inputs.nixgl.overlay
+            inputs.parinfer-rust.overlays.default
+            (import ./overlays/rofi-network-manager)
+            (import ./overlays/crush)
+          ];
+
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "nix-2.16.2"
             ];
-
-            config = {
-              allowUnfree = true;
-              permittedInsecurePackages = [
-                "nix-2.16.2"
-              ];
-            };
           };
-        in {
-          formatter = pkgs.alejandra;
-          _module.args.pkgs = pkgs;
         };
+      in {
+        formatter = pkgs.alejandra;
+        _module.args.pkgs = pkgs;
+        devShells.default = pkgs.mkShell {
+          name = "home-manager";
+          buildInputs = with pkgs; [
+            just
+          ];
+          shellHook = ''
+            function menu () {
+              echo
+              echo -e "\033[1;34m>==> ️  '$name'\n\033[0m"
+              ${pkgs.just}/bin/just --list
+              echo
+              echo "(Run 'just --list' to display this menu again)"
+              echo
+            }
+
+            menu
+          '';
+        };
+      };
     };
 }
