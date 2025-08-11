@@ -17,6 +17,7 @@
      "scss"
      "less"
      "html"
+     "jinja"
      "json"
      "jsonc"
      "yaml"
@@ -31,7 +32,7 @@
     (ft prettier-fts)
     (: :fmt {:cmd "prettier" 
              :args [:--config-precedence :prefer-file
-                    :--single-quote :double
+                    :--single-quote :true
                     :--trailing-comma :es5
                     :--print-width :80
                     :--tab-width :2
