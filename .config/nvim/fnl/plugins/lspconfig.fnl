@@ -35,8 +35,11 @@
   {:settings
    {:tailwindCSS
     {:emmetCompletions true
-     :includeLanguages {:rust :html}}}
-   :filetypes (r.conj (. vim.lsp.config :tailwindcss :filetypes) :rust)})
+     :includeLanguages {:rust :html
+                        :jinja :html}}}
+   :filetypes (-> (. vim.lsp.config :tailwindcss :filetypes) 
+                  (r.conj :rust)
+                  (r.conj :jinja))})
 
 (defn jsonls-configs []
   (let [schemas ((. schemastore :json :schemas))]
