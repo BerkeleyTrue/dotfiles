@@ -25,7 +25,7 @@ final: prev: {
       description = "The glamourous AI coding agent for your favourite terminal";
       homepage = "https://github.com/charmbracelet/crush";
       license = prev.lib.licenses.mit;
-      maintainers = with prev.lib.maintainers; [ zimbatm ];
+      maintainers = with prev.lib.maintainers; [zimbatm];
       mainProgram = "crush";
     };
   };

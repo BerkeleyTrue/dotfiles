@@ -6,7 +6,7 @@
 
     Service = {
       Type = "dbus";
-      BusName= "org.freedesktop.impl.portal.desktop.kde";
+      BusName = "org.freedesktop.impl.portal.desktop.kde";
       ExecStart = "/usr/lib/xdg-desktop-portal-kde";
     };
   };
