@@ -9,6 +9,8 @@
     cmp cmp
     lspkind lspkind
     luasnip luasnip
+    apcmp nvim-autopairs.completion.cmp
+    dic cmp_dictionary
     corpus lib.corpus.cmp}
    require {}
    require-macros [macros]})
@@ -140,12 +142,18 @@
   ; Adds completion popup to command line!!!!
   (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
 
-  (when-let [apcmp (md.prequire :nvim-autopairs.completion.cmp)]
-    (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}})))
+  ; On confirm, setup auto pairs
+  (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}}))
 
-  (when-let [dic (md.prequire :cmp_dictionary)]
-    (dic.setup
-      {:document {:enable true
-                  :command ["wn" "${label}" "-over"]}
-        :max_number_items 100
-        :paths [(vim.fn.expand "~/.local/share/aspell/english")]})))
+  (dic.setup
+    {:document {:enable true
+                :command ["wn" "${label}" "-over"]}
+      :max_number_items 100
+      :paths [(vim.fn.expand "~/.local/share/aspell/english")]})
+
+  ; https://github.com/andymass/vim-matchup/pull/382
+  ; https://github.com/hrsh7th/nvim-cmp/issues/1269))
+  ; https://github.com/hrsh7th/nvim-cmp/issues/1940)
+  ; thanks to @perrin4869
+  (cmp.event:on :menu_opened (fn [] (b! matchup_matchparen_enabled false)))
+  (cmp.event:on :menu_closed (fn [] (b! matchup_matchparen_enabled true))))
