@@ -98,6 +98,7 @@ in {
       xh # Friendly and fast tool for sending HTTP requests,  curl/wget
       yadm # Yet Another Dotfiles Manager
       yt-dlp # A youtube-dl fork with additional features and fixes
+      yubikey-manager # A command line tool to manage YubiKeys
       zellij # A terminal workspace and multiplexer
       zoxide # A fast alternative to cd that learns your habits
       zsh # A shell designed for interactive use, although it is also a powerful scripting language
