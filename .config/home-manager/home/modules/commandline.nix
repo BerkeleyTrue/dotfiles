@@ -338,6 +338,9 @@ in {
             output = "terminal";
           }
         ];
+        gui.theme = {
+          selectedLineBgColor = ["default"];
+        };
       };
     };
   };
