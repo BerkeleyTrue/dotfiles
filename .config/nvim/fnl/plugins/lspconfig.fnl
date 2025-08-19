@@ -35,10 +35,8 @@
   {:settings
    {:tailwindCSS
     {:emmetCompletions true
-     :includeLanguages {:rust :html
-                        :jinja :html}}}
+     :includeLanguages {:jinja :html}}}
    :filetypes (-> (. vim.lsp.config :tailwindcss :filetypes) 
-                  (r.conj :rust)
                   (r.conj :jinja))})
 
 (defn jsonls-configs []
