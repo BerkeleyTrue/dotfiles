@@ -13,6 +13,7 @@
       pkgs.fd
     ];
     text = ''
+      # shellcheck disable=SC2016
       # This script is used to find all the top level git folders in a directory
       _get_git_folders() {
         local dir="$1"
@@ -26,7 +27,13 @@
 
         while read -r git_folder; do
           echo "$git_folder"
-        done < <(fd ".git$" "$dir" -t d --hidden | xargs dirname | xargs realpath | sort)
+        done < <(fd ".git$" "$dir" --type dir --hidden | xargs dirname | xargs realpath | sort)
+
+        while read -r wt_folder; do
+          echo "$wt_folder"
+        done < <(fd ".bare$" "$dir" --type dir --hidden |\
+                  xargs -I {} sh -c 'find "$(dirname {})" -maxdepth 1 -type d ! -name ".*" ! -path "$(dirname {})"' |\
+                  xargs realpath | sort)
       }
 
       _get_git_folders "$@"
