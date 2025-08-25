@@ -3,7 +3,6 @@
    {a aniseed.core
     navic nvim-navic
     schemastore schemastore
-    cmp cmp
     r r}
    require {}
    import-macros []
@@ -46,9 +45,9 @@
       {: schemas}}}))
 
 (defn open-float []
-  "Check if cmp pum is visible, if not, show vim lsp diagnostics float"
-  (when (not (and cmp (cmp.visible)))
-    (vim.diagnostic.open_float)))
+  "Check if cmp pum is visible, if not, show vim lsp diagnostics float")
+  ; (when (not (and cmp (cmp.visible)))
+  ;   (vim.diagnostic.open_float)))
 
 (defn go-to-next []
   "get next error, if no errors, get next warning, if no warnings, get next info"

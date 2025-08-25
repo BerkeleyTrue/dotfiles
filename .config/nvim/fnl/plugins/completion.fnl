@@ -6,67 +6,33 @@
     utils utils
     keys utils.keys
     hl utils.highlights
-    cmp cmp
+    cmp blink.cmp
+    devicons nvim-web-devicons
     lspkind lspkind
-    luasnip luasnip
-    apcmp nvim-autopairs.completion.cmp
-    dic cmp_dictionary
-    corpus lib.corpus.cmp}
+    luasnip luasnip}
    require {}
    require-macros [macros]})
 
-(defn- create-formatter []
-  (lspkind.cmp_format
-    {:mode :text_symbol
-     :menu
-     {:nvim_lsp "[LSP]"
-      :conjure "[conj]"
-      :luasnip "[snip]"
-      :buffer "[buf]"
-      :nvim_lua "[lua]"
-      :path "[path]"
-      :emoji "[😏]"
-      :cmdline "[cmd]"
-      :buffer "[buff]"
-      :tmux "[tmux]"
-      :dictionary "[dic]"
-      :treesitter "[tree]"
-      :corpus "[corp]"}}))
-
-(defn get-sources []
-  [{:name :luasnip}
-   {:name :nvim_lsp}
-   {:name :conjure :max_item_count 100}
-   {:name :path}
-   {:name :tmux}
-   {:name :treesitter}
-   {:name :nvim_lua}
-   {:name :dictionary :max_item_count 200}
-   {:name :buffer :keyword_length 5}
-   {:name :emoji :insert true :max_item_count 50}
-   {:name :corpus}])
+; TODO: create corpus source
 
 (defn open-on-insert []
   "Manually open the completion pom when we are in empty space.
   This allows us to open the pom with a virtual keyword length of zero.
   We do this at the end of the line or after some whitespace.
   We still allow cmp to autocomplete for us in most cases."
-  (when-not (or
-              (cmp.visible) ; already open
-              (= (n buf_get_option 0 :buftype) :prompt)) ; don't open in a prompt (telescope)
+  (when-not (= (n buf_get_option 0 :buftype) :prompt) ; don't open in a prompt (telescope)
       (let [line (n get-current-line)
             [_ col] (n win-get-cursor 0)
-            current (string.sub line col (+ col 1))]
-        (let [before-cursor (string.sub line 1 (+ col 1)) ; get the content before the cursor
-              after-cursor (string.sub line (+ col 1) -1)] ; get the content after the cursor
-          (when-not (string.match before-cursor "^%s+$") ; make sure we are not on an empty line (might get remove this? condition)
-            (when (or (= after-cursor "") ; If we are at the end of the line
-                      (string.match before-cursor "%s+$")) ; or if we are about to start a new word
-              (cmp.complete)))))))
+            current (string.sub line col (+ col 1))
+            before-cursor (string.sub line 1 (+ col 1)) ; get the content before the cursor
+            after-cursor (string.sub line (+ col 1) -1)] ; get the content after the cursor
+        (when-not (string.match before-cursor "^%s+$") ; make sure we are not on an empty line
+          (when (or (= after-cursor "") ; If we are at the end of the line
+                    (string.match before-cursor "%s+$")) ; or if we are about to start a new word
+            (cmp.show))))))
 
 (defn init []
   ; Manually trigger completion in insert mode
-  (inoremap :<C-s> #(cmp.complete) {:silent true})
   (let [debounced (r.debounce 400 open-on-insert)]
     ; not sure what I was thinking here??
     (augroup
@@ -78,82 +44,84 @@
        ; we throttle and defer the callback
        :callback debounced.f}))
 
-  (hl.link! :CmpItemAbbr :Comment)
-  (hl.link! :CmpItemAbbrDeprecated :Error)
-  (hl.link! :CmpItemAbbrMatchFuzz :BerksSubtle)
-  (hl.link! :CmpItemKind :Special)
-  (hl.link! :CmpItemMenu :NonText))
+  (hl.link! :BlinkCmpDeprecated :Error)
+  (hl.link! :BlinkCmpKind :Special)
+  (hl.link! :BlinkCmpMenu :NonText)
+  (hl.link! :BlinkCmpSource :Special))
+
+(defn devicon-kind-text [ctx]
+  (let [icon ctx.kind_icon
+        label ctx.label
+        kind ctx.kind
+        gap ctx.icon_gap
+        source-name ctx.source_name
+        sym-name (if (vim.tbl_contains [:spell :cmdline :markdown :Dict] source-name) 
+                   source-name 
+                   kind)
+        icon (if 
+               (vim.tbl_contains [:Path] ctx.source_name) (let [(dev-icon) (devicons.get_icon label)]
+                                                            (or dev-icon icon))
+               (lspkind.symbolic sym-name {:mode :symbol}))]
+    (.. icon gap)))
+
+(defn devicon-kind-highlight [ctx]
+  (let [hl ctx.kind_hl
+        source-name ctx.source_name
+        label ctx.label
+        hl (if (vim.tbl_contains [:Path] source-name)
+             (let [(dev-icon dev-hl) (devicons.get_icon label)]
+               (if dev-icon dev-hl hl)))]
+    hl))
 
 (defn main []
-  (corpus.main cmp)
-  (cmp.setup
-    {:enabled (fn cmp-enabled? []
-                (let [buftype (n buf_get_option 0 :buftype)]
-                  (not= buftype :prompt)))
+  (cmp.setup 
+    {:completion {:keyword {:range :full}
+                  :menu {:draw {:components {:kind_icon {:text devicon-kind-text
+                                                         :highlight devicon-kind-highlight}
+                                             :kind {:highlight devicon-kind-highlight}}
+                                :columns [{1 :label 2 :label_description :gap 1} [:kind_icon] {1 :source_name :gap 1}]}
+                         :border :rounded}
+                  :documentation {:auto_show true
+                                  :auto_show_delay_ms 300
+                                  :update_delay_ms 50
+                                  :window {:border :rounded}}
+                  :trigger {:show_on_backspace true}}
 
-     :sources (get-sources)
-     :snippet {:expand (fn [args] (luasnip.lsp_expand args.body))}
+     :signature {:enabled true
+                 :window {:border :rounded}}
+     :cmdline {:enabled true
+               :completion {:menu {:auto_show true}}}
 
-     :mapping
-     {:<C-y>
-      (cmp.mapping
-        {:c (cmp.mapping.confirm
-              {:behavior cmp.ConfirmBehavior.Insert
-               :select true})
+     ; TODO: move to vim.snippet
+     :snippets {:preset :luasnip}
+     :sources {:default [:lsp :path :buffer :snippets :emoji :dictionary :thesaurus :cmp-conjure]
 
-         :i (fn []
-              (comment (print :expandable (luasnip.expandable) :selected (not (cmp.get_active_entry))))
-              (if (cmp.get_selected_entry)
-                (cmp.confirm
-                  {:behavior cmp.ConfirmBehavior.Insert
-                   :select false})
-                (luasnip.expand_auto)))}
-        [:i :s :c])
+               :providers {:lsp {:score_offset 100}
+                           :cmp-conjure {:name :cmp-conjure
+                                         :module :blink.compat.source
+                                         :score_offset 100
+                                         :async true
+                                         :opts {:cmp_name :cnj}}
+                           :buffer {:name :buf}
+                           :emoji {:name :emj
+                                   :module :blink-emoji
+                                   :score_offset 10}
 
-      :<C-n>
-      (cmp.mapping
-        (fn [fallback]
-          (if (cmp.visible)
-            (cmp.select_next_item)
-            (fallback)))
-        [:i :c])
-
-      :<C-p>
-      (cmp.mapping
-        (fn [fallback]
-          (if (cmp.visible)
-            (cmp.select_prev_item)
-            (fallback)))
-        [:i :c])
-
-      :<C-d> (cmp.mapping.scroll_docs -4)
-      :<C-f> (cmp.mapping.scroll_docs 4)
-      :<C-e> (cmp.mapping.close)}
-
-     :formatting {:format (create-formatter)}
-
-     :experimental {:native_menu false
-                    :ghost_text false}
-     :performance {:max_view_entries 20}
-     :window
-     {:completion (cmp.config.window.bordered)
-      :documentation (cmp.config.window.bordered)}})
-
-  ; Adds completion popup to command line!!!!
-  (cmp.setup.cmdline ":" {:sources [{:name :cmdline}]})
-
-  ; On confirm, setup auto pairs
-  (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}}))
-
-  (dic.setup
-    {:document {:enable true
-                :command ["wn" "${label}" "-over"]}
-      :max_number_items 100
-      :paths [(vim.fn.expand "~/.local/share/aspell/english")]})
-
-  ; https://github.com/andymass/vim-matchup/pull/382
-  ; https://github.com/hrsh7th/nvim-cmp/issues/1269))
-  ; https://github.com/hrsh7th/nvim-cmp/issues/1940)
-  ; thanks to @perrin4869
-  (cmp.event:on :menu_opened (fn [] (b! matchup_matchparen_enabled false)))
-  (cmp.event:on :menu_closed (fn [] (b! matchup_matchparen_enabled true))))
+                           :dictionary {:name :wrds
+                                        :module :blink-cmp-words.dictionary
+                                        :max_items 10
+                                        :score_offset (- 100)}
+                           :thesaurus {:name :thsr
+                                       :module :blink-cmp-words.thesaurus
+                                       :max_items 5
+                                       :score_offset (- 200)}}}}))
+  ; Leaving this here for now, might want it later if issue exists with blink and autopairs
+  ; ; On confirm, setup auto pairs
+  ; (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}}))
+  ;
+  ; ; https://github.com/andymass/vim-matchup/pull/382
+  ; ; https://github.com/hrsh7th/nvim-cmp/issues/1269))
+  ; ; https://github.com/hrsh7th/nvim-cmp/issues/1940)
+  ; ; thanks to @perrin4869
+  ; (cmp.event:on :menu_opened (fn [] (b! matchup_matchparen_enabled false)))
+  ; (cmp.event:on :menu_closed (fn [] (b! matchup_matchparen_enabled true))))

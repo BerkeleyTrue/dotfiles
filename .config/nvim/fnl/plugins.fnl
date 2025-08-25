@@ -29,46 +29,27 @@
    {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :dependencies [[:nvim-telescope/telescope.nvim]]}
    {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :dependencies [[:nvim-telescope/telescope.nvim]]}
 
-   ; lsp/completion
-   {:name :hrsh7th/nvim-cmp :description "completion popup engine"
+   ; completion
+   {:name :saghen/blink.cmp :description "completion popup engine"
+    :version :1.6.0
     :init (make-init completion)
-    :config (make-on-load completion)
-    :dependencies [[:onsails/lspkind-nvim]
-                   [:saadparwaiz1/cmp_luasnip]
-                   [:L3MON4D3/luasnip]]}
+    :config (make-on-load completion)}
+   {:name :saghen/blink.compat :version :2.* :description "Compat layer for nvim-cmp plugins and blink"}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
    {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
-   {:name :saadparwaiz1/cmp_luasnip :description "adds luasnip source"}
-   {:name :hrsh7th/cmp-nvim-lsp :description "cmp lsp"}
-   {:name :hrsh7th/cmp-buffer :description "cmp buffer"}
-   {:name :hrsh7th/cmp-path :description "adds path completion."}
-   {:name :hrsh7th/cmp-cmdline :description "Adds command line completion."}
+   {:name :archie-judd/blink-cmp-words :description "Adds dictionary completion to blink"}
+   {:name :moyiz/blink-emoji.nvim :description "Adds emoji completion to blink"}
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
-   {:name :hrsh7th/cmp-emoji :description "Adds emoji completion."}
+
+   ; lsp
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)} 
    {:name :nvimdev/guard.nvim :description "Async formatting and linting utility for neovim." :config (make-on-load guard) :dependencies [[:nvimdev/guard-collection] [:folke/noice.nvim]]}
    {:name :b0o/schemastore.nvim :description "adds schemastore to jsonls through lspconfig" :dependencies [[:neovim/nvim-lspconfig]] :lazy false}
-   {:name :ray-x/cmp-treesitter :description "Adds treesitter completion."}
-   {:name :andersevenrud/cmp-tmux :description "Adds tmux completions."}
-   {:name :uga-rosa/cmp-dictionary :description "Adds dictionary completions."}
    {:name :rcarriga/nvim-notify :description "used by noice, need to set config" :config (make-on-load notify)}
    {:name :SmiteshP/nvim-navic :description "A simple statusline/winbar component that uses LSP to show your current code context." :dependencies [[:neovim/nvim-lspconfig]] :config (make-on-load navic)}
 
    ; ai
    {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
-   {:name :yetone/avante.nvim :description "emulate cursor ai"
-    :event :VeryLazy
-    :lazy false
-    :version false
-    :config (make-on-load avante)
-    :build :make
-    :dependencies [[:stevearc/dressing.nvim]
-                   [:nvim-lua/plenary.nvim]
-                   [:MunifTanjim/nui.nvim]
-                   [:HakonHarnes/img-clip.nvim]
-                   [:nvim-telescope/telescope.nvim] ; for file_selector provider telescope
-                   [:hrsh7th/nvim-cmp] ; autocompletion for avante commands and mentions
-                   [:nvim-tree/nvim-web-devicons]]} ; or echasnovski/mini.icons
 
       ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
@@ -111,7 +92,7 @@
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}
    {:name :folke/zen-mode.nvim :description "minimal distraction version of a buffer" :config (make-on-load zenmode)}
-   {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and history" :dependencies [[:MunifTanjim/nui.nvim] [:hrsh7th/nvim-cmp] [:nvim-telescope/telescope.nvim]] :config (make-on-load noice)}
+   {:name :folke/noice.nvim :description "Replaces UI for messages, cmdline, and history" :dependencies [[:MunifTanjim/nui.nvim] [:nvim-telescope/telescope.nvim]] :config (make-on-load noice)}
    {:name :arkav/lualine-lsp-progress :description "add lsp progress to lualine"}
    {:name :nvim-lualine/lualine.nvim
     :description "lua status line"
