@@ -48,7 +48,11 @@
   (hl.link! :BlinkCmpKind :Special)
   (hl.link! :BlinkCmpMenu :NonText)
   (hl.link! :BlinkCmpMenuBorder :FloatBorder)
-  (hl.link! :BlinkCmpSource :Special))
+  (hl.link! :BlinkCmpSource :Special)
+  (hl.link! :BlinkCmpLabelDescription :Comment)
+  (hl.link! :BlinkCmpMenuSelection :BerksTeal)
+  (hl.link! :BlinkCmpScrollBarThumb :BerksTealBg))
+
 
 (defn devicon-kind-text [ctx]
   (let [icon ctx.kind_icon

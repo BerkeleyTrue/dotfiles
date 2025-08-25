@@ -97,8 +97,13 @@
   (set-hl :BerksMauve {:fg p.hex.mauve})
   (set-hl :BerksMaroon {:fg p.hex.maroon})
   (set-hl :BerksPeach {:fg p.hex.peach})
+
   (set-hl :BerksTeal {:fg p.hex.teal})
+  (set-hl :BerksTealBold {:fg p.hex.none :bold true})
+  (set-hl :BerksTealBg {:fg p.none :bg p.hex.teal})
+
   (set-hl :BerksSky {:fg p.hex.sky})
+  (set-hl :BerksSkyBg {:fg p.none :bg p.hex.sky})
   (set-hl :BerksLavendar {:fg p.hex.lavender})
   (set-hl :BerksText {:fg p.hex.text})
   (set-hl :BerksOverlay2 {:fg p.hex.overlay2})
