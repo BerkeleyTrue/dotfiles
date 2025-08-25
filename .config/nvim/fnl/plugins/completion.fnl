@@ -47,6 +47,7 @@
   (hl.link! :BlinkCmpDeprecated :Error)
   (hl.link! :BlinkCmpKind :Special)
   (hl.link! :BlinkCmpMenu :NonText)
+  (hl.link! :BlinkCmpMenuBorder :FloatBorder)
   (hl.link! :BlinkCmpSource :Special))
 
 (defn devicon-kind-text [ctx]
