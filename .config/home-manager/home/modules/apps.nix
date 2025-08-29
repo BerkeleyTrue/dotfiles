@@ -69,7 +69,6 @@ in {
       viewnior # fast image preview
       vlc # Cross-platform media player and streaming server
       wordnet # lexical database for the English language
-      wacomtablet # Wacom tablet gui configurator
       zathura # pdf viewer
     ])
     ++ [
