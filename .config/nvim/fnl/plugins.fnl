@@ -10,8 +10,7 @@
 
 (def- external-plugins
   ; main utils
-  [{:name :berkeleytrue/colorbuddy.nvim}
-   {:name :danilamihailov/beacon.nvim :config (make-on-load beacon) :event :CursorMoved}
+  [{:name :danilamihailov/beacon.nvim :config (make-on-load beacon) :event :CursorMoved}
    {:name :wakatime/vim-wakatime :description "track dev time"}
    {:name :acksld/nvim-revj.lua :description "Inverse of J, break args over lines."}
    {:name :simrat39/symbols-outline.nvim :description "A tree like view for symbols in Neovim using the Language Server Protocol" :config (make-on-load symbols-outline) :cmd [:SymbolsOutline]}

@@ -18,8 +18,6 @@
     marks lib.marks
     scp lib.scp
 
-    cb plugins.colorbuddy
-
     pl theme.palette
     theme theme}
    
@@ -45,8 +43,6 @@
   (lisp-indent.main)
   (scp.main)
   ; (marks.main)
-
-  (when-let [(ok theme-fns) (pcall cb.main (. pl :palette))]
-    (theme.main theme-fns)))
+  (theme.main))
 
 (main)

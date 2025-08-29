@@ -1,7 +1,6 @@
 (module theme
   {autoload
-   {cb colorbuddy
-    p theme.palette
+   {p theme.palette
     ft theme.ft
     cl lib.color
     syntax theme.syntax
