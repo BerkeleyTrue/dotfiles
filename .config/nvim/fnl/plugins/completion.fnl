@@ -95,6 +95,12 @@
      :signature {:enabled true
                  :window {:border :rounded}}
      :cmdline {:enabled true
+               :keymap {:preset :inherit
+                        "<Tab>" [(fn [cmp] 
+                                   ; select highlighted and feed a space
+                                   (cmp.select_and_accept 
+                                     {:callback (fn [] (keys.feed "<Space>"))})) 
+                                 :fallback]}
                :completion {:menu {:auto_show true}}}
 
      ; TODO: move to vim.snippet
@@ -102,6 +108,7 @@
      :sources {:default [:lsp :path :buffer :snippets :emoji :dictionary :thesaurus :cmp-conjure]
 
                :providers {:lsp {:score_offset 100}
+                           :path {:opts {:get_cwd (fn [] (vim.fn.getcwd))}}
                            :cmp-conjure {:name :cmp-conjure
                                          :module :blink.compat.source
                                          :score_offset 100
