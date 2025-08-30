@@ -23,6 +23,7 @@
   (o! cursorcolumn   true)                             ;  cursor column
   (o! cursorline     true)                             ;  cursorline
   (o! expandtab      true)                             ;  convert tabs to spaces
+  (o! exrc           true)                             ;  enable project local .nvim.lua files
   (o! foldlevelstart 99)                               ;  start with all folds open
   (o! foldtext       ft.format-fold-text-viml)         ;  set fold text to custom format
   (o! ignorecase     true)                             ;  ignore case when searching
