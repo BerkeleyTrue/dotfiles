@@ -38,7 +38,7 @@
    {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
    {:name :archie-judd/blink-cmp-words :description "Adds dictionary completion to blink"}
    {:name :moyiz/blink-emoji.nvim :description "Adds emoji completion to blink"}
-   {:name :PaterJason/cmp-conjure :description "Adds conjure completion."}
+   {:name :PaterJason/cmp-conjure :description "Adds conjure completion." :dependencies [[:saghen/blink.compat]]}
 
    ; lsp
    {:name :neovim/nvim-lspconfig :description "collection of common configs for lsps" :config (make-on-load lspconfig)} 
