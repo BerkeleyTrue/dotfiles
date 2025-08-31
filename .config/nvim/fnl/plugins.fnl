@@ -50,7 +50,7 @@
    ; ai
    {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
 
-      ; git
+   ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
    {:name :lewis6991/gitsigns.nvim :description "git signs (supports yadm)" :config (make-on-load gitsigns)}
    {:name :sindrets/diffview.nvim :description "git diff view" :dependencies [[:nvim-lua/plenary.nvim]]}
