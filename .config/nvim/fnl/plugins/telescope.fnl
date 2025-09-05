@@ -43,7 +43,9 @@
       :mappings {:n {:qq (. actions :close)}
                  :i {:qq (. actions :close)}}}
 
-     :pickers {:find_files {:hidden true} ; defaults to rg, fd if executable
+     :pickers {:find_files {:hidden true
+                            :no_ignore true
+                            :no_ignore_parent true}
                :oldfiles {:cwd_only true}}}))
 
 (defn setup-keymaps []
