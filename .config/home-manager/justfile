@@ -16,7 +16,13 @@ build-debug:
 
 [group('desktop')]
 switch:
-  ./result/home-path/bin/home-manager switch
+  #!/usr/bin/env bash
+  if [ -z "$TMUX" ]; then
+    ./result/home-path/bin/home-manager switch
+  else
+    echo "Cannot run switch while in a tmux session"
+    exit 1
+  fi
 
 [group('desktop')]
 switch-debug: 
