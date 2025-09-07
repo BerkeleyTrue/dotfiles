@@ -96,11 +96,8 @@
                  :window {:border :rounded}}
      :cmdline {:enabled true
                :keymap {:preset :inherit
-                        "<Tab>" [(fn [cmp] 
-                                   ; select highlighted and feed a space
-                                   (cmp.select_and_accept 
-                                     {:callback (fn [] (keys.feed "<Space>"))})) 
-                                 :fallback]}
+                        "<Tab>" [:select_and_accept :fallback]
+                        "<CR>" [:select_accept_and_enter :fallback]}
                :completion {:menu {:auto_show true}}}
 
      ; TODO: move to vim.snippet
