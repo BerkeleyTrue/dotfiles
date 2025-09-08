@@ -25,7 +25,7 @@
 
    ; search
    {:name :nvim-telescope/telescope.nvim :description "Highly extendable fuzzy finder" :dependencies [[:nvim-lua/plenary.nvim]] :config (make-on-load telescope) :lazy false}
-   {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :dependencies [[:nvim-telescope/telescope.nvim]]}
+   {:name :otavioschwanck/telescope-alternate  :description "jump between related files, like vim-projectionist" :dependencies [[:nvim-telescope/telescope.nvim]] :config (make-init telescope.alternate)}
    {:name :lukaspietzschmann/telescope-tabs :description "show tabs in telescope" :dependencies [[:nvim-telescope/telescope.nvim]]}
 
    ; completion

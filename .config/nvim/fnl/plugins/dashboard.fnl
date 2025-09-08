@@ -69,7 +69,7 @@
                    :val
                    [(create-button " 󱋡 " "Recently opened files" (fn [] (cmd "Telescope" {:args ["oldfiles" "cwd_only=true"]})))
                     {:type "padding" :val 1}
-                    (create-button " 󰱼 " "Find File            " (fn [] (cmd "FFiles")))
+                    (create-button " 󰱼 " "Find File            " (fn [] (cmd "Files")))
                     {:type "padding" :val 1}
                     (create-button " 󰙅 " "File Browser         " (fn [] (cmd "Neotree" {:args [:float]})))
                     {:type "padding" :val 1}

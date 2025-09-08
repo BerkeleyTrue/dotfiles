@@ -4,15 +4,16 @@
     r r
     md utils.module
     utils utils
-    hl utils.highlights}
+    hl utils.highlights
+    telescope telescope
+    builtin telescope.builtin}
    require
-   {alt plugins.telescope.alternate
-    ag plugins.telescope.silver-searcher
+   {ag plugins.telescope.silver-searcher
     tabs plugins.telescope.tabs
     todos plugins.telescope.todos}
    require-macros [macros]})
 
-(defn- setup [{: telescope : previewers : sorters : actions}]
+(defn- setup [{: sorters : actions}]
   (telescope.setup
     {:defaults
      {:borderchars ["─" "│" "─" "│" "╭" "╮" "╯" "╰"]
@@ -43,9 +44,7 @@
       :mappings {:n {:qq (. actions :close)}
                  :i {:qq (. actions :close)}}}
 
-     :pickers {:find_files {:hidden true
-                            :no_ignore true
-                            :no_ignore_parent true}
+     :pickers {:find_files {:hidden false}
                :oldfiles {:cwd_only true}}}))
 
 (defn setup-keymaps []
@@ -67,21 +66,18 @@
   (command! :MMaps (utils.viml->lua :telescope.builtin :keymaps))
   (command! :HHelp (utils.viml->lua :telescope.builtin :help_tags))
   (command! :OOldFiles (utils.viml->lua :telescope.builtin :oldfiles))
-  (command! :FFiles (utils.viml->lua :telescope.builtin :find_files)))
+  (command! :Files #(builtin.find_files {:hidden true :no_ignore true :no_ignore_parent true})))
 
 
 (defn main []
   (hl.link! :TelescopeBorder :FloatBorder)
-  (when-let [telescope (md.prequire :telescope)]
-    (let [sorters (md.prequire :telescope.sorters)
-          previewers (md.prequire :telescope.previewers)
-          builtins (md.prequire :telescope.builtin)
-          actions (md.prequire :telescope.actions)]
+  (let [sorters (md.prequire :telescope.sorters)
+        builtins (md.prequire :telescope.builtin)
+        actions (md.prequire :telescope.actions)]
 
-      (setup {: telescope : sorters : previewers : actions})
-      (setup-keymaps)
-      (setup-commands)
-      (ag.main)
-      (alt.main telescope)
-      (tabs.main telescope)
-      (todos.main telescope))))
+    (setup {: sorters : actions})
+    (setup-keymaps)
+    (setup-commands)
+    (ag.main)
+    (tabs.main telescope)
+    (todos.main telescope)))
