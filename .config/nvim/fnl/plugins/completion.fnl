@@ -99,6 +99,7 @@
                         "<Tab>" [:select_and_accept :fallback]
                         "<CR>" [:select_accept_and_enter :fallback]}
                :completion {:menu {:auto_show true}}}
+                                               
 
      ; TODO: move to vim.snippet
      :snippets {:preset :luasnip}
@@ -123,7 +124,16 @@
                            :thesaurus {:name :thsr
                                        :module :blink-cmp-words.thesaurus
                                        :max_items 5
-                                       :score_offset (- 200)}}}}))
+                                       :score_offset (- 200)}
+
+                           :cmdline {:min_keyword_length 
+                                     ; when typing a command, only show when the keyword is 3 characters or longer
+                                     (fn [ctx] 
+                                       (if (and (= ctx.source_name :cmdline) 
+                                                (= (string.find ctx.line " ") nil)) 
+                                         0 
+                                         3))}}}}))
+
   ; Leaving this here for now, might want it later if issue exists with blink and autopairs
   ; ; On confirm, setup auto pairs
   ; (cmp.event:on :confirm_cmp (apcmp.on_confirm_done {:map_char {:tex ""}}))
