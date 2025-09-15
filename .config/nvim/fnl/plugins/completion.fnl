@@ -97,7 +97,7 @@
      :cmdline {:enabled true
                :keymap {:preset :inherit
                         "<Tab>" [:select_and_accept :fallback]
-                        "<CR>" [:select_accept_and_enter :fallback]}
+                        "<CR>" [:accept_and_enter :fallback]}
                :completion {:menu {:auto_show true}
                             :list {:selection {:preselect false}}}}
                                                
