@@ -3,7 +3,7 @@
     Unit = {
       Description = "Set up keyboard in X";
       After = "graphical-session-pre.target";
-      PartOf = ["graphical-session.target"];
+      PartOf = ["x11-session.target"];
     };
 
     Service = {
@@ -13,7 +13,7 @@
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["x11-session.target"];
     };
   };
 }

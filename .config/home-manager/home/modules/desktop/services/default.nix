@@ -15,15 +15,17 @@
     ./security.nix
     ./sleep.nix
     ./status-notifier-watcher.nix
+    ./taffybar.nix
     ./task.nix
     ./taiscale-systray.nix
     ./tmux.nix
-    # ./tray.nix
     ./unclutter.nix
     ./xcape.nix
     ./xdg.nix
     ./xkbmap.nix
     ./xplugd.nix
+    ./x11-session-target.nix
+    ./xmonad-target.nix
   ];
 
   # needed to load env vars for systemd user services

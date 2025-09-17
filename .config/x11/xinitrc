@@ -45,7 +45,7 @@ if [ -f "$xbindrc" ]; then
 fi
 
 # source xprofile. This is done natively with some WM's but not xmonad
-[ -f "$xprofile" ] && source $xprofile
+[ -f "$xprofile" ] && source "$xprofile"
 
 # NOTE: programs in /etc/X11/xinit/xinitrc.d are sourced by /etc/lightdm/xsession in lightdm
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
@@ -60,7 +60,8 @@ kde)
 	exec startplasma-x11
 	;;
 *)
-	systemd-run --wait --unit=xmonad --user --collect $XMONAD_EXEC
+	# Start XMonad (this will automatically start x11-session.target first)
+	systemd-run --wait --unit=xmonad --user --collect "$XMONAD_EXEC"
 	echo "Xinit: Good bye, Beautiful"
 	;;
 esac

@@ -7,7 +7,7 @@
     Unit = {
       Description = "Nitrogen wallpaper manager";
       After = ["picom.service"];
-      PartOf = ["graphical-session.target"];
+      PartOf = ["x11-session.target"];
     };
 
     Service = {
@@ -17,7 +17,7 @@
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["x11-session.target"];
     };
   };
 }
