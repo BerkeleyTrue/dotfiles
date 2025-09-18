@@ -1,0 +1,76 @@
+#!/bin/bash
+
+set -eu
+
+LOG=$HOME/.local/share/wayland/niri.log
+
+# redirect stdout/stderr to a log file clearing it first
+exec &>$LOG
+
+# export DESKTOP_SESSION=xmonad
+export XDG_SESSION_TYPE=wayland       
+export XDG_CURRENT_DESKTOP=niri # xdg-desktop-portal
+export XDG_SESSION_DESKTOP=niri # systemd
+
+__clear_graphical_session() {
+  # Force stop of graphical-session.target.
+  # blocks until the target is fully stopped
+  # ok to use if no graphical session is running
+  systemctl --user --wait start --job-mode=replace-irreversibly session-shutdown.target # will stop graphical-session and x11 too
+}
+
+__teardown() {
+	__clear_graphical_session
+
+  # clear the environment variables
+	systemctl --user unset-environment \
+    WAYLAND_DISPLAY \
+    DISPLAY \
+    XDG_SESSION_TYPE \
+    XDG_CURRENT_DESKTOP \
+    NIRI_SOCKET \
+		DBUS_SESSION_BUS_ADDRESS \
+		DISPLAY \
+		SSH_AUTH_SOCK \
+		XAUTHORITY \
+		XDG_DATA_DIRS \
+		XDG_RUNTIME_DIR \
+		XDG_SESSION_ID \
+		XDG_SESSION_DESKTOP \
+		XDG_SESSION_TYPE \
+		XDG_CURRENT_DESKTOP
+}
+
+__startniri() {
+  # Make sure there's no already running session.
+  if systemctl --user -q is-active niri.service; then
+    echo 'A niri session is already running.'
+    exit 1
+  fi
+
+	__clear_graphical_session
+
+  # Reset failed units, if any.
+	systemctl --user reset-failed
+
+
+  # Import the environment.
+	# without this, systemd starts xdg-desktop-portal without these environment variables,
+	# and the xdg-desktop-portal does not start xdg-desktop-portal-wrl as expected
+	# https://github.com/emersion/xdg-desktop-portal-wlr/issues/39#issuecomment-638752975
+  systemctl --user import-environment
+
+	if command -v dbus-update-activation-environment >/dev/null; then
+		dbus-update-activation-environment --all
+	fi
+
+  # only start in tty1
+	if [[ "$(tty)" = "/dev/tty1" ]]; then
+	  # Start niri and wait until it is fully started.
+	  systemd --user --wait start niri.service
+
+    __teardown
+	fi
+}
+
+__startniri
