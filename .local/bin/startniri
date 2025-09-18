@@ -70,7 +70,7 @@ __startniri() {
   # only start in tty1
 	if [[ "$(tty)" = "/dev/tty1" ]]; then
 	  # Start niri and wait until it is fully started.
-	  systemd --user --wait start niri.service
+	  systemctl --user --wait start niri.service
 
     __teardown
 	fi
