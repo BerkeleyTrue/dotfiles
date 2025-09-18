@@ -13,6 +13,7 @@
     ./pasystray.nix
     ./picom.nix
     ./security.nix
+    ./session-shutdown.nix
     ./sleep.nix
     ./status-notifier-watcher.nix
     ./taffybar.nix
@@ -24,8 +25,9 @@
     ./xdg.nix
     ./xkbmap.nix
     ./xplugd.nix
-    ./x11-session-target.nix
-    ./xmonad-target.nix
+    ./wayland-session.nix
+    ./x11-session.nix
+    ./xmonad.nix
   ];
 
   # needed to load env vars for systemd user services

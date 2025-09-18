@@ -13,13 +13,23 @@
     ];
   };
 
-  systemd.user.targets.niri-session = {
+  systemd.user.services.niri = {
     Unit = {
       Description = "Niri WM";
-      Documentation = "man:systemd.special(7)";
       BindsTo = ["graphical-session.target"];
-      Wants = ["graphical-session-pre.target"];
-      After = ["graphical-session-pre.target"];
+      Before = ["graphical-session.target"];
+      Wants = ["wayland-session.target"];
+      After = ["wayland-session.target"];
+    };
+
+    Service = {
+      Slice = "session.slice";
+      Type = "notify";
+      ExecStart = "${pkgs.niri}/bin/niri --session";
+    };
+
+    Install = {
+      WantedBy = ["wayland-session.target"];
     };
   };
 }
