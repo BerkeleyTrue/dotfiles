@@ -4,6 +4,9 @@ set -eu
 
 LOG=$HOME/.local/share/wayland/niri.log
 
+# create log directory if it doesn't exist
+mkdir -p "$(dirname "$LOG")"
+
 # redirect stdout/stderr to a log file clearing it first
 exec &>$LOG
 
