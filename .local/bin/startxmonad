@@ -11,6 +11,7 @@ export DESKTOP_SESSION=xmonad
 export XDG_CURRENT_DESKTOP=XMonad # xdg-desktop-portal
 export XDG_SESSION_DESKTOP=XMonad # systemd
 export XDG_SESSION_TYPE=x11       # xdg/systemd
+export WAYLAND_DISPLAY=           # unset wayland display if set
 
 __clear_graphical_session() {
 	systemctl --user stop graphical-session.target graphical-session-pre.target
