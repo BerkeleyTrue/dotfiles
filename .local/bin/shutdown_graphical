@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -eu
+
+__clear_graphical_session() {
+	systemctl --user stop graphical-session.target graphical-session-pre.target
+}
+
+__clear_graphical_session 
