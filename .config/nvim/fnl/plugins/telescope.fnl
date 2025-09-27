@@ -44,7 +44,8 @@
       :mappings {:n {:qq (. actions :close)}
                  :i {:qq (. actions :close)}}}
 
-     :pickers {:find_files {:hidden false}
+     :pickers {:find_files {:hidden true 
+                            :no_ignore true}
                :oldfiles {:cwd_only true}}}))
 
 (defn setup-keymaps []
