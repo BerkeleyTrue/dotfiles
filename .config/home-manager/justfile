@@ -15,6 +15,10 @@ build-debug:
   nix build .#homeConfigurations.{{profile}}.activationPackage --show-trace --verbose
 
 [group('desktop')]
+build-no-link: 
+  nix build .#homeConfigurations.{{profile}}.activationPackage --no-link --print-out-paths
+
+[group('desktop')]
 switch:
   #!/usr/bin/env bash
   if [ -z "$TMUX" ]; then
