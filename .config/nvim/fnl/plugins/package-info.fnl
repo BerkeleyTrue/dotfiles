@@ -8,8 +8,8 @@
 (defn main []
   (when-let [pi (md.prequire :package-info)]
     (pi.setup
-      {:colors
-       {:up_to_date "#6272A4"
-        :outdated "#8BE9FD"}
+      {:highlights
+       {:up_to_date {:fg "#6272A4"}
+        :outdated {:fg "#8BE9FD"}}
 
        :autostart true})))
