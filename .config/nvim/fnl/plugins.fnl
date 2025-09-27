@@ -30,7 +30,7 @@
 
    ; completion
    {:name :saghen/blink.cmp :description "completion popup engine"
-    :version :1.6.0
+    :version :1.7.0
     :init (make-init completion)
     :config (make-on-load completion)}
    {:name :saghen/blink.compat :version :2.* :description "Compat layer for nvim-cmp plugins and blink"}
