@@ -42,10 +42,16 @@
     };
   };
 
+  # home-manager doesn't allow overwriting xsesion.nix trayTarget
+  # but we can add dependencies to it
+  # built in.
+  # Unit = {
+  #   Description = "Home Manager System Tray";
+  #   Requires = [ "graphical-session-pre.target" ];
+  # };
   systemd.user.targets.tray = {
     Unit = {
-      Description = "System Tray Services";
-      Documentation = ["man:systemd.special(7)"];
+      Documentation = "man:systemd.special(7)";
       After = ["notification.target"];
       PartOf = ["desktop-services.target"];
     };
