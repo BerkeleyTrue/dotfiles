@@ -1,20 +1,21 @@
 {pkgs, ...}: {
   systemd.user.services.unclutter = {
     Unit = {
-      Description = "Unclutter hides lazy mouse cursor";
-      After = ["graphical-session-pre.target"];
-      PartOf = ["graphical-session.target"];
+      Description = "Unclutter Cursor Manager";
+      Documentation = ["man:unclutter(1)"];
+      After = ["xmonad.target"];
+      PartOf = ["desktop-utilities.target"];
     };
 
     Service = {
       Type = "simple";
       ExecStart = "${pkgs.unclutter-xfixes}/bin/unclutter";
-      Restart = "always";
+      Restart = "on-failure";
       RestartSec = 3;
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["desktop-utilities.target"];
     };
   };
 }

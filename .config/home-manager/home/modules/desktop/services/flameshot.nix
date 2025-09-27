@@ -6,12 +6,9 @@
   systemd.user.services.flameshot = {
     Unit = {
       Description = "Flameshot screenshot tool";
-      Requires = "tray.target";
-      After = [
-        "graphical-session-pre.target"
-        "tray.target"
-      ];
-      PartOf = ["graphical-session.target"];
+      Documentation = ["man:flameshot(1)"];
+      After = ["tray.target"];
+      PartOf = ["tray.target"];
     };
 
     Service = {
@@ -27,7 +24,7 @@
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["tray.target"];
     };
   };
 }

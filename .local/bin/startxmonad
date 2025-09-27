@@ -2,77 +2,147 @@
 
 set -eu
 
-LOG=$HOME/.local/share/x11/x11.log
+LOG_DIR="$HOME/.local/share/x11"
+LOG_FILE="$LOG_DIR/x11-session.log"
+STARTUP_LOG="$LOG_DIR/startup.log"
 
-# redirect stdout/stderr to a log file clearing it first
-exec &>$LOG
+# Ensure log directory exists
+mkdir -p "$LOG_DIR"
 
+# Clear old logs
+echo "" > "$LOG_FILE"
+echo "" > "$STARTUP_LOG"
+
+# Redirect output to logs
+exec 1> >(tee -a "$STARTUP_LOG")
+exec 2> >(tee -a "$STARTUP_LOG" >&2)
+
+echo "$(date): Starting X11 systemd session"
+
+# Export essential environment variables
 export DESKTOP_SESSION=xmonad
-export XDG_CURRENT_DESKTOP=XMonad # xdg-desktop-portal
-export XDG_SESSION_DESKTOP=XMonad # systemd
-export XDG_SESSION_TYPE=x11       # xdg/systemd
+export XDG_CURRENT_DESKTOP=XMonad
+export XDG_SESSION_DESKTOP=XMonad
+export XDG_SESSION_TYPE=x11
 
-__clear_graphical_session() {
-	systemctl --user stop graphical-session.target graphical-session-pre.target
+__setup_environment() {
+    echo "$(date): Setting up X11 environment"
+    
+    # Ensure systemd user session is available
+    if ! systemctl --user status >/dev/null 2>&1; then
+        echo "$(date): ERROR: systemd user session not available"
+        exit 1
+    fi
+    
+    # Import environment variables for systemd
+    if command -v dbus-update-activation-environment >/dev/null; then
+        dbus-update-activation-environment \
+            XDG_CURRENT_DESKTOP \
+            XDG_SESSION_DESKTOP \
+            XDG_SESSION_TYPE \
+            DESKTOP_SESSION
+    fi
 }
 
-__teardown() {
-	__clear_graphical_session
-
-  # Wait until the units actually stop.
-  while [ -n "$(systemctl --user --no-legend --state=deactivating list-units)" ]; do
-    sleep 0.5
-  done
-
-  # clear the environment variables
-	systemctl --user unset-environment \
-		DBUS_SESSION_BUS_ADDRESS \
-		DISPLAY \
-		SSH_AUTH_SOCK \
-		XAUTHORITY \
-		XDG_DATA_DIRS \
-		XDG_RUNTIME_DIR \
-		XDG_SESSION_ID \
-		XDG_SESSION_DESKTOP \
-		XDG_SESSION_TYPE \
-		XDG_CURRENT_DESKTOP \
-		GDK_PIXBUF_ICON_LOADER
+__start_x11_session() {
+    echo "$(date): Starting X11 session target"
+    
+    # Start the X11 session hierarchy
+    if ! systemctl --user start x11-session.target; then
+        echo "$(date): ERROR: Failed to start x11-session.target"
+        return 1
+    fi
+    
+    # Wait for XMonad to be ready
+    echo "$(date): Waiting for XMonad to start"
+    timeout 30 bash -c 'while ! systemctl --user is-active xmonad.service >/dev/null 2>&1; do sleep 0.5; done' || {
+        echo "$(date): ERROR: XMonad failed to start within 30 seconds"
+        return 1
+    }
+    
+    echo "$(date): X11 session started successfully"
 }
 
-__startxmonad() {
-	__clear_graphical_session
-
-	if command -v dbus-update-activation-environment >/dev/null; then
-		dbus-update-activation-environment \
-			XDG_CURRENT_DESKTOP \
-			XDG_SESSION_DESKTOP \
-			XDG_SESSION_TYPE
-	fi
-
-	# without this, systemd starts xdg-desktop-portal without these environment variables,
-	# and the xdg-desktop-portal does not start xdg-desktop-portal-wrl as expected
-	# https://github.com/emersion/xdg-desktop-portal-wlr/issues/39#issuecomment-638752975
-	systemctl --user import-environment \
-		PATH \
-		DBUS_SESSION_BUS_ADDRESS \
-		DISPLAY \
-		SSH_AUTH_SOCK \
-		XAUTHORITY \
-		XDG_DATA_DIRS \
-		XDG_RUNTIME_DIR \
-		XDG_SESSION_ID \
-		XDG_SESSION_DESKTOP \
-		XDG_SESSION_TYPE \
-		XDG_CURRENT_DESKTOP \
-		GDK_PIXBUF_ICON_LOADER # for gtk apps, they need this env var
-
-  # only start in tty1
-	if [[ "$(tty)" = "/dev/tty1" ]]; then
-	  # make sure xorg is not already running
-		pgrep -x Xorg || startx $HOME/.config/x11/xinitrc
-	fi
-
-	__teardown
+__monitor_session() {
+    echo "$(date): Monitoring X11 session"
+    
+    # Monitor the session - exit when XMonad stops
+    while systemctl --user is-active xmonad.service >/dev/null 2>&1; do
+        sleep 2
+    done
+    
+    echo "$(date): XMonad session ended"
 }
 
-__startxmonad
+__cleanup_session() {
+    echo "$(date): Cleaning up X11 session"
+    
+    # Stop the session gracefully
+    systemctl --user stop x11-session.target || true
+    
+    # Wait for services to stop
+    timeout 10 bash -c 'while systemctl --user --no-legend --state=deactivating list-units | grep -q .; do sleep 0.1; done' || true
+    
+    # Clear environment variables
+    systemctl --user unset-environment \
+        DISPLAY \
+        XAUTHORITY \
+        XDG_SESSION_TYPE \
+        XDG_CURRENT_DESKTOP \
+        XDG_SESSION_DESKTOP \
+        DESKTOP_SESSION || true
+    
+    echo "$(date): X11 session cleanup complete"
+}
+
+__main() {
+    # Only run in tty1
+    if [[ "$(tty)" != "/dev/tty1" ]]; then
+        echo "$(date): ERROR: X11 session must be started from tty1"
+        exit 1
+    fi
+    
+    # Check if X is already running
+    if pgrep -x Xorg >/dev/null; then
+        echo "$(date): ERROR: X server is already running"
+        exit 1
+    fi
+    
+    # Ensure cleanup on exit
+    trap __cleanup_session EXIT INT TERM
+    
+    # Setup and start session
+    __setup_environment
+    
+    # Start X server with our xinitrc equivalent
+    echo "$(date): Starting X server"
+    # startx with custom xinitrc
+    # On display :0, virtual terminal 1
+    startx "$HOME/.config/x11/xinitrc-systemd" -- :0 vt1 &
+    # capture the PID
+    STARTX_PID=$!
+    
+    # wait for x server to be ready
+    # x0 socket appears when X server is ready to accept connections
+    timeout 10 bash -c 'while [ ! -S /tmp/.X11-unix/X0 ]; do sleep 0.1; done' || {
+        echo "$(date): ERROR: X server failed to start"
+        exit 1
+    }
+    
+    # Start systemd session management
+    __start_x11_session || {
+        echo "$(date): ERROR: Failed to start systemd session"
+        kill $STARTX_PID 2>/dev/null || true
+        exit 1
+    }
+    
+    # Monitor the session
+    __monitor_session
+    
+    # Wait for startx to finish
+    wait $STARTX_PID || true
+    
+    echo "$(date): X11 session ended normally"
+}
+
+__main "$@"

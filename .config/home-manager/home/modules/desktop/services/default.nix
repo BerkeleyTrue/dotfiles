@@ -1,28 +1,32 @@
 {...}: {
   imports = [
+    ./x11-session.nix # core x11 session management
+    ./x11-foundation.nix # xresources, xmodmap, xkbmap, etc.
+    ./xmonad.nix 
+    ./desktop-targets.nix 
+
+    # desktop services 
     ./autorandr
     ./blueman.nix
-    ./dunst.nix
+    ./dunst.nix 
     ./flameshot.nix
     ./flatpak.nix
     ./gh-user.nix
     ./kanata.nix
-    ./nitrogen.nix
+    ./nitrogen.nix 
     ./nix-collect-garbage.nix
     ./notessync.nix
     ./pasystray.nix
-    ./picom.nix
+    ./picom.nix 
     ./security.nix
     ./sleep.nix
     ./status-notifier-watcher.nix
     ./task.nix
     ./taiscale-systray.nix
     ./tmux.nix
-    # ./tray.nix
     ./unclutter.nix
     ./xcape.nix
     ./xdg.nix
-    ./xkbmap.nix
     ./xplugd.nix
   ];
 

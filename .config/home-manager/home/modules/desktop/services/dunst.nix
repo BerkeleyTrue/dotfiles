@@ -130,14 +130,21 @@ in {
   systemd.user.services.dunst = {
     Unit = {
       Description = "Dunst notification daemon";
-      After = ["graphical-session-pre.target"];
-      PartOf = ["graphical-session.target"];
+      Documentation = ["man:dunst(1)"];
+      After = ["compositor.target"];
+      PartOf = ["notification.target"];
     };
 
     Service = {
       Type = "dbus";
       BusName = "org.freedesktop.Notifications";
       ExecStart = "${pkgs.dunst}/bin/dunst -config ${config.xdg.configHome}/dunst/dunstrc";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+
+    Install = {
+      WantedBy = ["notification.target"];
     };
   };
 }

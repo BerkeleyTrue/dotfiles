@@ -5,21 +5,21 @@
 }: {
   systemd.user.services.tailscale-systray = {
     Unit = {
-      Description = "Tailscale systray";
-      Requires = "tray.target";
-      After = [
-        "graphical-session-pre.target"
-        "tray.target"
-      ];
-      PartOf = ["graphical-session.target"];
+      Description = "Tailscale System Tray";
+      Documentation = ["man:tailscale(1)"];
+      After = ["tray.target"];
+      PartOf = ["tray.target"];
     };
 
     Service = {
+      Type = "simple";
       ExecStart = lib.getExe pkgs.tailscale-systray;
+      Restart = "on-failure";
+      RestartSec = 3;
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["tray.target"];
     };
   };
 }

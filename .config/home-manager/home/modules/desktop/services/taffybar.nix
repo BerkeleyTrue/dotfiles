@@ -3,6 +3,7 @@
     Unit = {
       Description = "Taffybar Status Bar";
       PartOf = ["tray.target"];
+      ConditionEnvironment = "XDG_SESSION_TYPE=x11";
     };
 
     Service = {

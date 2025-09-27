@@ -6,18 +6,21 @@
   systemd.user.services.nitrogen = {
     Unit = {
       Description = "Nitrogen wallpaper manager";
-      After = ["picom.service"];
-      PartOf = ["graphical-session.target"];
+      Documentation = ["man:nitrogen(1)"];
+      After = ["compositor.target"];
+      PartOf = ["wallpaper.target"];
     };
 
     Service = {
       Type = "oneshot";
-      ExecStartPre = "sleep 1s";
+      RemainAfterExit = true;
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 1";
       ExecStart = "${pkgs.nitrogen}/bin/nitrogen --restore";
+      TimeoutStartSec = "10s";
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["wallpaper.target"];
     };
   };
 }
