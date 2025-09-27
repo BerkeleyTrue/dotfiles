@@ -8,11 +8,9 @@
    require-macros [macros]})
 
 (defn search [input cwd cb]
-  (let [terms (->
-                input
-
-                (r.lmatch "%S+")
-                (r.join "|"))]
+  (let [terms (-> input
+                  (r.lmatch "%S+")
+                  (r.join "|"))]
     (run {:command :ag
           :cwd cwd
           :args [:--silent

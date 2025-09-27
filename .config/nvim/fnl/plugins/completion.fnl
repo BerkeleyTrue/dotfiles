@@ -13,8 +13,6 @@
    require {}
    require-macros [macros]})
 
-; TODO: create corpus source
-
 (defn open-on-insert []
   "Manually open the completion pom when we are in empty space.
   This allows us to open the pom with a virtual keyword length of zero.
@@ -105,7 +103,7 @@
 
      ; TODO: move to vim.snippet
      :snippets {:preset :luasnip}
-     :sources {:default [:lsp :path :buffer :snippets :emoji :dictionary :thesaurus :cmp-conjure]
+     :sources {:default [:lsp :path :buffer :snippets :emoji :dictionary :thesaurus :cmp-conjure :corpus]
 
                :providers {:lsp {:score_offset 100}
                            :path {:opts {:get_cwd (fn [] (vim.fn.getcwd))}}
@@ -126,7 +124,9 @@
                            :thesaurus {:name :thsr
                                        :module :blink-cmp-words.thesaurus
                                        :max_items 5
-                                       :score_offset (- 200)}}}}))
+                                       :score_offset (- 200)}
+                           :corpus {:name :crps
+                                    :module :lib.corpus.blink}}}}))
 
                            ; This doesn't work as expected, so disabling for now
                            ; :cmdline {:min_keyword_length 

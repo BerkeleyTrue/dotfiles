@@ -1,3 +1,4 @@
+; deprecated, use blink instead
 (module lib.corpus.cmp
   {autoload
    {a aniseed.core
@@ -5,8 +6,7 @@
     ftdetect lib.corpus.ftdetect
     rl lib.corpus.reference-links
     {: search} lib.corpus.search
-    path lib.path
-    {: run} lib.spawn}
+    path lib.path}
    require {}
    require-macros [macros]})
 
