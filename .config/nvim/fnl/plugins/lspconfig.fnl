@@ -107,7 +107,6 @@
    :jsonls (jsonls-configs)
    :lua_ls {}
    :nil_ls {}
-   :nixd {}
    :basedpyright {}
    :prismals {}
    :purescriptls {}

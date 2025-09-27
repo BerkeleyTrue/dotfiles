@@ -67,7 +67,7 @@
           hardware.monitors = {
             framework = {
               height = 1504;
-              width = 2560;
+              width = 2256;
             };
           };
         };

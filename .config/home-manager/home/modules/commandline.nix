@@ -154,7 +154,7 @@ in {
 
   # required for copilot.lua to work.
   xdg.configFile."nvim/lua/copilot-nodejs.lua".source = pkgs.writeText "copilot-nodejs" ''
-    vim.g.copilot_node_command = "${pkgs.nodejs_20}/bin/node"
+    vim.g.copilot_node_command = "${pkgs.nodejs_24}/bin/node"
   '';
 
   programs = {
@@ -191,6 +191,7 @@ in {
         [
           parinfer-rust
           tree-sitter # to build grammars from source
+          nodejs_24
 
           lua-language-server # A language server for Lua
           nil #nix language server

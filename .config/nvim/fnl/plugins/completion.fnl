@@ -92,6 +92,7 @@
                                   :window {:border :rounded}}
                   :trigger {:show_on_backspace true}}
 
+     ; :fuzzy {:implementation :lua}
      :signature {:enabled true
                  :window {:border :rounded}}
      :cmdline {:enabled true
