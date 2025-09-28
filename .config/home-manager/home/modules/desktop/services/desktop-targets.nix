@@ -20,7 +20,8 @@
       Description = "Compositor Services";
       Documentation = ["man:systemd.special(7)"];
       After = ["xmonad.target"];
-      PartOf = ["desktop-services.target"];
+      Before = ["desktop-services.target"];
+      PartOf = ["xmonad-session.target"];
     };
   };
 
