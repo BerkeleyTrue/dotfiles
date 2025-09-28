@@ -3,6 +3,11 @@
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
+X11_HOME=$XDG_CONFIG_HOME/x11
+userresources=$X11_HOME/xresources
+usermodmap=$X11_HOME/xmodmap
+xprofile=$X11_HOME/xprofile
+
 __log() {
     echo "$(date +%H:%M:%S) xinit: $*"
 }
@@ -14,6 +19,19 @@ fi
 
 if [ -f $sysmodmap ]; then
     xmodmap $sysmodmap
+fi
+
+if [ -f "$userresources" ]; then
+	xrdb -merge "$userresources"
+fi
+
+if [ -f "$usermodmap" ]; then
+	xmodmap "$usermodmap"
+fi
+
+# source xprofile. This is done natively with some WM's but not xmonad
+if [ -f "$xprofile" ]; then 
+  source "$xprofile"
 fi
 
 # Source programs in xinitrc.d (compatibility)
