@@ -23,6 +23,8 @@
 
     Service = {
       Type = "notify";
+      # needed for systemd-notify to work in scripts
+      NotifyAccess = "all";
       RemainAfterExit = true;
       TimeoutStartSec = "30s";
       TimeoutStopSec = "10s";
@@ -30,21 +32,18 @@
       ExecStart = let
         script = pkgs.writeShellScriptBin "x11-session-start" ''
           # Wait for X11 environment to be ready
-          echo "Waiting for X11 environment... $DISPLAY $XAUTHORITY"
+          systemd-notify --status="waiting for X11..."
           while [ -z "$DISPLAY" ] || [ -z "$XAUTHORITY" ]; do
             sleep 0.1
           done
-          echo "Found X11 environment: $DISPLAY $XAUTHORITY"
 
           # Signal that X11 session is ready
           systemd-notify --ready --status="monitoring..."
 
-          echo "waiting..."
           # Keep service running while X11 session is active
           while pgrep -x Xorg >/dev/null; do
             sleep 1
           done
-          echo "X11 session ended."
         '';
       in "${lib.getExe script}";
     };
