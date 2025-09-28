@@ -98,15 +98,14 @@
        (fn after-write [{: file}]
          (when-not (zet.is-temp-zet? file)
            (let [root (ftdetect.get-corpus-root file)
-                 file (path.get-relative-path root file)
-                 file (string.sub file 2)]
+                 file (path.get-relative-path root file)]
              ((git.commit file root)))))})))
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
   (command! :CorpusDetect (fn [] (let [file (vf expand "%")
                                        corpus? (ftdetect.ftdetect file)]
-                                   (a.println (.. "found file: " file "to be " (if corpus? "" "not") "corpus"))
+                                   (a.println (.. "found file: " file " to be " (if corpus? "" "not") "corpus"))
                                    (when corpus? (init {:file file})))))
   (augroup :LibCorpus
     {:event :VimEnter
@@ -136,7 +135,8 @@
          (command!
            :CorpusZet
            #(zet.create)
-           {:desc "Create a new temp zettel note"})))}
+           {:desc "Create a new temp zettel note"})
+         (init {:file (or file (vf expand "%"))})))}
 
     {:event [:CmdlineEnter]
      :pattern :*
