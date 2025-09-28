@@ -7,6 +7,8 @@
    import-macros []
    require-macros [macros]})
 
+; TODO: account for wrapped lines
+
 (def- margin-percent 60)
 (var enabled? true)
 (var debug false)
@@ -26,7 +28,7 @@
   current line is always at the same level in the window.
   "
   ; topline is set to the current line
-  ; it is then iteratively reduced by the folds until folds are exhuasted
+  ; it is then iteratively reduced by the folds until folds are exhausted
   ; or the remaining margin is less than 0
   (var topline cur-lnum)
   (var remaining-margin (- top-margin 1))
@@ -46,20 +48,18 @@
                              :lines-to-fold (- topline fold.end)))
 
       (if (>= remaining-margin (- topline fold.end))
-        (do
-          (when debug (a.println "setting topline to fold start" fold.start))
-          (set remaining-margin (- remaining-margin (- topline fold.end))) 
-          (set topline fold.start))
+        (do (when debug (a.println "setting topline to fold start" fold.start))
+            (set remaining-margin (- remaining-margin (- topline fold.end))) 
+            (set topline fold.start))
 
-        (do
-          (when debug (a.println "setting topline to remaining margin" (- topline remaining-margin)))
-          (set topline (- topline remaining-margin))
-          (set remaining-margin 0)))))
+        (do (when debug (a.println "setting topline to remaining margin" (- topline remaining-margin)))
+            (set topline (- topline remaining-margin))
+            (set remaining-margin 0)))))
 
   (when debug (a.println :topline topline :remaining-margin remaining-margin))
   (-> topline
-    (- (math.max remaining-margin 0))
-    (math.max 1)))
+      (- (math.max remaining-margin 0))
+      (math.max 1)))
            
 
 (comment
