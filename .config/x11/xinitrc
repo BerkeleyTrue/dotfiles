@@ -42,14 +42,23 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
     unset f
 fi
 
-__log "waiting for x11-session.target to start"
+__log "starting session target"
 
-# the rest is managed by systemd - just wait for the session to end
-# this process needs to stay alive to keep x running
-# check to make make sure x11 is still running and x11-session.target is active
-# once this script exits, X will stop
-while pgrep -x Xorg >/dev/null && systemctl --user is-active x11-session.target >/dev/null 2>&1; do
-    sleep 1
+if ! systemctl --user start x11-session.target; then
+    __log "ERROR: Failed to start"
+    exit 1
+fi
+
+__log "waiting for xmonad"
+timeout 30 bash -c 'while ! systemctl --user is-active xmonad.service >/dev/null 2>&1; do sleep 0.5; done' || {
+    __log "ERROR: xmonad failed to start"
+    exit 1
+}
+
+# Monitor the session - exit when XMonad stops
+__log "session started, monitoring.."
+while systemctl --user is-active xmonad.service >/dev/null 2>&1; do
+    sleep 2
 done
 
 __log "goodbye, beautiful"

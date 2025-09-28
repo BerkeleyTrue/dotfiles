@@ -21,8 +21,6 @@ echo "" > "$STARTUP_LOG"
 exec 1> >(tee -a "$STARTUP_LOG")
 exec 2> >(tee -a "$STARTUP_LOG" >&2)
 
-__log "starting"
-
 # Export essential environment variables
 export DESKTOP_SESSION=xmonad
 export XDG_CURRENT_DESKTOP=XMonad
@@ -48,35 +46,6 @@ __setup_environment() {
     fi
 }
 
-__start_x11_session() {
-    __log "starting session target"
-    
-    # Start the X11 session hierarchy
-    if ! systemctl --user start x11-session.target; then
-        __log "ERROR: Failed to start "
-        return 1
-    fi
-    
-    # Wait for XMonad to be ready
-    __log "waiting for XMonad to start"
-    timeout 30 bash -c 'while ! systemctl --user is-active xmonad.service >/dev/null 2>&1; do sleep 0.5; done' || {
-        __log "ERROR: xmonad failed to start"
-        return 1
-    }
-    
-    __log "session started"
-}
-
-__monitor_session() {
-    __log "monitoring"
-    
-    # Monitor the session - exit when XMonad stops
-    while systemctl --user is-active xmonad.service >/dev/null 2>&1; do
-        sleep 2
-    done
-    
-    __log "xmonad session ended"
-}
 
 __cleanup_session() {
     __log "cleaning up"
@@ -120,33 +89,11 @@ __main() {
     
     # Start X server with our xinitrc equivalent
     __log "starting X"
-    # startx with custom xinitrc
-    # On display :0, virtual terminal 1
-    startx $HOME/.config/x11/xinitrc &
-    # capture the PID
-    STARTX_PID=$!
+
+    # startx with custom xinitrc will handle session management
+    startx $HOME/.config/x11/xinitrc
     
-    # wait for x server to be ready
-    # x0 socket appears when X server is ready to accept connections
-    timeout 10 bash -c 'while [ ! -S /tmp/.X11-unix/X0 ]; do sleep 0.1; done' || {
-        __log "ERROR: X server failed to start"
-        exit 1
-    }
-    
-    # Start systemd session management
-    __start_x11_session || {
-        __log "ERROR: Failed to start systemd session"
-        kill $STARTX_PID 2>/dev/null || true
-        exit 1
-    }
-    
-    # Monitor the session
-    __monitor_session
-    
-    # Wait for startx to finish
-    wait $STARTX_PID || true
-    
-    __log "X11 session ended normally"
+    __log "session ended"
 }
 
 __main "$@"
