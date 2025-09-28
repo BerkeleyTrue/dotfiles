@@ -6,6 +6,10 @@ LOG_DIR="$HOME/.local/share/x11"
 LOG_FILE="$LOG_DIR/x11-session.log"
 STARTUP_LOG="$LOG_DIR/startup.log"
 
+__log() {
+    echo "startx: $(date +%H:%M:%S): $*"
+}
+
 # Ensure log directory exists
 mkdir -p "$LOG_DIR"
 
@@ -17,7 +21,7 @@ echo "" > "$STARTUP_LOG"
 exec 1> >(tee -a "$STARTUP_LOG")
 exec 2> >(tee -a "$STARTUP_LOG" >&2)
 
-echo "$(date): Starting X11 systemd session"
+__log "starting"
 
 # Export essential environment variables
 export DESKTOP_SESSION=xmonad
@@ -26,11 +30,11 @@ export XDG_SESSION_DESKTOP=XMonad
 export XDG_SESSION_TYPE=x11
 
 __setup_environment() {
-    echo "$(date): Setting up X11 environment"
+    __log "Setting up X11 environment"
     
     # Ensure systemd user session is available
     if ! systemctl --user status >/dev/null 2>&1; then
-        echo "$(date): ERROR: systemd user session not available"
+        __log "ERROR: systemd user session not available"
         exit 1
     fi
     
@@ -45,37 +49,37 @@ __setup_environment() {
 }
 
 __start_x11_session() {
-    echo "$(date): Starting X11 session target"
+    __log "Starting X11 session target"
     
     # Start the X11 session hierarchy
     if ! systemctl --user start x11-session.target; then
-        echo "$(date): ERROR: Failed to start x11-session.target"
+        __log "ERROR: Failed to start x11-session.target"
         return 1
     fi
     
     # Wait for XMonad to be ready
-    echo "$(date): Waiting for XMonad to start"
+    __log "Waiting for XMonad to start"
     timeout 30 bash -c 'while ! systemctl --user is-active xmonad.service >/dev/null 2>&1; do sleep 0.5; done' || {
-        echo "$(date): ERROR: XMonad failed to start within 30 seconds"
+        __log "ERROR: XMonad failed to start within 30 seconds"
         return 1
     }
     
-    echo "$(date): X11 session started successfully"
+    __log "X11 session started successfully"
 }
 
 __monitor_session() {
-    echo "$(date): Monitoring X11 session"
+    __log "Monitoring X11 session"
     
     # Monitor the session - exit when XMonad stops
     while systemctl --user is-active xmonad.service >/dev/null 2>&1; do
         sleep 2
     done
     
-    echo "$(date): XMonad session ended"
+    __log "XMonad session ended"
 }
 
 __cleanup_session() {
-    echo "$(date): Cleaning up X11 session"
+    __log "Cleaning up X11 session"
     
     # Stop the session gracefully
     systemctl --user stop x11-session.target || true
@@ -92,19 +96,19 @@ __cleanup_session() {
         XDG_SESSION_DESKTOP \
         DESKTOP_SESSION || true
     
-    echo "$(date): X11 session cleanup complete"
+    __log "X11 session cleanup complete"
 }
 
 __main() {
     # Only run in tty1
     if [[ "$(tty)" != "/dev/tty1" ]]; then
-        echo "$(date): ERROR: X11 session must be started from tty1"
+        __log "ERROR: X11 session must be started from tty1"
         exit 1
     fi
     
     # Check if X is already running
     if pgrep -x Xorg >/dev/null; then
-        echo "$(date): ERROR: X server is already running"
+        __log "ERROR: X server is already running"
         exit 1
     fi
     
@@ -115,7 +119,7 @@ __main() {
     __setup_environment
     
     # Start X server with our xinitrc equivalent
-    echo "$(date): Starting X server"
+    __log "Starting X server"
     # startx with custom xinitrc
     # On display :0, virtual terminal 1
     startx "$HOME/.config/x11/xinitrc" -- :0 vt1 &
@@ -125,13 +129,13 @@ __main() {
     # wait for x server to be ready
     # x0 socket appears when X server is ready to accept connections
     timeout 10 bash -c 'while [ ! -S /tmp/.X11-unix/X0 ]; do sleep 0.1; done' || {
-        echo "$(date): ERROR: X server failed to start"
+        __log "ERROR: X server failed to start"
         exit 1
     }
     
     # Start systemd session management
     __start_x11_session || {
-        echo "$(date): ERROR: Failed to start systemd session"
+        __log "ERROR: Failed to start systemd session"
         kill $STARTX_PID 2>/dev/null || true
         exit 1
     }
@@ -142,7 +146,7 @@ __main() {
     # Wait for startx to finish
     wait $STARTX_PID || true
     
-    echo "$(date): X11 session ended normally"
+    __log "X11 session ended normally"
 }
 
 __main "$@"
