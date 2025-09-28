@@ -34,6 +34,7 @@
       :lua
       :markdown
       :markdown_inline
+      :nix
       :prisma
       :pug
       :query
