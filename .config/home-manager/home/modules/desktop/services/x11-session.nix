@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   systemd.user.targets.x11-session = {
     Unit = {
       Description = "X11 Session";
@@ -23,36 +27,26 @@
       TimeoutStartSec = "30s";
       TimeoutStopSec = "10s";
 
-      ExecStart = pkgs.writeShellScript "x11-session-start" ''
-        # Wait for X11 environment to be ready
-        echo "Waiting for X11 environment... $DISPLAY $XAUTHORITY"
-        while [ -z "$DISPLAY" ] || [ -z "$XAUTHORITY" ]; do
-          sleep 0.1
-        done
-        echo "Found X11 environment: $DISPLAY $XAUTHORITY"
+      ExecStart = let
+        script = pkgs.writeShellScriptBin "x11-session-start" ''
+          # Wait for X11 environment to be ready
+          echo "Waiting for X11 environment... $DISPLAY $XAUTHORITY"
+          while [ -z "$DISPLAY" ] || [ -z "$XAUTHORITY" ]; do
+            sleep 0.1
+          done
+          echo "Found X11 environment: $DISPLAY $XAUTHORITY"
 
-        # Signal that X11 session is ready
-        systemd-notify --ready --status="monitoring..."
+          # Signal that X11 session is ready
+          systemd-notify --ready --status="monitoring..."
 
-        echo "waiting..."
-        # Keep service running while X11 session is active
-        while pgrep -x Xorg >/dev/null; do
-          sleep 1
-        done
-        echo "X11 session ended."
-      '';
-
-      ExecStop = pkgs.writeShellScript "x11-session-stop" ''
-        systemd-notify --status="shutting down..."
-        # Graceful shutdown sequence
-        systemctl --user stop xmonad-session.target || true
-        systemctl --user stop x11-foundation.target || true
-
-        systemd-notify --status="waiting for exit..."
-        # Wait for services to stop cleanly
-        timeout 5 bash -c 'while systemctl --user --no-legend --state=deactivating list-units | grep -q .; do sleep 0.1; done' || true
-        systemd-notify --status="stopped"
-      '';
+          echo "waiting..."
+          # Keep service running while X11 session is active
+          while pgrep -x Xorg >/dev/null; do
+            sleep 1
+          done
+          echo "X11 session ended."
+        '';
+      in "${lib.getExe script}";
     };
 
     Install = {
