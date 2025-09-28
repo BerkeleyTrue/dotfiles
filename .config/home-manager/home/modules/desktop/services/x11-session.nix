@@ -25,6 +25,7 @@
 
       ExecStart = pkgs.writeShellScript "x11-session-start" ''
         # Wait for X11 environment to be ready
+        echo "Waiting for X11 environment... $DISPLAY $XAUTHORITY"
         while [ -z "$DISPLAY" ] || [ -z "$XAUTHORITY" ]; do
           sleep 0.1
         done
