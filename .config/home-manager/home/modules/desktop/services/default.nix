@@ -21,8 +21,9 @@
     ./security.nix
     ./sleep.nix
     ./status-notifier-watcher.nix
-    ./task.nix
+    ./taffybar.nix
     ./taiscale-systray.nix
+    ./task.nix
     ./tmux.nix
     ./unclutter.nix
     ./xcape.nix
