@@ -32,7 +32,7 @@
         echo "Found X11 environment: $DISPLAY $XAUTHORITY"
 
         # Signal that X11 session is ready
-        systemd-notify --ready
+        systemd-notify --ready --status="monitoring..."
 
         echo "waiting..."
         # Keep service running while X11 session is active
@@ -43,12 +43,15 @@
       '';
 
       ExecStop = pkgs.writeShellScript "x11-session-stop" ''
+        systemd-notify --status="shutting down..."
         # Graceful shutdown sequence
         systemctl --user stop xmonad-session.target || true
         systemctl --user stop x11-foundation.target || true
 
+        systemd-notify --status="waiting for exit..."
         # Wait for services to stop cleanly
         timeout 5 bash -c 'while systemctl --user --no-legend --state=deactivating list-units | grep -q .; do sleep 0.1; done' || true
+        systemd-notify --status="stopped"
       '';
     };
 
