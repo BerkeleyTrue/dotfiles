@@ -6,6 +6,9 @@
     utils utils
     hl utils.highlights
     telescope telescope
+    sorters telescope.sorters
+    actions telescope.actions
+    config telescope.config
     builtin telescope.builtin}
    require
    {ag plugins.telescope.silver-searcher
@@ -13,40 +16,42 @@
     todos plugins.telescope.todos}
    require-macros [macros]})
 
-(defn- setup [{: sorters : actions}]
-  (telescope.setup
-    {:defaults
-     {:borderchars ["─" "│" "─" "│" "╭" "╮" "╯" "╰"]
-      :prompt_prefix "   "
-      :selection_caret "> "
-      :entry_prefix "  "
-      :path_display [:truncate]
+(defn- setup []
+  (let [vimgrep (-> config.values.vimgrep_arguments
+                    (r.concat [:--hidden :--no-ignore :--glob "!.git/*" :--trim :--sort :path]))]
+    (telescope.setup
+      {:defaults
+       {:borderchars ["─" "│" "─" "│" "╭" "╮" "╯" "╰"]
+        :prompt_prefix "   "
+        :selection_caret "> "
+        :entry_prefix "  "
+        :path_display [:truncate]
 
-      :layout_strategy :vertical
+        :layout_strategy :vertical
 
-      :layout_config {:horizontal
-                      {:prompt_position :bottom
-                       :height 0.8
-                       :width 0.8
-                       :preview_cutoff 120}
+        :layout_config {:horizontal
+                        {:prompt_position :bottom
+                         :height 0.8
+                         :width 0.8
+                         :preview_cutoff 120}
 
-                      :vertical
-                      {:height 0.9
-                       :preview_cutoff 40
-                       :prompt_position :top
-                       :mirror true
-                       :width 0.6}}
+                        :vertical
+                        {:height 0.9
+                         :preview_cutoff 40
+                         :prompt_position :top
+                         :mirror true
+                         :width 0.6}}
 
-      :file_sorter (. sorters :get_fuzzy_file)
-      :generic_sorter (. sorters :get_generic_fuzzy_sorter)
-      :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]
+        :file_sorter sorters.get_fuzzy_file
+        :generic_sorter sorters.get_generic_fuzzy_sorter
+        :file_ignore_patterns [:node_modules :COMMIT_EDITMSG]
+        :vimgrep_arguments vimgrep
 
-      :mappings {:n {:qq (. actions :close)}
-                 :i {:qq (. actions :close)}}}
+        :mappings {:n {:qq actions.close}
+                   :i {:qq actions.close}}}
 
-     :pickers {:find_files {:hidden true 
-                            :no_ignore true}
-               :oldfiles {:cwd_only true}}}))
+       :pickers {:find_files {:find_command [:rg :--files :--no-ignore :--hidden :--glob "!.git/*" :--sort :path]}
+                 :oldfiles {:cwd_only true}}})))
 
 (defn setup-keymaps []
   (nnoremap :<leader>fg (utils.cviml->lua :telescope.builtin :git_files) {:silent true :desc "Open git files search"})
@@ -72,13 +77,9 @@
 
 (defn main []
   (hl.link! :TelescopeBorder :FloatBorder)
-  (let [sorters (md.prequire :telescope.sorters)
-        builtins (md.prequire :telescope.builtin)
-        actions (md.prequire :telescope.actions)]
-
-    (setup {: sorters : actions})
-    (setup-keymaps)
-    (setup-commands)
-    (ag.main)
-    (tabs.main telescope)
-    (todos.main telescope)))
+  (setup)
+  (setup-keymaps)
+  (setup-commands)
+  (ag.main)
+  (tabs.main telescope)
+  (todos.main telescope))
