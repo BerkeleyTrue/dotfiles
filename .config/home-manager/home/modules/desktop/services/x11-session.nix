@@ -29,14 +29,17 @@
         while [ -z "$DISPLAY" ] || [ -z "$XAUTHORITY" ]; do
           sleep 0.1
         done
+        echo "Found X11 environment: $DISPLAY $XAUTHORITY"
 
         # Signal that X11 session is ready
         systemd-notify --ready
 
+        echo "waiting..."
         # Keep service running while X11 session is active
         while pgrep -x Xorg >/dev/null; do
           sleep 1
         done
+        echo "X11 session ended."
       '';
 
       ExecStop = pkgs.writeShellScript "x11-session-stop" ''
