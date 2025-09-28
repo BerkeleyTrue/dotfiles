@@ -3,6 +3,8 @@
     Unit = {
       Description = "Taffybar Status Bar";
       PartOf = ["tray.target"];
+      After = ["xmonad.target"];
+      BindsTo = ["x11-session.target"];
       ConditionEnvironment = "XDG_SESSION_TYPE=x11";
     };
 
