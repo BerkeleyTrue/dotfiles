@@ -73,7 +73,7 @@
 
 (defasync open-file-url [args]
   (alet [filepath (n buf-get-name 0)
-         filepath (path.get-relative-path (vf expand "~") filepath)
+         filepath (.. "/" (path.get-relative-path (vf expand "~") filepath))
          branch (<- (get-current-branch))
          url (get-file-url branch filepath args.line1 args.line2)
          res (<- (path.xdg-open* url))]

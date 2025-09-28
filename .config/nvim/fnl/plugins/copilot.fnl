@@ -1,5 +1,8 @@
 (module plugins.copilot
-  {require
+  {autoload 
+   {copilot copilot
+    suggest copilot.suggestion}
+   require
    {a aniseed.core
     r r
     md utils.module
@@ -8,42 +11,34 @@
    require-macros [macros]})
 
 (defn main []
-  (when-let [copilot (md.prequire :copilot)]
-    (copilot.setup
-      {:panel
-       {:enabled true
-        :auto_refresh false
-        :keymap
-        {:jump_prev "[["
-         :jump_next "]]"
-         :accept :<CR>
-         :refresh :gr
-         :open :<M-CR>}}
-       :suggestion
-       {:enabled true
-        :auto_trigger true
-        :debounce 250
-        :keymap
-        {:accept false
-         :next "]]"
-         :prev "[["
-         :dismiss "<C-]>"}}
-       :filetypes
-       {:help false
-        :gitcommit false
-        :gitrebase false
-        :hgcommit false
-        :svn false
-        :cvs false
-        :. false}
-       :copilot_node_command (. vim.g :copilot_node_command) ; provided through nix
-       :server_opts_overrides {}})
+  (copilot.setup
+    {:panel
+     {:enabled false}
 
-    (let [cpsuggestions (md.prequire :copilot.suggestion)]
-      (imap
-        :<Right>
-        (fn copilot-accept []
-          (if (cpsuggestions.is_visible)
-            (cpsuggestions.accept)
-            (keys.feed :<Right> true)))
-        {:silent true}))))
+     :suggestion
+     {:enabled true
+      :auto_trigger true
+      :debounce 450
+      :keymap
+      {:accept false
+       :dismiss "<C-]>"}}
+
+     :filetypes
+     {:help false
+      :gitcommit false
+      :gitrebase false
+      :hgcommit false
+      :svn false
+      :cvs false
+      :. false}
+
+     :copilot_node_command (. vim.g :copilot_node_command) ; provided through nix
+     :server_opts_overrides {}}
+
+    (imap
+      :<Right>
+      (fn copilot-accept []
+        (if (suggest.is_visible)
+          (suggest.accept)
+          (keys.feed :<Right> true)))
+      {:silent true})))
