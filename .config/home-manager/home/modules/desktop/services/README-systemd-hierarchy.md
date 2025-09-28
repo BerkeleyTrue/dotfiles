@@ -6,10 +6,7 @@ This directory contains a hierarchical systemd service structure for managing X1
 
 ```
 x11-session.target (Root)
-├── x11-environment.service (Environment setup)
 ├── x11-foundation.target (Foundation services)
-│   ├── xresources.service (Load Xresources)
-│   ├── xmodmap.service (Apply xmodmap)
 │   ├── xkbmap.service (Keyboard layout)
 │   └── xbindkeys.service (Hotkeys)
 ├── xmonad-session.target (Window manager session)

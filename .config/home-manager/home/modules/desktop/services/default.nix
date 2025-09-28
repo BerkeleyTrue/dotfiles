@@ -1,7 +1,7 @@
 {...}: {
   imports = [
-    ./x11-session.nix # core x11 session management
-    ./x11-foundation.nix # xresources, xmodmap, xkbmap, etc.
+    ./x11-session.nix 
+    ./x11-foundation.nix 
     ./xmonad.nix 
     ./desktop-targets.nix 
 
