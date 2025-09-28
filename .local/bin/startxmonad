@@ -7,7 +7,7 @@ LOG_FILE="$LOG_DIR/x11-session.log"
 STARTUP_LOG="$LOG_DIR/startup.log"
 
 __log() {
-    echo "startx: $(date +%H:%M:%S): $*"
+    echo "$(date +%H:%M:%S) startx: $*"
 }
 
 # Ensure log directory exists
@@ -30,11 +30,11 @@ export XDG_SESSION_DESKTOP=XMonad
 export XDG_SESSION_TYPE=x11
 
 __setup_environment() {
-    __log "Setting up X11 environment"
+    __log "setting up environment"
     
     # Ensure systemd user session is available
     if ! systemctl --user status >/dev/null 2>&1; then
-        __log "ERROR: systemd user session not available"
+        __log "ERROR: user session not available"
         exit 1
     fi
     
@@ -49,37 +49,37 @@ __setup_environment() {
 }
 
 __start_x11_session() {
-    __log "Starting X11 session target"
+    __log "starting session target"
     
     # Start the X11 session hierarchy
     if ! systemctl --user start x11-session.target; then
-        __log "ERROR: Failed to start x11-session.target"
+        __log "ERROR: Failed to start "
         return 1
     fi
     
     # Wait for XMonad to be ready
-    __log "Waiting for XMonad to start"
+    __log "waiting for XMonad to start"
     timeout 30 bash -c 'while ! systemctl --user is-active xmonad.service >/dev/null 2>&1; do sleep 0.5; done' || {
-        __log "ERROR: XMonad failed to start within 30 seconds"
+        __log "ERROR: xmonad failed to start"
         return 1
     }
     
-    __log "X11 session started successfully"
+    __log "session started"
 }
 
 __monitor_session() {
-    __log "Monitoring X11 session"
+    __log "monitoring"
     
     # Monitor the session - exit when XMonad stops
     while systemctl --user is-active xmonad.service >/dev/null 2>&1; do
         sleep 2
     done
     
-    __log "XMonad session ended"
+    __log "xmonad session ended"
 }
 
 __cleanup_session() {
-    __log "Cleaning up X11 session"
+    __log "cleaning up"
     
     # Stop the session gracefully
     systemctl --user stop x11-session.target || true
@@ -102,7 +102,7 @@ __cleanup_session() {
 __main() {
     # Only run in tty1
     if [[ "$(tty)" != "/dev/tty1" ]]; then
-        __log "ERROR: X11 session must be started from tty1"
+        __log "X11 session must be started from tty1"
         exit 1
     fi
     
@@ -119,7 +119,7 @@ __main() {
     __setup_environment
     
     # Start X server with our xinitrc equivalent
-    __log "Starting X server"
+    __log "starting X"
     # startx with custom xinitrc
     # On display :0, virtual terminal 1
     startx "$HOME/.config/x11/xinitrc" -- :0 vt1 &
