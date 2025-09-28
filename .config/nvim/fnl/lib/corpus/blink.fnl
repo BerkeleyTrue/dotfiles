@@ -11,7 +11,11 @@
    import-macros []
    require-macros [macros]})
 
-(var current-job nil)
+(def- keyword-pattern (vim.regex "\\(\\[\\zs[^\\]]*\\ze\\]\\?\\)\\m$"))
+(comment 
+  (keyword-pattern:match_str "This is a test [exam"))
+
+(var cancellable nil)
 
 (defn new []
   (setmetatable {} {:__index *module*}))
@@ -21,17 +25,20 @@
 
 (defn get_trigger_characters [self] ["["])
 
-
 (defn get_completions [self ctx callback]
   (when-let [cwd (ftdetect.search (vf expand "%:p") ".corpus")
              cwd (vf fnamemodify cwd ":h")
              cursor ctx.bounds.start_col
-             input (ctx.line:sub cursor)
-              ; remove the trailing ]
-             input (input:sub 1 -2)] 
-    (if (r.not-empty? input)
-      (when current-job
-        (current-job))
+             line_before_cursor (string.sub ctx.line 1 cursor)
+             (kw_start _) (keyword-pattern:match_str line_before_cursor)
+
+             input (if kw_start 
+                     (string.sub line_before_cursor (+ kw_start 1)) 
+                     "")]
+
+    (when (r.not-empty? input)
+      (when cancellable
+        (cancellable))
 
       (fn handle-results [ok? results]
         (when ok?
@@ -44,10 +51,11 @@
                        :is_incomplete_backward false
                        :is_incomplete_forward false}))))
 
-      (set current-job (search input cwd handle-results))
-      (callback {:items []
-                 :is_incomplete_forward true
-                 :is_incomplete_backward false}))))
+      (set cancellable (search input cwd handle-results)))
+
+    (callback {:items []
+               :is_incomplete_forward true
+               :is_incomplete_backward false})))
 
 (defn resolve [self item callback]
   "Resolve the completion item. This occurs write before displaying the item to the user."
@@ -62,7 +70,6 @@
                           "*Corpus*: " file)]
 
     (set item.documentation document))
-    ; (set item.destination file)) ; not sure if this is used in blink
   (callback item))
 
 (defn execute [self ctx item callback default-exec]
