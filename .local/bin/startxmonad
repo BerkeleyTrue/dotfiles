@@ -118,7 +118,7 @@ __main() {
     echo "$(date): Starting X server"
     # startx with custom xinitrc
     # On display :0, virtual terminal 1
-    startx "$HOME/.config/x11/xinitrc-systemd" -- :0 vt1 &
+    startx "$HOME/.config/x11/xinitrc" -- :0 vt1 &
     # capture the PID
     STARTX_PID=$!
     
