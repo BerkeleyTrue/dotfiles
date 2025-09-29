@@ -7,7 +7,7 @@
     Unit = {
       Description = "Flameshot screenshot tool";
       Documentation = ["man:flameshot(1)"];
-      After = ["tray.target" "graphical-session.target"];
+      After = ["tray.target" "xmonad-session.target"];
       PartOf = ["tray.target"];
     };
 
