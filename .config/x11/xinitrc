@@ -45,23 +45,17 @@ fi
 systemctl --user import-environment DISPLAY
 systemctl --user import-environment XAUTHORITY
 
-__log "starting session target"
+__log "starting xmonad target"
 
-if ! systemctl --user start x11-session.target; then
+if ! systemctl --wait --user start xmonad.target; then
     __log "ERROR: Failed to start"
     exit 1
 fi
 
-__log "waiting for xmonad"
-timeout 30 bash -c 'while ! systemctl --user is-active xmonad.service >/dev/null 2>&1; do sleep 0.5; done' || {
-    __log "ERROR: xmonad failed to start"
-    exit 1
-}
-
 # Monitor the session - exit when XMonad stops
-__log "session started, monitoring.."
-while systemctl --user is-active xmonad.service >/dev/null 2>&1; do
-    sleep 2
-done
+# __log "session started, monitoring.."
+# while systemctl --user is-active xmonad.service >/dev/null 2>&1; do
+#     sleep 2
+# done
 
 __log "goodbye, beautiful"
