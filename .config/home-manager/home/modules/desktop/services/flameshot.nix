@@ -7,7 +7,7 @@
     Unit = {
       Description = "Flameshot screenshot tool";
       Documentation = ["man:flameshot(1)"];
-      After = ["tray.target"];
+      After = ["tray.target" "graphical-session.target"];
       PartOf = ["tray.target"];
     };
 
