@@ -29,7 +29,6 @@
     Unit = {
       Description = "Notification Services";
       Documentation = ["man:systemd.special(7)"];
-      After = ["compositor.target"];
       PartOf = ["desktop-services.target"];
     };
   };
@@ -38,25 +37,15 @@
     Unit = {
       Description = "Wallpaper Services";
       Documentation = ["man:systemd.special(7)"];
-      After = ["compositor.target"];
       PartOf = ["desktop-services.target"];
     };
   };
 
-  # home-manager doesn't allow overwriting xsesion.nix trayTarget
-  # but we can add dependencies to it
-  # built in.
+  # built into home-manager
   # Unit = {
   #   Description = "Home Manager System Tray";
   #   Requires = [ "graphical-session-pre.target" ];
   # };
-  systemd.user.targets.tray = {
-    Unit = {
-      Documentation = "man:systemd.special(7)";
-      After = ["notification.target"];
-      PartOf = ["desktop-services.target"];
-    };
-  };
 
   systemd.user.targets.desktop-utilities = {
     Unit = {

@@ -131,7 +131,6 @@ in {
     Unit = {
       Description = "Dunst notification daemon";
       Documentation = ["man:dunst(1)"];
-      After = ["compositor.target"];
       PartOf = ["notification.target"];
     };
 

@@ -7,7 +7,6 @@
     Unit = {
       Description = "Nitrogen wallpaper manager";
       Documentation = ["man:nitrogen(1)"];
-      After = ["compositor.target"];
       PartOf = ["wallpaper.target"];
     };
 
