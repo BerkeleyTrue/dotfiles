@@ -31,4 +31,8 @@
   services.autorandr = {
     enable = true;
   };
+
+  systemd.user.services.autorandr.Unit = {
+    After = ["x11-session.target"];
+  };
 }
