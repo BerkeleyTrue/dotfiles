@@ -74,6 +74,7 @@ in {
       just # A command runner with a makefile-like syntax
       lazydocker # simple terminal ui for both docker and docker-compose
       lsof # lists open files
+      mermaid-cli # Generation of diagrams and flowcharts from text in a similar manner as markdown
       ngrok # Introspected tunnels to localhost
       p7zip # 7-Zip is a file archiver with a high compression ratio
       playerctl # pause/play music players ci
@@ -87,6 +88,7 @@ in {
       rustscan # The Modern Port Scanner
       shfmt # A shell parser, formatter, and interpreter (POSIX/Bash/mksh)
       silver-searcher # A code-searching tool similar to ack, but faster
+      smartmontools # control and monitor storage systems using S.M.A.R.T.
       sops # Simple and flexible tool for managing secrets
       ssh-to-age # convert ssh private keys in ed25519 format to age keys
       taskwarrior3 # A command-line todo list manager
