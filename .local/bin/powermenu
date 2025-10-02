@@ -37,6 +37,6 @@ $suspend)
   (sleep .250 && /usr/bin/systemctl suspend)
   ;;
 $logout)
-  systemctl --user stop xmonad.target
+  systemctl --user start shutdown-graphical.target
   ;;
 esac
