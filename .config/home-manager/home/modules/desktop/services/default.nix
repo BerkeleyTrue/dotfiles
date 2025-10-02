@@ -4,6 +4,7 @@
     ./x11-foundation.nix 
     ./xmonad.nix 
     ./desktop-targets.nix 
+    ./shutdown-graphical.nix
 
     # desktop services 
     ./autorandr
