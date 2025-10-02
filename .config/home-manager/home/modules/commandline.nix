@@ -74,6 +74,7 @@ in {
       just # A command runner with a makefile-like syntax
       lazydocker # simple terminal ui for both docker and docker-compose
       lsof # lists open files
+      mermaid-cli # Generation of diagrams and flowcharts from text in a similar manner as markdown
       ngrok # Introspected tunnels to localhost
       p7zip # 7-Zip is a file archiver with a high compression ratio
       playerctl # pause/play music players ci
