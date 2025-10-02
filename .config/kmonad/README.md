@@ -1,5 +1,13 @@
 # KMONAD
 
+__Deprecated__
+
+Using kanata through home-manager now
+
+[kanata.nix](../home-manager/home/modules/desktop/services/kanata.nix)
+
+--
+
 * This needs to be run as root in order to work.
 * Make edits to config file
   * Test with "time 10s kmonad .kmonad.kbd"
