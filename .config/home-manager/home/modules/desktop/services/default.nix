@@ -1,35 +1,45 @@
 {...}: {
   imports = [
+    # xmonad
     ./x11-session.nix 
     ./x11-foundation.nix 
     ./xmonad.nix 
     ./desktop-targets.nix 
     ./shutdown-graphical.nix
+    ./taffybar.nix
+
+    # x11 desktop
+    ./autorandr
+    ./dunst.nix 
+    ./nitrogen.nix 
+    ./pasystray.nix
+    ./unclutter.nix
+    ./xcape.nix
+    ./xplugd.nix
+    ./picom.nix 
+
+    # niri
+    ./niri.nix
+    ./wayland.nix
+
+    # wayland desktop
+    ./mako.nix
 
     # desktop services 
-    ./autorandr
     ./blueman.nix
-    ./dunst.nix 
     ./flameshot.nix
     ./flatpak.nix
     ./gh-user.nix
     ./kanata.nix
-    ./nitrogen.nix 
     ./nix-collect-garbage.nix
     ./notessync.nix
-    ./pasystray.nix
-    ./picom.nix 
     ./security.nix
-    ./sleep.nix
-    ./status-notifier-watcher.nix
-    ./taffybar.nix
+    ./sleep.nix # TODO: make wayland compatible
+    ./status-notifier-watcher.nix # is this x11 specific?
     ./taiscale-systray.nix
     ./task.nix
     ./tmux.nix
-    ./unclutter.nix
-    ./xcape.nix
     ./xdg.nix
-    ./xplugd.nix
   ];
 
   # needed to load env vars for systemd user services
