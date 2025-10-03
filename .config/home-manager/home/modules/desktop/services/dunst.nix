@@ -138,6 +138,7 @@ in {
       Type = "dbus";
       BusName = "org.freedesktop.Notifications";
       ExecStart = "${pkgs.dunst}/bin/dunst -config ${config.xdg.configHome}/dunst/dunstrc";
+      ExecCondition= ''/bin/sh -c '[ -n "$DISPLAY" ]' '';
       Restart = "on-failure";
       RestartSec = 3;
     };
