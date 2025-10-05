@@ -6,7 +6,6 @@
     ./xmonad.nix 
     ./desktop-targets.nix 
     ./shutdown-graphical.nix
-    ./taffybar.nix
 
     # x11 desktop
     ./autorandr
