@@ -1,3 +1,4 @@
+# see ./services/notification-daemon for systemd service
 {
   pkgs,
   theme,
