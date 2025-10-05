@@ -17,7 +17,6 @@ in {
   systemd.user.services.notification-daemon = {
     Unit = {
       Description = "Notification daemon (dunst/mako wrapper)";
-      Documentation = ["man:dunst(1)" "man:mako(1)"];
       PartOf = ["notification.target"];
     };
 

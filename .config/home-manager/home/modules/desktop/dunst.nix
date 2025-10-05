@@ -2,7 +2,6 @@
   pkgs,
   theme,
   lib,
-  config,
   ...
 }: let
   toDunstIni = lib.generators.toINI {
@@ -125,26 +124,5 @@ in {
     onChange = ''
       ${pkgs.procps}/bin/pkill -u "$USER" ''${VERBOSE+-e} dunst || true
     '';
-  };
-
-  systemd.user.services.dunst = {
-    Unit = {
-      Description = "Dunst notification daemon";
-      Documentation = ["man:dunst(1)"];
-      PartOf = ["notification.target"];
-    };
-
-    Service = {
-      Type = "dbus";
-      BusName = "org.freedesktop.Notifications";
-      ExecStart = "${pkgs.dunst}/bin/dunst -config ${config.xdg.configHome}/dunst/dunstrc";
-      ExecCondition= ''/bin/sh -c '[ -n "$DISPLAY" ]' '';
-      Restart = "on-failure";
-      RestartSec = 3;
-    };
-
-    Install = {
-      WantedBy = ["notification.target"];
-    };
   };
 }

@@ -10,7 +10,6 @@
 
     # x11 desktop
     ./autorandr
-    ./dunst.nix 
     ./nitrogen.nix 
     ./pasystray.nix
     ./unclutter.nix
@@ -23,9 +22,9 @@
     ./wayland.nix
 
     # wayland desktop
-    ./mako.nix
 
     # desktop services 
+    ./notification.nix
     ./blueman.nix
     ./flameshot.nix
     ./flatpak.nix
