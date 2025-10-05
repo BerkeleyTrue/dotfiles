@@ -3,9 +3,15 @@
 ## Doing
 
 - Switch to wayland compositor
-  - niri wm
-  - tofi app launcher
-  - waybar 
+  - [x] hierarchy x11 
+  - [ ] niri wm service and session management
+  - [ ] Anyrun or tofi 
+  - [ ] waybar https://github.com/Alexays/Waybar
+  - [ ] Panels with Astal https://aylur.github.io/astal/
+  - [ ] mako notifier
+  - [ ] hyprlock https://wiki.hypr.land/Hypr-Ecosystem/hyprlock/
+  - [ ] catppuccin cursor https://github.com/catppuccin/cursors
+  - [ ] swww for wallpaper https://github.com/LGFae/swww
 
 ## Done
 

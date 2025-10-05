@@ -104,8 +104,16 @@ in {
     tray = "always";
   };
 
+  systemd.user.services.udiskie.Unit = {
+    PartOf = ["tray.target"];
+  };
+
   services.network-manager-applet = {
     enable = true;
+  };
+
+  systemd.user.services.network-manager-applet.Unit = {
+    PartOf = ["tray.target"];
   };
 
   programs.rofi-network-manager = {

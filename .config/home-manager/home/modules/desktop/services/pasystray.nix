@@ -1,21 +1,21 @@
 {pkgs, ...}: {
   systemd.user.services.pasystray = {
     Unit = {
-      Description = "Pulse Audio system tray";
-      Requires = "tray.target";
-      After = [
-        "graphical-session-pre.target"
-        "tray.target"
-      ];
-      PartOf = ["graphical-session.target"];
+      Description = "PulseAudio System Tray";
+      Documentation = ["man:pasystray(1)"];
+      After = ["tray.target"];
+      PartOf = ["tray.target"];
     };
 
     Service = {
+      Type = "simple";
       ExecStart = "${pkgs.pasystray}/bin/pasystray";
+      Restart = "on-failure";
+      RestartSec = 3;
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["tray.target"];
     };
   };
 }

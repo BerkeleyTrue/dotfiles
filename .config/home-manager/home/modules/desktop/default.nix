@@ -1,6 +1,5 @@
 {...}: {
   imports = [
     ./services
-    ./wayland.nix
   ];
 }

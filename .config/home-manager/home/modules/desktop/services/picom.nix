@@ -6,19 +6,22 @@
   systemd.user.services.picom = {
     Unit = {
       Description = "Picom X11 compositor";
-      After = ["graphical-session-pre.target"];
-      PartOf = ["graphical-session.target"];
+      Documentation = ["man:picom(1)"];
+      After = ["xmonad.target"];
+      PartOf = ["compositor.target"];
     };
 
     Service = {
-      ExecStart = "${config.lib.nixGL.wrap pkgs.picom}/bin/picom ";
-      # ExecStart = "/usr/bin/picom ";
+      Type = "simple";
+      ExecStart = "${config.lib.nixGL.wrap pkgs.picom}/bin/picom";
+      # ExecStart = "/usr/bin/picom";
       Restart = "on-failure";
       RestartSec = 3;
+      TimeoutStartSec = "10s";
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["compositor.target"];
     };
   };
 }

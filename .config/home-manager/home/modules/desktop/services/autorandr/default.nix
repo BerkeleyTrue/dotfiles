@@ -31,4 +31,9 @@
   services.autorandr = {
     enable = true;
   };
+
+  systemd.user.services.autorandr.Unit = {
+    After = ["x11-foundation.target"];
+    PartOf = ["xmonad-session.target"];
+  };
 }

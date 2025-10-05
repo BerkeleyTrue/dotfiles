@@ -6,18 +6,21 @@
   # requires system installation of blueman
   systemd.user.services.blueman-applet = {
     Unit = {
-      Description = "Blueman Applet";
-      Requires = "tray.target";
-      After = ["graphical-session-pre.target" "tray.target"];
-      PartOf = ["graphical-session.target"];
+      Description = "Blueman Bluetooth Applet";
+      Documentation = ["man:blueman-applet(1)"];
+      After = ["tray.target"];
+      PartOf = ["tray.target"];
     };
 
     Service = {
+      Type = "simple";
       ExecStart = "${pkgs.blueman}/bin/blueman-applet";
+      Restart = "on-failure";
+      RestartSec = 3;
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["tray.target"];
     };
   };
 }

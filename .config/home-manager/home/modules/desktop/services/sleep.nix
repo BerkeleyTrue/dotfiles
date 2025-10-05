@@ -51,7 +51,7 @@ in {
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["x11-session.target"];
     };
   };
 
@@ -87,7 +87,7 @@ in {
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = ["x11-session.target"];
     };
   };
 
