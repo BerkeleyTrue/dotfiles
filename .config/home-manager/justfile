@@ -30,7 +30,15 @@ switch:
 
 [group('desktop')]
 switch-debug: 
-  ./result/sw/bin/darwin-rebuild switch --show-trace --verbose
+  ./result/home-path/bin/home-manager switch --show-trace --verbose
+
+# Rollback to previous home-manager generation
+[group('desktop')]
+rollback:
+  #!/usr/bin/env bash
+  PREV_GEN=$(./result/home-path/bin/home-manager generations | fzf | awk '{print $NF}')
+  echo "rolling back to $PREV_GEN"
+  $PREV_GEN/activate
 
 # Update all the flake inputs
 [group('nix')]
