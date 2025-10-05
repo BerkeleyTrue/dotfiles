@@ -18,7 +18,7 @@
 
 (defn- setup []
   (let [vimgrep (-> config.values.vimgrep_arguments
-                    (r.concat [:--hidden :--no-ignore :--glob "!.git/*" :--trim :--sort :path]))]
+                    (r.concat [:--hidden :--no-ignore :--glob "!.git/*" :--glob "!.direnv/*" :--trim :--sort :path]))]
     (telescope.setup
       {:defaults
        {:borderchars ["─" "│" "─" "│" "╭" "╮" "╯" "╰"]
@@ -50,7 +50,7 @@
         :mappings {:n {:qq actions.close}
                    :i {:qq actions.close}}}
 
-       :pickers {:find_files {:find_command [:rg :--files :--no-ignore :--hidden :--glob "!.git/*" :--sort :path]}
+       :pickers {:find_files {:find_command [:rg :--files :--no-ignore :--hidden :--glob "!.git/*" :--glob "!.direnv/*" :--sort :path]}
                  :oldfiles {:cwd_only true}}})))
 
 (defn setup-keymaps []
