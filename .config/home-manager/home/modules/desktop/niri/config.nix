@@ -362,7 +362,7 @@ in
       # Mod-? shows a list of important hotkeys.
       (plain "Mod+Shift+Slash" [(flag "show-hotkey-overlay")])
 
-      (plain "Mod+Enter" [(leaf "spawn" ["kitty"])])
+      (plain "Mod+Return" [(leaf "spawn" ["kitty"])])
       (plain "Mod+D" [(leaf "spawn" ["anyrun"])])
       # (plain "Super+Alt+L" [(leaf "spawn" ["swaylock"])])
 
