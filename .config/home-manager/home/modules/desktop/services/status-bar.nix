@@ -42,9 +42,9 @@ in {
     };
 
     Service = {
-      Environment = lib.option inspect "GTK_DEBUG=interactive";
+      Environment = lib.optional inspect "GTK_DEBUG=interactive";
       ExecStart = "${pkgs.waybar}/bin/waybar${lib.optionalString debug "-l debug"}";
-      ExecReload = "${pkgs.coreUtils}/bin/kill -SIGUSR2 $MAINPID";
+      ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
       KillMode = "mixed";
       Restart = "on-failure";
     };

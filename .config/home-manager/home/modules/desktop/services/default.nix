@@ -23,7 +23,6 @@
     # wayland desktop
 
     # desktop services 
-    ./notification.nix
     ./blueman.nix
     ./flameshot.nix
     ./flatpak.nix
@@ -31,9 +30,11 @@
     ./kanata.nix
     ./nix-collect-garbage.nix
     ./notessync.nix
+    ./notification.nix
     ./security.nix
     ./sleep.nix # TODO: make wayland compatible
     ./status-notifier-watcher.nix # is this x11 specific?
+    ./status-bar.nix
     ./taiscale-systray.nix
     ./task.nix
     ./tmux.nix
