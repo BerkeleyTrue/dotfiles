@@ -3,6 +3,7 @@
     ./services
     ./niri
     ./dunst.nix
+    ./waybar.nix
   ];
 
   programs.anyrun = {
