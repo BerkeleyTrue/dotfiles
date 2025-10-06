@@ -34,5 +34,7 @@
       Slice = "session.slice";
       ExecStart = "${lib.getExe pkgs.niri} --session";
     };
+
+    Install.WantedBy = ["niri.target"];
   };
 }
