@@ -9,6 +9,17 @@
   config = import ./config.nix {
     inherit kdl lib hardware profile;
   };
+  validate-config = config:
+    pkgs.runCommand "config.kdl"
+    {
+      inherit config;
+      passAsFile = ["config"];
+      buildInputs = [pkgs.niri];
+    }
+    ''
+      niri validate -c $configPath
+      cp $configPath $out
+    '';
 in {
   home.packages = with pkgs; [
     niri
@@ -24,5 +35,5 @@ in {
     ];
   };
 
-  xdg.configFile."niri/config.kdl".text = kdl.serialize.nodes config;
+  xdg.configFile."niri/config.kdl".source = validate-config (kdl.serialize.nodes config);
 }

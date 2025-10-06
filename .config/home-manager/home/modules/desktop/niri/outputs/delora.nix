@@ -9,16 +9,14 @@
   inherit (hardware.monitors) g5 dell;
 in [
   (node "output" g5.label [
-    (leaf "primary" true)
     (leaf "scale" 2.0)
     (leaf "transform" "normal")
     (leaf "mode" "${toString g5.width}x${toString g5.height}@${toString g5.rate}.000")
     (leaf "position" g5.position)
     (leaf "variable-refresh-rate" {on-demand = true;})
-    (flag "focus-on-startup")
+    (flag "focus-at-startup")
   ])
   (node "output" dell.label [
-    (leaf "primary" false)
     (leaf "scale" 2.0)
     (leaf "transform" "normal")
     (leaf "mode" "${toString dell.width}x${toString dell.height}@${toString dell.rate}.000")
