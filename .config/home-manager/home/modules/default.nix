@@ -8,6 +8,7 @@
     ./apps.nix
     ./desktop.nix
     ./fonts.nix
+    ./catppuccin.nix
   ];
 
   # Let Home Manager install and manage itself.
