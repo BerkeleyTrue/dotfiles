@@ -50,10 +50,22 @@
             g5 = {
               height = 1440;
               width = 3440;
+              label = "DP-3";
+              rate = 165;
+              position = {
+                x = 0;
+                y = 1080;
+              };
             };
             dell = {
               height = 1080;
               width = 2560;
+              label = "HDMI-1";
+              rate = 60;
+              position = {
+                x = 0;
+                y = 0;
+              };
             };
           };
         };
@@ -72,6 +84,7 @@
             framework = {
               height = 1504;
               width = 2256;
+              label = "eDP-1";
             };
           };
         };

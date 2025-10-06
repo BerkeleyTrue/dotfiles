@@ -1,9 +1,14 @@
 {
   pkgs,
+  lib,
   kdl,
+  hardware,
+  profile,
   ...
 }: let
-  config = import ./config.nix {inherit kdl;};
+  config = import ./config.nix {
+    inherit kdl lib hardware profile;
+  };
 in {
   home.packages = with pkgs; [
     niri
