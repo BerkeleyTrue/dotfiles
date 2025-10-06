@@ -85,6 +85,7 @@
               height = 1504;
               width = 2256;
               label = "eDP-1";
+              rate = 60;
             };
           };
         };
