@@ -6,6 +6,9 @@ LOG_DIR="$HOME/.local/share/niri"
 LOG_FILE="$LOG_DIR/session.log"
 STARTUP_LOG="$LOG_DIR/startup.log"
 
+# Ensure log directory exists
+mkdir -p "$LOG_DIR"
+
 # Clear old logs
 echo "" >"$LOG_FILE"
 echo "" >"$STARTUP_LOG"
@@ -48,7 +51,7 @@ __cleanup() {
 __main() {
 	# Only run in tty1
 	if [[ "$(tty)" != "/dev/tty1" ]]; then
-		__log "ERROR: X11 session must be started from tty1"
+		__log "ERROR: Niri session must be started from tty1"
 		exit 1
 	fi
 
