@@ -191,11 +191,8 @@ in
 
     # You can override environment variables for processes spawned by niri.
     (plain "environment" [
-      # Set a variable like this:
-      # (leaf "QT_QPA_PLATFORM" "wayland")
-
-      # Remove a variable by using null as the value:
-      # (leaf "DISPLAY" null)
+      # unset x11 variables
+      (leaf "DISPLAY" null)
     ])
 
     (plain "cursor" [
@@ -362,33 +359,14 @@ in
     ])
 
     (plain "binds" [
-      # Keys consist of modifiers separated by + signs, followed by an XKB key name
-      # in the end. To find an XKB name for a particular key, you may use a program
-      # like wev.
-      #
-      # "Mod" is a special modifier equal to Super when running on a TTY, and to Alt
-      # when running as a winit window.
-      #
-      # Most actions that you can bind here can also be invoked programmatically with
-      # `niri msg action do-something`.
-
-      # Mod-Shift-/, which is usually the same as Mod-?,
-      # shows a list of important hotkeys.
+      # Mod-? shows a list of important hotkeys.
       (plain "Mod+Shift+Slash" [(flag "show-hotkey-overlay")])
 
-      # Suggested binds for running programs: terminal, app launcher, screen locker.
-      (plain "Mod+T" [(leaf "spawn" ["alacritty"])])
-      (plain "Mod+D" [(leaf "spawn" ["fuzzel"])])
-      (plain "Super+Alt+L" [(leaf "spawn" ["swaylock"])])
+      (plain "Mod+Enter" [(leaf "spawn" ["kitty"])])
+      (plain "Mod+D" [(leaf "spawn" ["anyrun"])])
+      # (plain "Super+Alt+L" [(leaf "spawn" ["swaylock"])])
 
-      # You can also use a shell:
-      # (plain "Mod+T" [(leaf "spawn" [ "bash" "-c" "notify-send hello && exec alacritty" ])])
-
-      # Example volume keys mappings for PipeWire & WirePlumber.
-      (plain "XF86AudioRaiseVolume" [(leaf "spawn" ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"])])
-      (plain "XF86AudioLowerVolume" [(leaf "spawn" ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"])])
-
-      (plain "Mod+Q" [(flag "close-window")])
+      (plain "Mod+Shift+Q" [(flag "close-window")])
 
       (plain "Mod+Left" [(flag "focus-column-left")])
       (plain "Mod+Down" [(flag "focus-window-down")])
@@ -407,13 +385,6 @@ in
       (plain "Mod+Ctrl+J" [(flag "move-window-down")])
       (plain "Mod+Ctrl+K" [(flag "move-window-up")])
       (plain "Mod+Ctrl+L" [(flag "move-column-right")])
-
-      # Alternative commands that move across workspaces when reaching
-      # the first or last window in a column.
-      # (plain "Mod+J"      [(flag "focus-window-or-workspace-down")])
-      # (plain "Mod+K"      [(flag "focus-window-or-workspace-up")])
-      # (plain "Mod+Ctrl+J" [(flag "move-window-down-or-to-workspace-down")])
-      # (plain "Mod+Ctrl+K" [(flag "move-window-up-or-to-workspace-up")])
 
       (plain "Mod+Home" [(flag "focus-column-first")])
       (plain "Mod+End" [(flag "focus-column-last")])
@@ -438,14 +409,6 @@ in
       (plain "Mod+Shift+Ctrl+K" [(flag "move-column-to-monitor-up")])
       (plain "Mod+Shift+Ctrl+L" [(flag "move-column-to-monitor-right")])
 
-      # Alternatively, there are commands to move just a single window:
-      # (plain "Mod+Shift+Ctrl+Left" [(flag "move-window-to-monitor-left")])
-      # ...
-
-      # And you can also move a whole workspace to another monitor:
-      # (plain "Mod+Shift+Ctrl+Left" [(flag "move-workspace-to-monitor-left")])
-      # ...
-
       (plain "Mod+Page_Down" [(flag "focus-workspace-down")])
       (plain "Mod+Page_Up" [(flag "focus-workspace-up")])
       (plain "Mod+U" [(flag "focus-workspace-down")])
@@ -455,23 +418,11 @@ in
       (plain "Mod+Ctrl+U" [(flag "move-column-to-workspace-down")])
       (plain "Mod+Ctrl+I" [(flag "move-column-to-workspace-up")])
 
-      # Alternatively, there are commands to move just a single window:
-      # (plain "Mod+Ctrl+Page_Down" [(flag "move-window-to-workspace-down")])
-      # ...
-
       (plain "Mod+Shift+Page_Down" [(flag "move-workspace-down")])
       (plain "Mod+Shift+Page_Up" [(flag "move-workspace-up")])
       (plain "Mod+Shift+U" [(flag "move-workspace-down")])
       (plain "Mod+Shift+I" [(flag "move-workspace-up")])
 
-      # You can refer to workspaces by index. However, keep in mind that
-      # niri is a dynamic workspace system, so these commands are kind of
-      # "best effort". Trying to refer to a workspace index bigger than
-      # the current workspace count will instead refer to the bottommost
-      # (empty) workspace.
-      #
-      # For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
-      # will all refer to the 3rd workspace.
       (plain "Mod+1" [(leaf "focus-workspace" 1)])
       (plain "Mod+2" [(leaf "focus-workspace" 2)])
       (plain "Mod+3" [(leaf "focus-workspace" 3)])
@@ -491,15 +442,8 @@ in
       (plain "Mod+Ctrl+8" [(leaf "move-column-to-workspace" 8)])
       (plain "Mod+Ctrl+9" [(leaf "move-column-to-workspace" 9)])
 
-      # Alternatively, there are commands to move just a single window:
-      # (plain "Mod+Ctrl+1" [(leaf "move-window-to-workspace" 1)])
-
       (plain "Mod+Comma" [(flag "consume-window-into-column")])
       (plain "Mod+Period" [(flag "expel-window-from-column")])
-
-      # There are also commands that consume or expel a single window to the side.
-      # (plain "Mod+BracketLeft"  [(flag "consume-or-expel-window-left")])
-      # (plain "Mod+BracketRight" [(flag "consume-or-expel-window-right")])
 
       (plain "Mod+R" [(flag "switch-preset-column-width")])
       (plain "Mod+F" [(flag "maximize-column")])
@@ -529,16 +473,6 @@ in
       # (plain "Mod+Space"       [(leaf "switch-layout" "next")])
       # (plain "Mod+Shift+Space" [(leaf "switch-layout" "prev")])
 
-      (plain "Print" [(flag "screenshot")])
-      (plain "Ctrl+Print" [(flag "screenshot-screen")])
-      (plain "Alt+Print" [(flag "screenshot-window")])
-
-      # The quit action will show a confirmation dialog to avoid accidental exits.
-      # If you want to skip the confirmation dialog, set the flag like so:
-      # (plain "Mod+Shift+E" [(leaf "quit" { skip-confirmation=true; })])
-      (plain "Mod+Shift+E" [(flag "quit")])
-
-      (plain "Mod+Shift+P" [(flag "power-off-monitors")])
 
       # This debug bind will tint all surfaces green, unless they are being
       # directly scanned out. It's therefore useful to check if direct scanout
