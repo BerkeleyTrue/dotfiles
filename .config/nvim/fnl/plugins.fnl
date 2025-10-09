@@ -87,6 +87,18 @@
     :config (make-on-load neotree) 
     :cmd [:Neotree]} 
    {:name :kshenoy/vim-signature :description "show marks in vim gutter"}
+   {:name :stevearc/oil.nvim 
+    :description "A vim-vinegar like file explorer that lets you edit your filesystem like a normal Neovim buffer." 
+    :config (make-on-load oil)
+    :dependencies [[:nvim-mini/mini.icons]]
+    :lazy false}
+   {:name :benomahony/oil-git.nvim
+    :description "Git integration for oil.nvim"
+    :dependencies [[:stevearc/oil.nvim]]}
+   {:name :JezerM/oil-lsp-diagnostics.nvim
+    :description "LSP Diagnostics in oil.nvim"
+    :dependencies [[:stevearc/oil.nvim]]
+    :config (make-on-load oil.lsp)}
 
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}

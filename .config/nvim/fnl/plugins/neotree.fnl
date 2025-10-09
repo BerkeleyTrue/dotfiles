@@ -16,10 +16,7 @@
 
 (defn init []
   "initial setup for neotree"
-  (nnoremap :gef ":Neotree reveal float<cr>" {:silent true})
-  (nnoremap :get ":Neotree reveal left<cr>" {:silent true})
   (nnoremap :geb ":Neotree reveal buffers float<cr>" {:silent true})
-  (command! :BBuffers "Neotree reveal buffers float")
   (hl.link! :NeoTreeDirectoryName :Directory)
   (hl.link! :NeoTreeDirectoryIcon :NeoTreeDirectoryName))
 
