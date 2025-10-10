@@ -95,10 +95,6 @@
    {:name :benomahony/oil-git.nvim
     :description "Git integration for oil.nvim"
     :dependencies [[:stevearc/oil.nvim]]}
-   {:name :JezerM/oil-lsp-diagnostics.nvim
-    :description "LSP Diagnostics in oil.nvim"
-    :dependencies [[:stevearc/oil.nvim]]
-    :config (make-on-load oil.lsp)}
 
    {:name :folke/which-key.nvim :description "Adds popup of possible key bindings." :config (make-on-load whichkey)}
    {:name :folke/twilight.nvim :description "Only hightlight current section of buffer"}
