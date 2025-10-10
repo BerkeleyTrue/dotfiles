@@ -10,7 +10,7 @@
 
 (defn main []
   (nnoremap :gef (fn [] (oil.open)) {:silent true})
-  (oil.setup {:use_default_keymaps fa
+  (oil.setup {:use_default_keymaps false
               :columns [:icon]
               :keymaps {:g? {1 :actions.show_help :mode :n}     
 

@@ -16,4 +16,4 @@
               :diagnostic_symbols {:error "  "
                                    :warn "  "
                                    :info "  "
-                                   :hint "  "}}))
+                                   :hint "  "}}))
