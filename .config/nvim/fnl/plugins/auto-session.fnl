@@ -5,7 +5,8 @@
     as auto-session
     md utils.module 
     conjlog conjure.log
-    neotree neo-tree.command}
+    neotree neo-tree.command
+    oil oil}
    require {}
    import-macros []
    require-macros [macros]})
@@ -16,4 +17,6 @@
      [(fn close-conjure []
         (conjlog.close-visible))
       (fn close-neotree []
-        (neotree.execute {:action :close}))]}))
+        (neotree.execute {:action :close}))
+      (fn close-oil []
+        (oil.close))]}))
