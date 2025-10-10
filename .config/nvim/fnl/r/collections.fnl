@@ -114,3 +114,17 @@
 (comment
   (sort-by #(> $1 $2) [:a :b :z :c])
   (sort-by #(< $1 $2) [:a :b :z :c]))
+
+(defn group-by [f xs]
+  (a.reduce
+    (fn [acc x]
+      (let [key (f x)]
+        (if (not (. acc key))
+          (tset acc key []))
+        (table.insert (. acc key) x)
+        acc))
+    {}
+    xs))
+
+(comment
+  (group-by #(if (> $ 3) :bigger :smaller) [1 2 3 4 5 6]))
