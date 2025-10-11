@@ -63,7 +63,7 @@
   ; clear old marks
   (vim.api.nvim_buf_clear_namespace buffer namespace 0 (- 1))
 
-  (->> (r.range 1 (vim.api.nvim_buf_line_count 8))
+  (->> (r.range 1 (vim.api.nvim_buf_line_count buffer))
        (r.map (fn [lnum]
                 (let [dir (oil.get_current_dir buffer)
                       entry (oil.get_entry_on_line buffer lnum)
@@ -89,7 +89,8 @@
                                        (+ priority 1)]) 
                                     [[] 0])
 
-                          (r.for-each (fn [[severity _ priority]]
+                          (r.head)
+                          (r.for-each (fn [[severity _] priority]
                                         (vim.api.nvim_buf_set_extmark 
                                           buffer 
                                           namespace 
@@ -104,16 +105,18 @@
     {:event :FileType
      :pattern :oil
      :callback 
-     (fn oil-lsp-attach []
-       (let [buffer (vim.api.nvim_get_current_buf)]
-         (when-not (. (b buffer) :oil_lsp_started)
-           (b! buffer :oil_lsp_started true)
-           (augroup :OilLspAttached 
-              {:event [:BufReadPost
-                       :BufWritePost
-                       :InsertLeave
-                       :TextChanged]
-               :buffer buffer
-               :callback 
-               (fn oil-add-marks []
-                 (add-lsp-extmarks buffer))}))))}))
+     (r.void
+       (fn oil-lsp-attach []
+         (let [buffer (vim.api.nvim_get_current_buf)]
+           (when-not (. (b buffer) :oil_lsp_started)
+             (b! buffer :oil_lsp_started true)
+             (augroup :OilLspAttached 
+                {:event [:BufReadPost
+                         :BufWritePost
+                         :InsertLeave
+                         :TextChanged]
+                 :buffer buffer
+                 :callback 
+                 (r.void
+                   (fn oil-add-marks []
+                     (add-lsp-extmarks buffer)))})))))}))
