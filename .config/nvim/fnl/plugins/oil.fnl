@@ -29,6 +29,7 @@
                         :<Left> {1 :actions.parent :mode :n}
                         :<Right> {1 :actions.select :mode :n}
 
+                        :gor {1 :actions.refresh :mode :n}
                         :gs  {1 :actions.change_sort :mode :n}
                         :g.  {1 :actions.toggle_hidden :mode :n}}})
   (lsp.main))
