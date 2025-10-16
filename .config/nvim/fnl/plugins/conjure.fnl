@@ -43,7 +43,7 @@
     {:event :BufNewFile
      :pattern :conjure-log-*
      :callback
-     (fn conjure-log-autocmd [] (vim.diagnostic.disable 0))}
+     (fn conjure-log-autocmd [] (vim.diagnostic.enable false))}
     {:event :FileType
      :pattern :clojure
      :callback
