@@ -53,7 +53,7 @@
 in {
   home.packages =
     (with pkgs; [
-      cutecom # serial terminal
+      # cutecom # serial terminal
       freecad # 3D CAD modeler
       gparted # graphical partition manager
       gimp3 # GNU Image Manipulation Program
