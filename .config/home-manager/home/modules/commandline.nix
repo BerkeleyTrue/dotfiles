@@ -62,7 +62,7 @@ in {
       crush # The glamourous AI coding agent for your favourite terminal
       delta # A syntax-highlighter for git and diff output
       dogdns # A command-line DNS cliento
-      du-dust # A more intuitive version of du in rust
+      dust # A more intuitive version of du in rust
       eza # A modern replacement for ls
       fd # A simple, fast and user-friendly alternative to find
       fzf # A command-line fuzzy finder
@@ -99,12 +99,12 @@ in {
       udiskie # Removable disk automounter using udisks
       udisks # access and manipulate disks and media devices
       vimv # batch rename files w/ vim
-      wakatime # Command line interface for Wakatime
+      wakatime-cli # Command line interface for Wakatime
       wget # The non-interactive network downloader # required by jdownloader
       wiki-tui # A terminal based wikipedia viewer
       wordnet # Lexical database for the English language
       xdotool # Command-line X11 automation tool
-      xdragon # simple drag and drop source/sink for x11
+      dragon-drop # simple drag and drop source/sink for x11
       xh # Friendly and fast tool for sending HTTP requests,  curl/wget
       yadm # Yet Another Dotfiles Manager
       yt-dlp # A youtube-dl fork with additional features and fixes

@@ -288,7 +288,7 @@ in {
     enable = true;
 
     package = config.lib.nixgl.wrapPackage pkgs.firefox;
-    nativeMessagingHosts = [pkgs.fx_cast_bridge];
+    nativeMessagingHosts = [pkgs.fx-cast-bridge];
 
     # Check about:policies#documentation for options.
     policies = {
