@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  nixGL.defaultWrapper = "mesa";
+  targets.genericLinux.nixGL.defaultWrapper = "mesa";
 
   home.packages = with pkgs; [
     nvtopPackages.amd

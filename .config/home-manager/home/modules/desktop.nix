@@ -4,7 +4,7 @@
   nixgl,
   ...
 }: {
-  nixGL.packages = nixgl.packages;
+  targets.genericLinux.nixGL.packages = nixgl.packages;
 
   imports = [
     ./desktop
