@@ -29,7 +29,7 @@ urgency.uda.priority.m.coefficient=3.9         # UDA priority coefficient for va
 urgency.uda.priority.l.coefficient=-2
 
 # urgency
-urgency.user.tag.mr.coefficient=4
+urgency.user.tag.fi.coefficient=4
 urgency.user.tag.nvim.coefficient=-0.8
 
 news.version=2.6.0
