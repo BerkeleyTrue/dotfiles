@@ -36,6 +36,9 @@
       "org.pipewire.Helvum" # audio plumber
       "com.github.wwmm.pulseeffects" # advanced audio effects
 
+      # networking
+      "org.localsend.localsend_app" # local file transfer (airdrop like)
+
       # browsers
       "io.github.zen_browser.zen" # firefox based
       "org.chromium.Chromium" # open chrome
