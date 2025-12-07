@@ -26,7 +26,7 @@
       rofi -p -e "$definition"
     fi
 
-    echo -n $word | ${pkgs.nodePackages.clipboard-cli}/bin/clipboard
+    echo -n $word | clipboard
     echo $word
   '';
 
