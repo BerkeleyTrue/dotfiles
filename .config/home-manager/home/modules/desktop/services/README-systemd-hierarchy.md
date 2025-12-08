@@ -1,64 +1,53 @@
-# X11 Systemd Service Hierarchy
+# Niri/Wayland Systemd Service Hierarchy
 
-This directory contains a hierarchical systemd service structure for managing X11/XMonad sessions.
+This directory contains a hierarchical systemd service structure for managing Niri/Wayland sessions.
 
 ## Service Hierarchy
 
 ```
-x11-session.target (Root)
-├── x11-foundation.target (Foundation services)
-│   ├── xkbmap.service (Keyboard layout)
-│   └── xbindkeys.service (Hotkeys)
-├── xmonad-session.target (Window manager session)
-│   ├── xmonad.target (Window manager)
-│   │   └── xmonad.service (XMonad WM)
-│   └── desktop-services.target (Desktop services)
-│       ├── compositor.target
-│       │   └── picom.service
-│       ├── notification.target
-│       │   └── dunst.service
-│       ├── wallpaper.target
-│       │   └── nitrogen.service
-│       ├── tray.target
-│       │   ├── taffybar.service
-│       │   ├── status-notifier-watcher.service
-│       │   ├── flameshot.service
-│       │   ├── pasystray.service
-│       │   ├── tailscale-systray.service
-│       │   └── blueman-applet.service
-│       ├── desktop-utilities.target
-│       │   └── unclutter.service
-│       ├── input-services.target
-│       │   ├── xcape.service
-│       │   └── xplugd.service
-│       └── xdg-desktop-portal-kde.service
-├── watch-sleep.service (Sleep monitoring)
-└── watch-lid.service (Lid monitoring)
+graphical-session.target (systemd standard)
+└── wayland-session.target (Root)
+    ├── wayland-environment.service (Environment setup)
+    ├── wayland-foundation.target (Foundation services)
+    └── niri.target (Compositor)
+        └── niri.service (Niri compositor)
+        └── niri-session.target (Session)
+            └── desktop-services.target (Desktop services)
+                ├── notification.target
+                │   └── notification-daemon.service (mako)
+                ├── tray.target
+                │   ├── waybar.service
+                │   ├── status-notifier-watcher.service
+                │   ├── flameshot.service
+                │   ├── pasystray.service
+                │   ├── tailscale-systray.service
+                │   └── blueman-applet.service
+                └── xdg-desktop-portal-kde.service
 ```
 
 ## Usage
 
-### Starting X11 Session
+### Starting Niri Session
 ```bash
-startx-systemd
+startniri
 ```
 
 ### Manual Service Management
 ```bash
-# Start the entire X11 session
-systemctl --user start x11-session.target
+# Start the entire Wayland session
+systemctl --user start wayland-session.target
 
-# Start just XMonad
-systemctl --user start xmonad.target
+# Start just Niri
+systemctl --user start niri.target
 ```
 
 ### Debugging
 ```bash
 # View logs
-journalctl --user -u x11-session.target
-journalctl --user -u xmonad.service
+journalctl --user -u wayland-session.target
+journalctl --user -u niri.service
 
 # Check dependencies
-systemctl --user list-dependencies x11-session.target
-systemctl --user list-dependencies xmonad.target
+systemctl --user list-dependencies wayland-session.target
+systemctl --user list-dependencies niri.target
 ```
