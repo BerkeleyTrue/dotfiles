@@ -1,28 +1,14 @@
 {...}: {
   imports = [
-    # xmonad
-    ./x11-session.nix 
-    ./x11-foundation.nix 
-    ./xmonad.nix 
-    ./desktop-targets.nix 
+    # session targets
+    ./desktop-targets.nix
     ./shutdown-graphical.nix
 
-    # x11 desktop
-    ./autorandr
-    ./nitrogen.nix 
-    ./pasystray.nix
-    ./unclutter.nix
-    ./xcape.nix
-    ./xplugd.nix
-    ./picom.nix 
-
-    # niri
+    # niri/wayland
     ./niri.nix
     ./wayland.nix
 
-    # wayland desktop
-
-    # desktop services 
+    # desktop services
     ./blueman.nix
     ./flameshot.nix
     ./flatpak.nix
@@ -31,9 +17,10 @@
     ./nix-collect-garbage.nix
     ./notessync.nix
     ./notification.nix
+    ./pasystray.nix
     ./security.nix
     ./sleep.nix # TODO: make wayland compatible
-    ./status-notifier-watcher.nix # is this x11 specific?
+    ./status-notifier-watcher.nix
     ./status-bar.nix
     ./taiscale-systray.nix
     ./task.nix

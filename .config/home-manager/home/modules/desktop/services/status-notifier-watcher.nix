@@ -7,7 +7,7 @@
     Unit = {
       Description = "Status Notifier Item watcher";
       PartOf = ["tray.target"];
-      Before = ["taffybar.service"];
+      Before = ["waybar.service"];
     };
 
     Service = {
@@ -18,7 +18,7 @@
     };
 
     Install = {
-      WantedBy = ["tray.target" "taffybar.service"];
+      WantedBy = ["tray.target" "waybar.service"];
     };
   };
 }
