@@ -6,19 +6,19 @@
 in {
   dual = {
     fingerprint = {
-      DP-3 = g7-id;
-      HDMI-1 = delU29;
+      HDMI-1 = g7-id;
+      DP-3 = delU29;
     };
 
     config = {
-      DP-3 = {
+      HDMI-1 = {
         primary = true;
         crtc = 0;
         mode = "${builtins.toString g5Monitor.width}x${builtins.toString g5Monitor.height}";
         position = "0x1080";
         rate = "165.00";
       };
-      HDMI-1 = {
+      DP-3 = {
         primary = false;
         crtc = 1;
         mode = "${builtins.toString dellMonitor.width}x${builtins.toString dellMonitor.height}";
@@ -29,11 +29,11 @@ in {
   };
   single = {
     fingerprint = {
-      HDMI-1 = delU29;
+      DP-3 = delU29;
     };
 
     config = {
-      HDMI-1 = {
+      DP-3 = {
         primary = true;
         crtc = 1;
         mode = "${builtins.toString dellMonitor.width}x${builtins.toString dellMonitor.height}";
