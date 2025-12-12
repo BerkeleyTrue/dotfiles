@@ -15,7 +15,7 @@
 
     home-manager-parts.url = "github:berkeleytrue/home-manager-parts";
 
-    nixgl.url = "github:guibou/nixGL";
+    nixgl.url = "github:nix-community/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
     parinfer-rust.url = "github:PhilTaken/parinfer-rust";
