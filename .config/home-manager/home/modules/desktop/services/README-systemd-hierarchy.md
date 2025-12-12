@@ -6,23 +6,20 @@ This directory contains a hierarchical systemd service structure for managing Ni
 
 ```
 graphical-session.target (systemd standard)
-└── wayland-session.target (Root)
-    ├── wayland-environment.service (Environment setup)
-    ├── wayland-foundation.target (Foundation services)
-    └── niri.target (Compositor)
-        └── niri.service (Niri compositor)
-        └── niri-session.target (Session)
-            └── desktop-services.target (Desktop services)
-                ├── notification.target
-                │   └── notification-daemon.service (mako)
-                ├── tray.target
-                │   ├── waybar.service
-                │   ├── status-notifier-watcher.service
-                │   ├── flameshot.service
-                │   ├── pasystray.service
-                │   ├── tailscale-systray.service
-                │   └── blueman-applet.service
-                └── xdg-desktop-portal-kde.service
+├── wayland-environment.service (Environment setup)
+├── niri.target (Compositor)
+│   └── niri.service (Niri compositor)
+└── desktop-services.target (Desktop services)
+    ├── notification.target
+    │   └── notification-daemon.service (mako)
+    ├── tray.target
+    │   ├── waybar.service
+    │   ├── status-notifier-watcher.service
+    │   ├── flameshot.service
+    │   ├── pasystray.service
+    │   ├── tailscale-systray.service
+    │   └── blueman-applet.service
+    └── xdg-desktop-portal-kde.service
 ```
 
 ## Usage
@@ -34,20 +31,17 @@ startniri
 
 ### Manual Service Management
 ```bash
-# Start the entire Wayland session
-systemctl --user start wayland-session.target
-
-# Start just Niri
+# Start Niri session
 systemctl --user start niri.target
 ```
 
 ### Debugging
 ```bash
 # View logs
-journalctl --user -u wayland-session.target
 journalctl --user -u niri.service
+journalctl --user -u graphical-session.target
 
 # Check dependencies
-systemctl --user list-dependencies wayland-session.target
 systemctl --user list-dependencies niri.target
+systemctl --user list-dependencies graphical-session.target
 ```

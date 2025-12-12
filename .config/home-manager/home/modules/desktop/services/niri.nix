@@ -3,20 +3,9 @@
   systemd.user.targets.niri = {
     Unit = {
       Description = "Niri Wayland Compositor";
-      Requires = ["wayland-foundation.target"];
-      After = ["wayland-foundation.target"];
-      BindsTo = ["wayland-session.target"];
+      BindsTo = ["graphical-session.target"];
+      After = ["wayland-environment.service"];
       Wants = ["desktop-services.target"];
-    };
-  };
-
-  systemd.user.targets.niri-session = {
-    Unit = {
-      Description = "Niri Session";
-      Requires = ["niri.target"];
-      After = ["niri.target"];
-      Wants = ["desktop-services.target"];
-      PartOf = ["wayland-session.target"];
     };
   };
 

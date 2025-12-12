@@ -3,7 +3,7 @@
     Unit = {
       Description = "XDG Desktop Portal for KDE";
       Documentation = ["man:xdg-desktop-portal(1)"];
-      After = ["wayland-foundation.target"];
+      After = ["wayland-environment.service"];
       Before = ["niri.target"];
       PartOf = ["desktop-services.target"];
     };
