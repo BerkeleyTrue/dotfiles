@@ -8,7 +8,7 @@
         "notification.target"
         "tray.target"
       ];
-      PartOf = ["niri-session.target"];
+      PartOf = ["graphical-session.target"];
     };
   };
 
