@@ -222,7 +222,7 @@ in {
           vim-language-server # Language server for Vim script
 
           prettier # for formatting js, ts, css, html, json, yaml, markdown
-          purs-tidy # formatting purescript
+          # purs-tidy # formatting purescript (not in nixpkgs anymore)
           sql-formatter # formatting sql
         ]);
 
