@@ -1,5 +1,11 @@
-{lib, pkgs, ...}: {
-
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
+  wrappedNiri = config.lib.nixgl.wrapProgram pkgs.niri;
+in {
   systemd.user.targets.niri = {
     Unit = {
       Description = "Niri Wayland Compositor";
@@ -21,7 +27,7 @@
     Service = {
       Type = "notify";
       Slice = "session.slice";
-      ExecStart = "${lib.getExe pkgs.niri} --session";
+      ExecStart = "${lib.getExe wrappedNiri} --session";
     };
 
     Install.WantedBy = ["niri.target"];
