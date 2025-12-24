@@ -4,10 +4,11 @@
   kdl,
   hardware,
   profile,
+  theme,
   ...
 }: let
   config = import ./config.nix {
-    inherit kdl lib hardware profile;
+    inherit kdl lib hardware profile theme;
   };
   validate-config = config:
     pkgs.runCommand "config.kdl"

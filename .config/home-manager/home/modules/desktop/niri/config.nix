@@ -1,59 +1,23 @@
-# source: https://github.com/sodiboo/niri-flake/blob/main/default-config.kdl.nix
-# This config is structured as KDL.
-# This means, that the document is a tree of nodes.
-#
-# At the top of the config is a list of nodes. Each node has:
-# - exactly one name, which is a string
-# - zero or more ordered arguments, which are scalars
-# - zero or more unordered properties, which are attrsets of scalars
-# - zero or more ordered children, which are nodes
-#
-# KDL also permits "type names", but niri does not use them.
-#
-# Scalars are strings, integers, floats, booleans, or null.
-#
-# This default config uses the kdl library from https://github.com/sodiboo/niri-flake/blob/main/kdl.nix.
-# It provides a set of functions to declare KDL documents.
-#
-# The fundamental function is `kdl.node`, which takes a name, a list of arguments, and a list of children.
-# To declare properties, you should pass an attrset to `kdl.node` as the last argument.
-#
-# For your convenience, the following transformations are applied to the given parameters:
-#
-# - The arguments, if not a list, are wrapped in a list.
-#   - This means that you can pass a single argument without wrapping it in a list.
-#   - You can also pass properties directly, if there are no arguments.
-#
-# - The children are flattened, and any nulls are removed.
-#   - This means that you can call functions directly in the children list.
-#   - You can also create "conditional" nodes by setting them to null.
-#   - You can see this feature used to the fullest at https://github.com/sodiboo/niri-flake/blob/main/settings.nix
-#   - This transformation is also applied at the top-level.
-#
-# Additionally, kdl.nix provides some shorthand functions to omit the arguments list, children list, or both:
-# - `kdl.plain` for nodes with no arguments
-# - `kdl.leaf` for nodes with no children
-# - `kdl.flag` for nodes with no arguments or children
-#
-# With that out of the way, here's the nixfied default config for niri.
 {
   kdl,
   profile,
   lib,
   hardware,
+  theme,
   ...
 }: let
-  inherit (kdl) node plain leaf flag;
+  c = theme.colors;
+  inherit (kdl) plain leaf flag;
   output =
     if profile == "delora"
     then
       import ./outputs/delora.nix {
-        inherit hardware;
+        inherit hardware theme;
         inherit (kdl) node plain leaf flag;
       }
     else
       import ./outputs/rena.nix {
-        inherit hardware;
+        inherit hardware theme;
         inherit (kdl) node plain leaf flag;
       };
 in
@@ -81,107 +45,57 @@ in
     ])
 
     (plain "layout" [
-      # By default focus ring and border are rendered as a solid background rectangle
-      # behind windows. That is, they will show up through semitransparent windows.
-      # This is because windows using client-side decorations can have an arbitrary shape.
-      #
-      # If you don't like that, you should uncomment `prefer-no-csd` below.
-      # Niri will draw focus ring and border *around* windows that agree to omit their
-      # client-side decorations.
-
-      # You can change how the focus ring looks.
       (plain "focus-ring" [
-        # Uncomment this line to disable the focus ring.
-        # (flag "off")
-
-        # How many logical pixels the ring extends out from the windows.
+        (flag "off")
         (leaf "width" 4)
-
-        # Colors can be set in a variety of ways:
-        # - CSS named colors: "red"
-        # - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        # - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        # Color of the ring on the active monitor.
-        (leaf "active-color" "#7fc8ff")
-
-        # Color of the ring on inactive monitors.
-        (leaf "inactive-color" "#505050")
-
-        # Additionally, there's a legacy RGBA syntax:
-        # (leaf "active-color" [ 127 200 255 255 ])
-
-        # You can also use gradients. They take precedence over solid colors.
-        # Gradients are rendered the same as CSS linear-gradient(angle, from, to).
-        # The angle is the same as in linear-gradient, and is optional,
-        # defaulting to 180 (top-to-bottom gradient).
-        # You can use any CSS linear-gradient tool on the web to set these up.
-        #
-        # (leaf "active-gradient" { from="#80c8ff"; to="#bbddff"; angle=45; })
-
-        # You can also color the gradient relative to the entire view
-        # of the workspace, rather than relative to just the window itself.
-        # To do that, set relative-to="workspace-view";
-        #
-        # (leaf "inactive-gradient" { from="#505050"; to="#808080"; angle=45; relative-to="workspace-view"; })
+        (leaf "inactive-color" c.base)
+        (leaf "active-gradient" {
+          from = c.rosewater;
+          to = c.mauve;
+          angle = 33;
+          relative-to = "workspace-view";
+        })
       ])
 
       # You can also add a border. It's similar to the focus ring, but always visible.
       (plain "border" [
         # The settings are the same as for the focus ring.
         # If you enable the border, you probably want to disable the focus ring.
-        (flag "off")
+        # (flag "off")
 
         (leaf "width" 4)
-        (leaf "active-color" "#ffc87f")
-        (leaf "inactive-color" "#505050")
-
-        # (leaf "active-gradient" { from="#ffbb66"; to="#ffc880"; angle=45; relative-to="workspace-view"; })
-        # (leaf "inactive-gradient" { from="#505050"; to="#808080"; angle=45; relative-to="workspace-view"; })
+        (leaf "inactive-gradient" {
+          from = c.surface0;
+          to = c.surface2;
+          angle = 33;
+          relative-to = "workspace-view";
+        })
+        (leaf "urgent-color" c.red)
+        (leaf "active-gradient" {
+          from = c.rosewater;
+          to = c.mauve;
+          angle = 33;
+          relative-to = "workspace-view";
+        })
       ])
 
-      # You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
-      (plain "preset-column-widths" [
-        # Proportion sets the width as a fraction of the output width, taking gaps into account.
-        # For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
-        # The default preset widths are 1/3, 1/2 and 2/3 of the output.
-        (leaf "proportion" (1.0 / 3.0))
-        (leaf "proportion" (1.0 / 2.0))
-        (leaf "proportion" (2.0 / 3.0))
-
-        # Fixed sets the width in logical pixels exactly.
-        # (leaf "fixed" 1920)
+      (plain "shadow" [
+        (flag "off")
       ])
 
-      # You can change the default width of the new windows.
-      (plain "default-column-width" [
-        (leaf "proportion" 0.5)
-      ])
-      # If you leave the children empty, the windows themselves will decide their initial width.
-      # (plain "default-column-width" [])
+      # (plain "preset-column-widths" [])
+      (plain "default-column-width" [])
 
-      # Set gaps around windows in logical pixels.
-      (leaf "gaps" 16)
-
-      # Struts shrink the area occupied by windows, similarly to layer-shell panels.
-      # You can think of them as a kind of outer gaps. They are set in logical pixels.
-      # Left and right struts will cause the next window to the side to always be visible.
-      # Top and bottom struts will simply add outer gaps in addition to the area occupied by
-      # layer-shell panels and regular gaps.
+      (leaf "gaps" 6)
       (plain "struts" [
-        # (leaf "left" 64)
-        # (leaf "right" 64)
-        # (leaf "top" 64)
-        # (leaf "bottom" 64)
+        (leaf "left" 8)
+        (leaf "right" 14)
+        (leaf "top" 4)
+        (leaf "bottom" 4)
       ])
 
-      # When to center a column when changing focus, options are:
-      # - "never", default behavior, focusing an off-screen column will keep at the left
-      #   or right edge of the screen.
-      # - "on-overflow", focusing a column will center it if it doesn't fit
-      #   together with the previously focused column.
-      # - "always", the focused column will always be centered.
-      (leaf "center-focused-column" "never")
+      (leaf "center-focused-column" "on-overflow")
+      (flag "always-center-single-column")
     ])
 
     # Add lines like this to spawn processes at startup.
@@ -205,12 +119,12 @@ in
     # Uncomment this line to ask the clients to omit their client-side decorations if possible.
     # If the client will specifically ask for CSD, the request will be honored.
     # Additionally, clients will be informed that they are tiled, removing some rounded corners.
-    # (flag "prefer-no-csd")
+    (flag "prefer-no-csd")
 
     # You can change the path where screenshots are saved.
     # A ~ at the front will be expanded to the home directory.
     # The path is formatted with strftime(3) to give you the screenshot date and time.
-    (leaf "screenshot-path" "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png")
+    (leaf "screenshot-path" "~/pics/screenshots/Screenshot_from_%Y-%m-%d %H-%M-%S.png")
 
     # You can also set this to null to disable saving screenshots to disk.
     # (leaf "screenshot-path" null)
@@ -218,7 +132,7 @@ in
     # Settings for the "Important Hotkeys" overlay.
     (plain "hotkey-overlay" [
       # Uncomment this line if you don't want to see the hotkey help at niri startup.
-      # (flag "skip-at-startup")
+      (flag "skip-at-startup")
     ])
 
     # Animation settings.
@@ -303,66 +217,23 @@ in
       ])
     ])
 
-    # Window rules let you adjust behavior for individual windows.
-    # They are processed in order of appearance in this file.
     (plain "window-rule" [
-      # Match directives control which windows this rule will apply to.
-      # You can match by app-id and by title.
-      # The window must match all properties of the match directive.
-      (leaf "match" {
-        app-id = "org.myapp.MyApp";
-        title = "My Cool App";
-      })
-
-      # There can be multiple match directives. A window must match any one
-      # of the rule's match directives.
-      #
-      # If there are no match directives, any window will match the rule.
-      (leaf "match" {title = "Second App";})
-
-      # You can also add exclude directives which have the same properties.
-      # If a window matches any exclude directive, it won't match this rule.
-      #
-      # Both app-id and title are regular expressions.
-      # Literal nix strings can be helpful here.
-      (leaf "exclude" {app-id = ''\.unwanted\.'';})
-
-      # Here are the properties that you can set on a window rule.
-      # You can override the default column width.
-      (plain "default-column-width" [
-        (leaf "proportion" 0.75)
-      ])
-
-      # You can set the output that this window will initially open on.
-      # If such an output does not exist, it will open on the currently
-      # focused output as usual.
-      (leaf "open-on-output" "eDP-1")
-
-      # Make this window open as a maximized column.
-      (leaf "open-maximized" true)
-
-      # Make this window open fullscreen.
-      (leaf "open-fullscreen" true)
-      # You can also set this to false to prevent a window from opening fullscreen.
-      # (leaf "open-fullscreen" false)
+      (leaf "geometry-corner-radius" 8)
+      (leaf "clip-to-geometry" true)
     ])
 
-    # Here's a useful example. Work around WezTerm's initial configure bug
-    # by setting an empty default-column-width.
     (plain "window-rule" [
-      # This regular expression is intentionally made as specific as possible,
-      # since this is the default config, and we want no false positives.
-      # You can get away with just app-id="wezterm" if you want.
-      # The regular expression can match anywhere in the string.
-      (leaf "match" {app-id = ''^org\.wezfurlong\.wezterm$'';})
-      (plain "default-column-width" [])
+      (leaf "match" {
+        is-focused = false;
+      })
+      (leaf "opacity" 0.9)
     ])
 
     (plain "binds" [
       # Mod-? shows a list of important hotkeys.
       (plain "Mod+Shift+Slash" [(flag "show-hotkey-overlay")])
 
-      (plain "Mod+Return" [(leaf "spawn" ["kitty"])])
+      (plain "Mod+Shift+Return" [(leaf "spawn" ["kitty"])])
       (plain "Mod+D" [(leaf "spawn" ["anyrun"])])
       # (plain "Super+Alt+L" [(leaf "spawn" ["swaylock"])])
 
@@ -473,7 +344,6 @@ in
       # (plain "Mod+Space"       [(leaf "switch-layout" "next")])
       # (plain "Mod+Shift+Space" [(leaf "switch-layout" "prev")])
 
-
       # This debug bind will tint all surfaces green, unless they are being
       # directly scanned out. It's therefore useful to check if direct scanout
       # is working.
@@ -514,3 +384,42 @@ in
     ])
   ]
   ++ output
+# source: https://github.com/sodiboo/niri-flake/blob/main/default-config.kdl.nix
+# This config is structured as KDL.
+# This means, that the document is a tree of nodes.
+#
+# At the top of the config is a list of nodes. Each node has:
+# - exactly one name, which is a string
+# - zero or more ordered arguments, which are scalars
+# - zero or more unordered properties, which are attrsets of scalars
+# - zero or more ordered children, which are nodes
+#
+# KDL also permits "type names", but niri does not use them.
+#
+# Scalars are strings, integers, floats, booleans, or null.
+#
+# This default config uses the kdl library from https://github.com/sodiboo/niri-flake/blob/main/kdl.nix.
+# It provides a set of functions to declare KDL documents.
+#
+# The fundamental function is `kdl.node`, which takes a name, a list of arguments, and a list of children.
+# To declare properties, you should pass an attrset to `kdl.node` as the last argument.
+#
+# For your convenience, the following transformations are applied to the given parameters:
+#
+# - The arguments, if not a list, are wrapped in a list.
+#   - This means that you can pass a single argument without wrapping it in a list.
+#   - You can also pass properties directly, if there are no arguments.
+#
+# - The children are flattened, and any nulls are removed.
+#   - This means that you can call functions directly in the children list.
+#   - You can also create "conditional" nodes by setting them to null.
+#   - You can see this feature used to the fullest at https://github.com/sodiboo/niri-flake/blob/main/settings.nix
+#   - This transformation is also applied at the top-level.
+#
+# Additionally, kdl.nix provides some shorthand functions to omit the arguments list, children list, or both:
+# - `kdl.plain` for nodes with no arguments
+# - `kdl.leaf` for nodes with no children
+# - `kdl.flag` for nodes with no arguments or children
+#
+# With that out of the way, here's the nixfied default config for niri.
+
