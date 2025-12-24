@@ -349,8 +349,11 @@ in
       # is working.
       # (plain "Mod+Shift+Ctrl+T" [(flag "toggle-debug-tint")])
 
-      (plain "XF86MonBrightnessUp" [(leaf "spawn" ["brighten-up"])])
-      (plain "XF86MonBrightnessDown" [(leaf "spawn" ["brighten-down"])])
+      (plain "XF86MonBrightnessUp" [(leaf "spawn" ["$HOME/.local/bin/brighten-up"])])
+      (plain "XF86MonBrightnessDown" [(leaf "spawn" ["$HOME/.local/bin/brighten-down"])])
+
+      (plain "XF86AudioRaiseVolume" "$HOME/.local/bin/orpheus-raise-volume")
+      (plain "XF86AudioLowerVolume" "$HOME/.local/bin/orpheus-lower-volume")
     ])
 
     # Settings for debugging. Not meant for normal use.
