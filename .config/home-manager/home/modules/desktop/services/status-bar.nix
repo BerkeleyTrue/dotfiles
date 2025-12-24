@@ -3,8 +3,8 @@
     Unit = {
       Description = "Waybar Status Bar";
       PartOf = ["tray.target"];
-      Before = ["niri-session.target"];
-      BindsTo = ["niri-session.target"];
+      After = ["graphical-session.target"];
+      BindsTo = ["graphical-session.target"];
     };
 
     Service = {
