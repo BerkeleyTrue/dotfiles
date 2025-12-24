@@ -13,10 +13,11 @@
   home.packages = with pkgs; [
     dracula-icon-theme # Dracula icon theme
     papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon)
-    nitrogen # wallpaper manager
-    xclip # x11 clipboard cli
-    xplugd # A UNIX daemon that executes a script on X input and RandR changes
-    yad # A fork of Zenity with many improvements
+    # nitrogen # wallpaper manager
+    # xclip # x11 clipboard cli
+    # xplugd # A UNIX daemon that executes a script on X input and RandR changes
+    # yad # A fork of Zenity with many improvements
+    wev # wayland event viewer
   ];
 
   home.nix-wallpapers = {
