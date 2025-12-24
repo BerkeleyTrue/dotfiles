@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  wrappedNiri = config.lib.nixgl.wrapProgram pkgs.niri;
+  wrappedNiri = config.lib.nixgl.wrapPackage pkgs.niri;
 in {
   systemd.user.targets.niri = {
     Unit = {
