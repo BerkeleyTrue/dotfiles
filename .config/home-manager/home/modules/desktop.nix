@@ -18,6 +18,8 @@
     # xplugd # A UNIX daemon that executes a script on X input and RandR changes
     # yad # A fork of Zenity with many improvements
     wev # wayland event viewer
+    wl-clipboard-rs # wayland clipboard cli
+    mako # wayland notification daemon
   ];
 
   home.nix-wallpapers = {

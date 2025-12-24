@@ -4,9 +4,9 @@
 
 - Switch to wayland compositor
   - [x] hierarchy x11 
-  - [ ] niri wm service and session management
-  - [ ] Anyrun or tofi 
-  - [ ] waybar https://github.com/Alexays/Waybar
+  - [x] niri wm service and session management
+  - [x] Anyrun or tofi 
+  - [x] waybar https://github.com/Alexays/Waybar
   - [ ] Panels with Astal https://aylur.github.io/astal/
   - [ ] mako notifier
   - [ ] hyprlock https://wiki.hypr.land/Hypr-Ecosystem/hyprlock/
