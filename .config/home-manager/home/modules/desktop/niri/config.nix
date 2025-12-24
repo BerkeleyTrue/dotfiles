@@ -348,6 +348,9 @@ in
       # directly scanned out. It's therefore useful to check if direct scanout
       # is working.
       # (plain "Mod+Shift+Ctrl+T" [(flag "toggle-debug-tint")])
+
+      (plain "XF86MonBrightnessUp" [(leaf "spawn" ["brighten-up"])])
+      (plain "XF86MonBrightnessDown" [(leaf "spawn" ["brighten-down"])])
     ])
 
     # Settings for debugging. Not meant for normal use.
