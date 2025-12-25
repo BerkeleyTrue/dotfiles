@@ -9,11 +9,11 @@ getcurrvol() {
 
 CURR=$(getcurrvol) # get value
 
-if [ $CURR = '0%' ]; then
+if [ "$CURR" = '0%' ]; then
   MSG='  '
 else
   pactl set-sink-volume $DSINK -10%
   MSG=" 󰝞 $(getcurrvol)"
 fi
 
-dunstify -a 'orpheus' -r $ID $MSG
+makoify -a 'orpheus' -r $ID $MSG

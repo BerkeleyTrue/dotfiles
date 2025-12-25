@@ -9,13 +9,10 @@
       ExecStart = let
         script = pkgs.writeShellApplication {
           name = "collect-garbage";
-          runtimeInputs = [
-            pkgs.dunst
-          ];
           text = ''
             #!/usr/bin/env bash
             /usr/bin/nix-collect-garbage --delete-older-than 10d
-            dunstify -a "Hephaestus" "Nix Garbage Collected" -i distributor-logo-nixos
+            makoify -a "Hephaestus" "Nix Garbage Collected" -i distributor-logo-nixos
           '';
         };
       in "${script}/bin/collect-garbage";

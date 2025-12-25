@@ -22,4 +22,4 @@ else
   MSG=" 󰝝 $(getcurrvol)"
 fi
 
-dunstify -a 'orpheus' -r $ID $MSG
+makoify -a 'orpheus' -r $ID $MSG

@@ -40,7 +40,7 @@
           echo "No overdue tasks, exiting..."
           exit 0
         fi
-        ${pkgs.dunst}/bin/dunstify -a 'Taskwarrior' "You have $count overdue tasks"
+        makoify -a 'Taskwarrior' "You have $count overdue tasks"
       '';
     };
   };

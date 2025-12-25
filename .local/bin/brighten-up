@@ -3,11 +3,10 @@
 MIN=960
 MAX=$(brightnessctl max)
 CURR=$(brightnessctl get)
-MSG=""
 ID=1234
 
 if (($CURR >= $MAX)); then
-  dunstify -a Selena -r $ID "󰃚 "
+  makoify -a Selena -r $ID "󰃚 "
 else
   if (($CURR == 0)); then
     brightnessctl set 1%
@@ -21,8 +20,8 @@ else
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
 
   if (($CURR >= $MAX)); then
-    dunstify -a Selena -r $ID "󰃚 "
+    makoify -a Selena -r $ID "󰃚 "
   else
-    dunstify -a Selena -r $ID "󰽨 $PER"
+    makoify -a Selena -r $ID "󰽨 $PER"
   fi
 fi
