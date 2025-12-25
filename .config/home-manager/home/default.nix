@@ -31,7 +31,7 @@
       modules = [
         inputs.flatpak.homeManagerModules.nix-flatpak
         inputs.catppuccin.homeModules.catppuccin
-        inputs.pam-shim.homeModule.default
+        inputs.pam-shim.homeModules.default
       ];
       extraSpecialArgs = {
         inherit theme profile nixgl kdl;

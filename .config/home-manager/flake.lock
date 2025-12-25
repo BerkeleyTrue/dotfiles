@@ -160,6 +160,26 @@
         "type": "github"
       }
     },
+    "pam-shim": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762380897,
+        "narHash": "sha256-MumACpf6XcwTIAJ770ErxTUfr7/MzeUzpAyQblHaSlo=",
+        "owner": "Cu3PO42",
+        "repo": "pam_shim",
+        "rev": "7512040cb9e3358033369e61b78438ad9c9ec326",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Cu3PO42",
+        "repo": "pam_shim",
+        "type": "github"
+      }
+    },
     "parinfer-rust": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -190,6 +210,7 @@
         "home-manager-parts": "home-manager-parts",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs",
+        "pam-shim": "pam-shim",
         "parinfer-rust": "parinfer-rust"
       }
     },
