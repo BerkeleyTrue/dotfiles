@@ -13,7 +13,8 @@
   - [x] mako notifier
     - [ ] style
     - [ ] notify send
-  - [ ] hyprlock https://wiki.hypr.land/Hypr-Ecosystem/hyprlock/
+  - [x] hyprlock https://wiki.hypr.land/Hypr-Ecosystem/hyprlock/
+    - [ ] style
   - [ ] catppuccin cursor https://github.com/catppuccin/cursors
   - [ ] swww for wallpaper https://github.com/LGFae/swww
 
