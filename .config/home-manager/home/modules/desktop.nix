@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   theme,
   nixgl,
@@ -84,12 +85,12 @@ in {
   programs = {
     hyprlock = {
       enable = true;
+      package = config.lib.nixgl.wrapPackage pkgs.hyprlock;
+      # Note: no_fade_in is now a CLI flag (--no-fade-in), not a config option
+      # disable_loading_bar and no_fade_out were removed in hyprlock 0.9
       settings = {
         # GENERAL
         general = {
-          no_fade_in = true;
-          no_fade_out = true;
-          disable_loading_bar = false;
           hide_cursor = true;
           immediate_render = true;
         };
@@ -120,7 +121,7 @@ in {
           fade_on_empty = false;
           # placeholder_text =;
           hide_input = false;
-          position = "800 , -15";
+          position = "800, -15";
           halign = "left";
           valign = "center";
         };
