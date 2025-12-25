@@ -1,11 +1,19 @@
-{pkgs, ...}: let
-  watch-lid = pkgs.writeShellScriptBin "watch-lid" ''
-    dbus-monitor --system "type=signal, interface=org.freedesktop.LaptopInterface" | while read x; do
-      # move mouse to trigger unlock screen
-      ${pkgs.xdotool}/bin/xdotool mousemove_relative 1 1
-      echo "lid opened"
-    done
-  '';
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  getExe = lib.getExe;
+  makoctl = "${pkgs.mako}/bin/makoctl";
+
+  # TODO: is this needed for wayland unlock?
+  # watch-lid = pkgs.writeShellScriptBin "watch-lid" ''
+  #   dbus-monitor --system "type=signal, interface=org.freedesktop.LaptopInterface" | while read x; do
+  #     # move mouse to trigger unlock screen
+  #     ${pkgs.xdotool}/bin/xdotool mousemove_relative 1 1
+  #     echo "lid opened"
+  #   done
+  # '';
 
   watch-sleep = pkgs.writeShellScriptBin "watch-sleep" ''
     dbus-monitor --system "type='signal', interface='org.freedesktop.login1.Manager', member=PrepareForSleep" | while read x; do
@@ -17,19 +25,18 @@
   '';
 
   pre-sleep = pkgs.writeShellScriptBin "pre-sleep" ''
-    ${pkgs.playerctl}/bin/playerctl pause &> /dev/null # exits non-zero if nothing is playing
-    ${pkgs.dunst}/bin/dunstctl set-paused true
+    ${getExe pkgs.playerctl} pause &> /dev/null # exits non-zero if nothing is playing
+    ${makoctl} set-mode do-not-disturb
   '';
 
   post-sleep = pkgs.writeShellScriptBin "post-sleep" ''
     echo "unlocking screen"
-    ${pkgs.dunst}/bin/dunstify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
-    ${pkgs.dunst}/bin/dunstctl set-paused false
+    makoify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
+    ${makoctl} set-mode default
   '';
 in {
   home.packages = with pkgs; [
     playerctl
-    dunst
   ];
 
   systemd.user.targets.sleep = {
@@ -46,7 +53,7 @@ in {
     };
 
     Service = {
-      ExecStart = "${watch-sleep}/bin/watch-sleep";
+      ExecStart = "${getExe watch-sleep}";
       Restart = "on-failure";
     };
 
@@ -65,9 +72,9 @@ in {
     Service = {
       Type = "forking";
       Environment = "DISPLAY=:0";
-      ExecStartPre = "${pre-sleep}/bin/pre-sleep";
+      ExecStartPre = "${getExe pre-sleep}";
       ExecStart = "/usr/bin/xsecurelock";
-      ExecStop = "${post-sleep}/bin/post-sleep";
+      ExecStop = "${getExe post-sleep}";
     };
 
     Install = {
@@ -75,21 +82,22 @@ in {
     };
   };
 
-  systemd.user.services.watch-lid = {
-    Unit = {
-      Description = "Watch for lid open events and move mouse to trigger unlock screen";
-      After = ["graphical-session.target"];
-    };
-
-    Service = {
-      ExecStart = "${watch-lid}/bin/watch-lid";
-      Restart = "on-failure";
-    };
-
-    Install = {
-      WantedBy = ["x11-session.target"];
-    };
-  };
+  # TODO: is this needed for wayland unlock?
+  # systemd.user.services.watch-lid = {
+  #   Unit = {
+  #     Description = "Watch for lid open events and move mouse to trigger unlock screen";
+  #     After = ["graphical-session.target"];
+  #   };
+  #
+  #   Service = {
+  #     ExecStart = "${getExe watch-lid}";
+  #     Restart = "on-failure";
+  #   };
+  #
+  #   Install = {
+  #     WantedBy = ["x11-session.target"];
+  #   };
+  # };
 
   # these are added here for posterity, but have to be set in /etc/acpi/ following https://wiki.archlinux.org/title/acpid
   # this would be useful for the switch to nixos

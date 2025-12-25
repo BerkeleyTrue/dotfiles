@@ -7,8 +7,12 @@
   - [x] niri wm service and session management
   - [x] Anyrun or tofi 
   - [x] waybar https://github.com/Alexays/Waybar
+    - [ ] style
+    - [ ] configure
   - [ ] Panels with Astal https://aylur.github.io/astal/
-  - [ ] mako notifier
+  - [x] mako notifier
+    - [ ] style
+    - [ ] notify send
   - [ ] hyprlock https://wiki.hypr.land/Hypr-Ecosystem/hyprlock/
   - [ ] catppuccin cursor https://github.com/catppuccin/cursors
   - [ ] swww for wallpaper https://github.com/LGFae/swww
