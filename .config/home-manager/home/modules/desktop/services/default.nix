@@ -14,12 +14,13 @@
     ./flatpak.nix
     ./gh-user.nix
     ./kanata.nix
+    ./hyperidle.nix
     ./nix-collect-garbage.nix
     ./notessync.nix
     ./notification.nix
     ./pasystray.nix
     ./security.nix
-    ./sleep.nix # TODO: make wayland compatible
+    # ./sleep.nix # handled by hypridle
     ./status-notifier-watcher.nix
     ./status-bar.nix
     ./taiscale-systray.nix
