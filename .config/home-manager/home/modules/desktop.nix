@@ -1,8 +1,8 @@
 {
-  config,
   pkgs,
   theme,
   nixgl,
+  config,
   ...
 }: let
   c = theme.colors;
@@ -85,9 +85,7 @@ in {
   programs = {
     hyprlock = {
       enable = true;
-      package = config.lib.nixgl.wrapPackage pkgs.hyprlock;
-      # Note: no_fade_in is now a CLI flag (--no-fade-in), not a config option
-      # disable_loading_bar and no_fade_out were removed in hyprlock 0.9
+      package = config.lib.pamShim.replacePam (config.lib.nixgl.wrapPackage pkgs.hyprlock);
       settings = {
         # GENERAL
         general = {

@@ -12,6 +12,9 @@
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
 
+    pam-shim.url = "github:Cu3PO42/pam_shim";
+    pam-shim.inputs.nixpkgs.follows = "nixpkgs";
+
     # utils
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
