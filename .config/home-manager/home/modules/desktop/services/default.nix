@@ -14,7 +14,7 @@
     ./flatpak.nix
     ./gh-user.nix
     ./kanata.nix
-    ./hyperidle.nix
+    ./hypridle.nix
     ./nix-collect-garbage.nix
     ./notessync.nix
     ./notification.nix
