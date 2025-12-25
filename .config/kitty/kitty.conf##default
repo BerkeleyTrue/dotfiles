@@ -1,6 +1,9 @@
 include                 frappe.conf
 font_family             FiraCode Nerd Font Mono
 symbol_map              U+EE00-U+EE08 FiraCode
+
+# Force Nerd Font Private Use Area glyphs to be single-width (fixes Wayland rendering)
+narrow_symbols          U+E000-U+F8FF,U+F0000-U+FFFFD,U+100000-U+10FFFD 1
 bold_font               auto
 italic_font             auto
 bold_italic_font        auto
