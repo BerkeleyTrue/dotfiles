@@ -6,6 +6,9 @@
   ...
 }: let
   c = theme.colors;
+  nixglWrap = config.lib.nixgl.wrapPackage;
+  pamShimWrap = config.lib.pamShim.replacePam;
+  hyprlock = pamShimWrap (nixglWrap pkgs.hyprlock);
 in {
   targets.genericLinux.nixGL.packages = nixgl.packages;
 
@@ -83,9 +86,10 @@ in {
   };
 
   programs = {
+    # requires /etc/pam.d/hyprlock with 644 and 'auth include login'
     hyprlock = {
       enable = true;
-      package = config.lib.pamShim.replacePam (config.lib.nixgl.wrapPackage pkgs.hyprlock);
+      package = hyprlock;
       settings = {
         # GENERAL
         general = {

@@ -4,10 +4,12 @@
   config,
   ...
 }: let
+  nixglWrap = config.lib.nixgl.wrapPackage;
+  pamShimWrap = config.lib.pamShim.replacePam;
   getExe = lib.getExe;
   makoctl = getExe pkgs.mako;
   playerctl = getExe pkgs.playerctl;
-  hyprlock = getExe pkgs.hyprlock;
+  hyprlock = (pamShimWrap (nixglWrap pkgs.hyprlock));
   niri = getExe pkgs.niri;
   thirty_min = 1800;
 in {
@@ -16,7 +18,7 @@ in {
     package = config.lib.nixgl.wrapPackage pkgs.hypridle;
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || ${hyprlock}";
+        lock_cmd = "pidof hyprlock || ${hyprlock}/bin/hyprlock";
         on_lock_cmd = "${playerctl} pause; ${makoctl} set-mode do-not-disturb";
         on_unlock_cmd = "${makoctl} set-mode default; makoify -a 'Hephaestus' -u low -i distributor-logo-nixos 'Welcome Back!'";
         before_sleep_cmd = "loginctl lock-session";
