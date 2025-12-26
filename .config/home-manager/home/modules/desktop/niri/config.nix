@@ -261,10 +261,12 @@ in
       (plain "Mod+Down" [(flag "focus-window-down")])
       (plain "Mod+Up" [(flag "focus-window-up")])
       (plain "Mod+Right" [(flag "focus-column-right")])
+
       (plain "Mod+H" [(flag "focus-column-left")])
-      (plain "Mod+J" [(flag "focus-window-down")])
-      (plain "Mod+K" [(flag "focus-window-up")])
       (plain "Mod+L" [(flag "focus-column-right")])
+
+      (plain "Mod+I" [(flag "focus-window-down")])
+      (plain "Mod+O" [(flag "focus-window-up")])
 
       (plain "Mod+Shift+Left" [(flag "move-column-left")])
       (plain "Mod+Shift+Down" [(flag "move-window-down")])
@@ -272,9 +274,10 @@ in
       (plain "Mod+Shift+Right" [(flag "move-column-right")])
 
       (plain "Mod+Shift+H" [(flag "move-column-left")])
-      (plain "Mod+Shift+J" [(flag "move-window-down")])
-      (plain "Mod+Shift+K" [(flag "move-window-up")])
       (plain "Mod+Shift+L" [(flag "move-column-right")])
+
+      (plain "Mod+Shift+I" [(flag "move-window-down")])
+      (plain "Mod+Shift+O" [(flag "move-window-up")])
 
       (node "Mod+Caret"
         {"hotkey-overlay-title" = "focus first column";}
@@ -307,11 +310,11 @@ in
       (plain "Mod+Shift+Ctrl+K" [(flag "move-column-to-monitor-up")])
       (plain "Mod+Shift+Ctrl+L" [(flag "move-column-to-monitor-right")])
 
-      (plain "Mod+O" [(flag "focus-workspace-up")])
-      (plain "Mod+I" [(flag "focus-workspace-down")])
+      (plain "Mod+J" [(flag "focus-workspace-down")])
+      (plain "Mod+K" [(flag "focus-workspace-up")])
 
-      (plain "Mod+Shift+O" [(flag "move-column-to-workspace-up")])
-      (plain "Mod+Shift+I" [(flag "move-column-to-workspace-down")])
+      (plain "Mod+Shift+J" [(flag "move-column-to-workspace-down")])
+      (plain "Mod+Shift+K" [(flag "move-column-to-workspace-up")])
 
       (plain "Mod+Alt+O" [(flag "move-workspace-up")])
       (plain "Mod+Alt+I" [(flag "move-workspace-down")])
