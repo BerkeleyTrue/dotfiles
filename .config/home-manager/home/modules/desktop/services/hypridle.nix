@@ -40,7 +40,8 @@ in {
           on-resume = "niri msg action power-on-monitors && brightnessctl -r";
         }
         {
-          timeout = thirty_min + 1800; # 60min
+          # change this to 2 hours
+          timeout = thirty_min + 7200; # 2h35min
           on-timeout = "systemctl suspend";
         }
       ];
