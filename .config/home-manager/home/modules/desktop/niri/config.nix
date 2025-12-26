@@ -7,7 +7,7 @@
   ...
 }: let
   c = theme.colors;
-  inherit (kdl) plain leaf flag;
+  inherit (kdl) node plain leaf flag;
   output =
     if profile == "delora"
     then
@@ -41,7 +41,7 @@ in
 
       # Don't take over power key
       (flag "disable-power-key-handling")
-      (flag "focus-follows-mouse")
+      (leaf "focus-follows-mouse" {max-scroll-amount = "95%";})
     ])
 
     (plain "layout" [
@@ -83,7 +83,12 @@ in
         (flag "off")
       ])
 
-      # (plain "preset-column-widths" [])
+      # Mod+R cycles through these preset column widths.
+      (plain "preset-column-widths" [
+        (leaf "proportion" 0.3333)
+        (leaf "proportion" 0.5)
+        (leaf "proportion" 0.6667)
+      ])
       (plain "default-column-width" [])
 
       (leaf "gaps" 6)
@@ -233,9 +238,22 @@ in
       # Mod-? shows a list of important hotkeys.
       (plain "Mod+Shift+Slash" [(flag "show-hotkey-overlay")])
 
-      (plain "Mod+Shift+Return" [(leaf "spawn" ["kitty"])])
-      (plain "Mod+D" [(leaf "spawn" ["anyrun"])])
-      # (plain "Super+Alt+L" [(leaf "spawn" ["swaylock"])])
+      (node
+        "Mod+Shift+Return"
+        {hotkey-overlay-title = "open terminal";}
+        [
+          (leaf "spawn" ["kitty"])
+        ])
+      (node "Mod+D"
+        {"hotkey-overlay-title" = "run launcher";}
+        [
+          (leaf "spawn" ["anyrun"])
+        ])
+      (node "Super+Alt+L"
+        {"hotkey-overlay-title" = "lock screen";}
+        [
+          (leaf "spawn" ["loginctl" "lock-session"])
+        ])
 
       (plain "Mod+Shift+Q" [(flag "close-window")])
 
@@ -252,13 +270,22 @@ in
       (plain "Mod+Shift+Down" [(flag "move-window-down")])
       (plain "Mod+Shift+Up" [(flag "move-window-up")])
       (plain "Mod+Shift+Right" [(flag "move-column-right")])
+
       (plain "Mod+Shift+H" [(flag "move-column-left")])
       (plain "Mod+Shift+J" [(flag "move-window-down")])
       (plain "Mod+Shift+K" [(flag "move-window-up")])
       (plain "Mod+Shift+L" [(flag "move-column-right")])
 
-      (plain "Mod+Home" [(flag "focus-column-first")])
-      (plain "Mod+End" [(flag "focus-column-last")])
+      (node "Mod+Caret"
+        {"hotkey-overlay-title" = "focus first column";}
+        [
+          (flag "focus-column-first")
+        ])
+      (node "Mod+Dollar"
+        {"hotkey-overlay-title" = "focus last column";}
+        [
+          (flag "focus-column-last")
+        ])
       (plain "Mod+Ctrl+Home" [(flag "move-column-to-first")])
       (plain "Mod+Ctrl+End" [(flag "move-column-to-last")])
 
@@ -280,19 +307,14 @@ in
       (plain "Mod+Shift+Ctrl+K" [(flag "move-column-to-monitor-up")])
       (plain "Mod+Shift+Ctrl+L" [(flag "move-column-to-monitor-right")])
 
-      (plain "Mod+Page_Down" [(flag "focus-workspace-down")])
-      (plain "Mod+Page_Up" [(flag "focus-workspace-up")])
-      (plain "Mod+U" [(flag "focus-workspace-down")])
-      (plain "Mod+I" [(flag "focus-workspace-up")])
-      (plain "Mod+Ctrl+Page_Down" [(flag "move-column-to-workspace-down")])
-      (plain "Mod+Ctrl+Page_Up" [(flag "move-column-to-workspace-up")])
-      (plain "Mod+Ctrl+U" [(flag "move-column-to-workspace-down")])
-      (plain "Mod+Ctrl+I" [(flag "move-column-to-workspace-up")])
+      (plain "Mod+O" [(flag "focus-workspace-up")])
+      (plain "Mod+I" [(flag "focus-workspace-down")])
 
-      (plain "Mod+Shift+Page_Down" [(flag "move-workspace-down")])
-      (plain "Mod+Shift+Page_Up" [(flag "move-workspace-up")])
-      (plain "Mod+Shift+U" [(flag "move-workspace-down")])
-      (plain "Mod+Shift+I" [(flag "move-workspace-up")])
+      (plain "Mod+Shift+O" [(flag "move-column-to-workspace-up")])
+      (plain "Mod+Shift+I" [(flag "move-column-to-workspace-down")])
+
+      (plain "Mod+Alt+O" [(flag "move-workspace-up")])
+      (plain "Mod+Alt+I" [(flag "move-workspace-down")])
 
       (plain "Mod+1" [(leaf "focus-workspace" 1)])
       (plain "Mod+2" [(leaf "focus-workspace" 2)])
@@ -313,36 +335,58 @@ in
       (plain "Mod+Ctrl+8" [(leaf "move-column-to-workspace" 8)])
       (plain "Mod+Ctrl+9" [(leaf "move-column-to-workspace" 9)])
 
-      (plain "Mod+Comma" [(flag "consume-window-into-column")])
-      (plain "Mod+Period" [(flag "expel-window-from-column")])
+      (node "Mod+Comma"
+        {"hotkey-overlay-title" = "add/remove to/from column left";}
+        [
+          (flag "consume-or-expel-window-left")
+        ])
+      (node "Mod+Period"
+        {"hotkey-overlay-title" = "add/remove to/from column right";}
+        [
+          (flag "consume-or-expel-window-right")
+        ])
+
+      (node "Mod+W"
+        {"hotkey-overlay-title" = "toggle column to tabbed";}
+        [
+          (flag "toggle-column-tabbed-display")
+        ])
 
       (plain "Mod+R" [(flag "switch-preset-column-width")])
       (plain "Mod+F" [(flag "maximize-column")])
       (plain "Mod+Shift+F" [(flag "fullscreen-window")])
       (plain "Mod+C" [(flag "center-column")])
 
-      # Finer width adjustments.
-      # This command can also:
-      # * set width in pixels: "1000"
-      # * adjust width in pixels: "-5" or "+5"
-      # * set width as a percentage of screen width: "25%"
-      # * adjust width as a percentage of screen width: "-10%" or "+10%"
-      # Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
-      # (leaf "set-column-width" "100") will make the column occupy 200 physical screen pixels.
-      (plain "Mod+Minus" [(leaf "set-column-width" "-10%")])
-      (plain "Mod+Equal" [(leaf "set-column-width" "+10%")])
+      (node "Mod+Minus"
+        {"hotkey-overlay-title" = "decrease column width";}
+        [
+          (leaf "set-column-width" "-10%")
+        ])
+      (node "Mod+Equal"
+        {"hotkey-overlay-title" = "increase column width";}
+        [
+          (leaf "set-column-width" "+10%")
+        ])
+      (node "Mod+Underscore"
+        {"hotkey-overlay-title" = "increase column width";}
+        [
+          (leaf "set-column-width" "+10%")
+        ])
 
       # Finer height adjustments when in column with other windows.
       (plain "Mod+Shift+Minus" [(leaf "set-window-height" "-10%")])
       (plain "Mod+Shift+Equal" [(leaf "set-window-height" "+10%")])
 
-      # Actions to switch layouts.
-      # Note: if you uncomment these, make sure you do NOT have
-      # a matching layout switch hotkey configured in xkb options above.
-      # Having both at once on the same hotkey will break the switching,
-      # since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
-      # (plain "Mod+Space"       [(leaf "switch-layout" "next")])
-      # (plain "Mod+Shift+Space" [(leaf "switch-layout" "prev")])
+      (node "Mod+V"
+        {"hotkey-overlay-title" = "toggle float";}
+        [
+          (flag "toggle-window-floating")
+        ])
+      (node "Mod+Shift+V"
+        {"hotkey-overlay-title" = "switch focus between floating and tiling";}
+        [
+          (flag "switch-focus-between-floating-and-tiling")
+        ])
 
       # This debug bind will tint all surfaces green, unless they are being
       # directly scanned out. It's therefore useful to check if direct scanout
