@@ -24,7 +24,9 @@ elif is_win; then
 else
   if is_wayland; then
     alias cbcopy=wl-copy
-    alias cbpaste=wl-paste
+    # if no content on clipboard, wl-paste exits with error and message
+    # we suppress it here and return empty content instead with a zero status
+    alias cbpaste='wl-paste 2>/dev/null || true'
   else
     alias cbcopy='xclip -selection clipboard'
     alias cbpaste='xclip -selection clipboard -out'
