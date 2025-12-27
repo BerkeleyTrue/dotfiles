@@ -21,6 +21,12 @@ build-no-link:
 [group('desktop')]
 switch:
   #!/usr/bin/env bash
+   ./result/home-path/bin/home-manager switch
+
+# protect against running switch inside tmux server
+[group('desktop')]
+switch-protected:
+  #!/usr/bin/env bash
   if [ -z "$TMUX" ]; then
     ./result/home-path/bin/home-manager switch
   else
