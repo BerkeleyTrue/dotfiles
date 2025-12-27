@@ -1,3 +1,4 @@
+# doesn't work in wayland https://github.com/christophgysin/pasystray/issues/90
 {pkgs, ...}: {
   systemd.user.services.pasystray = {
     Unit = {

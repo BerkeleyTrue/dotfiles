@@ -1,3 +1,4 @@
+# waybar provides it's own sni tray, this is no longer used
 {pkgs, ...}: {
   home.packages = with pkgs; [
     haskellPackages.status-notifier-item # sni system tray protocol

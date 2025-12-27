@@ -18,10 +18,10 @@
     ./nix-collect-garbage.nix
     ./notessync.nix
     ./notification.nix
-    ./pasystray.nix
+    # ./pasystray.nix # doesn't work in wayland https://github.com/christophgysin/pasystray/issues/90
     ./security.nix
     # ./sleep.nix # handled by hypridle
-    ./status-notifier-watcher.nix
+    # ./status-notifier-watcher.nix
     ./status-bar.nix
     ./taiscale-systray.nix
     ./task.nix
