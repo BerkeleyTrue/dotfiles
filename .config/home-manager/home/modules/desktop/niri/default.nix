@@ -8,7 +8,7 @@
   config,
   ...
 }: let
-  niri = config.lib.nixGL.wrapPackage pkgs.niri;
+  niri = config.lib.nixgl.wrapPackage pkgs.niri;
   niri-config = import ./config.nix {
     inherit kdl lib hardware profile theme;
   };
