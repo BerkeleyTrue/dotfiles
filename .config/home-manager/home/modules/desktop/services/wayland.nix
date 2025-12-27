@@ -22,9 +22,6 @@
         systemctl --user set-environment XDG_SESSION_TYPE=wayland
         systemctl --user set-environment XDG_CURRENT_DESKTOP=niri
         systemctl --user set-environment XDG_SESSION_DESKTOP=niri
-
-        # notify that wayland environment is ready
-        systemd-notify --ready
       '';
     };
 
