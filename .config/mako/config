@@ -28,3 +28,6 @@ border-color=#f2d5cf
 background-color=#e78284
 text-color=#303446
 border-color=#e78284
+
+[mode=dnd]
+invisible=1

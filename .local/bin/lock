@@ -5,7 +5,7 @@ echo "Locking..."
 {
 	# exits non-zero if nothing is playing..
 	playerctl pause &>/dev/null
-	makoctl mode dnd
+	makoctl mode -a dnd
 } &
 
 
@@ -15,4 +15,4 @@ hyprlock
 echo "Unlocking..."
 
 makoify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
-makoctl mode default
+makoctl mode -r dnd
