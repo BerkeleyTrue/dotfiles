@@ -5,15 +5,17 @@
   hardware,
   profile,
   theme,
+  config,
   ...
 }: let
-  config = import ./config.nix {
+  niri = config.lib.nixGL.wrapPackage pkgs.niri;
+  niri-config = import ./config.nix {
     inherit kdl lib hardware profile theme;
   };
   validate-config = config:
     pkgs.runCommand "config.kdl"
     {
-      inherit config;
+      config = config;
       passAsFile = ["config"];
       buildInputs = [pkgs.niri];
     }
@@ -22,7 +24,7 @@
       cp $configPath $out
     '';
 in {
-  home.packages = with pkgs; [
+  home.packages = [
     niri
   ];
 
@@ -31,10 +33,10 @@ in {
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
-    configPackages = with pkgs; [
+    configPackages = [
       niri
     ];
   };
 
-  xdg.configFile."niri/config.kdl".source = validate-config (kdl.serialize.nodes config);
+  xdg.configFile."niri/config.kdl".source = validate-config (kdl.serialize.nodes niri-config);
 }
