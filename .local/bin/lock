@@ -1,17 +1,18 @@
 #!/bin/bash
 
+echo "Locking..."
+
 {
 	# exits non-zero if nothing is playing..
 	playerctl pause &>/dev/null
-	makoctl set-mode do-not-disturb
+	makoctl mode dnd
 } &
 
-echo "Locking..."
 
 # hyprlock blocks until unlocked
-# dimming is handled by hyprlock config
-hyprlock && makoify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
+hyprlock 
 
 echo "Unlocking..."
 
-makoctl set-mode default
+makoify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
+makoctl mode default
