@@ -17,8 +17,11 @@
 
                         :<Space> {1 :actions.select :mode :n}
                         :<CR> {1 :actions.select :mode :n}
-                        :<C-v> {1 :actions.select :opts {:vertical true}}
-                        :<C-s> {1 :actions.select :opts {:horizontal true}}
+
+                        :<C-v> {1 :actions.select :opts {:vertical true
+                                                         :close true}}
+                        :<C-s> {1 :actions.select :opts {:horizontal true
+                                                         :close true}}
 
                         :<C-j> {1 :actions.close :mode :n}
                         :<C-p> {1 :actions.preview :mode :n}
