@@ -26,13 +26,13 @@
 
   pre-sleep = pkgs.writeShellScriptBin "pre-sleep" ''
     ${getExe pkgs.playerctl} pause &> /dev/null # exits non-zero if nothing is playing
-    ${makoctl} set-mode do-not-disturb
+    ${makoctl} mode -a dnd
   '';
 
   post-sleep = pkgs.writeShellScriptBin "post-sleep" ''
     echo "unlocking screen"
     makoify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
-    ${makoctl} set-mode default
+    ${makoctl} mode -r dnd
   '';
 in {
   home.packages = with pkgs; [
@@ -98,33 +98,4 @@ in {
   #     WantedBy = ["x11-session.target"];
   #   };
   # };
-
-  # these are added here for posterity, but have to be set in /etc/acpi/ following https://wiki.archlinux.org/title/acpid
-  # this would be useful for the switch to nixos
-  xdg.configFile."acpi/events/lidconf".text = ''
-    event=button/lid
-    action=/etc/acpi/actions/lid.sh "%e"
-  '';
-
-  xdg.configFile."acpi/actions/lid.sh".text = ''
-    #!/bin/bash
-    state=$(echo "$1" | cut -d " " -f 3)
-    case "$state" in
-    open)
-      # send dbus systemd signal
-      dbus-send \
-        --system \
-        --type=signal \
-        /org/freedesktop/Laptop \
-        org.freedesktop.LaptopInterface.LidIsOpen
-      ;;
-    close)
-      # do nothing
-      ;;
-    *)
-      # panic: not a state I know about!
-      echo "PANIC STATE" >>/var/logs/lidaction.log
-      ;;
-    esac
-  '';
 }

@@ -2,14 +2,8 @@
   pkgs,
   theme,
   nixgl,
-  config,
   ...
-}: let
-  c = theme.colors;
-  nixglWrap = config.lib.nixgl.wrapPackage;
-  pamShimWrap = config.lib.pamShim.replacePam;
-  hyprlock = pamShimWrap (nixglWrap pkgs.hyprlock);
-in {
+}: {
   targets.genericLinux.nixGL.packages = nixgl.packages;
 
   imports = [
@@ -82,52 +76,6 @@ in {
       };
       height = 1504;
       width = 2256;
-    };
-  };
-
-  programs = {
-    # requires /etc/pam.d/hyprlock with 644 and 'auth include login'
-    hyprlock = {
-      enable = true;
-      package = hyprlock;
-      settings = {
-        # GENERAL
-        general = {
-          hide_cursor = true;
-          immediate_render = true;
-        };
-
-        label = {
-          text = "Unlock?";
-          text_align = "center";
-          color = c.text;
-          font_size = 30;
-          # font_family = "Kaushan Script";
-
-          position = "0, 80";
-          halign = "center";
-          valign = "center";
-        };
-
-        # INPUT FIELD
-        input-field = {
-          # monitor =;
-          size = "200, 50";
-          outline_thickness = -1;
-          dots_size = 0.2; # Scale of input-field height, 0.2 - 0.8
-          dots_spacing = 0.2; # Scale of dots' absolute size, 0.0 - 1.0
-          dots_center = false;
-          outer_color = c.lavender;
-          inner_color = c.text;
-          font_color = c.base;
-          fade_on_empty = false;
-          # placeholder_text =;
-          hide_input = false;
-          position = "800, -15";
-          halign = "left";
-          valign = "center";
-        };
-      };
     };
   };
 }
