@@ -35,6 +35,8 @@ in
       (plain "touchpad" [
         (flag "tap")
         (flag "natural-scroll")
+        # default method had a difficult time detecting two finger drags vs clicks
+        (leaf "click-method" "clickfinger")
       ])
 
       (plain "mouse" [])
