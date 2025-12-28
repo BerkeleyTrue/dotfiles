@@ -18,6 +18,7 @@
 
   c = theme.colors;
 in {
+  # NOTE: set up /etc/systemd/logind.conf to lock on lid close
   services.hypridle = {
     enable = true;
     package = config.lib.nixgl.wrapPackage pkgs.hypridle;
@@ -56,6 +57,7 @@ in {
     };
   };
 
+  catppuccin.hyprlock.enable = true;
   # requires /etc/pam.d/hyprlock with 644 and 'auth include login'
   programs.hyprlock = {
     enable = true;
@@ -101,13 +103,13 @@ in {
   };
 
   # these are added here for posterity, but have to be set in /etc/acpi/ following https://wiki.archlinux.org/title/acpid
-  # this would be useful for the switch to nixos
   xdg.configFile."acpi/events/lidconf".text = ''
     event=button/lid
     action=/etc/acpi/actions/lid.sh "%e"
   '';
 
   # this will get lid events from root into user land through dbus
+  # currently unused
   xdg.configFile."acpi/actions/lid.sh".text = ''
     #!/bin/bash
     state=$(echo "$1" | cut -d " " -f 3)
@@ -123,8 +125,7 @@ in {
         org.freedesktop.LaptopInterface.LidIsOpen
       ;;
     close)
-      # lock session when lid closes
-      loginctl lock-session
+      # do nothing
       ;;
     *)
       # panic: not a state I know about!
