@@ -251,10 +251,11 @@ in
         [
           (leaf "spawn" ["rofi" "-show" "drun"])
         ])
-      (node "Super+Alt+L"
-        {"hotkey-overlay-title" = "lock screen";}
+      (node "Mod+0"
+        {"hotkey-overlay-title" = "Show Powermenu";}
         [
-          (leaf "spawn" ["loginctl" "lock-session"])
+          # .local/bin/powermenu
+          (leaf "spawn" ["powermenu"])
         ])
 
       (plain "Mod+Shift+Q" [(flag "close-window")])

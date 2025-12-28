@@ -27,14 +27,12 @@ $reboot)
   systemctl reboot
   ;;
 $lock)
-  $HOME/.local/bin/lock
+  # triggers .local/bin/lock through hypridle
+  loginctl lock-session
   ;;
 $suspend)
-  # pause music
-  /usr/bin/playerctl pause
-  # enable xsecurelock
-  /usr/bin/xsecurelock &
-  (sleep .250 && /usr/bin/systemctl suspend)
+  # triggers hypridle before sleep, which locks the session
+  systemctl suspend
   ;;
 $logout)
   systemctl --user start shutdown-graphical.target
