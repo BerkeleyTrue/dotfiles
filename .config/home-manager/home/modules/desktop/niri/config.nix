@@ -249,7 +249,7 @@ in
       (node "Mod+D"
         {"hotkey-overlay-title" = "run launcher";}
         [
-          (leaf "spawn" ["anyrun"])
+          (leaf "spawn" ["rofi" "-show" "drun"])
         ])
       (node "Super+Alt+L"
         {"hotkey-overlay-title" = "lock screen";}

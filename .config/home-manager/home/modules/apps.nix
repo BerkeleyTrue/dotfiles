@@ -3,12 +3,12 @@
   config,
   ...
 }: let
-  # rofi = pkgs.rofi.override {
-  #   plugins = with pkgs; [
-  #     rofi-calc
-  #     rofi-emoji
-  #   ];
-  # };
+  rofi = pkgs.rofi.override {
+    plugins = with pkgs; [
+      rofi-calc
+      rofi-emoji
+    ];
+  };
 
   myAspell = pkgs.aspellWithDicts (dicts: with dicts; [en en-computers en-science]);
 
@@ -17,38 +17,38 @@
     ${myAspell}/bin/aspell -d en dump master | ${myAspell}/bin/aspell -l en expand > $out/share/aspell/english
   '';
 
-  # rofi-spell = pkgs.writeShellScriptBin "rofi-spell" ''
-  #   word=$(cat ${enDict}/share/aspell/english | rofi -p 'spell' -dmenu)
-  #   definition=$(${pkgs.wordnet}/bin/wn $word -over)
-  #
-  #   if [[ ! -z "$definition" ]]; then
-  #     rofi -p -e "$definition"
-  #   fi
-  #
-  #   echo -n $word | clipboard
-  #   echo $word
-  # '';
-  #
-  # rofi-usb = pkgs.writeShellApplication {
-  #   name = "rofi-usb";
-  #   runtimeInputs = [
-  #     pkgs.rofi
-  #     pkgs.udiskie
-  #   ];
-  #   text = ''
-  #     device=$(udiskie-info --all --output "{ui_label}" | rofi -p 'usb' -dmenu | cut -d':' -f1)
-  #
-  #     if [ -n "$device" ] ; then
-  #       if mount | grep "$device" ; then
-  #         echo "unmounting"
-  #         udisksctl unmount -b "$device"
-  #       else
-  #         echo "mounting"
-  #         udisksctl mount -b "$device"
-  #       fi
-  #     fi
-  #   '';
-  # };
+  rofi-spell = pkgs.writeShellScriptBin "rofi-spell" ''
+    word=$(cat ${enDict}/share/aspell/english | rofi -p 'spell' -dmenu)
+    definition=$(${pkgs.wordnet}/bin/wn $word -over)
+
+    if [[ ! -z "$definition" ]]; then
+      rofi -p -e "$definition"
+    fi
+
+    echo -n $word | clipboard
+    echo $word
+  '';
+
+  rofi-usb = pkgs.writeShellApplication {
+    name = "rofi-usb";
+    runtimeInputs = [
+      pkgs.rofi
+      pkgs.udiskie
+    ];
+    text = ''
+      device=$(udiskie-info --all --output "{ui_label}" | rofi -p 'usb' -dmenu | cut -d':' -f1)
+
+      if [ -n "$device" ] ; then
+        if mount | grep "$device" ; then
+          echo "unmounting"
+          udisksctl unmount -b "$device"
+        else
+          echo "mounting"
+          udisksctl mount -b "$device"
+        fi
+      fi
+    '';
+  };
 in {
   home.packages =
     (with pkgs; [
@@ -73,9 +73,9 @@ in {
     ++ [
       (config.lib.nixGL.wrap pkgs.kitty) # GPU-accelerated terminal emulator
       # (config.lib.nixgl.wrapPackage pkgs.kicad)
-      # rofi # launcher
-      # rofi-spell # spell checker
-      # rofi-usb # rofi usb manager
+      rofi # launcher
+      rofi-spell # spell checker
+      rofi-usb # rofi usb manager
       enDict # My dictionary
       myAspell # spell checker
     ];

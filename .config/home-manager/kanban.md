@@ -6,6 +6,7 @@
   - [x] hierarchy x11 
   - [x] niri wm service and session management
   - [x] Anyrun or tofi 
+    - [x] actually stick with rofi. Now supports wayland!
   - [x] waybar https://github.com/Alexays/Waybar
     - [ ] style
     - [ ] configure
