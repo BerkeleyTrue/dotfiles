@@ -224,6 +224,7 @@ in
       ])
     ])
 
+    # applies to all windows
     (plain "window-rule" [
       (leaf "geometry-corner-radius" 8)
       (leaf "clip-to-geometry" true)
