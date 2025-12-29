@@ -13,6 +13,8 @@
   home.packages = with pkgs; [
     dracula-icon-theme # Dracula icon theme
     papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon)
+    catppuccin-cursors.frappeLavendar # # catppuccin cursor theme
+    catppuccin-papirus-folders # catppuccin papirus folder theme
     # nitrogen # wallpaper manager
     # xclip # x11 clipboard cli
     # xplugd # A UNIX daemon that executes a script on X input and RandR changes
