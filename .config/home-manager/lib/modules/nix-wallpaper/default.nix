@@ -83,9 +83,17 @@ in
             type = types.unspecified;
             readOnly = true;
           };
+
+          outputPath = mkOption {
+            type = types.path;
+            readOnly = true;
+            description = "Path to the generated wallpaper PNG file.";
+          };
         };
 
         config = {
+          outputPath = "~/.local/share/backgrounds/${wallpaperCfg.output}/share/backgrounds/wallpaper.png";
+
           output =
             pkgs.runCommandLocal "nix-wallpapers" {
               inherit (wallpaperCfg) width height angle swirl;
