@@ -25,8 +25,8 @@
           };
           interval = 1;
           tooltip = true;
-          format = "{icon}{capacity}%";
-          format-charging = "<b>󰂄{capacity}%</b>";
+          format = "{icon} {capacity}%";
+          format-charging = "<b>󰂄 {capacity}%</b>";
           format-icons = [
             "󰁺"
             "󰁻"
@@ -55,7 +55,7 @@
           thermal-zone = 4;
           warning-threshold = 75;
           critical-threshold = 85;
-          format = "{icon}{temperatureC}°C";
+          format = "{icon} {temperatureC}°C";
           format-icons = [
             ""
             ""
@@ -65,7 +65,7 @@
 
         memory = {
           interval = 1;
-          format = "{percentage}%";
+          format = " {percentage}%";
           states = {
             danger = 90;
             warning = 75;
