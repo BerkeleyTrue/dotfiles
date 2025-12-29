@@ -15,6 +15,9 @@
     pam-shim.url = "github:Cu3PO42/pam_shim";
     pam-shim.inputs.nixpkgs.follows = "nixpkgs";
 
+    awww.url = "git+https://codeberg.org/LGFae/awww";
+    awww.inputs.nixpkgs.follows = "nixpkgs";
+
     # utils
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -42,6 +45,7 @@
           overlays = [
             inputs.nixgl.overlay
             inputs.parinfer-rust.overlays.default
+            inputs.awww.overlays.default
           ];
 
           config = {
