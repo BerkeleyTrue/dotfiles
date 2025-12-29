@@ -119,8 +119,8 @@ in
     (plain "cursor" [
       # Change the theme and size of the cursor as well as set the
       # `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
-      # (leaf "xcursor-theme" "default")
-      # (leaf "xcursor-size" 24)
+      (leaf "xcursor-theme" "catppuccin-frappe-lavender-cursors")
+      (leaf "xcursor-size" 24)
     ])
 
     # Uncomment this line to ask the clients to omit their client-side decorations if possible.
