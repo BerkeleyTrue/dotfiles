@@ -14,12 +14,12 @@
     - [ ] add bars for delora
   - [ ] Panels with Astal https://aylur.github.io/astal/
   - [x] mako notifier
-    - [ ] style
+    - [x] style
     - [x] notify send (local/bin/makoify)
   - [x] hyprlock https://wiki.hypr.land/Hypr-Ecosystem/hyprlock/
     - [x] style (using default style with catppuccin)
   - [x] catppuccin cursor https://github.com/catppuccin/cursors
-  - [ ] swww for wallpaper https://github.com/LGFae/swww
+  - [x] swww for wallpaper https://github.com/LGFae/swww
 
 ## Done
 
