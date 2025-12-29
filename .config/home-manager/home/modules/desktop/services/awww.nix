@@ -3,9 +3,13 @@
   pkgs,
   config,
   theme,
+  hardware,
   ...
 }: let
   awww = pkgs.awww;
+  outputs =
+    lib.concatMapAttrs (name: spec: {"${name}" = spec.label;}) hardware.monitors;
+
   wallpaperScript = pkgs.writeShellApplication {
     name = "wallpaperScript";
     runtimeInputs = [
@@ -13,7 +17,7 @@
     ];
     text = ''
       awww restore
-      awww img ${config.home.nix-wallpapers.framework.outputPath}
+      ${lib.foldlAttrs (acc: name: output: "awww img --outputs ${output} ${config.home.nix-wallpapers.${name}.outputPath}\n") "" outputs}
     '';
   };
 in {
