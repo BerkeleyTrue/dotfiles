@@ -67,6 +67,7 @@ in {
       instaloader # Download public and private instagram accounts
       iputils # Network monitoring tools including ping
       just # A command runner with a makefile-like syntax
+      jq # Command-line JSON processor
       lazydocker # simple terminal ui for both docker and docker-compose
       lsof # lists open files
       mermaid-cli # Generation of diagrams and flowcharts from text in a similar manner as markdown
