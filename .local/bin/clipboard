@@ -11,7 +11,7 @@ case "${OSTYPE:-}$(uname)" in
           *) echo "Unknown operating system \"${OSTYPE:-}$(uname)\"." >&2; false ;;
 esac
 
-is_wayland() { [ "${XDG_SESSION_TYPE:-}" = 'wayland' ]; }
+is_wayland() { [ "${XDG_SESSION_TYPE:-}" = 'wayland' ] || [ -n "${WAYLAND_DISPLAY:-}" ]; }
 is_mac() { [ ${mac_os-0} -ne 0 ]; }
 is_win() { [ ${win_os-0} -ne 0 ]; }
 
