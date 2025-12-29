@@ -14,9 +14,9 @@
     ./gh-user.nix
     ./kanata.nix
     ./hypridle.nix
+    ./mako.nix
     ./nix-collect-garbage.nix
     ./notessync.nix
-    ./notification.nix
     ./security.nix
     ./status-bar.nix
     ./taiscale-systray.nix
