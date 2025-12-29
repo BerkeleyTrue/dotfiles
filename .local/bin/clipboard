@@ -11,7 +11,6 @@ case "${OSTYPE:-}$(uname)" in
           *) echo "Unknown operating system \"${OSTYPE:-}$(uname)\"." >&2; false ;;
 esac
 
-is_wayland() { [ "${XDG_SESSION_TYPE:-}" = 'wayland' ] || [ -n "${WAYLAND_DISPLAY:-}" ]; }
 is_mac() { [ ${mac_os-0} -ne 0 ]; }
 is_win() { [ ${win_os-0} -ne 0 ]; }
 
@@ -22,15 +21,10 @@ elif is_win; then
   alias cbcopy=putclip
   alias cbpaste=getclip
 else
-  if is_wayland; then
-    alias cbcopy=wl-copy
-    # if no content on clipboard, wl-paste exits with error and message
-    # we suppress it here and return empty content instead with a zero status
-    alias cbpaste='wl-paste 2>/dev/null || true'
-  else
-    alias cbcopy='xclip -selection clipboard'
-    alias cbpaste='xclip -selection clipboard -out'
-  fi
+  alias cbcopy=wl-copy
+  # if no content on clipboard, wl-paste exits with error and message
+  # we suppress it here and return empty content instead with a zero status
+  alias cbpaste='wl-paste 2>/dev/null || true'
 fi
 
 cb() {
