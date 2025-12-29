@@ -13,12 +13,14 @@
       Description = "Run kanata";
     };
 
-    # requires udev rules for uinput
-    # uinput should have 0660 permissions
-    # be a part of the uinput group
-    # and the current user be a part of the uinput group
-    # you may also need /etc/modules-load.d/uinput.conf to have "uinput"
-    # on arch systems
+    # requires udev rules for uinput group
+    # getent group uinput (to check if the group exists and is system group, gid < 1000)
+    # sudo groupadd -r uinput (to create system group if it doesn't exist)
+    # /dev/uinput should have 0660 permissions
+    # 'KERNEL=="uinput", MODE:="0660", GROUP:="uinput", OPTIONS+="static_node=uinput"' in /etc/udev/rules.d/99-uinput.rules
+    # user must be a part of the uinput group (sudo usermod -aG uinput $USER)
+    # sudo udevadm control --reload-rules && sudo udevadm trigger (to reload udev rules)
+    # reboot or re-login to apply group changes
     Service = {
       Restart = "always";
       RestartSec = "3";

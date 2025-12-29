@@ -81,7 +81,7 @@
   @cesc      @sfta @ctls @altd @metf g     h     @metj @altk  @ctll  @sft; '    ret
   @lparshft  z     x     c     v     b     n     m     @cmsmi @dtcol /     @rparshft    up
 
-  lctl lalt  lmet           @spacenav                 @numtg  rctl               left  down rght
+  lctl lalt  lmet           spc                  @numtg  rctl                    left  down rght
 )
 
 (deflayer nav
