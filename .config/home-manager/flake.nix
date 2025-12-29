@@ -42,7 +42,6 @@
           overlays = [
             inputs.nixgl.overlay
             inputs.parinfer-rust.overlays.default
-            (import ./overlays/crush)
           ];
 
           config = {
