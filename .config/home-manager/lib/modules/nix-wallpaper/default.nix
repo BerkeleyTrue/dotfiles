@@ -92,7 +92,7 @@ in
         };
 
         config = {
-          outputPath = "~/.local/share/backgrounds/${wallpaperCfg.output}/share/backgrounds/wallpaper.png";
+          outputPath = "${wallpaperCfg.output}/share/backgrounds/wallpaper.png";
 
           output =
             pkgs.runCommandLocal "nix-wallpapers" {
