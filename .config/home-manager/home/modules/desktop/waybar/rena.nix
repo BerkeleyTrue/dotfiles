@@ -14,7 +14,7 @@ in {
       modules-left = ["niri/workspaces"];
       modules-center =
         lib.intersperse "custom/separator"
-        ["custom/wttr" "clock" "custom/wakatime"];
+        ["custom/wttr" "clock"];
       modules-right =
         lib.intersperse "custom/separator"
         ["custom/powermenu" "custom/cpu-temp" "disk" "cpu" "memory" "tray"];
