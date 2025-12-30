@@ -75,6 +75,10 @@ window#waybar {
   padding: 0px 2px;
 }
 
+#custom-powermenu {
+  color: @red;
+}
+
 #tray {
   margin-left: 4px;
 }

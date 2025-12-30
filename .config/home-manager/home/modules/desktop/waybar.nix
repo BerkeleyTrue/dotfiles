@@ -75,13 +75,13 @@
     "custom/eth" = {
       interval = 10;
       exec = "crypto-egg-go price eth";
-      format = " {text}";
+      format = ''<span class="icon eth"></span> {text}'';
     };
 
     "custom/btc" = {
       interval = 10;
       exec = "crypto-egg-go price btc";
-      format = " {text}";
+      format = ''<span class="icon btc"></span> {text}'';
     };
 
     "custom/connectivity" = {
@@ -104,9 +104,9 @@
       return-type = "json";
       format = "{icon} {percentage}°C";
       format-icons = [
-        ""
-        ""
-        ""
+        ''<span fgcolor="${c.sapphire}"></span>''
+        ''<span fgcolor="${c.yellow}"></span>''
+        ''<span fgcolor="${c.red}"></span>''
       ];
     };
   };
