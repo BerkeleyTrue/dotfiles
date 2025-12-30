@@ -9,15 +9,23 @@
 (defn find-coretemp-path []
   (->> (fs/glob "/sys/bus/platform/devices/" "coretemp.*")
        (filter #(fs/directory? %))
-       (first)))
+       (first)
+       (str)))
 
 (comment
+  (fs/glob "/sys/bus/platform/devices/" "coretemp.*")
+  (fs/glob "/sys/bus/platform/devices/coretemp.0/" "hwmon/hwmon*")
+  (->> (fs/list-dir "/sys/bus/platform/devices/coretemp.0/hwmon")
+       (filter #(str/starts-with? (str %) "/sys/bus/platform/devices/coretemp.0/hwmon/hwmon")))
   (find-coretemp-path))
 
 (defn get-hwmon-paths []
   (let [coretemp-path (find-coretemp-path)]
     (if coretemp-path
-      (fs/glob coretemp-path "/hwmon/hwmon*")
+      (->> (fs/list-dir (str coretemp-path "/hwmon"))
+           (map str)
+           (filter #(str/starts-with? (str %) (str coretemp-path "/hwmon/hwmon")))
+           (map str))
       ; fallback to /sys/class/hwmon
       (->> (fs/glob "/sys/class/hwmon/" "hwmon*")
            (filter fs/directory?)
@@ -90,4 +98,4 @@
 (comment
   (average-core-temp))
 
-(println (average-core-temp))
+(print (average-core-temp))
