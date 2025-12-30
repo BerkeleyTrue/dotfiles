@@ -1,0 +1,11 @@
+#!/bin/env bash
+# A simple script to check internet connectivity by pinging a reliable host.
+PING_COUNT=1
+TIMEOUT=3
+HOST="1.1.1.1" # cloudflare's DNS server
+
+if ping -c $PING_COUNT -w $TIMEOUT $HOST >/dev/null 2>&1; then
+	echo "󰌘 "
+else
+	echo " "
+fi
