@@ -1,0 +1,9 @@
+#!/bin/env bash
+OUT=$(wakatime-cli --today --today-hide-categories true)
+if [ -z "$OUT" ]; then
+  echo "00:00"
+else
+  hrs=$(echo "$OUT" | grep -oP '\d+(?= hrs?)' || echo 0)
+  mins=$(echo "$OUT" | grep -oP '\d+(?= mins?)' || echo 0)
+  printf "%02d:%02d\n" "${hrs:-0}" "${mins:-0}"
+fi
