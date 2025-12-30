@@ -93,7 +93,7 @@
 
     "custom/powermenu" = {
       interval = 0;
-      on_click = "powermenu";
+      on-click = "powermenu";
       format = "  ";
     };
 
@@ -101,6 +101,7 @@
       interval = 5;
       # convert temp to json
       exec = "multicoretemp | jq --unbuffered --compact-output '{percentage: .}'";
+      return-type = "json";
       format = "{icon} {percentage}°C";
       format-icons = [
         ""

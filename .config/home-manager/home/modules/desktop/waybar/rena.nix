@@ -17,7 +17,7 @@ in {
         ["custom/wttr" "clock" "custom/wakatime"];
       modules-right =
         lib.intersperse "custom/separator"
-        ["custom/cpu-temp" "disk" "cpu" "memory" "tray"];
+        ["custom/powermenu" "custom/cpu-temp" "disk" "cpu" "memory" "tray"];
     }
     // common-modules;
   bottom =
