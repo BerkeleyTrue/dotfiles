@@ -1,10 +1,16 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   systemd.user.services.waybar = {
     Unit = {
       Description = "Waybar Status Bar";
       PartOf = ["tray.target"];
       After = ["graphical-session.target"];
       BindsTo = ["graphical-session.target"];
+      X-Reload-Triggers =
+        "${config.xdg.configFile."waybar/config".source}" ++ "${config.xdg.configFile."waybar/style.css".source}";
     };
 
     Service = {
