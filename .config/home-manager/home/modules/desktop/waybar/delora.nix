@@ -15,7 +15,7 @@
         lib.intersperse "custom/separator"
         ["custom/powermenu" "custom/connectivity" "custom/cpu-temp" "disk" "cpu" "memory" "tray"];
     }
-    ++ common-modules;
+    // common-modules;
   delora-bottom =
     {
       name = "delora-bottom";
@@ -28,5 +28,5 @@
         lib.intersperse "custom/separator"
         ["custom/btc"];
     }
-    ++ common-modules;
+    // common-modules;
 }

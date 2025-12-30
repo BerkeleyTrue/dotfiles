@@ -2,11 +2,15 @@
   lib,
   common-modules,
   ...
-}: {
+}: let
+  height = 34;
+in {
   renaTop =
     {
+      inherit height;
       name = "rena-top";
       layer = "bottom";
+
       modules-left = ["niri/workspaces"];
       modules-center =
         lib.intersperse "custom/separator"
@@ -14,6 +18,22 @@
       modules-right =
         lib.intersperse "custom/separator"
         ["custom/cpu-temp" "disk" "cpu" "memory" "tray"];
+    }
+    // common-modules;
+  bottom =
+    {
+      inherit height;
+      name = "rena-bottom";
+      layer = "bottom";
+      position = "bottom";
+
+      modules-left = ["clock#date"];
+      modules-center =
+        lib.intersperse "custom/separator"
+        ["custom/wakatime" "custom/eth" "custom/btc"];
+      modules-right =
+        lib.intersperse "custom/separator"
+        ["battery" "custom/connectivity"];
 
       battery = {
         states = {
@@ -39,18 +59,5 @@
         ];
       };
     }
-    ++ common-modules;
-  bottom =
-    {
-      name = "rena-bottom";
-      layer = "bottom";
-      modules-left = ["clock#date"];
-      modules-center =
-        lib.intersperse "custom/separator"
-        ["custom/wakatime" "custom/eth" "custom/btc"];
-      modules-right =
-        lib.intersperse "custom/separator"
-        ["battery" "custom/connectivity"];
-    }
-    ++ common-modules;
+    // common-modules;
 }

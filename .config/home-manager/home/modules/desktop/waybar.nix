@@ -8,7 +8,7 @@
   c = theme.colors;
   common-modules = {
     "clock#date" = {
-      format = '' {:%a %b %d} <span fgcolor="${c.lavendar}">|</span> Week {:%V}'';
+      format = '' {:%a %b %d <span fgcolor="${c.blue}">|</span> Week %V}'';
       interval = 60;
     };
 
@@ -75,13 +75,13 @@
     "custom/eth" = {
       interval = 10;
       exec = "crypto-egg-go price eth";
-      format = " {output:0.2f}";
+      format = " {text}";
     };
 
     "custom/btc" = {
       interval = 10;
       exec = "crypto-egg-go price btc";
-      format = " {output:0.2f}";
+      format = " {text}";
     };
 
     "custom/connectivity" = {
@@ -101,7 +101,7 @@
       interval = 5;
       # convert temp to json
       exec = "multicoretemp | jq --unbuffered --compact-output '{percentage: .}'";
-      format = "{icon} {text}°C";
+      format = "{icon} {percentage}°C";
       format-icons = [
         ""
         ""
