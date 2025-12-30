@@ -14,13 +14,6 @@
       modules-right =
         lib.intersperse "custom/separator"
         ["custom/powermenu" "custom/connectivity" "custom/cpu-temp" "disk" "cpu" "memory" "tray"];
-
-      disk = {
-        interval = 60;
-        # use letter spacing here to get some distance between icon and number
-        format = "󰉉 {specific_free:.0f}G";
-        unit = "GB";
-      };
     }
     ++ common-modules;
   delora-bottom =

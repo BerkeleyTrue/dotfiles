@@ -37,6 +37,13 @@
       };
     };
 
+    disk = {
+      interval = 60;
+      # use letter spacing here to get some distance between icon and number
+      format = "󰉉 {specific_free:.0f}G";
+      unit = "GB";
+    };
+
     "niri/workspaces" = {
       format = "{icon}";
       format-icons = {
