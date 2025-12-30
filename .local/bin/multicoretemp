@@ -1,0 +1,93 @@
+#!/usr/bin/env bb
+(ns local.bin.multicoretemp
+  (:require [clojure.string :as str]
+            [babashka.fs :as fs]
+            [clojure.math :as math]))
+
+(defn tap [fn x] (fn x) x)
+
+(defn find-coretemp-path []
+  (->> (fs/glob "/sys/bus/platform/devices/" "coretemp.*")
+       (filter #(fs/directory? %))
+       (first)))
+
+(comment
+  (find-coretemp-path))
+
+(defn get-hwmon-paths []
+  (let [coretemp-path (find-coretemp-path)]
+    (if coretemp-path
+      (fs/glob coretemp-path "/hwmon/hwmon*")
+      ; fallback to /sys/class/hwmon
+      (->> (fs/glob "/sys/class/hwmon/" "hwmon*")
+           (filter fs/directory?)
+           (map str)))))
+
+(comment
+  (get-hwmon-paths))
+
+(defn is-core-label?
+  "Check if a label file refers to a cpu core"
+  [path]
+  (let [label (->> (slurp path)
+                   (take 4)
+                   (str/join ""))]
+                ; Core is intel per core temp
+                ; Tdie is amd control temp
+                ; Tctl is die temp
+    (contains? #{"Core" "Tdie" "Tctl"} label)))
+
+(comment
+  (take 4 (slurp "/sys/class/hwmon/hwmon2/temp1_label"))
+  (is-core-label? "/sys/class/hwmon/hwmon2/temp1_label")
+  (->> (fs/glob "/sys/class/hwmon/hwmon2/" "temp*_label" {:follow-links true})
+       (map str)
+       (filter fs/exists?)
+       (filter is-core-label?)))
+
+(defn get-core-paths
+  "Get all core temperature input file paths"
+  []
+  (->> (get-hwmon-paths)
+       (map (fn [hwmon-path]
+              (->> (fs/glob hwmon-path "temp*_label" {:follow-links true})
+                   (map str)
+                   (filter fs/exists?)
+                   (filter is-core-label?)
+                   (map #(str/replace % "_label" "_input"))
+                   (filter fs/exists?))))
+       (apply concat)))
+
+(comment
+  (get-core-paths))
+
+(defn read-core-temps
+  "Read all core temperatures and return as a sequence of numbers in millidegrees"
+  []
+  (->> (get-core-paths)
+       (map (fn [path]
+              (-> (slurp path)
+                  (str/trim)
+                  (parse-long)
+                  (or 0))))))
+
+(comment
+  (parse-long (str/trim " 42000"))
+  (read-core-temps))
+
+(defn average-core-temp
+  "Return the average core temperature in degrees Celsius"
+  []
+  (let [temps (read-core-temps)
+        avg-millideg (if (seq temps)
+                       (math/round (/ (reduce + temps)
+                                      (count temps)))
+                       0)]
+    (-> avg-millideg
+        (/ 1000.0)
+        (math/round))))
+
+(comment
+  (average-core-temp))
+
+(println (average-core-temp))
