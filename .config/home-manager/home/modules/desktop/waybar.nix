@@ -6,6 +6,8 @@
   hardware,
   ...
 }: let
+  getExe = lib.getExe;
+  wttrbar = pkgs.wttrbar;
   c = theme.colors;
   common-modules = {
     "clock#date" = {
@@ -69,8 +71,10 @@
 
     "custom/wttr" = {
       interval = 1200;
-      format = "{}";
-      exec = "wttrbar";
+      tooltip = true;
+      return-type = "json";
+      format = "{}°";
+      exec = "${getExe wttrbar} --location 'pittsburg california' --fahrenheit";
     };
 
     "custom/eth" = {
@@ -113,7 +117,7 @@
   };
   bars = import ./waybar {inherit lib profile common-modules hardware;};
 in {
-  home.packages = [pkgs.wttrbar];
+  home.packages = [wttrbar];
 
   programs.waybar = {
     enable = true;
