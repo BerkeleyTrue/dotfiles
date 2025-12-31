@@ -43,8 +43,8 @@
 }
 
 window#waybar {
-  background: #303446;
-  color: #c6d0f5;
+  background: @base;
+  color: @text;
 }
 
 #window {
@@ -59,15 +59,13 @@ window#waybar {
     margin-left: 10px;
 }
 
-#workspaces button {
-  margin: 0 2px;
+#workspaces {
+  margin-right: 10px;
 }
 
-#workspaces button.active {
-  background: @surface0;
-}
-#workspaces button.active * {
-  background: @surface0;
+#workspaces button {
+  margin: 8px 2px;
+  padding: 0;
 }
 
 #custom-separator {
@@ -80,7 +78,7 @@ window#waybar {
 }
 
 #tray {
-  margin-left: 4px;
+  margin-left: 14px;
 }
 
 #tray > .passive {

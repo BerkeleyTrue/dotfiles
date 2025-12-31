@@ -50,12 +50,9 @@
     "niri/workspaces" = {
       format = "{icon}";
       format-icons = {
-        "1" = "󰇊";
-        "2" = "󰇋";
-        "3" = "󰇌";
-        "4" = "󰇍";
-        "5" = "󰇎";
-        "6" = "󰇏";
+        "active" = ''<span foreground="${c.maroon}"></span>'';
+        "urgent" = "󰧞";
+        "default" = "󰧞";
       };
     };
 
