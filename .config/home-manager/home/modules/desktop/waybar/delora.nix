@@ -10,13 +10,14 @@
       layer = "bottom";
       height = 34;
       output = monitors.g5.label;
-      modules-left = ["niri/workspaces" "custom/separator" "clock#date"];
+      modules-left = ["niri/workspaces" "clock#date"];
       modules-center =
         lib.intersperse "custom/separator"
-        ["clock" "custom/wakatime" "custom/eth"];
+        ["custom/wttr" "clock" "custom/wakatime"];
       modules-right =
-        lib.intersperse "custom/separator"
-        ["custom/powermenu" "custom/connectivity" "custom/cpu-temp" "disk" "cpu" "memory" "tray"];
+        (lib.intersperse "custom/separator"
+          ["custom/powermenu" "cpu" "memory" "custom/cpu-temp" "custom/connectivity" "disk"])
+        ++ ["tray"];
     }
     // common-modules;
   delora-secondary =
@@ -28,10 +29,10 @@
       modules-left = ["niri/workspaces"];
       modules-center =
         lib.intersperse "custom/separator"
-        ["custom/wttr" "clock#date" "clock"];
+        ["clock#date" "clock"];
       modules-right =
         lib.intersperse "custom/separator"
-        ["custom/btc"];
+        ["custom/eth" "custom/btc"];
     }
     // common-modules;
 }

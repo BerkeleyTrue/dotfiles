@@ -261,34 +261,35 @@ in
 
       (plain "Mod+Shift+Q" [(flag "close-window")])
 
-      (plain "Mod+Left" [(flag "focus-column-left")])
-      (plain "Mod+Down" [(flag "focus-window-down")])
-      (plain "Mod+Up" [(flag "focus-window-up")])
-      (plain "Mod+Right" [(flag "focus-column-right")])
+      # (plain "Mod+Left" [(flag "focus-column-left")])
+      # (plain "Mod+Down" [(flag "focus-window-down")])
+      # (plain "Mod+Up" [(flag "focus-window-up")])
+      # (plain "Mod+Right" [(flag "focus-column-right")])
 
-      (plain "Mod+H" [(flag "focus-column-left")])
-      (plain "Mod+L" [(flag "focus-column-right")])
-
-      (plain "Mod+I" [(flag "focus-window-down")])
-      (plain "Mod+O" [(flag "focus-window-up")])
 
       (plain "Mod+Shift+Left" [(flag "move-column-left")])
       (plain "Mod+Shift+Down" [(flag "move-window-down")])
       (plain "Mod+Shift+Up" [(flag "move-window-up")])
       (plain "Mod+Shift+Right" [(flag "move-column-right")])
 
+      (plain "Mod+H" [(flag "focus-column-left")])
+      (plain "Mod+L" [(flag "focus-column-right")])
+
+      (plain "Mod+J" [(flag "focus-window-or-workspace-down")])
+      (plain "Mod+K" [(flag "focus-window-or-workspace-up")])
+
       (plain "Mod+Shift+H" [(flag "move-column-left")])
       (plain "Mod+Shift+L" [(flag "move-column-right")])
 
-      (plain "Mod+Shift+I" [(flag "move-window-down")])
-      (plain "Mod+Shift+O" [(flag "move-window-up")])
+      (plain "Mod+Shift+J" [(flag "move-window-down-or-to-workspace-down")])
+      (plain "Mod+Shift+K" [(flag "move-window-up-or-to-workspace-up")])
 
-      (node "Mod+Caret"
+      (node "Mod+bracketleft"
         {"hotkey-overlay-title" = "focus first column";}
         [
           (flag "focus-column-first")
         ])
-      (node "Mod+Dollar"
+      (node "Mod+bracketright"
         {"hotkey-overlay-title" = "focus last column";}
         [
           (flag "focus-column-last")
@@ -296,32 +297,14 @@ in
       (plain "Mod+Ctrl+Home" [(flag "move-column-to-first")])
       (plain "Mod+Ctrl+End" [(flag "move-column-to-last")])
 
-      # (plain "Mod+Shift+Left" [(flag "focus-monitor-left")])
-      # (plain "Mod+Shift+Down" [(flag "focus-monitor-down")])
-      # (plain "Mod+Shift+Up" [(flag "focus-monitor-up")])
-      # (plain "Mod+Shift+Right" [(flag "focus-monitor-right")])
-      # (plain "Mod+Shift+H" [(flag "focus-monitor-left")])
-      # (plain "Mod+Shift+J" [(flag "focus-monitor-down")])
-      # (plain "Mod+Shift+K" [(flag "focus-monitor-up")])
-      # (plain "Mod+Shift+L" [(flag "focus-monitor-right")])
+      (plain "Mod+I" [(flag "focus-monitor-down")])
+      (plain "Mod+O" [(flag "focus-monitor-up")])
 
-      # (plain "Mod+Shift+Ctrl+Left" [(flag "move-column-to-monitor-left")])
-      # (plain "Mod+Shift+Ctrl+Down" [(flag "move-column-to-monitor-down")])
-      # (plain "Mod+Shift+Ctrl+Up" [(flag "move-column-to-monitor-up")])
-      # (plain "Mod+Shift+Ctrl+Right" [(flag "move-column-to-monitor-right")])
-      # (plain "Mod+Shift+Ctrl+H" [(flag "move-column-to-monitor-left")])
-      # (plain "Mod+Shift+Ctrl+J" [(flag "move-column-to-monitor-down")])
-      # (plain "Mod+Shift+Ctrl+K" [(flag "move-column-to-monitor-up")])
-      # (plain "Mod+Shift+Ctrl+L" [(flag "move-column-to-monitor-right")])
+      (plain "Mod+Shift+I" [(flag "move-window-to-monitor-down")])
+      (plain "Mod+Shift+O" [(flag "move-window-to-monitor-up")])
 
-      (plain "Mod+J" [(flag "focus-workspace-down")])
-      (plain "Mod+K" [(flag "focus-workspace-up")])
-
-      (plain "Mod+Shift+J" [(flag "move-column-to-workspace-down")])
-      (plain "Mod+Shift+K" [(flag "move-column-to-workspace-up")])
-
-      (plain "Mod+Alt+O" [(flag "move-workspace-up")])
-      (plain "Mod+Alt+I" [(flag "move-workspace-down")])
+      (plain "Mod+Alt+O" [(flag "move-column-to-monitor-up")])
+      (plain "Mod+Alt+I" [(flag "move-column-to-monitor-down")])
 
       (plain "Mod+1" [(leaf "focus-workspace" 1)])
       (plain "Mod+2" [(leaf "focus-workspace" 2)])
@@ -374,15 +357,6 @@ in
         [
           (leaf "set-column-width" "+10%")
         ])
-      (node "Mod+Underscore"
-        {"hotkey-overlay-title" = "increase column width";}
-        [
-          (leaf "set-column-width" "+10%")
-        ])
-
-      # Finer height adjustments when in column with other windows.
-      (plain "Mod+Shift+Minus" [(leaf "set-window-height" "-10%")])
-      (plain "Mod+Shift+Equal" [(leaf "set-window-height" "+10%")])
 
       (node "Mod+V"
         {"hotkey-overlay-title" = "toggle float";}
