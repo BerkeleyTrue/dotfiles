@@ -5,7 +5,7 @@ TIMEOUT=3
 HOST="1.1.1.1" # cloudflare's DNS server
 
 if ping -c $PING_COUNT -w $TIMEOUT $HOST >/dev/null 2>&1; then
-	echo "󰌘 "
+	echo "<span foreground='#81c8be'>󰌘 </span>"
 else
-	echo " "
+	echo "<span foreground='#ea999c'> </span"
 fi

@@ -102,8 +102,8 @@
 (defn get-icon [temp]
   (cond
     (< temp 50) "<span foreground='#85c1dc'></span>"
-    (< temp 75) "<span foreground='#e5c890'></span>"
-    :else "<span foreground='#e78284'></span>"))
+    (< temp 75) "<span foreground='#ef9f76'></span>"
+    :else "<span foreground='#ea999c'></span>"))
 
 (comment
   (get-icon 45)

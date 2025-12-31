@@ -105,14 +105,9 @@
     "custom/cpu-temp" = {
       interval = 5;
       # convert temp to json
-      exec = "multicoretemp | jq --unbuffered --compact-output '{percentage: .}'";
+      exec = "multicoretemp";
       return-type = "json";
-      format = "{icon} {percentage}°C";
-      format-icons = [
-        ''<span fgcolor="${c.sapphire}"></span>''
-        ''<span fgcolor="${c.yellow}"></span>''
-        ''<span fgcolor="${c.red}"></span>''
-      ];
+      format = "{text}";
     };
   };
   bars = import ./profiles.nix {
