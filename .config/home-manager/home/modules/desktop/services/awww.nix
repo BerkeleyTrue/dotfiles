@@ -17,7 +17,7 @@
     ];
     text = ''
       awww restore
-      ${lib.foldlAttrs (acc: name: output: "awww img --outputs ${output} ${config.home.nix-wallpapers.${name}.outputPath}\n") "" outputs}
+      ${lib.foldlAttrs (acc: name: output: "${acc}awww img --outputs ${output} ${config.home.nix-wallpapers.${name}.outputPath}\n") "" outputs}
     '';
   };
 in {
