@@ -24,7 +24,7 @@
 
     cpu = {
       interval = 1;
-      format = " {usage}%";
+      format = ''<span foreground="${c.pink}"> </span>{usage:2}%'';
       states = {
         danger = 90;
         warning = 75;
@@ -33,7 +33,7 @@
 
     memory = {
       interval = 1;
-      format = " {percentage}%";
+      format = ''<span foreground="${c.flamingo}"> </span>{percentage}%'';
       states = {
         danger = 90;
         warning = 75;
@@ -43,7 +43,7 @@
     disk = {
       interval = 60;
       # use letter spacing here to get some distance between icon and number
-      format = "󰉉 {specific_free:.0f}G";
+      format = ''<span foreground="${c.lavender}">󰉉</span> {specific_free:.0f}G'';
       unit = "GB";
     };
 
@@ -80,13 +80,13 @@
     "custom/eth" = {
       interval = 10;
       exec = "crypto-egg-go price eth";
-      format = ''<span class="icon eth"></span> {text}'';
+      format = ''<span foreground="${c.teal}"></span> {text}'';
     };
 
     "custom/btc" = {
       interval = 10;
       exec = "crypto-egg-go price btc";
-      format = ''<span class="icon btc"></span> {text}'';
+      format = ''<span foreground="${c.peach}"></span> {text}'';
     };
 
     "custom/connectivity" = {
