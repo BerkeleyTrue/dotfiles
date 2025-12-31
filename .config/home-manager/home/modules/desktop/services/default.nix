@@ -12,16 +12,16 @@
     ./flameshot.nix
     ./flatpak.nix
     ./gh-user.nix
-    ./kanata.nix
     ./hypridle.nix
+    ./kanata.nix
     ./mako.nix
     ./nix-collect-garbage.nix
     ./notessync.nix
     ./security.nix
-    ./status-bar.nix
     ./taiscale-systray.nix
     ./task.nix
     ./tmux.nix
+    ./waybar.nix
     ./xdg.nix
 
     # ./pasystray.nix # doesn't work in wayland https://github.com/christophgysin/pasystray/issues/90
