@@ -1,8 +1,9 @@
 #!/usr/bin/env bb
 (ns local.bin.multicoretemp
   (:require [clojure.string :as str]
+            [clojure.math :as math]
             [babashka.fs :as fs]
-            [clojure.math :as math]))
+            [cheshire.core :as json]))
 
 (defn tap [fn x] (fn x) x)
 
@@ -98,4 +99,21 @@
 (comment
   (average-core-temp))
 
-(print (average-core-temp))
+(defn get-icon [temp]
+  (cond
+    (< temp 50) "<span foreground='#85c1dc'></span>"
+    (< temp 75) "<span foreground='#e5c890'></span>"
+    :else "<span foreground='#e78284'></span>"))
+
+(comment
+  (get-icon 45)
+  (get-icon 65)
+  (get-icon 85))
+
+(defn -main []
+  (let [avg-temp (average-core-temp)
+        icon (get-icon avg-temp)]
+    (println (json/generate-string {:text (str icon " " avg-temp "°C")}))))
+
+(when (= *file* (System/getProperty "babashka.file"))
+  (-main))
