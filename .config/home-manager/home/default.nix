@@ -52,11 +52,11 @@
             g5 = {
               height = 1440;
               width = 3440;
-              label = "HDMI-1";
+              label = "HDMI-A-1";
               rate = 165;
               position = {
                 x = 0;
-                y = 1080;
+                y = 720;
               };
             };
             dell = {
