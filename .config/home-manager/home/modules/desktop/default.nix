@@ -1,8 +1,8 @@
 {...}: {
   imports = [
-    ./services
     ./niri
-    ./waybar.nix
+    ./services
+    ./waybar
   ];
 
   # Enable PAM shim to support auth in non-nixos environments
