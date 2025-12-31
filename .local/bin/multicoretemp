@@ -9,8 +9,8 @@
 (defn find-coretemp-path []
   (->> (fs/glob "/sys/bus/platform/devices/" "coretemp.*")
        (filter #(fs/directory? %))
-       (first)
-       (str)))
+       (map str)
+       (first)))
 
 (comment
   (fs/glob "/sys/bus/platform/devices/" "coretemp.*")
