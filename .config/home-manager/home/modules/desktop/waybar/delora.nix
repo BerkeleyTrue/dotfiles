@@ -1,12 +1,15 @@
 {
   lib,
   common-modules,
+  monitors,
   ...
 }: {
-  delora-top =
+  delora-primary =
     {
-      name = "delora-top";
+      name = "delora-primary";
       layer = "bottom";
+      height = 34;
+      output = monitors.g5.label;
       modules-left = ["niri/workspaces" "custom/separator" "clock#date"];
       modules-center =
         lib.intersperse "custom/separator"
@@ -16,10 +19,12 @@
         ["custom/powermenu" "custom/connectivity" "custom/cpu-temp" "disk" "cpu" "memory" "tray"];
     }
     // common-modules;
-  delora-bottom =
+  delora-secondary =
     {
-      name = "delora-bottom";
+      name = "delora-secondary";
       layer = "bottom";
+      height = 34;
+      output = monitors.dell.label;
       modules-left = ["niri/workspaces"];
       modules-center =
         lib.intersperse "custom/separator"

@@ -3,6 +3,7 @@
   profile,
   pkgs,
   theme,
+  hardware,
   ...
 }: let
   c = theme.colors;
@@ -110,7 +111,7 @@
       ];
     };
   };
-  bars = import ./waybar {inherit lib profile common-modules;};
+  bars = import ./waybar {inherit lib profile common-modules hardware;};
 in {
   home.packages = [pkgs.wttrbar];
 

@@ -10,7 +10,7 @@
   inherit (hardware.monitors) g5 dell;
 in [
   (node "output" g5.label [
-    (leaf "scale" 1.5)
+    (leaf "scale" g5.scale)
     (leaf "transform" "normal")
     (leaf "mode" "${toString g5.width}x${toString g5.height}@${toString g5.rate}.000")
     (leaf "position" g5.position)
@@ -19,7 +19,7 @@ in [
     (leaf "background-color" theme.colors.lavender)
   ])
   (node "output" dell.label [
-    (leaf "scale" 1.5)
+    (leaf "scale" dell.scale)
     (leaf "transform" "normal")
     (leaf "mode" "${toString dell.width}x${toString dell.height}@${toString dell.rate}.000")
     (leaf "position" dell.position)

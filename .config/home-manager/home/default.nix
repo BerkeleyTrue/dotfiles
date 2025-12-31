@@ -2,7 +2,25 @@
   inputs,
   lib,
   ...
-}: {
+}: let
+  mkMonitor = {
+    height,
+    width,
+    label,
+    rate,
+    scale ? 1.0,
+    position ? {
+      x = 0;
+      y = 0;
+    },
+  }: {
+    inherit height width label rate scale position;
+    logical = {
+      height = height / scale;
+      width = width / scale;
+    };
+  };
+in {
   home-manager-parts = {
     inherit (inputs) home-manager;
     enable = true;
@@ -49,21 +67,23 @@
 
         specialArgs = {
           hardware.monitors = {
-            g5 = {
+            g5 = mkMonitor {
               height = 1440;
               width = 3440;
               label = "HDMI-A-1";
               rate = 165;
+              scale = 1.5;
               position = {
                 x = 0;
                 y = 720;
               };
             };
-            dell = {
+            dell = mkMonitor {
               height = 1080;
               width = 2560;
               label = "DP-3";
               rate = 60;
+              scale = 1.5;
               position = {
                 x = 0;
                 y = 0;
@@ -83,11 +103,12 @@
 
         specialArgs = {
           hardware.monitors = {
-            framework = {
+            framework = mkMonitor {
               height = 1504;
               width = 2256;
               label = "eDP-1";
               rate = 60;
+              scale = 1.5;
             };
           };
         };
