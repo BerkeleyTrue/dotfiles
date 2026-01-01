@@ -4,19 +4,16 @@
   pkgs,
   lib,
   config,
-  theme,
   ...
 }: let
   nixglWrap = config.lib.nixgl.wrapPackage;
   pamShimWrap = config.lib.pamShim.replacePam;
   getExe = lib.getExe;
-  makoctl = getExe pkgs.mako;
+  swaync = "${pkgs.swaync}/bin/swaync-client";
   playerctl = getExe pkgs.playerctl;
   hyprlock = pamShimWrap (nixglWrap pkgs.hyprlock);
   niri = getExe pkgs.niri;
   thirty_min = 1800;
-
-  c = theme.colors;
 in {
   # NOTE: set up /etc/systemd/logind.conf to lock on lid close
   services.hypridle = {
@@ -34,8 +31,8 @@ in {
 
         # won't work until niri implements hyprland lock notify v1 api
         # see lock script in local bin
-        on_lock_cmd = "${playerctl} pause; ${makoctl} mode -a dnd";
-        on_unlock_cmd = "${makoctl} mode -r dnd; makoify -a 'Hephaestus' -u low -i distributor-logo-nixos 'Welcome Back!'";
+        on_lock_cmd = "${playerctl} pause; ${swaync} --dnd-on";
+        on_unlock_cmd = "${swaync} --dnd-off; makoify -a 'Hephaestus' -u low -i distributor-logo-nixos 'Welcome Back!'";
       };
       listener = [
         {

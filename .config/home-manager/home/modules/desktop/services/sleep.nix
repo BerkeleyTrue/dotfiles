@@ -4,16 +4,7 @@
   ...
 }: let
   getExe = lib.getExe;
-  makoctl = "${pkgs.mako}/bin/makoctl";
-
-  # TODO: is this needed for wayland unlock?
-  # watch-lid = pkgs.writeShellScriptBin "watch-lid" ''
-  #   dbus-monitor --system "type=signal, interface=org.freedesktop.LaptopInterface" | while read x; do
-  #     # move mouse to trigger unlock screen
-  #     ${pkgs.xdotool}/bin/xdotool mousemove_relative 1 1
-  #     echo "lid opened"
-  #   done
-  # '';
+  swaync = "${pkgs.swaync}/bin/swaync-client";
 
   watch-sleep = pkgs.writeShellScriptBin "watch-sleep" ''
     dbus-monitor --system "type='signal', interface='org.freedesktop.login1.Manager', member=PrepareForSleep" | while read x; do
@@ -26,13 +17,13 @@
 
   pre-sleep = pkgs.writeShellScriptBin "pre-sleep" ''
     ${getExe pkgs.playerctl} pause &> /dev/null # exits non-zero if nothing is playing
-    ${makoctl} mode -a dnd
+    ${swaync} --dnd-on
   '';
 
   post-sleep = pkgs.writeShellScriptBin "post-sleep" ''
     echo "unlocking screen"
+    ${swaync} --dnd-off
     makoify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
-    ${makoctl} mode -r dnd
   '';
 in {
   home.packages = with pkgs; [

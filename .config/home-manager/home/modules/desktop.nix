@@ -25,6 +25,5 @@
     # nitrogen # wallpaper manager
     wev # wayland event viewer
     wl-clipboard-rs # wayland clipboard cli
-    mako # wayland notification daemon
   ];
 }

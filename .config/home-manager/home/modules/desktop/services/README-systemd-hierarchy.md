@@ -11,12 +11,11 @@ graphical-session.target (systemd standard)
 │   └── niri.service (Niri compositor)
 └── desktop-services.target (Desktop services)
     ├── notification.target
-    │   └── notification-daemon.service (mako)
+    │   └── swaync.service 
     ├── tray.target
     │   ├── waybar.service
     │   ├── status-notifier-watcher.service
     │   ├── flameshot.service
-    │   ├── pasystray.service
     │   ├── tailscale-systray.service
     │   └── blueman-applet.service
     └── xdg-desktop-portal-kde.service
