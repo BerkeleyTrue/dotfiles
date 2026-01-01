@@ -17,6 +17,7 @@
     glow lib.glow
     marks lib.marks
     scp lib.scp
+    markdown lib.markdown
 
     pl theme.palette
     theme theme}
@@ -42,6 +43,7 @@
   (glow.main)
   (lisp-indent.main)
   (scp.main)
+  (markdown.main)
   ; (marks.main)
   (theme.main))
 
