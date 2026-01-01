@@ -4,7 +4,7 @@
   ...
 }: let
   getExe = lib.getExe;
-  swaync = "${pkgs.swaync}/bin/swaync-client";
+  swaync = "${pkgs.swaynotificationcenter}/bin/swaync-client";
 
   watch-sleep = pkgs.writeShellScriptBin "watch-sleep" ''
     dbus-monitor --system "type='signal', interface='org.freedesktop.login1.Manager', member=PrepareForSleep" | while read x; do
@@ -23,7 +23,7 @@
   post-sleep = pkgs.writeShellScriptBin "post-sleep" ''
     echo "unlocking screen"
     ${swaync} --dnd-off
-    makoify -a "Hephaestus" -u low -i distributor-logo-nixos "Welcome Back!"
+    notify -a "Hephaestus" -u low -i nix-snowflake "Welcome Back!"
   '';
 in {
   home.packages = with pkgs; [

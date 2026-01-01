@@ -40,7 +40,7 @@
           echo "No overdue tasks, exiting..."
           exit 0
         fi
-        makoify -a 'Taskwarrior' "You have $count overdue tasks"
+        notify -i terminal -a 'Taskwarrior' "You have $count overdue tasks"
       '';
     };
   };

@@ -12,7 +12,7 @@
           text = ''
             #!/usr/bin/env bash
             /usr/bin/nix-collect-garbage --delete-older-than 10d
-            makoify -a "Hephaestus" "Nix Garbage Collected" -i distributor-logo-nixos
+            notify -a "Hephaestus" "Nix Garbage Collected" -i nix-snowflake
           '';
         };
       in "${script}/bin/collect-garbage";

@@ -17,6 +17,14 @@
     x11.enable = true;
   };
 
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders;
+    };
+  };
+
   home.packages = with pkgs; [
     dracula-icon-theme # Dracula icon theme
     # papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon, comes included in catppuccin-papirus-folders)

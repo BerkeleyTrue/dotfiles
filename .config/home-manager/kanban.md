@@ -19,7 +19,7 @@
     - [x] add bars for delora
   - [x] mako notifier
     - [x] style
-    - [x] notify send (local/bin/makoify)
+    - [x] notify send (local/bin/notify)
   - [x] hyprlock https://wiki.hypr.land/Hypr-Ecosystem/hyprlock/
     - [x] style (using default style with catppuccin)
   - [x] catppuccin cursor https://github.com/catppuccin/cursors

@@ -9,7 +9,7 @@
   nixglWrap = config.lib.nixgl.wrapPackage;
   pamShimWrap = config.lib.pamShim.replacePam;
   getExe = lib.getExe;
-  swaync = "${pkgs.swaync}/bin/swaync-client";
+  swaync = "${pkgs.swaynotificationcenter}/bin/swaync-client";
   playerctl = getExe pkgs.playerctl;
   hyprlock = pamShimWrap (nixglWrap pkgs.hyprlock);
   niri = getExe pkgs.niri;
@@ -32,7 +32,7 @@ in {
         # won't work until niri implements hyprland lock notify v1 api
         # see lock script in local bin
         on_lock_cmd = "${playerctl} pause; ${swaync} --dnd-on";
-        on_unlock_cmd = "${swaync} --dnd-off; makoify -a 'Hephaestus' -u low -i distributor-logo-nixos 'Welcome Back!'";
+        on_unlock_cmd = "${swaync} --dnd-off; notify -a 'Hephaestus' -u low -i nix-snowflake 'Welcome Back!'";
       };
       listener = [
         {

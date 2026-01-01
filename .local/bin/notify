@@ -1,10 +1,10 @@
 #!/bin/env bash
 
-# dunstify for mako
+# dunstify clone
 # -r for replace with a better ux
 # notify-send -h string:x-canonical-private-synchronous:some-id is dumb
 # we'll pass-through all args to notify-send, but -r will be an id that will translate to -h string:x-canonical-private-synchronous:<id>
-makofiy() {
+notify() {
 	local REPLACE_ID=""
 	local ARGS=()
 	while [[ $# -gt 0 ]]; do
@@ -27,4 +27,4 @@ makofiy() {
 	notify-send "${ARGS[@]}"
 }
 
-makofiy "$@"
+notify "$@"
