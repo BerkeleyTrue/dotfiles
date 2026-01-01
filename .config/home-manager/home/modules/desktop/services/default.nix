@@ -18,6 +18,7 @@
     ./nix-collect-garbage.nix
     ./notessync.nix
     ./security.nix
+    ./swaync.nix
     ./taiscale-systray.nix
     ./task.nix
     ./tmux.nix

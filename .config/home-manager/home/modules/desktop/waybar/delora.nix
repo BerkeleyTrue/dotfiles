@@ -16,7 +16,15 @@
         ["custom/wttr" "clock" "custom/wakatime"];
       modules-right =
         (lib.intersperse "custom/separator"
-          ["custom/powermenu" "cpu" "memory" "custom/cpu-temp" "custom/connectivity" "disk"])
+          [
+            "custom/powermenu"
+            "cpu"
+            "custom/cpu-temp"
+            "memory"
+            "custom/swaync"
+            "custom/connectivity"
+            "disk"
+          ])
         ++ ["tray"];
     }
     // common-modules;

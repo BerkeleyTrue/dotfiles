@@ -6,7 +6,7 @@
   c = theme.colors;
 in {
   services.mako = {
-    enable = true;
+    enable = false;
     settings = {
       layer = "overlay";
       anchor = "top-right";
