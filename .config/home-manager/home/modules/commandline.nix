@@ -58,6 +58,7 @@ in {
       dogdns # A command-line DNS cliento
       dust # A more intuitive version of du in rust
       eza # A modern replacement for ls
+      entr # Run arbitrary commands when files change
       fd # A simple, fast and user-friendly alternative to find
       fzf # A command-line fuzzy finder
       gh # GitHub CLI
