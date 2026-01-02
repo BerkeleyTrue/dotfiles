@@ -17,7 +17,13 @@ in {
         ["custom/wttr" "clock"];
       modules-right =
         lib.intersperse "custom/separator"
-        ["custom/powermenu" "custom/cpu-temp" "disk" "cpu" "memory" "tray"];
+        [
+          "custom/powermenu"
+          "cpu"
+          "custom/cpu-temp"
+          "memory"
+        ]
+        ++ ["tray"];
     }
     // common-modules;
   bottom =
@@ -33,7 +39,7 @@ in {
         ["custom/wakatime" "custom/eth" "custom/btc"];
       modules-right =
         lib.intersperse "custom/separator"
-        ["battery" "custom/connectivity"];
+        ["custom/swaync" "battery" "custom/connectivity"];
 
       battery = {
         states = {
