@@ -14,5 +14,5 @@ hyprlock
 
 echo "Unlocking..."
 
-swaync --dnd-off
+swaync-client --dnd-off
 notify -a "Hephaestus" -u low -i nix-snowflake "Welcome Back!"
