@@ -47,133 +47,222 @@ slider {
   background-color: @blue;
 }
 
-.floating-notifications.background {
-  margin-top: 4px;
+/* main floating window group */
+.floating-notifications > scrolledwindow {
+  border-radius: 8px;
+  background-color: @base;
+  margin-right: 20px;
+  box-shadow: 8px 8px 10px 2px rgba(0, 0, 0, 0.6);
 }
 
-.floating-notifications.background .notification-row .notification-background {
-  /* box-shadow: */
-  /*   0 0 8px 0 rgba(0, 0, 0, 0.8), */
-  /*   inset 0 0 0 1px @surface0; */
-  border-radius: 8px;
-  border: 3px solid @mauve;
+.notification-background {
   background-color: @base;
   color: @text;
 }
 
-.floating-notifications.background .notification-row {
-  margin-bottom: 14px;
-  margin-right: 10px;
+.floating-notifications .notification-background {
+  border-left: 3px solid @lavender;
+  border-right: 3px solid @lavender;
 }
 
-.floating-notifications.background
-  .notification-row
-  .notification-background
+/* middle notifications */
+.floating-notifications
+  > scrolledwindow
+  > widget
+  > *:not(:last-child)
   .notification {
-  border: @lavender;
+  border-radius: 0;
+  border-bottom: 2px solid @overlay0;
 }
 
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content {
+/* first notification */
+.floating-notifications
+  > scrolledwindow
+  > widget
+  > *:first-child
+  .notification-background {
+  border-top: 3px solid @lavender;
+  border-radius: 8px 8px 0 0;
+}
+
+.floating-notifications
+  > scrolledwindow
+  > widget
+  > *:first-child
+  .notification {
+  border-radius: 8px 8px 0 0;
+  border-bottom: 2px solid @overlay0;
+}
+
+/* last notification */
+.floating-notifications
+  > scrolledwindow
+  > widget
+  > *:last-child
+  .notification-background {
+  border-bottom: 3px solid @lavender;
+  border-radius: 0 0 8px 8px;
+}
+.floating-notifications > scrolledwindow > widget > *:last-child .notification {
+  border-radius: 0 0 8px 8px;
+}
+
+/* single notification (only child) */
+.floating-notifications
+  > scrolledwindow
+  > widget
+  > *:only-child
+  .notification-background {
+  border-top: 3px solid @lavender;
+  border-bottom: 3px solid @lavender;
+  border-radius: 8px;
+}
+
+.floating-notifications
+  > scrolledwindow
+  > widget
+  > *:only-child
+  .notification {
+  border-radius: 8px;
+  border-bottom: none;
+}
+
+.notification.low {
+  background-color: @surface0;
+}
+
+.notification.critical {
+  background-color: @mantle;
+}
+
+.notification .notification-content {
   margin: 7px;
 }
 
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .summary {
+.notification .summary {
   color: @text;
 }
 
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .body {
+.notification .body {
   color: @text;
 }
 
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > * {
-  min-height: 3.4em;
+/* icon */
+.notification .image {
+  padding-right: 1rem;
+  padding-left: 0.5rem;
+
+  min-width: 38px;
+  min-height: 38px;
+  -gtk-icon-size: 38px; /* for icon rendering */
 }
 
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action {
-  border-radius: 7px;
-  color: @text;
-  background-color: @surface0;
-  box-shadow: inset 0 0 0 1px @surface1;
+.notification .time {
+  color: @subtext0;
+  margin-right: 1.5rem;
+}
+.notification-group-close-button .close-button,
+.notification-background .close-button {
+  background-color: @maroon;
+  border-radius: 6px;
+  color: @surface0;
   margin: 7px;
+  padding: 2px;
 }
 
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:hover {
-  box-shadow: inset 0 0 0 1px @surface1;
+.notification-group-close-button .close-button:hover,
+.notification-background .close-button:hover {
+  background-color: @red;
+  color: @base;
+}
+
+.notification-group-close-button .close-button:active,
+.notification-background .close-button:active {
+  background-color: @red;
+  color: @base;
+}
+
+.floating-notifications {
+  margin-top: 6px;
+}
+
+.control-center {
   background-color: @surface0;
+  border-radius: 8px;
+  border: 3px solid @lavender;
+  box-shadow: 8px 8px 10px 2px rgba(0, 0, 0, 0.6);
   color: @text;
+  margin-right: 20px;
+  margin: 18px;
+  padding: 14px;
 }
 
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:active {
+/* notification group header */
+.notification-group > widget > overlay >box > revealer > .horizontal {
+  margin-top: 8px;
+}
+
+.control-center .notification {
+  background-color: @base;
+}
+
+.control-center .notification:hover {
+  background-color: @surface1;
+}
+
+.control-center .notification.critical {
+  background-color: @mantle;
+  border-right: 2px solid @maroon;
+}
+.control-center .notification.critical:hover {
+  background-color: @base;
+}
+
+.control-center .notification.normal {
+  border-right: 2px solid @sky;
+}
+
+.control-center .notification.low {
+  background-color: @surface1;
+}
+
+.control-center .notification.low:hover {
+  background-color: @surface2;
+}
+
+.control-center .notification-background {
+  background-color: @surface0;
+  margin-top: 14px;
+}
+
+.control-center .notification:active {
   box-shadow: inset 0 0 0 1px @surface1;
   background-color: @sapphire;
   color: @text;
 }
 
-.close-button {
-  margin: 7px;
-  padding: 2px;
-  border-radius: 6px;
-  color: @surface1;
-  background-color: @maroon;
+.control-center .notification > *:last-child > * {
+  min-height: 3.4em;
 }
 
-.close-button:hover {
-  color: @base;
-  background-color: @red;
-}
-
-.close-button:active {
-  color: @base;
-  background-color: @red;
-}
-
-.control-center {
-  box-shadow:
-    0 0 8px 0 rgba(0, 0, 0, 0.8),
-    inset 0 0 0 1px @surface0;
-  border-radius: 12.6px;
-  margin: 18px;
-  background-color: @base;
+.control-center .notification > *:last-child > * .notification-action {
+  border-radius: 7px;
   color: @text;
-  padding: 14px;
+  background-color: @crust;
+  box-shadow: inset 0 0 0 1px @surface1;
+  margin: 7px;
+}
+
+.control-center .notification > *:last-child > * .notification-action:hover {
+  box-shadow: inset 0 0 0 1px @surface1;
+  background-color: @surface0;
+  color: @text;
+}
+
+.control-center .notification > *:last-child > * .notification-action:active {
+  box-shadow: inset 0 0 0 1px @surface1;
+  background-color: @sapphire;
+  color: @text;
 }
 
 .control-center .widget-title > label {
@@ -201,121 +290,6 @@ slider {
   color: @base;
 }
 
-.control-center .notification-row .notification-background {
-  border-radius: 7px;
-  color: @text;
-  background-color: @surface0;
-  box-shadow: inset 0 0 0 1px @surface1;
-  margin-top: 14px;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification.critical {
-  box-shadow: inset 0 0 7px 0 @red;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content {
-  margin: 7px;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .summary {
-  color: @text;
-}
-
-.time {
-  color: @subtext0;
-  margin-right: 1.5rem;
-}
-
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .body {
-  color: @text;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > * {
-  min-height: 3.4em;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action {
-  border-radius: 7px;
-  color: @text;
-  background-color: @crust;
-  box-shadow: inset 0 0 0 1px @surface1;
-  margin: 7px;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:hover {
-  box-shadow: inset 0 0 0 1px @surface1;
-  background-color: @surface0;
-  color: @text;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:active {
-  box-shadow: inset 0 0 0 1px @surface1;
-  background-color: @sapphire;
-  color: @text;
-}
-
-.control-center .notification-row .notification-background:hover {
-  box-shadow: inset 0 0 0 1px @surface1;
-  background-color: @overlay1;
-  color: @text;
-}
-
-.control-center .notification-row .notification-background:active {
-  box-shadow: inset 0 0 0 1px @surface1;
-  background-color: @sapphire;
-  color: @text;
-}
-
-.notification.critical progress {
-  background-color: @red;
-}
-
-.notification.low progress,
-.notification.normal progress {
-  background-color: @blue;
-}
-
 .control-center-dnd {
   margin-top: 5px;
   border-radius: 8px;
@@ -333,27 +307,30 @@ slider {
   border-radius: 8px;
 }
 
+.widget-title {
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
 .widget-dnd {
   margin: 0px;
+  margin-bottom: 2px;
   font-size: 1.1rem;
 }
 
 .widget-dnd > switch {
   font-size: initial;
   border-radius: 8px;
-  background: @surface0;
-  border: 1px solid @surface1;
+  background: @sky;
   box-shadow: none;
 }
 
 .widget-dnd > switch:checked {
-  background: @surface0;
+  background: @red;
 }
 
 .widget-dnd > switch slider {
   background: @surface1;
-  border-radius: 8px;
-  border: 1px solid @overlay0;
 }
 
 .widget-mpris .widget-mpris-player {
@@ -376,12 +353,6 @@ slider {
 
 .widget-menubar > box > .menu-button-bar > :last-child {
   color: @red;
-}
-
-.power-buttons button:hover,
-.powermode-buttons button:hover,
-.screenshot-buttons button:hover {
-  background: @surface0;
 }
 
 .control-center .widget-label > label {
@@ -421,13 +392,4 @@ slider {
 
 .widget-backlight .KB {
   padding-bottom: 1rem;
-}
-
-.image {
-  padding-right: 1rem;
-  padding-left: 0.5rem;
-
-  min-width: 38px;
-  min-height: 38px;
-  -gtk-icon-size: 38px; /* for icon rendering */
 }

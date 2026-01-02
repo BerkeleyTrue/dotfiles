@@ -14,6 +14,8 @@ in {
     settings = {
       font = "FiraCode Nerd Font Mono 10";
       layer = "overlay";
+      # set to false to inspect control panel without it closing
+      layer-shell = true;
       cssPriority = "user";
       notification-window-width = 350;
       notification-window-preferred-output = output;
