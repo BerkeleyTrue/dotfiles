@@ -1,12 +1,14 @@
 ## To Do
 
-## Doing
+- [ ] Niri swap monitors
+- [ ] Niri single monitor setup for delora
 
-- [x] switch from mako to swaync
-  - [ ] Better Styling
+## Doing
 
 ## Done (2025)
 
+- [x] switch from mako to swaync
+  - [x] Better Styling
 - Switch to wayland compositor
   - [x] hierarchy x11 
   - [x] niri wm service and session management
