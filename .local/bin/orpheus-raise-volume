@@ -22,4 +22,4 @@ else
   MSG=" 󰝝 $(getcurrvol)"
 fi
 
-makoify -a 'orpheus' -r $ID $MSG
+notify -i nix-snowflake -a 'orpheus' -r $ID $MSG

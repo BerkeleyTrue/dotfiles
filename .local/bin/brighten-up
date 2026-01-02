@@ -6,7 +6,7 @@ CURR=$(brightnessctl get)
 ID=1234
 
 if (($CURR >= $MAX)); then
-  makoify -a Selena -r $ID "󰃚 "
+  notify -i nix-snowflake -a Selena -r $ID "󰃚 "
 else
   if (($CURR == 0)); then
     brightnessctl set 1%
@@ -20,8 +20,8 @@ else
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
 
   if (($CURR >= $MAX)); then
-    makoify -a Selena -r $ID "󰃚 "
+    notify -i nix-snowflake -a Selena -r $ID "󰃚 "
   else
-    makoify -a Selena -r $ID "󰽨 $PER"
+    notify -i nix-snowflake -a Selena -r $ID "󰽨 $PER"
   fi
 fi
