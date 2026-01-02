@@ -91,6 +91,7 @@ in
         (leaf "proportion" 0.5)
         (leaf "proportion" 0.6667)
       ])
+
       (plain "default-column-width" [])
 
       (leaf "gaps" 6)

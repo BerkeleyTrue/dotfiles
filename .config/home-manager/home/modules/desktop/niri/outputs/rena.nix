@@ -14,5 +14,11 @@ in [
     (leaf "transform" "normal")
     (leaf "mode" "${toString framework.width}x${toString framework.height}@${toString framework.rate}.000")
     (leaf "background-color" theme.colors.lavender)
+
+    (plain "layout" [
+      (leaf "proportion" 0.5)
+      (leaf "proportion" 0.6667)
+      (leaf "proportion" 0.75)
+    ])
   ])
 ]

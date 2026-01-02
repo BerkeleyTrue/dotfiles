@@ -6,12 +6,9 @@
   config,
   ...
 }: let
-  nixglWrap = config.lib.nixgl.wrapPackage;
-  pamShimWrap = config.lib.pamShim.replacePam;
   getExe = lib.getExe;
   swaync = "${pkgs.swaynotificationcenter}/bin/swaync-client";
   playerctl = getExe pkgs.playerctl;
-  hyprlock = pamShimWrap (nixglWrap pkgs.hyprlock);
   niri = getExe pkgs.niri;
   thirty_min = 1800;
 in {
@@ -51,21 +48,6 @@ in {
           on-timeout = "grep -q closed /proc/acpi/button/lid/LID0/state && systemctl suspend";
         }
       ];
-    };
-  };
-
-  # uses default theme, can be setup to just add theme colors
-  catppuccin.hyprlock.enable = true;
-  # requires /etc/pam.d/hyprlock with 644 and 'auth include login'
-  programs.hyprlock = {
-    enable = true;
-    package = hyprlock;
-    settings = {
-      # GENERAL
-      general = {
-        hide_cursor = true;
-        immediate_render = true;
-      };
     };
   };
 
