@@ -16,10 +16,10 @@ if (($(getcurrvolint) >= $MAX)); then
   MSG=' 󰕾 '
 elif (($(getcurrvolint) >= $NINEPER)); then
   pactl set-sink-volume $DSINK 100%
-  MSG=" 󰝝 $(getcurrvol)"
+  MSG=" 󰝝  $(getcurrvol)"
 else
   pactl set-sink-volume $DSINK +10%
-  MSG=" 󰝝 $(getcurrvol)"
+  MSG=" 󰝝  $(getcurrvol)"
 fi
 
-notify -i nix-snowflake -a 'orpheus' -r $ID $MSG
+notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"

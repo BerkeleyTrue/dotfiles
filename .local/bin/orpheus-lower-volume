@@ -13,7 +13,7 @@ if [ "$CURR" = '0%' ]; then
   MSG='  '
 else
   pactl set-sink-volume $DSINK -10%
-  MSG=" 󰝞 $(getcurrvol)"
+  MSG=" 󰝞  $(getcurrvol)"
 fi
 
-notify -i nix-snowflake -a 'orpheus' -r $ID $MSG
+notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"
