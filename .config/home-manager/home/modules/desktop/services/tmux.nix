@@ -61,6 +61,11 @@ in {
       # in order to fork when no sessions exist
       ExecStart = "${pkgs.tmux}/bin/tmux start-server";
       ExecStop = "${pkgs.tmux}/bin/tmux kill-server";
+
+      # Prevent home-manager from restarting the server during switch,
+      # which would terminate the current session
+      X-RestartIfChanged = false;
+      X-StopIfChanged = false;
     };
   };
 

@@ -22,6 +22,11 @@ in {
       Before = ["graphical-session.target"];
       Wants = ["graphical-session-pre.target"];
       After = ["graphical-session-pre.target"];
+
+      # Prevent home-manager from restarting the compositor during switch,
+      # which would terminate the current session
+      X-RestartIfChanged = false;
+      X-StopIfChanged = false;
     };
 
     Service = {
@@ -31,5 +36,6 @@ in {
     };
 
     Install.WantedBy = ["niri.target"];
+
   };
 }
