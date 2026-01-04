@@ -16,9 +16,11 @@ in [
     (leaf "background-color" theme.colors.lavender)
 
     (plain "layout" [
-      (leaf "proportion" 0.5)
-      (leaf "proportion" 0.6667)
-      (leaf "proportion" 0.75)
+      (plain "preset-column-widths" [
+        (leaf "proportion" 0.5)
+        (leaf "proportion" 0.6667)
+        (leaf "proportion" 0.75)
+      ])
     ])
   ])
 ]
