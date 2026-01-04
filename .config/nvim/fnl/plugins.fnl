@@ -48,7 +48,7 @@
    {:name :SmiteshP/nvim-navic :description "A simple statusline/winbar component that uses LSP to show your current code context." :dependencies [[:neovim/nvim-lspconfig]] :config (make-on-load navic)}
 
    ; ai
-   {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]}
+   ; {:name :zbirenbaum/copilot.lua :description "Add AI overlords to IDE, and I for one welcome them." :event :InsertEnter :config (make-on-load copilot) :cmd [:Copilot]} ; no more free copilot 😞
 
    ; git
    {:name :f-person/git-blame.nvim :description "git blame "}
