@@ -18,6 +18,7 @@
     marks lib.marks
     scp lib.scp
     markdown lib.markdown
+    cursorline lib.cursorline
 
     pl theme.palette
     theme theme}
@@ -44,6 +45,7 @@
   (lisp-indent.main)
   (scp.main)
   (markdown.main)
+  (cursorline.main)
   ; (marks.main)
   (theme.main))
 

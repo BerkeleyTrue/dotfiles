@@ -5,8 +5,7 @@
    require-macros [macros]})
 
 (def- internal-plugins
-  [:mumber
-   :aniseed])
+  [:aniseed])
 
 (def- external-plugins
   ; main utils

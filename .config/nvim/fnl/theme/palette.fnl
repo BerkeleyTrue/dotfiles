@@ -68,15 +68,20 @@
    :sapphire  "#85c1dc"
    :blue      "#8caaee"
    :lavender  "#babbf1"
+
    :text      "#c6d0f5"
+
    :subtext1  "#b5bfe2"
    :subtext0  "#a5adce"
+
    :overlay2  "#949cbb"
    :overlay1  "#838ba7"
    :overlay0  "#737994"
+
    :surface2  "#626880"
    :surface1  "#51576d"
    :surface0  "#414559"
+
    :base      "#303446"
    :mantle    "#292c3c"
    :crust     "#232634"})

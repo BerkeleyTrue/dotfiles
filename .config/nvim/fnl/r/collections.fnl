@@ -1,7 +1,8 @@
 (module r.collections
   {autoload
    {a aniseed.core
-    lang r.lang}
+    lang r.lang
+    str r.strings}
    require {}
    import-macros []
    require-macros [macros]})
@@ -127,4 +128,21 @@
     xs))
 
 (comment
-  (group-by #(if (> $ 3) :bigger :smaller) [1 2 3 4 5 6]))
+  (group-by #(if (> $ 3) :bigger :smaller) [1 2 3 4 5 6])
+  (str.lmatch "." "foobar"))
+
+(defn contains? [col key]
+  (if 
+    (lang.nil? col) false
+    (lang.string? col) (->> (str.lmatch ".")
+                            (some #(= key $1)))
+    (lang.table? col) (->> (to-pairs col)
+                           (some (fn [[tkey tval]] (= key tkey))))
+    :else false))
+
+(comment 
+  (contains? [] 1)
+  (contains? [2 4] 1)
+  (contains? [2 4] 3)
+  (contains? {1 nil} 1)
+  (contains? {1 1} 1))
