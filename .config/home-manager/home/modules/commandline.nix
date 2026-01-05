@@ -102,6 +102,7 @@ in {
       xdotool # Command-line X11 automation tool
       dragon-drop # simple drag and drop source/sink for x11
       xh # Friendly and fast tool for sending HTTP requests,  curl/wget
+      yay # yet another aur helper
       yadm # Yet Another Dotfiles Manager
       yt-dlp # A youtube-dl fork with additional features and fixes
       yubikey-manager # A command line tool to manage YubiKeys
