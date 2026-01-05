@@ -114,6 +114,6 @@ in {
       ExecStart = "${lib.getExe wallpaperScript}";
     };
 
-    Install = {WantedBy = ["graphical-session.target"];};
+    Install = {WantedBy = ["awww.service"];};
   };
 }
