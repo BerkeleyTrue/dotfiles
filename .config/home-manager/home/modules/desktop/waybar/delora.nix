@@ -13,7 +13,7 @@
       modules-left = ["niri/workspaces" "clock#date"];
       modules-center =
         lib.intersperse "custom/separator"
-        ["custom/wttr" "clock" "custom/wakatime"];
+        ["custom/wttr" "niri/window" "clock" "custom/wakatime"];
       modules-right =
         (lib.intersperse "custom/separator"
           [
@@ -37,7 +37,7 @@
       modules-left = ["niri/workspaces"];
       modules-center =
         lib.intersperse "custom/separator"
-        ["clock#date" "clock"];
+        ["clock#date" "niri/window" "clock"];
       modules-right =
         lib.intersperse "custom/separator"
         ["custom/eth" "custom/btc"];

@@ -16,7 +16,7 @@
     };
 
     clock = {
-      format = " {:%H:%M:%S}";
+      format = "  {:%H:%M:%S} ";
       interval = 1;
     };
 
@@ -54,6 +54,15 @@
         "urgent" = "󰧞";
         "default" = "󰧞";
       };
+    };
+
+    "niri/window" = {
+      format = "{}";
+      max-length = 15;
+      rewrite = {
+        "(.*) - zsh" = "> [$1]";
+      };
+      separate-outputs = true;
     };
 
     "custom/separator" = {
