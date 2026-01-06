@@ -14,6 +14,7 @@
       "com.github.tchx84.Flatseal" # configure flatpaks
       "com.vscodium.codium" # open vscode
       "io.dbeaver.DBeaverCommunity" # sql explorer
+      "org.gnome.design.IconLibrary" # browse icons for app development
 
       # messaging
       "com.discordapp.Discord"
