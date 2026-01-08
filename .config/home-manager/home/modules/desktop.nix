@@ -26,6 +26,7 @@
   };
 
   home.packages = with pkgs; [
+    powermenu-rs # powermenu written in rust with relm4/gtk4
     dracula-icon-theme # Dracula icon theme
     # papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon, comes included in catppuccin-papirus-folders)
     catppuccin-papirus-folders # catppuccin papirus folder theme

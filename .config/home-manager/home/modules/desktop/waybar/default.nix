@@ -104,7 +104,7 @@
 
     "custom/powermenu" = {
       interval = 0;
-      on-click = "powermenu";
+      on-click = "${getExe pkgs.powermenu-rs}";
       format = "  ";
     };
 

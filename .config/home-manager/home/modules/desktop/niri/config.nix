@@ -1,4 +1,5 @@
 {
+  pkgs,
   kdl,
   profile,
   lib,
@@ -257,7 +258,7 @@ in
         {"hotkey-overlay-title" = "Show Powermenu";}
         [
           # .local/bin/powermenu
-          (leaf "spawn" ["powermenu"])
+          (leaf "spawn" ["${lib.getExe pkgs.powermenu-rs}"])
         ])
 
       (plain "Mod+Shift+Q" [(flag "close-window")])
@@ -266,7 +267,6 @@ in
       # (plain "Mod+Down" [(flag "focus-window-down")])
       # (plain "Mod+Up" [(flag "focus-window-up")])
       # (plain "Mod+Right" [(flag "focus-column-right")])
-
 
       (plain "Mod+Shift+Left" [(flag "move-column-left")])
       (plain "Mod+Shift+Down" [(flag "move-window-down")])

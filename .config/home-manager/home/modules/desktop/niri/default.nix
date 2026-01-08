@@ -10,7 +10,7 @@
 }: let
   niri = config.lib.nixgl.wrapPackage pkgs.niri;
   niri-config = import ./config.nix {
-    inherit kdl lib hardware profile theme;
+    inherit kdl lib hardware profile theme pkgs;
   };
   validate-config = config:
     pkgs.runCommand "config.kdl"

@@ -18,6 +18,9 @@
     awww.url = "git+https://codeberg.org/LGFae/awww";
     awww.inputs.nixpkgs.follows = "nixpkgs";
 
+    # uses 25.11
+    powermenu-rs.url = "github:BerkeleyTrue/powermenu-rs";
+
     # utils
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -46,6 +49,7 @@
             inputs.nixgl.overlay
             inputs.parinfer-rust.overlays.default
             inputs.awww.overlays.default
+            inputs.powermenu-rs.overlays.default
           ];
 
           config = {

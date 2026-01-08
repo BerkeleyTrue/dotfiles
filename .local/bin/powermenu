@@ -1,4 +1,5 @@
 #!/bin/bash
+# DEPRECATED, user powermenu-rs
 theme="power-menu"
 dir="$HOME/.config/rofi"
 
