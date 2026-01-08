@@ -346,6 +346,7 @@ in
       (plain "Mod+R" [(flag "switch-preset-column-width")])
       (plain "Mod+F" [(flag "maximize-column")])
       (plain "Mod+Shift+F" [(flag "fullscreen-window")])
+      (plain "Mod+Alt+F" [(flag "toggle-windowed-fullscreen")])
       (plain "Mod+C" [(flag "center-column")])
 
       (node "Mod+Minus"
