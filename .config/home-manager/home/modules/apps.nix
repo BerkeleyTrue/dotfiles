@@ -52,18 +52,17 @@
 in {
   home.packages =
     (with pkgs; [
-      # cutecom # serial terminal
+      cutecom # serial terminal
       freecad # 3D CAD modeler
       gparted # graphical partition manager
       gimp3 # GNU Image Manipulation Program
       inkscape # vector graphics editor
-      # krita # digital painting software # doesn't run
+      # krita # digital painting software # doesn't run, use flatpak 
       keybase # encrypted chat
       keybase-gui # encrypted chat
       libation # an audible player/drm remover
       networkmanagerapplet # network manager applet
-      # printrun # 3D printing host software - bad dependencies
-      # rofi-bluetooth # rofi bluetooth manager
+      # printrun # 3D printing host software - no longer maintained in nix
       spacenavd # 3Dconnexion device driver
       viewnior # fast image preview
       vlc # Cross-platform media player and streaming server
