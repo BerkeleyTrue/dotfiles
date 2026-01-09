@@ -113,10 +113,7 @@ in
     # (leaf "spawn-at-startup" [ "alacritty" "-e" "fish" ])
 
     # You can override environment variables for processes spawned by niri.
-    (plain "environment" [
-      # unset x11 variables
-      (leaf "DISPLAY" null)
-    ])
+    (plain "environment" [])
 
     (plain "cursor" [
       # Change the theme and size of the cursor as well as set the

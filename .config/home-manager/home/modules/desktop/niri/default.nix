@@ -26,6 +26,7 @@
 in {
   home.packages = [
     niri
+    pkgs.xwayland-satellite
   ];
 
   xdg.portal = {
