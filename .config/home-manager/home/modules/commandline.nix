@@ -55,7 +55,7 @@ in {
       curl # transfer data from or to a server
       crush # The glamourous AI coding agent for your favourite terminal
       delta # A syntax-highlighter for git and diff output
-      dogdns # A command-line DNS cliento
+      doggo # Command-line DNS Client for Humans. 
       dust # A more intuitive version of du in rust
       eza # A modern replacement for ls
       entr # Run arbitrary commands when files change
