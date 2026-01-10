@@ -294,11 +294,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1767943938,
-        "narHash": "sha256-aDY0OPRH3k2mFTWKy/7lHmkz4naTAKglZxcfFXxpfVg=",
+        "lastModified": 1768008394,
+        "narHash": "sha256-+SmXkf8ateg0zUFWQwkpdnK/c5LfNrPxTtDOaTqpzC4=",
         "owner": "BerkeleyTrue",
         "repo": "powermenu-rs",
-        "rev": "178fd9a1b633b6d19d76359124a8384899cc758c",
+        "rev": "2f9c7d2cd80107aca2a59f0fd2fadd1d4fbdeb8a",
         "type": "github"
       },
       "original": {

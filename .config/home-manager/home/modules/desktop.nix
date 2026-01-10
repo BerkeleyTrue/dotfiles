@@ -26,12 +26,12 @@
   };
 
   home.packages = with pkgs; [
-    powermenu-rs # powermenu written in rust with relm4/gtk4
-    dracula-icon-theme # Dracula icon theme
     # papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon, comes included in catppuccin-papirus-folders)
     catppuccin-papirus-folders # catppuccin papirus folder theme
     catppuccin-cursors.frappeLavender # # catppuccin cursor theme
-    # nitrogen # wallpaper manager
+    dracula-icon-theme # Dracula icon theme
+    hyprpicker # color picker that does not suck
+    powermenu-rs # powermenu written in rust with relm4/gtk4
     wev # wayland event viewer
     wl-clipboard-rs # wayland clipboard cli
   ];
