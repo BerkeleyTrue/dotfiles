@@ -17,6 +17,7 @@ in [
     (leaf "variable-refresh-rate" {on-demand = true;})
     (flag "focus-at-startup")
     (leaf "background-color" theme.colors.lavender)
+
   ])
   (node "output" dell.label [
     (leaf "scale" dell.scale)
@@ -24,5 +25,13 @@ in [
     (leaf "mode" "${toString dell.width}x${toString dell.height}@${toString dell.rate}.000")
     (leaf "position" dell.position)
     (leaf "background-color" theme.colors.lavender)
+
+    (plain "layout" [
+      (plain "preset-column-widths" [
+        (leaf "proportion" 0.5) # 1/2
+        (leaf "proportion" 0.6667) # 2/3
+        (leaf "proportion" 0.75) # 3/4
+      ])
+    ])
   ])
 ]

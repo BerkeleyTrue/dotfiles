@@ -17,9 +17,9 @@ in [
 
     (plain "layout" [
       (plain "preset-column-widths" [
-        (leaf "proportion" 0.5)
-        (leaf "proportion" 0.6667)
-        (leaf "proportion" 0.75)
+        (leaf "proportion" 0.5) # 1/2
+        (leaf "proportion" 0.6667) # 2/3
+        (leaf "proportion" 0.75) # 3/4
       ])
     ])
   ])

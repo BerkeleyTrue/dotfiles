@@ -88,9 +88,11 @@ in
 
       # Mod+R cycles through these preset column widths.
       (plain "preset-column-widths" [
-        (leaf "proportion" 0.3333)
-        (leaf "proportion" 0.5)
-        (leaf "proportion" 0.6667)
+        (leaf "proportion" 0.25) # 1/4
+        (leaf "proportion" 0.3333) # 1/3 too small on small monitors
+        (leaf "proportion" 0.5) # 1/2
+        (leaf "proportion" 0.6667) # 2/3
+        (leaf "proportion" 0.749) # 3/4
       ])
 
       (plain "default-column-width" [])
