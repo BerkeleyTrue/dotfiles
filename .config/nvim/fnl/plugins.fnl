@@ -34,7 +34,6 @@
     :config (make-on-load completion)}
    {:name :saghen/blink.compat :version :2.* :description "Compat layer for nvim-cmp plugins and blink"}
    {:name :L3MON4D3/luasnip :description "snippet engine written in lua." :init (make-init luasnip) :config (make-on-load luasnip)}
-   {:name :onsails/lspkind-nvim :description "Add pictograms to lsp completion list" :config false}
    {:name :archie-judd/blink-cmp-words :description "Adds dictionary completion to blink"}
    {:name :moyiz/blink-emoji.nvim :description "Adds emoji completion to blink"}
    {:name :PaterJason/cmp-conjure :description "Adds conjure completion." :dependencies [[:saghen/blink.compat]]}
