@@ -8,10 +8,36 @@
     hl utils.highlights
     cmp blink.cmp
     devicons nvim-web-devicons
-    lspkind lspkind
     luasnip luasnip}
    require {}
    require-macros [macros]})
+
+(def kind-icons 
+  {:Class ""
+   :Color ""
+   :Constant ""
+   :Constructor ""
+   :Enum ""
+   :EnumMember ""
+   :Event ""
+   :Field ""
+   :File ""
+   :Folder ""
+   :Function ""
+   :Interface ""
+   :Keyword ""
+   :Method ""
+   :Module ""
+   :Operator ""
+   :Property ""
+   :Reference ""
+   :Snippet ""
+   :Struct ""
+   :Text ""
+   :TypeParameter ""
+   :Unit ""
+   :Value ""
+   :Variable ""})
 
 (defn open-on-insert []
   "Manually open the completion pom when we are in empty space.
@@ -64,7 +90,7 @@
         icon (if 
                (vim.tbl_contains [:Path] ctx.source_name) (let [(dev-icon) (devicons.get_icon label)]
                                                             (or dev-icon icon))
-               (lspkind.symbolic sym-name {:mode :symbol}))]
+               (or (. kind-icons sym-name) ""))]
     (.. icon gap)))
 
 (defn devicon-kind-highlight [ctx]
