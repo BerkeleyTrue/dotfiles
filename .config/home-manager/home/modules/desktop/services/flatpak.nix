@@ -29,7 +29,7 @@
       "com.uploadedlobster.peek" # record desktop gifs
 
       # 3d modeling
-      # "org.freecadweb.FreeCAD" # cad
+      "org.freecadweb.FreeCAD" # cad
       "com.ultimaker.cura" # 3d print slicer
       "io.github.f3d_app.f3d" # stl viewer
 
