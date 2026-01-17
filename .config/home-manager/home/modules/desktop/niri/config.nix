@@ -5,6 +5,7 @@
   lib,
   hardware,
   theme,
+  nixGlWrap,
   ...
 }: let
   c = theme.colors;
@@ -256,8 +257,7 @@ in
       (node "Mod+0"
         {"hotkey-overlay-title" = "Show Powermenu";}
         [
-          # .local/bin/powermenu
-          (leaf "spawn" ["${lib.getExe pkgs.powermenu-rs}"])
+          (leaf "spawn" ["${nixGlWrap pkgs.powermenu-rs}/bin/powermenu-rs"])
         ])
 
       (plain "Mod+Shift+Q" [(flag "close-window")])

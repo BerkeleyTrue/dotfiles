@@ -4,6 +4,7 @@
   pkgs,
   theme,
   hardware,
+  config,
   ...
 }: let
   getExe = lib.getExe;
@@ -104,7 +105,7 @@
 
     "custom/powermenu" = {
       interval = 0;
-      on-click = "${getExe pkgs.powermenu-rs}";
+      on-click = "${config.lib.nixgl.wrapPackage pkgs.powermenu-rs}/bin/powermenu-rs";
       format = "  ";
     };
 

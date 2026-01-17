@@ -1,6 +1,7 @@
 {
   pkgs,
   nixgl,
+  config,
   ...
 }: {
   targets.genericLinux.nixGL.packages = nixgl.packages;
@@ -25,14 +26,17 @@
     };
   };
 
-  home.packages = with pkgs; [
-    # papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon, comes included in catppuccin-papirus-folders)
-    catppuccin-papirus-folders # catppuccin papirus folder theme
-    catppuccin-cursors.frappeLavender # # catppuccin cursor theme
-    dracula-icon-theme # Dracula icon theme
-    hyprpicker # color picker that does not suck
-    powermenu-rs # powermenu written in rust with relm4/gtk4
-    wev # wayland event viewer
-    wl-clipboard-rs # wayland clipboard cli
-  ];
+  home.packages = with pkgs;
+    [
+      # papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon, comes included in catppuccin-papirus-folders)
+      catppuccin-papirus-folders # catppuccin papirus folder theme
+      catppuccin-cursors.frappeLavender # # catppuccin cursor theme
+      dracula-icon-theme # Dracula icon theme
+      hyprpicker # color picker that does not suck
+      wev # wayland event viewer
+      wl-clipboard-rs # wayland clipboard cli
+    ]
+    ++ [
+      (config.lib.nixgl.wrapPackage pkgs.powermenu-rs) # powermenu written in rust with relm4/gtk4
+    ];
 }
