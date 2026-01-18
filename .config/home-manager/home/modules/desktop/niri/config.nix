@@ -45,7 +45,7 @@ in
 
       # Don't take over power key
       (flag "disable-power-key-handling")
-      (leaf "focus-follows-mouse" {max-scroll-amount = "95%";})
+      (leaf "focus-follows-mouse" {max-scroll-amount = "10%";})
     ])
 
     (plain "layout" [
@@ -455,4 +455,3 @@ in
 # - `kdl.flag` for nodes with no arguments or children
 #
 # With that out of the way, here's the nixfied default config for niri.
-
