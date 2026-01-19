@@ -116,7 +116,9 @@ in
     # (leaf "spawn-at-startup" [ "alacritty" "-e" "fish" ])
 
     # You can override environment variables for processes spawned by niri.
-    (plain "environment" [])
+    (plain "environment" [
+       (leaf "_JAVA_AWT_WM_NONREPARENTING" "1")
+    ])
 
     (plain "cursor" [
       # Change the theme and size of the cursor as well as set the
