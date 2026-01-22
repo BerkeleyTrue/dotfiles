@@ -39,7 +39,12 @@ in {
         ["custom/wakatime" "custom/eth" "custom/btc"];
       modules-right =
         lib.intersperse "custom/separator"
-        ["custom/swaync" "battery" "custom/connectivity"];
+        [
+          "custom/swaync"
+          "pulseaudio"
+          "battery"
+          "custom/connectivity"
+        ];
 
       battery = {
         states = {

@@ -22,6 +22,7 @@
             "custom/cpu-temp"
             "memory"
             "custom/swaync"
+            "pulseaudio"
             "custom/connectivity"
             "disk"
           ])

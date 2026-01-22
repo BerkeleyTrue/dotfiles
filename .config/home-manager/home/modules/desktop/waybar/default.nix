@@ -48,6 +48,24 @@
       unit = "GB";
     };
 
+    pulseaudio = {
+      format = ''<span foreground="${c.pink}">{icon}</span>  {volume}%'';
+      format-bluetooth = ''<span foreground="${c.pink}">{icon}</span>  {volume}%'';
+      format-muted = "󰝟";
+      format-icons = {
+          headphone = "";
+          hands-free = "󱥋";
+          headset = "󰋎";
+          phone = "";
+          phone-muted = "";
+          portable = "󰥰";
+          car = "";
+          default = ["" ""];
+      };
+      scroll-step = 1;
+      on-click = "pavucontrol";
+    };
+
     "niri/workspaces" = {
       format = "{icon}";
       format-icons = {
