@@ -18,6 +18,14 @@ in [
     (flag "focus-at-startup")
     (leaf "background-color" theme.colors.lavender)
 
+    (plain "layout" [
+      (plain "preset-column-widths" [
+        (leaf "proportion" 0.3333) # 1/3 too small on small monitors
+        (leaf "proportion" 0.5) # 1/2
+        (leaf "proportion" 0.6667) # 2/3
+        (leaf "proportion" 0.75) # 3/4
+      ])
+    ])
   ])
   (node "output" dell.label [
     (leaf "scale" dell.scale)
