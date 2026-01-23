@@ -152,11 +152,6 @@ in {
     location = "docker.io"
   '';
 
-  # required for copilot.lua to work.
-  xdg.configFile."nvim/lua/copilot-nodejs.lua".source = pkgs.writeText "copilot-nodejs" ''
-    vim.g.copilot_node_command = "${pkgs.nodejs_24}/bin/node"
-  '';
-
   catppuccin.bat.enable = true;
   catppuccin.lazygit.enable = true;
   programs = {
@@ -174,59 +169,6 @@ in {
         batman
         batpipe
       ];
-    };
-
-    # Vim text editor fork focused on extensibility and agility
-    neovim = {
-      enable = true;
-      extraPackages = with pkgs;
-        [
-          parinfer-rust
-          tree-sitter # to build grammars from source
-          nodejs_24
-
-          lua-language-server # A language server for Lua
-          nil #nix language server
-          nixd # nix language server
-          clojure-lsp
-          slint-lsp
-          rust-analyzer # rust language server
-          dockerfile-language-server # docker language server
-          basedpyright # python language server
-
-          alejandra # formatting nix
-          shfmt # formatting shell scripts
-          rustfmt # formatting rust
-
-          golines # formatting long lines in go
-          templ # formatting go templ files
-          gopls # Go language server
-        ]
-        ++ (with nodePackages; [
-          yaml-language-server # A language server for YAML
-          bash-language-server # A language server for Bash
-          typescript-language-server # TypeScript & JavaScript Language Server
-          vscode-langservers-extracted # Language servers extracted from VSCode, css mainly
-          tailwindcss-language-server # Language server for Tailwind CSS
-          vim-language-server # Language server for Vim script
-
-          prettier # for formatting js, ts, css, html, json, yaml, markdown
-          # purs-tidy # formatting purescript (not in nixpkgs anymore)
-          sql-formatter # formatting sql
-        ]);
-
-      plugins = with pkgs.vimPlugins; [
-        parinfer-rust
-        aniseed
-        lazy-nvim
-      ];
-
-      extraLuaPackages = luaPkgs:
-        with luaPkgs; [
-          jsregexp # for luasnip
-          toml-edit # toml parser
-          lyaml # yaml parser
-        ];
     };
 
     direnv = {
