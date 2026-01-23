@@ -49,8 +49,7 @@
     };
 
     pulseaudio = {
-      format = ''<span foreground="${c.pink}">{icon}</span>  {volume}%'';
-      format-bluetooth = ''<span foreground="${c.pink}">{icon}</span>  {volume}%'';
+      format = ''<span foreground="${c.pink}">{icon}</span> {volume}%'';
       format-muted = "󰝟";
       format-icons = {
           headphone = "";
