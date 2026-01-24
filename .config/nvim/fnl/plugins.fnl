@@ -114,7 +114,7 @@
 
    ; (lisp)
    ; aniseed provided by nix home-manager
-   {:name :olical/conjure :init (make-init conjure)}
+   {:name :olical/conjure :init (make-init conjure) :branch :master}
    {:name :olical/nvim-local-fennel}
    {:name :bakpakin/fennel.vim :description "A lua lisp inspired by clojure"}
    {:name :berkeleytrue/fennel-vimdocs :description "Add fennel docs to vim!"}
