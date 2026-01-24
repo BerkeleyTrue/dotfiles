@@ -61,6 +61,7 @@ in {
       entr # Run arbitrary commands when files change
       fd # A simple, fast and user-friendly alternative to find
       fzf # A command-line fuzzy finder
+      framework-tool  # Swiss army knife for Framework laptops
       gh # GitHub CLI
       glow # Render markdown on the CLI, with pizzazz!
       handlr # Alternative to xdg-open to manage default applications with ease
