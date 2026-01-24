@@ -20,10 +20,16 @@
     (when (client:supports_method :textDocument/documentSymbol)
       (navic.attach client (. args :buf)))
 
-    ; remove dfeault reference keymap
+    ; remove default reference keymap
     (vim.keymap.del :n :grr)
     (nnoremap :grd "<CMD>Telescope lsp_definitions<CR>" {:buffer buffnr :silent true})
     (nnoremap :grr "<CMD>Telescope lsp_references<CR>" {:buffer buffnr :silent true})
+    (nnoremap :gru (r.void 
+                     #(let [cur (. (vim.diagnostic.config) :underline)] 
+                        (vim.diagnostic.config {:underline (not cur)}))) 
+                   {:buffer buffnr 
+                    :silent true
+                    :desc "Toggle lsp diagnostic underline"})
     (nnoremap :K open-hover-float {:buffer buffnr :silent true})
 
     ; always go through guard.nvim for formatting
