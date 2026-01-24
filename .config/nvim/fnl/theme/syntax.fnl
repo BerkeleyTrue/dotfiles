@@ -32,9 +32,9 @@
   (set-hl-link :diffLine :BerksOverlay0)
   (set-hl-link :diffNewFile :BerksPeach)
   (set-hl-link :diffOldFile :BerksYellow)
-  (set-hl-link :diffRemoved :BerksRed)
+  (set-hl-link :diffRemoved :BerksMaroon)
 
-  (set-hl-link :Error :BerksRed)
+  (set-hl-link :Error :BerksMaroon)
   (set-hl-link :Exception :BerksPink)
   (set-hl-link :Float :Constant)
   (set-hl-link :Function :BerksGreen)

@@ -42,6 +42,7 @@
   (set-hl :BerksGreenItalic {:fg p.hex.green :italic true})
   (set-hl :BerksGreenItalicUnderline {:fg p.hex.green :italic true :underline true})
 
+  ; deprecated
   (set-hl :BerksOrange {:fg p.hex.peach})
   (set-hl :BerksOrangeDark {:fg (cl.->hex [20 79 65])})
   (set-hl :BerksOrangeLight {:fg (cl.->hex [20 79 79])})
@@ -49,6 +50,14 @@
   (set-hl :BerksOrangeItalic {:fg p.hex.peach :italic true})
   (set-hl :BerksOrangeBoldItalic {:fg p.hex.peach :bold true :italic true})
   (set-hl :BerksOrangeInverse {:fg p.hex.base :bg p.hex.peach})
+
+  (set-hl :BerksPeach {:fg p.hex.peach})
+  (set-hl :BerksPeachDark {:fg (cl.->hex [20 79 65])})
+  (set-hl :BerksPeachLight {:fg (cl.->hex [20 79 79])})
+  (set-hl :BerksPeachBold {:fg p.hex.peach :bold true})
+  (set-hl :BerksPeachItalic {:fg p.hex.peach :italic true})
+  (set-hl :BerksPeachBoldItalic {:fg p.hex.peach :bold true :italic true})
+  (set-hl :BerksPeachInverse {:fg p.hex.base :bg p.hex.peach})
 
   (set-hl :BerksSapphire {:fg p.hex.sapphire})
   (set-hl :BerksSapphireLight {:fg (cl.->hex [199 55 79])})
@@ -71,13 +80,7 @@
   (set-hl :BerksYellow {:fg p.hex.yellow})
   (set-hl :BerksYellowItalic {:fg p.hex.yellow :italic true})
 
-  (set-hl-link :BerksError :BerksRed)
-  (set-hl-link :BerksErrorInverse :BerksRedInverse)
-
-  (set-hl-link :BerksWarn :BerksOrange) 
-  (set-hl-link :BerksWarnInverse :BerksOrangeInverse)
-
-  (set-hl :BerksErrorLine {:fg p.hex.red :undercurl true})
+  (set-hl :BerksErrorLine {:fg p.hex.maroon :undercurl true})
   (set-hl :BerksWarnLine {:fg p.hex.peach :undercurl true})
   (set-hl :BerksInfoLine {:fg p.hex.sapphire :undercurl true})
 
@@ -87,15 +90,11 @@
   (set-hl :BerksLink {:fg p.hex.sapphire :underline true})
   (set-hl :BerksUnderline {:fg p.none :undercurl true})
 
-  (set-hl :BerksDiffChange {:fg p.hex.peach})
-  (set-hl :BerksDiffText {:fg p.hex.mantle :bg p.hex.peach :bold true})
-  (set-hl :BerksDiffDelete {:fg p.hex.red :bg p.hex.mantle :bold true})
-
   (set-hl :BerksRosewater {:fg p.hex.rosewater})
   (set-hl :BerksFlamingo {:fg p.hex.flamingo})
   (set-hl :BerksMauve {:fg p.hex.mauve})
   (set-hl :BerksMaroon {:fg p.hex.maroon})
-  (set-hl :BerksPeach {:fg p.hex.peach})
+  (set-hl :BerksMaroonInverse {:fg p.hex.mantle :bg p.hex.maroon})
 
   (set-hl :BerksTeal {:fg p.hex.teal})
   (set-hl :BerksTealBold {:fg p.hex.none :bold true})
@@ -114,6 +113,16 @@
   (set-hl :BerksBase {:fg p.hex.base})
   (set-hl :BerksMantle {:fg p.hex.mantle})
   (set-hl :BerksCrust {:fg p.hex.crust})
+
+  (set-hl-link :BerksError :BerksMaroon)
+  (set-hl-link :BerksErrorInverse :BerksMaroonInverse)
+
+  (set-hl-link :BerksWarn :BerksPeach) 
+  (set-hl-link :BerksWarnInverse :BerksPeachInverse)
+
+  (set-hl-link :BerksDiffChange :BerksPeach)
+  (set-hl :BerksDiffText {:fg p.hex.mantle :bg p.hex.peach :bold true})
+  (set-hl :BerksDiffDelete {:fg p.hex.red :bg p.hex.mantle :bold true})
 
   (editor.main)
   (syntax.main)

@@ -16,7 +16,7 @@
   (hl.link! :LspDiagnosticsDefaultHint :Comment)
   (hl.link! :LspDiagnosticsFloatingHint :Comment)
 
-  (hl.link! :LspDiagnosticsWarning :BerksOrange)
+  (hl.link! :LspDiagnosticsWarning :BerksWarn)
   (hl.link! :LspDiagnosticsUnderlineWarning :BerksWarnLine)
 
   (hl.link! :LspDiagnosticsError :BerksError)
