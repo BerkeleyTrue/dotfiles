@@ -99,6 +99,7 @@ in {
       wakatime-cli # Command line interface for Wakatime
       wget # The non-interactive network downloader # required by jdownloader
       wiki-tui # A terminal based wikipedia viewer
+      wipe # Secure file wiping utility
       wordnet # Lexical database for the English language
       xdotool # Command-line X11 automation tool
       dragon-drop # simple drag and drop source/sink for x11
