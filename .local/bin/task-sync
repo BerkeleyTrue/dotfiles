@@ -2,11 +2,20 @@
 
 TMUX_SESSION=__task-sync__
 DELAY=10
-TASK_SHARE=~/.local/share/task
+TASK_SHARE=$HOME/.local/share/task
 SYNC_LOG=$TASK_SHARE/systemd-update.log
 
 log() {
 	echo "$(date "+%F %T") $1" >>$SYNC_LOG
+}
+
+do_sync() {
+	sleep $DELAY
+	if output=$(task sync 2>&1); then
+		log "$output"
+	else
+		log "Sync failed: $output"
+	fi
 }
 
 log "running debounced sync"
@@ -17,7 +26,7 @@ if tmux has-session -t $TMUX_SESSION 2>/dev/null; then
 fi
 
 # create tmux session, and start sync
-tmux new-session -d -s $TMUX_SESSION "sleep $DELAY && echo \"\$(date \"+%F %T\") \$(task sync)\" >>$SYNC_LOG 2>&1 || echo 'Sync failed'" 
+tmux new-session -d -s $TMUX_SESSION "$(declare -f log do_sync); SYNC_LOG=$SYNC_LOG DELAY=$DELAY do_sync"
 
 if [ "$(wc -l $SYNC_LOG | awk '{print $1}')" -gt 1000 ]; then
 	sed -i '1,500d' $SYNC_LOG
