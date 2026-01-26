@@ -11,7 +11,7 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-data.location=/home/berkeleytrue/.config/task
+data.location=$HOME/.config/task
 verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,unwait,recur
 # Color theme (uncomment one to use)
 
