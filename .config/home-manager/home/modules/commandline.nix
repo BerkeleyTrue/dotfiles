@@ -53,7 +53,7 @@ in {
       claude-code # A command line interface for Claude AI
       codex # A lightweight coding agent that runs in your terminal
       curl # transfer data from or to a server
-      crush # The glamourous AI coding agent for your favourite terminal
+      # crush # The glamourous AI coding agent for your favourite terminal # broken tests
       delta # A syntax-highlighter for git and diff output
       doggo # Command-line DNS Client for Humans. 
       dust # A more intuitive version of du in rust
