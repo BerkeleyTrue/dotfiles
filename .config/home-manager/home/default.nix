@@ -72,7 +72,7 @@ in {
               width = 3440;
               label = "HDMI-A-1";
               rate = 165;
-              scale = 1.5;
+              scale = 1.25;
               position = {
                 x = 0;
                 y = 720;
