@@ -24,7 +24,8 @@
   (: "%#BerksStatusLineMod#" :match "Berks%w+")
   (: ":BerksStatusLine" :match "Berks%w+")
   (: "  \"#FFF\"  " :match "\"#(%x)(%x)(%x)\"")
-  (: "#define " :match "\"#(%x)(%x)(%x)\""))
+  (: "#define " :match "\"#(%x)(%x)(%x)\"")
+  (: "0x232634" :match "0x(%x%x%x%x%x%x)"))
 
 (defn main []
   (hl.link! :MiniIndentscopeSymbol :BerksSubtle)
@@ -48,6 +49,7 @@
                              lit (tonumber lit)
                              hex (cl.->hex [hue sat lit])]
                          (hipatterns.compute_hex_color_group hex "fg"))))}
+
       :palette_hx {:pattern "he?x%.%w+"
                    :group
                    (fn [buf mtch]
@@ -55,6 +57,7 @@
                        (let [hx (mtch:match "he?x%.(%w+)")]
                          (when-let [hex (. p.hex hx)]
                            (hipatterns.compute_hex_color_group hex "fg")))))}
+
       :palette_p {:pattern "p%.%w+"
                   :group
                   (fn [buf mtch]
@@ -62,6 +65,13 @@
                       (let [hx (mtch:match "p%.(%w+)")]
                         (when-let [hex (. p.hex hx)]
                           (hipatterns.compute_hex_color_group hex "fg")))))}
+
+      :palette_0x {:pattern "0x%x%x%x%x%x%x%f[%X]"
+                   :group
+                   (fn [buf mtch]
+                     (let [hex (mtch:match "0x(%x%x%x%x%x%x)")]
+                       (hipatterns.compute_hex_color_group (.. "#" hex) "fg")))}
+
       :theme_hls {:pattern "Berks%w+"
                   :group
                   (fn [buf mtch]
