@@ -91,7 +91,46 @@
   (->hsl "#00ff00")
   (->hsl "#0000ff")
   (->hsl "#48eb00")
-  (->hsl "#66eb00"))
+  (->hsl "#66eb00")
+  (->hsl "#f4b8e4"))
 
 (defn lit [[hue sat] lit]
   [hue sat lit])
+
+(defn darken [[hue sat lit] amount]
+  (let [amount (or amount 10)
+        new-lit (r.clamp 0 100 (- lit amount))]
+    [hue sat new-lit]))
+
+(comment 
+  (darken [100 100 50] 10)
+  (->hex (darken [(->hsl "#f4b8e4")])))
+
+(defn darken-hex [hex]
+  (-> hex
+      (->hsl)
+      (#[$1 $2 $3])
+      (darken)
+      (->hex)))
+
+(comment
+  (darken-hex "#f4b8e4")) ; "#ec87d1"
+
+(defn brighten [[hue sat lit] amount]
+  (let [amount (or amount 10)
+        new-lit (r.clamp 0 100 (+ lit amount))]
+    [hue sat new-lit]))
+
+(comment 
+  (brighten [100 100 50] 10)
+  (->hex (brighten [(->hsl "#f4b8e4")]))) ; "#fae0f3"
+
+(defn brighten-hex [hex]
+  (-> hex
+      (->hsl)
+      (#[$1 $2 $3])
+      (brighten)
+      (->hex)))
+
+(comment
+  (brighten-hex "#f4b8e4"))  ; "#fae0f3"
