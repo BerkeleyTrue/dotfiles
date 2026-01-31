@@ -24,6 +24,10 @@
     # utils
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    flake-file.url = "github:vic/flake-file";
+    import-tree.url = "github:vic/import-tree";
+    den.url = "github:vic/den";
+    flake-aspects.url = "github:vic/flake-aspects";
 
     home-manager-parts.url = "github:berkeleytrue/home-manager-parts";
 
@@ -38,8 +42,10 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       imports = [
+        inputs.flake-parts.flakeModules.modules
         inputs.home-manager-parts.flakeModule
         ./home
+        (inputs.import-tree ./modules)
       ];
       perSystem = {system, ...}: let
         pkgs = import inputs.nixpkgs {

@@ -42,6 +42,36 @@
         "type": "github"
       }
     },
+    "den": {
+      "locked": {
+        "lastModified": 1769728231,
+        "narHash": "sha256-Bxl7iVClsoO68eunZlQrw5q4BqhA5nsKCa+2y7V1WPo=",
+        "owner": "vic",
+        "repo": "den",
+        "rev": "0dadf287de7fff8f2e577de1b75a7c11eeeb8d29",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "den",
+        "type": "github"
+      }
+    },
+    "flake-aspects": {
+      "locked": {
+        "lastModified": 1769723924,
+        "narHash": "sha256-U15OaMr9AcJiB1wW2uCFzFO+DnQ3jJSvln+ZR/+Q0vE=",
+        "owner": "vic",
+        "repo": "flake-aspects",
+        "rev": "61524836788ef6991a82e7d34ebb0ccc05d374ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "flake-aspects",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -55,6 +85,21 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-file": {
+      "locked": {
+        "lastModified": 1769416693,
+        "narHash": "sha256-pPNc9y+Vhgf5qw9Qvb+8L7iWedX7dQ/7oRH0QWzwJkg=",
+        "owner": "vic",
+        "repo": "flake-file",
+        "rev": "c09729628983ed1e35c8dd43aa3df91a06f80e65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "flake-file",
         "type": "github"
       }
     },
@@ -194,6 +239,21 @@
       "original": {
         "owner": "berkeleytrue",
         "repo": "home-manager-parts",
+        "type": "github"
+      }
+    },
+    "import-tree": {
+      "locked": {
+        "lastModified": 1763762820,
+        "narHash": "sha256-ZvYKbFib3AEwiNMLsejb/CWs/OL/srFQ8AogkebEPF0=",
+        "owner": "vic",
+        "repo": "import-tree",
+        "rev": "3c23749d8013ec6daa1d7255057590e9ca726646",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "import-tree",
         "type": "github"
       }
     },
@@ -364,10 +424,14 @@
       "inputs": {
         "awww": "awww",
         "catppuccin": "catppuccin",
+        "den": "den",
+        "flake-aspects": "flake-aspects",
+        "flake-file": "flake-file",
         "flake-parts": "flake-parts",
         "flatpak": "flatpak",
         "home-manager": "home-manager",
         "home-manager-parts": "home-manager-parts",
+        "import-tree": "import-tree",
         "nixgl": "nixgl",
         "nixpkgs": "nixpkgs",
         "pam-shim": "pam-shim",
