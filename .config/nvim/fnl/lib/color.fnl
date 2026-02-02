@@ -134,3 +134,59 @@
 
 (comment
   (brighten-hex "#f4b8e4"))  ; "#fae0f3"
+
+(defn- get-visual-selection []
+  "Get the current visual selection text"
+  (let [[_ start-row start-col] (vim.fn.getpos "'<")
+        [_ end-row end-col] (vim.fn.getpos "'>")
+        lines (vim.api.nvim_buf_get_text 0 (- start-row 1) (- start-col 1) (- end-row 1) end-col {})]
+    (table.concat lines "\n")))
+
+(defn- replace-visual-selection [new-text]
+  "Replace the current visual selection with new-text"
+  (let [[_ start-row start-col] (vim.fn.getpos "'<")
+        [_ end-row end-col] (vim.fn.getpos "'>")]
+    (vim.api.nvim_buf_set_text 0 (- start-row 1) (- start-col 1) (- end-row 1) end-col [new-text])))
+
+(defn- gen-new-hex [hex transform-fn]
+  (-> (.. "#" hex)
+      (->hsl)
+      (#[$1 $2 $3])
+      (transform-fn)
+      (->hex)
+      (string.sub 2)))
+
+(defn- transform-hex [transform-fn amount]
+  "Transform hex color under cursor or in visual selection"
+  (if-let [hex (get-visual-selection)]
+    (-> hex
+        (gen-new-hex #(transform-fn $ (or amount 10)))
+        (replace-visual-selection hex))
+    (vim.notify "lib.color: No hex color found" vim.log.levels.WARN)))
+
+(defn brighten-cmd [opts]
+  "Command handler for brightening hex colors"
+  (let [amount (if (and opts.args (not= opts.args ""))
+                 (tonumber opts.args)
+                 10)
+        is-range (= opts.range 2)]
+    (if is-range
+      (transform-hex brighten amount)
+      (vim.notify "lib.color: Visual mode only" vim.log.levels.WARN))))
+
+(defn darken-cmd [opts]
+  "Command handler for darkening hex colors"
+  (let [amount (if (and opts.args 
+                        (not= opts.args ""))
+                 (tonumber opts.args)
+                 10)
+        is-range (= opts.range 2)]
+    (if is-range
+      (transform-hex darken amount)
+      (vim.notify "lib.color: Visual mode only" vim.log.levels.WARN))))
+
+(command! :BrightenHex brighten-cmd {:nargs "?" :range true :desc "Brighten hex color under cursor"})
+(command! :DarkenHex darken-cmd {:nargs "?" :range true :desc "Darken hex color under cursor"})
+
+(comment
+  "#191919")
