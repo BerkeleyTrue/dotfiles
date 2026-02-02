@@ -58,7 +58,7 @@
         filename (vf fnameescape filename)]
 
     (command edit filename)
-    (metadata.update-file {:force? true})))
+    (vim.schedule #(metadata.update-file {:force? true}))))
 
 (defn cmdline-changed [char file]
   "When the command line changes, check if it's a corpus command
