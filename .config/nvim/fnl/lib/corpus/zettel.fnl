@@ -55,7 +55,8 @@
   The title is kebab-cased and used as the filename."
   (let [tempid (vf fnameescape (.. "temp-" (math.random) ".md"))]
     (vim.cmd (.. "edit " tempid))
-    (metadata.update-file {:force? true :temp? true :tags [:zettel]})
+    ; allow treesitter to parse file
+    (vim.schedule #(metadata.update-file {:force? true :temp? true :tags [:zettel]}))
     (augroup lib-augroup
       {:event :BufWriteCmd
        :buffer 0
