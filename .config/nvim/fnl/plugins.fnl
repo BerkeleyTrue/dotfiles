@@ -130,7 +130,6 @@
    {:name :vrischmann/tree-sitter-templ :description "templ tree sitter queries"}
 
    ; general lang syntax plugins
-   {:name :gabrielelana/vim-markdown :config (make-on-load markdown)}
    {:name :lervag/vimtex :ft :tex :config (make-on-load vimtex)}
    {:name :sirtaj/vim-openscad}
    {:name :purescript-contrib/purescript-vim :description "adds purescript syntax" :ft :purescript}

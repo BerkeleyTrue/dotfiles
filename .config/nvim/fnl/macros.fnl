@@ -343,6 +343,14 @@
   "sets scoped option 'name' to 'val'."
   `(tset vim.o ,(parse-sym name) ,val))
 
+(defn ol [name]
+  "get the option value"
+  `(. vim.opt_local ,(parse-sym name)))
+
+(defn ol! [name val]
+  "sets scoped option 'name' to 'val'."
+  `(tset vim.opt_local ,(parse-sym name) ,val))
+
 (defn bo [name bufnr]
   "get the buffer option value"
   (if bufnr
