@@ -151,7 +151,7 @@
 (defn main []
   (augroup LibMarkdown
     {:event :FileType
-     :pattern "markdown"
+     :pattern [:markdown :markdown.corpus]
      :callback
      (r.void
        (fn setup-markdown []

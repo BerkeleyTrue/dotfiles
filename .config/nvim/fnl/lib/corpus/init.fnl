@@ -31,9 +31,9 @@
         ;;                   ^
         ;; Must return "bazzzz", not "zzz".
         [(title:sub
-           (+ (- (prefix:len)
-                 (arglead:len))
-              1)
+           (->
+             (- (prefix:len) (arglead:len))
+             (+ 1))
            -1)]))))
 
 (defn choose [selection bang]
