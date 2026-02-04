@@ -76,36 +76,36 @@
 (comment (string.find "Corpus bar" "^Corpus%f[%A](%s*)(.-)%s*$"))
 
 (defn init [{: file}]
-  (when (ftdetect.ftdetect file)
-    (bo! filetype "markdown.corpus")
-    (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true :desc "Corpus: Go to or create shortcut"})
-    ; have to use a caommand here because of the bang
-    ; https://github.com/neovim/neovim/issues/18340
-    ; where keymap callbacks aren't given 
-    (xnoremap "<C-]>" ":lua require('lib.corpus.shortcuts')['create-shortcut-on-selection']()<CR>" {:silent true :buffer true :desc "Corpus: Create shortcut on selection"})
+  (let [file (vf fnamemodify (or file (vf expand "%")) ":p")]
+    (when (ftdetect.ftdetect file)
+      (bo! filetype "markdown.corpus")
+      (nnoremap "<C-]>" #(shortcuts.go-to-or-create-shortcut) {:silent true :buffer true :desc "Corpus: Go to or create shortcut"})
+      ; have to use a caommand here because of the bang
+      ; https://github.com/neovim/neovim/issues/18340
+      ; where keymap callbacks aren't given 
+      (xnoremap "<C-]>" ":lua require('lib.corpus.shortcuts')['create-shortcut-on-selection']()<CR>" {:silent true :buffer true :desc "Corpus: Create shortcut on selection"})
 
-    (augroup :LibCorpusEnv
-      {:event [:BufWritePre]
-       :buffer 0
-       :callback
-       (fn before-write [{: file}]
-         (reflinks.update-file)
-         (metadata.update-file))}
+      (augroup :LibCorpusEnv
+        {:event [:BufWritePre]
+         :buffer 0
+         :callback
+         (fn before-write [{: file}]
+           (reflinks.update-file)
+           (metadata.update-file))}
 
-      {:event [:BufWritePost]
-       :buffer 0
-       :callback
-       (fn after-write [{: file}]
-         (when-not (zet.is-temp-zet? file)
-           (let [root (ftdetect.get-corpus-root file)
-                 file (path.get-relative-path root file)]
-             ((git.commit file root)))))})))
+        {:event [:BufWritePost]
+         :buffer 0
+         :callback
+         (fn after-write [{: file}]
+           (when-not (zet.is-temp-zet? file)
+             (let [root (ftdetect.get-corpus-root file)
+                   file (path.get-relative-path root file)]
+               ((git.commit file root)))))}))))
 
 (defn main []
   (vim.treesitter.language.register :markdown :markdown.corpus)
   (command! :CorpusDetect (fn [] (let [file (vf expand "%")
                                        corpus? (ftdetect.ftdetect file)]
-                                   (a.println (.. "found file: " file " to be " (if corpus? "" "not") "corpus"))
                                    (when corpus? (init {:file file})))))
   (augroup :LibCorpus
     {:event :VimEnter
