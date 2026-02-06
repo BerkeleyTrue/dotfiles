@@ -116,7 +116,7 @@
    :basedpyright {}
    :prismals {}
    :purescriptls {}
-   :rust_analyzer {}
+   :rust_analyzer {:settings {:rust-analyzer {:checkOnSave {:command :clippy}}}}
    :slint_lsp {}
    :solidity_ls {}
    :templ {}
