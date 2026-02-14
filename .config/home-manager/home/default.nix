@@ -83,7 +83,7 @@ in {
               width = 2560;
               label = "DP-3";
               rate = 60;
-              scale = 1.5;
+              scale = 1.25;
               position = {
                 x = 0;
                 y = 0;
