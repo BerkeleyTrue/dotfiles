@@ -16,9 +16,14 @@
   }: {
     inherit height width label rate scale position;
     logical = {
-      height = height / scale;
-      width = width / scale;
+      height = builtins.floor (height / scale);
+      width = builtins.floor (width / scale);
     };
+  };
+
+  centerSelfOnBase = base: self: {
+    x = base.position.x + (base.logical.width - self.logical.width) / 2;
+    y = 0;
   };
 in {
   home-manager-parts = {
@@ -65,30 +70,29 @@ in {
           ./hardware/delora.nix
         ];
 
-        specialArgs = {
+        specialArgs = let
+          g5 = mkMonitor {
+            height = 1440;
+            width = 3440;
+            label = "HDMI-A-1";
+            rate = 165;
+            scale = 1.25;
+            position = {
+              x = 0;
+              y = dell.logical.height;
+            };
+          };
+          dell = mkMonitor {
+            height = 1080;
+            width = 2560;
+            label = "DP-3";
+            rate = 60;
+            scale = 1.25;
+            position = centerSelfOnBase g5 dell;
+          };
+        in {
           hardware.monitors = {
-            g5 = mkMonitor {
-              height = 1440;
-              width = 3440;
-              label = "HDMI-A-1";
-              rate = 165;
-              scale = 1.25;
-              position = {
-                x = 0;
-                y = 720;
-              };
-            };
-            dell = mkMonitor {
-              height = 1080;
-              width = 2560;
-              label = "DP-3";
-              rate = 60;
-              scale = 1.25;
-              position = {
-                x = 0;
-                y = 0;
-              };
-            };
+            inherit dell g5;
           };
         };
       };
