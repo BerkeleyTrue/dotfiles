@@ -36,6 +36,9 @@
 
     parinfer-rust.url = "github:PhilTaken/parinfer-rust";
     parinfer-rust.inputs.nixpkgs.follows = "nixpkgs";
+
+    # pinned nixpkgs for rust-analyzer 2026-02-16 (bugfix)
+    nixpkgs-rust-analyzer.url = "github:NixOS/nixpkgs/97c8a41d0dda5063b4e42f4ddf6a850da2688037";
   };
 
   outputs = inputs @ {flake-parts, ...}:
@@ -47,7 +50,7 @@
         ./home
         (inputs.import-tree ./modules)
       ];
-      perSystem = {system, ...}: let
+      perSystem = {inputs', system, ...}: let
         pkgs = import inputs.nixpkgs {
           inherit system;
 
@@ -56,6 +59,10 @@
             inputs.parinfer-rust.overlays.default
             inputs.awww.overlays.default
             inputs.powermenu-rs.overlays.default
+            # pin rust-analyzer to 2026-02-16
+            (_: _: {
+              rust-analyzer-unwrapped = inputs'.nixpkgs-rust-analyzer.legacyPackages.rust-analyzer-unwrapped;
+            })
           ];
 
           config = {
