@@ -9,7 +9,7 @@
     # desktop services
     ./awww.nix
     ./blueman.nix
-    ./flameshot.nix
+    # ./flameshot.nix doesn't work well in niri
     ./flatpak.nix
     ./gh-user.nix
     ./hypridle.nix
