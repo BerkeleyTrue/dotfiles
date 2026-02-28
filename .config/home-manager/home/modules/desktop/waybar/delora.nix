@@ -15,18 +15,17 @@
         lib.intersperse "custom/separator"
         ["custom/wttr" "niri/window" "clock" "custom/wakatime"];
       modules-right =
-        (lib.intersperse "custom/separator"
-          [
-            "custom/powermenu"
-            "cpu"
-            "custom/cpu-temp"
-            "memory"
-            "custom/swaync"
-            "pulseaudio"
-            "custom/connectivity"
-            "disk"
-          ])
-        ++ ["tray"];
+        lib.intersperse "custom/separator"
+        [
+          "custom/powermenu"
+          "cpu"
+          "custom/cpu-temp"
+          "memory"
+          "custom/swaync"
+          "pulseaudio"
+          "custom/connectivity"
+          "disk"
+        ];
     }
     // common-modules;
   delora-secondary =
