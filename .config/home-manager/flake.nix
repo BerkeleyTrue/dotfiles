@@ -56,6 +56,17 @@
             inputs.parinfer-rust.overlays.default
             inputs.awww.overlays.default
             inputs.powermenu-rs.overlays.default
+            (final: prev: {
+              swaynotificationcenter = prev.swaynotificationcenter.overrideAttrs (_: {
+                version = "0.12.6";
+                src = prev.fetchFromGitHub {
+                  owner = "ErikReider";
+                  repo = "SwayNotificationCenter";
+                  tag = "v0.12.6";
+                  hash = "sha256-U5jsH2hSMTNMCtmo+lIXunam4M+B3xxMQU1SM3ZK5X0=";
+                };
+              });
+            })
           ];
 
           config = {
