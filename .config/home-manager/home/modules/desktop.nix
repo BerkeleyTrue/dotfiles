@@ -24,6 +24,7 @@
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders;
     };
+    gtk4.theme = config.gtk.theme;
   };
 
   home.packages = with pkgs;
@@ -37,6 +38,6 @@
       wl-clipboard-rs # wayland clipboard cli
     ]
     ++ [
-      (config.lib.nixgl.wrapPackage pkgs.powermenu-rs) # powermenu written in rust with relm4/gtk4
+      (config.lib.nixgl.wrapPackage pkgs.powermenu-rs) # powermenu written in rust with Iced.rs
     ];
 }
