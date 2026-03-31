@@ -50,7 +50,7 @@
         :mappings {:n {:qq actions.close}
                    :i {:qq actions.close}}}
 
-       :pickers {:find_files {:find_command [:rg :--files :--no-ignore :--hidden :--glob "!.git/*" :--glob "!.direnv/*" :--sort :path]}
+       :pickers {:find_files {:find_command [:rg :--files :--sort :path]}
                  :oldfiles {:cwd_only true}}})))
 
 (defn setup-keymaps []
