@@ -79,8 +79,9 @@
     (: :append :isort))
 
   (g! guard_config {:fmt_on_save false
-                    :refresh_diagnostic true
-                    :always_save true})
+                    :refresh_diagnostic false
+                    :save_on_fmt false
+                    :always_save false})
 
   (augroup
     :MarkdownGuard
