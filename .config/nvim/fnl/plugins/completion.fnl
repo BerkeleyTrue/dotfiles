@@ -115,6 +115,9 @@
                                   :update_delay_ms 50
                                   :window {:border :rounded}}
                   :trigger {:show_on_backspace true}}
+     :keymap {:preset :default
+               "<Tab>" false
+               "<S-Tab>" false}
 
      ; :fuzzy {:implementation :lua}
      :signature {:enabled true
