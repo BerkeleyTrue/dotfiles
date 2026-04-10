@@ -66,6 +66,9 @@ in {
       aniseed
       lazy-nvim
     ];
+    withPython3 = false;
+    withRuby = false;
+    withNodeJs = false;
   };
 
   # we generate a separate file for the cpath/path
