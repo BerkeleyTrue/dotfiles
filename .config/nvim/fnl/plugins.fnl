@@ -120,7 +120,7 @@
    {:name :berkeleytrue/fennel-vimdocs :description "Add fennel docs to vim!"}
 
    ; treesitter
-   {:name :nvim-treesitter/nvim-treesitter :branch :main :config (make-on-load tree-sitter) :lazy false}
+   {:name :nvim-treesitter/nvim-treesitter :branch :main :config (make-on-load treesitter) :lazy false}
    {:name :nvim-treesitter/nvim-treesitter-context :dependencies [[:nvim-treesitter/nvim-treesitter]] :config (make-on-load tree-sitter-context)}
    {:name :andymass/vim-matchup :description "Extends % with treesitter powers." :dependencies [[:nvim-treesitter/nvim-treesitter]]}
    {:name :danymat/neogen :description "Auto doc functions" :dependencies [[:nvim-treesitter/nvim-treesitter]] :config (make-on-load neogen)}
