@@ -17,7 +17,7 @@
 
     Timer = {
       OnBootSec = 80;
-      OnCalendar = "*:0/10"; # run every 10 minutes
+      OnCalendar = "*:0/60"; # run every 60 minutes
     };
 
     Install = {
