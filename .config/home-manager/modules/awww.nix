@@ -1,15 +1,7 @@
-{
-  inputs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   flake.modules.homeManager.desktop = {pkgs, ...}: let
     awww = pkgs.awww;
   in {
-    nixpkgs.overlays = [
-      inputs.awww.overlays.default
-    ];
-
     packages = [awww];
 
     systemd.user.services.awww = {

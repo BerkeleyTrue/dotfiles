@@ -15,20 +15,16 @@
     pam-shim.url = "github:Cu3PO42/pam_shim";
     pam-shim.inputs.nixpkgs.follows = "nixpkgs";
 
-    awww.url = "git+https://codeberg.org/LGFae/awww";
-    awww.inputs.nixpkgs.follows = "nixpkgs";
-
     # uses 25.11
     powermenu-rs.url = "github:BerkeleyTrue/powermenu-rs";
 
     # flake parts/dentritic
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
-    ## allows you can set flake-file.inputs in fp files
-    flake-file.url = "github:vic/flake-file";
     ## import files automatically by directory
     import-tree.url = "github:vic/import-tree";
-    den.url = "github:vic/den";
+
+    # flake modules but class/aspect inverted to aspect/class
     flake-aspects.url = "github:vic/flake-aspects";
 
     home-manager-parts.url = "github:berkeleytrue/home-manager-parts";
@@ -44,7 +40,6 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       imports = [
-        inputs.flake-parts.flakeModules.modules
         inputs.home-manager-parts.flakeModule
         ./home
         (inputs.import-tree ./modules)
@@ -60,7 +55,6 @@
           overlays = [
             inputs.nixgl.overlay
             inputs.parinfer-rust.overlays.default
-            inputs.awww.overlays.default
             inputs.powermenu-rs.overlays.default
           ];
 
