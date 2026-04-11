@@ -21,10 +21,12 @@
     # uses 25.11
     powermenu-rs.url = "github:BerkeleyTrue/powermenu-rs";
 
-    # utils
+    # flake parts/dentritic
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    ## allows you can set flake-file.inputs in fp files
     flake-file.url = "github:vic/flake-file";
+    ## import files automatically by directory
     import-tree.url = "github:vic/import-tree";
     den.url = "github:vic/den";
     flake-aspects.url = "github:vic/flake-aspects";
@@ -47,7 +49,11 @@
         ./home
         (inputs.import-tree ./modules)
       ];
-      perSystem = {inputs', system, ...}: let
+      perSystem = {
+        inputs',
+        system,
+        ...
+      }: let
         pkgs = import inputs.nixpkgs {
           inherit system;
 
@@ -68,24 +74,6 @@
       in {
         formatter = pkgs.alejandra;
         _module.args.pkgs = pkgs;
-        devShells.default = pkgs.mkShell {
-          name = "home-manager";
-          buildInputs = with pkgs; [
-            just
-          ];
-          shellHook = ''
-            function menu () {
-              echo
-              echo -e "\033[1;34m>==> ️  '$name'\n\033[0m"
-              ${pkgs.just}/bin/just --list
-              echo
-              echo "(Run 'just --list' to display this menu again)"
-              echo
-            }
-
-            menu
-          '';
-        };
       };
     };
 }
