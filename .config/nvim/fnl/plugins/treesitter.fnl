@@ -38,14 +38,23 @@
      :vim
      :vimdoc]) ; required by nvim or help docs are broken
 
-  ; enable treesitter highlighting for all filetypes
-  (vim.api.nvim_create_autocmd :FileType
-    {:pattern :*
-     :callback #(pcall vim.treesitter.start)})
+  (augroup :TreeSitterPluggin
+    ; enable treesitter highlighting for all filetypes
+    {:event [:BufReadPost :BufNewFile]
+     :pattern :*
+     :callback (fn [{: buf}]
+                 (let [ft (bo filetype)
+                       bt (bo buftype)]
+                   (when (= bt "")
+                     (bo! indentexpr "v:lua.require('nvim-treesitter').indentexpr()")
+                     (when (and (vim.treesitter.language.get_lang ft)
+                                (r.contains? (ts.get_installed) ft))
+                       (pcall vim.treesitter.start))))
+                 nil)}))
 
-  ; treesitter-based folding
-  (vim.api.nvim_create_autocmd :FileType
-    {:pattern :*
-     :callback (fn []
-                 (tset vim.wo 0 0 :foldmethod :expr)
-                 (tset vim.wo 0 0 :foldexpr "v:lua.vim.treesitter.foldexpr()"))}))
+    ; treesitter-based folding
+    ; {:event :FileType
+    ;  :pattern :*
+    ;  :callback (fn []
+    ;              (tset vim.wo 0 0 :foldmethod :expr)
+    ;              (tset vim.wo 0 0 :foldexpr "v:lua.vim.treesitter.foldexpr()"))}))
