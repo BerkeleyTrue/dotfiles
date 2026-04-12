@@ -1,9 +1,9 @@
 {
-  inputs,
   pkgs,
+  self,
   ...
 }: let
-  mkMonitor = inputs.self.monitor_utils.mkMonitor;
+  mkMonitor = self.monitor_utils.mkMonitor;
 in {
   # main workstation
   flake.modules.homeManager.rena = {

@@ -1,4 +1,4 @@
-{...}: {
+{
   flake.monitor_utils = {
     mkMonitor = {
       height,

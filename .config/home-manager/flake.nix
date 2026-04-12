@@ -27,8 +27,6 @@
     # flake modules but class/aspect inverted to aspect/class
     flake-aspects.url = "github:vic/flake-aspects";
 
-    home-manager-parts.url = "github:berkeleytrue/home-manager-parts";
-
     nixgl.url = "github:nix-community/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -40,8 +38,6 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       imports = [
-        inputs.home-manager-parts.flakeModule
-        ./home
         (inputs.import-tree ./modules)
       ];
       perSystem = {
@@ -53,7 +49,6 @@
           inherit system;
 
           overlays = [
-            inputs.nixgl.overlay
             inputs.parinfer-rust.overlays.default
             inputs.powermenu-rs.overlays.default
           ];

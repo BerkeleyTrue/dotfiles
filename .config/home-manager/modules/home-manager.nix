@@ -40,10 +40,12 @@
         modules =
           [
             {
+              home.username = username;
               home.stateVersion = "22.11";
+              # TODO: make isDarwin check
+              home.homeDirectory = "/home/${username}";
               programs.home-manager.enable = true;
             }
-            {inherit system;}
           ]
           ++ modules;
       };

@@ -1,10 +1,12 @@
 {
-  inputs,
   pkgs,
+  self,
   ...
 }: let
-  mkMonitor = inputs.self.monitor_utils.mkMonitor;
-  centerSelfOnBase = inputs.self.monitor_utils.mkMonitor;
+  inherit (self.modules) homeManager;
+  mkMonitor = self.monitor_utils.mkMonitor;
+  centerSelfOnBase = self.monitor_utils.mkMonitor;
+  username = "berkeleytrue";
 in {
   # main workstation
   flake.modules.homeManager.delora = {
@@ -13,9 +15,6 @@ in {
     home.packages = with pkgs; [
       nvtopPackages.amd
     ];
-
-    # deprecated
-    nixGLPackage = "mesa";
   };
 
   flake.modules.hardware.delora = let
@@ -42,5 +41,14 @@ in {
     monitors = {
       inherit dell g5;
     };
+  };
+
+  configurations.home.delora = {
+    inherit username;
+    system = "x86_64-linux";
+    modules = with homeManager; [
+      nixgl
+      delora
+    ];
   };
 }
