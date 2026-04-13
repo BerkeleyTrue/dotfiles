@@ -40,29 +40,5 @@
       imports = [
         (inputs.import-tree ./modules)
       ];
-      perSystem = {
-        inputs',
-        system,
-        ...
-      }: let
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-
-          overlays = [
-            inputs.parinfer-rust.overlays.default
-            inputs.powermenu-rs.overlays.default
-          ];
-
-          config = {
-            allowUnfree = true;
-            permittedInsecurePackages = [
-              "nix-2.16.2"
-            ];
-          };
-        };
-      in {
-        formatter = pkgs.alejandra;
-        _module.args.pkgs = pkgs;
-      };
     };
 }

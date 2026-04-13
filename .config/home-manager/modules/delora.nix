@@ -1,15 +1,11 @@
-{
-  pkgs,
-  self,
-  ...
-}: let
+{self, ...}: let
   inherit (self.modules) homeManager;
   mkMonitor = self.monitor_utils.mkMonitor;
   centerSelfOnBase = self.monitor_utils.mkMonitor;
   username = "berkeleytrue";
 in {
   # main workstation
-  flake.modules.homeManager.delora = {
+  flake.modules.homeManager.delora = {pkgs, ...}: {
     targets.genericLinux.nixGL.defaultWrapper = "mesa";
 
     home.packages = with pkgs; [
