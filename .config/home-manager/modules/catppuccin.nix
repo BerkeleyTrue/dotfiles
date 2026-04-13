@@ -1,0 +1,35 @@
+{
+  flake.modules.homeManager.catppuccin = {
+    config,
+    pkgs,
+    ...
+  }: {
+    # enables all catppuccin modules
+    catppuccin.enable = false;
+    catppuccin.flavor = "frappe";
+
+    home.pointerCursor = {
+      name = "catppuccin-frappe-lavender-cursors";
+      package = pkgs.catppuccin-cursors.frappeLavender;
+      size = 24;
+      gtk.enable = true;
+      x11.enable = true;
+    };
+
+    gtk = {
+      enable = true;
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.catppuccin-papirus-folders;
+      };
+      gtk4.theme = config.gtk.theme;
+    };
+
+    home.packages = with pkgs; [
+      # papirus-icon-theme # Papirus icon theme (dracula does not have nixos icon, comes included in catppuccin-papirus-folders)
+      catppuccin-papirus-folders # catppuccin papirus folder theme
+      catppuccin-cursors.frappeLavender # # catppuccin cursor theme
+      dracula-icon-theme # Dracula icon theme
+    ];
+  };
+}
