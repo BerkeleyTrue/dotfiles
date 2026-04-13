@@ -12,8 +12,6 @@ in {
     home.packages = with pkgs; [
       nvtopPackages.intel
     ];
-
-    nixGLPackage = "intel";
   };
 
   flake.modules.hardware.delora.monitors = {

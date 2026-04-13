@@ -11,9 +11,6 @@ in {
     home.packages = with pkgs; [
       nvtopPackages.amd
     ];
-
-    # see ./nixgl.nix
-    nixgl.package = "mesa";
   };
 
   flake.modules.hardware.delora = let

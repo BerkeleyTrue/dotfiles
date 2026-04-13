@@ -1,14 +1,8 @@
 {
   pkgs,
-  nixgl,
   config,
   ...
 }: {
-  targets.genericLinux.nixGL.packages = nixgl.packages;
-
-  imports = [
-    ./desktop
-  ];
 
   home.pointerCursor = {
     name = "catppuccin-frappe-lavender-cursors";
@@ -36,8 +30,5 @@
       hyprpicker # color picker that does not suck
       wev # wayland event viewer
       wl-clipboard-rs # wayland clipboard cli
-    ]
-    ++ [
-      (config.lib.nixgl.wrapPackage pkgs.powermenu-rs) # powermenu written in rust with Iced.rs
     ];
 }
