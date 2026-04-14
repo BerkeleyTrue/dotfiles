@@ -1,7 +1,4 @@
-{
-  self,
-  ...
-}: let
+{self, ...}: let
   inherit (self.modules) homeManager;
   inherit (self) colors;
   centerSelfOnBase = self.monitor_utils.centerSelfOnBase;
@@ -77,9 +74,11 @@ in {
       delora
       desktop-apps
       fonts
+      hyprlock
       monitor
       neovim
       nixgl
+      pam-shim
       parinfer
       powermenu
       wallpaper
