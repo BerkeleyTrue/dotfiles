@@ -8,8 +8,12 @@ in {
   flake.modules.homeManager.delora = {
     config,
     pkgs,
+    lib,
     ...
-  }: {
+  }: let
+    monitors = config.monitors;
+    common-modules = config.waybar.commonModules;
+  in {
     targets.genericLinux.nixGL.defaultWrapper = "mesa";
 
     home.packages = with pkgs; [
@@ -25,7 +29,7 @@ in {
         scale = 1.25;
         position = {
           x = 0;
-          y = config.monitors.dell.logical.height;
+          y = monitors.dell.logical.height;
         };
       };
       dell = {
@@ -34,7 +38,7 @@ in {
         label = "DP-3";
         rate = 60;
         scale = 1.25;
-        position = centerSelfOnBase config.monitors.g5 config.monitors.dell;
+        position = centerSelfOnBase monitors.g5 monitors.dell;
       };
     };
 
@@ -61,6 +65,49 @@ in {
         width = 2560;
       };
     };
+
+    programs.waybar.settings = {
+      delora-primary =
+        {
+          name = "delora-primary";
+          layer = "bottom";
+          height = 34;
+          output = monitors.g5.label;
+          modules-left = ["niri/workspaces" "clock#date"];
+          modules-center =
+            lib.intersperse "custom/separator"
+            ["custom/wttr" "niri/window" "clock" "custom/wakatime"];
+          modules-right =
+            lib.intersperse "custom/separator"
+            [
+              "custom/powermenu"
+              "cpu"
+              "custom/cpu-temp"
+              "memory"
+              "custom/swaync"
+              "pulseaudio"
+              "custom/connectivity"
+              "disk"
+            ];
+        }
+        // common-modules;
+
+      delora-secondary =
+        {
+          name = "delora-secondary";
+          layer = "bottom";
+          height = 34;
+          output = monitors.dell.label;
+          modules-left = ["niri/workspaces"];
+          modules-center =
+            lib.intersperse "custom/separator"
+            ["clock#date" "niri/window" "clock"];
+          modules-right =
+            lib.intersperse "custom/separator"
+            ["custom/eth" "custom/btc"];
+        }
+        // common-modules;
+    };
   };
 
   configurations.home.delora = {
@@ -82,6 +129,7 @@ in {
       parinfer
       powermenu
       wallpaper
+      waybar
     ];
   };
 }
