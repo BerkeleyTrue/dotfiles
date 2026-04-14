@@ -54,19 +54,19 @@
     home.packages =
       (with pkgs; [
         cutecom # serial terminal
-        # freecad # 3D CAD modeler
-        gparted # graphical partition manager
         gimp3 # GNU Image Manipulation Program
+        gparted # graphical partition manager
+        hyprpicker # color picker that does not suck
         inkscape # vector graphics editor
-        # krita # digital painting software # doesn't run, use flatpak
         keybase # encrypted chat
         keybase-gui # encrypted chat
         libation # an audible player/drm remover
         networkmanagerapplet # network manager applet
-        # printrun # 3D printing host software - no longer maintained in nix
         spacenavd # 3Dconnexion device driver
         viewnior # fast image preview
         vlc # Cross-platform media player and streaming server
+        wev # wayland event viewer
+        wl-clipboard-rs # wayland clipboard cli
         wordnet # lexical database for the English language
         zathura # pdf viewer
       ])
@@ -151,7 +151,7 @@
     in {
       enable = true;
 
-      package = config.lib.nixgl.wrapPackage pkgs.firefox;
+      package = config.lib.nixGL.wrap pkgs.firefox;
       nativeMessagingHosts = [pkgs.fx-cast-bridge];
 
       # Check about:policies#documentation for options.

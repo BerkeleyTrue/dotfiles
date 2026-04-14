@@ -5,7 +5,7 @@
   withSystem,
   ...
 }: {
-  # # Declare flake.homeConfigurations so multiple modules can contribute
+  # Declare flake.homeConfigurations so multiple modules can contribute
   options.flake.homeConfigurations = lib.mkOption {
     type = lib.types.lazyAttrsOf lib.types.raw;
     default = {};

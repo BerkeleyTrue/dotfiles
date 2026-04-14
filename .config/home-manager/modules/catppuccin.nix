@@ -1,9 +1,13 @@
-{
+{inputs, ...}: {
   flake.modules.homeManager.catppuccin = {
     config,
     pkgs,
     ...
   }: {
+    imports = [
+      inputs.catppuccin.homeModules.catppuccin
+    ];
+
     # enables all catppuccin modules
     catppuccin.enable = false;
     catppuccin.flavor = "frappe";

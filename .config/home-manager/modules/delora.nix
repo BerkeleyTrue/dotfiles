@@ -70,10 +70,19 @@ in {
     inherit username;
     system = "x86_64-linux";
     modules = with homeManager; [
-      nixgl
-      monitor
-      wallpaper
+      awww
+      blueman-applet
+      catppuccin
+      cli-tools
       delora
+      desktop-apps
+      fonts
+      monitor
+      neovim
+      nixgl
+      parinfer
+      powermenu
+      wallpaper
     ];
   };
 }

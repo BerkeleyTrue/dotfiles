@@ -1,5 +1,5 @@
 {lib, ...}: {
-  flake.modules.homeManager.desktop = {
+  flake.modules.homeManager.awww = {
     pkgs,
     config,
     ...
@@ -15,11 +15,11 @@
       ];
       text = ''
         awww restore
-        ${lib.foldlAttrs (acc: name: output: "${acc}awww img --outputs ${output} ${config.home.nix-wallpapers.${name}.outputPath}\n") "" outputs}
+        ${lib.foldlAttrs (acc: name: output: "${acc}awww img --outputs ${output} ${config.wallpaper.${name}.outputPath}\n") "" outputs}
       '';
     };
   in {
-    packages = [awww];
+    home.packages = [awww];
 
     systemd.user.services.awww = {
       Unit = {

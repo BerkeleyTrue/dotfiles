@@ -1,5 +1,5 @@
 {
-  flake.modules.homeModules.blueman = {pkgs, ...}: {
+  flake.modules.homeManager.blueman-applet = {pkgs, ...}: {
     home.packages = with pkgs; [
       blueman
     ];
