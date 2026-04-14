@@ -45,29 +45,8 @@
               };
             };
 
-            colors = mkOption {
-              type = types.submodule {
-                options = {
-                  color0 = mkOption {
-                    type = types.str;
-                  };
-                  color1 = mkOption {
-                    type = types.str;
-                  };
-                  color2 = mkOption {
-                    type = types.str;
-                  };
-                  color3 = mkOption {
-                    type = types.str;
-                  };
-                  color4 = mkOption {
-                    type = types.str;
-                  };
-                  color5 = mkOption {
-                    type = types.str;
-                  };
-                };
-              };
+            logoColor = mkOption {
+              type = types.str;
             };
 
             width = mkOption {
@@ -98,7 +77,12 @@
             output =
               pkgs.runCommandLocal "nix-wallpapers" {
                 inherit (wallpaperCfg) width height angle swirl;
-                inherit (wallpaperCfg.colors) color0 color1 color2 color3 color4 color5;
+                color0 = wallpaperCfg.logoColor;
+                color1 = wallpaperCfg.logoColor;
+                color2 = wallpaperCfg.logoColor;
+                color3 = wallpaperCfg.logoColor;
+                color4 = wallpaperCfg.logoColor;
+                color5 = wallpaperCfg.logoColor;
                 inherit (wallpaperCfg.gradient) beginColor endColor;
                 buildInputs = [pkgs.imagemagick];
               } ''

@@ -1,41 +1,68 @@
-{self, ...}: let
+{
+  self,
+  ...
+}: let
   inherit (self.modules) homeManager;
-  mkMonitor = self.monitor_utils.mkMonitor;
-  centerSelfOnBase = self.monitor_utils.mkMonitor;
+  inherit (self) colors;
+  centerSelfOnBase = self.monitor_utils.centerSelfOnBase;
   username = "berkeleytrue";
 in {
   # main workstation
-  flake.modules.homeManager.delora = {pkgs, ...}: {
+  flake.modules.homeManager.delora = {
+    config,
+    pkgs,
+    ...
+  }: {
     targets.genericLinux.nixGL.defaultWrapper = "mesa";
 
     home.packages = with pkgs; [
       nvtopPackages.amd
     ];
-  };
 
-  flake.modules.hardware.delora = let
-    g5 = mkMonitor {
-      height = 1440;
-      width = 3440;
-      label = "HDMI-A-1";
-      rate = 165;
-      scale = 1.25;
-      position = {
-        x = 0;
-        y = dell.logical.height;
+    monitors = {
+      g5 = {
+        height = 1440;
+        width = 3440;
+        label = "HDMI-A-1";
+        rate = 165;
+        scale = 1.25;
+        position = {
+          x = 0;
+          y = config.monitors.dell.logical.height;
+        };
+      };
+      dell = {
+        height = 1080;
+        width = 2560;
+        label = "DP-3";
+        rate = 60;
+        scale = 1.25;
+        position = centerSelfOnBase config.monitors.g5 config.monitors.dell;
       };
     };
-    dell = mkMonitor {
-      height = 1080;
-      width = 2560;
-      label = "DP-3";
-      rate = 60;
-      scale = 1.25;
-      position = centerSelfOnBase g5 dell;
-    };
-  in {
-    monitors = {
-      inherit dell g5;
+
+    wallpaper = {
+      g5 = {
+        angle = 30;
+        gradient = {
+          beginColor = colors.mauve;
+          endColor = colors.sapphire;
+        };
+        logoColor = colors.overlay0;
+        height = 1440;
+        width = 3440;
+      };
+
+      dell = {
+        angle = 30;
+        gradient = {
+          beginColor = colors.lavender;
+          endColor = colors.sapphire;
+        };
+        logoColor = colors.subtext1;
+        height = 1080;
+        width = 2560;
+      };
     };
   };
 

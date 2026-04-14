@@ -9,7 +9,6 @@
     # desktop services
     ./awww.nix
     ./blueman.nix
-    # ./flameshot.nix doesn't work well in niri
     ./flatpak.nix
     ./gh-user.nix
     ./hypridle.nix
@@ -25,9 +24,6 @@
     ./waybar.nix
     ./xdg.nix
 
-    # ./pasystray.nix # doesn't work in wayland https://github.com/christophgysin/pasystray/issues/90
-    # ./sleep.nix # handled by hypridle
-    # ./status-notifier-watcher.nix # handled by waybar itself
   ];
 
   # needed to load env vars for systemd user services
