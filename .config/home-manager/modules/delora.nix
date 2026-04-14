@@ -119,6 +119,7 @@ in {
       catppuccin
       cli-tools
       delora
+      desktop
       desktop-apps
       fonts
       hyprlock

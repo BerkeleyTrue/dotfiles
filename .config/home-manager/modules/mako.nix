@@ -1,10 +1,7 @@
-{
-  pkgs,
-  theme,
-  ...
-}: let
-  c = theme.colors;
+{self, ...}: let 
+  c = self.colors;
 in {
+  flake.modules.homeManager.mako = {pkgs, ...}: {
   services.mako = {
     enable = false;
     settings = {
@@ -49,5 +46,6 @@ in {
         invisible = 1;
       };
     };
+  };
   };
 }
