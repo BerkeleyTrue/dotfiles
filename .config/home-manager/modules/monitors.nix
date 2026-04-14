@@ -24,7 +24,7 @@
     };
   };
 
-  flake.modules.homeModules.monitor = {lib, ...}: {
+  flake.modules.homeManager.monitor = {lib, ...}: {
     options.monitors = lib.mkOption {
       default = {};
       type = lib.types.attrsOf (lib.types.submodule ({config, ...}: {

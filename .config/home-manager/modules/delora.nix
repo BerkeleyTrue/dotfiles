@@ -71,6 +71,8 @@ in {
     system = "x86_64-linux";
     modules = with homeManager; [
       nixgl
+      monitor
+      wallpaper
       delora
     ];
   };

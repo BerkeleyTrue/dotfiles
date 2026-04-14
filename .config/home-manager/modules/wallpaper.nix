@@ -5,10 +5,10 @@
     pkgs,
     ...
   }: let
-    cfg = config.home.wallpapers;
+    cfg = config.wallpaper;
   in
     with lib; {
-      options.home.wallpapers = mkOption {
+      options.wallpaper = mkOption {
         type = types.attrsOf (types.submodule ({
           name,
           config,

@@ -29,8 +29,9 @@ let
     crust = "#232634";
   };
 in {
-  flake.colors = {
-    inherit colors;
-    colorsRgb = builtins.mapAttrs (_: v: let c = builtins.substring 1 6 v; in "rgb(${c})") colors;
-  };
+  flake.colors =
+    colors
+    // {
+      colorsRgb = builtins.mapAttrs (_: v: let c = builtins.substring 1 6 v; in "rgb(${c})") colors;
+    };
 }
