@@ -195,22 +195,24 @@
       );
   };
 in {
-  inherit
-    node
-    plain
-    leaf
-    magic-leaf
-    flag
-    serialize
-    ;
-  types = {
+  flake.kdl = {
     inherit
-      kdl-value
-      kdl-node
-      kdl-nodes
-      kdl-leaf
-      kdl-args
-      kdl-document
+      node
+      plain
+      leaf
+      magic-leaf
+      flag
+      serialize
       ;
+    types = {
+      inherit
+        kdl-value
+        kdl-node
+        kdl-nodes
+        kdl-leaf
+        kdl-args
+        kdl-document
+        ;
+    };
   };
 }
