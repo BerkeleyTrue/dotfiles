@@ -131,6 +131,7 @@ in {
       desktop-apps
       fonts
       hyprlock
+      kanata
       monitor
       neovim
       nixgl
