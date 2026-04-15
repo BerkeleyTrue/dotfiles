@@ -140,18 +140,9 @@ in {
     inherit username;
     system = "x86_64-linux";
     modules = with homeManager; [
-      rena
-
-      awww
-      catppuccin
-      cli-tools
-      desktop
-      dev
-      fonts
+      base
       kanata
-      monitor
-      nix
-      nixgl
+      rena
     ];
   };
 }

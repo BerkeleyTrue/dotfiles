@@ -153,17 +153,8 @@ in {
     inherit username;
     system = "x86_64-linux";
     modules = with homeManager; [
+      base
       delora
-
-      awww
-      catppuccin
-      cli-tools
-      desktop
-      dev
-      fonts
-      monitor
-      nix
-      nixgl
     ];
   };
 }
