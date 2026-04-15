@@ -12,7 +12,7 @@ in {
     ...
   }: let
     monitors = config.monitors;
-    common-modules = config.waybar.commonModules;
+    commonModules = config.waybar.commonModules;
   in {
     targets.genericLinux.nixGL.defaultWrapper = "mesa";
 
@@ -90,7 +90,7 @@ in {
               "disk"
             ];
         }
-        // common-modules;
+        // commonModules;
 
       delora-secondary =
         {
@@ -106,8 +106,10 @@ in {
             lib.intersperse "custom/separator"
             ["custom/eth" "custom/btc"];
         }
-        // common-modules;
+        // commonModules;
     };
+
+    swayncOutput = monitors.g5.label;
   };
 
   configurations.home.delora = {
@@ -121,10 +123,11 @@ in {
       delora
       desktop
       desktop-apps
+      dev
       fonts
+      gh-user
       hyprlock
       monitor
-      neovim
       nixgl
       pam-shim
       parinfer

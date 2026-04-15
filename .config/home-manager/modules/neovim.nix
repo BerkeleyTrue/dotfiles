@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.neovim = {
     pkgs,
     lib,
@@ -27,6 +27,10 @@
       vim.g.copilot_node_command = "${pkgs.nodejs_24}/bin/node"
     '';
   in {
+    imports = [
+      self.modules.homeManager.parinfer
+    ];
+
     programs.neovim = {
       enable = true;
       extraPackages = with pkgs; [

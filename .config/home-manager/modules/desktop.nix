@@ -1,8 +1,27 @@
 {self, ...}: {
   flake.modules.homeManager.desktop = {
     imports = with self.homeManager; [
-      mako
+      desktop-targets
       flatpak
+      hypridle
+      mako
+      polkit
+      swaync
+      tailscale-systray
+      waybar
+      wayland
+      xdg
     ];
+
+    systemd.user.targets.shutdown-graphical = {
+      Unit = {
+        Description = "Shutdown graphical session";
+        DefaultDependencies = "no";
+        StopWhenUnneeded = true;
+
+        After = ["graphical-session.target" "graphical-session-pre.target"];
+        Conflicts = ["graphical-session.target" "graphical-session-pre.target"];
+      };
+    };
   };
 }
