@@ -122,7 +122,7 @@ in {
         (leaf "position" g5.position)
         (leaf "variable-refresh-rate" {on-demand = true;})
         (flag "focus-at-startup")
-        (leaf "background-color" theme.colors.lavender)
+        (leaf "background-color" colors.lavender)
 
         (plain "layout" [
           (plain "preset-column-widths" [
@@ -138,7 +138,7 @@ in {
         (leaf "transform" "normal")
         (leaf "mode" "${toString dell.width}x${toString dell.height}@${toString dell.rate}.000")
         (leaf "position" dell.position)
-        (leaf "background-color" theme.colors.lavender)
+        (leaf "background-color" colors.lavender)
 
         (plain "layout" [
           (plain "preset-column-widths" [

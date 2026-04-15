@@ -1,4 +1,6 @@
-{
+{self, ...}: let
+  inherit (self) kdl;
+in {
   flake.modules.homeManager.niri = {
     pkgs,
     lib,
@@ -7,6 +9,7 @@
   }: let
     nixGlWrap = config.lib.nixGL.wrap;
     niri = nixGlWrap pkgs.niri;
+    niri-config = config.niri.niri-config;
     validate-config = config:
       pkgs.runCommand "config.kdl"
       {

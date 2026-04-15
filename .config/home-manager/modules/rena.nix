@@ -48,10 +48,10 @@ in {
       };
     };
 
-    programs.waybar.settings = {
-      renaTop = let
-        height = 34;
-      in
+    programs.waybar.settings = let
+      height = 34;
+    in {
+      renaTop =
         {
           inherit height;
           name = "rena-top";
