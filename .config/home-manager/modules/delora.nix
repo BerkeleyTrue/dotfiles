@@ -50,8 +50,7 @@ in {
           endColor = colors.sapphire;
         };
         logoColor = colors.overlay0;
-        height = 1440;
-        width = 3440;
+        inherit (monitors.g5) height width;
       };
 
       dell = {
@@ -61,8 +60,7 @@ in {
           endColor = colors.sapphire;
         };
         logoColor = colors.subtext1;
-        height = 1080;
-        width = 2560;
+        inherit (monitors.dell) height width;
       };
     };
 

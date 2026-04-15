@@ -39,8 +39,7 @@ in {
           endColor = colors.lavender;
         };
         logoColor = colors.text;
-        height = 1504;
-        width = 2256;
+        inherit (monitors.framework) height width;
       };
     };
 
