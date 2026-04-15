@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.note-sync = {
+  flake.modules.homeManager.notes-sync = {
     systemd.user.services.notes-sync = {
       Unit = {
         Description = "Run NotesSync";

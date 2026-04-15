@@ -4,14 +4,14 @@
     config,
     ...
   }: {
-    options.swayncOutput = {
+    options.swayncOutput = lib.mkOption {
       type = lib.types.str;
       default = "";
       description = "Output for swaync";
     };
 
     # catppuccin.swaync.enable = true;
-    services.swaync = {
+    config.services.swaync = {
       enable = true;
       settings = {
         font = "FiraCode Nerd Font Mono 10";

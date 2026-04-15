@@ -14,7 +14,7 @@
     # NOTE: set up /etc/systemd/logind.conf to lock on lid close
     services.hypridle = {
       enable = true;
-      package = config.lib.nixgl.wrapPackage pkgs.hypridle;
+      package = config.lib.nixGL.wrap pkgs.hypridle;
       settings = {
         general = {
           before_sleep_cmd = "loginctl lock-session";

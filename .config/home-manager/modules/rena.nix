@@ -141,7 +141,7 @@ in {
     ];
   };
 
-  configurations.home.delora = {
+  configurations.home.rena = {
     inherit username;
     system = "x86_64-linux";
     modules = with homeManager; [

@@ -1,5 +1,5 @@
 {
-  flake.module.homeManager.xdg = {
+  flake.modules.homeManager.xdg = {
     systemd.user.services.xdg-desktop-portal-kde = {
       Unit = {
         Description = "XDG Desktop Portal for KDE";

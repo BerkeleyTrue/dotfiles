@@ -1,13 +1,17 @@
 {self, ...}: {
   flake.modules.homeManager.desktop = {
-    imports = with self.homeManager; [
+    imports = with self.modules.homeManager; [
+      blueman-applet
+      desktop-apps
       desktop-targets
       flatpak
       hypridle
+      hyprlock
       mako
       polkit
       swaync
       tailscale-systray
+      wallpaper
       waybar
       wayland
       xdg

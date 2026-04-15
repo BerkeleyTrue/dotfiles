@@ -1,5 +1,9 @@
-{
+{inputs, ...}: {
   flake.modules.homeManager.flatpak = {
+    imports = [
+      inputs.flatpak.homeManagerModules.nix-flatpak
+    ];
+
     services.flatpak = {
       enable = true;
       packages = [

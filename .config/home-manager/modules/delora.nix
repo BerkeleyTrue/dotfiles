@@ -156,22 +156,19 @@ in {
     system = "x86_64-linux";
     modules = with homeManager; [
       awww
-      blueman-applet
       catppuccin
       cli-tools
       delora
       desktop
-      desktop-apps
       dev
       fonts
-      hyprlock
       monitor
+      niri
+      niri-config
       nixgl
       pam-shim
       parinfer
       powermenu
-      wallpaper
-      waybar
     ];
   };
 }
