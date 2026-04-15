@@ -117,6 +117,27 @@ in {
         }
         // common-modules;
     };
+
+    niri.output = let
+      inherit (self.kdl) node plain leaf;
+      inherit (self) colors;
+      inherit (monitors) framework;
+    in [
+      (node "output" framework.label [
+        (leaf "scale" framework.scale)
+        (leaf "transform" "normal")
+        (leaf "mode" "${toString framework.width}x${toString framework.height}@${toString framework.rate}.000")
+        (leaf "background-color" colors.lavender)
+
+        (plain "layout" [
+          (plain "preset-column-widths" [
+            (leaf "proportion" 0.5) # 1/2
+            (leaf "proportion" 0.6667) # 2/3
+            (leaf "proportion" 0.75) # 3/4
+          ])
+        ])
+      ])
+    ];
   };
 
   configurations.home.delora = {
