@@ -153,6 +153,8 @@ in {
     inherit username;
     system = "x86_64-linux";
     modules = with homeManager; [
+      delora
+
       awww
       catppuccin
       cli-tools
