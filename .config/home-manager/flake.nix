@@ -1,5 +1,5 @@
 {
-  description = "My special snow flake";
+  description = "Berkeley's Dotfile Emporium";
 
   inputs = {
     nixpkgs.url = "github:nixOS/nixpkgs/nixos-unstable";
@@ -23,9 +23,6 @@
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     ## import files automatically by directory
     import-tree.url = "github:vic/import-tree";
-
-    # flake modules but class/aspect inverted to aspect/class
-    flake-aspects.url = "github:vic/flake-aspects";
 
     nixgl.url = "github:nix-community/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
