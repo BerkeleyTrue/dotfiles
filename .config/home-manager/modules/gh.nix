@@ -1,5 +1,9 @@
 {
-  flake.module.homeManager.gh-user-sync = {
+  flake.modules.homeManager.gh = {pkgs, ...}: {
+    home.packages = [
+      pkgs.gh # GitHub CLI
+    ];
+
     systemd.user.services.gh-user-sync = {
       Unit = {
         Description = "Run GH stat";

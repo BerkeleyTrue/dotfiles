@@ -21,6 +21,7 @@ in {
 
     home.packages = with pkgs; [
       nvtopPackages.intel
+      framework-tool # Swiss army knife for Framework laptops
     ];
 
     monitors = {

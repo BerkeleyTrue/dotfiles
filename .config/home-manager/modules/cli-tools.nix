@@ -62,8 +62,6 @@
         entr # Run arbitrary commands when files change
         fd # A simple, fast and user-friendly alternative to find
         fzf # A command-line fuzzy finder
-        framework-tool # Swiss army knife for Framework laptops
-        gh # GitHub CLI
         glow # Render markdown on the CLI, with pizzazz!
         handlr # Alternative to xdg-open to manage default applications with ease
         htop # An interactive process viewer
@@ -90,9 +88,7 @@
         smartmontools # control and monitor storage systems using S.M.A.R.T.
         sops # Simple and flexible tool for managing secrets
         ssh-to-age # convert ssh private keys in ed25519 format to age keys
-        taskwarrior3 # A command-line todo list manager
         tealdeer # A very fast implementation of tldr in Rust
-        timewarrior # A command-line time tracker
         traceroute # print the route packets trace to network host
         udiskie # Removable disk automounter using udisks
         udisks # access and manipulate disks and media devices

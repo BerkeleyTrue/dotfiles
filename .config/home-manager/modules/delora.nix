@@ -164,7 +164,6 @@ in {
       desktop-apps
       dev
       fonts
-      gh-user
       hyprlock
       monitor
       nixgl

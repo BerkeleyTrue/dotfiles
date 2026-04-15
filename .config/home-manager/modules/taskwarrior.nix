@@ -1,5 +1,10 @@
 {
   flake.modules.homeManager.taskwarrior = {pkgs, ...}: {
+    home.packages = [
+      pkgs.taskwarrior3 # A command-line todo list manager
+      pkgs.timewarrior # A command-line time tracker
+    ];
+
     systemd.user.services.task-sync = {
       Unit = {
         Description = "Run Taskwarrior Sync";

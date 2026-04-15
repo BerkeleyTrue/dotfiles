@@ -3,6 +3,7 @@
     imports = with self.homeManager; [
       cli-tools
       neovim
+      gh
       notes-sync
       taskwarrior
       tmux
