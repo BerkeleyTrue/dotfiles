@@ -158,17 +158,12 @@ in {
       awww
       catppuccin
       cli-tools
-      delora
       desktop
       dev
       fonts
       monitor
-      niri
-      niri-config
+      nix
       nixgl
-      pam-shim
-      parinfer
-      powermenu
     ];
   };
 }

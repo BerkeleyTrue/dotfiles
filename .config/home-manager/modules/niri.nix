@@ -22,6 +22,10 @@ in {
         cp $configPath $out
       '';
   in {
+    imports = [
+      self.modules.homeManager.niri-config
+    ];
+
     home.packages = [
       niri
       pkgs.xwayland-satellite

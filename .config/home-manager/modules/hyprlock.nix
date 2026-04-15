@@ -20,6 +20,10 @@ in {
       })
       config.monitors;
   in {
+    imports = [
+      self.modules.homeManager.pam-shim
+    ];
+
     programs.hyprlock = {
       enable = true;
       package = hyprlock;

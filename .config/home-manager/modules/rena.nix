@@ -1,8 +1,4 @@
-{
-  pkgs,
-  self,
-  ...
-}: let
+{self, ...}: let
   inherit (self) colors;
   inherit (self.modules) homeManager;
   username = "bt";
@@ -146,22 +142,15 @@ in {
     system = "x86_64-linux";
     modules = with homeManager; [
       awww
-      blueman-applet
       catppuccin
       cli-tools
-      delora
-      desktop-apps
+      desktop
+      dev
       fonts
-      hyprlock
       kanata
       monitor
-      neovim
+      nix
       nixgl
-      pam-shim
-      parinfer
-      powermenu
-      wallpaper
-      waybar
     ];
   };
 }

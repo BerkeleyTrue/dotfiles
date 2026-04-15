@@ -8,7 +8,9 @@
       hypridle
       hyprlock
       mako
+      niri
       polkit
+      powermenu
       swaync
       tailscale-systray
       wallpaper
