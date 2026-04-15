@@ -20,21 +20,6 @@
         "type": "github"
       }
     },
-    "flake-aspects": {
-      "locked": {
-        "lastModified": 1773552804,
-        "narHash": "sha256-a0kjpCZGnD5lt7yW6C3hzPhSf5KjnTyvX6XZ2NuhGs4=",
-        "owner": "vic",
-        "repo": "flake-aspects",
-        "rev": "56fa8d4d4772d58eb7f9d66c28c1cd2762b60423",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vic",
-        "repo": "flake-aspects",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -340,7 +325,6 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
-        "flake-aspects": "flake-aspects",
         "flake-parts": "flake-parts",
         "flatpak": "flatpak",
         "home-manager": "home-manager",
