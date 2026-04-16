@@ -394,7 +394,7 @@
   "execute command 'name' and concat with arguments
    approximately `:,name {...}.join(" ")`
   "
-  `(vim.api.nvim_command (table.concat (vim.tbl_flatten [,(tostring name) ,...]) " ")))
+  `(vim.api.nvim_command (table.concat (: (: (vim.iter [,(tostring name) ,...]) :flatten) :totable) " ")))
 
 (defn echo [msg history? opts?]
   "macro to nvim_echo but with better defaults"
