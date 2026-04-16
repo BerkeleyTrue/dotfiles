@@ -6,4 +6,5 @@ if [ "$COMMAND" == "command:synchronize" ]; then
 	exit 0
 fi
 
-~/.local/bin/task-sync
+# overwrite internal delay to 4 minutes
+DELAY=240 ~/.local/bin/task-sync
