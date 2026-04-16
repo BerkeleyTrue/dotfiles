@@ -4,11 +4,8 @@
     r r
     md utils.module
     utils utils
-    parsers nvim-treesitter.parsers
     ts lib.treesitter
     tsnode lib.treesitter.tsnode}
-   require
-   {query nvim-treesitter.query}
    require-macros [macros]})
 
 (defn parse-query [query lang]
@@ -19,14 +16,21 @@
 
 (defn get-root [bufnr]
   (let [bufnr (or bufnr (n get_current_buf))
-        parser (parsers.get_parser bufnr)]
+        parser (vim.treesitter.get_parser bufnr)]
     (: (. (parser:trees) 1) :root)))
 
 (defn get-matches [parsed-query bufnr]
   "get matches for parsed query as an iterator. If not matches found, iterator returns nil."
   (let [root (get-root bufnr)
-        (start-row _ end-row _) (root:range)]
-    (query.iter_prepared_matches parsed-query root bufnr start-row end-row)))
+        (start-row _ end-row _) (root:range)
+        iter (parsed-query:iter_matches root bufnr start-row end-row {:all true})]
+    (fn []
+      (let [(pat mtch) (iter)]
+        (when pat
+          (let [named {}]
+            (each [cap-idx nodes (pairs mtch)]
+              (tset named (. parsed-query.captures cap-idx) {:node (. nodes 1)}))
+            named))))))
 
 (defn replace-node [bufnr node new-text]
   (let [lsp-range (tsnode.range node)]
@@ -139,7 +143,7 @@
 (defn extract-link-shortcuts []
   "Grabs all the link shortcut labels from the current buffer and returns them as a list of strings."
   (let [bufnr (n get-current-buf)
-        parser (parsers.get_parser bufnr)
+        parser (vim.treesitter.get_parser bufnr)
         inlines (. (parser:children) :markdown_inline)]
 
     (var out [])
@@ -163,8 +167,8 @@
   "Get the node under the cursor. Nil, if nothing is found"
   (let [[bufnr lnum col _] (vf getpos ".")
         lnum (- lnum 1)
-        lang-parsers (parsers.get_parser bufnr)
-        lang-tree (lang-parsers:language_for_range [lnum col lnum col])]
+        lang-parsers (vim.treesitter.get_parser bufnr)
+        lang-tree (lang-parsers:language_for_range [lnum col lnum col] {})]
     (when-let [node (accumulate [node nil
                                  _ tree (ipairs (lang-tree:trees))
                                  &until (not (r.nil? node))]

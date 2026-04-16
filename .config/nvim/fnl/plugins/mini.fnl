@@ -88,4 +88,20 @@
     {:mappings
      {:comment_line "<C-_>"
       :comment_visual "<C-_>"}})
-  (align.setup))
+  (align.setup)
+  (comment
+    ; this doesn't seem to work correctly
+    (augroup
+      :MiniNewWindow
+      {:event :WinNew
+       :pattern :*
+       :callback
+       (fn []
+         (let [win (n get-current-win)
+               cfg (n win-get-config win)
+               _ (a.println cfg)]
+           (when (not= cfg.relative "")
+             (let [(ok? err) (pcall hipatterns.enable (n win-get-buf win))]
+               (vim.notify :running)
+               (when (not ok?)
+                 (vim.notify err vim.log.levels.WARN))))))})))

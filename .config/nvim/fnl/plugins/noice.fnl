@@ -54,7 +54,7 @@
                             {:find "%[.*%] installed$"}]}
              :view :popup}
             
-            ; doesn't seem to work, it may be that that noice 
+            ; doesn't seem to work, it may be that that noice
             ; doesn't hook into yet to catch them.
             {:filter {:event :msg_show
                       :find "^.+Guard.*not executable$"}
