@@ -1,4 +1,3 @@
-require("home-manager")
 local vim = _G.vim
 local confpath = vim.fn.stdpath("config")
 -- force aniseed to compile while in nvim dir (in dev mode)
