@@ -1,6 +1,7 @@
 {self, ...}: {
   flake.modules.homeManager.base = {
     imports = with self.modules.homeManager; [
+      attic
       awww
       catppuccin
       cli-tools
@@ -10,6 +11,7 @@
       monitor
       nix
       nixgl
+      sops
     ];
   };
 }

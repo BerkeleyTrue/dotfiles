@@ -44,9 +44,9 @@
     catppuccin.eza.enable = true;
     home.packages =
       (with pkgs; [
-        attic-client # Multi-tenant Nix Binary Cache
         age # A simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability
         antigen # zsh plugin manager
+        attic-client # Multi-tenant Nix Binary Cache
         babashka # A Clojure babushka for the grey areas of bash
         bind # dns client
         bitwarden-cli # a secure and free password manager for all of your devices

@@ -1,0 +1,8 @@
+---
+keys:
+  - &admin_delora age1dwpdtl429567jsfnqvhw6wykg4kny334m80nmwc6snyhnanxjs7spa8klg
+creation_rules:
+  - path_regex: secrets/[^/]+\.ya?ml$
+    key_groups:
+    - age:
+      - *admin_delora
