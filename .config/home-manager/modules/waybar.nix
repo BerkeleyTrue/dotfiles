@@ -121,7 +121,7 @@ in {
 
       "custom/powermenu" = {
         interval = 0;
-        on-click = "${config.lib.nixGL.wrap pkgs.powermenu-rs}/bin/powermenu-rs";
+        on-click = "${config.programs.powermenu-rs.package}/bin/powermenu-rs";
         format = "  ";
       };
 
