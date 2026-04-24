@@ -60,7 +60,7 @@
         inkscape # vector graphics editor
         keybase # encrypted chat
         keybase-gui # encrypted chat
-        libation # an audible player/drm remover
+        # libation # an audible player/drm remover # may require building dotnet-vmr
         networkmanagerapplet # network manager applet
         spacenavd # 3Dconnexion device driver
         viewnior # fast image preview
@@ -152,6 +152,9 @@
       enable = true;
 
       package = config.lib.nixGL.wrap pkgs.firefox;
+
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
+
       nativeMessagingHosts = [pkgs.fx-cast-bridge];
 
       # Check about:policies#documentation for options.
