@@ -153,7 +153,8 @@
 
       package = config.lib.nixGL.wrap pkgs.firefox;
 
-      configPath = "${config.xdg.configHome}/mozilla/firefox";
+      # TODO: move to xdg eventually
+      configPath = ".mozilla/firefox";
 
       nativeMessagingHosts = [pkgs.fx-cast-bridge];
 
