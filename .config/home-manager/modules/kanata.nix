@@ -1,8 +1,5 @@
 {
-  flake.modules.homeManager.kanata = {
-    pkgs,
-    ...
-  }: {
+  flake.modules.homeManager.kanata = {pkgs, ...}: {
     home.packages = with pkgs; [
       kanata # intercept and transform keyboard inputs
     ];

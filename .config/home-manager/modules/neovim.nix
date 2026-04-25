@@ -1,8 +1,5 @@
 {self, ...}: {
-  flake.modules.homeManager.neovim = {
-    pkgs,
-    ...
-  }: {
+  flake.modules.homeManager.neovim = {pkgs, ...}: {
     imports = [
       self.modules.homeManager.parinfer
     ];

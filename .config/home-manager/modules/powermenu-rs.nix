@@ -1,4 +1,8 @@
-{inputs, lib, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}: {
   flake.modules.homeManager.powermenu = {
     pkgs,
     config,

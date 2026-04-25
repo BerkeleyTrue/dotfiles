@@ -65,31 +65,6 @@ in {
     };
 
     programs.waybar.settings = {
-      delora-primary =
-        {
-          name = "delora-primary";
-          layer = "bottom";
-          height = 34;
-          output = monitors.g5.label;
-          modules-left = ["niri/workspaces" "clock#date"];
-          modules-center =
-            lib.intersperse "custom/separator"
-            ["custom/wttr" "niri/window" "clock" "custom/wakatime"];
-          modules-right =
-            lib.intersperse "custom/separator"
-            [
-              "custom/powermenu"
-              "cpu"
-              "custom/cpu-temp"
-              "memory"
-              "custom/swaync"
-              "pulseaudio"
-              "custom/connectivity"
-              "disk"
-            ];
-        }
-        // commonModules;
-
       delora-secondary =
         {
           name = "delora-secondary";
