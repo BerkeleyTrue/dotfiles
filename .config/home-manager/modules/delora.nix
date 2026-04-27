@@ -12,7 +12,6 @@ in {
     ...
   }: let
     monitors = config.monitors;
-    commonModules = config.waybar.commonModules;
   in {
     targets.genericLinux.nixGL.defaultWrapper = "mesa";
 
@@ -62,24 +61,6 @@ in {
         logoColor = colors.subtext1;
         inherit (monitors.dell) height width;
       };
-    };
-
-    programs.waybar.settings = {
-      delora-secondary =
-        {
-          name = "delora-secondary";
-          layer = "bottom";
-          height = 34;
-          output = monitors.dell.label;
-          modules-left = ["niri/workspaces"];
-          modules-center =
-            lib.intersperse "custom/separator"
-            ["clock#date" "niri/window" "clock"];
-          modules-right =
-            lib.intersperse "custom/separator"
-            ["custom/eth" "custom/btc"];
-        }
-        // commonModules;
     };
 
     swayncOutput = monitors.g5.label;

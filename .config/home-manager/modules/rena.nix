@@ -143,6 +143,7 @@ in {
       base
       kanata
       rena
+      waybar
     ];
   };
 }

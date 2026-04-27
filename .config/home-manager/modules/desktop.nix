@@ -14,7 +14,6 @@
       swaync
       tailscale-systray
       wallpaper
-      waybar
       wayland
       xdg
     ];
