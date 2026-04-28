@@ -11,6 +11,7 @@
       niri
       polkit
       powermenu
+      icedshell
       swaync
       tailscale-systray
       wallpaper

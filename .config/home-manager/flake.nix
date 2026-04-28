@@ -19,6 +19,7 @@
 
     # uses 25.11
     powermenu-rs.url = "github:BerkeleyTrue/powermenu-rs";
+    icedshell.url = "github:BerkeleyTrue/icedshell";
 
     # flake parts/dentritic
     flake-parts.url = "github:hercules-ci/flake-parts";
