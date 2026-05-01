@@ -46,27 +46,6 @@ in {
     programs.waybar.settings = let
       height = 34;
     in {
-      renaTop =
-        {
-          inherit height;
-          name = "rena-top";
-          layer = "bottom";
-
-          modules-left = ["niri/workspaces"];
-          modules-center =
-            lib.intersperse "custom/separator"
-            ["custom/wttr" "clock"];
-          modules-right =
-            lib.intersperse "custom/separator"
-            [
-              "custom/powermenu"
-              "cpu"
-              "custom/cpu-temp"
-              "memory"
-            ]
-            ++ ["tray"];
-        }
-        // common-modules;
       bottom =
         {
           inherit height;
