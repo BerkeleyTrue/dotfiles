@@ -15,8 +15,12 @@ build-debug:
   nix build .#homeConfigurations.{{profile}}.activationPackage --show-trace --verbose
 
 [group('desktop')]
-build-no-link: 
+build-no-link:
   nix build .#homeConfigurations.{{profile}}.activationPackage --no-link --print-out-paths
+
+[group('desktop')]
+build-refresh-cache:
+  nix build .\#homeConfigurations."{{profile}}".activationPackage --narinfo-cache-negative-ttl 0
 
 [group('desktop')]
 switch:
