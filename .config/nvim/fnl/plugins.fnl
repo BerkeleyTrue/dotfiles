@@ -54,7 +54,7 @@
    {:name :sindrets/diffview.nvim :description "git diff view" :dependencies [[:nvim-lua/plenary.nvim]]}
 
    ; motion
-   {:name :phaazon/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
+   {:name :smoka7/hop.nvim :description "easymotion rewrite in lua with better support for neovim." :config (make-on-load hop)}
    {:name :kevinhwang91/nvim-hlslens :description "incsearch replacement" :config (make-on-load hlslens)}
    {:name :wansmer/treesj :description "Plugin for splitting and joining arrays, hashes, and more" :init (make-init treesj) :config (make-on-load treesj) :cmd [:TSJToggle :TSJSplit :TSJJoin]}
    {:name :brenton-leighton/multiple-cursors.nvim
