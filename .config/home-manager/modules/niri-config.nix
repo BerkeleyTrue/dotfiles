@@ -119,13 +119,8 @@
         # Additionally, clients will be informed that they are tiled, removing some rounded corners.
         (flag "prefer-no-csd")
 
-        # You can change the path where screenshots are saved.
-        # A ~ at the front will be expanded to the home directory.
         # The path is formatted with strftime(3) to give you the screenshot date and time.
-        (leaf "screenshot-path" "~/pics/screenshots/Screenshot_from_%Y-%m-%d %H-%M-%S.png")
-
-        # You can also set this to null to disable saving screenshots to disk.
-        # (leaf "screenshot-path" null)
+        (leaf "screenshot-path" "~/pics/screenshots/%Y-%m-%d %H-%M-%S.png")
 
         # Settings for the "Important Hotkeys" overlay.
         (plain "hotkey-overlay" [
@@ -359,6 +354,12 @@
               (flag "switch-focus-between-floating-and-tiling")
             ])
 
+          (node "Mod+Shift+S"
+            {"hotkey-overlay-title" = "Screenshot";}
+            [
+              (flag "screenshot")
+            ])
+
           # This debug bind will tint all surfaces green, unless they are being
           # directly scanned out. It's therefore useful to check if direct scanout
           # is working.
@@ -460,4 +461,3 @@
 # - `kdl.flag` for nodes with no arguments or children
 #
 # With that out of the way, here's the nixfied default config for niri.
-
