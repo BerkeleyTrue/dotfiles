@@ -119,12 +119,6 @@ in {
         format = "{}";
       };
 
-      "custom/powermenu" = {
-        interval = 0;
-        on-click = "${config.programs.powermenu-rs.package}/bin/powermenu-rs";
-        format = "  ";
-      };
-
       "custom/cpu-temp" = {
         interval = 5;
         # convert temp to json

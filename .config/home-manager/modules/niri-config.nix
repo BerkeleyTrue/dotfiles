@@ -241,7 +241,7 @@
           (node "Mod+0"
             {"hotkey-overlay-title" = "Show Powermenu";}
             [
-              (leaf "spawn" ["${nixGlWrap pkgs.powermenu-rs}/bin/powermenu-rs"])
+              (leaf "spawn" ["${config.programs.icedshell.package}/bin/icedshell" "power-menu"])
             ])
 
           (plain "Mod+Shift+Q" [(flag "close-window")])
@@ -461,3 +461,4 @@
 # - `kdl.flag` for nodes with no arguments or children
 #
 # With that out of the way, here's the nixfied default config for niri.
+

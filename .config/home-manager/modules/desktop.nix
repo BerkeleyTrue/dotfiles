@@ -10,7 +10,6 @@
       mako
       niri
       polkit
-      powermenu
       icedshell
       swaync
       tailscale-systray
