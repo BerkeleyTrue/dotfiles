@@ -5,9 +5,7 @@ pactl set-sink-mute $DSINK toggle
 IS_MUTED=$(pactl get-sink-mute $DSINK | awk '{print $2}')
 
 if [ "$IS_MUTED" = 'no' ]; then
-  icedshell osd volume inc
+	icedshell osd volume inc
 else
-  icedshell osd volume mut
+	icedshell osd volume mut
 fi
-
-# notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"

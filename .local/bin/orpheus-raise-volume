@@ -4,19 +4,19 @@ MAX=65536
 NINEPER=58982
 
 getcurrvol() {
-  pactl get-sink-volume $DSINK | awk '{print $5;exit}'
+	pactl get-sink-volume $DSINK | awk '{print $5;exit}'
 }
 getcurrvolint() {
-  pactl get-sink-volume $DSINK | awk '{print $3;exit}'
+	pactl get-sink-volume $DSINK | awk '{print $3;exit}'
 }
 
 if (($(getcurrvolint) >= $MAX)); then
-  icedshell osd volume 100 inc
+	icedshell osd volume 100 inc
 elif (($(getcurrvolint) >= $NINEPER)); then
-  pactl set-sink-volume $DSINK 100%
-  icedshell osd volume 100 inc
+	pactl set-sink-volume $DSINK 100%
+	icedshell osd volume 100 inc
 else
-  pactl set-sink-volume $DSINK +10%
-  CURR=$(getcurrvol)
-  icedshell osd volume "${CURR%\%}" inc
+	pactl set-sink-volume $DSINK +10%
+	CURR=$(getcurrvol)
+	icedshell osd volume "${CURR%\%}" inc
 fi

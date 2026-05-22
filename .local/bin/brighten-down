@@ -3,11 +3,10 @@
 MIN=960
 MAX=$(brightnessctl max)
 CURR=$(brightnessctl get)
-ID=1234
 
 if (($CURR <= $MIN)); then
-  notify -i nix-snowflake -a Selena -r $ID ' Going Dark'
   brightnessctl set 0
+  icedshell osd bright 0 dec
 else
   if (($CURR <= 9600)); then
     brightnessctl set 1%
@@ -17,5 +16,5 @@ else
 
   CURR=$(brightnessctl get)
   PER=$(awk "BEGIN { pc=100*${CURR}/${MAX}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
-  notify -i nix-snowflake -a Selena -r $ID " $PER"
+  icedshell osd bright $PER dec
 fi
