@@ -1,15 +1,13 @@
 #!/bin/bash
 DSINK="@DEFAULT_SINK@"
-ID=9932
-MSG=''
 
 pactl set-sink-mute $DSINK toggle
 IS_MUTED=$(pactl get-sink-mute $DSINK | awk '{print $2}')
 
 if [ "$IS_MUTED" = 'no' ]; then
-  MSG='  '
+  icedshell osd volume inc
 else
-  MSG='  '
+  icedshell osd volume mut
 fi
 
-notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"
+# notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"

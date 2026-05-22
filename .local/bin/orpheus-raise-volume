@@ -2,8 +2,6 @@
 DSINK="@DEFAULT_SINK@"
 MAX=65536
 NINEPER=58982
-ID=9932
-MSG=''
 
 getcurrvol() {
   pactl get-sink-volume $DSINK | awk '{print $5;exit}'
@@ -13,13 +11,12 @@ getcurrvolint() {
 }
 
 if (($(getcurrvolint) >= $MAX)); then
-  MSG=' 󰕾 '
+  icedshell osd volume 100 inc
 elif (($(getcurrvolint) >= $NINEPER)); then
   pactl set-sink-volume $DSINK 100%
-  MSG=" 󰝝  $(getcurrvol)"
+  icedshell osd volume 100 inc
 else
   pactl set-sink-volume $DSINK +10%
-  MSG=" 󰝝  $(getcurrvol)"
+  CURR=$(getcurrvol)
+  icedshell osd volume "${CURR%\%}" inc
 fi
-
-notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"

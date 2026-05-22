@@ -1,7 +1,5 @@
 #!/bin/bash
 DSINK="@DEFAULT_SINK@"
-ID=9932
-MSG=''
 
 getcurrvol() {
   pactl get-sink-volume $DSINK | awk '{print $5;exit}'
@@ -10,10 +8,10 @@ getcurrvol() {
 CURR=$(getcurrvol) # get value
 
 if [ "$CURR" = '0%' ]; then
-  MSG='  '
+  icedshell osd volume mut
 else
   pactl set-sink-volume $DSINK -10%
-  MSG=" 󰝞  $(getcurrvol)"
+  icedshell osd volume "${CURR%\%}" dec
 fi
 
-notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"
+# notify -i nix-snowflake -a 'orpheus' -r $ID "$MSG"
