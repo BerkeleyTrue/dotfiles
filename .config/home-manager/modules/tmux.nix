@@ -82,6 +82,11 @@
         RemainAfterExit = true;
         ExecStart = "${pkgs.tmux}/bin/tmux new-session -s dev -d";
         ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t dev";
+
+        # Prevent home-manager from restarting the server during switch,
+        # which would terminate the current session
+        X-RestartIfChanged = false;
+        X-StopIfChanged = false;
       };
     };
   };
