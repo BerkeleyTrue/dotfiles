@@ -213,11 +213,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1778894927,
-        "narHash": "sha256-LHhmGE3Ih4xAdKhF8Q+H2TxbjfSkg/kt1W/RRMMfehE=",
+        "lastModified": 1779740044,
+        "narHash": "sha256-ZuAtLgTtko9qIqg6fLo/U5xL7Xq2iiLiQ/8IL9LOomU=",
         "owner": "BerkeleyTrue",
         "repo": "icedshell",
-        "rev": "929224cff98b15fc26fdb94ac93e4fbd1777f314",
+        "rev": "1c834be45078b6cb3fc2f97076a8afd80ba5d8e2",
         "type": "github"
       },
       "original": {

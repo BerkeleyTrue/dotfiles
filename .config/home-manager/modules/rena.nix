@@ -43,56 +43,6 @@ in {
       };
     };
 
-    programs.waybar.settings = let
-      height = 34;
-    in {
-      bottom =
-        {
-          inherit height;
-          name = "rena-bottom";
-          layer = "bottom";
-          position = "bottom";
-
-          modules-left = ["clock#date"];
-          modules-center =
-            lib.intersperse "custom/separator"
-            ["custom/wakatime" "custom/eth" "custom/btc"];
-          modules-right =
-            lib.intersperse "custom/separator"
-            [
-              "custom/swaync"
-              "pulseaudio"
-              "battery"
-              "custom/connectivity"
-            ];
-
-          battery = {
-            states = {
-              good = 100;
-              warning = 30;
-              danger = 20;
-            };
-            interval = 1;
-            tooltip = true;
-            format = "{icon} {capacity}%";
-            format-charging = "<b>󰂄 {capacity}%</b>";
-            format-icons = [
-              "󰁺"
-              "󰁻"
-              "󰁼"
-              "󰁽"
-              "󰁾"
-              "󰁿"
-              "󰂀"
-              "󰂁"
-              "󰂂"
-              "󰁹"
-            ];
-          };
-        }
-        // common-modules;
-    };
-
     niri.output = let
       inherit (self.kdl) node plain leaf;
       inherit (self) colors;
@@ -122,7 +72,6 @@ in {
       base
       kanata
       rena
-      waybar
     ];
   };
 }
