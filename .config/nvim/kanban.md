@@ -1,6 +1,6 @@
 # To Do
 
-- builtin kanban in markdown files
+- builtin kanban in Markdown files
   - use nvim ui to provide kanban boards
   - move tasks using vim motion
   - find kanbans within file

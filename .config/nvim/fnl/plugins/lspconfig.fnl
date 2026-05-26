@@ -109,6 +109,10 @@
    :eslint {}
    :gopls {}
    :hls {}
+   :harper_ls {:settings {:harper-ls {:linters {:SentenceCapitalization false
+                                                :SpellCheck false}}}
+               :filetypes (-> (. vim.lsp.config :harper_ls :filetypes) 
+                              (r.conj :markdown.corpus))}
    :html {}
    :jsonls (jsonls-configs)
    :lua_ls {}

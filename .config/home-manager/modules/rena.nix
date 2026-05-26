@@ -11,7 +11,6 @@ in {
     ...
   }: let
     monitors = config.monitors;
-    common-modules = config.waybar.commonModules;
   in {
     targets.genericLinux.nixGL.defaultWrapper = "mesaPrime";
 
