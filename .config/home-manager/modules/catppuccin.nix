@@ -10,6 +10,7 @@
 
     # enables all catppuccin modules
     catppuccin.enable = false;
+    catppuccin.autoEnable = false;
     catppuccin.flavor = "frappe";
 
     home.pointerCursor = {
