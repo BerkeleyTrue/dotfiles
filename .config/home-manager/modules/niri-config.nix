@@ -344,14 +344,14 @@
             ])
 
           (node "Mod+V"
-            {"hotkey-overlay-title" = "toggle float";}
-            [
-              (flag "toggle-window-floating")
-            ])
-          (node "Mod+Shift+V"
             {"hotkey-overlay-title" = "switch focus between floating and tiling";}
             [
               (flag "switch-focus-between-floating-and-tiling")
+            ])
+          (node "Mod+Shift+V"
+            {"hotkey-overlay-title" = "toggle float";}
+            [
+              (flag "toggle-window-floating")
             ])
 
           (node "Mod+Shift+S"
@@ -461,4 +461,3 @@
 # - `kdl.flag` for nodes with no arguments or children
 #
 # With that out of the way, here's the nixfied default config for niri.
-
