@@ -85,7 +85,6 @@
         rsync # Fast incremental file transfer utility
         rustscan # The Modern Port Scanner
         shfmt # A shell parser, formatter, and interpreter (POSIX/Bash/mksh)
-        silver-searcher # A code-searching tool similar to ack, but faster
         smartmontools # control and monitor storage systems using S.M.A.R.T.
         sops # Simple and flexible tool for managing secrets
         ssh-to-age # convert ssh private keys in ed25519 format to age keys
