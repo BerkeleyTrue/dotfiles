@@ -39,6 +39,7 @@
         "io.github.f3d_app.f3d" # stl viewer
         "org.cloudcompare.CloudCompare" # 3D point cloud processing software
         "net.meshlab.MeshLab" # processing and editing 3D triangular meshes
+        "org.blender.Blender" # free and open source 3D creation suite
 
         # audio tools
         "org.pipewire.Helvum" # audio plumber
