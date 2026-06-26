@@ -34,8 +34,8 @@ urgency.user.tag.nvim.coefficient=-0.8
 
 news.version=2.6.0
 
-report.next.columns=id,description,start.age,entry.age,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,urgency,depends
-report.next.labels=ID,Description,Active,Age,Pri,Project,Tag,Recur,Sch,Due,Until,Urg,Deps
+report.next.columns=id,description,tags,project,priority,start.age,scheduled.countdown,due.relative,until.remaining,urgency,entry.age,recur,depends
+report.next.labels=Id,Description,Tags,Project,Pri,Active,Sch,Due,Until,Urg,Age,Recur,Deps
 
 context.nvim.read=+nvim or proj:nvim
 context.nvim.write=+nvim proj:nvim
