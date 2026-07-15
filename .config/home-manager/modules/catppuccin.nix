@@ -14,6 +14,7 @@
     catppuccin.flavor = "frappe";
 
     home.pointerCursor = {
+      enable = true;
       name = "catppuccin-frappe-lavender-cursors";
       package = pkgs.catppuccin-cursors.frappeLavender;
       size = 24;
