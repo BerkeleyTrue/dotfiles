@@ -6,7 +6,7 @@ alias _='sudo'
 
 if [[ -n $(command -v eza) ]]; then
 	alias ls='eza'
-	alias ll='eza -aglF'
+	alias ll='eza -aglF always'
 else
   echo "eza not found"
 	alias ls='ls --color=tty'
