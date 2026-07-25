@@ -60,9 +60,10 @@
         dust # A more intuitive version of du in rust
         eza # A modern replacement for ls
         entr # Run arbitrary commands when files change
+        exiftool # Tool to read, write, and edit EXIF meta information
         fd # A simple, fast and user-friendly alternative to find
         fzf # A command-line fuzzy finder
-        glow # Render markdown on the CLI, with pizzazz!
+        glow # Render Markdown on the CLI, with pizzazz!
         handlr # Alternative to xdg-open to manage default applications with ease
         harper # Grammar Checker for Developers
         htop # An interactive process viewer
