@@ -7,29 +7,29 @@ default:
   @just --list
 
 [group('desktop')]
-build: 
+build: check-nix-version
   nix build .\#homeConfigurations."{{profile}}".activationPackage
 
 [group('desktop')]
-build-debug: 
+build-debug: check-nix-version
   nix build .#homeConfigurations.{{profile}}.activationPackage --show-trace --verbose
 
 [group('desktop')]
-build-no-link:
+build-no-link: 
   nix build .#homeConfigurations.{{profile}}.activationPackage --no-link --print-out-paths
 
 [group('desktop')]
-build-refresh-cache:
+build-refresh-cache: 
   nix build .\#homeConfigurations."{{profile}}".activationPackage --narinfo-cache-negative-ttl 0
 
 [group('desktop')]
-switch:
+switch: 
   #!/usr/bin/env bash
    ./result/home-path/bin/home-manager switch
 
 # protect against running switch inside tmux server
 [group('desktop')]
-switch-protected:
+switch-protected: 
   #!/usr/bin/env bash
   if [ -z "$TMUX" ]; then
     ./result/home-path/bin/home-manager switch
@@ -49,6 +49,15 @@ rollback:
   PREV_GEN=$(./result/home-path/bin/home-manager generations | fzf | awk '{print $NF}')
   echo "rolling back to $PREV_GEN"
   $PREV_GEN/activate
+
+# Print nix client and nix-daemon versions. 
+[group('nix')]
+check-nix-version:
+  #!/usr/bin/env bash
+  client=$(nix --version | grep -oP '\d+\.\d+\.\d+' | head -1)
+  daemon=$(nix store ping --store daemon 2>&1 | grep -oP '(?<=Version: )\d+\.\d+\.\d+' | head -1)
+  echo "nix client: ${client}"
+  echo "nix-daemon: ${daemon:-unknown}"
 
 # Update all the flake inputs
 [group('nix')]
