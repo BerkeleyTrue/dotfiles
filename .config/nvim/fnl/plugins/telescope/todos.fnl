@@ -97,7 +97,7 @@
   (let [opts {:prompt_title :Todos
               :use_regex true
               :search keywords-regex
-              :vimgrep_arguments [:ag :--nocolor :--column :--noheading :--vimgrep]}
+              :vimgrep_arguments [:rg :--color=never :--vimgrep]}
         entry-maker (make-entry.gen_from_vimgrep opts)]
     (set
       opts.entry_maker

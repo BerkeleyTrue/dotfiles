@@ -11,10 +11,10 @@
   (let [terms (-> input
                   (r.lmatch "%S+")
                   (r.join "|"))]
-    (run {:command :ag
+    (run {:command :rg
           :cwd cwd
-          :args [:--silent
-                 :--files-with-matches
+          :args [:--files-with-matches
+                 :--no-messages
                  terms
                  cwd]}
          cb)))

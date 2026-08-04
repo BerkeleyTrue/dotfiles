@@ -175,18 +175,19 @@
                 input
                 (r.lmatch "%S+")
                 (r.join "|"))
-        args [:--silent
-              :--files-with-matches
+        args [:--files-with-matches
+              :--no-messages
               terms
-              :.]] ; can't make it match only mardown files
+              :.]] ; can't make it match only markdown files
     (set current-job
          (run
-           {:command :ag
+           {:command :rg
             :args args
             :cwd "."}
            (fn search-on-exit [ok results]
-             (when ok
-               (update results input)))))))
+             (let [results (r.map (fn [res] (r.lsub "^%./" "" res)) results)]
+              (when ok
+                (update results input))))))))
 
 
 (defn open [input]
