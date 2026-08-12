@@ -28,6 +28,19 @@ tmod() {
 	task
 }
 
+# tnote 14 a note
+tnote() {
+	if [[ $# -eq 0 ]]; then
+		echo "no arguments supplied"
+		echo "usage: tnote <task-id> 'note' "
+		return 1
+	fi
+	local num=$1
+	shift
+	eval "task $num annotate '$*'"
+	task
+}
+
 tdone() {
 	if [[ $# -eq 0 ]]; then
 		echo "no arguments supplied"
