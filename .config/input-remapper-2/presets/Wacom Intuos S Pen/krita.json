@@ -1,0 +1,78 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 256,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32"
+            },
+            {
+                "type": 3,
+                "code": 40,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32",
+                "analog_threshold": 30
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "Shift_L",
+        "name": "button 1",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 257,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32"
+            },
+            {
+                "type": 3,
+                "code": 40,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32",
+                "analog_threshold": 30
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_LEFTCTRL",
+        "name": "button 2",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 258,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32"
+            },
+            {
+                "type": 3,
+                "code": 40,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32",
+                "analog_threshold": 30
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_LEFTCTRL + z",
+        "name": "button 3",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 259,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32"
+            },
+            {
+                "type": 3,
+                "code": 40,
+                "origin_hash": "0a62b58470fe27c9f3a2ae0b9e892e32",
+                "analog_threshold": 30
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_BACKSPACE",
+        "name": "button 4",
+        "mapping_type": "key_macro"
+    }
+]

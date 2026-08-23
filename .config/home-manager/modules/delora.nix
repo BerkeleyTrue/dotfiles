@@ -103,6 +103,15 @@ in {
         ])
       ])
     ];
+
+    niri.add-input = let
+      inherit (self.kdl) plain leaf;
+      inherit (monitors) g5 ;
+    in [
+      (plain "tablet" [
+        (leaf "map-to-output" g5.label)
+      ])
+    ];
   };
 
   configurations.home.delora = {

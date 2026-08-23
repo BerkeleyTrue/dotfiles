@@ -9,31 +9,35 @@
     c = self.colors;
     inherit (self.kdl) node plain leaf flag;
     output = config.niri.output;
+    add-input = config.niri.add-input;
     niri-config =
       [
-        (plain "input" [
-          (plain "keyboard" [
-            (plain "xkb" [
-              # man xkeyboard-config(7).
-              (leaf "layout" "us")
-            ])
-          ])
+        (
+          plain "input" ([
+              (plain "keyboard" [
+                (plain "xkb" [
+                  # man xkeyboard-config(7).
+                  (leaf "layout" "us")
+                ])
+              ])
 
-          # Next sections include libinput settings.
-          # Omitting settings disables them, or leaves them at their default values.
-          (plain "touchpad" [
-            (flag "tap")
-            (flag "natural-scroll")
-            # default method had a difficult time detecting two finger drags vs clicks
-            (leaf "click-method" "clickfinger")
-          ])
+              # Next sections include libinput settings.
+              # Omitting settings disables them, or leaves them at their default values.
+              (plain "touchpad" [
+                (flag "tap")
+                (flag "natural-scroll")
+                # default method had a difficult time detecting two finger drags vs clicks
+                (leaf "click-method" "clickfinger")
+              ])
 
-          (plain "mouse" [])
+              (plain "mouse" [])
 
-          # Don't take over power key
-          (flag "disable-power-key-handling")
-          (leaf "focus-follows-mouse" {max-scroll-amount = "10%";})
-        ])
+              # Don't take over power key
+              (flag "disable-power-key-handling")
+              (leaf "focus-follows-mouse" {max-scroll-amount = "10%";})
+            ]
+            ++ add-input)
+        )
 
         (plain "layout" [
           (plain "focus-ring" [
@@ -420,6 +424,11 @@
         default = [];
         description = "Output-specific niri config nodes (e.g. monitor configuration).";
       };
+      add-input = lib.mkOption {
+        type = self.kdl.types.kdl-document;
+        default = [];
+        description = "Input-specific niri config nodes (e.g. mouse/keyboard configurations).";
+      };
     };
   };
 }
@@ -461,3 +470,4 @@
 # - `kdl.flag` for nodes with no arguments or children
 #
 # With that out of the way, here's the nixfied default config for niri.
+
