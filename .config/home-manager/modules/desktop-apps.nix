@@ -59,7 +59,7 @@
         hyprpicker # color picker that does not suck
         inkscape # vector graphics editor
         keybase # encrypted chat
-        keybase-gui # encrypted chat
+        # keybase-gui # encrypted chat
         # libation # an audible player/drm remover # may require building dotnet-vmr
         networkmanagerapplet # network manager applet
         spacenavd # 3Dconnexion device driver
