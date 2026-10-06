@@ -11,7 +11,7 @@
       ];
     };
 
-    myAspell = pkgs.aspellWithDicts (dicts: with dicts; [en en-computers en-science]);
+    myAspell = pkgs.aspellWithDicts (dicts: with dicts; [en]);
 
     enDict = pkgs.runCommand "aspell-english-dict" {} ''
       mkdir -p $out/share/aspell
