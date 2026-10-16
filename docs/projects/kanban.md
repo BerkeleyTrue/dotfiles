@@ -1,43 +1,45 @@
 ## LT Projects
 
-- Wireless Keeb
-  - design power switch
-  - wire left hand
-  - add power plug
-  - design better mount
-- Levinson Keeb
-  - desolder board
 - Homelab
   - add soft-serve git server
+  - restructure dns for homelab services and tailscale
 - Purely Functional Datastructures
-- Datsun Taillights
-- storeleft
-  > inventory tracker
-  - restart in go+htmx with sqllite db
-    > Old setup was to cumbersome
-- nov8
-  > innovate clone in Golang
-  - restart as go/wails/htmx/html5 game
+- nov8 - innovate clone in rust
+- mr2
+  - email about k20 conversion axles
+  - scan frunk
+  - front battery
+    - plan out from battery mount
+  - ac
+    - plan out mount
+- husky
+  - replace gear pos oil ring
+  - add hard mount for fog lights
+    - fix right light
+  - decat
+    - cut out cats from extra header pipe
+      - [ ] cut out rear cat
+      - [ ] cut out center cat
+  - replace front tire
+    - [ ] order tire
+    - [ ] tubeless conversion
+      - [ ] clean rim
+      - [ ] derust spoke nips
+      - [ ] seal up spoke nips
 
 ## In-Progress
 
-- gogal
-  > a cli to great a web gallery from nested directories of images/gifs
-  - [x] add timer to image carousel
-  - [ ] build css for package
-- printer.hw-updates.duet-wifi
-  > Updates for ender three
+- Datsun 
+  - tailgate
+    - [ ] remove rust
+    - [ ] paint
+    - [ ] reinstall glass
+  - Taillights
+    - [ ] scan
+- 3d printer
   - [x] model duet wifi mounts
   - [x] model power supply mounts
-  - [ ] finish wiring up new board
+  - [x] finish wiring up new board
+  - [ ] test cube
 
 ## Done
-
-- Sylvia Shifter design
-  > Sram axes blipbox buttons mounted on top of narrow grip, side of brakes, and
-  > on the drops
-- Workstation
-  - [x] move xlock back to yay install
-    > I can't get it to unlock when install with home-manager
-  - [x] add online status to taffybar
-  - [x] add border to full view layout
