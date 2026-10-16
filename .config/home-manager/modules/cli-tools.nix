@@ -140,6 +140,15 @@
 
     xdg.configFile."zsh/nix-packages.zsh".source = pkgs.writeText "nix-packages" ''
       source "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+
+      function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+        command yazi "$@" --cwd-file="$tmp"
+        if cwd="$(<"$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+          builtin cd -- "$cwd"
+        fi
+        rm -f -- "$tmp"
+      }
     '';
 
     xdg.configFile."containers/registries.conf".text = ''
