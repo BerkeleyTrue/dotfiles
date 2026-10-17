@@ -4,6 +4,7 @@
       cli-tools
       neovim
       gh
+      mimeapps-guard
       notes-sync
       taskwarrior
       tmux
