@@ -7,6 +7,7 @@ model/stl=io.github.f3d_app.f3d.desktop;
 video/mp4=mpv.desktop;
 
 [Default Applications]
+x-scheme-handler/claude-cli=true;
 application/epub+zip=org.pwmt.zathura-cb.desktop;
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
 application/sla=io.github.f3d_app.f3d.desktop;
@@ -21,4 +22,3 @@ x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
 x-scheme-handler/keybase=keybase.desktop;
 x-scheme-handler/web+stellar=keybase.desktop;
-x-scheme-handler/claude-cli=true;
