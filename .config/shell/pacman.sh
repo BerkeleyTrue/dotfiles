@@ -6,11 +6,12 @@ alias pinfo='pacman -Si'
 
 alias pun='sudo pacman -Rs'
 alias punorphans='sudo pacman -Rs $(pacman -Qtdq)'
+alias pcacheclear='sudo pacman -Sc'
 
 alias pls='pacman -Qe'
 alias plsorphans='sudo pacman -Qtd'
 
-alias yayupdate='yay -Syu'
+alias yayupdate='yay -Sy'
 
 function pacweb() {
   if [[ $# = 0 || "$1" =~ '--help|-h' ]]; then
