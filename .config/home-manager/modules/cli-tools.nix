@@ -208,6 +208,13 @@
               orphan = true;
             }
           ];
+          opener.play = [
+            {
+              run = ''mpv %s'';
+              desc = "play video";
+              orphan = true;
+            }
+          ];
         };
       };
 
