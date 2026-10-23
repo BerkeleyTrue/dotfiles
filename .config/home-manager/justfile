@@ -18,6 +18,7 @@ build-debug: check-nix-version
 build-no-link: 
   nix build .#homeConfigurations.{{profile}}.activationPackage --no-link --print-out-paths
 
+# negate cache (including attic)
 [group('desktop')]
 build-refresh-cache: 
   nix build .\#homeConfigurations."{{profile}}".activationPackage --narinfo-cache-negative-ttl 0
