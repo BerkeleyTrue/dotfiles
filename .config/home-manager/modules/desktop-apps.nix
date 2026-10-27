@@ -62,6 +62,7 @@
         # keybase-gui # encrypted chat
         # libation # an audible player/drm remover # may require building dotnet-vmr
         networkmanagerapplet # network manager applet
+        orca-slicer # G-code generator for 3D printers
         spacenavd # 3Dconnexion device driver
         viewnior # fast image preview
         vlc # Cross-platform media player and streaming server
