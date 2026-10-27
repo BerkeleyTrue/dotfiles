@@ -41,5 +41,12 @@
   - [x] model power supply mounts
   - [x] finish wiring up new board
   - [ ] test cube
+- Husky
+  - [ ] balance wheel weight
+  - [ ] replace seal gear POS o-ring
+  - [ ] rack v2
+  - [ ] fog light mounts
+  - [ ] decat header
+  - [ ] secondary piggyback
 
 ## Done
