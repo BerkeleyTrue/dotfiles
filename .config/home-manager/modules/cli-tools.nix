@@ -1,5 +1,6 @@
-{
+{inputs, ...}: {
   flake.modules.homeManager.cli-tools = {
+    config,
     pkgs,
     lib,
     ...
@@ -40,12 +41,26 @@
         _get_git_folders "$@"
       '';
     };
+
+    # grouped brace globs from the f3d.yazi readme, yazi caps preloaders at 16
+    f3dRules =
+      map (exts: {
+        url = "*.{${exts}}";
+        run = "f3d";
+      }) [
+        "3ds,3mf,abc,amf,dae,drc,dxf,fbx,glb,gltf,mdl,obj,off,ply,stl,usd,usda,usdc,usdz,vrml,wrl,x" # Meshes and scenes
+        "brep,fcstd,ifc,iges,igs,p21,step,stp,stpnc,xbf" # CAD and BIM
+        "bpf,csd,gml,las,laz,pcd,pts,ptx,qi,sbet,slpk" # Point clouds and GIS
+        "splat,spz" # Gaussian splats
+        "cdf,dcm,ex2,exo,mha,mhd,nc,ncdf,nhdr,nrrd,vdb,vti,vtk,vtkhdf,vtm,vtp,vtr,vts,vtu" # Scientific and volumetric data
+      ];
   in {
     catppuccin.eza.enable = true;
     home.packages =
       (with pkgs; [
         age # A simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability
         antigen # zsh plugin manager
+        assimp # 3D model import library, used by f3d.yazi for model stats
         attic-client # Multi-tenant Nix Binary Cache
         babashka # A Clojure babushka for the grey areas of bash
         bind # dns client
@@ -111,6 +126,7 @@
         zsh # A shell designed for interactive use, although it is also a powerful scripting language
       ])
       ++ [
+        (config.lib.nixGL.wrap pkgs.f3d) # Fast and minimalist 3D viewer, renders previews for f3d.yazi
         getOptions # A library for parsing command line options
         projects # A script to find all the top level git folders in a directory
       ];
@@ -197,9 +213,31 @@
       # Blazingly fast terminal file manager
       yazi = {
         enable = true;
+        plugins = {
+          f3d = inputs.f3d-yazi;
+          zoom = pkgs.yaziPlugins.zoom; # f3d.yazi hands zooming non-model files over to it
+          glow = pkgs.yaziPlugins.glow;
+        };
+        keymap.mgr.prepend_keymap = [
+          {
+            on = "<A-=>";
+            run = "plugin f3d 1";
+            desc = "Zoom in preview";
+          }
+          {
+            on = "<A-->"; # plain `-` is yazi's symlink key
+            run = "plugin f3d -1";
+            desc = "Zoom out preview";
+          }
+        ];
         settings = {
           mgr = {
             show_hidden = true;
+          };
+          plugin = {
+            prepend_preloaders = f3dRules;
+            prepend_previewers = f3dRules;
+            prepend_spotters = f3dRules;
           };
           opener.open = [
             {

@@ -20,6 +20,22 @@
         "type": "github"
       }
     },
+    "f3d-yazi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792163485,
+        "narHash": "sha256-QHlN/9+2Kpmwn6scs8CwqQNPclzxm2B7qtaEHSedr2A=",
+        "owner": "DervexDev",
+        "repo": "f3d.yazi",
+        "rev": "82353d7cdb49e946cfa9bb4a1c256cc26e957804",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DervexDev",
+        "repo": "f3d.yazi",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -391,6 +407,7 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
+        "f3d-yazi": "f3d-yazi",
         "flake-parts": "flake-parts",
         "flatpak": "flatpak",
         "home-manager": "home-manager",

@@ -31,6 +31,10 @@
 
     parinfer-rust.url = "github:PhilTaken/parinfer-rust";
     parinfer-rust.inputs.nixpkgs.follows = "nixpkgs";
+
+    # yazi previewer for 3D models
+    f3d-yazi.url = "github:DervexDev/f3d.yazi";
+    f3d-yazi.flake = false;
   };
 
   outputs = inputs @ {flake-parts, ...}:
