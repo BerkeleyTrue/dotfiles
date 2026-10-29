@@ -4,7 +4,6 @@
       attic
       awww
       catppuccin
-      cli-tools
       desktop
       dev
       fonts
