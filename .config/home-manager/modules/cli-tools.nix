@@ -241,7 +241,7 @@
           };
           opener.open = [
             {
-              run = ''xdg-open "$1"'';
+              run = ''xdg-open %s1'';
               desc = "Open";
               orphan = true;
             }
